@@ -1,0 +1,30 @@
+=== PollDaddy ===
+Contributors: mdawaffe
+Tags: poll, polls, polldaddy, WordPress.com
+Requires at least: 2.6
+Tested up to: 2.6.2
+Stable tag: trunk
+
+Create and manage PollDaddy polls from within WordPress.
+
+== Description ==
+
+The PollDaddy plugin allows you to create and manage your [PollDaddy.com](http://polldaddy.com/) polls from within your WordPress blog's administration area.
+
+== Installation ==
+
+Upload the plugin to your blog, Activate it, then enter your PollDaddy.com email address and password.
+
+== Frequently Asked Questions ==
+
+= I have multiple authors on my blog?  What happens? =
+
+Each author that wants to create polls will need his or her own PollDaddy.com account.
+
+= But, as an Administrator, can I edit my Authors' polls =
+
+Yes. You'll be able to edit the polls they create from your blog.  (You won't be able to edit any of their non-blog, personal polls they create through PollDaddy.com.)
+
+= Neat! Um... can my Authors edit MY blog polls? =
+
+Nope.  The permissions are the same as for posts.  So Editors and Administrators can edit anyone's polls for that blog.  Authors can only edit their own.
