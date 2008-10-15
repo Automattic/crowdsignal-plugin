@@ -33,16 +33,18 @@ class Ghetto_XML_Object {
 
 		$prepend_ns = 'all' === $prepend_ns;
 
+		$cdata = $atts['___cdata'];
+
 		$x = "<$name";
 		if ( $atts['___content'] ) {
-			$inner = $atts['___content'];
+			$inner = in_array( '___content', $cdata ) ? '<![CDATA[' . $atts['___content'] . ']]>' : $atts['___content'];
 			$empty = false;
 		} else {
 			$inner = "\n";
 			$empty = true;
 		}
 
-		unset($atts['___ns'], $atts['___name'], $atts['___content'], $atts['___ns_full'], $atts['___restrict']);
+		unset($atts['___ns'], $atts['___name'], $atts['___content'], $atts['___ns_full'], $atts['___restrict'], $atts['___cdata']);
 
 		$_pad = str_repeat( "\t", $pad + 1 );
 
@@ -55,6 +57,7 @@ class Ghetto_XML_Object {
 				continue;
 			}
 
+			$_key = $key;
 			if ( $prepend_ns )
 				$key = "$ns:$key";
 
@@ -66,13 +69,14 @@ class Ghetto_XML_Object {
 					if ( is_a( $array_value, 'Ghetto_XML_Object' ) )
 						$inner .= $_pad . $array_value->xml( $_prepend_ns, $pad + 1 ) . "\n";
 					else
-						$inner .= "$_pad<$key>$array_value</$key>\n";
+						$inner .= in_array( $_key, $cdata ) ? "$_pad<$key>" . '<![CDATA[' . $array_value . ']]>' . "</$key>\n" : "$_pad<$key>$array_value</$key>\n";
 				}
 			} else {
 				if ( is_a( $value, 'Ghetto_XML_Object' ) )
 					$inner .= $_pad . $value->xml( $_prepend_ns, $pad + 1 ) . "\n";
-				else
-					$inner .= "$_pad<$key>$value</$key>\n";
+				else {
+					$inner .= in_array( $_key, $cdata ) ? "$_pad<$key>" . '<![CDATA[' . $value . ']]>' . "</$key>\n" : "$_pad<$key>$value</$key>\n";
+				}
 			}
 		}
 		if ( $empty )
@@ -127,6 +131,7 @@ class PollDaddy_Access extends PollDaddy_XML_Root {
 }
 
 class PollDaddy_Initiate extends PollDaddy_XML_Root {
+	var $___cdata = array( 'Email', 'Password' );
 	var $___name = 'pdInitiate';
 
 	var $_partnerGUID;
@@ -189,6 +194,7 @@ class PollDaddy_Demand extends PollDaddy_XML_Object {
 }
 
 class PollDaddy_Account extends PollDaddy_XML_Object {
+	var $___cdata = array( 'userName', 'password', 'firstName', 'lastName', 'websiteURL', 'avatarURL', 'bio' );
 	var $___name = 'account';
 
 	var $userName;
@@ -221,6 +227,7 @@ class PollDaddy_Polls extends PollDaddy_XML_Object {
 }
 
 class PollDaddy_Search extends PollDaddy_XML_Object {
+	var $___cdata = array( '___content' );
 	var $___name = 'search';
 
 	var $___content;
@@ -229,6 +236,7 @@ class PollDaddy_Search extends PollDaddy_XML_Object {
 }
 
 class PollDaddy_Poll extends PollDaddy_XML_Object {
+	var $___cdata = array( '___content', 'question' );
 	var $___name = 'poll';
 
 	var $___content;
@@ -268,6 +276,7 @@ class PollDaddy_Poll_Answers extends PollDaddy_XML_Object {
 }
 
 class PollDaddy_Poll_Answer extends PollDaddy_XML_Object {
+	var $___cdata = array( '___content' );
 	var $___name = 'answer';
 
 	var $___content;
@@ -379,11 +388,20 @@ class PollDaddy_XML_Parser {
 			return;
 
 		if ( $this->object_stack[$this->object_pos]['args_tag_pos'] ) {
-			$this->object_stack[$this->object_pos]['args'][$this->object_stack[$this->object_pos]['args_tag']][$this->object_stack[$this->object_pos]['args_tag_pos']] = $text;
+			if ( isset($this->object_stack[$this->object_pos]['args'][$this->object_stack[$this->object_pos]['args_tag']][$this->object_stack[$this->object_pos]['args_tag_pos']]) )
+				$this->object_stack[$this->object_pos]['args'][$this->object_stack[$this->object_pos]['args_tag']][$this->object_stack[$this->object_pos]['args_tag_pos']] .= $text;
+			else
+				$this->object_stack[$this->object_pos]['args'][$this->object_stack[$this->object_pos]['args_tag']][$this->object_stack[$this->object_pos]['args_tag_pos']] = $text;
 		} elseif ( $this->object_stack[$this->object_pos]['args_tag'] ) {
-			$this->object_stack[$this->object_pos]['args'][$this->object_stack[$this->object_pos]['args_tag']] = $text;
+			if ( isset($this->object_stack[$this->object_pos]['args'][$this->object_stack[$this->object_pos]['args_tag']]) )
+				$this->object_stack[$this->object_pos]['args'][$this->object_stack[$this->object_pos]['args_tag']] .= $text;
+			else
+				$this->object_stack[$this->object_pos]['args'][$this->object_stack[$this->object_pos]['args_tag']] = $text;
 		} else {
-			$this->object_stack[$this->object_pos]['args']['___content'] = $text;
+			if ( isset($this->object_stack[$this->object_pos]['args']['___content']) )
+				$this->object_stack[$this->object_pos]['args']['___content'] .= $text;
+			else	
+				$this->object_stack[$this->object_pos]['args']['___content'] = $text;
 		}
 	}
 
