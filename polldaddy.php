@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 0.1
+Version: 0.2
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -25,8 +25,6 @@ class WP_PollDaddy {
 
 	function admin_menu() {
 		global $current_user;
-//		if ( !is_site_admin() )
-//			return;
 
 		$this->errors = new WP_Error;
 
@@ -336,14 +334,14 @@ class WP_PollDaddy {
 			if ( isset( $_POST['resultsType'] ) && in_array( $_POST['resultsType'], $results ) )
 				$poll_data['resultsType'] = $_POST['resultsType'];
 
-			$poll_data['question'] = $_POST['question'];
+			$poll_data['question'] = stripslashes( $_POST['question'] );
 
 			if ( empty( $_POST['answer'] ) || !is_array( $_POST['answer'] ) )
 				$this->errors->add( 'answer', __( 'Invalid answers' ) );
 
 			$answers = array();
 			foreach ( $_POST['answer'] as $answer_id => $answer ) {
-				if ( !$answer = trim( $answer ) )
+				if ( !$answer = trim( stripslashes( $answer ) ) )
 					continue;
 
 				if ( is_numeric( $answer_id ) )
@@ -389,7 +387,7 @@ class WP_PollDaddy {
 
 			$answers = array();
 			foreach ( $_POST['answer'] as $answer )
-				if ( $answer = trim( $answer ) )
+				if ( $answer = trim( stripslashes( $answer ) ) )
 					$answers[] = polldaddy_poll_answer( $answer );
 			if ( !$answers )
 				return false;
@@ -397,7 +395,7 @@ class WP_PollDaddy {
 			$poll_data = _polldaddy_poll_defaults();
 			foreach ( $poll_data as $key => $value )
 				if ( isset($_POST[$key]) )
-					$poll_data[$key] = $_POST[$key];
+					$poll_data[$key] = stripslashes( $_POST[$key] );
 
 			$poll_data['answers'] = $answers;
 
