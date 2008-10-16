@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 0.3
+Version: 0.4
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -1040,8 +1040,7 @@ function polldaddy_loader() {
 
 add_action( 'init', 'polldaddy_loader' );
 
-/*
-function polldaddy_shortcode_handler($atts, $content=null) {
+function polldaddy_shortcode($atts, $content=null) {
 	extract(shortcode_atts(array(
 		'poll' => 'empty',
 	), $atts));
@@ -1052,5 +1051,4 @@ function polldaddy_shortcode_handler($atts, $content=null) {
 }
 
 
-add_shortcode('polldaddy', 'polldaddy_shortcode_handler');
-*/
+add_shortcode('polldaddy', 'polldaddy_shortcode');
