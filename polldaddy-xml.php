@@ -33,7 +33,8 @@ class Ghetto_XML_Object {
 
 		$prepend_ns = 'all' === $prepend_ns;
 
-		$cdata = $atts['___cdata'];
+		if ( !$cdata = $atts['___cdata'] )
+			$cdata = array();
 
 		$x = "<$name";
 		if ( $atts['___content'] ) {
