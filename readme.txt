@@ -28,3 +28,18 @@ Yes. You'll be able to edit the polls they create from your blog.  (You won't be
 = Neat! Um... can my Authors edit MY blog polls? =
 
 Nope.  The permissions are the same as for posts.  So Editors and Administrators can edit anyone's polls for that blog.  Authors can only edit their own.
+
+== Change Log ==
+
+0.4
+ * Bug fix: Shortcode handler was commented out in earlier versions.
+ * Bug fix: PHP Warning: in_array() [function.in-array]: Wrong datatype for second argument in polldaddy-xml.php on line 78
+0.3
+ * Bug fix: Send text data escaped in CDATA to prevent XML errors.
+ * Bug fix: Append to text value, don't overwrite it.  XML parser can call text handler many times per node.
+ * Bug fix: No more slashes when a poll reloads in the edit form after an error.
+0.2
+ * Bug fix: Get rid of slashes.
+ * Bug fix: PHP Fatal Error: call to undefined function
+0.1
+ * Initial release
