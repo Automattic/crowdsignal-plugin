@@ -31,22 +31,18 @@ Nope.  The permissions are the same as for posts.  So Editors and Administrators
 
 == Change Log ==
 
-0.4
-
+= 0.4 =
 * Bug fix: Shortcode handler was commented out in earlier versions.
 * Bug fix: PHP Warning: in_array() [function.in-array]: Wrong datatype for second argument in polldaddy-xml.php on line 78
 
-0.3
-
+= 0.3 =
 * Bug fix: Send text data escaped in CDATA to prevent XML errors.
 * Bug fix: Append to text value, don't overwrite it.  XML parser can call text handler many times per node.
 * Bug fix: No more slashes when a poll reloads in the edit form after an error.
 
-0.2
-
+= 0.2 =
 * Bug fix: Get rid of slashes.
 * Bug fix: PHP Fatal Error: call to undefined function
 
-0.1
-
+= 0.1 =
 * Initial release
