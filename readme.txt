@@ -31,6 +31,11 @@ Nope.  The permissions are the same as for posts.  So Editors and Administrators
 
 == Change Log ==
 
+= 0.5 =
+* A few more helpful error messages.
+* Bug fix: Password field should be a password field, not a text field.
+* Potential bug fix: Maybe get rid of 'Invalid Poll Author' error.
+
 = 0.4 =
 * Bug fix: Shortcode handler was commented out in earlier versions.
 * Bug fix: PHP Warning: in_array() [function.in-array]: Wrong datatype for second argument in polldaddy-xml.php on line 78

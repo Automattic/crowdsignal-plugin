@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 0.4
+Version: 0.5
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -130,7 +130,7 @@ class WP_PollDaddy {
 			if ( $polldaddy->errors )
 				foreach ( $polldaddy->errors as $code => $error )
 					$this->errors->add( $code, $error );
-			$this->errors->add( 'GetUserCode', __( 'Account could not be accessed.' ) );
+			$this->errors->add( 'GetUserCode', __( 'Account could not be accessed.  Are your email address and password correct?' ) );
 			return false;
 		}
 
@@ -185,7 +185,7 @@ class WP_PollDaddy {
 						<label for="polldaddy-password">PollDaddy Password</label>
 					</th>
 					<td>
-						<input type="text" name="polldaddy_password" id="polldaddy-password" aria-required="true" size="40" />
+						<input type="password" name="polldaddy_password" id="polldaddy-password" aria-required="true" size="40" />
 					</td>
 				</tr>
 			</tbody>
@@ -267,7 +267,7 @@ class WP_PollDaddy {
 				$polldaddy->reset();
 
 				// Send Poll Author credentials
-				if ( isset( $poll_object->_owner ) && $current_user->ID != $poll_object->_owner ) {
+				if ( isset( $poll_object->_owner ) && $poll_object->_owner && $current_user->ID != $poll_object->_owner ) {
 					if ( !$userCode = get_usermeta( $poll_object->_owner, 'polldaddy_account' ) ) {
 						$this->errors->add( 'no_usercode', __( 'Invalid Poll Author' ) );
 					}
@@ -439,7 +439,7 @@ class WP_PollDaddy {
 				if ( $polldaddy->errors )
 					foreach ( $polldaddy->errors as $code => $error )
 						$this->errors->add( $code, $error );
-				$this->errors->add( 'import-account', __( 'Account could not be imported.' ) );
+				$this->errors->add( 'import-account', __( 'Account could not be imported.  Are your email address and password correct?' ) );
 				return false;
 			}
 			break;
