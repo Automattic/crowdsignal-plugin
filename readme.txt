@@ -2,7 +2,7 @@
 Contributors: mdawaffe
 Tags: poll, polls, polldaddy, WordPress.com
 Requires at least: 2.6
-Tested up to: 2.6.2
+Tested up to: 2.6.3
 Stable tag: trunk
 
 Create and manage PollDaddy polls from within WordPress.
