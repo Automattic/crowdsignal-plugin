@@ -31,6 +31,9 @@ Nope.  The permissions are the same as for posts.  So Editors and Administrators
 
 == Change Log ==
 
+= 0.7 =
+* Potential bug fix: Maybe get rid of 'Invalid Poll Author' error... again.
+
 = 0.6 =
 * Bug fix: Allow reauthentication with PollDaddy email address and PollDaddy password.  This is necessary because the stored PollDaddy User API key is invalidated if the user's details change on PollDaddy.com.
 * Buf fix: Speed up CSS and JS.

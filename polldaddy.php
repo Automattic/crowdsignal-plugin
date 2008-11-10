@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 0.6
+Version: 0.7
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -22,7 +22,7 @@ class WP_PollDaddy {
 	var $errors;
 	var $polldaddy_client_class = 'PollDaddy_Client';
 	var $base_url = false;
-	var $version = '0.6';
+	var $version = '0.7';
 
 	function admin_menu() {
 		global $current_user;
@@ -287,7 +287,7 @@ class WP_PollDaddy {
 				$polldaddy->reset();
 
 				// Send Poll Author credentials
-				if ( isset( $poll_object->_owner ) && $poll_object->_owner && $current_user->ID != $poll_object->_owner ) {
+				if ( !empty( $poll_object->_owner ) && $current_user->ID != $poll_object->_owner ) {
 					if ( !$userCode = get_usermeta( $poll_object->_owner, 'polldaddy_account' ) ) {
 						$this->errors->add( 'no_usercode', __( 'Invalid Poll Author' ) );
 					}
@@ -317,7 +317,7 @@ class WP_PollDaddy {
 			}
 
 			// Send Poll Author credentials
-			if ( isset( $poll_object->_owner ) && $current_user->ID != $poll_object->_owner ) {
+			if ( !empty( $poll_object->_owner ) && $current_user->ID != $poll_object->_owner ) {
 				if ( !$userCode = get_usermeta( $poll_object->_owner, 'polldaddy_account' ) ) {
 					$this->errors->add( 'no_usercode', __( 'Invalid Poll Author' ) );
 				}
@@ -1035,7 +1035,7 @@ class WP_PollDaddy {
 
 	function can_edit( &$poll ) {
 		global $current_user;
-		if ( !isset( $poll->_owner ) )
+		if ( empty( $poll->_owner ) )
 			return true;
 
 		if ( $current_user->ID == $poll->_owner )
