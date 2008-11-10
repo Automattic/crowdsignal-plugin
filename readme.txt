@@ -31,6 +31,11 @@ Nope.  The permissions are the same as for posts.  So Editors and Administrators
 
 == Change Log ==
 
+= 0.6 =
+* Bug fix: Allow reauthentication with PollDaddy email address and PollDaddy password.  This is necessary because the stored PollDaddy User API key is invalidated if the user's details change on PollDaddy.com.
+* Buf fix: Speed up CSS and JS.
+* Feature: Link to view Shortcode and JavaScript code for each poll.
+
 = 0.5 =
 * A few more helpful error messages.
 * Bug fix: Password field should be a password field, not a text field.

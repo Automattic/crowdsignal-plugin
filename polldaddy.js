@@ -41,6 +41,14 @@ jQuery(function($){
 		win.send_to_editor( '[polldaddy poll=' + parseInt( pollID ).toString() + ']' );
 	} );
 
+	$('.polldaddy-show-shortcode').toggle( function() {
+		$(this).parents('tr:first').next('tr').fadeIn();
+		return false;
+	}, function() {
+		$(this).parents('tr:first').next('tr').fadeOut();
+		return false;
+	} );
+
 	var img1 = $('#design img:first');
 	if ( !img1.size() ) {
 		return;

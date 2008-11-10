@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 0.5
+Version: 0.6
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -22,6 +22,7 @@ class WP_PollDaddy {
 	var $errors;
 	var $polldaddy_client_class = 'PollDaddy_Client';
 	var $base_url = false;
+	var $version = '0.6';
 
 	function admin_menu() {
 		global $current_user;
@@ -127,9 +128,7 @@ class WP_PollDaddy {
 		if ( $polldaddy_account = $polldaddy->GetUserCode( 0 ) ) {
 			update_usermeta( $GLOBALS['user_ID'], 'polldaddy_account', $polldaddy_account );
 		} else {
-			if ( $polldaddy->errors )
-				foreach ( $polldaddy->errors as $code => $error )
-					$this->errors->add( $code, $error );
+			$this->parse_errors( $polldaddy );
 			$this->errors->add( 'GetUserCode', __( 'Account could not be accessed.  Are your email address and password correct?' ) );
 			return false;
 		}
@@ -137,30 +136,44 @@ class WP_PollDaddy {
 		return true;
 	}
 
-	function api_key_page() {
+	function parse_errors( &$polldaddy ) {
+		if ( $polldaddy->errors )
+			foreach ( $polldaddy->errors as $code => $error )
+				$this->errors->add( $code, $error );
+		if ( isset( $this->errors->errors[4] ) ) {
+			$this->errors->errors[4] = array( sprintf( __( 'Obsolete PollDaddy User API Key:  <a href="%s">Sign in again to re-authenticate</a>' ), add_query_arg( array( 'action' => 'signup', 'reaction' => empty( $_GET['action'] ) ? false : $_GET['action'] ) ) ) );
+			$this->errors->add_data( true, 4 );
+		}
+	}
 
-		if ( $error_codes = $this->errors->get_error_codes() ) :
+	function print_errors() {
+		if ( !$error_codes = $this->errors->get_error_codes() )
+			return;
 ?>
 
 <div class="error">
 
 <?php
 
-	foreach ( $error_codes as $error_code ) :
-		foreach ( $this->errors->get_error_messages( $error_code ) as $error_message ) :
+		foreach ( $error_codes as $error_code ) :
+			foreach ( $this->errors->get_error_messages( $error_code ) as $error_message ) :
 ?>
 
-	<p><?php echo wp_specialchars( $error_message ); ?></p>
+	<p><?php echo $this->errors->get_error_data( $error_code ) ? $error_message : wp_specialchars( $error_message ); ?></p>
 
 <?php
+			endforeach;
 		endforeach;
-	endforeach;
 ?>
 
 </div>
+<br class="clear" />
 
 <?php
-		endif; // $error_codes
+	}
+
+	function api_key_page() {
+
 ?>
 
 <div class="wrap">
@@ -216,11 +229,11 @@ class WP_PollDaddy {
 
 		require_once WP_POLLDADDY__POLLDADDY_CLIENT_PATH;
 
-		wp_enqueue_script( 'polls', "{$this->base_url}polldaddy.js", array( 'jquery', 'jquery-ui-sortable' ), mt_rand() );
+		wp_enqueue_script( 'polls', "{$this->base_url}polldaddy.js", array( 'jquery', 'jquery-ui-sortable' ), $this->version );
 		wp_enqueue_script( 'admin-forms' );
 		add_thickbox();
 
-		wp_enqueue_style( 'polls', "{$this->base_url}polldaddy.css", array(), mt_rand() );
+		wp_enqueue_style( 'polls', "{$this->base_url}polldaddy.css", array(), $this->version );
 		add_action( 'admin_body_class', array( &$this, 'admin_body_class' ) );
 
 		add_action( 'admin_notices', array( &$this, 'management_page_notices' ) );
@@ -230,7 +243,8 @@ class WP_PollDaddy {
 		$is_POST = 'post' == strtolower( $_SERVER['REQUEST_METHOD'] );
 
 		switch ( $action ) :
-		case 'signup' :
+		case 'signup' : // sign up for first time
+		case 'account' : // reauthenticate
 			if ( !$is_POST )
 				return;
 
@@ -238,10 +252,16 @@ class WP_PollDaddy {
 
 			if ( $new_args = $this->management_page_load_signup() )
 				$query_args = array_merge( $query_args, $new_args );
+			if ( $this->errors->get_error_codes() )
+				return false;
 
 			wp_reset_vars( array( 'action' ) );
-
-			$query_args['action'] = empty( $_GET['action'] ) ? false : $_GET['action'];
+			if ( !empty( $_GET['reaction'] ) )
+				$query_args['action'] = $_GET['reaction'];
+			elseif ( !empty( $_GET['action'] ) && 'signup' != $_GET['action'] )
+				$query_args['action'] = $_GET['action'];
+			else
+				$query_args['action'] = false;
 			break;
 		case 'delete' :
 			global $current_user;
@@ -304,9 +324,7 @@ class WP_PollDaddy {
 				$polldaddy->userCode = $userCode;
 			}
 
-			if ( $polldaddy->errors )
-				foreach ( $polldaddy->errors as $code => $error )
-					$this->errors->add( $code, $error );
+			$this->parse_errors( $polldaddy );
 
 			if ( !$poll_object ) 
 				$this->errors->add( 'GetPoll', __( 'Poll not found' ) );
@@ -333,7 +351,6 @@ class WP_PollDaddy {
 			$results = array( 'show', 'percent', 'hide' );
 			if ( isset( $_POST['resultsType'] ) && in_array( $_POST['resultsType'], $results ) )
 				$poll_data['resultsType'] = $_POST['resultsType'];
-
 			$poll_data['question'] = stripslashes( $_POST['question'] );
 
 			if ( empty( $_POST['answer'] ) || !is_array( $_POST['answer'] ) )
@@ -363,9 +380,7 @@ class WP_PollDaddy {
 
 			$update_response = $polldaddy->UpdatePoll( $poll, $poll_data );
 
-			if ( $polldaddy->errors )
-				foreach ( $polldaddy->errors as $code => $error )
-					$this->errors->add( $code, $error );
+			$this->parse_errors( $polldaddy );
 
 			if ( !$update_response )
 				$this->errors->add( 'UpdatePoll', __( 'Poll could not be updated' ) );
@@ -400,9 +415,7 @@ class WP_PollDaddy {
 			$poll_data['answers'] = $answers;
 
 			$poll = $polldaddy->CreatePoll( $poll_data );
-			if ( $polldaddy->errors )
-				foreach ( $polldaddy->errors as $code => $error )
-					$this->errors->add( $code, $error );
+			$this->parse_errors( $polldaddy );
 
 			if ( !$poll || empty( $poll->_id ) )
 				$this->errors->add( 'CreatePoll', __( 'Poll could not be created' ) );
@@ -430,15 +443,20 @@ class WP_PollDaddy {
 			$polldaddy = new $this->polldaddy_client_class( WP_POLLDADDY__PARTNERGUID );
 			$email = trim( stripslashes( $_POST['polldaddy_email'] ) );
 			$password = trim( stripslashes( $_POST['polldaddy_password'] ) );
-			if ( !$password || !is_email( $email ) )
+
+			if ( !is_email( $email ) )
+				$this->errors->add( 'polldaddy_email', __( 'Email address required' ) );
+
+			if ( !$password )
+				$this->errors->add( 'polldaddy_password', __( 'Password required' ) );
+
+			if ( $this->errors->get_error_codes() )
 				return false;
 
 			if ( $polldaddy_account = $polldaddy->Initiate( $email, $password, $GLOBALS['user_ID'] ) ) {
 				update_usermeta( $GLOBALS['user_ID'], 'polldaddy_account', $polldaddy_account );
 			} else {
-				if ( $polldaddy->errors )
-					foreach ( $polldaddy->errors as $code => $error )
-						$this->errors->add( $code, $error );
+				$this->parse_errors( $polldaddy );
 				$this->errors->add( 'import-account', __( 'Account could not be imported.  Are your email address and password correct?' ) );
 				return false;
 			}
@@ -500,6 +518,7 @@ class WP_PollDaddy {
 ?>
 		<div class='updated'><p><?php echo $message; ?></p></div>
 <?php
+		$this->print_errors();
 	}
 
 	function management_page() {
@@ -513,6 +532,7 @@ class WP_PollDaddy {
 <?php
 		switch ( $action ) :
 		case 'signup' :
+		case 'account' :
 			$this->signup();
 			break;
 		case 'preview' :
@@ -582,6 +602,8 @@ class WP_PollDaddy {
 			$polls_object = $polldaddy->listPolls( ( $page - 1 ) * 10 + 1, $page * 10 );
 		else
 			$polls_object = $polldaddy->listPollsByBlog( ( $page - 1 ) * 10 + 1, $page * 10 );
+		$this->parse_errors( $polldaddy );
+		$this->print_errors();
 		$polls = & $polls_object->poll;
 		$total_polls = $polls_object->_total;
 		$class = '';
@@ -657,14 +679,29 @@ class WP_PollDaddy {
 						<span class="view"><a href="<?php echo $preview_link; ?>"><?php _e( 'Preview' ); ?></a> | </span>
 						<span class="editor">
 							<a href="#" class="polldaddy-send-to-editor"><?php _e( 'Send to editor' ); ?></a>
-							<input type="hidden" class="polldaddy-poll-id hack" value="<?php echo (int) $poll_id; ?>" />
+							<input type="hidden" class="polldaddy-poll-id hack" value="<?php echo (int) $poll_id; ?>" /> |
 						</span>
 <?php else : ?>
-						<span class="view"><a class="thickbox" href="<?php echo $preview_link; ?>"><?php _e( 'Preview' ); ?></a></span>
+						<span class="view"><a class="thickbox" href="<?php echo $preview_link; ?>"><?php _e( 'Preview' ); ?></a> | </span>
 <?php endif; ?>
+						<span class="shortcode"><a href="#" class="polldaddy-show-shortcode"><?php _e( 'HTML code' ); ?></a></span>
 					</td>
 					<td class="poll-votes column-vote"><?php echo number_format_i18n( $poll->_responses ); ?></td>
 					<td class="date column-date"><abbr title="<?php echo date( __('Y/m/d g:i:s A'), $poll_time ); ?>"><?php echo date( __('Y/m/d'), $poll_time ); ?></abbr></td>
+				</tr>
+				<tr class="polldaddy-shortcode-row" style="display: none;">
+					<td colspan="4">
+						<h4><?php _e( 'Shortcode' ); ?></h4>
+						<pre>[polldaddy poll=<?php echo (int) $poll_id; ?>]</pre>
+
+						<h4><?php _e( 'JavaScript' ); ?></h4>
+						<pre>&lt;script type="text/javascript" language="javascript"
+  src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/script&gt;
+&lt;noscript&gt;
+ &lt;a href="http://answers.polldaddy.com/poll/1000076/"&gt;<?php echo wp_specialchars( $poll->___content ); ?>&lt;/a&gt;&lt;br/&gt;
+ &lt;span style="font:9px;"&gt;(&lt;a href="http://www.polldaddy.com"&gt;polls&lt;/a&gt;)&lt;/span&gt;
+&lt;/noscript&gt;</pre>
+					</td>
 				</tr>
 
 <?php
@@ -705,9 +742,7 @@ class WP_PollDaddy {
 
 		if ( $poll_id ) {
 			$poll = $polldaddy->GetPoll( $poll_id );
-			if ( $polldaddy->errors )
-				foreach ( $polldaddy->errors as $code => $error )
-					$this->errors->add( $code, $error );
+			$this->parse_errors( $polldaddy );
 			if ( !$this->can_edit( $poll ) ) {
 				$this->errors->add( 'permission', __( 'You are not allowed to edit this poll.' ) );
 			}
@@ -717,28 +752,7 @@ class WP_PollDaddy {
 
 		$question = $is_POST ? attribute_escape( stripslashes( $_POST['question'] ) ) : attribute_escape( $poll->question );
 
-		if ( $error_codes = $this->errors->get_error_codes() ) :
-?>
-
-<div class="error">
-
-<?php
-
-	foreach ( $error_codes as $error_code ) :
-		foreach ( $this->errors->get_error_messages( $error_code ) as $error_message ) :
-?>
-
-	<p><?php echo wp_specialchars( $error_message ); ?></p>
-
-<?php
-		endforeach;
-	endforeach;
-?>
-
-</div>
-
-<?php
-		endif; // $error_codes
+		$this->print_errors();
 ?>
 
 <form action="" method="post">
