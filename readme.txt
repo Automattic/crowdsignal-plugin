@@ -31,6 +31,10 @@ Nope.  The permissions are the same as for posts.  So Editors and Administrators
 
 == Change Log ==
 
+= 0.8 =
+* Bug fix: prevent some PHP define errors
+* Bug fix: send content-length header when using wp_remote_post()
+
 = 0.7 =
 * Potential bug fix: Maybe get rid of 'Invalid Poll Author' error... again.
 

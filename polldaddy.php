@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 0.7
+Version: 0.8
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -22,7 +22,7 @@ class WP_PollDaddy {
 	var $errors;
 	var $polldaddy_client_class = 'PollDaddy_Client';
 	var $base_url = false;
-	var $version = '0.7';
+	var $version = '0.8';
 
 	function admin_menu() {
 		global $current_user;
@@ -32,8 +32,12 @@ class WP_PollDaddy {
 		if ( !$this->base_url )
 			$this->base_url = plugins_url() . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
 
-		if ( !defined( 'WP_POLLDADDY__PARTNERGUID' ) )
-			define( 'WP_POLLDADDY__PARTNERGUID', get_option( 'polldaddy_api_key' ) );
+		if ( !defined( 'WP_POLLDADDY__PARTNERGUID' ) ) {
+			$guid = get_option( 'polldaddy_api_key' );
+			if ( !$guid || !is_string( $guid ) )
+				$guid = false;
+			define( 'WP_POLLDADDY__PARTNERGUID', $guid );
+		}
 
 		if ( !WP_POLLDADDY__PARTNERGUID ) {
 			$hook = add_management_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'api_key_page' ) );
@@ -43,8 +47,13 @@ class WP_PollDaddy {
 			return false;
 		}
 
-		if ( !defined( 'WP_POLLDADDY__USERCODE' ) )
-			define( 'WP_POLLDADDY__USERCODE', isset( $current_user->data->polldaddy_account ) ? $current_user->data->polldaddy_account : false );
+		if ( !defined( 'WP_POLLDADDY__USERCODE' ) ) {
+			define( 'WP_POLLDADDY__USERCODE',
+				isset( $current_user->data->polldaddy_account ) && is_string( $current_user->data->polldaddy_account ) ?
+				$current_user->data->polldaddy_account :
+				false
+			);
+		}
 		$hook = add_management_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'management_page' ) );
 		add_action( "load-$hook", array( &$this, 'management_page_load' ) );
 
@@ -1063,6 +1072,5 @@ function polldaddy_shortcode($atts, $content=null) {
 	
 	return "<script type='text/javascript' language='javascript' src='http://s3.polldaddy.com/p/$poll.js'></script><noscript> <a href='http://answers.polldaddy.com/poll/$poll/'>View Poll</a></noscript>";
 }
-
 
 add_shortcode('polldaddy', 'polldaddy_shortcode');

@@ -26,7 +26,7 @@ class PollDaddy_Client {
 
 		if ( function_exists( 'wp_remote_post' ) ) {
 			$response = wp_remote_post( $this->polldaddy_url, array(
-				'headers' => array( 'Content-Type' => 'text/xml; charset=utf-8' ),
+				'headers' => array( 'Content-Type' => 'text/xml; charset=utf-8', 'Content-Length' => strlen( $this->request_xml ) ),
 				'user-agent' => 'PollDaddy PHP Client/0.1',
 				'body' => $this->request_xml
 			) );
