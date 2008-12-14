@@ -1,7 +1,9 @@
 html, body {
 	height: auto !important;
 }
-
+body.poll-preview-iframe {
+	min-width: 0;
+}
 body.poll-preview-iframe #sidemenu,
 body.poll-preview-iframe #submenu,
 body.poll-preview-iframe #wpcombar,
@@ -19,10 +21,6 @@ body.poll-preview-iframe #manage-polls h2#preview-header {
 
 body.poll-preview-iframe-editor #manage-polls h2#preview-header {
 	display: block;
-}
-
-h2#poll-list-header {
-	margin-bottom: 1.2em;
 }
 
 body.poll-preview-iframe {
@@ -219,6 +217,10 @@ p#add-answer-holder {
 
 #post-body-content #titlediv {
 	margin: 10px 0;
+}
+
+.postbox {
+	min-width: 220px;
 }
 
 tr.polldaddy-shortcode-row {

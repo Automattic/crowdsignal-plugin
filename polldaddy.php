@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 0.8
+Version: 0.9-beta
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -40,7 +40,7 @@ class WP_PollDaddy {
 		}
 
 		if ( !WP_POLLDADDY__PARTNERGUID ) {
-			$hook = add_management_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'api_key_page' ) );
+			$hook = add_object_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'api_key_page' ), '/wp-content/admin-plugins/polldaddy/polldaddy.png' );
 			add_action( "load-$hook", array( &$this, 'api_key_page_load' ) );
 			if ( empty( $_GET['page'] ) || 'polls' != $_GET['page'] )
 				add_action( 'admin_notices', create_function( '', 'echo "<div class=\"error\"><p>" . sprintf( "You need to <a href=\"%s\">input your PollDaddy.com account details</a>.", "edit.php?page=polls" ) . "</p></div>";' ) );
@@ -54,8 +54,12 @@ class WP_PollDaddy {
 				false
 			);
 		}
-		$hook = add_management_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'management_page' ) );
+		$hook = add_object_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'management_page' ), '/wp-content/admin-plugins/polldaddy/polldaddy.png' );
 		add_action( "load-$hook", array( &$this, 'management_page_load' ) );
+
+		// Hack-a-lack-a
+		add_submenu_page( 'polls', __( 'Edit Polls' ), __( 'Edit' ), 'edit_posts', 'polls' ); //, array( &$this, 'management_page' ) );
+		add_submenu_page( 'polls', __( 'Add New Poll' ), __( 'Add New' ), 'edit_posts', 'polls&action=create-poll', array( &$this, 'management_page' ) );
 
 		add_action( 'media_buttons', array( &$this, 'media_buttons' ) );
 	}
@@ -226,7 +230,7 @@ class WP_PollDaddy {
 
 	function media_buttons() {
 		$title = __( 'Add Poll' );
-		echo "<a href='admin.php?page=polls&amp;iframe&amp;TB_iframe=true' id='add_poll' class='thickbox' title='$title'><img src='{$this->base_url}polldaddy.gif' alt='$title' /></a>";
+		echo "<a href='admin.php?page=polls&amp;iframe&amp;TB_iframe=true' id='add_poll' class='thickbox' title='$title'><img src='{$this->base_url}polldaddy.png' alt='$title' /></a>";
 	}
 
 	function management_page_load() {
@@ -242,7 +246,7 @@ class WP_PollDaddy {
 		wp_enqueue_script( 'admin-forms' );
 		add_thickbox();
 
-		wp_enqueue_style( 'polls', "{$this->base_url}polldaddy.css", array(), $this->version );
+		wp_enqueue_style( 'polls', "{$this->base_url}polldaddy.css", array( 'global', 'wp-admin' ), $this->version );
 		add_action( 'admin_body_class', array( &$this, 'admin_body_class' ) );
 
 		add_action( 'admin_notices', array( &$this, 'management_page_notices' ) );
@@ -626,9 +630,9 @@ class WP_PollDaddy {
 		
 ?>
 
-		<ul class="view-switch">
-			<li<?php if ( 'blog' == $view ) echo ' class="current"'; ?>><a href="<?php echo clean_url( add_query_arg( 'view', false ) ); ?>"><?php _e( "All Blog's Polls" ); ?></a></li>
-			<li<?php if ( 'user' == $view ) echo ' class="current"'; ?>><a href="<?php echo clean_url( add_query_arg( 'view', 'user' ) ); ?>"><?php _e( "All My Polls" ); ?></a></li>
+		<ul class="subsubsub">
+			<li><a href="<?php echo clean_url( add_query_arg( array( 'view' => false, 'paged' => false ) ) ); ?>"<?php if ( 'blog' == $view ) echo ' class="current"'; ?>><?php _e( "All Blog's Polls" ); ?></a> | </li>
+			<li><a href="<?php echo clean_url( add_query_arg( array( 'view' => 'user', 'paged' => false ) ) ); ?>"<?php if ( 'user' == $view ) echo ' class="current"'; ?>><?php _e( "All My Polls" ); ?></a></li>
 		</ul>
 		<form method="post" action="">
 		<div class="tablenav">
@@ -768,47 +772,73 @@ class WP_PollDaddy {
 <div id="poststuff"><div id="post-body" class="has-sidebar">
 
 <div class="inner-sidebar" id="side-info-column">
-	<h3><?php _e( 'Poll results' ); ?></h3>
-	<div class="inside">
-		<ul class="poll-options">
+	<div id="submitdiv" class="postbox">
+		<h3><?php _e( 'Publish' ); ?></h3>
+		<div class="inside">
+			<div id="major-publishing-actions">
+				<p id="publishing-action">
+					<?php wp_nonce_field( $poll_id ? "edit-poll_$poll_id" : 'create-poll' ); ?>
+					<input type="hidden" name="action" value="<?php echo $poll_id ? 'edit-poll' : 'create-poll'; ?>" />
+					<input type="hidden" class="polldaddy-poll-id" name="poll" value="<?php echo $poll_id; ?>" />
+					<input type="submit" class="button-primary" value="<?php echo attribute_escape( __( 'Save Poll' ) ); ?>" />
 
-<?php
-		foreach ( array( 'show' => __( 'Show results to voters' ), 'percent' => __( 'Only show percentages' ), 'hide' => __( 'Hide all results' ) ) as $value => $label ) :
-			if ( $is_POST )
-				$checked = $value === $_POST['resultsType'] ? ' checked="checked"' : '';
-			else
-				$checked = $value === $poll->resultsType ? ' checked="checked"' : '';
-?>
+<?php if ( isset( $_GET['iframe'] ) && $poll_id ) : ?>
 
-			<li>
-				<label for="resultsType-<?php echo $value; ?>"><input type="radio"<?php echo $checked; ?> value="<?php echo $value; ?>" name="resultsType" id="resultsType-<?php echo $value; ?>" /> <?php echo wp_specialchars( $label ); ?></label>
-			</li>
+					<input type="button" class="button polldaddy-send-to-editor" value="<?php echo attribute_escape( __( 'Send to Editor' ) ); ?>" />
 
-<?php		endforeach; ?>
+<?php endif; ?>
 
-		</ul>
+				</p>
+				<br class="clear" />
+			</div>
+		</div>
 	</div>
 
-	<h3><?php _e( 'Block repeat voters' ); ?></h3>
-	<div class="inside">
-		<ul class="poll-options">
+	<div class="postbox">
+		<h3><?php _e( 'Poll results' ); ?></h3>
+		<div class="inside">
+			<ul class="poll-options">
 
 <?php
-		foreach ( array( 'off' => __( "Don't block repeat voters" ), 'cookie' => __( 'Block by cookie (recommended)' ), 'cookieIP' => __( 'Block by cookie and by IP address' ) ) as $value => $label ) :
-			if ( $is_POST )
-				$checked = $value === $_POST['blockRepeatVotersType'] ? ' checked="checked"' : '';
-			else
-				$checked = $value === $poll->blockRepeatVotersType ? ' checked="checked"' : '';
+			foreach ( array( 'show' => __( 'Show results to voters' ), 'percent' => __( 'Only show percentages' ), 'hide' => __( 'Hide all results' ) ) as $value => $label ) :
+				if ( $is_POST )
+					$checked = $value === $_POST['resultsType'] ? ' checked="checked"' : '';
+				else
+					$checked = $value === $poll->resultsType ? ' checked="checked"' : '';
 ?>
 
-			<li>
-				<label for="blockRepeatVotersType-<?php echo $value; ?>"><input type="radio"<?php echo $checked; ?> value="<?php echo $value; ?>" name="blockRepeatVotersType" id="blockRepeatVotersType-<?php echo $value; ?>" /> <?php echo wp_specialchars( $label ); ?></label>
-			</li>
+				<li>
+				<label for="resultsType-<?php echo $value; ?>"><input type="radio"<?php echo $checked; ?> value="<?php echo $value; ?>" name="resultsType" id="resultsType-<?php echo $value; ?>" /> <?php echo wp_specialchars( $label ); ?></label>
+				</li>
 
-<?php		endforeach; ?>
+<?php			endforeach; ?>
 
-		</ul>
-		<p>Note: Blocking by cookie and IP address can be problematic for some voters.</p>
+			</ul>
+		</div>
+	</div>
+
+	<div class="postbox">
+		<h3><?php _e( 'Block repeat voters' ); ?></h3>
+		<div class="inside">
+			<ul class="poll-options">
+
+<?php
+			foreach ( array( 'off' => __( "Don't block repeat voters" ), 'cookie' => __( 'Block by cookie (recommended)' ), 'cookieIP' => __( 'Block by cookie and by IP address' ) ) as $value => $label ) :
+				if ( $is_POST )
+					$checked = $value === $_POST['blockRepeatVotersType'] ? ' checked="checked"' : '';
+				else
+					$checked = $value === $poll->blockRepeatVotersType ? ' checked="checked"' : '';
+?>
+
+				<li>
+					<label for="blockRepeatVotersType-<?php echo $value; ?>"><input type="radio"<?php echo $checked; ?> value="<?php echo $value; ?>" name="blockRepeatVotersType" id="blockRepeatVotersType-<?php echo $value; ?>" /> <?php echo wp_specialchars( $label ); ?></label>
+				</li>
+
+<?php			endforeach; ?>
+
+			</ul>
+			<p>Note: Blocking by cookie and IP address can be problematic for some voters.</p>
+		</div>
 	</div>
 </div>
 
@@ -816,16 +846,15 @@ class WP_PollDaddy {
 <div id="post-body-content" class="has-sidebar-content">
 
 	<div id="titlediv">
-		<h3><label for="title"><?php _e( 'Question' ); ?></label></h3>
 		<div id="titlewrap">
 			<input type="text" autocomplete="off" id="title" value="<?php echo $question; ?>" tabindex="1" size="30" name="question" />
 		</div>
 	</div>
 
-	<div id="answersdiv">
+	<div id="answersdiv" class="postbox">
 		<h3><?php _e( 'Answers' ); ?></h3>
 
-		<div id="answerswrap">
+		<div id="answerswrap" class="inside">
 		<ul id="answers">
 <?php
 		$a = 0;
@@ -892,21 +921,22 @@ class WP_PollDaddy {
 		</div>
 	</div>
 
-	<div id="design">
+	<div id="design" class="postbox">
 
 <?php	$style_ID = (int) ( $is_POST ? $_POST['styleID'] : $poll->styleID ); ?>
 
 		<h3><?php _e( 'Design' ); ?></h3>
 
-		<div class="hide-if-no-js">
-			<a class="alignleft" href="#previous">&#171;</a>
-			<a class="alignright" href="#next">&#187;</a>
-			<img src="http://polldaddy.com/Images/polls/<?php echo $style_ID; ?>.gif" />
-			<img class="hide-if-js" src="http://polldaddy.com/Images/polls/<?php echo 1 + $style_ID; ?>.gif" />
-		</div>
+		<div class="inside">
+			<div class="hide-if-no-js">
+				<a class="alignleft" href="#previous">&#171;</a>
+				<a class="alignright" href="#next">&#187;</a>
+				<img src="http://polldaddy.com/Images/polls/<?php echo $style_ID; ?>.gif" />
+				<img class="hide-if-js" src="http://polldaddy.com/Images/polls/<?php echo 1 + $style_ID; ?>.gif" />
+			</div>
 
-		<p class="hide-if-js" id="no-js-styleID">
-			<select name="styleID">
+			<p class="hide-if-js" id="no-js-styleID">
+				<select name="styleID">
 
 <?php
 				$options = array(
@@ -933,28 +963,16 @@ class WP_PollDaddy {
 				foreach ( $options as $styleID => $label ) :
 					$selected = $styleID == $style_ID ? ' selected="selected"' : '';
 ?>
-				<option value="<?php echo (int) $styleID; ?>"<?php echo $selected; ?>><?php echo wp_specialchars( $label ); ?></option>
-<?php	endforeach; ?>
+					<option value="<?php echo (int) $styleID; ?>"<?php echo $selected; ?>><?php echo wp_specialchars( $label ); ?></option>
+<?php				endforeach; ?>
 
-			</select>
-		</p>
+				</select>
+			</p>
+		</div>
 	</div>
 
-	<p class="submit">
-		<?php wp_nonce_field( $poll_id ? "edit-poll_$poll_id" : 'create-poll' ); ?>
-		<input type="hidden" name="action" value="<?php echo $poll_id ? 'edit-poll' : 'create-poll'; ?>" />
-		<input type="hidden" class="polldaddy-poll-id" name="poll" value="<?php echo $poll_id; ?>" />
-		<input type="submit" class="button button-highlighted" value="<?php echo attribute_escape( __( 'Save Poll' ) ); ?>" />
-
-<?php if ( isset( $_GET['iframe'] ) && $poll_id ) : ?>
-
-		<input type="button" class="button polldaddy-send-to-editor" value="<?php echo attribute_escape( __( 'Send to Editor' ) ); ?>" />
-
-<?php endif; ?>
-
-	</p>
-
-</div></div></div>
+</div>
+</div></div>
 </form>
 <br class="clear" />
 
