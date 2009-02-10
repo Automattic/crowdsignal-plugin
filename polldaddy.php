@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 0.9-beta
+Version: 0.9
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -40,7 +40,7 @@ class WP_PollDaddy {
 		}
 
 		if ( !WP_POLLDADDY__PARTNERGUID ) {
-			if ( function_exists( 'add_object_page' ) )
+			if ( function_exists( 'add_object_page' ) ) // WP 2.7+
 				$hook = add_object_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'api_key_page' ), '/wp-content/admin-plugins/polldaddy/polldaddy.png' );
 			else
 				$hook = add_management_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'api_key_page' ) );
@@ -58,7 +58,7 @@ class WP_PollDaddy {
 			);
 		}
 
-		if ( function_exists( 'add_object_page' ) )
+		if ( function_exists( 'add_object_page' ) ) // WP 2.7+
 			$hook = add_object_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'management_page' ), '/wp-content/admin-plugins/polldaddy/polldaddy.png' );
 		else
 			$hook = add_management_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'management_page' ) );
@@ -94,7 +94,7 @@ class WP_PollDaddy {
 			'uEmail' => $polldaddy_email,
 			'uPass' => $polldaddy_password
 		);
-		if ( function_exists( 'wp_remote_post' ) ) {
+		if ( function_exists( 'wp_remote_post' ) ) { // WP 2.7+
 			$polldaddy_api_key = wp_remote_post( 'http://api.polldaddy.com/key/new.aspx', array(
 				'body' => $details
 			) );
@@ -1095,7 +1095,7 @@ function polldaddy_shortcode($atts, $content=null) {
 
 	$poll = (int) $poll;
 	
-	return "<script type='text/javascript' language='javascript' src='http://s3.polldaddy.com/p/$poll.js'></script><noscript> <a href='http://answers.polldaddy.com/poll/$poll/'>View Poll</a></noscript>";
+	return "<script type='text/javascript' language='javascript' charset='utf-8' src='http://s3.polldaddy.com/p/$poll.js'></script><noscript> <a href='http://answers.polldaddy.com/poll/$poll/'>View Poll</a></noscript>";
 }
 
 add_shortcode('polldaddy', 'polldaddy_shortcode');
