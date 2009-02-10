@@ -33,6 +33,7 @@ Nope.  The permissions are the same as for posts.  So Editors and Administrators
 
 = 0.9 =
 * Compatiblity with WordPress 2.7
+* Bug Fix: Potential charset issues
 
 = 0.8 =
 * Bug fix: prevent some PHP define errors
