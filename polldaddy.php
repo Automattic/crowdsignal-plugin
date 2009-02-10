@@ -40,7 +40,10 @@ class WP_PollDaddy {
 		}
 
 		if ( !WP_POLLDADDY__PARTNERGUID ) {
-			$hook = add_object_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'api_key_page' ), '/wp-content/admin-plugins/polldaddy/polldaddy.png' );
+			if ( function_exists( 'add_object_page' ) )
+				$hook = add_object_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'api_key_page' ), '/wp-content/admin-plugins/polldaddy/polldaddy.png' );
+			else
+				$hook = add_management_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'api_key_page' ) );
 			add_action( "load-$hook", array( &$this, 'api_key_page_load' ) );
 			if ( empty( $_GET['page'] ) || 'polls' != $_GET['page'] )
 				add_action( 'admin_notices', create_function( '', 'echo "<div class=\"error\"><p>" . sprintf( "You need to <a href=\"%s\">input your PollDaddy.com account details</a>.", "edit.php?page=polls" ) . "</p></div>";' ) );
@@ -54,7 +57,11 @@ class WP_PollDaddy {
 				false
 			);
 		}
-		$hook = add_object_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'management_page' ), '/wp-content/admin-plugins/polldaddy/polldaddy.png' );
+
+		if ( function_exists( 'add_object_page' ) )
+			$hook = add_object_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'management_page' ), '/wp-content/admin-plugins/polldaddy/polldaddy.png' );
+		else
+			$hook = add_management_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'management_page' ) );
 		add_action( "load-$hook", array( &$this, 'management_page_load' ) );
 
 		// Hack-a-lack-a
