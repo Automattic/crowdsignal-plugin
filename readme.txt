@@ -3,7 +3,7 @@ Contributors: mdawaffe
 Tags: poll, polls, polldaddy, WordPress.com
 Requires at least: 2.6
 Tested up to: 2.7.1
-Stable tag: 0.8
+Stable tag: 0.9
 
 Create and manage PollDaddy polls from within WordPress.
 
