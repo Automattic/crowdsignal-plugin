@@ -4,7 +4,7 @@ require_once dirname( __FILE__ ) . '/polldaddy-xml.php';
 
 // TODO: polls->poll should always be an array and similar bad typing
 class PollDaddy_Client {
-	var $polldaddy_url = 'http://api.polldaddy.com/handler/';
+	var $polldaddy_url = 'http://api.polldaddy.com/';
 	var $partnerGUID;
 	var $userCode;
 

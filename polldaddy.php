@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 0.9
+Version: 0.10
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -24,6 +24,19 @@ class WP_PollDaddy {
 	var $base_url = false;
 	var $version = '0.8';
 
+	var $polldaddy_clients = array();
+
+	function &get_client( $api_key, $userCode = null ) {
+		if ( isset( $this->polldaddy_clients[$api_key] ) ) {
+			if ( !is_null( $userCode ) )
+				$this->polldaddy_clients[$api_key]->userCode = $userCode;
+			return $this->polldaddy_clients[$api_key];
+		}
+		require_once WP_POLLDADDY__POLLDADDY_CLIENT_PATH;
+		$this->polldaddy_clients[$api_key] = new $this->polldaddy_client_class( $api_key, $userCode );
+		return $this->polldaddy_clients[$api_key];
+	}
+
 	function admin_menu() {
 		global $current_user;
 
@@ -41,7 +54,7 @@ class WP_PollDaddy {
 
 		if ( !WP_POLLDADDY__PARTNERGUID ) {
 			if ( function_exists( 'add_object_page' ) ) // WP 2.7+
-				$hook = add_object_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'api_key_page' ), '/wp-content/admin-plugins/polldaddy/polldaddy.png' );
+				$hook = add_object_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'api_key_page' ), "{$this->base_url}polldaddy.png" );
 			else
 				$hook = add_management_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'api_key_page' ) );
 			add_action( "load-$hook", array( &$this, 'api_key_page_load' ) );
@@ -50,16 +63,14 @@ class WP_PollDaddy {
 			return false;
 		}
 
-		if ( !defined( 'WP_POLLDADDY__USERCODE' ) ) {
-			define( 'WP_POLLDADDY__USERCODE',
-				isset( $current_user->data->polldaddy_account ) && is_string( $current_user->data->polldaddy_account ) ?
-				$current_user->data->polldaddy_account :
-				false
-			);
-		}
+		$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID );
+		$polldaddy->reset();
+
+		if ( !defined( 'WP_POLLDADDY__USERCODE' ) )
+			define( 'WP_POLLDADDY__USERCODE', $polldaddy->GetUserCode( $current_user->ID ) );
 
 		if ( function_exists( 'add_object_page' ) ) // WP 2.7+
-			$hook = add_object_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'management_page' ), '/wp-content/admin-plugins/polldaddy/polldaddy.png' );
+			$hook = add_object_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'management_page' ), "{$this->base_url}polldaddy.png" );
 		else
 			$hook = add_management_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'management_page' ) );
 		add_action( "load-$hook", array( &$this, 'management_page_load' ) );
@@ -95,7 +106,7 @@ class WP_PollDaddy {
 			'uPass' => $polldaddy_password
 		);
 		if ( function_exists( 'wp_remote_post' ) ) { // WP 2.7+
-			$polldaddy_api_key = wp_remote_post( 'http://api.polldaddy.com/key/new.aspx', array(
+			$polldaddy_api_key = wp_remote_post( 'https://api.polldaddy.com/key.php', array(
 				'body' => $details
 			) );
 		} else {
@@ -119,7 +130,7 @@ class WP_PollDaddy {
 
 			$request_body = http_build_query( $details, null, '&' );
 
-			$request  = "POST /key/new.aspx HTTP/1.0\r\n";
+			$request  = "POST /key.php HTTP/1.0\r\n";
 			$request .= "Host: api.polldaddy.com\r\n";
 			$request .= "User-agent: WordPress/$wp_version\r\n";
 			$request .= 'Content-Type: application/x-www-form-urlencoded; charset=' . get_option('blog_charset') . "\r\n";
@@ -141,13 +152,9 @@ class WP_PollDaddy {
 
 		update_option( 'polldaddy_api_key', $polldaddy_api_key );
 
-		require_once WP_POLLDADDY__POLLDADDY_CLIENT_PATH;
-
-		$polldaddy = new $this->polldaddy_client_class( $polldaddy_api_key );
-
-		if ( $polldaddy_account = $polldaddy->GetUserCode( 0 ) ) {
-			update_usermeta( $GLOBALS['user_ID'], 'polldaddy_account', $polldaddy_account );
-		} else {
+		$polldaddy = $this->get_client( $polldaddy_api_key );
+		$polldaddy->reset();
+		if ( !$polldaddy->GetUserCode( 0 ) ) {
 			$this->parse_errors( $polldaddy );
 			$this->errors->add( 'GetUserCode', __( 'Account could not be accessed.  Are your email address and password correct?' ) );
 			return false;
@@ -294,9 +301,10 @@ class WP_PollDaddy {
 			else
 				check_admin_referer( "delete-poll_$poll" );
 
-			$polldaddy = new $this->polldaddy_client_class( WP_POLLDADDY__PARTNERGUID, WP_POLLDADDY__USERCODE );
+			$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, WP_POLLDADDY__USERCODE );
 
 			foreach ( (array) $_REQUEST['poll'] as $poll_id ) {
+				$polldaddy->reset();
 				$poll_object = $polldaddy->GetPoll( $poll );
 
 				if ( !$this->can_edit( $poll_object ) ) {
@@ -304,18 +312,17 @@ class WP_PollDaddy {
 					return false;
 				}
 
-				$polldaddy->reset();
-
 				// Send Poll Author credentials
 				if ( !empty( $poll_object->_owner ) && $current_user->ID != $poll_object->_owner ) {
-					if ( !$userCode = get_usermeta( $poll_object->_owner, 'polldaddy_account' ) ) {
+					$polldaddy->reset();
+					if ( !$userCode = $polldaddy->GetUserCode( $poll_object->_owner ) ) { 
 						$this->errors->add( 'no_usercode', __( 'Invalid Poll Author' ) );
 					}
 					$polldaddy->userCode = $userCode;
 				}
 
-				$polldaddy->DeletePoll( $poll_id );
 				$polldaddy->reset();
+				$polldaddy->DeletePoll( $poll_id );
 			}
 
 			$query_args['message'] = 'deleted';
@@ -327,9 +334,11 @@ class WP_PollDaddy {
 
 			check_admin_referer( "edit-poll_$poll" );
 
-			$polldaddy = new $this->polldaddy_client_class( WP_POLLDADDY__PARTNERGUID, WP_POLLDADDY__USERCODE );
+			$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, WP_POLLDADDY__USERCODE );
+			$polldaddy->reset();
 
 			$poll_object = $polldaddy->GetPoll( $poll );
+			$this->parse_errors( $polldaddy );
 
 			if ( !$this->can_edit( $poll_object ) ) {
 				$this->errors->add( 'permission', __( 'You are not allowed to edit this poll.' ) );
@@ -337,14 +346,15 @@ class WP_PollDaddy {
 			}
 
 			// Send Poll Author credentials
+			
 			if ( !empty( $poll_object->_owner ) && $current_user->ID != $poll_object->_owner ) {
-				if ( !$userCode = get_usermeta( $poll_object->_owner, 'polldaddy_account' ) ) {
+				$polldaddy->reset();
+				if ( !$userCode = $polldaddy->GetUserCode( $poll_object->_owner ) ) {	
 					$this->errors->add( 'no_usercode', __( 'Invalid Poll Author' ) );
 				}
+				$this->parse_errors( $polldaddy );
 				$polldaddy->userCode = $userCode;
 			}
-
-			$this->parse_errors( $polldaddy );
 
 			if ( !$poll_object ) 
 				$this->errors->add( 'GetPoll', __( 'Poll not found' ) );
@@ -418,7 +428,8 @@ class WP_PollDaddy {
 
 			check_admin_referer( 'create-poll' );
 
-			$polldaddy = new $this->polldaddy_client_class( WP_POLLDADDY__PARTNERGUID, WP_POLLDADDY__USERCODE );
+			$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, WP_POLLDADDY__USERCODE );
+			$polldaddy->reset();
 
 			$answers = array();
 			foreach ( $_POST['answer'] as $answer )
@@ -460,7 +471,8 @@ class WP_PollDaddy {
 	function management_page_load_signup() {
 		switch ( $_POST['account'] ) :
 		case 'import' :
-			$polldaddy = new $this->polldaddy_client_class( WP_POLLDADDY__PARTNERGUID );
+			$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID );
+			$polldaddy->reset();
 			$email = trim( stripslashes( $_POST['polldaddy_email'] ) );
 			$password = trim( stripslashes( $_POST['polldaddy_password'] ) );
 
@@ -473,9 +485,7 @@ class WP_PollDaddy {
 			if ( $this->errors->get_error_codes() )
 				return false;
 
-			if ( $polldaddy_account = $polldaddy->Initiate( $email, $password, $GLOBALS['user_ID'] ) ) {
-				update_usermeta( $GLOBALS['user_ID'], 'polldaddy_account', $polldaddy_account );
-			} else {
+			if ( !$polldaddy->Initiate( $email, $password, $GLOBALS['user_ID'] ) ) {
 				$this->parse_errors( $polldaddy );
 				$this->errors->add( 'import-account', __( 'Account could not be imported.  Are your email address and password correct?' ) );
 				return false;
@@ -560,7 +570,7 @@ class WP_PollDaddy {
 
 		<h2 id="preview-header"><?php printf( __( 'Poll Preview (<a href="%s">Edit Poll</a>, <a href="%s">List Polls</a>)' ),
 			clean_url( add_query_arg( array( 'action' => 'edit', 'poll' => $poll, 'message' => false ) ) ),
-			clean_url( add_query_arg( array( 'action' => false, 'poll' => $poll, 'message' => false ) ) )
+			clean_url( add_query_arg( array( 'action' => false, 'poll' => false, 'message' => false ) ) )
 		); ?></h2>
 
 <?php
@@ -578,7 +588,7 @@ class WP_PollDaddy {
 		case 'edit-poll' :
 ?>
 
-		<h2><?php printf( __('Edit Poll (<a href="%s">List Polls</a>)'), clean_url( add_query_arg( array( 'action' => false, 'poll' => $poll, 'message' => false ) ) ) ); ?></h2>
+		<h2><?php printf( __('Edit Poll (<a href="%s">List Polls</a>)'), clean_url( add_query_arg( array( 'action' => false, 'poll' => false, 'message' => false ) ) ) ); ?></h2>
 
 <?php
 
@@ -587,7 +597,7 @@ class WP_PollDaddy {
 		case 'create-poll' :
 ?>
 
-		<h2><?php printf( __('Create Poll (<a href="%s">List Polls</a>)'), clean_url( add_query_arg( array( 'action' => false, 'poll' => $poll, 'message' => false ) ) ) ); ?></h2>
+		<h2><?php printf( __('Create Poll (<a href="%s">List Polls</a>)'), clean_url( add_query_arg( array( 'action' => false, 'poll' => false, 'message' => false ) ) ) ); ?></h2>
 
 <?php
 			$this->poll_edit_form();
@@ -617,7 +627,8 @@ class WP_PollDaddy {
 		$page = absint($_GET['paged']);
 		if ( !$page )
 			$page = 1;
-		$polldaddy = new $this->polldaddy_client_class( WP_POLLDADDY__PARTNERGUID, WP_POLLDADDY__USERCODE );
+		$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, WP_POLLDADDY__USERCODE );
+		$polldaddy->reset();
 		if ( 'user' == $view )
 			$polls_object = $polldaddy->listPolls( ( $page - 1 ) * 10 + 1, $page * 10 );
 		else
@@ -634,7 +645,6 @@ class WP_PollDaddy {
 			'total' => ceil( $total_polls / 10 ),
 			'current' => $page
 		) );
-		
 ?>
 
 		<ul class="subsubsub">
@@ -756,13 +766,15 @@ class WP_PollDaddy {
 	function poll_edit_form( $poll_id = 0 ) {
 		$poll_id = (int) $poll_id;
 
-		$polldaddy = new $this->polldaddy_client_class( WP_POLLDADDY__PARTNERGUID, WP_POLLDADDY__USERCODE );
+		$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, WP_POLLDADDY__USERCODE );
+		$polldaddy->reset();
 
 		$is_POST = 'post' == strtolower( $_SERVER['REQUEST_METHOD'] );
 
 		if ( $poll_id ) {
 			$poll = $polldaddy->GetPoll( $poll_id );
 			$this->parse_errors( $polldaddy );
+
 			if ( !$this->can_edit( $poll ) ) {
 				$this->errors->add( 'permission', __( 'You are not allowed to edit this poll.' ) );
 			}
@@ -987,7 +999,8 @@ class WP_PollDaddy {
 	}
 
 	function poll_results_page( $poll_id ) {
-		$polldaddy = new $this->polldaddy_client_class( WP_POLLDADDY__PARTNERGUID, WP_POLLDADDY__USERCODE );
+		$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, WP_POLLDADDY__USERCODE );
+		$polldaddy->reset();
 
 		$results = $polldaddy->GetPollResults( $poll_id );
 ?>
