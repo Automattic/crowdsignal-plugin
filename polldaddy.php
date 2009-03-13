@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 0.10
+Version: 0.10.1
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -103,12 +103,18 @@ class WP_PollDaddy {
 		$details = array( 
 			'uName' => get_bloginfo( 'name' ),
 			'uEmail' => $polldaddy_email,
-			'uPass' => $polldaddy_password
+			'uPass' => $polldaddy_password,
+			'partner_userid' => $GLOBALS['current_user']->ID
 		);
 		if ( function_exists( 'wp_remote_post' ) ) { // WP 2.7+
 			$polldaddy_api_key = wp_remote_post( 'https://api.polldaddy.com/key.php', array(
 				'body' => $details
 			) );
+			if ( is_wp_error( $polldaddy_api_key ) ) {
+				$this->errors = $polldaddy_api_key;
+				return false;
+			}
+			$polldaddy_api_key = wp_remote_retrieve_body( $polldaddy_api_key );
 		} else {
 			$fp = fsockopen(
 				'api.polldaddy.com',
@@ -154,7 +160,7 @@ class WP_PollDaddy {
 
 		$polldaddy = $this->get_client( $polldaddy_api_key );
 		$polldaddy->reset();
-		if ( !$polldaddy->GetUserCode( 0 ) ) {
+		if ( !$polldaddy->GetUserCode( $GLOBALS['current_user']->ID ) ) {
 			$this->parse_errors( $polldaddy );
 			$this->errors->add( 'GetUserCode', __( 'Account could not be accessed.  Are your email address and password correct?' ) );
 			return false;
