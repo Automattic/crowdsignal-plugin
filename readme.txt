@@ -3,7 +3,7 @@ Contributors: mdawaffe
 Tags: poll, polls, polldaddy, WordPress.com
 Requires at least: 2.6
 Tested up to: 2.7.1
-Stable tag: 0.9
+Stable tag: 1.0
 
 Create and manage PollDaddy polls from within WordPress.
 
@@ -30,6 +30,11 @@ Yes. You'll be able to edit the polls they create from your blog.  (You won't be
 Nope.  The permissions are the same as for posts.  So Editors and Administrators can edit anyone's polls for that blog.  Authors can only edit their own.
 
 == Change Log ==
+
+= 1.0 =
+* New PollDaddy API
+* Do not store UserCode, retrieve from API
+* Bug Fix: Fix API key retrieval.  Improper use of wp_remote_post()
 
 = 0.9 =
 * Compatiblity with WordPress 2.7
