@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 1.0
+Version: 1.1-alpha
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -38,8 +38,6 @@ class WP_PollDaddy {
 	}
 
 	function admin_menu() {
-		global $current_user;
-
 		$this->errors = new WP_Error;
 
 		if ( !$this->base_url )
@@ -62,12 +60,6 @@ class WP_PollDaddy {
 				add_action( 'admin_notices', create_function( '', 'echo "<div class=\"error\"><p>" . sprintf( "You need to <a href=\"%s\">input your PollDaddy.com account details</a>.", "edit.php?page=polls" ) . "</p></div>";' ) );
 			return false;
 		}
-
-		$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID );
-		$polldaddy->reset();
-
-		if ( !defined( 'WP_POLLDADDY__USERCODE' ) )
-			define( 'WP_POLLDADDY__USERCODE', $polldaddy->GetUserCode( $current_user->ID ) );
 
 		if ( function_exists( 'add_object_page' ) ) // WP 2.7+
 			$hook = add_object_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'management_page' ), "{$this->base_url}polldaddy.png" );
@@ -254,6 +246,14 @@ class WP_PollDaddy {
 	}
 
 	function management_page_load() {
+		global $current_user;
+
+		$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID );
+		$polldaddy->reset();
+
+		if ( !defined( 'WP_POLLDADDY__USERCODE' ) )
+			define( 'WP_POLLDADDY__USERCODE', $polldaddy->GetUserCode( $current_user->ID ) );
+
 		wp_reset_vars( array( 'action', 'poll' ) );
 		global $action, $poll;
 
@@ -297,8 +297,6 @@ class WP_PollDaddy {
 				$query_args['action'] = false;
 			break;
 		case 'delete' :
-			global $current_user;
-
 			if ( empty( $poll ) )
 				return;
 

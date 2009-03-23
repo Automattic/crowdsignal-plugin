@@ -31,6 +31,9 @@ Nope.  The permissions are the same as for posts.  So Editors and Administrators
 
 == Change Log ==
 
+= 1.1 =
+Bug Fix: Don't call PollDaddy API on every admin page load
+
 = 1.0 =
 * New PollDaddy API
 * Do not store UserCode, retrieve from API
