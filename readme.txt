@@ -33,6 +33,9 @@ Nope.  The permissions are the same as for posts.  So Editors and Administrators
 
 = 1.1 =
 Bug Fix: Don't call PollDaddy API on every admin page load
+Bug Fix: Correct Image locations
+Bug Fix: CSS Tweaks for upcoming WordPress 2.8
+Make Javascript image selector more robust
 
 = 1.0 =
 * New PollDaddy API

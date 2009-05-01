@@ -22,7 +22,7 @@ class WP_PollDaddy {
 	var $errors;
 	var $polldaddy_client_class = 'PollDaddy_Client';
 	var $base_url = false;
-	var $version = '0.8';
+	var $version = '1.1-alpha';
 
 	var $polldaddy_clients = array();
 
@@ -69,7 +69,7 @@ class WP_PollDaddy {
 
 		// Hack-a-lack-a
 		add_submenu_page( 'polls', __( 'Edit Polls' ), __( 'Edit' ), 'edit_posts', 'polls' ); //, array( &$this, 'management_page' ) );
-		add_submenu_page( 'polls', __( 'Add New Poll' ), __( 'Add New' ), 'edit_posts', 'polls&action=create-poll', array( &$this, 'management_page' ) );
+		add_submenu_page( 'polls', __( 'Add New Poll' ), __( 'Add New' ), 'edit_posts', 'polls&amp;action=create-poll', array( &$this, 'management_page' ) );
 
 		add_action( 'media_buttons', array( &$this, 'media_buttons' ) );
 	}
@@ -408,7 +408,7 @@ class WP_PollDaddy {
 				return false;
 
 			$poll_data['answers'] = $answers;
-			$poll_data['styleID'] = $_POST['styleID'];
+			$poll_data['styleID'] = (int) $_POST['styleID'];
 
 			$polldaddy->reset();
 
@@ -792,7 +792,7 @@ class WP_PollDaddy {
 ?>
 
 <form action="" method="post">
-<div id="poststuff"><div id="post-body" class="has-sidebar">
+<div id="poststuff"><div id="post-body" class="has-sidebar has-right-sidebar">
 
 <div class="inner-sidebar" id="side-info-column">
 	<div id="submitdiv" class="postbox">
@@ -954,8 +954,8 @@ class WP_PollDaddy {
 			<div class="hide-if-no-js">
 				<a class="alignleft" href="#previous">&#171;</a>
 				<a class="alignright" href="#next">&#187;</a>
-				<img src="http://polldaddy.com/Images/polls/<?php echo $style_ID; ?>.gif" />
-				<img class="hide-if-js" src="http://polldaddy.com/Images/polls/<?php echo 1 + $style_ID; ?>.gif" />
+				<img src="http://polldaddy.com/images/<?php echo $style_ID; ?>.gif" />
+				<img class="hide-if-js" src="http://polldaddy.com/images/<?php echo 1 + $style_ID; ?>.gif" />
 			</div>
 
 			<p class="hide-if-js" id="no-js-styleID">
@@ -981,7 +981,7 @@ class WP_PollDaddy {
 					15 => 'Music',
 					16 => 'Sunset',
 					17 => 'Pink Butterflies',
-					18 => 'Map'
+					18 => 'Map',
 				);
 				foreach ( $options as $styleID => $label ) :
 					$selected = $styleID == $style_ID ? ' selected="selected"' : '';

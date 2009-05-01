@@ -15,12 +15,17 @@ body.poll-preview-iframe #adminmenu,
 body.poll-preview-iframe #sidemenu-bg,
 body.poll-preview-iframe #footer,
 body.poll-preview-iframe #feedbacklink,
+body.poll-preview-iframe #screen-meta,
 body.poll-preview-iframe #manage-polls h2#preview-header {
 	display: none;
 }
 
 body.poll-preview-iframe-editor #manage-polls h2#preview-header {
 	display: block;
+}
+
+body.poll-preview-iframe h2 {
+	padding-top: 0;
 }
 
 body.poll-preview-iframe {
@@ -43,7 +48,7 @@ body.poll-preview-iframe div#wpcontent {
 
 body.poll-preview-iframe div#wpbody {
 	margin: 0;
-	padding: 3em;
+	padding: 2em 3em;
 	text-align: center;
 }
 
@@ -211,7 +216,8 @@ p#add-answer-holder {
 	width: 100%;
 }
 
-.has-sidebar .has-sidebar-content {
+.has-sidebar .has-sidebar-content,
+.has-right-sidebar #post-body-content {
 	margin-right: 245px;
 }
 

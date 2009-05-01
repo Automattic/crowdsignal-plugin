@@ -54,22 +54,23 @@ jQuery(function($){
 		return;
 	}
 	var img2 = $('#design img:last');
-	var imgPath = 'http://polldaddy.com/Images/polls/';
+	var imgPath = 'http://polldaddy.com/images/';
 
+	var styleCount = $(':input[name=styleID] option').size();
 	var styles = $(':input[name=styleID]').remove();
 	var o = parseInt( styles.val() );
-	$('#design').append( '<input type="hidden" id="hidden-styleID" name="styleID" value="' + o.toString() + '" /><p><strong id="styleID-name">' + $(styles.find('option').get(o)).text() + '</strong><br /><span id="span-styleID">' + ( o + 1 ).toString() + '</span> of 19</p>');
+	$('#design').append( '<input type="hidden" id="hidden-styleID" name="styleID" value="' + o.toString() + '" /><p><strong id="styleID-name">' + $(styles.find('option').get(o)).text() + '</strong><br /><span id="span-styleID">' + ( o + 1 ).toString() + '</span> of ' + styleCount + '</p>');
 	var hiddenStyleID = $('#hidden-styleID');
 	var spanStyleID = $('#span-styleID');
 	var styleIDName = $('#styleID-name');
 
 	var changePreview = function( i ) {
 		var o = parseInt( img1.attr( 'src' ).substr( imgPath.length ) );
-		img1.attr( 'src', imgPath + ( ( i + o + 19 ) % 19 ).toString() + '.gif' );
-		img2.attr( 'src', imgPath + ( ( 2 * i + o + 19 ) % 19 ).toString() + '.gif' );
-		hiddenStyleID.val( ( ( i + o + 19 ) % 19 ).toString() );
-		spanStyleID.text( ( ( i + o + 19 ) % 19 + 1 ).toString() );
-		styleIDName.text( $(styles.find('option').get( ( i + o + 19 ) % 19 )).text() );
+		img1.attr( 'src', imgPath + ( ( i + o + styleCount ) % styleCount ).toString() + '.gif' );
+		img2.attr( 'src', imgPath + ( ( 2 * i + o + styleCount ) % styleCount ).toString() + '.gif' );
+		hiddenStyleID.val( ( ( i + o + styleCount ) % styleCount ).toString() );
+		spanStyleID.text( ( ( i + o + styleCount ) % styleCount + 1 ).toString() );
+		styleIDName.text( $(styles.find('option').get( ( i + o + styleCount ) % styleCount )).text() );
 	};
 
 	$('#design a.alignleft').click( function() { changePreview( -1 ); return false; } );
