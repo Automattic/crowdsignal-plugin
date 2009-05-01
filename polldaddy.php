@@ -106,6 +106,11 @@ class WP_PollDaddy {
 				$this->errors = $polldaddy_api_key;
 				return false;
 			}
+			$response_code = wp_remote_retrieve_response_code( $polldaddy_api_key );
+			if ( 200 != $response_code ) {
+				$this->errors->add( 'http_code', __( 'Could not connect to PollDaddy API Key service' ) );
+				return false;
+			}
 			$polldaddy_api_key = wp_remote_retrieve_body( $polldaddy_api_key );
 		} else {
 			$fp = fsockopen(
