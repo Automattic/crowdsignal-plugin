@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 1.1-alpha
+Version: 1.2-alpha
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -42,6 +42,13 @@ class WP_PollDaddy {
 
 		if ( !$this->base_url )
 			$this->base_url = plugins_url() . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
+			
+		if ( !defined( 'WP_POLLDADDY__USE_SSL' ) ) {
+			$ssl = get_option( 'polldaddy_use_ssl' );
+			if ( is_numeric( $ssl ) ){
+				define( 'WP_POLLDADDY__USE_SSL', $ssl );
+			}			
+		}
 
 		if ( !defined( 'WP_POLLDADDY__PARTNERGUID' ) ) {
 			$guid = get_option( 'polldaddy_api_key' );
@@ -79,9 +86,23 @@ class WP_PollDaddy {
 			return false;
 
 		check_admin_referer( 'polldaddy-account' );
+		
+		$scheme = 'https';
 
 		$polldaddy_email = stripslashes( $_POST['polldaddy_email'] );
 		$polldaddy_password = stripslashes( $_POST['polldaddy_password'] );
+		
+		if( isset( $_POST['polldaddy_use_ssl'] ) ){
+			$polldaddy_use_ssl = (int) $_POST['polldaddy_use_ssl'];
+			
+			if( $polldaddy_use_ssl == 1 ){
+				update_option( 'polldaddy_use_ssl', 1 );
+			}				
+		}
+		else if( defined( 'WP_POLLDADDY__USE_SSL' ) ){
+			$scheme = 'http';
+			update_option( 'polldaddy_use_ssl', 0 );
+		}
 
 		if ( !$polldaddy_email )
 			$this->errors->add( 'polldaddy_email', __( 'Email address required' ) );
@@ -99,7 +120,7 @@ class WP_PollDaddy {
 			'partner_userid' => $GLOBALS['current_user']->ID
 		);
 		if ( function_exists( 'wp_remote_post' ) ) { // WP 2.7+
-			$polldaddy_api_key = wp_remote_post( 'https://api.polldaddy.com/key.php', array(
+			$polldaddy_api_key = wp_remote_post( $scheme . '://api.polldaddy.com/key.php', array(
 				'body' => $details
 			) );
 			if ( is_wp_error( $polldaddy_api_key ) ) {
@@ -148,12 +169,14 @@ class WP_PollDaddy {
 			list($headers, $polldaddy_api_key) = explode( "\r\n\r\n", $response, 2 );
 		}
 
-		if ( !$polldaddy_api_key ) {
-			$this->errors->add( 'polldaddy_password', __( 'Invalid Account' ) );
-			return false;
+		if( isset( $polldaddy_api_key ) && strlen( $polldaddy_api_key ) > 0 ){
+			update_option( 'polldaddy_api_key', $polldaddy_api_key );
 		}
-
-		update_option( 'polldaddy_api_key', $polldaddy_api_key );
+		else{
+			update_option( 'polldaddy_use_ssl', 1 );
+			$this->errors->add( 'polldaddy_password', __( 'Invalid Account' ) );
+			wp_redirect( add_query_arg( array( 'page' => 'polls' ), wp_get_referer() ) );
+		}
 
 		$polldaddy = $this->get_client( $polldaddy_api_key );
 		$polldaddy->reset();
@@ -162,8 +185,8 @@ class WP_PollDaddy {
 			$this->errors->add( 'GetUserCode', __( 'Account could not be accessed.  Are your email address and password correct?' ) );
 			return false;
 		}
-
-		return true;
+		
+		wp_redirect( add_query_arg( array( 'page' => 'polls' ), wp_get_referer() ) );
 	}
 
 	function parse_errors( &$polldaddy ) {
@@ -231,6 +254,22 @@ class WP_PollDaddy {
 						<input type="password" name="polldaddy_password" id="polldaddy-password" aria-required="true" size="40" />
 					</td>
 				</tr>
+				<?php
+				if ( defined( 'WP_POLLDADDY__USE_SSL' ) ) {
+					$checked = '';
+					if ( WP_POLLDADDY__USE_SSL > 0 )
+						$checked = 'checked="checked"';
+				?>
+				<tr class="form-field form-required">
+					<th valign="top" scope="row">
+						<label for="polldaddy-password">Use SSL</label>
+					</th>
+					<td>
+						<input type="checkbox" name="polldaddy_use_ssl" id="polldaddy-use-ssl" value="1" <?php echo $checked ?>/>
+					</td>
+				</tr><?php
+				}
+				?>
 			</tbody>
 		</table>
 		<p class="submit">
