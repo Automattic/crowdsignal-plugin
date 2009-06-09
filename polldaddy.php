@@ -22,6 +22,8 @@ class WP_PollDaddy {
 	var $errors;
 	var $polldaddy_client_class = 'PollDaddy_Client';
 	var $base_url = false;
+	var $use_ssl = 0;
+	var $scheme = 'https';
 	var $version = '1.1-alpha';
 
 	var $polldaddy_clients = array();
@@ -41,14 +43,7 @@ class WP_PollDaddy {
 		$this->errors = new WP_Error;
 
 		if ( !$this->base_url )
-			$this->base_url = plugins_url() . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
-			
-		if ( !defined( 'WP_POLLDADDY__USE_SSL' ) ) {
-			$ssl = get_option( 'polldaddy_use_ssl' );
-			if ( is_numeric( $ssl ) ){
-				define( 'WP_POLLDADDY__USE_SSL', $ssl );
-			}			
-		}
+			$this->base_url = plugins_url() . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';	
 
 		if ( !defined( 'WP_POLLDADDY__PARTNERGUID' ) ) {
 			$guid = get_option( 'polldaddy_api_key' );
@@ -58,10 +53,13 @@ class WP_PollDaddy {
 		}
 
 		if ( !WP_POLLDADDY__PARTNERGUID ) {
+			$this->use_ssl = (int) get_option( 'polldaddy_use_ssl' );	
+			
 			if ( function_exists( 'add_object_page' ) ) // WP 2.7+
 				$hook = add_object_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'api_key_page' ), "{$this->base_url}polldaddy.png" );
 			else
 				$hook = add_management_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'api_key_page' ) );
+			
 			add_action( "load-$hook", array( &$this, 'api_key_page_load' ) );
 			if ( empty( $_GET['page'] ) || 'polls' != $_GET['page'] )
 				add_action( 'admin_notices', create_function( '', 'echo "<div class=\"error\"><p>" . sprintf( "You need to <a href=\"%s\">input your PollDaddy.com account details</a>.", "edit.php?page=polls" ) . "</p></div>";' ) );
@@ -86,8 +84,6 @@ class WP_PollDaddy {
 			return false;
 
 		check_admin_referer( 'polldaddy-account' );
-		
-		$scheme = 'https';
 
 		$polldaddy_email = stripslashes( $_POST['polldaddy_email'] );
 		$polldaddy_password = stripslashes( $_POST['polldaddy_password'] );
@@ -96,12 +92,12 @@ class WP_PollDaddy {
 			$polldaddy_use_ssl = (int) $_POST['polldaddy_use_ssl'];
 			
 			if( $polldaddy_use_ssl == 1 ){
-				update_option( 'polldaddy_use_ssl', 1 );
+				update_option( 'polldaddy_use_ssl', 2 );
 			}				
 		}
-		else if( defined( 'WP_POLLDADDY__USE_SSL' ) ){
-			$scheme = 'http';
-			update_option( 'polldaddy_use_ssl', 0 );
+		else{
+			$this->scheme = 'http';
+			update_option( 'polldaddy_use_ssl', 1 );
 		}
 
 		if ( !$polldaddy_email )
@@ -119,8 +115,9 @@ class WP_PollDaddy {
 			'uPass' => $polldaddy_password,
 			'partner_userid' => $GLOBALS['current_user']->ID
 		);
+		
 		if ( function_exists( 'wp_remote_post' ) ) { // WP 2.7+
-			$polldaddy_api_key = wp_remote_post( $scheme . '://api.polldaddy.com/key.php', array(
+			$polldaddy_api_key = wp_remote_post( $this->scheme . '://api.polldaddy.com/key.php', array(
 				'body' => $details
 			) );
 			if ( is_wp_error( $polldaddy_api_key ) ) {
@@ -173,7 +170,7 @@ class WP_PollDaddy {
 			update_option( 'polldaddy_api_key', $polldaddy_api_key );
 		}
 		else{
-			update_option( 'polldaddy_use_ssl', 1 );
+			update_option( 'polldaddy_use_ssl', 2 );
 			$this->errors->add( 'polldaddy_password', __( 'Invalid Account' ) );
 			return false;
 		}
@@ -256,17 +253,18 @@ class WP_PollDaddy {
 					</td>
 				</tr>
 				<?php
-				if ( defined( 'WP_POLLDADDY__USE_SSL' ) ) {
+				if ( $this->use_ssl > 0 ) {
 					$checked = '';
-					if ( WP_POLLDADDY__USE_SSL > 0 )
+					if ( $this->use_ssl == 2 )
 						$checked = 'checked="checked"';
 				?>
 				<tr class="form-field form-required">
 					<th valign="top" scope="row">
-						<label for="polldaddy-password">Use SSL</label>
+						<label for="polldaddy-use-ssl">Use SSL</label>
 					</th>
 					<td>
 						<input type="checkbox" name="polldaddy_use_ssl" id="polldaddy-use-ssl" value="1" <?php echo $checked ?>/>
+						<label for="polldaddy-use-ssl">This ensures a secure login to your PollDaddy account</label>
 					</td>
 				</tr><?php
 				}
