@@ -171,7 +171,7 @@ class WP_PollDaddy {
 		}
 		else{
 			update_option( 'polldaddy_use_ssl', 2 );
-			$this->errors->add( 'polldaddy_password', __( 'Invalid Account' ) );
+			$this->errors->add( 'polldaddy_password', __( 'SSL login to PollDaddy failed. You will need to uncheck the \'Use SSL\' checkbox to continue.' ) );
 			return false;
 		}
 
