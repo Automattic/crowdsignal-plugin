@@ -175,7 +175,7 @@ class WP_PollDaddy {
 		else{
 			update_option( 'polldaddy_use_ssl', 1 );
 			$this->errors->add( 'polldaddy_password', __( 'Invalid Account' ) );
-			wp_redirect( add_query_arg( array( 'page' => 'polls' ), wp_get_referer() ) );
+			return false;
 		}
 
 		$polldaddy = $this->get_client( $polldaddy_api_key );
@@ -187,6 +187,7 @@ class WP_PollDaddy {
 		}
 		
 		wp_redirect( add_query_arg( array( 'page' => 'polls' ), wp_get_referer() ) );
+		exit;
 	}
 
 	function parse_errors( &$polldaddy ) {
