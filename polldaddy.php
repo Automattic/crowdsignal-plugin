@@ -24,7 +24,7 @@ class WP_PollDaddy {
 	var $base_url = false;
 	var $use_ssl = 0;
 	var $scheme = 'https';
-	var $version = '1.1-alpha';
+	var $version = '1.2';
 
 	var $polldaddy_clients = array();
 
