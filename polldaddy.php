@@ -88,18 +88,6 @@ class WP_PollDaddy {
 		$polldaddy_email = stripslashes( $_POST['polldaddy_email'] );
 		$polldaddy_password = stripslashes( $_POST['polldaddy_password'] );
 		
-		if( isset( $_POST['polldaddy_use_ssl'] ) ){
-			$polldaddy_use_ssl = (int) $_POST['polldaddy_use_ssl'];
-			
-			if( $polldaddy_use_ssl == 1 ){
-				update_option( 'polldaddy_use_ssl', 2 );
-			}				
-		}
-		else{
-			$this->scheme = 'http';
-			update_option( 'polldaddy_use_ssl', 1 );
-		}
-
 		if ( !$polldaddy_email )
 			$this->errors->add( 'polldaddy_email', __( 'Email address required' ) );
 
@@ -109,13 +97,23 @@ class WP_PollDaddy {
 		if ( $this->errors->get_error_codes() )
 			return false;
 
+		if ( !empty( $_POST['polldaddy_use_ssl_checkbox'] ) ) {
+			if ( $polldaddy_use_ssl = (int) $_POST['polldaddy_use_ssl'] ) {
+				$this->use_ssl = 2;
+			} else {
+				$this->use_ssl = 1;
+				$this->scheme = 'http';
+			}
+			update_option( 'polldaddy_use_ssl', $this->use_ssl );
+		}
+
 		$details = array( 
 			'uName' => get_bloginfo( 'name' ),
 			'uEmail' => $polldaddy_email,
 			'uPass' => $polldaddy_password,
 			'partner_userid' => $GLOBALS['current_user']->ID
 		);
-		
+
 		if ( function_exists( 'wp_remote_post' ) ) { // WP 2.7+
 			$polldaddy_api_key = wp_remote_post( $this->scheme . '://api.polldaddy.com/key.php', array(
 				'body' => $details
@@ -170,8 +168,13 @@ class WP_PollDaddy {
 			update_option( 'polldaddy_api_key', $polldaddy_api_key );
 		}
 		else{
-			update_option( 'polldaddy_use_ssl', 2 );
-			$this->errors->add( 'polldaddy_password', __( 'SSL login to PollDaddy failed. You will need to uncheck the \'Use SSL\' checkbox to continue.' ) );
+			$this->errors->add( 'polldaddy_api_key', __( 'Login to PollDaddy failed.  Double check your email address and password.' ) );
+			if ( 1 !== $this->use_ssl ) {
+				$this->errors->add( 'polldaddy_api_key', __( 'If your email address and password are correct, your host may not support secure logins.' ) );
+				$this->errors->add( 'polldaddy_api_key', __( 'In that case, you may be able to log in to PollDaddy by unchecking the "Use SSL to Log in" checkbox.' ) );
+				$this->use_ssl = 2;
+			}
+			update_option( 'polldaddy_use_ssl', $this->use_ssl );
 			return false;
 		}
 
@@ -224,7 +227,7 @@ class WP_PollDaddy {
 	}
 
 	function api_key_page() {
-
+		$this->print_errors();
 ?>
 
 <div class="wrap">
@@ -241,7 +244,7 @@ class WP_PollDaddy {
 						<label for="polldaddy-email">PollDaddy Email Address</label>
 					</th>
 					<td>
-						<input type="text" name="polldaddy_email" id="polldaddy-email" aria-required="true" size="40" />
+						<input type="text" name="polldaddy_email" id="polldaddy-email" aria-required="true" size="40" value="<?php if ( isset( $_POST['polldaddy_email'] ) ) echo attribute_escape( $_POST['polldaddy_email'] ); ?>" />
 					</td>
 				</tr>
 				<tr class="form-field form-required">
@@ -253,6 +256,7 @@ class WP_PollDaddy {
 					</td>
 				</tr>
 				<?php
+
 				if ( $this->use_ssl > 0 ) {
 					$checked = '';
 					if ( $this->use_ssl == 2 )
@@ -260,11 +264,12 @@ class WP_PollDaddy {
 				?>
 				<tr class="form-field form-required">
 					<th valign="top" scope="row">
-						<label for="polldaddy-use-ssl">Use SSL</label>
+						<label for="polldaddy-use-ssl">Use SSL to Log in</label>
 					</th>
 					<td>
-						<input type="checkbox" name="polldaddy_use_ssl" id="polldaddy-use-ssl" value="1" <?php echo $checked ?>/>
-						<label for="polldaddy-use-ssl">This ensures a secure login to your PollDaddy account</label>
+						<input type="checkbox" name="polldaddy_use_ssl" id="polldaddy-use-ssl" value="1" <?php echo $checked ?> style="width: auto"/>
+						<label for="polldaddy-use-ssl">This ensures a secure login to your PollDaddy account.  Only uncheck if you are having problems logging in.</label>
+						<input type="hidden" name="polldaddy_use_ssl_checkbox" value="1" />
 					</td>
 				</tr><?php
 				}
