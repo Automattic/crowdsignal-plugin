@@ -59,7 +59,7 @@ jQuery(function($){
 	var styleCount = $(':input[name=styleID] option').size();
 	var styles = $(':input[name=styleID]').remove();
 	var o = parseInt( styles.val() );
-	$('#design').append( '<input type="hidden" id="hidden-styleID" name="styleID" value="' + o.toString() + '" /><p><strong id="styleID-name">' + $(styles.find('option').get(o)).text() + '</strong><br /><span id="span-styleID">' + ( o + 1 ).toString() + '</span> of ' + styleCount + '</p>');
+	$('#design_standard').append( '<input type="hidden" id="hidden-styleID" name="styleID" value="' + o.toString() + '" /><p><strong id="styleID-name">' + $(styles.find('option').get(o)).text() + '</strong><br /><span id="span-styleID">' + ( o + 1 ).toString() + '</span> of ' + styleCount + '</p>');
 	var hiddenStyleID = $('#hidden-styleID');
 	var spanStyleID = $('#span-styleID');
 	var styleIDName = $('#styleID-name');
