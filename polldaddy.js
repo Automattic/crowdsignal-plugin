@@ -49,11 +49,11 @@ jQuery(function($){
 		return false;
 	} );
 
-	var img1 = $('#design img:first');
+	var img1 = $('#design_standard img:first');
 	if ( !img1.size() ) {
 		return;
 	}
-	var img2 = $('#design img:last');
+	var img2 = $('#design_standard img:last');
 	var imgPath = 'http://polldaddy.com/images/';
 
 	var styleCount = $(':input[name=styleID] option').size();
@@ -73,8 +73,8 @@ jQuery(function($){
 		styleIDName.text( $(styles.find('option').get( ( i + o + styleCount ) % styleCount )).text() );
 	};
 
-	$('#design a.alignleft').click( function() { changePreview( -1 ); return false; } );
-	$('#design a.alignright').click( function() { changePreview( 1 ); return false; } );
+	$('#design_standard a.alignleft').click( function() { changePreview( -1 ); return false; } );
+	$('#design_standard a.alignright').click( function() { changePreview( 1 ); return false; } );
 	
 	var customStyle = $(':input[name=styleID_custom]');
 	var customStyleVal = parseInt( customStyle.val() );
@@ -94,7 +94,7 @@ jQuery(function($){
 			$('#design_custom').hide();
 			$('#design_standard').fadeIn();
 			$('.polldaddy-show-design-options').html('Custom Styles');
-			var styleVal = parseInt( styles.val() );
+			var styleVal = parseInt( img1.attr( 'src' ).substr( imgPath.length ) );
 			hiddenStyleID.val( styleVal.toString() );
 			return false;
 		}, function() {
@@ -123,7 +123,7 @@ jQuery(function($){
 			$('#design_custom').hide();
 			$('#design_standard').fadeIn();
 			$('.polldaddy-show-design-options').html('Custom Styles');
-			var styleVal = parseInt( styles.val() );
+			var styleVal = parseInt( img1.attr( 'src' ).substr( imgPath.length ) );
 			hiddenStyleID.val( styleVal.toString() );
 			return false;
 		} );
