@@ -305,6 +305,24 @@ class PollDaddy_Other_Answers extends PollDaddy_XML_Object {
 	var $otherAnswer;
 }
 
+class PollDaddy_Styles extends PollDaddy_XML_Object {
+	var $___name = 'styles';
+	
+	var $style;
+}
+
+class PollDaddy_Style extends PollDaddy_XML_Object {
+	var $___cdata = array( 'title', 'css' );
+	var $___name = 'style';
+	
+	var $_id;
+	var $_type;
+	
+	var $title;
+	var $date;	
+	var $css;
+}
+
 class PollDaddy_XML_Parser {
 	var $parser;
 	var $polldaddy_objects = array(
