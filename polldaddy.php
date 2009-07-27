@@ -349,7 +349,7 @@ class WP_PollDaddy {
 				return;
 
 			if ( is_array( $poll ) )
-				check_admin_referer( 'delete-poll_bulk' );
+				check_admin_referer( 'action-poll_bulk' );
 			else
 				check_admin_referer( "delete-poll_$poll" );
 
