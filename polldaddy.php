@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 1.2-alpha
+Version: 1.2
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -1029,7 +1029,7 @@ class WP_PollDaddy {
 					15 => 'Music',
 					16 => 'Sunset',
 					17 => 'Pink Butterflies',
-					18 => 'Map',
+					18 => 'Map'
 				);
 				foreach ( $options as $styleID => $label ) :
 					$selected = $styleID == $style_ID ? ' selected="selected"' : '';
