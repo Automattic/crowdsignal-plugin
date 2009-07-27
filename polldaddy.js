@@ -94,7 +94,7 @@ jQuery(function($){
 			$('#design_custom').hide();
 			$('#design_standard').fadeIn();
 			$('.polldaddy-show-design-options').html('Custom Styles');
-			var styleVal = parseInt( img1.attr( 'src' ).substr( imgPath.length ) );
+			var styleVal = parseInt( styles.val() );
 			hiddenStyleID.val( styleVal.toString() );
 			return false;
 		}, function() {
@@ -123,7 +123,7 @@ jQuery(function($){
 			$('#design_custom').hide();
 			$('#design_standard').fadeIn();
 			$('.polldaddy-show-design-options').html('Custom Styles');
-			var styleVal = parseInt( img1.attr( 'src' ).substr( imgPath.length ) );
+			var styleVal = parseInt( styles.val() );
 			hiddenStyleID.val( styleVal.toString() );
 			return false;
 		} );
