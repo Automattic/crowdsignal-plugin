@@ -75,4 +75,57 @@ jQuery(function($){
 
 	$('#design a.alignleft').click( function() { changePreview( -1 ); return false; } );
 	$('#design a.alignright').click( function() { changePreview( 1 ); return false; } );
+	
+	var customStyle = $(':input[name=styleID_custom]');
+	var customStyleVal = parseInt( customStyle.val() );
+	
+	customStyle.change(function() {
+		var customStyleVal = parseInt( customStyle.val() );
+	   	hiddenStyleID.val( customStyleVal.toString() );
+	});
+	
+	if ( customStyleVal > 0 ) {
+		$('#design_standard').hide();
+		$('#design_custom').show();
+		$('.polldaddy-show-design-options').html('Standard Styles');
+		hiddenStyleID.val( customStyleVal.toString() );	
+		
+		$('.polldaddy-show-design-options').toggle( function() {
+			$('#design_custom').hide();
+			$('#design_standard').fadeIn();
+			$('.polldaddy-show-design-options').html('Custom Styles');
+			var styleVal = parseInt( img1.attr( 'src' ).substr( imgPath.length ) );
+			hiddenStyleID.val( styleVal.toString() );
+			return false;
+		}, function() {
+			$('#design_standard').hide();
+			$('#design_custom').fadeIn();
+			$('.polldaddy-show-design-options').html('Standard Styles');
+			var customStyle = $(':input[name=styleID_custom]');
+			var customStyleVal = parseInt( customStyle.val() );
+			hiddenStyleID.val( customStyleVal.toString() );
+			return false;				
+		} );
+	}
+	else{
+		$('#design_custom').hide();
+		$('#design_standard').show();
+		
+		$('.polldaddy-show-design-options').toggle( function() {
+			$('#design_standard').hide();
+			$('#design_custom').fadeIn();
+			$('.polldaddy-show-design-options').html('Standard Styles');
+			var customStyle = $(':input[name=styleID_custom]');
+			var customStyleVal = parseInt( customStyle.val() );
+			hiddenStyleID.val( customStyleVal.toString() );
+			return false;
+		}, function() {
+			$('#design_custom').hide();
+			$('#design_standard').fadeIn();
+			$('.polldaddy-show-design-options').html('Custom Styles');
+			var styleVal = parseInt( img1.attr( 'src' ).substr( imgPath.length ) );
+			hiddenStyleID.val( styleVal.toString() );
+			return false;
+		} );
+	}
 });

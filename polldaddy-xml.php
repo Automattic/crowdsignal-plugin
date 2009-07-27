@@ -192,6 +192,8 @@ class PollDaddy_Demand extends PollDaddy_XML_Object {
 	var $list;
 	var $search;
 	var $result;
+	var $styles;
+	var $style;
 }
 
 class PollDaddy_Account extends PollDaddy_XML_Object {
@@ -247,6 +249,7 @@ class PollDaddy_Poll extends PollDaddy_XML_Object {
 	var $_responses;
 	var $_folderID;
 	var $_owner;
+	var $_closed;
 
 	var $question;
 	var $multipleChoice;
@@ -321,7 +324,9 @@ class PollDaddy_XML_Parser {
 		'http://api.polldaddy.com/pdapi.xsd:answers' => 'PollDaddy_Poll_Answers',
 		'http://api.polldaddy.com/pdapi.xsd:answer' => 'PollDaddy_Poll_Answer',
 		'http://api.polldaddy.com/pdapi.xsd:otherAnswers' => 'PollDaddy_Other_Answers',
-		'http://api.polldaddy.com/pdapi.xsd:result' => 'PollDaddy_Poll_Result'
+		'http://api.polldaddy.com/pdapi.xsd:result' => 'PollDaddy_Poll_Result',
+		'http://api.polldaddy.com/pdapi.xsd:styles' => 'PollDaddy_Styles',
+		'http://api.polldaddy.com/pdapi.xsd:style' => 'PollDaddy_Style'
 	);
 
 	var $object_stack = array();

@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 1.2-alpha
+Version: 1.3
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -24,7 +24,7 @@ class WP_PollDaddy {
 	var $base_url = false;
 	var $use_ssl = 0;
 	var $scheme = 'https';
-	var $version = '1.2';
+	var $version = '1.3';
 
 	var $polldaddy_clients = array();
 
@@ -380,6 +380,78 @@ class WP_PollDaddy {
 			$query_args['message'] = 'deleted';
 			$query_args['deleted'] = count( (array) $poll );
 			break;
+		case 'open' :
+			if ( empty( $poll ) )
+				return;
+
+			if ( is_array( $poll ) )
+				check_admin_referer( 'action-poll_bulk' );
+			else
+				check_admin_referer( "open-poll_$poll" );
+
+			$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, WP_POLLDADDY__USERCODE );
+
+			foreach ( (array) $_REQUEST['poll'] as $poll_id ) {
+				$polldaddy->reset();
+				$poll_object = $polldaddy->GetPoll( $poll );
+
+				if ( !$this->can_edit( $poll_object ) ) {
+					$this->errors->add( 'permission', __( 'You are not allowed to delete this poll.' ) );
+					return false;
+				}
+
+				// Send Poll Author credentials
+				if ( !empty( $poll_object->_owner ) && $current_user->ID != $poll_object->_owner ) {
+					$polldaddy->reset();
+					if ( !$userCode = $polldaddy->GetUserCode( $poll_object->_owner ) ) { 
+						$this->errors->add( 'no_usercode', __( 'Invalid Poll Author' ) );
+					}
+					$polldaddy->userCode = $userCode;
+				}
+
+				$polldaddy->reset();
+				$polldaddy->OpenPoll( $poll_id );
+			}
+
+			$query_args['message'] = 'opened';
+			$query_args['opened'] = count( (array) $poll );
+			break;
+		case 'close' :
+			if ( empty( $poll ) )
+				return;
+
+			if ( is_array( $poll ) )
+				check_admin_referer( 'action-poll_bulk' );
+			else
+				check_admin_referer( "close-poll_$poll" );
+
+			$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, WP_POLLDADDY__USERCODE );
+
+			foreach ( (array) $_REQUEST['poll'] as $poll_id ) {
+				$polldaddy->reset();
+				$poll_object = $polldaddy->GetPoll( $poll );
+
+				if ( !$this->can_edit( $poll_object ) ) {
+					$this->errors->add( 'permission', __( 'You are not allowed to delete this poll.' ) );
+					return false;
+				}
+
+				// Send Poll Author credentials
+				if ( !empty( $poll_object->_owner ) && $current_user->ID != $poll_object->_owner ) {
+					$polldaddy->reset();
+					if ( !$userCode = $polldaddy->GetUserCode( $poll_object->_owner ) ) { 
+						$this->errors->add( 'no_usercode', __( 'Invalid Poll Author' ) );
+					}
+					$polldaddy->userCode = $userCode;
+				}
+
+				$polldaddy->reset();
+				$polldaddy->ClosePoll( $poll_id );
+			}
+
+			$query_args['message'] = 'closed';
+			$query_args['closed'] = count( (array) $poll );
+			break;
 		case 'edit-poll' : // TODO: use polldaddy_poll
 			if ( !$is_POST || !$poll = (int) $poll )
 				return;
@@ -566,6 +638,20 @@ class WP_PollDaddy {
 			else
 				$message = sprintf( __ngettext( '%s Poll Deleted.', '%s Polls Deleted.', $deleted ), number_format_i18n( $deleted ) );
 			break;
+		case 'opened' :
+			$opened = (int) $_GET['opened'];
+			if ( 1 == $opened )
+				$message = __( 'Poll opened.' );
+			else
+				$message = sprintf( __ngettext( '%s Poll Opened.', '%s Polls Opened.', $opened ), number_format_i18n( $opened ) );
+			break;
+		case 'closed' :
+			$closed = (int) $_GET['closed'];
+			if ( 1 == $closed )
+				$message = __( 'Poll closed.' );
+			else
+				$message = sprintf( __ngettext( '%s Poll Closed.', '%s Polls Closed.', $closed ), number_format_i18n( $closed ) );
+			break;
 		case 'updated' :
 			$message = __( 'Poll updated.' );
 			break;
@@ -626,7 +712,7 @@ class WP_PollDaddy {
 		); ?></h2>
 
 <?php
-			echo do_shortcode( "[polldaddy poll=$poll]" );
+			echo do_shortcode( "[polldaddy poll=$poll cb=1]" );
 			break;
 		case 'results' :
 ?>
@@ -709,9 +795,11 @@ class WP_PollDaddy {
 				<select name="action">
 					<option selected="selected" value=""><?php _e( 'Actions' ); ?></option>
 					<option value="delete"><?php _e( 'Delete' ); ?></option>
+					<option value="close"><?php _e( 'Close' ); ?></option>
+					<option value="open"><?php _e( 'Open' ); ?></option>
 				</select>
 				<input class="button-secondary action" type="submit" name="doaction" value="<?php _e( 'Apply' ); ?>" />
-				<?php wp_nonce_field( 'delete-poll_bulk' ); ?>
+				<?php wp_nonce_field( 'action-poll_bulk' ); ?>
 			</div>
 			<div class="tablenav-pages"><?php echo $page_links; ?></div>
 		</div>
@@ -731,6 +819,8 @@ class WP_PollDaddy {
 		if ( $polls ) :
 			foreach ( $polls as $poll ) :
 				$poll_id = (int) $poll->_id;
+				
+				$poll_closed = (int) $poll->_closed;
 
 				if ( $this->can_edit( $poll ) )
 					$edit_link = clean_url( add_query_arg( array( 'action' => 'edit', 'poll' => $poll_id, 'message' => false ) ) );
@@ -740,6 +830,8 @@ class WP_PollDaddy {
 				$class = $class ? '' : ' class="alternate"';
 				$results_link = clean_url( add_query_arg( array( 'action' => 'results', 'poll' => $poll_id, 'message' => false ) ) );
 				$delete_link = clean_url( wp_nonce_url( add_query_arg( array( 'action' => 'delete', 'poll' => $poll_id, 'message' => false ) ), "delete-poll_$poll_id" ) );
+				$open_link = clean_url( wp_nonce_url( add_query_arg( array( 'action' => 'open', 'poll' => $poll_id, 'message' => false ) ), "open-poll_$poll_id" ) );
+				$close_link = clean_url( wp_nonce_url( add_query_arg( array( 'action' => 'close', 'poll' => $poll_id, 'message' => false ) ), "close-poll_$poll_id" ) );
 				$preview_link = clean_url( add_query_arg( array( 'action' => 'preview', 'poll' => $poll_id, 'message' => false ) ) ); //, 'iframe' => '', 'TB_iframe' => 'true' ) ) );
 				list($poll_time) = explode( '.', $poll->_created );
 				$poll_time = strtotime( $poll_time );
@@ -757,6 +849,11 @@ class WP_PollDaddy {
 
 						<span class="results"><a href="<?php echo $results_link; ?>"><?php _e( 'Results' ); ?></a> | </span>
 						<span class="delete"><a class="delete-poll delete" href="<?php echo $delete_link; ?>"><?php _e( 'Delete' ); ?></a> | </span>
+<?php if ( $poll_closed == 2 ) : ?>
+						<span class="open"><a class="open-poll" href="<?php echo $open_link; ?>"><?php _e( 'Open' ); ?></a> | </span>	
+<?php else : ?>
+						<span class="close"><a class="close-poll" href="<?php echo $close_link; ?>"><?php _e( 'Close' ); ?></a> | </span>
+<?php endif; ?>
 <?php if ( isset( $_GET['iframe'] ) ) : ?>
 						<span class="view"><a href="<?php echo $preview_link; ?>"><?php _e( 'Preview' ); ?></a> | </span>
 						<span class="editor">
@@ -994,51 +1091,92 @@ class WP_PollDaddy {
 
 	<div id="design" class="postbox">
 
-<?php	$style_ID = (int) ( $is_POST ? $_POST['styleID'] : $poll->styleID ); ?>
+<?php	$style_ID = (int) ( $is_POST ? $_POST['styleID'] : $poll->styleID );	
+	
+		$options = array(
+			0 => 'Grey Plastic Standard',
+			1 => 'White Plastic Standard',
+			2 => 'Black Plastic Standard',
+			3 => 'Simple Grey',
+			4 => 'Simple White',
+			5 => 'Simple Dark',
+			6 => 'Thinking 1',
+			7 => 'Thinking 2',
+			8 => 'Manga',
+			9 => 'Working 1',
+			10 => 'Working 2',
+			11 => 'SideBar Narrow (Dark)',
+			12 => 'SideBar Narrow (Light)',
+			13 => 'SideBar Narrow (Grey)',
+			14 => 'Skulls',
+			15 => 'Music',
+			16 => 'Sunset',
+			17 => 'Pink Butterflies',
+			18 => 'Map'
+		);
+
+		$polldaddy->reset();
+		$styles = $polldaddy->GetStyles();
+	
+		$show_custom = false;
+		if( isset( $styles ) && count( $styles ) > 0 ){
+			$show_custom = true;
+		}			
+	
+		if ( $style_ID > 18 ){
+			$standard_style_ID = 0;
+			$custom_style_ID = $style_ID;
+		}
+		else{
+			$standard_style_ID = $style_ID;
+			$custom_style_ID = 0;
+		}
+?>
 
 		<h3><?php _e( 'Design' ); ?></h3>
 
 		<div class="inside">
-			<div class="hide-if-no-js">
-				<a class="alignleft" href="#previous">&#171;</a>
-				<a class="alignright" href="#next">&#187;</a>
-				<img src="http://polldaddy.com/images/<?php echo $style_ID; ?>.gif" />
-				<img class="hide-if-js" src="http://polldaddy.com/images/<?php echo 1 + $style_ID; ?>.gif" />
+			<div id="design_standard" >
+				<div class="hide-if-no-js">
+					<a class="alignleft" href="#previous">&#171;</a>
+					<a class="alignright" href="#next">&#187;</a>
+					<img src="http://polldaddy.com/images/<?php echo $standard_style_ID; ?>.gif" />
+					<img class="hide-if-js" src="http://polldaddy.com/images/<?php echo 1 + $standard_style_ID; ?>.gif" />
+				</div>
+
+				<p class="hide-if-js" id="no-js-styleID">
+					<select name="styleID">
+
+				<?php 	foreach ( $options as $styleID => $label ) :
+						$selected = $styleID == $standard_style_ID ? ' selected="selected"' : ''; ?>
+						<option value="<?php echo (int) $styleID; ?>"<?php echo $selected; ?>><?php echo wp_specialchars( $label ); ?></option>
+				<?php 	endforeach; ?>
+
+					</select>
+				</p>				
 			</div>
+			<?php if ( $show_custom ){ ?>
+			<div id="design_custom">
+				<p class="hide-if-no-js">
+					You can select from the list of custom styles that you created on PollDaddy.com
+					<br />
+					<br />
+					Select a custom style: 
+					<select name="styleID_custom">
+				<?php 	$selected = $custom_style_ID == 0 ? ' selected="selected"' : ''; ?>
+						<option value="0"<?php echo $selected; ?>></option>
+				<?php 	foreach ( $styles->style as $style ) :
+						$selected = $style->_id == $custom_style_ID ? ' selected="selected"' : ''; ?>
+						<option value="<?php echo (int) $style->_id; ?>"<?php echo $selected; ?>><?php echo wp_specialchars( $style->title ); ?></option>
+				<?php	endforeach;?>
 
-			<p class="hide-if-js" id="no-js-styleID">
-				<select name="styleID">
-
-<?php
-				$options = array(
-					0 => 'Grey Plastic Standard',
-					1 => 'White Plastic Standard',
-					2 => 'Black Plastic Standard',
-					3 => 'Simple Grey',
-					4 => 'Simple White',
-					5 => 'Simple Dark',
-					6 => 'Thinking 1',
-					7 => 'Thinking 2',
-					8 => 'Manga',
-					9 => 'Working 1',
-					10 => 'Working 2',
-					11 => 'SideBar Narrow (Dark)',
-					12 => 'SideBar Narrow (Light)',
-					13 => 'SideBar Narrow (Grey)',
-					14 => 'Skulls',
-					15 => 'Music',
-					16 => 'Sunset',
-					17 => 'Pink Butterflies',
-					18 => 'Map',
-				);
-				foreach ( $options as $styleID => $label ) :
-					$selected = $styleID == $style_ID ? ' selected="selected"' : '';
-?>
-					<option value="<?php echo (int) $styleID; ?>"<?php echo $selected; ?>><?php echo wp_specialchars( $label ); ?></option>
-<?php				endforeach; ?>
-
-				</select>
-			</p>
+					</select>
+				</p>
+			</div>
+			<div id="design_options">
+				<a href="#" class="polldaddy-show-design-options">Custom Styles</a>
+			</div>
+			<?php } ?>
 		</div>
 	</div>
 
@@ -1156,11 +1294,13 @@ add_action( 'init', 'polldaddy_loader' );
 function polldaddy_shortcode($atts, $content=null) {
 	extract(shortcode_atts(array(
 		'poll' => 'empty',
+		'cb' => '',
 	), $atts));
 
 	$poll = (int) $poll;
-	
-	return "<script type='text/javascript' language='javascript' charset='utf-8' src='http://s3.polldaddy.com/p/$poll.js'></script><noscript> <a href='http://answers.polldaddy.com/poll/$poll/'>View Poll</a></noscript>";
+	$cb = ( $cb == 1 ? '?cb=' . mktime() : '' );
+		
+	return "<script type='text/javascript' language='javascript' charset='utf-8' src='http://s3.polldaddy.com/p/$poll.js$cb'></script><noscript> <a href='http://answers.polldaddy.com/poll/$poll/'>View Poll</a></noscript>";
 }
 
 add_shortcode('polldaddy', 'polldaddy_shortcode');

@@ -325,6 +325,36 @@ class PollDaddy_Client {
 	}
 
 	/**
+	 * @param int $id PollDaddy Poll ID
+	 * @return bool success
+	 */
+	function OpenPoll( $id ) {
+		if ( !$id = (int) $id )
+			return false;
+
+//		$pos = $this->add_request( __FUNCTION__, new PollDaddy_Poll( null, compact( 'id' ) ) );
+		$pos = $this->add_request( 'OpenPoll', new PollDaddy_Poll( null, compact( 'id' ) ) );
+		$this->send_request();
+
+		return empty( $this->errors );
+	}
+
+	/**
+	 * @param int $id PollDaddy Poll ID
+	 * @return bool success
+	 */
+	function ClosePoll( $id ) {
+		if ( !$id = (int) $id )
+			return false;
+
+//		$pos = $this->add_request( __FUNCTION__, new PollDaddy_Poll( null, compact( 'id' ) ) );
+		$pos = $this->add_request( 'ClosePoll', new PollDaddy_Poll( null, compact( 'id' ) ) );
+		$this->send_request();
+
+		return empty( $this->errors );
+	}
+
+	/**
 	 * @see polldaddy_poll()
 	 * @param array $args polldaddy_poll() args
 	 * @return array|false PollDaddy Poll or false on failure
@@ -487,9 +517,22 @@ class PollDaddy_Client {
 		return false;
 	}
 
-   /* Styles */
-	// Not Implemented
+   	/* Styles */
+		/**
+		 * @return array|false PollDaddy Styles or false on failure
+		 */
 	function GetStyles() {
+		$pos = $this->add_request( 'getstyles', null );
+		$this->send_request();
+
+		$demand = $this->response_part( $pos );
+		if ( isset( $demand->styles ) ) {
+			if ( isset( $demand->styles->style ) ) {
+				if ( !is_array( $demand->styles->style ) )
+					$demand->styles->style = array( $demand->styles->style );
+			}
+			return $demand->styles;
+		}
 		return false;
 	}
 

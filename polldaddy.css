@@ -194,7 +194,7 @@ p#add-answer-holder {
 	text-align: left;
 }
 
-#design a {
+#design_standard a {
 	width: 1em;
 	display: block;
 	font-size: 4em;
@@ -245,4 +245,21 @@ tr.polldaddy-shortcode-row pre {
 	padding: .2em;
 	margin: 0 0 .5em;
 	border: 1px solid #ccc;
+}
+
+.polldaddy-show-design-options{
+	text-align: left;
+	width: 8em;
+	display: block;
+	font-size: 1em;
+	padding: 1em 2em;
+	text-decoration: none;
+}
+
+.design_standard {
+	display: block;
+}
+
+.design_custom {
+	display: none;
 }
