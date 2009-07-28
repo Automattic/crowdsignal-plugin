@@ -15,6 +15,8 @@ The PollDaddy plugin allows you to create and manage your [PollDaddy.com](http:/
 
 Upload the plugin to your blog, Activate it, then enter your PollDaddy.com email address and password.
 
+More info here - http://support.polldaddy.com/installing-wordpress-org-plugin/
+
 == Frequently Asked Questions ==
 
 = I have multiple authors on my blog?  What happens? =
@@ -34,6 +36,7 @@ Nope.  The permissions are the same as for posts.  So Editors and Administrators
 = 1.3 =
 * Added Close/Open poll to poll actions
 * Added Custom Styles link to Edit poll, under Design. This link will be only present when the user has custom styles created on the PollDaddy.com site.
+* Added option to make normal request every login
 
 = 1.2 =
 Bug Fix: SSL request for PollDaddy API key sometimes failed due to host constraints, included option to make a normal http request in this case.

@@ -99,9 +99,9 @@ class WP_PollDaddy {
 
 		if ( !empty( $_POST['polldaddy_use_ssl_checkbox'] ) ) {
 			if ( $polldaddy_use_ssl = (int) $_POST['polldaddy_use_ssl'] ) {
-				$this->use_ssl = 2;
+				$this->use_ssl = 0; //checked (by default)
 			} else {
-				$this->use_ssl = 1;
+				$this->use_ssl = 1; //unchecked
 				$this->scheme = 'http';
 			}
 			update_option( 'polldaddy_use_ssl', $this->use_ssl );
@@ -172,7 +172,7 @@ class WP_PollDaddy {
 			if ( 1 !== $this->use_ssl ) {
 				$this->errors->add( 'polldaddy_api_key', __( 'If your email address and password are correct, your host may not support secure logins.' ) );
 				$this->errors->add( 'polldaddy_api_key', __( 'In that case, you may be able to log in to PollDaddy by unchecking the "Use SSL to Log in" checkbox.' ) );
-				$this->use_ssl = 2;
+				$this->use_ssl = 0;
 			}
 			update_option( 'polldaddy_use_ssl', $this->use_ssl );
 			return false;
@@ -256,11 +256,9 @@ class WP_PollDaddy {
 					</td>
 				</tr>
 				<?php
-
-				if ( $this->use_ssl > 0 ) {
-					$checked = '';
-					if ( $this->use_ssl == 2 )
-						$checked = 'checked="checked"';
+				$checked = '';
+				if ( $this->use_ssl == 0 )
+					$checked = 'checked="checked"';
 				?>
 				<tr class="form-field form-required">
 					<th valign="top" scope="row">
@@ -271,9 +269,7 @@ class WP_PollDaddy {
 						<label for="polldaddy-use-ssl">This ensures a secure login to your PollDaddy account.  Only uncheck if you are having problems logging in.</label>
 						<input type="hidden" name="polldaddy_use_ssl_checkbox" value="1" />
 					</td>
-				</tr><?php
-				}
-				?>
+				</tr>
 			</tbody>
 		</table>
 		<p class="submit">
@@ -349,7 +345,7 @@ class WP_PollDaddy {
 				return;
 
 			if ( is_array( $poll ) )
-				check_admin_referer( 'action-poll_bulk' );
+				check_admin_referer( 'delete-poll_bulk' );
 			else
 				check_admin_referer( "delete-poll_$poll" );
 
