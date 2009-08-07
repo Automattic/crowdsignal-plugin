@@ -572,7 +572,14 @@ class WP_PollDaddy {
 					$poll_data[$key] = stripslashes( $_POST[$key] );
 
 			$poll_data['answers'] = $answers;
-
+			if ( isset ( $_POST['styleID'] ) ){
+				if ( $_POST['styleID'] == 'x' ){
+			        $this->errors->add( 'UpdatePoll', __( 'Please choose a poll style' ) );
+			        return false;
+				}
+			}
+			$poll_data['styleID'] = $_POST['styleID'];
+			
 			$poll = $polldaddy->CreatePoll( $poll_data );
 			$this->parse_errors( $polldaddy );
 
