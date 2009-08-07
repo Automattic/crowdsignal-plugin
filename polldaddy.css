@@ -258,8 +258,95 @@ tr.polldaddy-shortcode-row pre {
 
 .design_standard {
 	display: block;
+	padding: 0px 0px 0px 20px;
 }
 
-.design_custom {
-	display: none;
+.pollStyle
+{
+  width: 100%;
+  border-collapse:collapse;
+}
+
+.pollStyle .cb
+{
+  height: 40px;
+  width: 30px;
+  padding: 0px 0px 2px 0px;
+}
+
+.pollStyle .selector
+{
+  width: 250px;
+}
+
+.pollStyle .customSelect
+{
+ vertical-align: top;
+ text-align:left;
+ margin: 0px;
+}
+
+.pollStyle TH
+{
+  text-align: left;
+}
+
+.st_selector {
+	border-collapse: collapse;
+}
+
+.st_selector .img {
+	width: 150px;
+	padding: 0px;
+	margin: 0px;
+	height: 200px;
+}
+
+.st_selector .dir_left {
+	padding: 0px 10px 0px 0px;
+	width:75px;
+}
+
+.st_selector .dir_right {
+	padding: 0px 0px 0px 20px;
+	width:75px;
+}
+
+.st_selector .title {
+	text-align: center;
+	height: 20px;
+	font-weight: bold;
+}
+
+.st_selector .counter {
+	text-align: center;
+	width: 150px;
+	padding: 10px 0px 0px 0px;
+}
+
+#st_image{
+	width: 150px;
+	padding: 0px;
+	margin: 0px;
+	height: 200px;
+}
+
+#st_sizes{
+	width: 150px;
+	text-align: center;
+	font-size:12px;
+}
+
+.st_image_loader{
+	width: 150px;
+	padding: 0px;
+	margin: 0px;
+	background: url(http://i.polldaddy.com/polls/st-loader.gif) no-repeat center center;
+}
+
+#st_description{
+	padding: 6px 0px;
+	font-size: 10px;
+	width: 300px;
+	text-align: center;
 }

@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 1.3
+Version: 1.4
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -24,7 +24,7 @@ class WP_PollDaddy {
 	var $base_url = false;
 	var $use_ssl = 0;
 	var $scheme = 'https';
-	var $version = '1.3';
+	var $version = '1.4';
 
 	var $polldaddy_clients = array();
 
@@ -306,6 +306,7 @@ class WP_PollDaddy {
 
 		require_once WP_POLLDADDY__POLLDADDY_CLIENT_PATH;
 
+		wp_enqueue_script( 'polls-style', "{$this->base_url}poll-style-picker.js", array(), $this->version );
 		wp_enqueue_script( 'polls', "{$this->base_url}polldaddy.js", array( 'jquery', 'jquery-ui-sortable' ), $this->version );
 		wp_enqueue_script( 'admin-forms' );
 		add_thickbox();
@@ -524,6 +525,13 @@ class WP_PollDaddy {
 				return false;
 
 			$poll_data['answers'] = $answers;
+			
+			if ( isset ( $_POST['styleID'] ) ){
+				if ( $_POST['styleID'] == 'x' ){
+					$this->errors->add( 'UpdatePoll', __( 'Please choose a poll style' ) );
+					return false;
+				}
+			}
 			$poll_data['styleID'] = (int) $_POST['styleID'];
 
 			$polldaddy->reset();
@@ -1088,37 +1096,15 @@ class WP_PollDaddy {
 	<div id="design" class="postbox">
 
 <?php	$style_ID = (int) ( $is_POST ? $_POST['styleID'] : $poll->styleID );	
-	
-		$options = array(
-			0 => 'Grey Plastic Standard',
-			1 => 'White Plastic Standard',
-			2 => 'Black Plastic Standard',
-			3 => 'Simple Grey',
-			4 => 'Simple White',
-			5 => 'Simple Dark',
-			6 => 'Thinking 1',
-			7 => 'Thinking 2',
-			8 => 'Manga',
-			9 => 'Working 1',
-			10 => 'Working 2',
-			11 => 'SideBar Narrow (Dark)',
-			12 => 'SideBar Narrow (Light)',
-			13 => 'SideBar Narrow (Grey)',
-			14 => 'Skulls',
-			15 => 'Music',
-			16 => 'Sunset',
-			17 => 'Pink Butterflies',
-			18 => 'Map'
-		);
 
 		$polldaddy->reset();
 		$styles = $polldaddy->GetStyles();
-	
+
 		$show_custom = false;
 		if( isset( $styles ) && count( $styles ) > 0 ){
 			$show_custom = true;
 		}			
-	
+
 		if ( $style_ID > 18 ){
 			$standard_style_ID = 0;
 			$custom_style_ID = $style_ID;
@@ -1130,49 +1116,106 @@ class WP_PollDaddy {
 ?>
 
 		<h3><?php _e( 'Design' ); ?></h3>
-
+		<input type="hidden" name="styleID" id="styleID" value="<?php echo $style_ID ?>">
 		<div class="inside">
-			<div id="design_standard" >
-				<div class="hide-if-no-js">
-					<a class="alignleft" href="#previous">&#171;</a>
-					<a class="alignright" href="#next">&#187;</a>
-					<img src="http://polldaddy.com/images/<?php echo $standard_style_ID; ?>.gif" />
-					<img class="hide-if-js" src="http://polldaddy.com/images/<?php echo 1 + $standard_style_ID; ?>.gif" />
+			<div class="design_standard">
+			<table class="pollStyle">
+				<thead>
+					<tr>
+						<th class="cb">
+							<input type="radio" name="styleTypeCB" id="regular" onclick="javascript:pd_build_styles( 0 );"/>
+						</th>
+						<th>
+							<label for="skin" onclick="javascript:pd_build_styles( 0 );">PollDaddy Style</label>
+						</th>
+						<th/>
+						<th class="cb">
+							<?php $disabled = $show_custom == false ? ' disabled="true"' : ''; ?>
+							<input type="radio" name="styleTypeCB" id="custom" onclick="javascript:pd_change_style($('customSelect').value);" <?php echo $disabled; ?>></input>
+						</th>
+						<th>
+							<label onclick="javascript:pd_change_style($('customSelect').value);">Custom Style</label>
+						</th>
+					</tr>
+				</thead>
+				<tr>
+					<td/>
+					<td class="selector">
+						<table class="st_selector">
+							<tr>
+								<td class="dir_left">
+									<a href="javascript:pd_move('prev');" style="width: 1em;display: block;font-size: 4em;text-decoration: none;">&#171;</a>
+								</td>
+								<td class="img"><div class="st_image_loader"><div id="st_image" onmouseover="st_results(this, 'show');" onmouseout="st_results(this, 'hide');"></div></div></td>
+								<td class="dir_right">
+									<a href="javascript:pd_move('next');" style="width: 1em;display: block;font-size: 4em;text-decoration: none;">&#187;</a>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td class="counter">
+									<div id="st_number"></div>
+								</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td class="title">
+									<div id="st_name"></div>
+								</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>
+									<div id="st_sizes"></div>
+								</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td colspan="3">
+									<div id="st_description"></div>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td width="100"></td>
+					<td/>
+					<td class="customSelect">
+						<table>
+							<tr>
+								<td><?php $hide = $show_custom == true ? ' style="display:block;"' : ' style="display:none;"'; ?>
+								<select id="customSelect" name="customSelect" onclick="pd_change_style(this.value);" <?php echo $hide ?>>
+									<?php 	$selected = $custom_style_ID == 0 ? ' selected="selected"' : ''; ?>
+											<option value="x"<?php echo $selected; ?>>Please choose a custom style...</option>
+									<?php 	foreach ( $styles->style as $style ) :
+											$selected = $style->_id == $custom_style_ID ? ' selected="selected"' : ''; ?>
+											<option value="<?php echo (int) $style->_id; ?>"<?php echo $selected; ?>><?php echo wp_specialchars( $style->title ); ?></option>
+									<?php	endforeach;?>
+								</select>
+								<div id="styleIDErr" class="formErr" style="display:none;">Please choose a style.</div></td>
+							</tr>
+							<tr>
+								<td><?php $extra = $show_custom == false ? 'You currently have no custom styles created.' : ''; ?>
+									<p><?php echo $extra ?></p>
+									<p>Did you know we have a new editor for building your own custom poll styles? Find out more <a href="http://support.polldaddy.com/custom-poll-styles/" target="_blank">here</a>.</p>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+
+<script language="javascript">
+current_pos = 0;
+pd_build_styles( current_pos );
+<?php if( $style_ID > 0 && $style_ID <= 1000 ){ ?>
+pd_pick_style( <?php echo $style_ID ?> );
+<?php }else{ ?>
+pd_change_style( <?php echo $style_ID ?> );
+<?php } ?>
+</script>
 				</div>
-
-				<p class="hide-if-js" id="no-js-styleID">
-					<select name="styleID">
-
-				<?php 	foreach ( $options as $styleID => $label ) :
-						$selected = $styleID == $standard_style_ID ? ' selected="selected"' : ''; ?>
-						<option value="<?php echo (int) $styleID; ?>"<?php echo $selected; ?>><?php echo wp_specialchars( $label ); ?></option>
-				<?php 	endforeach; ?>
-
-					</select>
-				</p>				
-			</div>
-			<?php if ( $show_custom ){ ?>
-			<div id="design_custom">
-				<p class="hide-if-no-js">
-					You can select from the list of custom styles that you created on PollDaddy.com
-					<br />
-					<br />
-					Select a custom style: 
-					<select name="styleID_custom">
-				<?php 	$selected = $custom_style_ID == 0 ? ' selected="selected"' : ''; ?>
-						<option value="0"<?php echo $selected; ?>></option>
-				<?php 	foreach ( $styles->style as $style ) :
-						$selected = $style->_id == $custom_style_ID ? ' selected="selected"' : ''; ?>
-						<option value="<?php echo (int) $style->_id; ?>"<?php echo $selected; ?>><?php echo wp_specialchars( $style->title ); ?></option>
-				<?php	endforeach;?>
-
-					</select>
-				</p>
-			</div>
-			<div id="design_options">
-				<a href="#" class="polldaddy-show-design-options">Custom Styles</a>
-			</div>
-			<?php } ?>
 		</div>
 	</div>
 
