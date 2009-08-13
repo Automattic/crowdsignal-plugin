@@ -1,4 +1,4 @@
-=== PollDaddy ===
+=== PollDaddy Polls ===
 Contributors: mdawaffe, eoigal
 Tags: poll, polls, polldaddy, WordPress.com
 Requires at least: 2.6
