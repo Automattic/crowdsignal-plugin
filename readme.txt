@@ -1,6 +1,6 @@
 === PollDaddy Polls ===
 Contributors: mdawaffe, eoigal
-Tags: poll, polls, polldaddy, WordPress.com
+Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys
 Requires at least: 2.6
 Tested up to: 2.7.1
 Stable tag: 1.4
