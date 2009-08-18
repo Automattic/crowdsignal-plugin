@@ -445,7 +445,7 @@ class PollDaddy_Client {
 					if ( is_array( $demand->result->otherAnswers->otherAnswer ) )
 						$others = $demand->result->otherAnswers->otherAnswer;
 					else
-						$others = array( $demand->result->otherAnswers->othernswer );
+						$others = array( $demand->result->otherAnswers->otherAnswer );
 				}
 			}
 			return (object) compact( 'answers', 'others' );
