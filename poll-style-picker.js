@@ -64,6 +64,13 @@ s.tag = 'st-skull-light';
 styles_array.push(s);
 
 var s = new pd_style;
+s.name = 'Micro';
+s.m_id = 157;
+s.m_desc = 'Width 150px. The micro style is useful when space is tight.';
+s.tag = 'st-micro';
+styles_array.push(s);
+
+var s = new pd_style;
 s.name = 'Plastic White';
 s.n_id = 119;
 s.m_id = 120;
