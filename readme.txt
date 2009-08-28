@@ -3,13 +3,13 @@ Contributors: mdawaffe, eoigal
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys
 Requires at least: 2.6
 Tested up to: 2.7.1
-Stable tag: 1.5
+Stable tag: 1.6
 
 Create and manage PollDaddy polls from within WordPress.
 
 == Description ==
 
-The PollDaddy plugin allows you to create and manage your [PollDaddy.com](http://polldaddy.com/) polls from within your WordPress blog's administration area.
+The PollDaddy Polls plugin allows you to create and manage polls from within your WordPress dashboard. You can create polls, choose from 20 different styles for your polls and view all results for your polls as they come in. All PollDaddy polls are fully customizable, you can set a close date for your poll, create multiple choice polls, choose whether to display the results or keep them private. You can even embed the polls you create on other websites. You can collect unlimited votes and create unlimited polls.
 
 == Installation ==
 
@@ -32,6 +32,9 @@ Yes. You'll be able to edit the polls they create from your blog.  (You won't be
 Nope.  The permissions are the same as for posts.  So Editors and Administrators can edit anyone's polls for that blog.  Authors can only edit their own.
 
 == Change Log ==
+* Added Poll Question and Answer fields now accept limited HTML tags
+* Added 'Share This' link option to allow voters to share the poll around the interweb
+
 = 1.5 =
 Bug Fix: Other answers in the poll results are now displaying.
 

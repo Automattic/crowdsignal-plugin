@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 1.5
+Version: 1.6
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -24,7 +24,7 @@ class WP_PollDaddy {
 	var $base_url = false;
 	var $use_ssl = 0;
 	var $scheme = 'https';
-	var $version = '1.5';
+	var $version = '1.6';
 
 	var $polldaddy_clients = array();
 
@@ -317,6 +317,38 @@ class WP_PollDaddy {
 		add_action( 'admin_notices', array( &$this, 'management_page_notices' ) );
 
 		$query_args = array();
+		
+		$allowedtags = array(
+			'a' => array(
+				'href' => array (),
+				'title' => array (),
+				'target' => array ()),
+			'img' => array(
+				'alt' => array (),
+				'align' => array (),
+				'border' => array (),
+				'class' => array (),
+				'height' => array (),
+				'hspace' => array (),
+				'longdesc' => array (),
+				'vspace' => array (),
+				'src' => array (),
+				'width' => array ()),
+			'abbr' => array(
+				'title' => array ()),
+			'acronym' => array(
+				'title' => array ()),
+			'b' => array(),
+			'blockquote' => array(
+				'cite' => array ()),
+			'cite' => array (),
+			'em' => array (), 
+			'i' => array (),
+			'q' => array( 
+				'cite' => array ()),
+			'strike' => array(),
+			'strong' => array()
+		);
 
 		$is_POST = 'post' == strtolower( $_SERVER['REQUEST_METHOD'] );
 
@@ -488,7 +520,7 @@ class WP_PollDaddy {
 				if ( '_' === $key[0] )
 					unset( $poll_data[$key] );
 
-			foreach ( array( 'multipleChoice', 'randomiseAnswers', 'otherAnswer' ) as $option ) {
+			foreach ( array( 'multipleChoice', 'randomiseAnswers', 'otherAnswer', 'sharing' ) as $option ) {
 				if ( isset( $_POST[$option] ) && $_POST[$option] )
 					$poll_data[$option] = 'yes';
 				else
@@ -511,7 +543,9 @@ class WP_PollDaddy {
 			foreach ( $_POST['answer'] as $answer_id => $answer ) {
 				if ( !$answer = trim( stripslashes( $answer ) ) )
 					continue;
-
+				
+				$answer = wp_kses( $answer, $allowedtags );
+				
 				if ( is_numeric( $answer_id ) )
 					$answers[] = polldaddy_poll_answer( $answer, $answer_id );
 				else
@@ -525,6 +559,8 @@ class WP_PollDaddy {
 				return false;
 
 			$poll_data['answers'] = $answers;
+			
+			$poll_data['question'] = wp_kses( $poll_data['question'], $allowedtags );
 			
 			if ( isset ( $_POST['styleID'] ) ){
 				if ( $_POST['styleID'] == 'x' ){
@@ -560,9 +596,15 @@ class WP_PollDaddy {
 			$polldaddy->reset();
 
 			$answers = array();
-			foreach ( $_POST['answer'] as $answer )
-				if ( $answer = trim( stripslashes( $answer ) ) )
-					$answers[] = polldaddy_poll_answer( $answer );
+			foreach ( $_POST['answer'] as $answer ){
+				if ( !$answer = trim( stripslashes( $answer ) ) )
+					continue;
+
+				$answer = wp_kses( $answer, $allowedtags );
+
+				$answers[] = polldaddy_poll_answer( $answer );
+			}
+
 			if ( !$answers )
 				return false;
 
@@ -572,6 +614,9 @@ class WP_PollDaddy {
 					$poll_data[$key] = stripslashes( $_POST[$key] );
 
 			$poll_data['answers'] = $answers;
+			
+			$poll_data['question'] = wp_kses( $poll_data['question'], $allowedtags );
+			
 			if ( isset ( $_POST['styleID'] ) ){
 				if ( $_POST['styleID'] == 'x' ){
 			        $this->errors->add( 'UpdatePoll', __( 'Please choose a poll style' ) );
@@ -831,6 +876,11 @@ class WP_PollDaddy {
 			foreach ( $polls as $poll ) :
 				$poll_id = (int) $poll->_id;
 				
+				$poll->___content = trim( strip_tags( $poll->___content ) );
+                if( strlen( $poll->___content ) == 0 ){
+                	$poll->___content = '-- empty HTML tag --';
+                }				
+				
 				$poll_closed = (int) $poll->_closed;
 
 				if ( $this->can_edit( $poll ) )
@@ -1083,7 +1133,7 @@ class WP_PollDaddy {
 		<ul id="answer-options">
 
 <?php
-		foreach ( array( 'multipleChoice' => __( 'Multiple choice' ), 'randomiseAnswers' => __( 'Randomize answer order' ), 'otherAnswer' => __( 'Allow other answers' ) ) as $option => $label ) :
+		foreach ( array( 'multipleChoice' => __( 'Multiple choice' ), 'randomiseAnswers' => __( 'Randomize answer order' ), 'otherAnswer' => __( 'Allow other answers' ), 'sharing' => __( "'Share This' link" ) ) as $option => $label ) :
 			if ( $is_POST )
 				$checked = 'yes' === $_POST[$option] ? ' checked="checked"' : '';
 			else
@@ -1253,6 +1303,11 @@ pd_change_style( <?php echo $style_ID ?> );
 <?php
 		$class = '';
 		foreach ( $results->answers as $answer ) :
+			$answer->___content = trim( strip_tags( $answer->___content ) );
+            if( strlen( $answer->___content ) == 0 ){
+            	$answer->___content = '-- empty HTML tag --';
+            }
+			
 			$class = $class ? '' : ' class="alternate"';
 			$content = $results->others && 'Other answer...' === $answer->___content ? sprintf( __( 'Other (<a href="%s">see below</a>)' ), '#other-answers-results' ) : wp_specialchars( $answer->___content );
 

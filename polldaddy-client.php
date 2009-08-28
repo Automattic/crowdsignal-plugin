@@ -645,7 +645,7 @@ function &polldaddy_poll( $args = null, $id = null, $_require_data = true ) {
 				return $false;
 		}
 
-		foreach ( array( 'multipleChoice', 'randomiseAnswers', 'otherAnswer', 'makePublic', 'closePoll', 'closePollNow' ) as $bool ) {
+		foreach ( array( 'multipleChoice', 'randomiseAnswers', 'otherAnswer', 'makePublic', 'closePoll', 'closePollNow', 'sharing' ) as $bool ) {
 			if ( 'no' !== $args[$bool] && 'yes' !== $args[$bool] )
 				$args[$bool] = $defaults[$bool];
 		}
@@ -692,6 +692,7 @@ function _polldaddy_poll_defaults() {
 		'closePoll' => 'no',
 		'closePollNow' => 'no',
 		'closeDate' => null,
+		'sharing' => 'yes',
 		'styleID' => 0,
 		'packID' => 0,
 		'folderID' => 0,

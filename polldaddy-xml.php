@@ -269,6 +269,7 @@ class PollDaddy_Poll extends PollDaddy_XML_Object {
 	var $parentID;
 	var $answers;
 
+	var $sharing;
 	var $rank;
 	var $url;
 }
