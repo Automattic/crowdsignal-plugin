@@ -32,6 +32,7 @@ Yes. You'll be able to edit the polls they create from your blog.  (You won't be
 Nope.  The permissions are the same as for posts.  So Editors and Administrators can edit anyone's polls for that blog.  Authors can only edit their own.
 
 == Change Log ==
+= 1.6 =
 * Added Poll Question and Answer fields now accept limited HTML tags
 * Added 'Share This' link option to allow voters to share the poll around the interweb
 
