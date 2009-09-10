@@ -36,16 +36,16 @@ Nope.  The permissions are the same as for posts.  So Editors and Administrators
 * Added Poll Style Editor
 * Updated the PollDaddy API Client code
 * Removed style picker javascript, now reference static file on Polldaddy
-Bug Fix: PollDaddy Answers link to poll in poll embed code now correct
-Bug Fix: iframe view of poll editor now display design area
-Bug Fix: Only print API error once
+* Bug Fix: PollDaddy Answers link to poll in poll embed code now correct
+* Bug Fix: iframe view of poll editor now display design area
+* Bug Fix: Only print API error once
 
 = 1.6 =
 * Added Poll Question and Answer fields now accept limited HTML tags
 * Added 'Share This' link option to allow voters to share the poll around the interweb
 
 = 1.5 =
-Bug Fix: Other answers in the poll results are now displaying.
+* Bug Fix: Other answers in the poll results are now displaying.
 
 = 1.4 =
 * Added new poll styles selector
@@ -56,14 +56,14 @@ Bug Fix: Other answers in the poll results are now displaying.
 * Added option to make normal request every login
 
 = 1.2 =
-Bug Fix: SSL request for PollDaddy API key sometimes failed due to host constraints, included option to make a normal http request in this case.
-Bug Fix: Redirect after login now goes to list polls
+* Bug Fix: SSL request for PollDaddy API key sometimes failed due to host constraints, included option to make a normal http request in this case.
+* Bug Fix: Redirect after login now goes to list polls
 
 = 1.1 =
-Bug Fix: Don't call PollDaddy API on every admin page load
-Bug Fix: Correct Image locations
-Bug Fix: CSS Tweaks for upcoming WordPress 2.8
-Make Javascript image selector more robust
+* Bug Fix: Don't call PollDaddy API on every admin page load
+* Bug Fix: Correct Image locations
+* Bug Fix: CSS Tweaks for upcoming WordPress 2.8
+* Make Javascript image selector more robust
 
 = 1.0 =
 * New PollDaddy API
