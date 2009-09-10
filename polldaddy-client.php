@@ -3,19 +3,24 @@
 require_once dirname( __FILE__ ) . '/polldaddy-xml.php';
 
 // TODO: polls->poll should always be an array and similar bad typing
-class PollDaddy_Client {
+class api_client {
 	var $polldaddy_url = 'http://api.polldaddy.com/';
 	var $partnerGUID;
 	var $userCode;
+	var $admin = 0;
+	var $version = '1.0';
 
 	var $request = null;
 	var $response = null;
 	var $request_xml = '';
-	var $response_xml = '';
+	var $response_xml = '';	
+	
+	var $requests = array();
+	var $responses = array();
 
 	var $errors = array();
 
-	function PollDaddy_Client( $partnerGUID = '', $userCode = null ) {
+	function api_client( $partnerGUID = '', $userCode = null ) {
 		$this->partnerGUID = $partnerGUID;
 		$this->userCode = $userCode;
 	}
@@ -23,6 +28,8 @@ class PollDaddy_Client {
 	function send_request() {
 		$this->request_xml  = "<?xml version='1.0' encoding='utf-8' ?>\n";
 		$this->request_xml .= $this->request->xml( 'all' );
+		
+		$this->requests[] = $this->request_xml;
 
 		if ( function_exists( 'wp_remote_post' ) ) {
 			$response = wp_remote_post( $this->polldaddy_url, array(
@@ -38,6 +45,11 @@ class PollDaddy_Client {
 		} else {
 			$parsed = parse_url( $this->polldaddy_url );
 
+			if ( !isset( $parsed['host'] ) && !isset( $parsed['scheme'] ) ) {
+				$errors[-1] = 'Invalid API URL';
+				return false;
+			}
+			
 			$fp = fsockopen(
 				$parsed['host'],
 				$parsed['scheme'] == 'ssl' || $parsed['scheme'] == 'https' && extension_loaded('openssl') ? 443 : 80,
@@ -54,7 +66,7 @@ class PollDaddy_Client {
 			if ( function_exists( 'stream_set_timeout' ) )
 				stream_set_timeout( $fp, 3 );
 
-			if ( !$path = $parsed['path'] . ( isset($parsed['query']) ? '?' . $parsed['query'] : '' ) )
+			if ( !isset( $parsed['path']) || !$path = $parsed['path'] . ( isset($parsed['query']) ? '?' . $parsed['query'] : '' ) )
 				$path = '/';
 
 			$request  = "POST $path HTTP/1.0\r\n";
@@ -77,6 +89,8 @@ class PollDaddy_Client {
 
 			list($headers, $this->response_xml) = explode( "\r\n\r\n", $response, 2 );
 		}
+		
+		$this->responses[] = $this->response_xml;
 
 		$parser = new PollDaddy_XML_Parser( $this->response_xml );
 		$this->response =& $parser->objects[0];
@@ -110,6 +124,8 @@ class PollDaddy_Client {
 				'userCode' => $this->userCode,
 				'demands' => new PollDaddy_Demands( array( 'demand' => array() ) )
 			), array(
+				'version' => $this->version,
+				'admin' => $this->admin,
 				'partnerGUID' => $this->partnerGUID
 			) );
 
@@ -141,7 +157,7 @@ class PollDaddy_Client {
 	 * @param int $partnerUserID
 	 * @return string|false PollDaddy userCode or false on failure
 	 */
-	function Initiate( $Email, $Password, $partnerUserID ) {
+	function initiate( $Email, $Password, $partnerUserID ) {
 		$this->request = new PollDaddy_Initiate( compact( 'Email', 'Password' ), array( 'partnerGUID' => $this->partnerGUID, 'partnerUserID' => $partnerUserID ) );
 		$this->send_request();
 		if ( isset( $this->response->userCode ) )
@@ -156,10 +172,10 @@ class PollDaddy_Client {
 	 * @param string $partnerUserID
 	 * @return string|false PollDaddy userCode or false on failure
 	 */
-	function GetUserCode( $partnerUserID ) {
+	function get_usercode( $partnerUserID ) {
 		$this->request = new PollDaddy_Access( array(
 //			'demands' => new PollDaddy_Demands( array( 'demand' => new PollDaddy_Demand( null, array( 'id' => __FUNCTION__ ) ) ) )
-			'demands' => new PollDaddy_Demands( array( 'demand' => new PollDaddy_Demand( null, array( 'id' => 'GetUserCode' ) ) ) )
+			'demands' => new PollDaddy_Demands( array( 'demand' => new PollDaddy_Demand( null, array( 'id' => 'getusercode' ) ) ) )
 		), array(
 			'partnerGUID' => $this->partnerGUID,
 			'partnerUserID' => $partnerUserID
@@ -171,7 +187,7 @@ class PollDaddy_Client {
 	}
 
 	// Not Implemented
-	function RemoveUserCode() {
+	function remove_usercode() {
 		return false;
 	}
 
@@ -181,13 +197,13 @@ class PollDaddy_Client {
 	 * @param array $args polldaddy_account() args
 	 * @return string|false PollDaddy userCode or false on failure
 	 */
-	function CreateAccount( $partnerUserID, $args ) {
+	function create_account( $partnerUserID, $args ) {
 		if ( !$account = polldaddy_account( $args ) )
 			return false;
 
 		$this->request = new PollDaddy_Access( array(
 //			'demands' => new PollDaddy_Demands( array( 'demand' => new PollDaddy_Demand( compact( 'account' ), array( 'id' => __FUNCTION__ ) ) ) )
-			'demands' => new PollDaddy_Demands( array( 'demand' => new PollDaddy_Demand( compact( 'account' ), array( 'id' => 'CreateAccount' ) ) ) )
+			'demands' => new PollDaddy_Demands( array( 'demand' => new PollDaddy_Demand( compact( 'account' ), array( 'id' => 'createaccount' ) ) ) )
 		), array(
 			'partnerGUID' => $this->partnerGUID,
 			'partnerUserID' => $partnerUserID
@@ -205,9 +221,9 @@ class PollDaddy_Client {
 	/**
 	 * @return object|false PollDaddy Account or false on failure
 	 */
-	function GetAccount() {
+	function get_account() {
 //		$pos = $this->add_request( __FUNCTION__ );
-		$pos = $this->add_request( 'GetAccount' );
+		$pos = $this->add_request( 'getaccount' );
 		$this->send_request();
 		$r = $this->response_part( $pos );
 		if ( isset( $r->account ) && !is_null( $r->account->email ) )
@@ -220,12 +236,12 @@ class PollDaddy_Client {
 	 * @param array $args polldaddy_account() args
 	 * @return string|false PollDaddy userCode or false on failure
 	 */
-	function UpdateAccount( $args ) {
+	function update_account( $args ) {
 		if ( !$account = polldaddy_account( $args ) )
 			return false;
 
 //		$this->add_request( __FUNCTION__, $account );
-		$this->add_request( 'UpdateAccount', $account );
+		$this->add_request( 'updateaccount', $account );
 		$this->send_request();
 		if ( isset( $this->response->userCode ) )
 			return $this->response->userCode;
@@ -236,15 +252,15 @@ class PollDaddy_Client {
 	/**
 	 * @return array|false Array of PollDaddy Polls or false on failure
 	 */
-	function ListPolls( $start = 0, $end = 0 ) {
+	function get_polls( $start = 0, $end = 0 ) {
 		$start = (int) $start;
 		$end = (int) $end;
 		if ( !$start && !$end )
 //			$pos = $this->add_request( __FUNCTION__ );
-			$pos = $this->add_request( 'ListPolls' );
+			$pos = $this->add_request( 'getpolls' );
 		else
 //			$pos = $this->add_request( __FUNCTION__, new PollDaddy_List( null, compact( 'start', 'end' ) ) );
-			$pos = $this->add_request( 'ListPolls', new PollDaddy_List( null, compact( 'start', 'end' ) ) );
+			$pos = $this->add_request( 'getpolls', new PollDaddy_List( null, compact( 'start', 'end' ) ) );
 		$this->send_request();
 		$r = $this->response_part( $pos );
 		if ( isset( $r->polls ) ) {
@@ -260,7 +276,7 @@ class PollDaddy_Client {
 	/**
 	 * @return array|false Array of PollDaddy Polls or false on failure
 	 */
-	function listPollsByBlog( $start = 0, $end = 0, $id = null ) {
+	function get_polls_by_parent_id( $start = 0, $end = 0, $id = null ) {
 		$start = (int) $start;
 		$end = (int) $end;
 		if ( !is_numeric( $id ) )
@@ -268,10 +284,10 @@ class PollDaddy_Client {
 
 		if ( !$start && !$end )
 //			$pos = $this->add_request( __FUNCTION__ );
-			$pos = $this->add_request( 'listPollsByBlog', compact( 'id' ) );
+			$pos = $this->add_request( 'getpolls', compact( 'id' ) );
 		else
-//			$pos = $this->add_request( __FUNCTION__, new PollDaddy_List( null, compact( 'start', 'end' ) ) );
-			$pos = $this->add_request( 'listPollsByBlog', new PollDaddy_List( null, compact( 'start', 'end', 'id' ) ) );
+//			$pos = $this->add_request( __FUNCTION__, new PollDaddy_List( null, compact( 'start', 'end', 'id' ) ) );
+			$pos = $this->add_request( 'getpolls', new PollDaddy_List( null, compact( 'start', 'end', 'id' ) ) );
 		$this->send_request();
 		$r = $this->response_part( $pos );
 		if ( isset( $r->polls ) ) {
@@ -288,12 +304,12 @@ class PollDaddy_Client {
 	 * @param int $id PollDaddy Poll ID
 	 * @return array|false PollDaddy Poll or false on failure
 	 */
-	function GetPoll( $id ) {
+	function get_poll( $id ) {
 		if ( !$id = (int) $id )
 			return false;
 
 //		$pos = $this->add_request( __FUNCTION__, new PollDaddy_Poll( null, compact( 'id' ) ) );
-		$pos = $this->add_request( 'GetPoll', new PollDaddy_Poll( null, compact( 'id' ) ) );
+		$pos = $this->add_request( 'getpoll', new PollDaddy_Poll( null, compact( 'id' ) ) );
 		$this->send_request();
 
 		$demand = $this->response_part( $pos );
@@ -311,44 +327,39 @@ class PollDaddy_Client {
 
 	/**
 	 * @param int $id PollDaddy Poll ID
-	 * @return bool success
+	 * @return array|false PollDaddy Poll or false on failure
 	 */
-	function DeletePoll( $id ) {
+	function build_poll( $id ) {
 		if ( !$id = (int) $id )
 			return false;
 
 //		$pos = $this->add_request( __FUNCTION__, new PollDaddy_Poll( null, compact( 'id' ) ) );
-		$pos = $this->add_request( 'DeletePoll', new PollDaddy_Poll( null, compact( 'id' ) ) );
+		$pos = $this->add_request( 'buildpoll', new PollDaddy_Poll( null, compact( 'id' ) ) );
 		$this->send_request();
 
-		return empty( $this->errors );
+		$demand = $this->response_part( $pos );
+		if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->poll ) && !is_null( $demand->poll->question ) ) {
+			if ( isset( $demand->poll->answers->answer ) && !is_array( $demand->poll->answers->answer ) ) {
+				if ( $demand->poll->answers->answer )
+					$demand->poll->answers->answer = array( $demand->poll->answers->answer );
+				else
+					$demand->poll->answers->answer = array();
+			}
+			return $demand->poll;
+		}
+		return false;
 	}
-
+	
 	/**
 	 * @param int $id PollDaddy Poll ID
 	 * @return bool success
 	 */
-	function OpenPoll( $id ) {
+	function delete_poll( $id ) {
 		if ( !$id = (int) $id )
 			return false;
 
 //		$pos = $this->add_request( __FUNCTION__, new PollDaddy_Poll( null, compact( 'id' ) ) );
-		$pos = $this->add_request( 'OpenPoll', new PollDaddy_Poll( null, compact( 'id' ) ) );
-		$this->send_request();
-
-		return empty( $this->errors );
-	}
-
-	/**
-	 * @param int $id PollDaddy Poll ID
-	 * @return bool success
-	 */
-	function ClosePoll( $id ) {
-		if ( !$id = (int) $id )
-			return false;
-
-//		$pos = $this->add_request( __FUNCTION__, new PollDaddy_Poll( null, compact( 'id' ) ) );
-		$pos = $this->add_request( 'ClosePoll', new PollDaddy_Poll( null, compact( 'id' ) ) );
+		$pos = $this->add_request( 'deletepoll', new PollDaddy_Poll( null, compact( 'id' ) ) );
 		$this->send_request();
 
 		return empty( $this->errors );
@@ -359,11 +370,11 @@ class PollDaddy_Client {
 	 * @param array $args polldaddy_poll() args
 	 * @return array|false PollDaddy Poll or false on failure
 	 */
-	function CreatePoll( $args = null ) {
+	function create_poll( $args = null ) {
 		if ( !$poll = polldaddy_poll( $args ) )
 			return false;
 //		$pos = $this->add_request( __FUNCTION__, $poll );
-		$pos = $this->add_request( 'CreatePoll', $poll );
+		$pos = $this->add_request( 'createpoll', $poll );
 		$this->send_request();
 		if ( !$demand = $this->response_part( $pos ) )
 			return $demand;
@@ -379,7 +390,7 @@ class PollDaddy_Client {
 	 * @param array $args polldaddy_poll() args
 	 * @return array|false PollDaddy Poll or false on failure
 	 */
-	function UpdatePoll( $id, $args = null ) {
+	function update_poll( $id, $args = null ) {
 		if ( !$id = (int) $id )
 			return false;
 
@@ -387,45 +398,31 @@ class PollDaddy_Client {
 			return false;
 
 //		$pos = $this->add_request( __FUNCTION__, $poll );
-		$pos = $this->add_request( 'UpdatePoll', $poll );
+		$pos = $this->add_request( 'updatepoll', $poll );
 		$this->send_request();
-		return $this->response_part( $pos );
-	}
-
-	function SearchPolls( $search ) {
-//		$pos = $this->add_request( __FUNCTION__, compact( 'search' ) );
-		$pos = $this->add_request( 'SearchPolls', compact( 'search' ) );
-		$this->send_request();
-
-		$r = $this->response_part( $pos );
-		if ( isset( $r->search ) ) {
-			if ( isset( $r->search->poll ) ) {
-				if ( is_array( $r->search->poll ) )
-					return $r->search->poll;
-				else
-					return array( $r->search->poll );
-			}
-			return array();
-		}
-		return false;
-	}
-
-	// Not Implemented
-	function ListSurveys() {
-		return false;
+		if ( !$demand = $this->response_part( $pos ) )
+			return $demand;
+		if ( !isset( $demand->poll ) )
+			return false;
+		return $demand->poll;
 	}
 
   /* Poll Results */
 	/**
 	 * @param int $id PollDaddy Poll ID
-	 * @return object|false PollDaddy Result or false on failure
+	 * @return array|false PollDaddy Result or false on failure
 	 */
-	function GetPollResults( $id ) {
+	function get_poll_results( $id ) {
 		if ( !$id = (int) $id )
 			return false;
+			
+			$start = 0;
+			$end = 2;
 
 //		$pos = $this->add_request( __FUNCTION__, new PollDaddy_Poll_Result( null, compact( 'id' ) ) );
-		$pos = $this->add_request( 'GetPollResults', new PollDaddy_Poll_Result( null, compact( 'id' ) ) );
+		$pos = $this->add_request( 'getpollresults', new PollDaddy_Poll( null, compact( 'id' ) ) );
+		//Optionally if you want to list other answers... 
+		//$pos = $this->add_request( 'getpollresults', new PollDaddy_List( null, compact( 'id', 'start', 'end' ) ) );
 		$this->send_request();
 
 		$demand = $this->response_part( $pos );
@@ -455,73 +452,189 @@ class PollDaddy_Client {
 
 	/**
 	 * @param int $id PollDaddy Poll ID
-	 * @return object|false PollDaddy Result or false on failure
+	 * @return bool success
 	 */
-	function ResetPollResults( $id ) {
+	function reset_poll_results( $id ) {
 		if ( !$id = (int) $id )
 			return false;
 
 //		$pos = $this->add_request( __FUNCTION__, new PollDaddy_Poll_Result( null, compact( 'id' ) ) );
-		$pos = $this->add_request( 'ResetPollResults', new PollDaddy_Poll_Result( null, compact( 'id' ) ) );
+		$pos = $this->add_request( 'resetpollresults', new PollDaddy_Poll( null, compact( 'id' ) ) );
 		$this->send_request();
 
 		return empty( $this->errors );
 	}
 
   /* Poll Comments */
-	// Not Implemented
-	function GetPollComments() {
+	/**
+	 * @param int $id PollDaddy Poll ID
+	 * @return array|false PollDaddy Comments or false on failure
+	 */
+	function get_poll_comments( $id ) {
+		if ( !$id = (int) $id )
+			return false;
+
+//		$pos = $this->add_request( __FUNCTION__, new PollDaddy_Comments( null, compact( 'id' ) ) );
+		$pos = $this->add_request( 'getpollcomments', new PollDaddy_Poll( null, compact( 'id' ) ) );
+		$this->send_request();
+
+		$demand = $this->response_part( $pos );
+		
+		if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->comments ) ) {
+			if ( isset( $demand->comments->comment ) && !is_array( $demand->comments->comment ) ) {
+				if ( $demand->comments->comment )
+					$demand->comments->comment = array( $demand->comments->comment );
+				else
+					$demand->comments->comment = array();
+			}
+			return $demand->comments;
+		}
 		return false;
 	}
 
-	// Not Implemented
-	function ModerateComment() {
-		return false;
+	/**
+	 * @see polldaddy_comment()
+	 * @param array $args polldaddy_comment() args
+	 * @return bool success
+	 */
+	function moderate_comment( $id, $args = null ) {
+		if ( !$id = (int) $id )
+			return false;
+			
+		if ( !$comment = polldaddy_comment( $args, $id ) )
+			return false;
+
+//		$this->add_request( __FUNCTION__, new PollDaddy_Comments( $comments ) );
+		$this->add_request( 'moderatecomment', $comment);
+		$this->send_request();
+		
+		return empty( $this->errors );	
 	}
 
-  /* Extensions */
+	/* Languages */
+		/**
+		 * @return array|false PollDaddy Languages or false on failure
+		 */
+	function get_languages() {
 
-	// Not Implemented
-	function GetAllExtensions() {
-		return false;
-	}
+//		$pos = $this->add_request( __FUNCTION__, null );
+		$pos = $this->add_request( 'getlanguages', null );
+		$this->send_request();
 
-	// Not Implemented
-	function GetLanguages() {
+		$demand = $this->response_part( $pos );
+		
+		if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->languages ) ) {
+			if ( isset( $demand->languages->language ) && !is_array( $demand->languages->language ) ) {
+				if ( $demand->languages->language )
+					$demand->languages->language  = array( $demand->languages->language );
+				else
+					$demand->languages->language  = array();
+			}
+			return $demand->languages->language;
+		}
 		return false;
 	}
 
    /* Language Packs */
-	// Not Implemented
-	function GetPacks() {
+	/**
+	 * @return array|false PollDaddy Packs or false on failure
+	 */
+	function get_packs() {
+
+//		$pos = $this->add_request( __FUNCTION__, null );
+		$pos = $this->add_request( 'getpacks', null );
+		$this->send_request();
+
+		$demand = $this->response_part( $pos );
+		if ( isset( $demand->packs ) ) {
+			if ( isset( $demand->packs->pack ) ) {
+				if ( !is_array( $demand->packs->pack ) )
+					$demand->packs->pack = array( $demand->packs->pack );
+			}
+			return $demand->packs;
+		}
+		return false;
+	}
+	
+	/**
+	 * @param int $id PollDaddy Pack ID
+	 * @return array|false PollDaddy Pack or false on failure
+	 */
+	function get_pack( $id ) {
+		if ( !$id = (int) $id )
+			return false;
+
+//		$pos = $this->add_request( __FUNCTION__, new PollDaddy_Pack( null, compact( 'id' ) ) );
+		$pos = $this->add_request( 'getpack', new PollDaddy_Pack( null, compact( 'id' ) ) );
+		$this->send_request();
+
+		$demand = $this->response_part( $pos );
+		
+		if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->pack ) ) {
+			return $demand->pack;
+		}
 		return false;
 	}
 
-	// Not Implemented
-	function GetPack() {
-		return false;
+	/**
+	 * @param int $id PollDaddy Pack ID
+	 * @return bool success
+	 */
+	function delete_pack( $id ) {
+		if ( !$id = (int) $id )
+			return false;
+
+//		$pos = $this->add_request( __FUNCTION__, new PollDaddy_Pack( null, compact( 'id' ) ) );
+		$pos = $this->add_request( 'deletepack', new PollDaddy_Pack( null, compact( 'id' ) ) );
+		$this->send_request();
+
+		return empty( $this->errors );
 	}
 
-	// Not Implemented
-	function DeletePack() {
-		return false;
+	/**
+	 * @see polldaddy_pack()
+	 * @param array $args polldaddy_pack() args
+	 * @return array|false PollDaddy Pack or false on failure
+	 */
+	function create_pack( $args = null ) {
+		if ( !$pack = polldaddy_pack( $args ) )
+			return false;
+//		$pos = $this->add_request( __FUNCTION__, $pack );
+		$pos = $this->add_request( 'createpack', $pack );
+		$this->send_request();
+		if ( !$demand = $this->response_part( $pos ) )
+			return $demand;
+		if ( !isset( $demand->pack ) )
+			return false;
+		return $demand->pack;
 	}
 
-	// Not Implemented
-	function CreatePack() {
-		return false;
+	/**
+	 * @see polldaddy_pack()
+	 * @param int $id PollDaddy Pack ID
+	 * @param array $args polldaddy_pack() args
+	 * @return array|false PollDaddy Pack or false on failure
+	 */
+	function update_pack( $id, $args = null ) {
+		if ( !$id = (int) $id )
+			return false;
+
+		if ( !$pack = polldaddy_pack( $args, $id ) )
+			return false;
+
+//		$pos = $this->add_request( __FUNCTION__, $pack );
+		$pos = $this->add_request( 'updatepack', $pack );
+		$this->send_request();
+		return $this->response_part( $pos );
 	}
 
-	// Not Implemented
-	function UpdatePack() {
-		return false;
-	}
+   /* Styles */
+	/**
+	 * @return array|false PollDaddy Styles or false on failure
+	 */
+	function get_styles() {
 
-   	/* Styles */
-		/**
-		 * @return array|false PollDaddy Styles or false on failure
-		 */
-	function GetStyles() {
+//		$pos = $this->add_request( __FUNCTION__, null );
 		$pos = $this->add_request( 'getstyles', null );
 		$this->send_request();
 
@@ -536,42 +649,317 @@ class PollDaddy_Client {
 		return false;
 	}
 
-	// Not Implemented
-	function GetStyle() {
+	/**
+	 * @param int $id PollDaddy Style ID
+	 * @return array|false PollDaddy Style or false on failure
+	 */
+	function get_style( $id ) {
+		if ( !$id = (int) $id )
+			return false;
+
+	//	$pos = $this->add_request( __FUNCTION__, new PollDaddy_Style( null, compact( 'id' ) ) );
+		$pos = $this->add_request( 'getstyle', new PollDaddy_Style( null, compact( 'id' ) ) );
+		$this->send_request();
+
+		$demand = $this->response_part( $pos );
+
+		if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->style ) ) {
+			return $demand->style;
+		}
 		return false;
 	}
 
-	// Not Implemented
-	function DeleteStyle() {
-		return false;
+	/**
+	 * @param int $id PollDaddy Style ID
+	 * @return bool success
+	 */
+	function delete_style( $id ) {
+		if ( !$id = (int) $id )
+			return false;
+
+//		$pos = $this->add_request( __FUNCTION__, new PollDaddy_Style( null, compact( 'id' ) ) );
+		$pos = $this->add_request( 'deletestyle', new PollDaddy_Style( null, compact( 'id' ) ) );
+		$this->send_request();
+
+		return empty( $this->errors );
 	}
 
-	// Not Implemented
-	function CreateStyle() {
-		return false;
+	/**
+	 * @see polldaddy_style()
+	 * @param array $args polldaddy_style() args
+	 * @return array|false PollDaddy Style or false on failure
+	 */
+	function create_style( $args = null ) {
+		if ( !$style = polldaddy_style( $args ) )
+			return false;
+//		$pos = $this->add_request( __FUNCTION__, $style );
+		$pos = $this->add_request( 'createstyle', $style );
+		$this->send_request();
+		if ( !$demand = $this->response_part( $pos ) )
+			return $demand;
+		if ( !isset( $demand->style ) )
+			return false;
+		return $demand->style;
 	}
 
-	// Not Implemented
-	function UpdateStyle() {
-		return false;
+	/**
+	 * @see polldaddy_style()
+	 * @param int $id PollDaddy Style ID
+	 * @param array $args polldaddy_style() args
+	 * @return array|false PollDaddy Style or false on failure
+	 */
+	function update_style( $id, $args = null ) {
+		if ( !$id = (int) $id )
+			return false;
+
+		if ( !$style = polldaddy_style( $args, $id ) )
+			return false;
+
+//		$pos = $this->add_request( __FUNCTION__, $style );
+		$pos = $this->add_request( 'updatestyle', $style );
+		$this->send_request();
+		if ( !$demand = $this->response_part( $pos ) )
+			return $demand;
+		if ( !isset( $demand->style ) )
+			return false;
+		return $demand->style;
 	}
 
-  /* Folders */
-	// Not Implemented
-	function GetFolders() {
+	function get_rating( $id ){
+		if ( !$id = (int) $id )
+			return false;
+		
+		$pos = $this->add_request( 'getrating', new PollDaddy_Rating( null , compact( 'id' ) ) );
+
+		$this->send_request();
+
+		$demand = $this->response_part( $pos );
+
+		if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->rating ) ){
+			return $demand->rating;
+		}
+			
 		return false;
+		
+	}
+	
+	function update_rating( $id, $settings, $type ){
+
+	    if ( !$id = (int) $id )
+	        return false;
+
+	    $pos = $this->add_request( 'updaterating', new PollDaddy_Rating( compact( 'settings'  ) , compact( 'id', 'type' ) ) );
+
+	    $this->send_request();
+
+	    $demand = $this->response_part( $pos );
+
+	    if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->rating ) ){
+	        return $demand->rating;
+	    }
+
+	    return false;
+
 	}
 
-  /* Account Activities */
-	// Not Implemented
-	function GetActivity() {
+    /* Create Rating 
+	 * @param string $name PollDaddy rating name
+	 * @param string $type PollDaddy rating type
+	 * @return array|false PollDaddy Result or false on failure
+	 */
+
+    function create_rating( $name, $type ){
+
+	    $pos = $this->add_request( 'createrating', new PollDaddy_Rating( compact( 'name'  ) , compact( 'type' ) ) );
+
+	    $this->send_request();
+
+	    $demand = $this->response_part( $pos );
+
+	    if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->rating ) ){
+	        return $demand->rating;
+	    }
+
+	    return false;
+
+    }
+	
+	
+	/* Rating Results */
+	/**
+	 * @param int $id PollDaddy Poll ID
+	 * @param string $period Rating period
+	 * @param int $start paging start
+	 * @param int $end paging end
+	 * @return array|false PollDaddy Rating Result or false on failure
+	 */
+	function get_rating_results( $id, $period = '90', $start = 0, $end = 2 ) {
+		if ( !$id = (int) $id )
+			return false;
+
+		$pos = $this->add_request( 'getratingresults', new PollDaddy_List( compact( 'period' ) , compact( 'id', 'start', 'end' ) ) );
+
+		$this->send_request();
+
+		$demand = $this->response_part( $pos );
+
+		if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->rating_result ) ) {
+			if ( isset( $demand->rating_result->ratings ) ) {
+				if ( isset( $demand->rating_result->ratings->rating ) ) {
+					if ( !is_array( $demand->rating_result->ratings->rating ) )
+						$demand->rating_result->ratings->rating = array( $demand->rating_result->ratings->rating );
+				}
+				return $demand->rating_result->ratings;
+			}
+		}
 		return false;
+	}
+}
+
+function &polldaddy_activity( $act ) {
+	if ( !is_string( $act ) || !$act )
+		return false;
+
+	$obj = new PollDaddy_Activity( $act );
+	
+	return $obj; 
+}
+
+/**
+ * @param int $id
+ * @param string $title
+ * @param string $css
+ */
+function &polldaddy_style( $args = null, $id = null, $_require_data = true ) {
+	$false = false;
+	if ( is_a( $args, 'PollDaddy_Style' ) ) {
+		if ( is_null( $id ) )
+			return $args;
+		if ( !$id = (int) $id )
+			return $false;
+		$args->_id = $id;
+		return $args;
 	}
 
-	// Not Implemented
-	function SetActivity() {
-		return false;
+	$defaults = _polldaddy_style_defaults();
+	$retro = 0;
+	
+	if ( !is_null( $args ) ) {
+		$args = wp_parse_args( $args, $defaults );
+
+		//if ( $_require_data ) {}
+		
+		$retro = (int) $args['retro'];
+			
+		if ( is_null( $id ) )
+			$id = $args['id'];
+		unset( $args['id'] );
 	}
+
+	$obj = new PollDaddy_Style( $args, compact( 'id', 'retro' ) );
+	
+	return $obj; 
+}
+
+function _polldaddy_style_defaults() {
+	return array(
+		'id' => null,
+		'title' => false,
+		'css' => false,
+		'retro' => 0
+	);
+}
+
+/**
+ * @param int $id
+ * @param string $title
+ * @param array $phrases
+ */
+function &polldaddy_pack( $args = null, $id = null, $_require_data = true ) {
+	$false = false;
+	if ( is_a( $args, 'PollDaddy_Pack' ) ) {
+		if ( is_null( $id ) )
+			return $args;
+		if ( !$id = (int) $id )
+			return $false;
+		$args->_id = $id;
+		return $args;
+	}
+
+	$defaults = _polldaddy_pack_defaults();
+	$retro = 0;
+	
+	if ( !is_null( $args ) ) {
+		$args = wp_parse_args( $args, $defaults );
+
+		//if ( $_require_data ) {}
+		
+		$retro = (int) $args['retro'];
+
+		$args['pack'] = new Custom_Pack( $args['pack'] );
+			
+		if ( is_null( $id ) )
+			$id = $args['id'];
+		unset( $args['id'] );
+	}
+
+	$obj = new PollDaddy_Pack( $args, compact( 'id', 'retro' ) );
+	
+	return $obj; 
+}
+
+function _polldaddy_pack_defaults() {
+	return array(
+		'id' => null,
+		'retro' => 0,
+		'pack' => array()
+	);
+}
+
+function _polldaddy_pack_phrases_defaults() {
+	return array(
+		'id' => null,
+		'type' => null,
+		'title' => false,
+		'phrase' => array()
+	);
+}
+
+function &polldaddy_custom_phrase( $phrase, $phraseID = null ) {
+	if ( !is_string( $phrase ) || !$phrase )
+		return false;
+
+	$obj = new Custom_Pack_Phrase( $phrase, compact( 'phraseID' ) );
+	
+	return $obj;
+}
+
+function polldaddy_email( $args = null, $id = null, $_require_data = true ) {
+	if ( is_a( $args, 'PollDaddy_Email' ) ) {
+		if ( is_null( $id ) )
+			return $args;
+		if ( !$id = (int) $id )
+			return $false;
+		$args->_id = $id;
+		return $args;
+	}
+
+	$defaults = array();
+
+	if ( !is_null( $args ) ) {
+		$args = wp_parse_args( $args, $defaults );
+
+		if ( $_require_data ) {
+			if ( !isset( $args['address'] ) || !is_string( $args['address'] ) )
+				return false;
+		}
+
+		// Check email is an email address
+		if ( preg_match( '/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i', $args['address'], $matches ) == 0 )
+			return false;
+	}
+
+	return new PollDaddy_Email( $args, compact( 'id' ) );
 }
 
 /**
@@ -601,7 +989,9 @@ function &polldaddy_account( $args = null ) {
 		if ( !is_string( $args[$required] ) || !$args[$required] )
 			return $false;
 
-	return new PollDaddy_Account( $args );
+	$obj = new PollDaddy_Account( $args );
+	
+	return $obj;
 }
 
 function _polldaddy_account_defaults() {
@@ -657,16 +1047,16 @@ function &polldaddy_poll( $args = null, $id = null, $_require_data = true ) {
 		if ( !in_array( $args['resultsType'], array( 'show', 'percent', 'hide' ) ) )
 			$args['resultsType'] = $defaults['resultsType'];
 
-		if ( !in_array( $args['blockRepeatVotersType'], array( 'off', 'cookie', 'cookieIP' ) ) )
+		if ( !in_array( $args['blockRepeatVotersType'], array( 'off', 'cookie', 'cookieip' ) ) )
 			$args['blockRepeatVotersType'] = $defaults['blockRepeatVotersType'];
 
 		if ( !in_array( $args['comments'], array( 'off', 'allow', 'moderate' ) ) )
 			$args['comments'] = $defaults['comments'];
 
 		if ( is_numeric( $args['closeDate'] ) )
-			$args['closeDate'] = gmdate( 'Y-m-d\TH:i:s', $args['closeDate'] ) . 'Z';
+			$args['closeDate'] = gmdate( 'Y-m-d H:i:s', $args['closeDate'] );
 		if ( !$args['closeDate'] )
-			$args['closeDate'] = gmdate( 'Y-m-d\TH:i:s' ) . 'Z';
+			$args['closeDate'] = gmdate( 'Y-m-d H:i:s' );
 
 		$args['answers'] = new PollDaddy_Poll_Answers( array( 'answer' => $args['answers'] ) );
 
@@ -674,8 +1064,10 @@ function &polldaddy_poll( $args = null, $id = null, $_require_data = true ) {
 			$id = $args['id'];
 		unset( $args['id'] );
 	}
+	
+	$obj = new PollDaddy_Poll( $args, compact( 'id' ) );
 
-	return new PollDaddy_Poll( $args, compact( 'id' ) );
+	return $obj;
 }
 
 function _polldaddy_poll_defaults() {
@@ -687,18 +1079,70 @@ function _polldaddy_poll_defaults() {
 		'otherAnswer' => 'no',
 		'resultsType' => 'show',
 		'blockRepeatVotersType' => 'cookie',
-		'comments' => 'off',
+		'comments' => 'allow',
 		'makePublic' => 'yes',
 		'closePoll' => 'no',
 		'closePollNow' => 'no',
-		'closeDate' => null,
 		'sharing' => 'yes',
+		'closeDate' => gmdate( 'Y-m-d H:i:s' ),
 		'styleID' => 0,
 		'packID' => 0,
 		'folderID' => 0,
 		'languageID' => _polldaddy_poll_default_language_id(),
 		'parentID' => (int) $GLOBALS['blog_id'],
+		'mediaCode' => '',
+		'mediaType' => 0,
 		'answers' => array()
+	);
+}
+
+/**
+ * @param int $id
+ * @param int $type
+ */
+function &polldaddy_comment( $args = null, $id = null ) {
+	$defaults = _polldaddy_comment_defaults();
+
+	$atts = wp_parse_args( $args, $defaults );
+	
+	$obj = new PollDaddy_Comment( null, $atts );
+	
+	return $obj; 
+}
+
+function _polldaddy_comment_defaults() {
+	return array(
+		'id' => null,
+		'method' => 0
+	);
+}
+
+/**
+ * @param int $id
+ * @param array $comment
+ */
+function &polldaddy_comments( $args = null, $id = null ) {
+	$false = false;
+	if ( is_a( $args, 'PollDaddy_Comments' ) )
+		return $args;
+
+	$defaults = _polldaddy_comments_defaults();
+
+	$args = wp_parse_args( $args, $defaults );
+
+	if ( is_null( $id ) )
+		$id = $args['id'];
+	unset( $args['id'] );
+	
+	$obj = new PollDaddy_Comments( $args, compact( 'id' ) );
+	
+	return $obj; 
+}
+
+function _polldaddy_comments_defaults() {
+	return array(
+		'id' => null,
+		'comment' => array()
 	);
 }
 
@@ -708,11 +1152,13 @@ function _polldaddy_poll_default_language_id() {
 }
 endif;
 
-function &polldaddy_poll_answer( $answer, $id = null ) {
-	if ( !is_string( $answer ) || !$answer )
+function &polldaddy_poll_answer( $args, $id = null ) {
+	if ( !is_string( $args['text'] ) || !$args['text'] )
 		return false;
+		
+	$answer = new PollDaddy_Poll_Answer( $args, compact( 'id' ) );
 
-	return new PollDaddy_Poll_Answer( $answer, compact( 'id' ) );
+	return $answer;
 }
 
 if ( !function_exists( 'wp_parse_args' ) ) :
@@ -782,3 +1228,4 @@ function stripslashes_deep($value) {
 	return $value;
 }
 endif;
+?>
