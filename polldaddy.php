@@ -1653,6 +1653,14 @@ class WP_PollDaddy {
 		$this->print_errors();
 		$styles = & $styles_object->style;
 		$class = '';
+		$styles_exist = false;
+		
+		foreach ( $styles as $style ) :
+			if( (int) $style->_type == 1 ):
+				$styles_exist = true;
+				break;
+			endif;
+		endforeach;
 ?>
 
 		<form method="post" action="">
@@ -1679,7 +1687,7 @@ class WP_PollDaddy {
 			<tbody>
 
 <?php
-		if ( $styles ) :
+		if ( $styles_exist ) :
 			foreach ( $styles as $style ) :
 				if( (int) $style->_type == 1 ):
 					$style_id = (int) $style->_id;			
