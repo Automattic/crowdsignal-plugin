@@ -32,7 +32,7 @@ Yes. You'll be able to edit the polls they create from your blog.  (You won't be
 Nope.  The permissions are the same as for posts.  So Editors and Administrators can edit anyone's polls for that blog.  Authors can only edit their own.
 
 == Change Log ==
-= 1.71 =
+= 1.7.1 =
 * Bug Fix: Answer text in results now displaying the correct text
 
 = 1.7 =
