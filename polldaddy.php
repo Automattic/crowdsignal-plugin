@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 1.7
+Version: 1.71
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -24,7 +24,7 @@ class WP_PollDaddy {
 	var $base_url = false;
 	var $use_ssl = 0;
 	var $scheme = 'https';
-	var $version = '1.7';
+	var $version = '1.71';
 
 	var $polldaddy_clients = array();
 
@@ -1579,13 +1579,13 @@ class WP_PollDaddy {
 <?php
 		$class = '';
 		foreach ( $results->answers as $answer ) :
-			$answer->___content = trim( strip_tags( $answer->___content ) );
-            if( strlen( $answer->___content ) == 0 ){
-            	$answer->___content = '-- empty HTML tag --';
+			$answer->text = trim( strip_tags( $answer->text ) );
+            if( strlen( $answer->text ) == 0 ){
+            	$answer->text = '-- empty HTML tag --';
             }
 			
 			$class = $class ? '' : ' class="alternate"';
-			$content = $results->others && 'Other answer...' === $answer->___content ? sprintf( __( 'Other (<a href="%s">see below</a>)' ), '#other-answers-results' ) : wp_specialchars( $answer->___content );
+			$content = $results->others && 'Other answer...' === $answer->text ? sprintf( __( 'Other (<a href="%s">see below</a>)' ), '#other-answers-results' ) : wp_specialchars( $answer->text );
 
 ?>
 
