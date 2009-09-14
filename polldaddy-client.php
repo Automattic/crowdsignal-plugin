@@ -366,6 +366,36 @@ class api_client {
 	}
 
 	/**
+	 * @param int $id PollDaddy Poll ID
+	 * @return bool success
+	 */
+	function open_poll( $id ) {
+		if ( !$id = (int) $id )
+			return false;
+
+//		$pos = $this->add_request( __FUNCTION__, new PollDaddy_Poll( null, compact( 'id' ) ) );
+		$pos = $this->add_request( 'openpoll', new PollDaddy_Poll( null, compact( 'id' ) ) );
+		$this->send_request();
+
+		return empty( $this->errors );
+	}
+
+	/**
+	 * @param int $id PollDaddy Poll ID
+	 * @return bool success
+	 */
+	function close_poll( $id ) {
+		if ( !$id = (int) $id )
+			return false;
+
+//		$pos = $this->add_request( __FUNCTION__, new PollDaddy_Poll( null, compact( 'id' ) ) );
+		$pos = $this->add_request( 'closepoll', new PollDaddy_Poll( null, compact( 'id' ) ) );
+		$this->send_request();
+
+		return empty( $this->errors );
+	}
+
+	/**
 	 * @see polldaddy_poll()
 	 * @param array $args polldaddy_poll() args
 	 * @return array|false PollDaddy Poll or false on failure
