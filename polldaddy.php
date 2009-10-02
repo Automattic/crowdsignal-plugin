@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 1.7.2
+Version: 1.7.3
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -24,7 +24,7 @@ class WP_PollDaddy {
 	var $base_url = false;
 	var $use_ssl = 0;
 	var $scheme = 'https';
-	var $version = '1.7.2';
+	var $version = '1.7.3';
 
 	var $polldaddy_clients = array();
 
@@ -588,6 +588,7 @@ class WP_PollDaddy {
 				}
 			}
 			$poll_data['styleID'] = (int) $_POST['styleID'];
+			$poll_data['choices'] = (int) $_POST['choices'];
 
 			$polldaddy->reset();
 
@@ -642,7 +643,8 @@ class WP_PollDaddy {
 			        return false;
 				}
 			}
-			$poll_data['styleID'] = $_POST['styleID'];
+			$poll_data['styleID'] = (int) $_POST['styleID'];
+			$poll_data['choices'] = (int) $_POST['choices'];
 			
 			$poll = $polldaddy->create_poll( $poll_data );
 			$this->parse_errors( $polldaddy );
@@ -1288,6 +1290,29 @@ class WP_PollDaddy {
 <?php		endforeach; ?>
 
 		</ul>
+		<?php 
+			if ( $is_POST )
+				$style = 'yes' === $_POST['multipleChoice'] ? 'display:block;' : 'display:none;';
+			else
+				$style = 'yes' === $poll->multipleChoice ? 'display:block;' : 'display:none;';
+		?>
+		<div id="numberChoices" name="numberChoices" style="padding-left:15px;<?php echo $style; ?>">
+			<p>Number of choices: <select name="choices" id="choices"><option value="0">No Limit</option>
+				<?php				
+				if ( $is_POST )
+					$choices = (int) $_POST['choices'];
+				else
+					$choices = (int) $poll->choices;
+
+				if( $a > 1 ) :
+					for( $i=2; $i<=$a; $i++ ) :
+						$selected = $i == $choices ? 'selected="true"' : '';
+						echo "<option value='$i' $selected>$i</option>";
+					endfor;
+				endif; ?>
+				</select>
+			</p>
+		</div>
 		</div>
 	</div>
 

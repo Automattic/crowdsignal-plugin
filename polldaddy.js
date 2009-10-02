@@ -14,6 +14,7 @@ jQuery(function($){
 		$('a.delete-answer', context || null ).click( function() {
 			if ( confirm( 'Are you sure you want to delete this answer?' ) ) {
 				$(this).parents( 'li' ).remove();
+				$('#choices option:last-child').remove();
 			}
 			return false;
 		} );
@@ -30,6 +31,7 @@ jQuery(function($){
 	$('#add-answer-holder').show().find( 'button').click( function() {
 		var aa = ( 1 + $('#answers li').size() ).toString();
 		delAnswerPrep( $('#answers').append( '<li><span class="handle">&#x2195;</span><div><input type="text" name="answer[new' + aa + ']" size="30" tabindex="2" value="" autocomplete="off" /></div><a title="delete this answer" class="delete-answer delete" href="#">&times;</a></li>' ).find( 'li:last' ) );
+		$('#choices').append('<option value="'+aa+'">'+aa+'</option>');
 		return false;
 	} );
 
@@ -110,4 +112,15 @@ jQuery(function($){
 			return false;
 		} );
 	}
+	
+	$("#multipleChoice").click(function(){
+	        if ($("#multipleChoice").is(":checked"))
+	        {
+	            $("#numberChoices").show("fast");
+	        }
+	        else
+	        {     
+	            $("#numberChoices").hide("fast");
+	        }
+	      });
 });

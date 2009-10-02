@@ -1070,7 +1070,7 @@ function &polldaddy_poll( $args = null, $id = null, $_require_data = true ) {
 				$args[$bool] = $defaults[$bool];
 		}
 
-		foreach ( array( 'styleID', 'packID', 'folderID', 'languageID' ) as $int )
+		foreach ( array( 'styleID', 'packID', 'folderID', 'languageID', 'choices' ) as $int )
 			if ( !is_numeric( $args[$int] ) )
 				$args[$bool] = $defaults[$int];
 
@@ -1122,6 +1122,7 @@ function _polldaddy_poll_defaults() {
 		'parentID' => (int) $GLOBALS['blog_id'],
 		'mediaCode' => '',
 		'mediaType' => 0,
+		'choices' => 0,
 		'answers' => array()
 	);
 }

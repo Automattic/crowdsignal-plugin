@@ -312,12 +312,13 @@ class PollDaddy_Poll extends PollDaddy_XML_Object {
 	var $languageID;
 	var $parentID;
 	var $keyword;
-	var $mediaType; // new
-	var $mediaCode; // new
-	var $answers;
 	var $sharing;
 	var $rank;
 	var $url;
+	var $choices;
+	var $mediaType; // new
+	var $mediaCode; // new
+	var $answers;
 }
 
 class PollDaddy_Poll_Result extends PollDaddy_XML_Object {
