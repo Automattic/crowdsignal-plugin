@@ -1,5 +1,6 @@
 jQuery(function($){
 	$('.hide-if-js').hide();
+	$('.empty-if-js').empty();
 	$('.hide-if-no-js').removeClass( 'hide-if-no-js' );
 	
 	$('a.delete-poll').click( function() {
@@ -45,9 +46,11 @@ jQuery(function($){
 
 	$('.polldaddy-show-shortcode').toggle( function() {
 		$(this).parents('tr:first').next('tr').fadeIn();
+		$(this).parents('tr:first').next('tr').show();
 		return false;
 	}, function() {
 		$(this).parents('tr:first').next('tr').fadeOut();
+		$(this).parents('tr:first').next('tr').hide();
 		return false;
 	} );
 	

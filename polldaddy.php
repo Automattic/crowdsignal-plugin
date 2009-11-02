@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 1.7.3
+Version: 1.7.4
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -15,7 +15,7 @@ if ( !defined( 'WP_POLLDADDY__CLASS' ) )
 	define( 'WP_POLLDADDY__CLASS', 'WP_PollDaddy' );
 
 if ( !defined( 'WP_POLLDADDY__POLLDADDY_CLIENT_PATH' ) )
-	define( 'WP_POLLDADDY__POLLDADDY_CLIENT_PATH', dirname( __FILE__ ) . '/polldaddy-client.php' );
+	define( 'WP_POLLDADDY__POLLDADDY_CLIENT_PATH', dirname( __FILE__ ) . '/polldaddy-client.php' );	
 
 // TODO: when user changes PollDaddy password, userCode changes
 class WP_PollDaddy {
@@ -24,7 +24,7 @@ class WP_PollDaddy {
 	var $base_url = false;
 	var $use_ssl = 0;
 	var $scheme = 'https';
-	var $version = '1.7.3';
+	var $version = '1.7.4';
 
 	var $polldaddy_clients = array();
 
@@ -961,9 +961,9 @@ class WP_PollDaddy {
 	}
 
 	function polls_table( $view = 'blog' ) {
-		$page = absint($_GET['paged']);
-		if ( !$page )
-			$page = 1;
+		$page = 1;
+		if ( isset( $_GET['paged'] ) )
+			$page = absint($_GET['paged']);
 		$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, WP_POLLDADDY__USERCODE );
 		$polldaddy->reset();
 		if ( 'user' == $view )
@@ -973,7 +973,10 @@ class WP_PollDaddy {
 		$this->parse_errors( $polldaddy );
 		$this->print_errors();
 		$polls = & $polls_object->poll;
-		$total_polls = $polls_object->_total;
+		if( isset( $polls_object->_total ) )
+			$total_polls = $polls_object->_total;
+		else
+			$total_polls = count( $polls );
 		$class = '';
 
 		$page_links = paginate_links( array(
@@ -1340,6 +1343,70 @@ class WP_PollDaddy {
 			$standard_style_ID = $style_ID;
 			$custom_style_ID = 0;
 		}
+		
+		$options = array(
+			101 => 'Aluminum Narrow',
+			102 => 'Aluminum Medium',
+			103 => 'Aluminum Wide',
+			104 => 'Plain White Narrow',
+			105 => 'Plain White Medium',
+			106 => 'Plain White Wide',
+			107 => 'Plain Black Narrow',
+			108 => 'Plain Black Medium',
+			109 => 'Plain Black Wide',
+			110 => 'Paper Narrow',
+			111 => 'Paper Medium',
+			112 => 'Paper Wide',
+			113 => 'Skull Dark Narrow',
+			114 => 'Skull Dark Medium',
+			115 => 'Skull Dark Wide',
+			116 => 'Skull Light Narrow',
+			117 => 'Skull Light Medium',
+			118 => 'Skull Light Wide',
+			157 => 'Micro',
+			119 => 'Plastic White Narrow',
+			120 => 'Plastic White Medium',
+			121 => 'Plastic White Wide',
+			122 => 'Plastic Grey Narrow',
+			123 => 'Plastic Grey Medium',
+			124 => 'Plastic Grey Wide',
+			125 => 'Plastic Black Narrow',
+			126 => 'Plastic Black Medium',
+			127 => 'Plastic Black Wide',
+			128 => 'Manga Narrow',
+			129 => 'Manga Medium',
+			130 => 'Manga Wide',
+			131 => 'Tech Dark Narrow',
+			132 => 'Tech Dark Medium',
+			133 => 'Tech Dark Wide',
+			134 => 'Tech Grey Narrow',
+			135 => 'Tech Grey Medium',
+			136 => 'Tech Grey Wide',
+			137 => 'Tech Light Narrow',
+			138 => 'Tech Light Medium',
+			139 => 'Tech Light Wide',
+			140 => 'Working Male Narrow',
+			141 => 'Working Male Medium',
+			142 => 'Working Male Wide',
+			143 => 'Working Female Narrow',
+			144 => 'Working Female Medium',
+			145 => 'Working Female Wide',
+			146 => 'Thinking Male Narrow',
+			147 => 'Thinking Male Medium',
+			148 => 'Thinking Male Wide',
+			149 => 'Thinking Female Narrow',
+			150 => 'Thinking Female Medium',
+			151 => 'Thinking Female Wide',
+			152 => 'Sunset Narrow',
+			153 => 'Sunset Medium',
+			154 => 'Sunset Wide',
+			155 => 'Music Medium',
+			156 => 'Music Wide'
+		);
+		
+		foreach( $styles->style as $style ){
+			$options[ (int) $style->_id ] = $style->title;	
+		}		
 ?>
 
 		<h3><?php _e( 'Design' ); ?></h3>
@@ -1402,11 +1469,11 @@ class WP_PollDaddy {
 					</table>
 				</div>
 
-				<p class="hide-if-js" id="no-js-styleID">
-					<select name="styleID">
+				<p class="empty-if-js" id="no-js-styleID">
+					<select id="styleID" name="styleID">
 
 				<?php 	foreach ( $options as $styleID => $label ) :
-						$selected = $styleID == $standard_style_ID ? ' selected="selected"' : ''; ?>
+						$selected = $styleID == $style_ID ? ' selected="selected"' : ''; ?>
 						<option value="<?php echo (int) $styleID; ?>"<?php echo $selected; ?>><?php echo wp_specialchars( $label ); ?></option>
 				<?php 	endforeach; ?>
 
@@ -1533,10 +1600,10 @@ class WP_PollDaddy {
 											<select id="customSelect" name="customSelect" onclick="pd_change_style(this.value);" <?php echo $hide ?>>
 												<?php 	$selected = $custom_style_ID == 0 ? ' selected="selected"' : ''; ?>
 														<option value="x"<?php echo $selected; ?>>Please choose a custom style...</option>
-												<?php 	foreach ( $styles->style as $style ) :
+												<?php 	if( $show_custom) : foreach ( $styles->style as $style ) :
 														$selected = $style->_id == $custom_style_ID ? ' selected="selected"' : ''; ?>
 														<option value="<?php echo (int) $style->_id; ?>"<?php echo $selected; ?>><?php echo wp_specialchars( $style->title ); ?></option>
-												<?php	endforeach;?>
+												<?php	endforeach; endif;?>
 											</select>
 											<div id="styleIDErr" class="formErr" style="display:none;">Please choose a style.</div></td>
 										</tr>
@@ -1552,11 +1619,11 @@ class WP_PollDaddy {
 						</tbody>
 					</table>
 					</div>
-					<p class="hide-if-js" id="no-js-styleID">
-						<select name="styleID">
+					<p class="empty-if-js" id="no-js-styleID">
+						<select id="styleID" name="styleID">
 
 					<?php 	foreach ( $options as $styleID => $label ) :
-							$selected = $styleID == $standard_style_ID ? ' selected="selected"' : ''; ?>
+							$selected = $styleID == $style_ID ? ' selected="selected"' : ''; ?>
 							<option value="<?php echo (int) $styleID; ?>"<?php echo $selected; ?>><?php echo wp_specialchars( $label ); ?></option>
 					<?php 	endforeach; ?>
 
@@ -1698,7 +1765,7 @@ class WP_PollDaddy {
 				<input class="button-secondary action" type="submit" name="doaction" value="<?php _e( 'Apply' ); ?>" />
 				<?php wp_nonce_field( 'action-style_bulk' ); ?>
 			</div>
-			<div class="tablenav-pages"><?php echo $page_links; ?></div>
+			<div class="tablenav-pages"></div>
 		</div>
 		<br class="clear" />
 		<table class="widefat">
@@ -1754,7 +1821,7 @@ class WP_PollDaddy {
 		</table>
 		</form>
 		<div class="tablenav">
-			<div class="tablenav-pages"><?php echo $page_links; ?></div>
+			<div class="tablenav-pages"></div>
 		</div>
 		<br class="clear" />
 
