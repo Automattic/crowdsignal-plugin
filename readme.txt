@@ -1,5 +1,5 @@
 === PollDaddy Polls ===
-Contributors: mdawaffe, eoigal
+Contributors: mdawaffe, eoigal, automattic
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys
 Requires at least: 2.6
 Tested up to: 2.8.5
