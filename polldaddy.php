@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 1.7.4
+Version: 1.7.5
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -24,7 +24,7 @@ class WP_PollDaddy {
 	var $base_url = false;
 	var $use_ssl = 0;
 	var $scheme = 'https';
-	var $version = '1.7.4';
+	var $version = '1.7.5';
 
 	var $polldaddy_clients = array();
 
@@ -546,7 +546,7 @@ class WP_PollDaddy {
 					$poll_data[$option] = 'no';
 			}
 
-			$blocks = array( 'off', 'cookie', 'cookieIP' );
+			$blocks = array( 'off', 'cookie', 'cookieip' );
 			if ( isset( $_POST['blockRepeatVotersType'] ) && in_array( $_POST['blockRepeatVotersType'], $blocks ) )
 				$poll_data['blockRepeatVotersType'] = $_POST['blockRepeatVotersType'];
 
@@ -1198,7 +1198,7 @@ class WP_PollDaddy {
 			<ul class="poll-options">
 
 <?php
-			foreach ( array( 'off' => __( "Don't block repeat voters" ), 'cookie' => __( 'Block by cookie (recommended)' ), 'cookieIP' => __( 'Block by cookie and by IP address' ) ) as $value => $label ) :
+			foreach ( array( 'off' => __( "Don't block repeat voters" ), 'cookie' => __( 'Block by cookie (recommended)' ), 'cookieip' => __( 'Block by cookie and by IP address' ) ) as $value => $label ) :
 				if ( $is_POST )
 					$checked = $value === $_POST['blockRepeatVotersType'] ? ' checked="checked"' : '';
 				else
@@ -1326,23 +1326,6 @@ class WP_PollDaddy {
 		$iframe_view = false;
 		if ( isset($_GET['iframe']) )
 			$iframe_view = true;
-			
-		$polldaddy->reset();
-		$styles = $polldaddy->get_styles();
-
-		$show_custom = false;
-		if( isset( $styles ) && count( $styles ) > 0 ){
-			$show_custom = true;
-		}			
-
-		if ( $style_ID > 18 ){
-			$standard_style_ID = 0;
-			$custom_style_ID = $style_ID;
-		}
-		else{
-			$standard_style_ID = $style_ID;
-			$custom_style_ID = 0;
-		}
 		
 		$options = array(
 			101 => 'Aluminum Narrow',
@@ -1404,8 +1387,24 @@ class WP_PollDaddy {
 			156 => 'Music Wide'
 		);
 		
-		foreach( $styles->style as $style ){
-			$options[ (int) $style->_id ] = $style->title;	
+		$polldaddy->reset();
+		$styles = $polldaddy->get_styles();
+
+		$show_custom = false;
+		if( isset( $styles ) && count( $styles ) > 0 ){
+			foreach( (array) $styles->style as $style ){
+				$options[ (int) $style->_id ] = $style->title;	
+			}
+			$show_custom = true;
+		}			
+
+		if ( $style_ID > 18 ){
+			$standard_style_ID = 0;
+			$custom_style_ID = $style_ID;
+		}
+		else{
+			$standard_style_ID = $style_ID;
+			$custom_style_ID = 0;
 		}		
 ?>
 

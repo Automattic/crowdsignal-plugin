@@ -2,8 +2,8 @@
 Contributors: mdawaffe, eoigal, automattic
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys
 Requires at least: 2.6
-Tested up to: 2.8.5
-Stable tag: 1.7.4
+Tested up to: 2.8.6
+Stable tag: 1.7.5
 
 Create and manage PollDaddy polls from within WordPress.
 
@@ -32,6 +32,10 @@ Yes. You'll be able to edit the polls they create from your blog.  (You won't be
 Nope.  The permissions are the same as for posts.  So Editors and Administrators can edit anyone's polls for that blog.  Authors can only edit their own.
 
 == Change Log ==
+= 1.7.5 =
+* Bug Fix: Added fix for php warning when custom styles array empty
+* Bug Fix: Added fix for cookie&ip option not getting set due to API change
+
 = 1.7.4 =
 * Bug Fix: Added fix for missing styles array (used when javascript is disabled)
 * Bug Fix: Added fix for Internet Explorer 8 and jQuery fadeIn, fadeOut methods
