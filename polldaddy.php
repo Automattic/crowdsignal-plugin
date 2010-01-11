@@ -64,14 +64,7 @@ class WP_PollDaddy {
 			if ( empty( $_GET['page'] ) || 'polls' != $_GET['page'] )
 				add_action( 'admin_notices', create_function( '', 'echo "<div class=\"error\"><p>" . sprintf( "You need to <a href=\"%s\">input your PollDaddy.com account details</a>.", "edit.php?page=polls" ) . "</p></div>";' ) );
 			return false;
-		}
-
-		if ( function_exists( 'add_object_page' ) ) // WP 2.7+
-			$hook = add_object_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'management_page' ), "{$this->base_url}polldaddy.png" );
-		else
-			$hook = add_management_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'management_page' ) );
-		
-		add_action( "load-$hook", array( &$this, 'management_page_load' ) );
+		}                           
 		
 		if ( function_exists( 'add_object_page' ) ) // WP 2.7+
 			$hook = add_object_page( __( 'Ratings' ), __( 'Ratings' ), 'edit_posts', 'ratings', array( &$this, 'management_page' ), "{$this->base_url}polldaddy.png" );
@@ -80,13 +73,19 @@ class WP_PollDaddy {
 		
 		add_action( "load-$hook", array( &$this, 'management_page_load' ) );
 
-		// Hack-a-lack-a
-		add_submenu_page( 'polls', __( 'Polls' ), __( 'Edit' ), 'edit_posts', 'polls', array( &$this, 'management_page' ) );
-		add_submenu_page( 'polls', __( 'Add New Poll' ), __( 'Add New' ), 'edit_posts', 'polls&amp;action=create-poll', array( &$this, 'management_page' ) );
-		add_submenu_page( 'polls', __( 'Custom Styles' ), __( 'Custom Styles' ), 'edit_posts', 'polls&amp;action=list-styles', array( &$this, 'management_page' ) );
+		if ( function_exists( 'add_object_page' ) ) // WP 2.7+
+			$hook = add_object_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'management_page' ), "{$this->base_url}polldaddy.png" );
+		else
+			$hook = add_management_page( __( 'Polls' ), __( 'Polls' ), 'edit_posts', 'polls', array( &$this, 'management_page' ) );
+		
+		add_action( "load-$hook", array( &$this, 'management_page_load' ) );
 		
 		add_submenu_page( 'ratings', __( 'Ratings &ndash; Settings' ), __( 'Settings' ), 'edit_posts', 'ratings', array( &$this, 'management_page' ) );
 		add_submenu_page( 'ratings', __( 'Ratings &ndash; Reports' ), __( 'Reports' ), 'edit_posts', 'ratings&amp;action=reports', array( &$this, 'management_page' ) );
+		
+		add_submenu_page( 'polls', __( 'Polls' ), __( 'Edit' ), 'edit_posts', 'polls', array( &$this, 'management_page' ) );
+		add_submenu_page( 'polls', __( 'Add New Poll' ), __( 'Add New' ), 'edit_posts', 'polls&amp;action=create-poll', array( &$this, 'management_page' ) );
+		add_submenu_page( 'polls', __( 'Custom Styles' ), __( 'Custom Styles' ), 'edit_posts', 'polls&amp;action=list-styles', array( &$this, 'management_page' ) );
 
 		add_action( 'media_buttons', array( &$this, 'media_buttons' ) );
 	}
