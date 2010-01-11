@@ -1,15 +1,15 @@
 === PollDaddy Polls ===
-Contributors: mdawaffe, eoigal, automattic
-Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys
+Contributors: mdawaffe, eoigal
+Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rating, ratings
 Requires at least: 2.6
-Tested up to: 2.9
-Stable tag: 1.7.5
+Tested up to: 2.9.1
+Stable tag: 1.7.6
 
-Create and manage PollDaddy polls from within WordPress.
+Create and manage PollDaddy polls and ratings from within WordPress.
 
 == Description ==
 
-The PollDaddy Polls plugin allows you to create and manage polls from within your WordPress dashboard. You can create polls, choose from 20 different styles for your polls and view all results for your polls as they come in. All PollDaddy polls are fully customizable, you can set a close date for your poll, create multiple choice polls, choose whether to display the results or keep them private. You can even embed the polls you create on other websites. You can collect unlimited votes and create unlimited polls.
+The PollDaddy Polls plugin allows you to create and manage polls and ratings from within your WordPress dashboard. You can create polls, choose from 20 different styles for your polls, and view all results for your polls as they come in. All PollDaddy polls are fully customizable, you can set a close date for your poll, create multiple choice polls, choose whether to display the results or keep them private. You can also create your own custom style for your poll. You can even embed the polls you create on other websites. You can collect unlimited votes and create unlimited polls. The new ratings menu allows you to embed ratings into your posts, pages or comments.
 
 == Installation ==
 
@@ -32,6 +32,10 @@ Yes. You'll be able to edit the polls they create from your blog.  (You won't be
 Nope.  The permissions are the same as for posts.  So Editors and Administrators can edit anyone's polls for that blog.  Authors can only edit their own.
 
 == Change Log ==
+= 1.7.6 =
+* Added PollDaddy Ratings, you can now add ratings to your posts, pages and comments
+* Bug Fix: Sub-menu now highlights the correct option
+
 = 1.7.5 =
 * Bug Fix: Added fix for php warning when custom styles array empty
 * Bug Fix: Added fix for cookie&ip option not getting set due to API change

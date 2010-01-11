@@ -844,6 +844,10 @@ class api_client {
 		}
 		return false;
 	}
+	
+	function get_xml(){
+		return 'REQUEST::' . $this->request_xml . "\n\nRESPONSE::" . $this->response_xml;
+	}
 }
 
 function &polldaddy_activity( $act ) {
