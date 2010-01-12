@@ -1,9 +1,9 @@
-=== PollDaddy Polls ===
+=== PollDaddy Polls & Ratings ===
 Contributors: mdawaffe, eoigal
-Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rating, ratings
+Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 2.6
 Tested up to: 2.9.1
-Stable tag: 1.7.6
+Stable tag: 1.7.7
 
 Create and manage PollDaddy polls and ratings from within WordPress.
 
@@ -32,6 +32,10 @@ Yes. You'll be able to edit the polls they create from your blog.  (You won't be
 Nope.  The permissions are the same as for posts.  So Editors and Administrators can edit anyone's polls for that blog.  Authors can only edit their own.
 
 == Change Log ==
+= 1.7.7 =
+* Added a block repeat vote expiration setting to allow users to set how long to block out repeat voters from repeat voting
+* Bug Fix: Fixed notices thrown by ratings when first loaded, empty response from API.
+
 = 1.7.6 =
 * Added PollDaddy Ratings, you can now add ratings to your posts, pages and comments
 * Bug Fix: Sub-menu now highlights the correct option

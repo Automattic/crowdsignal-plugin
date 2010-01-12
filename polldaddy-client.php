@@ -1074,7 +1074,7 @@ function &polldaddy_poll( $args = null, $id = null, $_require_data = true ) {
 				$args[$bool] = $defaults[$bool];
 		}
 
-		foreach ( array( 'styleID', 'packID', 'folderID', 'languageID', 'choices' ) as $int )
+		foreach ( array( 'styleID', 'packID', 'folderID', 'languageID', 'choices', 'blockExpiration' ) as $int )
 			if ( !is_numeric( $args[$int] ) )
 				$args[$bool] = $defaults[$int];
 
@@ -1113,6 +1113,7 @@ function _polldaddy_poll_defaults() {
 		'otherAnswer' => 'no',
 		'resultsType' => 'show',
 		'blockRepeatVotersType' => 'cookie',
+		'blockExpiration' => 0,
 		'comments' => 'allow',
 		'makePublic' => 'yes',
 		'closePoll' => 'no',

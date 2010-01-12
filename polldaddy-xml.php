@@ -300,7 +300,8 @@ class PollDaddy_Poll extends PollDaddy_XML_Object {
 	var $randomiseAnswers;
 	var $otherAnswer;
 	var $resultsType;
-	var $blockRepeatVotersType;
+	var $blockRepeatVotersType;  
+	var $blockExpiration;
 	var $comments;
 	var $makePublic;
 	var $closePoll;
@@ -710,7 +711,7 @@ class PollDaddy_XML_Parser {
 
 			$new = $this->polldaddy_objects[$tag];
 			$new_object =& new $new( $this->object_stack[$this->object_pos]['args'], $this->object_stack[$this->object_pos]['atts'] );
-
+                                                                                                                                
 			if ( is_numeric( $this->object_stack[$this->object_pos]['parent'] ) ) {
 				$this->object_pos = $this->object_stack[$this->object_pos]['parent'];
 				if ( $this->object_stack[$this->object_pos]['args_tag_pos'] ) {

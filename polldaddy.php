@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 1.7.6
+Version: 1.7.7
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -15,7 +15,7 @@ if ( !defined( 'WP_POLLDADDY__CLASS' ) )
 	define( 'WP_POLLDADDY__CLASS', 'WP_PollDaddy' );
 
 if ( !defined( 'WP_POLLDADDY__POLLDADDY_CLIENT_PATH' ) )
-	define( 'WP_POLLDADDY__POLLDADDY_CLIENT_PATH', dirname( __FILE__ ) . '/polldaddy-client.php' );	
+	define( 'WP_POLLDADDY__POLLDADDY_CLIENT_PATH', dirname( __FILE__ ) . '/polldaddy-client.php' );
 
 // TODO: when user changes PollDaddy password, userCode changes
 class WP_PollDaddy {
@@ -24,7 +24,7 @@ class WP_PollDaddy {
 	var $base_url = false;
 	var $use_ssl = 0;
 	var $scheme = 'https';
-	var $version = '1.7.6';
+	var $version = '1.7.7';
 
 	var $polldaddy_clients = array();
 
@@ -345,6 +345,7 @@ class WP_PollDaddy {
 			endswitch;
 		} elseif( $page == 'ratings' ) {
 			switch ( $action ) :
+				case 'change-report' :
 				case 'reports' :
 					$plugin_page = 'ratings&amp;action=reports';
 					break;
@@ -621,6 +622,14 @@ class WP_PollDaddy {
 				}
 				$poll_data['styleID'] = (int) $_POST['styleID'];
 				$poll_data['choices'] = (int) $_POST['choices'];
+				
+				if ( $poll_data['blockRepeatVotersType'] == 'cookie' ){
+      		if( isset( $_POST['cookieip_expiration'] ) )
+      			$poll_data['blockExpiration'] = (int) $_POST['cookieip_expiration'];
+      	} elseif ( $poll_data['blockRepeatVotersType'] == 'cookieip' ){
+      		if( isset( $_POST['cookieip_expiration'] ) )
+      			$poll_data['blockExpiration'] = (int) $_POST['cookieip_expiration'];
+      	}
 
 				$polldaddy->reset();
 
@@ -676,7 +685,15 @@ class WP_PollDaddy {
 					}
 				}
 				$poll_data['styleID'] = (int) $_POST['styleID'];
-				$poll_data['choices'] = (int) $_POST['choices'];
+				$poll_data['choices'] = (int) $_POST['choices']; 
+				
+				if ( $poll_data['blockRepeatVotersType'] == 'cookie' ){
+      		if( isset( $_POST['cookieip_expiration'] ) )
+      			$poll_data['blockExpiration'] = (int) $_POST['cookieip_expiration'];
+      	} elseif ( $poll_data['blockRepeatVotersType'] == 'cookieip' ){
+      		if( isset( $_POST['cookieip_expiration'] ) )
+      			$poll_data['blockExpiration'] = (int) $_POST['cookieip_expiration'];
+      	}
 				
 				$poll = $polldaddy->create_poll( $poll_data );
 				$this->parse_errors( $polldaddy );
@@ -1257,12 +1274,24 @@ class WP_PollDaddy {
 ?>
 
 				<li>
-					<label for="blockRepeatVotersType-<?php echo $value; ?>"><input type="radio"<?php echo $checked; ?> value="<?php echo $value; ?>" name="blockRepeatVotersType" id="blockRepeatVotersType-<?php echo $value; ?>" /> <?php echo wp_specialchars( $label ); ?></label>
+					<label for="blockRepeatVotersType-<?php echo $value; ?>"><input class="block-repeat" type="radio"<?php echo $checked; ?> value="<?php echo $value; ?>" name="blockRepeatVotersType" id="blockRepeatVotersType-<?php echo $value; ?>" /> <?php echo wp_specialchars( $label ); ?></label>
 				</li>
 
 <?php			endforeach; ?>
 
 			</ul>
+										
+			<span style="margin:6px 6px 8px;" id="cookieip_expiration_label"><label><?php _e( 'Expires: ' ); ?></label></span>
+			<select id="cookieip_expiration" name="cookieip_expiration" style="width: auto;<?php echo $poll->blockRepeatVotersType == 'off' ? 'display:none;' : ''; ?>">
+				<option value="0" <?php echo (int) $poll->blockExpiration == 0 ? 'selected' : ''; ?>><?php _e( 'Never' ); ?></option>
+				<option value="3600" <?php echo (int) $poll->blockExpiration == 3600 ? 'selected' : ''; ?>><?php printf( __('%d hour'), 1 ); ?></option>
+				<option value="10800" <?php echo (int) $poll->blockExpiration == 10800 ? 'selected' : ''; ?>><?php printf( __('%d hours'), 3 ); ?></option>
+				<option value="21600" <?php echo (int) $poll->blockExpiration == 21600 ? 'selected' : ''; ?>><?php printf( __('%d hours'), 6 ); ?></option>
+				<option value="43200" <?php echo (int) $poll->blockExpiration == 43200 ? 'selected' : ''; ?>><?php printf( __('%d hours'), 12 ); ?></option>
+				<option value="86400" <?php echo (int) $poll->blockExpiration == 86400 ? 'selected' : ''; ?>><?php printf( __('%d day'), 1 ); ?></option>
+				<option value="604800" <?php echo (int) $poll->blockExpiration == 604800 ? 'selected' : ''; ?>><?php printf( __('%d week'), 1 ); ?></option>
+				<option value="2419200" <?php echo (int) $poll->blockExpiration == 2419200 ? 'selected' : ''; ?>><?php printf( __('%d month'), 1 ); ?></option>
+			</select>
 			<p><?php _e( 'Note: Blocking by cookie and IP address can be problematic for some voters.'); ?></p>
 		</div>
 	</div>
@@ -2881,15 +2910,23 @@ enter a numeric value in pixels.
 		$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, WP_POLLDADDY__USERCODE );
 		$polldaddy->reset();
 		$response = $polldaddy->get_rating( $rating_id );
-		if ( is_object( $response ) && (int) $response->_id == 0 ) {
+		
+		if ( empty( $response ) || (int) $response->_id == 0 ) {
 			$polldaddy->reset();
 			$new_type = 0;
 			if ( $report_type == 'comments' )
 				$new_type = 1;
+			
+			$blog_name = get_option( 'blogname' );
+			
+			if ( empty( $blog_name ) )
+				$blog_name = 'WPORG Blog';
+			
+			$blog_name .= ' - ' . $report_type;
 
-			$response = $polldaddy->create_rating( 'WPCOM ' . $report_type, $new_type );
+			$response = $polldaddy->create_rating( $blog_name , $new_type );
 
-			if( $response == false ) {
+			if( empty( $response ) ) {
 				echo '<div class="error"><p>'.sprintf(__('Sorry! There was an error creating your rating widget. Please contact <a href="%1$s" %2$s>PollDaddy support</a> to fix this.'), 'http://polldaddy.com/feedback/', 'target="_blank"') . '</p></div>';
 				$error = true;
 			} else {
@@ -2907,19 +2944,23 @@ enter a numeric value in pixels.
 					case 'comments':
 						$show_comments = 0;
 						break;
-				endswitch;
+				endswitch;   
 			}
+			$polldaddy->reset();
+			$response = $polldaddy->get_rating( $rating_id );
 		}
+		
+		if ( !empty( $response ) ) {
+			$settings_text = $response->settings;
+			$settings = json_decode( $settings_text );
 
-		$settings_text = $response->settings;
-		$settings = json_decode( $settings_text );
-
-		$rating_type = 0;
-
-		if( $settings->type == 'stars' )
 			$rating_type = 0;
-		else
-			$rating_type = 1;
+
+			if( $settings->type == 'stars' )
+				$rating_type = 0;
+			else
+				$rating_type = 1;
+		}
 
 	?>
 		<div class="wrap">
@@ -3358,18 +3399,21 @@ enter a numeric value in pixels.
 	function update_rating(){
 		$rating_type = 0;
 		$rating_id = 0;
+		$set = null;
 		
 		if( isset( $_REQUEST['rating_id'] ) ) 
 			$rating_id = (int) $_REQUEST['rating_id'];
 
-		if( $_REQUEST['rating_type'] == 'stars' ) {
+		if( isset( $_REQUEST['rating_type'] ) && $_REQUEST['rating_type'] == 'stars' ) {
 			$set->type = 'stars';
 			$rating_type = 0;
-	        $set->star_color = attribute_escape( $_REQUEST['star_color'] );
+			if( isset( $_REQUEST['star_color'] ) )
+				$set->star_color = attribute_escape( $_REQUEST['star_color'] );
 		} else {
 			$set->type = 'nero';
 			$rating_type = 1;
-	        $set->star_color = attribute_escape( $_REQUEST['nero_style'] );
+			if( isset( $_REQUEST['nero_style'] ) )
+				$set->star_color = attribute_escape( $_REQUEST['nero_style'] );
 		}
 
 		$set->size             = wp_specialchars( $_REQUEST['size'], 1 );
@@ -3380,12 +3424,12 @@ enter a numeric value in pixels.
         $set->font_size        = wp_specialchars( $_REQUEST['font_size'], 1 );
         $set->font_line_height = wp_specialchars( $_REQUEST['font_line_height'], 1 );
 
-		if ( $_REQUEST['font_bold'] == 'bold' )
+		if ( isset( $_REQUEST['font_bold'] ) && $_REQUEST['font_bold'] == 'bold' )
 			$set->font_bold = 'bold';
 		else
 			$set->font_bold = 'normal';
 
-		if ( $_REQUEST['font_italic'] == 'italic' )
+		if ( isset( $_REQUEST['font_italic'] ) && $_REQUEST['font_italic'] == 'italic' )
 			$set->font_italic = 'italic';
 		else
 			$set->font_italic = 'normal';
@@ -3481,11 +3525,14 @@ enter a numeric value in pixels.
 
 		$response = $polldaddy->get_rating_results( $rating_id, $period, $start, $end );	
 
-		$ratings = $response->rating;
-
-		$total = (int) $response->_total;
-
-		$total_pages = ceil( $total / $page_size );
+	    $total = $total_pages = 0;
+	    $ratings = null;
+	    
+	    if( !empty($response) ){ 
+			  $ratings = $response->rating;
+			  $total = (int) $response->_total;
+			  $total_pages = ceil( $total / $page_size );    
+	    } 
 
 		$page_links = paginate_links( array(
 			'base' => add_query_arg( array ('paged' => '%#%', 'rating' => $report_type, 'filter' => $period ) ),
