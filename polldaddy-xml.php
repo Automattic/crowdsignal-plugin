@@ -236,6 +236,17 @@ class PollDaddy_Demand extends PollDaddy_XML_Object {
 	var $rating_result;
 	var $rating;
 	var $nonce;
+	var $partner;
+}
+
+class PollDaddy_Partner extends PollDaddy_XML_Object {
+  var $___cdata = array( 'name' );
+	var $___name = 'partner';
+
+	var $_role;
+	var $_users;
+	
+	var $name;
 }
 
 class PollDaddy_Account extends PollDaddy_XML_Object {
@@ -619,7 +630,8 @@ class PollDaddy_XML_Parser {
 		'http://api.polldaddy.com/pdapi.xsd:rating_result' => 'PollDaddy_Rating_Result',
 		'http://api.polldaddy.com/pdapi.xsd:ratings' => 'PollDaddy_Ratings',
 		'http://api.polldaddy.com/pdapi.xsd:rating' => 'PollDaddy_Rating',
-		'http://api.polldaddy.com/pdapi.xsd:nonce' => 'PollDaddy_Nonce'
+		'http://api.polldaddy.com/pdapi.xsd:nonce' => 'PollDaddy_Nonce',
+		'http://api.polldaddy.com/pdapi.xsd:partner' => 'PollDaddy_Partner'
 	);// the parser matches the tag names to the class name and creates an object defined by that class
 
 	var $object_stack = array();

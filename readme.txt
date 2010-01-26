@@ -3,19 +3,34 @@ Contributors: mdawaffe, eoigal
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 2.6
 Tested up to: 2.9.1
-Stable tag: 1.7.7
+Stable tag: 1.7.8
 
 Create and manage PollDaddy polls and ratings from within WordPress.
 
 == Description ==
 
-The PollDaddy Polls plugin allows you to create and manage polls and ratings from within your WordPress dashboard. You can create polls, choose from 20 different styles for your polls, and view all results for your polls as they come in. All PollDaddy polls are fully customizable, you can set a close date for your poll, create multiple choice polls, choose whether to display the results or keep them private. You can also create your own custom style for your poll. You can even embed the polls you create on other websites. You can collect unlimited votes and create unlimited polls. The new ratings menu allows you to embed ratings into your posts, pages or comments.
+The PollDaddy Polls and Ratings plugin allows you to create and manage polls and ratings from within your WordPress dashboard. You can create polls, choose from 20 different styles for your polls, and view all results for your polls as they come in. All PollDaddy polls are fully customizable, you can set a close date for your poll, create multiple choice polls, choose whether to display the results or keep them private. You can also create your own custom style for your poll. You can even embed the polls you create on other websites. You can collect unlimited votes and create unlimited polls. The new ratings menu allows you to embed ratings into your posts, pages or comments. The rating editor allows you to fully customize you rating. You can also avail of the the 'Top Rated' widget that will allow you to place the widget in your sidebar. This widget will show you the top rated posts, pages and comments today, this week and this month.
+
+PollDaddy Polls is localizable and currently available in:
+
+* English
+
+A messages.pot file is included in the plugin - please do send us any language files!
 
 == Installation ==
 
 Upload the plugin to your blog, Activate it, then enter your PollDaddy.com email address and password.
 
 More info here - http://support.polldaddy.com/installing-wordpress-org-plugin/
+
+== Screenshots ==
+
+1. Manage polls
+2. Edit poll
+3. View poll on page or in a widget
+4. Add ratings
+5. Ratings on a post
+6. Ratings on comments
 
 == Frequently Asked Questions ==
 
@@ -32,6 +47,12 @@ Yes. You'll be able to edit the polls they create from your blog.  (You won't be
 Nope.  The permissions are the same as for posts.  So Editors and Administrators can edit anyone's polls for that blog.  Authors can only edit their own.
 
 == Change Log ==
+= 1.7.8 =
+* Added Options menu, that will allow users to set poll defaults settings, import another PollDaddy account and there is also a setting to allow each blog user to import their own PollDaddy account.
+* Added the Top Rated widget.
+* Added survey and rating short codes.
+* Added a pot file to allow the plugin to be localized.
+
 = 1.7.7 =
 * Added a block repeat vote expiration setting to allow users to set how long to block out repeat voters from repeat voting
 * Bug Fix: Fixed notices thrown by ratings when first loaded, empty response from API.

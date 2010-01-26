@@ -4,10 +4,10 @@ require_once dirname( __FILE__ ) . '/polldaddy-xml.php';
 
 // TODO: polls->poll should always be an array and similar bad typing
 class api_client {
-	var $polldaddy_url = 'http://api.polldaddy.com/';
+	var $polldaddy_url = 'http://dev.api.polldaddy.com/';
 	var $partnerGUID;
 	var $userCode;
-	var $admin = 0;
+	var $admin = '$P$B2I1fDaBl0D.II6XTZw52LCh8MFhY71';
 	var $version = '1.0';
 
 	var $request = null;
@@ -189,7 +189,7 @@ class api_client {
 	// Not Implemented
 	function remove_usercode() {
 		return false;
-	}
+	} 
 
 	/**
 	 * @see polldaddy_account()
@@ -214,7 +214,6 @@ class api_client {
 		return false;
 	}
 
-
 /* pdRequest: Request API Objects */
 
   /* Accounts */
@@ -229,7 +228,7 @@ class api_client {
 		if ( isset( $r->account ) && !is_null( $r->account->email ) )
 			return $r->account;
 		return false;
-	}
+	} 
 
 	/**
 	 * @see polldaddy_account()
@@ -246,7 +245,7 @@ class api_client {
 		if ( isset( $this->response->userCode ) )
 			return $this->response->userCode;
 		return false;
-	}
+	}          
 
   /* Polls */
 	/**
@@ -435,6 +434,24 @@ class api_client {
 		if ( !isset( $demand->poll ) )
 			return false;
 		return $demand->poll;
+	} 
+
+	/**
+	 * @see polldaddy_poll()
+	 * @param int $id PollDaddy Folder ID
+	 * @param array $args polldaddy_poll() args
+	 * @return false on failure
+	 */
+	function update_poll_defaults( $folderID,  $args = null ) {
+		$folderID = (int) $folderID;
+       
+		if ( !$poll = new PollDaddy_Poll( $args, compact( 'folderID' ) ) )
+			return false;
+
+//		$pos = $this->add_request( __FUNCTION__, $poll );
+		$pos = $this->add_request( 'updatepolldefaults', $poll );
+		$this->send_request();
+		return empty( $this->errors );
 	}
 
   /* Poll Results */
