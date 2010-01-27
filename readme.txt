@@ -3,7 +3,7 @@ Contributors: mdawaffe, eoigal
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 2.6
 Tested up to: 2.9.1
-Stable tag: 1.7.8
+Stable tag: 1.7.9
 
 Create and manage PollDaddy polls and ratings from within WordPress.
 
@@ -47,6 +47,9 @@ Yes. You'll be able to edit the polls they create from your blog.  (You won't be
 Nope.  The permissions are the same as for posts.  So Editors and Administrators can edit anyone's polls for that blog.  Authors can only edit their own.
 
 == Change Log ==
+= 1.7.9 =
+* Bug Fix: Fixed typo in API request URL
+
 = 1.7.8 =
 * Added Options menu, that will allow users to set poll defaults settings, import another PollDaddy account and there is also a setting to allow each blog user to import their own PollDaddy account.
 * Added the Top Rated widget.
