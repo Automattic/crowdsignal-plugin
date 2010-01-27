@@ -7,7 +7,7 @@ class api_client {
 	var $polldaddy_url = 'http://api.polldaddy.com/';
 	var $partnerGUID;
 	var $userCode;
-	var $admin = '$P$B2I1fDaBl0D.II6XTZw52LCh8MFhY71';
+	var $admin = 0;
 	var $version = '1.0';
 
 	var $request = null;
