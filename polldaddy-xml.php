@@ -541,7 +541,7 @@ class PollDaddy_Ratings extends PollDaddy_XML_Object {
 
 class PollDaddy_Rating extends PollDaddy_XML_Object {
 	var $___name = 'rating';
-    var $___cdata = array( 'settings' );
+    	var $___cdata = array( 'settings', 'name', 'title', 'permalink' );
 
 	var $_id;
 	

@@ -10,28 +10,50 @@ class WPORG_PollDaddy extends WP_PollDaddy {
   }
 
   function __construct() {
-    parent::__construct(); 
+    parent::__construct();
+    $this->version = '1.8.1'; 
 	  $this->base_url = plugins_url() . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
     $this->polldaddy_client_class = 'WPORG_PollDaddy_Client';
 		$this->use_ssl = (int) get_option( 'polldaddy_use_ssl' );
     $this->multiple_accounts = (bool) get_option( 'polldaddy_multiple_accounts' );
     $this->is_author = ( ( (bool) current_user_can('edit_others_posts')) or ( $this->multiple_accounts ) );
     return;
-  } 
+  }  
+	
+	function set_api_user_code(){
+    if ( empty( $this->rating_user_code ) ){
+  	  $this->rating_user_code = get_option( 'pd-rating-usercode' );		
+  
+  		if ( empty( $this->rating_user_code ) ){   
+  			$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID );	
+		    $polldaddy->reset();
+		    
+		    if( $this->multiple_accounts ){
+          //need to retrieve initial admin user code to use as ratings user code
+          $polldaddy_multiple_accounts = 0;       				
+  				$partner = array( 'role' => $polldaddy_multiple_accounts );    				
+  				$polldaddy->update_partner_account( $partner );		           			  
+  			  update_option( 'polldaddy_multiple_accounts', $polldaddy_multiple_accounts );
+        }
+        
+        $this->rating_user_code = $polldaddy->get_usercode( $this->id );
+  			
+  			if ( !empty( $this->rating_user_code ) ){
+  			  update_option( 'pd-rating-usercode', $this->rating_user_code );
+        }  
+  		}
+  	}
+  	parent::set_api_user_code();
+  }
   
 	function management_page_load() {    
-		$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID );	
-		$polldaddy->reset();
-		
-		if ( empty( $this->user_code ) ){
-      $this->user_code = $polldaddy->get_usercode( $this->id );
-    } 
-
 		require_once WP_POLLDADDY__POLLDADDY_CLIENT_PATH;
 
     $is_POST = 'post' == strtolower( $_SERVER['REQUEST_METHOD'] );
     wp_reset_vars( array( 'action', 'page' ) );
 		global $action, $page;
+		
+		$this->set_api_user_code();
 		
 		if( $page == 'polls' ) {
 			switch ( $action ) :
@@ -233,7 +255,7 @@ class WPORG_PollDaddy extends WP_PollDaddy {
 	}
 	
 	function plugin_options_add(){
-	  if( !$this->is_admin ) {
+	  if( $this->is_admin ) {
     $checked = '';
       if ( $this->multiple_accounts )
         $checked = 'checked="checked"'; 

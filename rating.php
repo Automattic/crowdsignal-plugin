@@ -34,7 +34,7 @@ function polldaddy_show_rating_comments( $content ){
 
 function polldaddy_show_rating( $content ) {
 	if ( !is_feed() && !is_attachment() ) {
-		if ( is_single() || is_page() ) {
+		if ( is_single() || is_page() || is_home() ) {
 			global $post;
 
 			if ( $post->ID > 0 ) {
@@ -53,7 +53,14 @@ function polldaddy_show_rating( $content ) {
 						$rating_pos = (int) get_option( 'pd-rating-pages-pos' );
 						$item_id =  '_page_' . $post->ID;
 					}
-				} else { 
+				} else if( is_home() ) {
+				  if ( (int) get_option( 'pd-rating-posts-index' ) > 0 ) {
+						$rating_id = (int) get_option( 'pd-rating-posts-index' );
+						$unique_id = 'wp-post-' . $post->ID;
+						$rating_pos = (int) get_option( 'pd-rating-posts-index-pos' );
+						$item_id =  '_post_' . $post->ID;
+					}
+        } else { 
 					if ( (int) get_option( 'pd-rating-posts' ) > 0 ) {
 						$rating_id = (int) get_option( 'pd-rating-posts' );
 	          $unique_id = 'wp-post-' . $post->ID;
@@ -82,8 +89,7 @@ function polldaddy_show_rating( $content ) {
 }
 
 function polldaddy_get_rating_code( $rating_id, $unique_id, $title, $permalink, $item_id = '' ) {
-
-	$html = '<p><div class="pd-rating" id="pd_rating_holder_' . $rating_id . $item_id . '"></div></p>
+	$html = "\n".'<p><div class="pd-rating" id="pd_rating_holder_' . $rating_id . $item_id . '"></div></p>
 <script type="text/javascript">
 	PDRTJS_settings_' . (int)$rating_id . $item_id . ' = {
 		"id" : "' . (int)$rating_id . '",
@@ -95,11 +101,22 @@ function polldaddy_get_rating_code( $rating_id, $unique_id, $title, $permalink, 
 
 		$html .= '		"permalink" : "' . urlencode( clean_url( $permalink ) ) . '"';
 		$html .= "\n	}\n";
-		$html .=  '</script>';
+		$html .=  "</script>\n";
 
 	return $html;
 }
 
-add_filter( 'the_content', 'polldaddy_show_rating', 1 );
+function polldaddy_show_rating_excerpt( $content ) {
+ remove_filter( 'the_content', 'polldaddy_show_rating', 5 );
+ return $content;
+}
+
+function polldaddy_show_rating_excerpt_for_real( $content ) {
+ return polldaddy_show_rating( $content );
+}
+
+add_filter( 'the_content', 'polldaddy_show_rating', 5 );
+add_filter( 'get_the_excerpt', 'polldaddy_show_rating_excerpt', 5 );
+add_filter( 'the_excerpt', 'polldaddy_show_rating_excerpt_for_real' );
 add_filter( 'comment_text', 'polldaddy_show_rating_comments', 50 );
 ?>
