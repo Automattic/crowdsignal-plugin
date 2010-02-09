@@ -50,7 +50,7 @@ Nope.  The permissions are the same as for posts.  So Editors and Administrators
 
 Check your theme's footer.php calls wp_footer. The rating javascript is loaded on this action. More here - http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks
 
-= I cannot access my ratings settings, I am getting a "Sorry! There was an error creating your rating widget. Please contact PollDaddy support to fix this." message.
+= I cannot access my ratings settings, I am getting a "Sorry! There was an error creating your rating widget. Please contact PollDaddy support to fix this." message. =
 
 You need to select the synchronize ratings account in the Options menu to make sure the ratings API key is valid.
 

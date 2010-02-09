@@ -1,4 +1,4 @@
-# Translation of the WordPress plugin PollDaddy Polls 1.8.0 by Automattic, Inc..
+# Translation of the WordPress plugin PollDaddy Polls 1.8.1 by Automattic, Inc..
 # Copyright (C) 2010 Automattic, Inc.
 # This file is distributed under the same license as the PollDaddy Polls package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PollDaddy Polls 1.8.0\n"
+"Project-Id-Version: PollDaddy Polls 1.8.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/polldaddy\n"
-"POT-Creation-Date: 2010-02-02 18:21+0000\n"
+"POT-Creation-Date: 2010-02-09 15:26+0000\n"
 "PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,86 +17,94 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: polldaddy-org.php:98 polldaddy.php:128 polldaddy.php:892
+#: polldaddy-org.php:108 polldaddy.php:128 polldaddy.php:892
 msgid "Email address required"
 msgstr ""
 
-#: polldaddy-org.php:101 polldaddy.php:131 polldaddy.php:895
+#: polldaddy-org.php:111 polldaddy.php:131 polldaddy.php:895
 msgid "Password required"
 msgstr ""
 
-#: polldaddy-org.php:133
+#: polldaddy-org.php:143
 msgid "Could not connect to PollDaddy API Key service"
 msgstr ""
 
-#: polldaddy-org.php:147 polldaddy.php:161
+#: polldaddy-org.php:157 polldaddy.php:161
 msgid "Can't connect to PollDaddy.com"
 msgstr ""
 
-#: polldaddy-org.php:177
+#: polldaddy-org.php:187
 msgid ""
 "Login to PollDaddy failed.  Double check your email address and password."
 msgstr ""
 
-#: polldaddy-org.php:179
+#: polldaddy-org.php:189
 msgid ""
 "If your email address and password are correct, your host may not support "
 "secure logins."
 msgstr ""
 
-#: polldaddy-org.php:180
+#: polldaddy-org.php:190
 msgid ""
 "In that case, you may be able to log in to PollDaddy by unchecking the \"Use "
 "SSL to Log in\" checkbox."
 msgstr ""
 
-#: polldaddy-org.php:191 polldaddy.php:198
+#: polldaddy-org.php:201 polldaddy.php:198
 msgid ""
 "Account could not be accessed.  Are your email address and password correct?"
 msgstr ""
 
-#: polldaddy-org.php:205 polldaddy.php:249
+#: polldaddy-org.php:215 polldaddy.php:249
 msgid "PollDaddy Account"
 msgstr ""
 
-#: polldaddy-org.php:207 polldaddy.php:251
+#: polldaddy-org.php:217 polldaddy.php:251
 #, php-format
 msgid ""
 "Before you can use the PollDaddy plugin, you need to enter your <a href=\"%s"
 "\">PollDaddy.com</a> account details."
 msgstr ""
 
-#: polldaddy-org.php:214 polldaddy.php:258 polldaddy.php:3857
+#: polldaddy-org.php:224 polldaddy.php:258 polldaddy.php:3857
 msgid "PollDaddy Email Address"
 msgstr ""
 
-#: polldaddy-org.php:222 polldaddy.php:266 polldaddy.php:3867
+#: polldaddy-org.php:232 polldaddy.php:266 polldaddy.php:3867
 msgid "PollDaddy Password"
 msgstr ""
 
-#: polldaddy-org.php:235
+#: polldaddy-org.php:245
 msgid "Use SSL to Log in"
 msgstr ""
 
-#: polldaddy-org.php:239
+#: polldaddy-org.php:249
 msgid ""
 "This ensures a secure login to your PollDaddy account.  Only uncheck if you "
 "are having problems logging in."
 msgstr ""
 
-#: polldaddy-org.php:249 polldaddy.php:278
+#: polldaddy-org.php:259 polldaddy.php:278
 msgid "Submit"
 msgstr ""
 
-#: polldaddy-org.php:265
+#: polldaddy-org.php:275
 msgid "Multiple PollDaddy Accounts"
 msgstr ""
 
-#: polldaddy-org.php:271
+#: polldaddy-org.php:281
 msgid "This setting will allow each blog user to import a PollDaddy account."
 msgstr ""
 
-#: polldaddy-org.php:514
+#: polldaddy-org.php:288
+msgid "Sync Ratings Account"
+msgstr ""
+
+#: polldaddy-org.php:294
+msgid "This will syncronize your ratings PollDaddy account."
+msgstr ""
+
+#: polldaddy-org.php:537
 msgid "How many items would you like to display?"
 msgstr ""
 
