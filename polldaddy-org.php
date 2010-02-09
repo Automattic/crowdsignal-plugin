@@ -11,7 +11,7 @@ class WPORG_PollDaddy extends WP_PollDaddy {
 
   function __construct() {
     parent::__construct();
-    $this->version = '1.8.1'; 
+    $this->version = '1.8.2'; 
 	  $this->base_url = plugins_url() . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
     $this->polldaddy_client_class = 'WPORG_PollDaddy_Client';
 		$this->use_ssl = (int) get_option( 'polldaddy_use_ssl' );
@@ -29,18 +29,19 @@ class WPORG_PollDaddy extends WP_PollDaddy {
 		    $polldaddy->reset();
 		    
 		    if( $this->multiple_accounts ){
-          //need to retrieve initial admin user code to use as ratings user code
-          $polldaddy_multiple_accounts = 0;       				
-  				$partner = array( 'role' => $polldaddy_multiple_accounts );    				
-  				$polldaddy->update_partner_account( $partner );		           			  
-  			  update_option( 'polldaddy_multiple_accounts', $polldaddy_multiple_accounts );
+          //need to retrieve initial admin user code to use as ratings user code 	
+  				$polldaddy->update_partner_account( array( 'role' => 0 ) );		           			  
+  			  update_option( 'polldaddy_multiple_accounts', 0 );
         }
         
-        $this->rating_user_code = $polldaddy->get_usercode( $this->id );
-  			
-  			if ( !empty( $this->rating_user_code ) ){
+        $this->rating_user_code = $polldaddy->get_usercode( $this->id );   			
+  			if ( !empty( $this->rating_user_code ) )
   			  update_option( 'pd-rating-usercode', $this->rating_user_code );
-        }  
+  			  
+  			if( $this->multiple_accounts ){		
+  				$polldaddy->update_partner_account( array( 'role' => 1 ) );		           			  
+  			  update_option( 'polldaddy_multiple_accounts', 1 );
+        }
   		}
   	}
   	parent::set_api_user_code();
@@ -67,15 +68,24 @@ class WPORG_PollDaddy extends WP_PollDaddy {
   				$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->user_code );
   				$polldaddy->reset();
   				
+  				$polldaddy_sync_account = 0;
+          
+  			  if( isset( $_POST['polldaddy-sync-account'] ) )
+  			    $polldaddy_sync_account = (int) $_POST['polldaddy-sync-account'];
+            
+  			  if( $polldaddy_sync_account > 0 ){
+  			    $this->rating_user_code = '';
+            update_option( 'pd-rating-usercode', '' );   			
+            $this->set_api_user_code(); 
+          } 
+  				
           $polldaddy_multiple_accounts = 0;
           
   			  if( isset( $_POST['polldaddy-multiple-accounts'] ) )
   			    $polldaddy_multiple_accounts = (int) $_POST['polldaddy-multiple-accounts'];
-  				
-  				$partner = array( 'role' => $polldaddy_multiple_accounts );
-  				
-  				$polldaddy->update_partner_account( $partner );		  
-  			  
+  			    
+  			  $partner = array( 'role' => $polldaddy_multiple_accounts );   				
+  				$polldaddy->update_partner_account( $partner );
   			  update_option( 'polldaddy_multiple_accounts', $polldaddy_multiple_accounts ); 
         }    
         break; 
@@ -271,6 +281,19 @@ class WPORG_PollDaddy extends WP_PollDaddy {
           <label for="polldaddy-multiple-accounts"><?php _e( 'This setting will allow each blog user to import a PollDaddy account.', 'polldaddy' ); ?></label>
         </span>
     </td>
+  </tr>
+  <tr class="form-field form-required">
+    <th valign="top" scope="row">
+      <label for="polldaddy-sync-account">
+        <?php _e( 'Sync Ratings Account', 'polldaddy' ); ?>
+      </label>
+    </th>
+    <td>
+      <input type="checkbox" name="polldaddy-sync-account" id="polldaddy-sync-account" value="1" style="width: auto" />
+        <span class="description">
+          <label for="polldaddy-sync-account"><?php _e( 'This will syncronize your ratings PollDaddy account.', 'polldaddy' ); ?></label>
+        </span>
+    </td>
   </tr><?php }       
     return parent::plugin_options_add();
   }
@@ -343,7 +366,7 @@ function polldaddy_loader() {
 	add_action( 'admin_menu', array( &$polldaddy_object, 'admin_menu' ) );
 }
 
-function polldaddy_shortcode($atts, $content=null) {
+function polldaddy_shortcode_handler( $atts, $content=null ) {
   extract( shortcode_atts( array(
     'survey' => null, 
     'link_text' => 'View Survey', 
@@ -416,8 +439,8 @@ function polldaddy_add_rating_js() {
 }
 
 add_action( 'init', 'polldaddy_loader' );
-add_shortcode('polldaddy', 'polldaddy_shortcode');
-
+add_shortcode( 'polldaddy', 'polldaddy_shortcode_handler' );
+add_filter( 'widget_text', 'do_shortcode' );
 
 /**
  * PollDaddy Top Rated Widget
@@ -525,5 +548,5 @@ class PD_Top_Rated extends WP_Widget {
 
 }
 
-add_action('widgets_init', create_function('', 'return register_widget("PD_Top_Rated");'));
+add_action('widgets_init', create_function('', 'return register_widget("PD_Top_Rated");')); 
 ?>

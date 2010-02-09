@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls and ratings in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 1.8.0
+Version: 1.8.1
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -33,7 +33,7 @@ class WP_PollDaddy {
     global $current_user;
     $this->errors = new WP_Error;
     $this->scheme = 'https';
-    $this->version = '1.8.0';
+    $this->version = '1.8.1';
     $this->multiple_accounts = true;   
     $this->polldaddy_client_class = 'api_client';
     $this->polldaddy_clients = array();
@@ -3034,7 +3034,7 @@ class WP_PollDaddy {
       $polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->rating_user_code );
       $polldaddy->reset();
       
-      $response = $polldaddy->get_rating( $rating_id );
+      $response = $polldaddy->get_rating( $rating_id ); 
       
       if ( empty( $response ) || (int) $response->_id == 0 ) {
         $polldaddy->reset();
