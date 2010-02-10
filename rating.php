@@ -35,7 +35,7 @@ function polldaddy_show_rating_comments( $content ){
 function polldaddy_show_rating( $content ) {
 	if ( !is_feed() && !is_attachment() ) {
 		if ( is_single() || is_page() || is_home() ) {      
-      $html = polldaddy_get_rating_html();
+      $html = polldaddy_get_rating_html( 'check-options' );
       
 			if( !empty( $html ) ) {
         $rating_pos = 0;
@@ -58,7 +58,7 @@ function polldaddy_show_rating( $content ) {
 	return $content;	
 }
 
-function polldaddy_get_rating_html(){
+function polldaddy_get_rating_html( $condition = '' ){
   global $post;
   $html = '';
 
@@ -70,11 +70,36 @@ function polldaddy_get_rating_html(){
   	$item_id = '';
   
     if ( is_page() ) {
-      $rating_id = (int) get_option( 'pd-rating-pages-id' );
+      if ( $condition = 'check-options' ){
+        if( (int) get_option( 'pd-rating-pages' ) > 0 ){
+          $rating_id = (int) get_option( 'pd-rating-pages-id' );
+        }
+      } else {
+        $rating_id = (int) get_option( 'pd-rating-pages-id' );
+      }             
+      
       $unique_id = 'wp-page-' . $post->ID;
       $item_id =  '_page_' . $post->ID;
+    } else if ( is_home() ) {
+      if ( $condition = 'check-options' ){
+        if( (int) get_option( 'pd-rating-posts-index' ) > 0 ){
+          $rating_id = (int) get_option( 'pd-rating-posts-id' );
+        }
+      } else {
+        $rating_id = (int) get_option( 'pd-rating-posts-id' );
+      }             
+      
+      $unique_id = 'wp-post-' . $post->ID;
+      $item_id =  '_post_' . $post->ID;
     } else { 
-      $rating_id = (int) get_option( 'pd-rating-posts-id' );
+      if ( $condition = 'check-options' ){
+        if( (int) get_option( 'pd-rating-posts' ) > 0 ){
+          $rating_id = (int) get_option( 'pd-rating-posts-id' );
+        }    
+      } else {
+        $rating_id = (int) get_option( 'pd-rating-posts-id' );
+      } 
+      
       $unique_id = 'wp-post-' . $post->ID;
       $item_id =  '_post_' . $post->ID;
     }

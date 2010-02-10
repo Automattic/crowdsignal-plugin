@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls and ratings in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 1.8.1
+Version: 1.8.2
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -33,7 +33,7 @@ class WP_PollDaddy {
     global $current_user;
     $this->errors = new WP_Error;
     $this->scheme = 'https';
-    $this->version = '1.8.1';
+    $this->version = '1.8.2';
     $this->multiple_accounts = true;   
     $this->polldaddy_client_class = 'api_client';
     $this->polldaddy_clients = array();
@@ -2983,7 +2983,7 @@ class WP_PollDaddy {
             $rating_updated = true;
             break;
             
-            case 'comments':
+        case 'comments':
             if ( isset( $_POST[ 'pd_show_comments' ] ) && (int) $_POST[ 'pd_show_comments' ] == 1 )
             $show_comments = get_option( 'pd-rating-comments-id' );
             
@@ -3032,9 +3032,19 @@ class WP_PollDaddy {
       }
       
       $polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->rating_user_code );
-      $polldaddy->reset();
+      $polldaddy->reset();         
+      $response = $polldaddy->get_rating( $rating_id );
       
-      $response = $polldaddy->get_rating( $rating_id ); 
+      if ( $polldaddy->errors ) {
+        if( array_key_exists( 4, $polldaddy->errors ) ) { //Obsolete key
+          $this->rating_user_code = '';
+          update_option( 'pd-rating-usercode', '' );   			
+          $this->set_api_user_code();  // get latest key
+          $polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->rating_user_code );
+          $polldaddy->reset();
+          $response = $polldaddy->get_rating( $rating_id );
+        }           
+      } 
       
       if ( empty( $response ) || (int) $response->_id == 0 ) {
         $polldaddy->reset();
@@ -3045,7 +3055,7 @@ class WP_PollDaddy {
         $blog_name = get_option( 'blogname' );
       
         if ( empty( $blog_name ) )
-          $blog_name = 'WPORG Blog';
+          $blog_name = 'WordPress Blog';
       
         $blog_name .= ' - ' . $report_type;
       

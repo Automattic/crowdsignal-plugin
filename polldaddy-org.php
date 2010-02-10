@@ -68,7 +68,35 @@ class WPORG_PollDaddy extends WP_PollDaddy {
   				$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->user_code );
   				$polldaddy->reset();
   				
-  				$polldaddy_sync_account = 0;
+  				$polldaddy_post_rating_id = 0;
+  				$polldaddy_page_rating_id = 0;
+  				$polldaddy_comment_rating_id = 0; 
+  				$polldaddy_sync_account = 0; 
+          $polldaddy_multiple_accounts = 0;
+  				
+  				if( !empty( $_POST['polldaddy-post-rating-id'] ) ) {
+            $polldaddy_post_rating_id = (int) $_POST['polldaddy-post-rating-id'];
+            update_option( 'pd-rating-posts-id', $polldaddy_post_rating_id );
+            
+            if( (int) get_option( 'pd-rating-posts' ) > 0 )
+              update_option( 'pd-rating-posts', $polldaddy_post_rating_id );
+          }         			    
+  				
+  				if( !empty( $_POST['polldaddy-page-rating-id'] ) ) {
+            $polldaddy_page_rating_id = (int) $_POST['polldaddy-page-rating-id'];
+            update_option( 'pd-rating-pages-id', $polldaddy_page_rating_id );
+            
+            if( (int) get_option( 'pd-rating-pages' ) > 0 )
+              update_option( 'pd-rating-pages', $polldaddy_page_rating_id );
+          }
+  				
+  				if( !empty( $_POST['polldaddy-comment-rating-id'] ) ) {
+            $polldaddy_comment_rating_id = (int) $_POST['polldaddy-comment-rating-id'];
+            update_option( 'pd-rating-comments-id', $polldaddy_comment_rating_id );
+            
+            if( (int) get_option( 'pd-rating-comments' ) > 0 )
+              update_option( 'pd-rating-comments', $polldaddy_comment_rating_id );
+          }			
           
   			  if( isset( $_POST['polldaddy-sync-account'] ) )
   			    $polldaddy_sync_account = (int) $_POST['polldaddy-sync-account'];
@@ -77,9 +105,7 @@ class WPORG_PollDaddy extends WP_PollDaddy {
   			    $this->rating_user_code = '';
             update_option( 'pd-rating-usercode', '' );   			
             $this->set_api_user_code(); 
-          } 
-  				
-          $polldaddy_multiple_accounts = 0;
+          }         				
           
   			  if( isset( $_POST['polldaddy-multiple-accounts'] ) )
   			    $polldaddy_multiple_accounts = (int) $_POST['polldaddy-multiple-accounts'];
@@ -292,6 +318,45 @@ class WPORG_PollDaddy extends WP_PollDaddy {
       <input type="checkbox" name="polldaddy-sync-account" id="polldaddy-sync-account" value="1" style="width: auto" />
         <span class="description">
           <label for="polldaddy-sync-account"><?php _e( 'This will syncronize your ratings PollDaddy account.', 'polldaddy' ); ?></label>
+        </span>
+    </td>
+  </tr>
+  <tr class="form-field form-required">
+    <th valign="top" scope="row">
+      <label for="polldaddy-post-rating-id">
+        <?php _e( 'Posts Rating ID', 'polldaddy' ); ?>
+      </label>
+    </th>
+    <td>
+      <input type="text" size="10" name="polldaddy-post-rating-id" id="polldaddy-post-rating-id" value="<?php echo (int) get_option( 'pd-rating-posts-id' ); ?>" style="width: auto" />
+        <span class="description">
+          <label for="polldaddy-post-rating-id"><?php _e( 'This is the rating ID used in posts', 'polldaddy' ); ?></label>
+        </span>
+    </td>
+  </tr>
+  <tr class="form-field form-required">
+    <th valign="top" scope="row">
+      <label for="polldaddy-page-rating-id">
+        <?php _e( 'Pages Rating ID', 'polldaddy' ); ?>
+      </label>
+    </th>
+    <td>
+      <input type="text" size="10" name="polldaddy-page-rating-id" id="polldaddy-page-rating-id" value="<?php echo (int) get_option( 'pd-rating-pages-id' ); ?>" style="width: auto" />
+        <span class="description">
+          <label for="polldaddy-page-rating-id"><?php _e( 'This is the rating ID used in pages', 'polldaddy' ); ?></label>
+        </span>
+    </td>
+  </tr>
+  <tr class="form-field form-required">
+    <th valign="top" scope="row">
+      <label for="polldaddy-comment-rating-id">
+        <?php _e( 'Comments Rating ID', 'polldaddy' ); ?>
+      </label>
+    </th>
+    <td>
+      <input type="text" size="10" name="polldaddy-comment-rating-id" id="polldaddy-comment-rating-id" value="<?php echo (int) get_option( 'pd-rating-comments-id' ); ?>" style="width: auto" />
+        <span class="description">
+          <label for="polldaddy-comment-rating-id"><?php _e( 'This is the rating ID used in comments', 'polldaddy' ); ?></label>
         </span>
     </td>
   </tr><?php }       

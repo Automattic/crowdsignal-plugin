@@ -3,7 +3,7 @@ Contributors: mdawaffe, eoigal
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 2.6
 Tested up to: 2.9.1
-Stable tag: 1.8.1
+Stable tag: 1.8.2
 
 Create and manage PollDaddy polls and ratings from within WordPress.
 
@@ -48,13 +48,19 @@ Nope.  The permissions are the same as for posts.  So Editors and Administrators
 
 = Where are my ratings? =
 
-Check your theme's footer.php calls wp_footer. The rating javascript is loaded on this action. More here - http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks
+Check your theme's footer.php calls wp_footer. The rating javascript is loaded on this action. 
+
+More info here - http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks
 
 = I cannot access my ratings settings, I am getting a "Sorry! There was an error creating your rating widget. Please contact PollDaddy support to fix this." message. =
 
 You need to select the synchronize ratings account in the Options menu to make sure the ratings API key is valid.
 
 == Change Log ==
+= 1.8.2 =
+* Bug Fix: Rating were showing up on front page when posts ratings were enabled
+* Added fields to options menu to set the rating id for posts/pages/comments
+
 = 1.8.1 =
 * Added a template tag to allow themes to place the rating wherever they want by echoing the function polldaddy_get_rating_html()
 * Added shortcodes to text widget, so now all Polldaddy shortcodes will work in the text widget.
