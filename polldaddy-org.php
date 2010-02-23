@@ -11,7 +11,7 @@ class WPORG_PollDaddy extends WP_PollDaddy {
 
   function __construct() {
     parent::__construct();
-    $this->version = '1.8.2'; 
+    $this->version = '1.8.3'; 
 	  $this->base_url = plugins_url() . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
     $this->polldaddy_client_class = 'WPORG_PollDaddy_Client';
 		$this->use_ssl = (int) get_option( 'polldaddy_use_ssl' );
@@ -511,107 +511,103 @@ add_filter( 'widget_text', 'do_shortcode' );
  * PollDaddy Top Rated Widget
  *
  * **/
-
-class PD_Top_Rated extends WP_Widget {
-
-    function PD_Top_Rated() {
-
-        $widget_ops = array( 'classname' => 'top_rated', 'description' => 'A list of your top rated posts, pages or comments.' );
-        $this->WP_Widget( 'PD_Top_Rated', 'Top Rated', $widget_ops );
-    }
-
-    function widget($args, $instance) {
-
-        extract($args, EXTR_SKIP);
-
-        echo $before_widget;
-        $title = empty( $instance['title'] ) ? 'Top Rated' : apply_filters( 'widget_title', $instance['title'] );
-        $posts_rating_id = get_option( 'pd-rating-posts-id' );
-        $pages_rating_id = get_option( 'pd-rating-pages-id' );
-        $comments_rating_id = get_option( 'pd-rating-comments-id' );
-
-        echo $before_title . $title . $after_title;
-        echo '<div id="pd_top_rated_holder"></div>';
-        echo '<script language="javascript" src="http://i.polldaddy.com/ratings/rating-top.js"></script>';
-        echo '<script language="javascript" type="text/javascript">';
-        $rating_seq = $instance['show_posts'] . $instance['show_pages'] . $instance['show_comments'];
-
-        echo '  PDRTJS_TOP = new PDRTJS_RATING_TOP( ' . $posts_rating_id . ', ' . $pages_rating_id . ', ' . $comments_rating_id . ", '"  . $rating_seq . "', " . $instance['item_count'] . ' );';
-        echo '</script>';
-                        echo $after_widget;
-            }
-
-            function update( $new_instance, $old_instance ) {
-
-                $instance = $old_instance;
-                $instance['title'] = strip_tags($new_instance['title']);
-                $instance['show_posts'] = (int) $new_instance['show_posts'];
-                $instance['show_pages'] = (int) $new_instance['show_pages'];
-                $instance['show_comments'] = (int) $new_instance['show_comments'];
-                $instance['item_count'] = (int) $new_instance['item_count'];
-                return $instance;
-            }
-
-            function form( $instance ) {
-
-                $instance = wp_parse_args( (array) $instance, array( 'title' => '', 'show_posts' => '1', 'show_pages' => '1', 'show_comments' => '1', 'item_count' => '5' ) );
-                $title = strip_tags( $instance['title'] );
-                $show_posts = (int) $instance['show_posts'];
-                $show_pages = (int) $instance['show_pages'];
-                $show_comments = (int) $instance['show_comments'];
-                $item_count = (int) $instance['item_count'];
-        ?>
-            <p><label for="<?php echo $this->get_field_id('title'); ?>">Title: <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo attribute_escape( $title ); ?>" /></label></p>
-            <p>
-                <label for="<?php echo $this->get_field_id( 'show_posts' ); ?>">
-                    <?php
-                        $checked = '';
-                        if ( $show_posts == 1 ){
-                            $checked = 'checked="checked"';
-                        }
-                    ?>
-                <input type="checkbox" class="checkbox"  id="<?php echo $this->get_field_id( 'show_posts' ); ?>" name="<?php echo $this->get_field_name( 'show_posts' ); ?>" value="1" <?php echo ( $checked ); ?> />
-                     Show for posts
-                </label>
-            </p>
-                    <p>
-                        <label for="<?php echo $this->get_field_id( 'show_pages' ); ?>">
-                            <?php
-                                $checked = '';
-                                if ( $show_pages == 1 ){
-                                    $checked = 'checked="checked"';
-                                }
-                            ?>
-                        <input type="checkbox" class="checkbox"  id="<?php echo $this->get_field_id( 'show_pages' ); ?>" name="<?php echo $this->get_field_name( 'show_pages' ); ?>" value="1" <?php echo ( $checked ); ?> />
-                             Show for pages
-                        </label>
-                    </p>
-                    <p>
-                        <label for="<?php echo $this->get_field_id( 'show_comments' ); ?>">
-                            <?php
-                                $checked = '';
-                                if ( $show_comments == 1 ){
-                                    $checked = 'checked="checked"';
-                                }
-                            ?>
-                                <input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'show_comments' ); ?>" name="<?php echo $this->get_field_name( 'show_comments' ); ?>" value="1" <?php echo ( $checked ); ?>/>
-                             Show for comments
-                        </label>
-                    </p>
-                    <p>
-                        <label for="rss-items-<?php echo $number; ?>"><?php _e('How many items would you like to display?'); ?>
-                                <select id="<?php echo $this->get_field_id( 'item_count' ); ?>" name="<?php echo $this->get_field_name( 'item_count' ); ?>">
-                            <?php
-                                for ( $i = 1; $i <= 20; ++$i )
-                                    echo "<option value='$i' " . ( $item_count == $i ? "selected='selected'" : '' ) . ">$i</option>";
-                            ?>
-                        </select>
-                    </label>
-                </p>
-<?php
-    }
-
+if ( class_exists( 'WP_Widget' ) ) {
+	class PD_Top_Rated extends WP_Widget {
+	
+		function PD_Top_Rated() {
+	
+			$widget_ops = array( 'classname' => 'top_rated', 'description' => __( 'A list of your top rated posts, pages or comments.' ) );
+			$this->WP_Widget( 'PD_Top_Rated', 'Top Rated', $widget_ops );
+		}
+	
+		function widget($args, $instance) {
+	
+			extract($args, EXTR_SKIP);
+	
+			echo $before_widget;
+			$title = empty( $instance['title'] ) ? __( 'Top Rated', 'polldaddy' ) : apply_filters( 'widget_title', $instance['title'] );
+			$posts_rating_id = (int) get_option( 'pd-rating-posts-id' );
+			$pages_rating_id = (int) get_option( 'pd-rating-pages-id' );
+			$comments_rating_id = (int) get_option( 'pd-rating-comments-id' );
+	
+			echo $before_title . $title . $after_title;
+			echo '<div id="pd_top_rated_holder"></div>';
+			echo '<script language="javascript" src="http://i.polldaddy.com/ratings/rating-top.js"></script>';
+			echo '<script language="javascript" type="text/javascript">';
+			$rating_seq = $instance['show_posts'] . $instance['show_pages'] . $instance['show_comments'];
+	
+			echo '  PDRTJS_TOP = new PDRTJS_RATING_TOP( ' . $posts_rating_id . ', ' . $pages_rating_id . ', ' . $comments_rating_id . ", '"  . $rating_seq . "', " . $instance['item_count'] . ' );';
+			echo '</script>';
+							echo $after_widget;
+				}
+	
+				function update( $new_instance, $old_instance ) {
+	
+					$instance = $old_instance;
+					$instance['title'] = strip_tags($new_instance['title']);
+					$instance['show_posts'] = (int) $new_instance['show_posts'];
+					$instance['show_pages'] = (int) $new_instance['show_pages'];
+					$instance['show_comments'] = (int) $new_instance['show_comments'];
+					$instance['item_count'] = (int) $new_instance['item_count'];
+					return $instance;
+				}
+	
+				function form( $instance ) {
+	
+					$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'show_posts' => '1', 'show_pages' => '1', 'show_comments' => '1', 'item_count' => '5' ) );
+					$title = strip_tags( $instance['title'] );
+					$show_posts = (int) $instance['show_posts'];
+					$show_pages = (int) $instance['show_pages'];
+					$show_comments = (int) $instance['show_comments'];
+					$item_count = (int) $instance['item_count'];
+			?>
+				<p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e( 'Title', 'polldaddy' ); ?>: <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo attribute_escape( $title ); ?>" /></label></p>
+				<p>
+					<label for="<?php echo $this->get_field_id( 'show_posts' ); ?>">
+						<?php
+							$checked = '';
+							if ( $show_posts == 1 )
+								$checked = 'checked="checked"';
+						?>
+					<input type="checkbox" class="checkbox"  id="<?php echo $this->get_field_id( 'show_posts' ); ?>" name="<?php echo $this->get_field_name( 'show_posts' ); ?>" value="1" <?php echo ( $checked ); ?> />
+						 <?php _e( 'Show for posts', 'polldaddy' ); ?>
+					</label>
+				</p>
+						<p>
+							<label for="<?php echo $this->get_field_id( 'show_pages' ); ?>">
+								<?php
+									$checked = '';
+									if ( $show_pages == 1 )
+										$checked = 'checked="checked"';
+								?>
+							<input type="checkbox" class="checkbox"  id="<?php echo $this->get_field_id( 'show_pages' ); ?>" name="<?php echo $this->get_field_name( 'show_pages' ); ?>" value="1" <?php echo ( $checked ); ?> />
+								 <?php _e( 'Show for pages', 'polldaddy' ); ?>
+							</label>
+						</p>
+						<p>
+							<label for="<?php echo $this->get_field_id( 'show_comments' ); ?>">
+								<?php
+									$checked = '';
+									if ( $show_comments == 1 )
+										$checked = 'checked="checked"';
+								?>
+									<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'show_comments' ); ?>" name="<?php echo $this->get_field_name( 'show_comments' ); ?>" value="1" <?php echo ( $checked ); ?>/>
+								 <?php _e( 'Show for comments', 'polldaddy' ); ?>
+							</label>
+						</p>
+						<p>
+							<label for="rss-items-<?php echo $number; ?>"><?php _e( 'How many items would you like to display?', 'polldaddy' ); ?>
+									<select id="<?php echo $this->get_field_id( 'item_count' ); ?>" name="<?php echo $this->get_field_name( 'item_count' ); ?>">
+								<?php
+									for ( $i = 1; $i <= 20; ++$i )
+										echo "<option value='$i' " . ( $item_count == $i ? "selected='selected'" : '' ) . ">$i</option>";
+								?>
+							</select>
+						</label>
+					</p>
+	<?php
+		}	
+	}	
+	add_action('widgets_init', create_function('', 'return register_widget("PD_Top_Rated");')); 
 }
-
-add_action('widgets_init', create_function('', 'return register_widget("PD_Top_Rated");')); 
 ?>

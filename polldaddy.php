@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls and ratings in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 1.8.2
+Version: 1.8.3
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -26,24 +26,24 @@ class WP_PollDaddy {
 	var $rating_user_code;
 	
 	function WP_PollDaddy(){
-    $this ->__construct();
-  }
-
-  function __construct() {
-    global $current_user;
-    $this->errors = new WP_Error;
-    $this->scheme = 'https';
-    $this->version = '1.8.2';
-    $this->multiple_accounts = true;   
-    $this->polldaddy_client_class = 'api_client';
-    $this->polldaddy_clients = array();
+		$this ->__construct();
+	}
+	
+	function __construct() {
+		global $current_user;
+		$this->errors = new WP_Error;
+		$this->scheme = 'https';
+		$this->version = '1.8.3';
+		$this->multiple_accounts = true;   
+		$this->polldaddy_client_class = 'api_client';
+		$this->polldaddy_clients = array();
 		$this->is_admin = (bool) current_user_can('manage_options');
 		$this->is_author = true;
-    $this->id = (int) $current_user->ID;
-    $this->user_code = null;
-    $this->rating_user_code = null;	
-  }
-   
+		$this->id = (int) $current_user->ID;
+		$this->user_code = null;
+		$this->rating_user_code = null;	
+	}
+	
 	function &get_client( $api_key, $userCode = null ) {
 		if ( isset( $this->polldaddy_clients[$api_key] ) ) {
 			if ( !is_null( $userCode ) ) 
@@ -1186,9 +1186,9 @@ class WP_PollDaddy {
 			<thead>
 				<tr>
           <th id="cb" class="manage-column column-cb check-column" scope="col" /><?php if( $this->is_author ){ ?><input type="checkbox" /><?php } ?></th>
-					<th id="title" class="manage-column column-title" scope="col">Poll</th>
-					<th id="votes" class="manage-column column-vote" scope="col">Votes</th>
-					<th id="date" class="manage-column column-date" scope="col">Created</th>
+					<th id="title" class="manage-column column-title" scope="col"><?php _e( 'Poll', 'polldaddy' ); ?></th>
+					<th id="votes" class="manage-column column-vote" scope="col"><?php _e( 'Votes', 'polldaddy' ); ?></th>
+					<th id="date" class="manage-column column-date" scope="col"><?php _e( 'Created', 'polldaddy' ); ?></th>
 				</tr>
 			</thead>
 			<tbody>

@@ -3,7 +3,7 @@ Contributors: mdawaffe, eoigal
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 2.6
 Tested up to: 2.9.1
-Stable tag: 1.8.2
+Stable tag: 1.8.3
 
 Create and manage PollDaddy polls and ratings from within WordPress.
 
@@ -57,6 +57,10 @@ More info here - http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks
 You need to select the synchronize ratings account in the Options menu to make sure the ratings API key is valid.
 
 == Change Log ==
+= 1.8.3 =
+* Bug Fix: Use of WP_Widget caused fatal error in installations pre 2.8
+* Added Localisation to Top Rated Widget.
+
 = 1.8.2 =
 * Bug Fix: Rating were showing up on front page when posts ratings were enabled
 * Added fields to options menu to set the rating id for posts/pages/comments
