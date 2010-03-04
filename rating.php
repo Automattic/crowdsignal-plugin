@@ -70,7 +70,7 @@ function polldaddy_get_rating_html( $condition = '' ){
   	$item_id = '';
   
     if ( is_page() ) {
-      if ( $condition = 'check-options' ){
+      if ( $condition == 'check-options' ){
         if( (int) get_option( 'pd-rating-pages' ) > 0 ){
           $rating_id = (int) get_option( 'pd-rating-pages-id' );
         }
@@ -81,7 +81,7 @@ function polldaddy_get_rating_html( $condition = '' ){
       $unique_id = 'wp-page-' . $post->ID;
       $item_id =  '_page_' . $post->ID;
     } else if ( is_home() ) {
-      if ( $condition = 'check-options' ){
+      if ( $condition == 'check-options' ){
         if( (int) get_option( 'pd-rating-posts-index' ) > 0 ){
           $rating_id = (int) get_option( 'pd-rating-posts-id' );
         }
@@ -92,7 +92,7 @@ function polldaddy_get_rating_html( $condition = '' ){
       $unique_id = 'wp-post-' . $post->ID;
       $item_id =  '_post_' . $post->ID;
     } else { 
-      if ( $condition = 'check-options' ){
+      if ( $condition == 'check-options' ){
         if( (int) get_option( 'pd-rating-posts' ) > 0 ){
           $rating_id = (int) get_option( 'pd-rating-posts-id' );
         }    
@@ -116,7 +116,7 @@ function polldaddy_get_rating_html( $condition = '' ){
 }
 
 function polldaddy_get_rating_code( $rating_id, $unique_id, $title, $permalink, $item_id = '' ) {
-	$html = "\n".'<p><div class="pd-rating" id="pd_rating_holder_' . $rating_id . $item_id . '"></div></p>
+	$html = "\n".'<div class="pd-rating" id="pd_rating_holder_' . $rating_id . $item_id . '"></div>
 <script type="text/javascript" charset="utf-8">
 	PDRTJS_settings_' . (int)$rating_id . $item_id . ' = {
 		"id" : "' . (int)$rating_id . '",

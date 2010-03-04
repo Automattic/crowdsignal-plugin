@@ -427,7 +427,7 @@ function polldaddy_loader() {
 	global $polldaddy_object;
 	$polldaddy_class = WP_POLLDADDY__CLASS;
 	$polldaddy_object = new $polldaddy_class;
-	load_plugin_textdomain( 'polldaddy' );
+	load_plugin_textdomain( 'polldaddy', '', 'polldaddy/locale' );
 	add_action( 'admin_menu', array( &$polldaddy_object, 'admin_menu' ) );
 }
 
