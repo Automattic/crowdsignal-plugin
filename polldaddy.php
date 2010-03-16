@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls and ratings in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 1.8.4
+Version: 1.8.5
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -33,7 +33,7 @@ class WP_PollDaddy {
 		global $current_user;
 		$this->errors = new WP_Error;
 		$this->scheme = 'https';
-		$this->version = '1.8.4';
+		$this->version = '1.8.5';
 		$this->multiple_accounts = true;   
 		$this->polldaddy_client_class = 'api_client';
 		$this->polldaddy_clients = array();
@@ -51,9 +51,13 @@ class WP_PollDaddy {
 			return $this->polldaddy_clients[$api_key];
 		}
 		require_once WP_POLLDADDY__POLLDADDY_CLIENT_PATH;
-		$this->polldaddy_clients[$api_key] = new $this->polldaddy_client_class( $api_key, $userCode );
+		$this->polldaddy_clients[$api_key] = $this->config_client( new $this->polldaddy_client_class( $api_key, $userCode ) );
 		return $this->polldaddy_clients[$api_key];
 	}
+	
+	function config_client( $client ){
+    return $client;
+  }
 
 	function admin_menu() { 
 		if ( !defined( 'WP_POLLDADDY__PARTNERGUID' ) ) {
@@ -330,7 +334,7 @@ class WP_PollDaddy {
 				case 'edit-style' :
 				case 'create-style' :
 					wp_enqueue_script( 'polls-style', "http://i.polldaddy.com/js/style-editor.js", array(), $this->version );
-					wp_enqueue_script( 'polls-style-color', "http://i.polldaddy.com/js/jscolor.js", array(), $this->version );
+					wp_enqueue_script( 'polls-style-color', "http://i.polldaddy.com/js/jquery/jscolor.js", array(), $this->version );
 					wp_enqueue_style( 'polls', "{$this->base_url}style-editor.css", array(), $this->version );
 					break;
 				case 'list-styles' :
@@ -352,7 +356,7 @@ class WP_PollDaddy {
 					$plugin_page = 'ratings&amp;action=reports';
 					break;
 				default :	
-					wp_enqueue_script( 'rating-text-color', "http://i.polldaddy.com/js/jscolor.js", array(), $this->version );
+					wp_enqueue_script( 'rating-text-color', "http://i.polldaddy.com/js/jquery/jscolor.js", array(), $this->version );
 					wp_enqueue_script( 'ratings', 'http://i.polldaddy.com/ratings/rating.js', array(), $this->version );
 					wp_localize_script( 'polls-common', 'adminRatingsL10n', array(
 						'star_colors' => __( 'Star Colors', 'polldaddy' ), 'star_size' =>  __( 'Star Size', 'polldaddy' ),
@@ -3033,18 +3037,7 @@ class WP_PollDaddy {
       
       $polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->rating_user_code );
       $polldaddy->reset();         
-      $response = $polldaddy->get_rating( $rating_id );
-      
-      if ( $polldaddy->errors ) {
-        if( array_key_exists( 4, $polldaddy->errors ) ) { //Obsolete key
-          $this->rating_user_code = '';
-          update_option( 'pd-rating-usercode', '' );   			
-          $this->set_api_user_code();  // get latest key
-          $polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->rating_user_code );
-          $polldaddy->reset();
-          $response = $polldaddy->get_rating( $rating_id );
-        }           
-      } 
+      $response = $polldaddy->get_rating( $rating_id ); 
       
       if ( empty( $response ) || (int) $response->_id == 0 ) {
         $polldaddy->reset();
@@ -3059,7 +3052,19 @@ class WP_PollDaddy {
       
         $blog_name .= ' - ' . $report_type;
       
-        $response = $polldaddy->create_rating( $blog_name , $new_type );
+        $response = $polldaddy->create_rating( $blog_name , $new_type ); 
+      
+        if ( $polldaddy->errors ) {
+          if( array_key_exists( 4, $polldaddy->errors ) ) { //Obsolete key
+            $this->rating_user_code = '';
+            update_option( 'pd-rating-usercode', '' );   			
+            $this->set_api_user_code();  // get latest key
+            $polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->rating_user_code );
+            $polldaddy->reset();
+            $response = $polldaddy->create_rating( $blog_name , $new_type ); 
+          }           
+        } 
+        
         if( empty( $response ) ) {
           echo '<div class="error"><p>'.sprintf(__('Sorry! There was an error creating your rating widget. Please contact <a href="%1$s" %2$s>PollDaddy support</a> to fix this.', 'polldaddy'), 'http://polldaddy.com/feedback/', 'target="_blank"') . '</p></div>';
           $error = true;
@@ -3477,6 +3482,89 @@ class WP_PollDaddy {
               </table>
             </div>
           </div>
+          <?php            
+            if ( $this->is_admin && $report_type == 'posts' ) {                   
+            $exclude_post_ids = wp_specialchars( get_option( 'pd-rating-exclude-post-ids' ) ); ?>
+            <div class="postbox">
+              <h3><?php _e('Extra Settings', 'polldaddy');?></h3>
+              <div class="inside">
+                <table> 
+                  <tr>
+                    <td width="100" height="30"><?php _e('Rating ID', 'polldaddy');?></td>
+                    <td>
+                      <input type="text" name="polldaddy-post-rating-id" id="polldaddy-post-rating-id" value="<?php echo $rating_id; ?>" />
+                    </td>
+                    <td>
+                      <span class="description">
+                        <label for="polldaddy-post-rating-id"><?php _e( 'This is the rating ID used in posts', 'polldaddy' ); ?></label>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="100" height="30"><?php _e('Exclude Posts', 'polldaddy');?></td>
+                    <td>
+                      <input type="text" name="exclude-post-ids" id="exclude-post-ids" value="<?php echo $exclude_post_ids; ?>" />
+                    </td>
+                    <td>
+                      <span class="description">
+                        <label for="exclude-post-ids"><?php _e( 'Enter the Post IDs where you want to exclude ratings from. Please use a comma-delimited list, eg. 1,2,3', 'polldaddy' ); ?></label>
+                      </span>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div><?php
+            } else if ( $this->is_admin && $report_type == 'pages' ) {                   
+            $exclude_page_ids = wp_specialchars( get_option( 'pd-rating-exclude-page-ids' ) ); ?>
+            <div class="postbox">
+              <h3><?php _e('Extra Settings', 'polldaddy');?></h3>
+              <div class="inside">
+                <table> 
+                  <tr>
+                    <td width="100" height="30"><?php _e('Rating ID', 'polldaddy');?></td>
+                    <td>
+                      <input type="text" name="polldaddy-page-rating-id" id="polldaddy-page-rating-id" value="<?php echo $rating_id; ?>" />
+                    </td>
+                    <td>
+                      <span class="description">
+                        <label for="polldaddy-page-rating-id"><?php _e( 'This is the rating ID used in pages', 'polldaddy' ); ?></label>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="100" height="30"><?php _e('Exclude Pages', 'polldaddy');?></td>
+                    <td>
+                      <input type="text" name="exclude-page-ids" id="exclude-page-ids" value="<?php echo $exclude_page_ids; ?>" />
+                    </td>
+                    <td>
+                      <span class="description">
+                        <label for="exclude-page-ids"><?php _e( 'Enter the Page IDs where you want to exclude ratings from. Please use a comma-delimited list, eg. 1,2,3', 'polldaddy' ); ?></label>
+                      </span>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div
+            <?php } else if ( $this->is_admin && $report_type == 'comments' ) { ?>
+            <div class="postbox">
+              <h3><?php _e('Extra Settings', 'polldaddy');?></h3>
+              <div class="inside">
+                <table> 
+                  <tr>
+                    <td width="100" height="30"><?php _e('Rating ID', 'polldaddy');?></td>
+                    <td>
+                      <input type="text" name="polldaddy-comment-rating-id" id="polldaddy-comment-rating-id" value="<?php echo $rating_id; ?>" />
+                    </td>
+                    <td>
+                      <span class="description">
+                        <label for="polldaddy-comment-rating-id"><?php _e( 'This is the rating ID used in comments', 'polldaddy' ); ?></label>
+                      </span>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div
+            <?php } ?>
         </div>
       </div>
     </form>
@@ -3495,62 +3583,141 @@ class WP_PollDaddy {
     } // from if !error ?>
     </div><?php
   }
-	
+	       
   function update_rating(){
     $rating_type = 0;
     $rating_id = 0;
+    $new_rating_id = 0;
+    $type = 'post';
     $set = null;
     
     if( isset( $_REQUEST['rating_id'] ) ) 
       $rating_id = (int) $_REQUEST['rating_id'];
     
-    if( isset( $_REQUEST['rating_type'] ) && $_REQUEST['rating_type'] == 'stars' ) {
-      $set->type = 'stars';
-      $rating_type = 0;
-      if( isset( $_REQUEST['star_color'] ) )
-        $set->star_color = attribute_escape( $_REQUEST['star_color'] );
-    } else {
-      $set->type = 'nero';
-      $rating_type = 1;
-      if( isset( $_REQUEST['nero_style'] ) )
-        $set->star_color = attribute_escape( $_REQUEST['nero_style'] );
+    if( isset( $_REQUEST['polldaddy-post-rating-id'] ) ) {
+      $new_rating_id = (int) $_REQUEST['polldaddy-post-rating-id'];
+      $type = 'posts';
+    } 
+    else if( isset( $_REQUEST['polldaddy-page-rating-id'] ) ) {   
+      $new_rating_id = (int) $_REQUEST['polldaddy-page-rating-id']; 
+      $type = 'pages';
+    }
+    else if( isset( $_REQUEST['polldaddy-comment-rating-id'] ) ) {  
+      $new_rating_id = (int) $_REQUEST['polldaddy-comment-rating-id']; 
+      $type = 'comments';
+    } else{
+      $new_rating_id = $rating_id;
+    }        
+    
+    if( $rating_id > 0 && $rating_id == $new_rating_id ) {
+      if( isset( $_REQUEST['rating_type'] ) && $_REQUEST['rating_type'] == 'stars' ) {
+        $set->type = 'stars';
+        $rating_type = 0;
+        if( isset( $_REQUEST['star_color'] ) )
+          $set->star_color = attribute_escape( $_REQUEST['star_color'] );
+      } else {
+        $set->type = 'nero';
+        $rating_type = 1;
+        if( isset( $_REQUEST['nero_style'] ) )
+          $set->star_color = attribute_escape( $_REQUEST['nero_style'] );
+      }
+      
+      $set->size             = wp_specialchars( $_REQUEST['size'], 1 );
+      $set->custom_star      = wp_specialchars( clean_url( $_REQUEST['custom_star'] ) , 1 );
+      $set->font_align       = wp_specialchars( $_REQUEST['font_align'], 1 );
+      $set->font_position    = wp_specialchars( $_REQUEST['font_position'], 1 );
+      $set->font_family      = wp_specialchars( $_REQUEST['font_family'], 1);
+      $set->font_size        = wp_specialchars( $_REQUEST['font_size'], 1 );
+      $set->font_line_height = wp_specialchars( $_REQUEST['font_line_height'], 1 );
+      
+      if ( isset( $_REQUEST['font_bold'] ) && $_REQUEST['font_bold'] == 'bold' )
+        $set->font_bold = 'bold';
+      else
+        $set->font_bold = 'normal';
+      
+      if ( isset( $_REQUEST['font_italic'] ) && $_REQUEST['font_italic'] == 'italic' )
+        $set->font_italic = 'italic';
+      else
+        $set->font_italic = 'normal';
+      
+      $set->text_votes     = wp_specialchars( $_REQUEST['text_votes'], 1 );
+      $set->text_rate_this = wp_specialchars( $_REQUEST['text_rate_this'], 1 );
+      $set->text_1_star    = wp_specialchars( $_REQUEST['text_1_star'], 1 );
+      $set->text_2_star    = wp_specialchars( $_REQUEST['text_2_star'], 1 );
+      $set->text_3_star    = wp_specialchars( $_REQUEST['text_3_star'], 1 );
+      $set->text_4_star    = wp_specialchars( $_REQUEST['text_4_star'], 1 );
+      $set->text_5_star    = wp_specialchars( $_REQUEST['text_5_star'], 1 );
+      $set->text_thank_you = wp_specialchars( $_REQUEST['text_thank_you'], 1 );
+      $set->text_rate_up   = wp_specialchars( $_REQUEST['text_rate_up'], 1 );
+      $set->text_rate_down = wp_specialchars( $_REQUEST['text_rate_down'], 1 );
+      $set->font_color     = wp_specialchars( $_REQUEST['font_color'], 1 );
+      
+      $settings_text = json_encode( $set );
+      
+      $polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->rating_user_code );
+      $polldaddy->reset();		
+      $response = $polldaddy->update_rating( $rating_id, $settings_text, $rating_type );
+    }
+    else if( $this->is_admin && $new_rating_id > 0 ){
+      switch( $type ){
+        case 'pages':
+          update_option( 'pd-rating-pages-id', $new_rating_id );              
+          if( (int) get_option( 'pd-rating-pages' ) > 0 )
+            update_option( 'pd-rating-pages', $new_rating_id );
+          break;
+        case 'comments':
+          update_option( 'pd-rating-comments-id', $new_rating_id );              
+          if( (int) get_option( 'pd-rating-comments' ) > 0 )
+            update_option( 'pd-rating-comments', $new_rating_id );
+          break;
+        case 'posts':
+          update_option( 'pd-rating-posts-id', $new_rating_id );              
+          if( (int) get_option( 'pd-rating-posts' ) > 0 )
+            update_option( 'pd-rating-posts', $new_rating_id );
+      }
     }
     
-    $set->size             = wp_specialchars( $_REQUEST['size'], 1 );
-    $set->custom_star      = wp_specialchars( clean_url( $_REQUEST['custom_star'] ) , 1 );
-    $set->font_align       = wp_specialchars( $_REQUEST['font_align'], 1 );
-    $set->font_position    = wp_specialchars( $_REQUEST['font_position'], 1 );
-    $set->font_family      = wp_specialchars( $_REQUEST['font_family'], 1);
-    $set->font_size        = wp_specialchars( $_REQUEST['font_size'], 1 );
-    $set->font_line_height = wp_specialchars( $_REQUEST['font_line_height'], 1 );
-    
-    if ( isset( $_REQUEST['font_bold'] ) && $_REQUEST['font_bold'] == 'bold' )
-      $set->font_bold = 'bold';
-    else
-      $set->font_bold = 'normal';
-    
-    if ( isset( $_REQUEST['font_italic'] ) && $_REQUEST['font_italic'] == 'italic' )
-      $set->font_italic = 'italic';
-    else
-      $set->font_italic = 'normal';
-    
-    $set->text_votes     = wp_specialchars( $_REQUEST['text_votes'], 1 );
-    $set->text_rate_this = wp_specialchars( $_REQUEST['text_rate_this'], 1 );
-    $set->text_1_star    = wp_specialchars( $_REQUEST['text_1_star'], 1 );
-    $set->text_2_star    = wp_specialchars( $_REQUEST['text_2_star'], 1 );
-    $set->text_3_star    = wp_specialchars( $_REQUEST['text_3_star'], 1 );
-    $set->text_4_star    = wp_specialchars( $_REQUEST['text_4_star'], 1 );
-    $set->text_5_star    = wp_specialchars( $_REQUEST['text_5_star'], 1 );
-    $set->text_thank_you = wp_specialchars( $_REQUEST['text_thank_you'], 1 );
-    $set->text_rate_up   = wp_specialchars( $_REQUEST['text_rate_up'], 1 );
-    $set->text_rate_down = wp_specialchars( $_REQUEST['text_rate_down'], 1 );
-    $set->font_color     = wp_specialchars( $_REQUEST['font_color'], 1 );
-    
-    $settings_text = json_encode( $set );
-    
-    $polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->rating_user_code );
-    $polldaddy->reset();		
-    $response = $polldaddy->update_rating( $rating_id, $settings_text, $rating_type );
+    if( $this->is_admin ) {
+      if( $type=='posts' && isset( $_REQUEST['exclude-post-ids'] ) ) {
+        $exclude_post_ids = $_REQUEST['exclude-post-ids'];  
+        if( empty( $exclude_post_ids ) ){
+          update_option( 'pd-rating-exclude-post-ids', '' );
+        } else{       
+          $post_ids = array();
+          $ids = explode( ',', $exclude_post_ids );
+          if( !empty( $ids ) ){
+            foreach( (array) $ids as $id ){
+              if( (int) $id > 0 )
+                $post_ids[] = (int) $id;  
+            }  
+          }   
+          if( !empty( $post_ids ) ){
+            $exclude_post_ids = implode( ',', $post_ids );
+            update_option( 'pd-rating-exclude-post-ids', $exclude_post_ids );
+          }
+        }
+      }
+      
+      if( $type=='pages' && isset( $_REQUEST['exclude-page-ids'] ) ) {
+        $exclude_page_ids = $_REQUEST['exclude-page-ids'];  
+        if( empty( $exclude_page_ids ) ){
+          update_option( 'pd-rating-exclude-page-ids', '' );
+        } else{
+          $page_ids = array();
+          $ids = explode( ',', $exclude_page_ids );
+          if( !empty( $ids ) ){
+            foreach( (array) $ids as $id ){
+              if( (int) $id > 0 )
+                $page_ids[] = (int) $id;  
+            }  
+          }   
+          if( !empty( $page_ids ) ){
+            $exclude_page_ids = implode( ',', $page_ids );
+            update_option( 'pd-rating-exclude-page-ids', $exclude_page_ids );
+          }
+        }  
+      }   
+    }     
 }
 	function rating_reports() {
     $polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->rating_user_code );

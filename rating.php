@@ -68,40 +68,41 @@ function polldaddy_get_rating_html( $condition = '' ){
   	$permalink = '';  	
   	$rating_id = 0;
   	$item_id = '';
-  
+  	$exclude_posts = explode( ',', get_option( 'pd-rating-exclude-post-ids' ) );
+  	$exclude_pages = explode( ',', get_option( 'pd-rating-exclude-page-ids' ) );
+  	
     if ( is_page() ) {
-      if ( $condition == 'check-options' ){
-        if( (int) get_option( 'pd-rating-pages' ) > 0 ){
+      if( !in_array( $post->ID, $exclude_pages ) ){
+        $unique_id = 'wp-page-' . $post->ID;
+        $item_id =  '_page_' . $post->ID;
+        if ( $condition == 'check-options' ){
+          if( (int) get_option( 'pd-rating-pages' ) > 0 ){
+            $rating_id = (int) get_option( 'pd-rating-pages-id' );
+          }
+        } else {
           $rating_id = (int) get_option( 'pd-rating-pages-id' );
-        }
-      } else {
-        $rating_id = (int) get_option( 'pd-rating-pages-id' );
-      }             
-      
-      $unique_id = 'wp-page-' . $post->ID;
-      $item_id =  '_page_' . $post->ID;
-    } else if ( is_home() ) {
-      if ( $condition == 'check-options' ){
-        if( (int) get_option( 'pd-rating-posts-index' ) > 0 ){
+        }         
+      }
+    } else if ( !in_array( $post->ID, $exclude_posts ) ) {
+      $unique_id = 'wp-post-' . $post->ID;
+      $item_id =  '_post_' . $post->ID;       
+      if ( is_home() ){
+        if ( $condition == 'check-options' ){
+          if( (int) get_option( 'pd-rating-posts-index' ) > 0 ){
+            $rating_id = (int) get_option( 'pd-rating-posts-id' );
+          }
+        } else {
           $rating_id = (int) get_option( 'pd-rating-posts-id' );
         }
       } else {
-        $rating_id = (int) get_option( 'pd-rating-posts-id' );
-      }             
-      
-      $unique_id = 'wp-post-' . $post->ID;
-      $item_id =  '_post_' . $post->ID;
-    } else { 
-      if ( $condition == 'check-options' ){
-        if( (int) get_option( 'pd-rating-posts' ) > 0 ){
+        if ( $condition == 'check-options' ){
+          if( (int) get_option( 'pd-rating-posts' ) > 0 ){
+            $rating_id = (int) get_option( 'pd-rating-posts-id' );
+          }    
+        } else {
           $rating_id = (int) get_option( 'pd-rating-posts-id' );
-        }    
-      } else {
-        $rating_id = (int) get_option( 'pd-rating-posts-id' );
-      } 
-      
-      $unique_id = 'wp-post-' . $post->ID;
-      $item_id =  '_post_' . $post->ID;
+        }       
+      }
     }
   
   	if ( $rating_id > 0 ) {

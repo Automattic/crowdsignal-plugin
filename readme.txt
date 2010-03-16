@@ -3,7 +3,7 @@ Contributors: mdawaffe, eoigal
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 2.6
 Tested up to: 2.9.1
-Stable tag: 1.8.4
+Stable tag: 1.8.5
 
 Create and manage PollDaddy polls and ratings from within WordPress.
 
@@ -15,6 +15,12 @@ PollDaddy Polls is localizable and currently available in:
 
 * English
 * Arabic (thanks <a href="http://www.Ghorab.ws" target="_blank">Ghorab.ws</a>)
+* French
+* Spanish
+* Czech
+* Danish
+* Khmer
+* Tegulu
 
 A messages.pot file is included in the plugin - please do send us any language files!
 
@@ -58,6 +64,9 @@ More info here - http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks
 You need to select the synchronize ratings account in the Options menu to make sure the ratings API key is valid.
 
 == Change Log ==
+= 1.8.5 =
+* Added option to allow ratings to be excluded from posts and pages
+
 = 1.8.4 =
 * Bug Fix: Fix bug in ratings template tag that prevented it from working without being 1st enabled
 * Added Arabic language.
