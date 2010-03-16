@@ -1,1683 +1,1171 @@
-# Translation of WordPress.com in French (France)
-# This file is distributed under the same license as the WordPress.com package.
+#!/usr/bin/env php
+# Translation of the WordPress plugin PollDaddy Polls 1.8.5 by Automattic, Inc..
+# Copyright (C) 2010 Automattic, Inc.
+# This file is distributed under the same license as the PollDaddy Polls package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2010-03-16 13:48:25+0000\n"
+"Project-Id-Version: PollDaddy Polls 1.8.5\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/polldaddy\n"
+"POT-Creation-Date: 2010-03-16 14:42+0000\n"
+"PO-Revision-Date: 2010-03-16 14:47-0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: GlotPress/0.1\n"
-"Project-Id-Version: WordPress.com\n"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3535
-msgid "Exclude Pages"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3560
-msgid "This is the rating ID used in comments"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3541
-msgid "Enter the Page IDs where you want to exclude ratings from. Please use a comma-delimited list, eg. 1,2,3"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3510
-msgid "Enter the Post IDs where you want to exclude ratings from. Please use a comma-delimited list, eg. 1,2,3"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3530
-msgid "This is the rating ID used in pages"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3504
-msgid "Exclude Posts"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3499
-msgid "This is the rating ID used in posts"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3493
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3524
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3554
-msgid "Rating ID"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1193
-msgid "Poll"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3489
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3520
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3550
-msgid "Extra Settings"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3159
-msgid "Enable for front page"
-msgstr "Activer pour la page d'accueil"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4071
-msgid "Default poll settings"
-msgstr "Paramètres de sondage par défaut"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4101
-msgid "Percentages"
-msgstr "Pourcentages"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4095
-msgid "Sharing"
-msgstr "Partager"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4023
-msgid "PollDaddy Account Info"
-msgstr "Information du compte PollDaddy"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4026
-msgid "This is the PollDadddy account you currently have imported into your WordPress account"
-msgstr "Ceci est le compte PollDadddy que vous avez importé dans votre compte WordPress"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4057
-msgid "Import Account"
-msgstr "Importer un compte"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4085
-msgid "Randomise Answers"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4080
-msgid "Multiple Choice"
-msgstr "Choix multiples"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4117
-msgid "Cookie"
-msgstr "Cookie"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4118
-msgid "Cookie & IP address"
-msgstr "Cookie et adresse IP"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4111
-msgid "Poll style"
-msgstr "Habillage du sondage"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4132
-msgid "Block expiration limit"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4144
-msgid "Save Options"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3324
-msgid "%d Star Rating"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3277
-msgid "%d star"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3281
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3285
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3289
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3293
-msgid "%d stars"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1420
-msgid "Expires: "
-msgstr "Expirera dans&nbsp;:"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1429
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4131
-msgid "%d month"
-msgstr "%d mois"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1431
-msgid "Note: Blocking by cookie and IP address can be problematic for some voters."
-msgstr "Note : Le blocage par cookie et adresse IP peut être problématique pour certains votants."
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1721
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1817
-msgid "Please choose a custom style..."
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1428
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4130
-msgid "%d week"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1427
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4129
-msgid "%d day"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1423
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4125
-msgid "%d hour"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1755
-msgid "PollDaddy Style"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1990
-msgid "Style"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:2031
-msgid "No custom styles yet.  <a href=\"%s\">Create one</a>"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1727
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1823
-msgid "Please choose a style."
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1732
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1828
-msgid "Did you know we have a new editor for building your own custom poll styles? Find out more <a href=\"%s\" target=\"_blank\">here</a>."
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1708
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1763
-msgid "Custom Style"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1424
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1425
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1426
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4126
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4127
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4128
-msgid "%d hours"
-msgstr "%d heures"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1038
-msgid "Poll Results (<a href=\"%s\">Edit Poll</a>)"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:969
-msgid "Options Updated."
-msgstr "Options mises à jour."
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:966
-msgid "Account Imported."
-msgstr "Compte importé."
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1028
-msgid "Poll Preview (<a href=\"%s\">List Polls</a>)"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1300
-msgid "No polls yet."
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1040
-msgid "Poll Results (<a href=\"%s\">List Polls</a>)"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:262
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4034
-msgid "PollDaddy Email Address"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:270
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4044
-msgid "PollDaddy Password"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4116
-#: wp-content/mu-plugins/syntaxhighlighter.php:950
-msgid "Off"
-msgstr "Off"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:363
-msgid "Nero Size"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:363
-msgid "Nero Type"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:362
-msgid "Star Colors"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:104
-msgid "Ratings &ndash; Settings"
-msgstr "Cotes d'évaluation &ndash; Paramètres"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:105
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:108
-msgid "Ratings &ndash; Reports"
-msgstr "Cotes d'évaluation &ndash; Rapports"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3069
-msgid "Sorry! There was an error creating your rating widget. Please contact <a href=\"%1$s\" %2$s>PollDaddy support</a> to fix this."
-msgstr "Désolé ! Une erreur est survenue lors de la création de votre widget de vote. Vous êtes prié de contacter <a href=\"%1$s\" %2$s>PollDaddy support</a> pour corriger l'erreur."
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3853
-msgid "No ratings have been collected for your %s yet."
-msgstr "Pas encore de résultats de vote pour votre %s."
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3183
-msgid "Above each page"
-msgstr "Au dessus de chaque page"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3203
-msgid "Above each comment"
-msgstr "Au dessus de chaque commentaire"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3203
-msgid "Below each comment"
-msgstr "En dessous de chaque commentaire"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3145
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3163
-msgid "Above each blog post"
-msgstr "Au dessus de chaque article"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3145
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3163
-msgid "Below each blog post"
-msgstr "En dessous de chaque article"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3183
-msgid "Below each page"
-msgstr "En dessous de chaque page"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3862
-msgid "Average Rating"
-msgstr "Moyenne des notes"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3859
-msgid "Start Date"
-msgstr "Date de début"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3831
-msgid "Last 24 hours"
-msgstr "Dernières 24 heures"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3831
-msgid "Last 7 days"
-msgstr "Derniers 7 jours"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3420
-msgid "Font"
-msgstr "Font"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3829
-msgid "View Report"
-msgstr "Voir le rapport"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3831
-msgid "Last 31 days"
-msgstr "Derniers 31 jours"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3831
-msgid "Last 3 months"
-msgstr "Derniers 3 mois"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3831
-msgid "All time"
-msgstr "tout le temps "
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3839
-msgid "Filter Report"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3434
-msgid "Color"
-msgstr "Couleur"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3423
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3442
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3456
-msgid "Inherit"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3453
-msgid "Line Height"
-msgstr "hauteur de ligne"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3814
-msgid "Rating Reports"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3831
-msgid "Last 12 months"
-msgstr "12 derniers mois"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3305
-msgid "Rate Down"
-msgstr "Je n'aime pas"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3316
-msgid "Here you can choose how you want your rating to display. The 5 star rating is the most commonly used. The Nero rating is useful for keeping it simple."
-msgstr "Ici vous pouvez choisir comment montrer vos notations. La notation à 5 étoiles est la plus communément usitée. La notation Nero est utile pour une vue simplifiée."
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3333
-msgid "Nero Rating"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3340
-msgid "Rating Style"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:362
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3344
-msgid "Star Size"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3358
-msgid "Star Color"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3361
-msgid "Grey"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3381
-msgid "Custom Image"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3301
-msgid "Rate Up"
-msgstr "J'aime"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3314
-msgid "Rating Type"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3347
-#: wp-content/mu-plugins/wpcom-widgets.php:670
-#: wp-content/mu-plugins/wpcom-widgets.php:1152
-msgid "Small"
-msgstr "Petit"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3370
-msgid "Hand"
-msgstr "Main"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3388
-msgid "Text Layout & Font"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3110
-msgid "Rating updated"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3199
-msgid "Enable for comments"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3141
-msgid "Enable for blog posts"
-msgstr "Activer pour les message de blog"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3179
-msgid "Enable for pages"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3269
-#: wp-content/plugins/wp-postratings/postratings-options.php:115
-#: wp-content/plugins/wp-postratings/postratings-options.php:118
-#: wp-content/plugins/wp-postratings/postratings-options.php:121
-#: wp-content/plugins/wp-postratings/postratings-options.php:127
-#: wp-content/plugins/wp-postratings/postratings-options.php:130
-#: wp-content/plugins/wp-postratings/postratings-options.php:143
-#: wp-content/plugins/wp-postratings/postratings-options.php:146
-#: wp-content/plugins/wp-postratings/postratings-options.php:149
-#: wp-content/plugins/wp-postratings/postratings-options.php:158
-#: wp-content/plugins/wp-postratings/postratings-templates.php:72
-#: wp-content/plugins/wp-postratings/postratings-templates.php:75
-#: wp-content/plugins/wp-postratings/postratings-templates.php:78
-#: wp-content/plugins/wp-postratings/postratings-templates.php:84
-#: wp-content/plugins/wp-postratings/postratings-templates.php:87
-#: wp-content/plugins/wp-postratings/postratings-templates.php:100
-#: wp-content/plugins/wp-postratings/postratings-templates.php:103
-#: wp-content/plugins/wp-postratings/postratings-templates.php:106
-#: wp-content/plugins/wp-postratings/postratings-templates.php:115
-#: wp-content/plugins/wp-postratings/wp-postratings.php:1276
-#: wp-content/plugins/wp-postratings/wp-postratings.php:1277
-#: wp-content/plugins/wp-postratings/wp-postratings.php:1292
-#: wp-content/plugins/wp-postratings/wp-postratings.php:1294
-msgid "votes"
-msgstr "votes"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3297
-msgid "Thank You"
-msgstr "Merci"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3258
-msgid "This is a demo of what your rating widget will look like"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3265
-msgid "Customize Labels"
-msgstr "Personnaliser les étiquettes"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3273
-msgid "rate this"
-msgstr "Évaluer"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3108
-msgid "Rating Settings"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:72
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:74
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:90
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:92
-#: wp-content/plugins/wp-postratings/wp-postratings.php:63
-#: wp-content/plugins/wp-postratings/wp-postratings.php:1070
-#: wp-content/plugins/wp-postratings/wp-postratings.php:1157
-msgid "Ratings"
-msgstr "Cotes d'évaluation"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:105
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:108
-msgid "Reports"
-msgstr "Rapports"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3409
-#: wp-content/themes/pub/monochrome/functions.php:142
-#: wp-includes/js/tinymce/langs/wp-langs.php:285
-#: wp-includes/js/tinymce/langs/wp-langs.php:384
-msgid "Bottom"
-msgstr "Bas"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3392
-#: wp-includes/js/tinymce/langs/wp-langs.php:321
-msgid "Align"
-msgstr "Alignement"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3229
-#: wp-includes/js/tinymce/langs/wp-langs.php:423
-msgid "Advanced Settings"
-msgstr "Options avancées"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3467
-#: wp-includes/js/tinymce/langs/wp-langs.php:201
-#: wp-includes/js/tinymce/wp-mce-help.php:212
-#: wp-includes/js/tinymce/wp-mce-help.php:225
-msgid "Bold"
-msgstr "Gras"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3476
-#: wp-includes/js/tinymce/langs/wp-langs.php:202
-#: wp-includes/js/tinymce/wp-mce-help.php:212
-#: wp-includes/js/tinymce/wp-mce-help.php:225
-msgid "Italic"
-msgstr "Italique"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3409
-#: wp-content/themes/pub/inove/footer.php:17
-#: wp-content/themes/pub/monochrome/functions.php:141
-#: wp-content/themes/pub/regulus/footer.php:5
-#: wp-includes/js/tinymce/langs/wp-langs.php:283
-#: wp-includes/js/tinymce/langs/wp-langs.php:382
-msgid "Top"
-msgstr "Haut"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1195
-#: wp-content/mu-plugins/domains.php:1368
-msgid "Created"
-msgstr "Créé"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy-com.php:184
-msgid "Account could not be created."
-msgstr "Le compte n'a pas pu être créé."
-
-#: wp-content/admin-plugins/polldaddy/polldaddy-com.php:266
-msgid "Polls in WordPress"
-msgstr "Sondages dans WordPress"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy-com.php:268
-msgid "To use polls in WordPress, you will need an account with our sister product, <a href=\"%s\">PollDaddy.com</a>."
-msgstr "Pour utiliser les sondages dans WordPress, vous devez avoir un compte chez notre filiale, <a href=\"%s\">PollDaddy.com</a>. "
-
-#: wp-content/admin-plugins/polldaddy/polldaddy-com.php:273
-msgid "Auto-create a new account (recommended)."
-msgstr "Cr&eacute;ation automatique d'un nouveau compte (recommand&eacute;)"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy-com.php:276
-msgid "Import my existing PollDaddy account."
-msgstr "Importer mon compte PollDaddy existant."
-
-#: wp-content/admin-plugins/polldaddy/polldaddy-com.php:289
-msgid "Do it: I want some polls!"
-msgstr "Le faire: je veux des sondages!"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:79
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:81
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:97
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:99
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:111
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1105
-msgid "Polls"
-msgstr "Sondages"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:114
-msgid "Add New Poll"
-msgstr "Ajouter un nouveau sondage"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:115
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1070
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1743
-msgid "Custom Styles"
-msgstr "Styles personnalisés"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:132
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:896
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: polldaddy-org.php:107
+#: polldaddy.php:132
+#: polldaddy.php:896
 msgid "Email address required"
 msgstr "Adresse de courriel requise"
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:135
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:899
+#: polldaddy-org.php:110
+#: polldaddy.php:135
+#: polldaddy.php:899
 msgid "Password required"
 msgstr "Mot de passe requis"
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:165
+#: polldaddy-org.php:142
+#, fuzzy
+msgid "Could not connect to PollDaddy API Key service"
+msgstr "Impossible de se connecter à PollDaddy.com"
+
+#: polldaddy-org.php:156
+#: polldaddy.php:165
 msgid "Can't connect to PollDaddy.com"
 msgstr "Impossible de se connecter à PollDaddy.com"
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:192
-msgid "Invalid Account"
-msgstr "Compte invalide"
+#: polldaddy-org.php:186
+#, fuzzy
+msgid "Login to PollDaddy failed.  Double check your email address and password."
+msgstr "Impossible d'accéder à votre compte. Votre adresse email et votre mot de passe sont-ils correct ?"
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:202
+#: polldaddy-org.php:188
+msgid "If your email address and password are correct, your host may not support secure logins."
+msgstr ""
+
+#: polldaddy-org.php:189
+msgid "In that case, you may be able to log in to PollDaddy by unchecking the \"Use SSL to Log in\" checkbox."
+msgstr ""
+
+#: polldaddy-org.php:200
+#: polldaddy.php:202
 msgid "Account could not be accessed.  Are your email address and password correct?"
 msgstr "Impossible d'accéder à votre compte. Votre adresse email et votre mot de passe sont-ils correct ?"
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:214
-msgid "Obsolete PollDaddy User API Key:  <a href=\"%s\">Sign in again to re-authenticate</a>"
-msgstr "Clé API d'utilisateur PollDaddy périmée: <a href=\"%s\"> Identifiez-vous à nouveau pour ré-authentifier</a>"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:253
+#: polldaddy-org.php:214
+#: polldaddy.php:253
 msgid "PollDaddy Account"
 msgstr "Compte PollDaddy"
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:255
+#: polldaddy-org.php:216
+#: polldaddy.php:255
+#, php-format
 msgid "Before you can use the PollDaddy plugin, you need to enter your <a href=\"%s\">PollDaddy.com</a> account details."
 msgstr ""
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:291
+#: polldaddy-org.php:223
+#: polldaddy.php:262
+#: polldaddy.php:4034
+msgid "PollDaddy Email Address"
+msgstr ""
+
+#: polldaddy-org.php:231
+#: polldaddy.php:270
+#: polldaddy.php:4044
+msgid "PollDaddy Password"
+msgstr ""
+
+#: polldaddy-org.php:244
+msgid "Use SSL to Log in"
+msgstr ""
+
+#: polldaddy-org.php:248
+msgid "This ensures a secure login to your PollDaddy account.  Only uncheck if you are having problems logging in."
+msgstr ""
+
+#: polldaddy-org.php:258
+#: polldaddy.php:282
+msgid "Submit"
+msgstr "Envoyer"
+
+#: polldaddy-org.php:274
+#, fuzzy
+msgid "Multiple PollDaddy Accounts"
+msgstr "Compte PollDaddy"
+
+#: polldaddy-org.php:280
+msgid "This setting will allow each blog user to import a PollDaddy account."
+msgstr ""
+
+#: polldaddy-org.php:287
+#, fuzzy
+msgid "Sync Ratings Account"
+msgstr "Compte invalide"
+
+#: polldaddy-org.php:293
+#, fuzzy
+msgid "This will syncronize your ratings PollDaddy account."
+msgstr "Importer mon compte PollDaddy existant."
+
+#: polldaddy-org.php:453
+msgid "A list of your top rated posts, pages or comments."
+msgstr ""
+
+#: polldaddy-org.php:462
+msgid "Top Rated"
+msgstr ""
+
+#: polldaddy-org.php:498
+#: polldaddy.php:3860
+msgid "Title"
+msgstr "Titre"
+
+#: polldaddy-org.php:507
+msgid "Show for posts"
+msgstr ""
+
+#: polldaddy-org.php:518
+msgid "Show for pages"
+msgstr ""
+
+#: polldaddy-org.php:529
+#, fuzzy
+msgid "Show for comments"
+msgstr "En dessous de chaque commentaire"
+
+#: polldaddy-org.php:533
+msgid "How many items would you like to display?"
+msgstr ""
+
+#: polldaddy.php:72
+#: polldaddy.php:74
+#: polldaddy.php:90
+#: polldaddy.php:92
+msgid "Ratings"
+msgstr "Cotes d'évaluation"
+
+#: polldaddy.php:79
+#: polldaddy.php:81
+#: polldaddy.php:97
+#: polldaddy.php:99
+#: polldaddy.php:111
+#: polldaddy.php:1105
+msgid "Polls"
+msgstr "Sondages"
+
+#: polldaddy.php:104
+msgid "Ratings &ndash; Settings"
+msgstr "Cotes d'évaluation &ndash; Paramètres"
+
+#: polldaddy.php:104
+msgid "Settings"
+msgstr "Réglages"
+
+#: polldaddy.php:105
+#: polldaddy.php:108
+msgid "Ratings &ndash; Reports"
+msgstr "Cotes d'évaluation &ndash; Rapports"
+
+#: polldaddy.php:105
+#: polldaddy.php:108
+msgid "Reports"
+msgstr "Rapports"
+
+#: polldaddy.php:111
+#: polldaddy.php:1237
+#: polldaddy.php:2014
+msgid "Edit"
+msgstr "Modifier"
+
+#: polldaddy.php:114
+msgid "Add New Poll"
+msgstr "Ajouter un nouveau sondage"
+
+#: polldaddy.php:114
+msgid "Add New"
+msgstr "Ajouter"
+
+#: polldaddy.php:115
+#: polldaddy.php:1070
+#: polldaddy.php:1743
+msgid "Custom Styles"
+msgstr "Styles personnalisés"
+
+#: polldaddy.php:116
+#: polldaddy.php:4019
+msgid "Options"
+msgstr "Options"
+
+#: polldaddy.php:192
+msgid "Invalid Account"
+msgstr "Compte invalide"
+
+#: polldaddy.php:214
+#, php-format
+msgid "Obsolete PollDaddy User API Key:  <a href=\"%s\">Sign in again to re-authenticate</a>"
+msgstr "Clé API d'utilisateur PollDaddy périmée: <a href=\"%s\"> Identifiez-vous à nouveau pour ré-authentifier</a>"
+
+#: polldaddy.php:291
 msgid "Add Poll"
 msgstr "Ajouter le sondage"
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:456
+#: polldaddy.php:362
+msgid "Star Colors"
+msgstr ""
+
+#: polldaddy.php:362
+#: polldaddy.php:3344
+msgid "Star Size"
+msgstr ""
+
+#: polldaddy.php:363
+msgid "Nero Type"
+msgstr ""
+
+#: polldaddy.php:363
+msgid "Nero Size"
+msgstr ""
+
+#: polldaddy.php:456
 msgid "You are not allowed to delete this poll."
 msgstr "Vous n'êtes pas autorisé à supprimer ce sondage."
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:464
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:500
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:536
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:570
+#: polldaddy.php:464
+#: polldaddy.php:500
+#: polldaddy.php:536
+#: polldaddy.php:570
 msgid "Invalid Poll Author"
 msgstr "Auteur du sondage invalide"
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:492
+#: polldaddy.php:492
 msgid "You are not allowed to open this poll."
 msgstr "Vous n'êtes pas autorisé à ouvrir ce sondage."
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:528
+#: polldaddy.php:528
 msgid "You are not allowed to close this poll."
 msgstr "Vous n'êtes pas autorisé à cloturer ce sondage."
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:561
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1333
+#: polldaddy.php:561
+#: polldaddy.php:1333
 msgid "You are not allowed to edit this poll."
 msgstr "Vous n'avez pas la permission de modifier ce sondage."
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:577
+#: polldaddy.php:577
 msgid "Poll not found"
 msgstr "Sondage introuvable"
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:604
+#: polldaddy.php:604
 msgid "Invalid answers"
 msgstr "Réponses invalides"
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:620
+#: polldaddy.php:620
 msgid "You must include at least 2 answers"
 msgstr "Vous devez donner au moins 2 réponses"
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:631
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:708
+#: polldaddy.php:631
+#: polldaddy.php:708
 msgid "Please choose a poll style"
 msgstr "Veuillez choisir un style de sondage"
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:653
+#: polldaddy.php:653
 msgid "Poll could not be updated"
 msgstr "Le sondage ne peut pas être mis à jour"
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:727
+#: polldaddy.php:727
 msgid "Poll could not be created"
 msgstr "Le sondage n'a pu être créé"
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:779
+#: polldaddy.php:779
 msgid "Style could not be updated"
 msgstr "Le style ne peut être mis à jour."
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:809
+#: polldaddy.php:809
 msgid "Style could not be created"
 msgstr "Le style ne peut pas être créer"
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:908
+#: polldaddy.php:908
 msgid "Account could not be imported.  Are your email address and password correct?"
 msgstr "Les données de votre compte ne peuvent pas être importées. Est-ce que votre adresse de courriel et votre mot de passe sont bien inscrits?"
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:926
+#: polldaddy.php:926
 msgid "Poll deleted."
 msgstr "Sondage supprimé."
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:928
+#: polldaddy.php:928
+#, php-format
 msgid "%s Poll Deleted."
 msgid_plural "%s Polls Deleted."
 msgstr[0] ""
 msgstr[1] ""
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:933
+#: polldaddy.php:933
 msgid "Poll opened."
 msgstr "Sondage ouvert."
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:935
+#: polldaddy.php:935
+#, php-format
 msgid "%s Poll Opened."
 msgid_plural "%s Polls Opened."
 msgstr[0] "%s Sondage activé."
 msgstr[1] "%s Sondages activés."
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:940
+#: polldaddy.php:940
 msgid "Poll closed."
 msgstr "Sondage clos."
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:942
+#: polldaddy.php:942
+#, php-format
 msgid "%s Poll Closed."
 msgid_plural "%s Polls Closed."
 msgstr[0] "%s Scrutin Fermé"
 msgstr[1] "%s Scrutins Fermés"
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:945
+#: polldaddy.php:945
 msgid "Poll updated."
 msgstr "Sondage mis à jour."
 
-#: wp-content/admin-plugins/polldaddy/polldaddy-com.php:132
-msgid "The homepage poll has been set."
-msgstr "Le sondage de la page d'accueil a été défini."
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:948
+#: polldaddy.php:948
 msgid "Poll created."
 msgstr "Sondage créé."
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:950
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1366
+#: polldaddy.php:950
+#: polldaddy.php:1366
 msgid "Send to Editor"
 msgstr "Envoyer à l’éditeur"
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:953
+#: polldaddy.php:953
 msgid "Custom Style updated."
 msgstr ""
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:956
+#: polldaddy.php:956
 msgid "Custom Style created."
 msgstr "Style personnalisé créé"
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:961
+#: polldaddy.php:961
 msgid "Custom Style deleted."
 msgstr ""
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:963
+#: polldaddy.php:963
+#, php-format
 msgid "%s Style Deleted."
 msgid_plural "%s Custom Styles Deleted."
 msgstr[0] ""
 msgstr[1] ""
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:978
+#: polldaddy.php:966
+msgid "Account Imported."
+msgstr "Compte importé."
+
+#: polldaddy.php:969
+msgid "Options Updated."
+msgstr "Options mises à jour."
+
+#: polldaddy.php:978
 msgid "Error: An error has occurred;  Poll not created."
 msgstr "Erreur: une erreur est survenue; Sondage non créé."
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:981
+#: polldaddy.php:981
 msgid "Error: An error has occurred;  Poll not updated."
 msgstr "Erreur: une erreur est survenue; Sondage non mis à jour."
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:985
+#: polldaddy.php:985
 msgid "Error: An error has occurred;  Account could not be imported.  Perhaps your email address or password is incorrect?"
 msgstr "Erreur: Une erreur est survenue; Le compte n'a pas pu être importé. Peut-être que votre adresse email ou votre mot de passe sont incorrects ?"
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:987
+#: polldaddy.php:987
 msgid "Error: An error has occurred;  Account could not be created."
 msgstr "Erreur : Une erreur s'est produite, le compte n'a pas pu être créé."
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1024
+#: polldaddy.php:1024
+#, php-format
 msgid "Poll Preview (<a href=\"%s\">Edit Poll</a>, <a href=\"%s\">List Polls</a>)"
 msgstr "Aperçu du sondage (<a href=\"%s\">Modifier le sondage</a>, <a href=\"%s\">Liste des sondages</a>)"
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1049
+#: polldaddy.php:1028
+#, php-format
+msgid "Poll Preview (<a href=\"%s\">List Polls</a>)"
+msgstr ""
+
+#: polldaddy.php:1038
+#, php-format
+msgid "Poll Results (<a href=\"%s\">Edit Poll</a>)"
+msgstr ""
+
+#: polldaddy.php:1040
+#, php-format
+msgid "Poll Results (<a href=\"%s\">List Polls</a>)"
+msgstr ""
+
+#: polldaddy.php:1049
+#, php-format
 msgid "Edit Poll (<a href=\"%s\">List Polls</a>)"
 msgstr "Éditer le sondage (<a href=\"%s\">Liste des sondages</a>)"
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1058
+#: polldaddy.php:1058
+#, php-format
 msgid "Create Poll (<a href=\"%s\">List Polls</a>)"
 msgstr "Créer un sondage (<a href=\"%s\">Liste des sondages</a>) "
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1068
+#: polldaddy.php:1068
+#, php-format
 msgid "Custom Styles (<a href=\"%s\">Add New</a>)"
 msgstr ""
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1078
+#: polldaddy.php:1078
+#, php-format
 msgid "Edit Style (<a href=\"%s\">List Styles</a>)"
 msgstr ""
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1087
+#: polldaddy.php:1087
+#, php-format
 msgid "Create Style (<a href=\"%s\">List Styles</a>)"
 msgstr ""
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1103
+#: polldaddy.php:1103
+#, php-format
 msgid "Polls (<a href=\"%s\">Add New</a>)"
 msgstr "Sondages (<a href=\"%s\">Ajouter un nouveau sondage</a>) "
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1168
+#: polldaddy.php:1168
 msgid "All Blog's Polls"
 msgstr "Tous les sondages du blog"
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1169
+#: polldaddy.php:1169
 msgid "All My Polls"
 msgstr "Tous mes sondages"
 
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1241
-msgid "Results"
-msgstr "Résultats"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1255
-msgid "Send to editor"
-msgstr "Envoyer à l&#8217;Editeur"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1261
-msgid "HTML code"
-msgstr "code HTML"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1269
-msgid "Shortcode"
-msgstr "Shortcode "
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1272
-msgid "JavaScript"
-msgstr "JavaScript"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1288
-msgid "What are you doing here?  <a href=\"%s\">Go back</a>."
-msgstr "Que faites-vous ici ? <a href=\"%s\">Revenir en arrière</a>."
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1298
-msgid "No polls yet.  <a href=\"%s\">Create one</a>"
-msgstr "Aucun sondage.<a href=\"%s\">En créer un</a> "
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1362
-msgid "Save Poll"
-msgstr "Sauvegarder Sondage"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1377
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4102
-msgid "Poll results"
-msgstr "Résultats du sondage"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1382
-msgid "Show results to voters"
-msgstr "Afficher le résultat aux votants"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1382
-msgid "Only show percentages"
-msgstr "Afficher seulement les pourcentages"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1382
-msgid "Hide all results"
-msgstr "Cacher tous les résultats"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1400
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4119
-msgid "Block repeat voters"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1405
-msgid "Don't block repeat voters"
-msgstr "Ne pas bloquer les votes à répétition"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1405
-msgid "Block by cookie (recommended)"
-msgstr "Bloquer par cookies (recommandé)"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1405
-msgid "Block by cookie and by IP address"
-msgstr "Bloquer par cookie et par adresse IP"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1446
-msgid "Answers"
-msgstr "Réponses"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1492
-msgid "Add another"
-msgstr "Ajoutez une autre"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1498
-msgid "Multiple choice"
-msgstr "Choix multiple"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1498
-msgid "Randomize answer order"
-msgstr "Ordre des réponses au hasard"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1498
-msgid "Allow other answers"
-msgstr "Permettre d'autres réponses"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1498
-msgid "'Share This' link"
-msgstr "lien pour 'Partager Ceci'"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1880
-msgid "Answer"
-msgstr "Réponse"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1194
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1881
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1926
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3861
-msgid "Votes"
-msgstr "Votes"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1895
-msgid "Other (<a href=\"%s\">see below</a>)"
-msgstr "Autre(<a href=\"%s\">voir ci-dessous</a>) "
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1925
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4090
-msgid "Other Answer"
-msgstr "Autre réponse"
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:2107
-msgid "Style Name"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:2122
-msgid "Preload Basic Style"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:2136
-msgid "Load Style"
-msgstr ""
-
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:2925
-msgid "Save Style"
-msgstr ""
-
-#: wp-admin/custom-background.php:161 wp-admin/custom-background.php:168
-#: wp-admin/widgets.php:265
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3406
-msgid "Position"
-msgstr "Position"
-
-#: wp-admin/wpmu-blogs.php:473
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1422
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4124
-#: wp-content/mu-plugins/domains.php:1408
-msgid "Never"
-msgstr "Jamais"
-
-#: wp-admin/includes/template.php:1435 wp-admin/includes/template.php:1669
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1991
-msgid "Last Modified"
-msgstr "Dernière modification"
-
-#: wp-admin/includes/theme-install.php:193
-#: wp-admin/includes/theme-install.php:821
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3361
-#: wp-content/mu-plugins/wpcom-widgets.php:686
-msgid "Green"
-msgstr "Vert"
-
-#: wp-admin/includes/theme-install.php:197
-#: wp-admin/includes/theme-install.php:821
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3361
-#: wp-content/mu-plugins/wpcom-widgets.php:684
-msgid "Red"
-msgstr "Rouge"
-
-#: wp-admin/includes/theme-install.php:201
-#: wp-admin/includes/theme-install.php:822
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3361
-msgid "Yellow"
-msgstr "Jaune"
-
-#: wp-admin/custom-background.php:171 wp-admin/includes/media.php:802
-#: wp-admin/includes/media.php:2032
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3395
-#: wp-content/mu-plugins/wpcom-widgets.php:382
-#: wp-content/mu-plugins/wpcom-widgets.php:817
-#: wp-includes/js/tinymce/langs/wp-langs.php:43
-#: wp-includes/js/tinymce/langs/wp-langs.php:288
-#: wp-includes/js/tinymce/langs/wp-langs.php:385
-msgid "Left"
-msgstr "Gauche"
-
-#: wp-admin/custom-background.php:179 wp-admin/includes/media.php:802
-#: wp-admin/includes/media.php:2036
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3395
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3409
-#: wp-content/mu-plugins/wpcom-widgets.php:384
-#: wp-content/mu-plugins/wpcom-widgets.php:817
-#: wp-includes/js/tinymce/langs/wp-langs.php:45
-#: wp-includes/js/tinymce/langs/wp-langs.php:289
-#: wp-includes/js/tinymce/langs/wp-langs.php:383
-msgid "Right"
-msgstr "Droite"
-
-#: wp-admin/includes/media.php:828
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3347
-#: wp-content/mu-plugins/wpcom-widgets.php:671
-#: wp-includes/js/tinymce/langs/wp-langs.php:427
-msgid "Medium"
-msgstr "Moyenne"
-
-#: wp-admin/includes/media.php:828
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3347
-#: wp-content/mu-plugins/wpcom-widgets.php:672
-msgid "Large"
-msgstr "Large"
-
-#: wp-admin/includes/media.php:865
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3439
-#: wp-includes/js/tinymce/langs/wp-langs.php:425
-msgid "Size"
-msgstr "Taille"
-
-#: wp-admin/includes/media.php:1151 wp-admin/includes/media.php:1700
-#: wp-admin/widgets-posts.php:271 wp-admin/widgets-posts.php:288
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4099
-msgid "Show"
-msgstr "Afficher"
-
-#: wp-admin/includes/media.php:1152 wp-admin/includes/media.php:1701
-#: wp-content/admin-plugins/activity-streams/activity-streams.php:789
-#: wp-content/admin-plugins/my-blogs.php:808
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4100
-#: wp-content/admin-plugins/readomattic.php:1177
-msgid "Hide"
-msgstr "Cacher"
-
-#: wp-admin/includes/mu.php:490
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:114
-msgid "Add New"
-msgstr "Ajouter"
-
-#: wp-admin/custom-background.php:175
-#: wp-admin/includes/continents-cities.php:169 wp-admin/includes/media.php:802
-#: wp-admin/includes/media.php:2034
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3395
-#: wp-content/mu-plugins/wpcom-widgets.php:383
-#: wp-content/mu-plugins/wpcom-widgets.php:817
-#: wp-includes/js/tinymce/langs/wp-langs.php:44
-#: wp-includes/js/tinymce/langs/wp-langs.php:365
-#: wp-includes/js/tinymce/langs/wp-langs.php:386
-msgid "Center"
-msgstr "Centre"
-
-#: wp-admin/includes/class-wp-upgrader.php:1046
-#: wp-admin/includes/class-wp-upgrader.php:1103
-#: wp-admin/includes/meta-boxes.php:43 wp-admin/includes/template.php:1463
-#: wp-admin/includes/template.php:1694 wp-admin/includes/theme-install.php:543
-#: wp-admin/includes/theme-install.php:572
-#: wp-admin/includes/theme-install.php:943
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1253
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1259
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3256
-#: wp-content/mu-plugins/safecss.php:672
-#: wp-content/mu-plugins/syntaxhighlighter.php:981
-#: wp-includes/js/tinymce/langs/wp-langs.php:62
-#: wp-includes/js/tinymce/langs/wp-langs.php:308
-msgid "Preview"
-msgstr "Aperçu"
-
-#: wp-admin/edit-form-advanced.php:88 wp-admin/edit-page-form.php:78
-#: wp-admin/includes/dashboard.php:419 wp-admin/includes/meta-boxes.php:208
-#: wp-admin/includes/meta-boxes.php:209 wp-admin/press-this.php:481
-#: wp-admin/press-this.php:486 wp-admin/sidebar.php:121
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1355
-#: wp-content/themes/pub/wptouch/comments.php:80
-#: wp-includes/script-loader.php:299
-msgid "Publish"
-msgstr "Publier"
-
-#: wp-admin/edit-pages.php:125 wp-admin/includes/template.php:3278
-#: wp-admin/menu.php:59 wp-content/admin-plugins/polldaddy/polldaddy.php:3126
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3820
-#: wp-content/themes/default/sidebar.php:42
-#: wp-content/themes/pub/almost-spring/sidebar.php:7
-#: wp-content/themes/pub/andreas09/2-col-page.php:21
-#: wp-content/themes/pub/andreas09/attachment.php:22
-#: wp-content/themes/pub/andreas09/page.php:14
-#: wp-content/themes/pub/arras/library/admin/templates/arras-navigation.php:26
-#: wp-content/themes/pub/black-letterhead/sidebar.php:33
-#: wp-content/themes/pub/chaostheory/sidebar.php:11
-#: wp-content/themes/pub/chaoticsoul/sidebar.php:72
-#: wp-content/themes/pub/dark-wood/sidebar.php:27
-#: wp-content/themes/pub/daydream/attachment.php:20
-#: wp-content/themes/pub/daydream/page.php:10
-#: wp-content/themes/pub/daydream/single.php:13
-#: wp-content/themes/pub/digg3/page.php:17
-#: wp-content/themes/pub/digg3/single.php:22
-#: wp-content/themes/pub/fjords/sidebar.php:6
-#: wp-content/themes/pub/flower-power/sidebar.php:17
-#: wp-content/themes/pub/freshy/functions.php:24
-#: wp-content/themes/pub/grid-focus/second.column.index.php:10
-#: wp-content/themes/pub/grid-focus/second.column.post.php:10
-#: wp-content/themes/pub/guruq/sidebar.php:6
-#: wp-content/themes/pub/hemingway/attachment.php:20
-#: wp-content/themes/pub/hemingway/blocks/pages.php:1
-#: wp-content/themes/pub/hemingway/functions.php:130
-#: wp-content/themes/pub/journalist/sidebar.php:5
-#: wp-content/themes/pub/light/pagefunctions.php:20
-#: wp-content/themes/pub/mistylook/sidebar.php:26
-#: wp-content/themes/pub/neat/sidebar.php:29
-#: wp-content/themes/pub/neo-sapien-05/sidebar.php:9
-#: wp-content/themes/pub/notes/sidebar.php:6
-#: wp-content/themes/pub/ocadia/sidebar.php:10
-#: wp-content/themes/pub/sandbox-097/sidebar.php:6
-#: wp-content/themes/pub/sandbox-10/sidebar.php:6
-#: wp-content/themes/pub/sandbox-161/sidebar.php:6
-#: wp-content/themes/pub/sandbox/sidebar.php:9
-#: wp-content/themes/pub/sapphire/functions.php:60
-#: wp-content/themes/pub/solipsus/sidebar.php:19
-#: wp-content/themes/pub/thirteen/sidebar.php:15
-#: wp-content/themes/pub/titan/footer.php:30
-#: wp-content/themes/pub/whiteasmilk/sidebar.php:13
-#: wp-content/themes/pub/wp-mobile/header.php:8
-#: wp-content/themes/pub/wp-mobile/header.php:50
-#: wp-content/themes/pub/wp-mobile/header.php:52
-#: wp-content/themes/pub/wp-mobile/pages-list.php:1
-#: wp-content/themes/pub/wptouch/header.php:66
-#: wp-content/themes/pub/wptouch/pages-list.php:9
-#: wp-includes/default-widgets.php:19 wp-includes/default-widgets.php:25
-#: wp-includes/post-template.php:758
-msgid "Pages"
-msgstr "Pages"
-
-#: wp-admin/export.php:36 wp-admin/includes/mu.php:470
-#: wp-admin/includes/template.php:3776 wp-admin/themes.php:630
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:116
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4019
-#: wp-content/themes/pub/titan/functions/titan-admin.php:68
-msgid "Options"
-msgstr "Options"
-
-#: forums-theme/wpcom/post-form.php:27 wp-admin/import/blogli.php:340
-#: wp-admin/import/mt.php:174 wp-admin/import/typepad.php:370
-#: wp-admin/import/vox.php:889 wp-admin/import/wordpress.php:247
-#: wp-admin/import/yahoo-360.php:121 wp-admin/includes/dashboard.php:136
-#: wp-content/admin-plugins/nps.php:208
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:282
-#: wp-content/admin-plugins/video-plugin.php:85
-#: wp-content/themes/pub/cutline/comments.php:94
-#: wp-content/themes/pub/depo-masthead/comments.php:133
-#: wp-content/themes/pub/depo-masthead/functions.php:335
-#: wp-content/themes/pub/flower-power/contact.php:74
-#: wp-content/themes/pub/k2/comments.php:168
-#: wp-content/themes/pub/light/sidebar.php:8
-#: wp-content/themes/pub/redoable-lite/comments.php:189
-#: wp-includes/post-template.php:1163
-msgid "Submit"
-msgstr "Envoyer"
-
-#: wp-admin/edit-link-form.php:27 wp-admin/includes/image-edit.php:75
-#: wp-admin/includes/meta-boxes.php:24 wp-admin/includes/meta-boxes.php:517
-#: wp-admin/includes/widgets.php:206
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3242
-#: wp-content/mu-plugins/domains.php:1446
-#: wp-content/themes/default/functions.php:422
-#: wp-content/themes/default/functions.php:429
-#: wp-content/themes/pub/hemingway/functions.php:508
-#: wp-content/themes/pub/p2/inc/js.php:38
-#: wp-includes/js/tinymce/langs/wp-langs.php:76
-msgid "Save"
-msgstr "Enregistrer"
-
-#: wp-admin/includes/template.php:3283 wp-admin/includes/widgets.php:202
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1179
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1250
-#: wp-content/themes/pub/fauna/template-commentform.php:32
-#: wp-content/themes/pub/fauna/template-commentform.php:70
-#: wp-content/themes/pub/redoable-lite/comments.php:170
-#: wp-includes/js/tinymce/langs/wp-langs.php:31
-#: wp-includes/js/tinymce/wp-mce-help.php:258 wp-includes/script-loader.php:177
-#: wp-login.php:500
-msgid "Close"
-msgstr "Fermer"
-
-#: public.api/class.yahoo-yap-widget.php:259 wp-admin/edit-comments.php:318
-#: wp-admin/edit-form-advanced.php:110 wp-admin/import/blogger.php:270
-#: wp-admin/includes/file.php:14 wp-admin/includes/template.php:1169
-#: wp-admin/includes/template.php:3244 wp-admin/includes/template.php:3362
-#: wp-content/admin-plugins/blog-stats.php:2398
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3130
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3820
-#: wp-content/mu-plugins/akismet.php:443
-#: wp-content/mu-plugins/enhanced-feeds.php:393
-#: wp-content/mu-plugins/wpcom-widgets.php:639
-#: wp-content/plugins/wp-latex/wp-latex-admin.php:364
-#: wp-content/themes/default/comments-popup.php:22
-#: wp-content/themes/pub/almost-spring/comments.php:40
-#: wp-content/themes/pub/arras/header.php:87
-#: wp-content/themes/pub/arras/library/filters.php:123
-#: wp-content/themes/pub/arras/library/widgets.php:191
-#: wp-content/themes/pub/dusk/comments.php:29
-#: wp-content/themes/pub/fauna/template-comments.php:7
-#: wp-content/themes/pub/fjords/index.php:41
-#: wp-content/themes/pub/freshy/index.php:54
-#: wp-content/themes/pub/greenery-10/comments.php:46
-#: wp-content/themes/pub/inove/comments.php:19
-#: wp-content/themes/pub/inove/comments.php:22
-#: wp-content/themes/pub/inove/functions.php:314
-#: wp-content/themes/pub/mistylook/header.php:40
-#: wp-content/themes/pub/monochrome/comments.php:47
-#: wp-content/themes/pub/monochrome/comments.php:50
-#: wp-content/themes/pub/neo-sapien-05/sidebar.php:15
-#: wp-content/themes/pub/notes/comments-new.php:69
-#: wp-content/themes/pub/notes/comments.php:64
-#: wp-content/themes/pub/ocadia/comments.php:36
-#: wp-content/themes/pub/quentin/comments.php:53
-#: wp-content/themes/pub/redoable-lite/searchloop.php:118
-#: wp-content/themes/pub/redoable-lite/single_post.php:27
-#: wp-content/themes/pub/redoable-lite/theloop.php:124
-#: wp-content/themes/pub/regulus/comments.php:46
-#: wp-content/themes/pub/regulus/sidebar.php:141
-#: wp-content/themes/pub/thirteen/comments.php:36
-#: wp-content/themes/pub/vigilance/search.php:4
-msgid "Comments"
-msgstr "Commentaires"
-
-#: stats.dir/external-stats.php:469 stats.dir/external-stats.php:498
-#: wp-admin/admin-ajax.php:1232 wp-admin/edit-form-advanced.php:176
-#: wp-admin/edit-page-form.php:138 wp-admin/includes/dashboard.php:389
-#: wp-admin/includes/media.php:1032 wp-admin/includes/media.php:1757
-#: wp-admin/includes/media.php:2081 wp-admin/includes/media.php:2116
-#: wp-admin/includes/media.php:2151 wp-admin/includes/template.php:809
-#: wp-admin/includes/template.php:1042
-#: wp-content/admin-plugins/blog-stats.php:1701
-#: wp-content/admin-plugins/blog-stats.php:1754
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3860
-#: wp-content/themes/pub/daydream/functions.php:117
-#: wp-includes/js/tinymce/langs/wp-langs.php:295 wp-includes/post.php:3694
-msgid "Title"
-msgstr "Titre"
-
-#: wp-admin/admin-ajax.php:186 wp-admin/categories.php:182
-#: wp-admin/edit-comments.php:259 wp-admin/edit-link-categories.php:101
-#: wp-admin/edit-pages.php:240 wp-admin/edit-tags.php:196 wp-admin/edit.php:242
-#: wp-admin/includes/media.php:1895 wp-admin/includes/theme-install.php:1024
-#: wp-admin/plugins.php:369 wp-admin/upload.php:273
-#: wp-content/admin-plugins/blog-stats.php:1513
-#: wp-content/admin-plugins/blog-stats.php:1590
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3807
-#: wp-content/admin-plugins/subscriptions-admin.php:599
-#: wp-content/admin-plugins/subscriptions-admin.php:814
-#: wp-content/themes/pub/guruq/guruq-list.php:49
-#: wp-content/themes/pub/prologue-projects/functions-admin.php:658
-msgid "&laquo;"
-msgstr "&laquo;"
-
-#: wp-admin/admin-ajax.php:187 wp-admin/categories.php:183
-#: wp-admin/edit-comments.php:260 wp-admin/edit-link-categories.php:102
-#: wp-admin/edit-pages.php:241 wp-admin/edit-tags.php:197 wp-admin/edit.php:243
-#: wp-admin/includes/media.php:1896 wp-admin/includes/theme-install.php:1025
-#: wp-admin/plugins.php:370 wp-admin/upload.php:274
-#: wp-content/admin-plugins/blog-stats.php:1514
-#: wp-content/admin-plugins/blog-stats.php:1591
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3808
-#: wp-content/admin-plugins/subscriptions-admin.php:600
-#: wp-content/admin-plugins/subscriptions-admin.php:815
-#: wp-content/themes/pub/guruq/guruq-list.php:50
-#: wp-content/themes/pub/prologue-projects/functions-admin.php:659
-msgid "&raquo;"
-msgstr "&raquo;"
-
-#: wp-admin/admin-ajax.php:1255 wp-admin/edit-attachment-rows.php:165
-#: wp-admin/edit-attachment-rows.php:179 wp-admin/includes/template.php:1418
-#: wp-admin/includes/template.php:1656 wp-admin/includes/template.php:2168
-#: wp-admin/upload.php:431
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1265
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:2021
-msgid "Y/m/d"
-msgstr "d/m/Y"
-
-#: wp-admin/admin.php:46 wp-admin/includes/theme-install.php:191
-#: wp-admin/includes/theme-install.php:820
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3361
-#: wp-content/mu-plugins/wpcom-widgets.php:687
-msgid "Blue"
-msgstr "Bleu"
-
-#: wp-admin/categories.php:197 wp-admin/categories.php:237
-#: wp-admin/edit-comments.php:311 wp-admin/edit-comments.php:409
-#: wp-admin/edit-link-categories.php:116 wp-admin/edit-link-categories.php:170
-#: wp-admin/edit-pages.php:270 wp-admin/edit-pages.php:319
-#: wp-admin/edit-tags.php:211 wp-admin/edit-tags.php:254 wp-admin/edit.php:265
-#: wp-admin/edit.php:355 wp-admin/includes/template.php:3780
-#: wp-admin/link-manager.php:107 wp-admin/link-manager.php:265
-#: wp-admin/plugins.php:496 wp-admin/upload.php:301 wp-admin/upload.php:472
-#: wp-admin/users.php:435 wp-admin/users.php:502
-#: wp-content/admin-plugins/my-blogs.php:592
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1182
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1980
-#: wp-content/admin-plugins/subscriptions-admin.php:626
-#: wp-content/admin-plugins/subscriptions-admin.php:849
-#: wp-content/themes/pub/guruq/guruq-list.php:42
-#: wp-content/themes/pub/prologue-projects/functions-admin.php:678
-#: wp-content/themes/pub/prologue-projects/functions-admin.php:734
-#: wp-includes/js/tinymce/langs/wp-langs.php:27
-msgid "Apply"
-msgstr "Appliquer"
-
-#: wp-admin/custom-background.php:209 wp-admin/custom-header.php:390
-#: wp-admin/custom-header.php:401 wp-admin/custom-header.php:433
-#: wp-admin/import/blogger.php:1293 wp-admin/options-discussion.php:229
-#: wp-admin/options-general.php:317 wp-admin/options-media.php:96
-#: wp-admin/options-permalink.php:225 wp-admin/options-privacy.php:45
-#: wp-admin/options-reading.php:122 wp-admin/options-writing.php:135
-#: wp-admin/options.php:163 wp-admin/widgets-posts.php:330
-#: wp-content/admin-plugins/media-settings.php:120
-#: wp-content/admin-plugins/my-blogs.php:639
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3218
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3249
-#: wp-content/admin-plugins/subscriptions-admin.php:776
-#: wp-content/admin-plugins/subscriptions-admin.php:907
-#: wp-content/admin-plugins/subscriptions-admin.php:1105
-#: wp-content/mu-plugins/blog-verification-tools.php:108
-#: wp-content/mu-plugins/syntaxhighlighter.php:975
-#: wp-content/mu-plugins/vip-functions.php:462
-#: wp-content/plugins/jquery-lightbox-for-native-galleries/jquery-lightbox-for-native-galleries.php:144
-#: wp-content/plugins/wp-postratings/postratings-options.php:397
-#: wp-content/plugins/wp-postratings/postratings-templates.php:251
-#: wp-content/themes/pub/arras/library/admin/templates/arras-categories.php:49
-#: wp-content/themes/pub/arras/library/admin/templates/arras-design.php:44
-#: wp-content/themes/pub/arras/library/admin/templates/arras-layout.php:117
-#: wp-content/themes/pub/arras/library/admin/templates/arras-navigation.php:42
-#: wp-content/themes/pub/depo-square/functions.php:251
-#: wp-content/themes/pub/inove/functions.php:340
-#: wp-content/themes/pub/monochrome/functions.php:185
-#: wp-content/themes/pub/prologue-projects/functions-admin.php:1030
-#: wp-content/themes/pub/vigilance/functions.php:244
-msgid "Save Changes"
-msgstr "Enregistrer les modifications"
-
-#: wp-admin/edit-attachment-rows.php:156 wp-admin/includes/dashboard.php:451
-#: wp-admin/includes/template.php:1409 wp-admin/includes/template.php:1647
-#: wp-admin/upload.php:422
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1265
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:2021
-msgid "Y/m/d g:i:s A"
-msgstr "d/m/Y \\à G \\h i \\m\\i\\n s \\s"
-
-#: forums-0906/bb-admin/admin-functions.php:51
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1627
-msgid "Design"
-msgstr "Apparence"
-
-#: forums-0906/bb-admin/admin-functions.php:52
-#: public.api/class.yahoo-yap-widget.php:261 wp-admin/menu.php:113
-#: wp-admin/options.php:18 wp-content/admin-plugins/polldaddy/polldaddy.php:104
-#: wp-content/admin-plugins/subscriptions-admin.php:939
-#: wp-content/mu-plugins/syntaxhighlighter.php:269
-#: wp-content/themes/pub/prologue-projects/functions-admin.php:51
-#: wp-content/themes/pub/prologue-projects/functions-admin.php:52
-msgid "Settings"
-msgstr "Réglages"
-
-#: forums-0906/bb-admin/admin-functions.php:61
-#: forums-0906/bb-admin/content-posts.php:29
-#: forums-0906/bb-templates/kakumei/favorites.php:18
-#: forums-0906/bb-templates/kakumei/forum.php:10
-#: forums-0906/bb-templates/kakumei/forum.php:46
-#: forums-0906/bb-templates/kakumei/front-page.php:18
-#: forums-0906/bb-templates/kakumei/front-page.php:50
-#: forums-0906/bb-templates/kakumei/stats.php:8
-#: forums-0906/bb-templates/kakumei/tag-single.php:12
-#: forums-0906/bb-templates/kakumei/view.php:10 wp-admin/import/blogger.php:269
-#: wp-admin/includes/template.php:877 wp-admin/includes/template.php:897
-#: wp-admin/includes/template.php:908 wp-admin/includes/template.php:3276
-#: wp-admin/menu.php:32 wp-content/admin-plugins/polldaddy/polldaddy.php:3122
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:3820
-#: wp-content/mu-plugins/wpcom-widgets.php:638
-#: wp-content/themes/pub/arras/header.php:86
-#: wp-content/themes/pub/fleur/sidebar.php:27
-#: wp-content/themes/pub/inove/functions.php:292
-#: wp-content/themes/pub/mistylook/header.php:39
-#: wp-content/themes/pub/prologue-projects/functions-admin.php:14
-msgid "Posts"
-msgstr "Articles"
-
-#: forums-0906/bb-admin/admin-functions.php:230
-#: forums-0906/bb-admin/admin-functions.php:561
-#: forums-0906/bb-includes/functions.php:2090
-#: forums-0906/bb-includes/template-functions.php:1254
-#: wp-admin/edit-attachment-rows.php:99 wp-admin/edit-attachment-rows.php:210
-#: wp-admin/edit-form-comment.php:62 wp-admin/edit-pages.php:263
-#: wp-admin/edit-pages.php:312 wp-admin/edit.php:258 wp-admin/edit.php:348
-#: wp-admin/includes/dashboard.php:554 wp-admin/includes/meta-boxes.php:78
-#: wp-admin/includes/meta-boxes.php:120 wp-admin/includes/meta-boxes.php:173
-#: wp-admin/includes/post.php:1060 wp-admin/includes/template.php:130
-#: wp-admin/includes/template.php:303 wp-admin/includes/template.php:671
-#: wp-admin/includes/template.php:1450 wp-admin/includes/template.php:1545
-#: wp-admin/includes/template.php:1681 wp-admin/includes/template.php:1941
-#: wp-admin/includes/template.php:2226 wp-admin/includes/widgets.php:177
-#: wp-admin/index-yourstuff.php:37 wp-admin/link-manager.php:200
-#: wp-admin/menu.php:33 wp-admin/menu.php:54 wp-admin/menu.php:60
-#: wp-admin/plugins.php:425 wp-admin/upload.php:400 wp-admin/wpmu-blogs.php:180
-#: wp-admin/wpmu-blogs.php:503 wp-admin/wpmu-users.php:376
-#: wp-content/admin-plugins/activity-streams-loader.php:224
-#: wp-content/admin-plugins/activity-streams/activity-streams.php:798
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:111
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1237
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:2014
-#: wp-content/mu-plugins/hookpress/includes.php:185
-#: wp-content/themes/default/archive.php:40
-#: wp-content/themes/default/index.php:18
-#: wp-content/themes/default/search.php:21
-#: wp-content/themes/pub/almost-spring/comments.php:28
-#: wp-content/themes/pub/almost-spring/index.php:40
-#: wp-content/themes/pub/almost-spring/page.php:10
-#: wp-content/themes/pub/almost-spring/single.php:13
-#: wp-content/themes/pub/ambiru/index.php:21
-#: wp-content/themes/pub/ambiru/page.php:16
-#: wp-content/themes/pub/andreas04/comments.php:24
-#: wp-content/themes/pub/andreas04/image.php:25
-#: wp-content/themes/pub/andreas04/index.php:27
-#: wp-content/themes/pub/andreas04/sidebar.php:8
-#: wp-content/themes/pub/andreas04/single.php:32
-#: wp-content/themes/pub/andreas09/archive.php:40
-#: wp-content/themes/pub/andreas09/index.php:16
-#: wp-content/themes/pub/andreas09/search.php:23
-#: wp-content/themes/pub/black-letterhead/post.php:10
-#: wp-content/themes/pub/black-letterhead/search.php:26
-#: wp-content/themes/pub/chaostheory/archive.php:39
-#: wp-content/themes/pub/chaostheory/author.php:26
-#: wp-content/themes/pub/chaostheory/category.php:23
-#: wp-content/themes/pub/chaostheory/index.php:16
-#: wp-content/themes/pub/chaostheory/search.php:25
-#: wp-content/themes/pub/chaostheory/single.php:20
-#: wp-content/themes/pub/chaoticsoul/archive.php:34
-#: wp-content/themes/pub/chaoticsoul/home.php:18
-#: wp-content/themes/pub/chaoticsoul/home.php:37
-#: wp-content/themes/pub/chaoticsoul/index.php:11
-#: wp-content/themes/pub/chaoticsoul/search.php:14
-#: wp-content/themes/pub/dark-wood/comments.php:82
-#: wp-content/themes/pub/dark-wood/functions.php:30
-#: wp-content/themes/pub/dark-wood/functions.php:60
-#: wp-content/themes/pub/daydream/archive.php:44
-#: wp-content/themes/pub/daydream/index.php:20
-#: wp-content/themes/pub/daydream/search.php:19
-#: wp-content/themes/pub/depo-square/archive.php:32
-#: wp-content/themes/pub/depo-square/index.php:33
-#: wp-content/themes/pub/depo-square/page.php:33
-#: wp-content/themes/pub/depo-square/type-photo.php:6
-#: wp-content/themes/pub/depo-square/type-quote.php:9
-#: wp-content/themes/pub/digg3/archive.php:15
-#: wp-content/themes/pub/digg3/index.php:15
-#: wp-content/themes/pub/digg3/single.php:16
-#: wp-content/themes/pub/dusk/comments.php:18
-#: wp-content/themes/pub/dusk/index.php:15
-#: wp-content/themes/pub/dusk/page.php:10
-#: wp-content/themes/pub/dusk/single.php:15
-#: wp-content/themes/pub/emire/image.php:22
-#: wp-content/themes/pub/emire/index.php:20
-#: wp-content/themes/pub/emire/page.php:16
-#: wp-content/themes/pub/fjords/image.php:10
-#: wp-content/themes/pub/fjords/index.php:34
-#: wp-content/themes/pub/fjords/page.php:10
-#: wp-content/themes/pub/fjords/single.php:13
-#: wp-content/themes/pub/flower-power/archive.php:49
-#: wp-content/themes/pub/flower-power/image.php:15
-#: wp-content/themes/pub/flower-power/index.php:20
-#: wp-content/themes/pub/flower-power/search.php:24
-#: wp-content/themes/pub/flower-power/single.php:18
-#: wp-content/themes/pub/fresh-bananas/comments.php:30
-#: wp-content/themes/pub/fresh-bananas/image.php:20
-#: wp-content/themes/pub/fresh-bananas/index.php:18
-#: wp-content/themes/pub/fresh-bananas/single.php:14
-#: wp-content/themes/pub/freshy/image.php:35
-#: wp-content/themes/pub/freshy/index.php:26
-#: wp-content/themes/pub/freshy/index.php:52
-#: wp-content/themes/pub/freshy/single.php:43
-#: wp-content/themes/pub/garland/image.php:7
-#: wp-content/themes/pub/garland/index.php:8
-#: wp-content/themes/pub/garland/page.php:14
-#: wp-content/themes/pub/garland/single.php:7
-#: wp-content/themes/pub/greenery-10/comments.php:31
-#: wp-content/themes/pub/greenery-10/image.php:10
-#: wp-content/themes/pub/greenery-10/index.php:41
-#: wp-content/themes/pub/greenery-10/page.php:10
-#: wp-content/themes/pub/greenery-10/single.php:13
-#: wp-content/themes/pub/guruq/archive.php:40
-#: wp-content/themes/pub/guruq/archives.php:32
-#: wp-content/themes/pub/guruq/attachment.php:38
-#: wp-content/themes/pub/guruq/author.php:31
-#: wp-content/themes/pub/guruq/category.php:32
-#: wp-content/themes/pub/guruq/comments.php:38
-#: wp-content/themes/pub/guruq/comments.php:56
-#: wp-content/themes/pub/guruq/image.php:33
-#: wp-content/themes/pub/guruq/links.php:22
-#: wp-content/themes/pub/guruq/page.php:15
-#: wp-content/themes/pub/guruq/search.php:32
-#: wp-content/themes/pub/guruq/single.php:44
-#: wp-content/themes/pub/guruq/tag.php:31
-#: wp-content/themes/pub/iceburgg/image.php:14
-#: wp-content/themes/pub/iceburgg/index.php:22
-#: wp-content/themes/pub/iceburgg/single.php:21
-#: wp-content/themes/pub/inove/archive.php:51
-#: wp-content/themes/pub/inove/archives.php:15
-#: wp-content/themes/pub/inove/attachment.php:17
-#: wp-content/themes/pub/inove/comments.php:79
-#: wp-content/themes/pub/inove/functions.php:408
-#: wp-content/themes/pub/inove/image.php:15
-#: wp-content/themes/pub/inove/index.php:26
-#: wp-content/themes/pub/inove/links.php:23
-#: wp-content/themes/pub/inove/page.php:8
-#: wp-content/themes/pub/inove/single.php:17
-#: wp-content/themes/pub/journalist/archive.php:34
-#: wp-content/themes/pub/journalist/comments.php:37
-#: wp-content/themes/pub/journalist/image.php:21
-#: wp-content/themes/pub/journalist/index.php:15
-#: wp-content/themes/pub/journalist/page.php:19
-#: wp-content/themes/pub/journalist/search.php:19
-#: wp-content/themes/pub/journalist/single.php:18
-#: wp-content/themes/pub/k2/comments.php:87
-#: wp-content/themes/pub/k2/page.php:13 wp-content/themes/pub/k2/theloop.php:81
-#: wp-content/themes/pub/light/archive.php:49
-#: wp-content/themes/pub/light/index.php:18
-#: wp-content/themes/pub/mistylook/archive.php:27
-#: wp-content/themes/pub/mistylook/attachment.php:11
-#: wp-content/themes/pub/mistylook/image.php:9
-#: wp-content/themes/pub/mistylook/index.php:8
-#: wp-content/themes/pub/mistylook/page.php:11
-#: wp-content/themes/pub/mistylook/search.php:13
-#: wp-content/themes/pub/mistylook/single.php:11
-#: wp-content/themes/pub/neat/archive.php:50
-#: wp-content/themes/pub/neat/index.php:17
-#: wp-content/themes/pub/neat/search.php:23
-#: wp-content/themes/pub/neat/single.php:21
-#: wp-content/themes/pub/neutra/functions.php:33
-#: wp-content/themes/pub/notes/archive.php:40
-#: wp-content/themes/pub/notes/archives.php:32
-#: wp-content/themes/pub/notes/attachment.php:38
-#: wp-content/themes/pub/notes/author.php:31
-#: wp-content/themes/pub/notes/category.php:32
-#: wp-content/themes/pub/notes/comments-new.php:36
-#: wp-content/themes/pub/notes/comments-new.php:59
-#: wp-content/themes/pub/notes/comments.php:35
-#: wp-content/themes/pub/notes/comments.php:55
-#: wp-content/themes/pub/notes/image.php:33
-#: wp-content/themes/pub/notes/index.php:21
-#: wp-content/themes/pub/notes/links.php:22
-#: wp-content/themes/pub/notes/page.php:15
-#: wp-content/themes/pub/notes/search.php:32
-#: wp-content/themes/pub/notes/single.php:37
-#: wp-content/themes/pub/notes/tag.php:31
-#: wp-content/themes/pub/ocadia/comments.php:22
-#: wp-content/themes/pub/ocadia/image.php:20
-#: wp-content/themes/pub/ocadia/index.php:23
-#: wp-content/themes/pub/ocadia/page.php:10
-#: wp-content/themes/pub/ocadia/single.php:16
-#: wp-content/themes/pub/p2/entry.php:36
-#: wp-content/themes/pub/p2/functions.php:136
-#: wp-content/themes/pub/p2/functions.php:220
-#: wp-content/themes/pub/pressrow/comments.php:34
-#: wp-content/themes/pub/prologue-projects/functions-admin.php:43
-#: wp-content/themes/pub/prologue-projects/functions-admin.php:44
-#: wp-content/themes/pub/prologue-projects/functions-admin.php:287
-#: wp-content/themes/pub/redoable-lite/comments.php:92
-#: wp-content/themes/pub/redoable-lite/searchloop.php:109
-#: wp-content/themes/pub/redoable-lite/single_post.php:20
-#: wp-content/themes/pub/redoable-lite/theloop.php:115
-#: wp-content/themes/pub/sandbox-097/archive.php:43
-#: wp-content/themes/pub/sandbox-097/archives.php:32
-#: wp-content/themes/pub/sandbox-097/attachment.php:42
-#: wp-content/themes/pub/sandbox-097/author.php:28
-#: wp-content/themes/pub/sandbox-097/category.php:30
-#: wp-content/themes/pub/sandbox-097/comments.php:27
-#: wp-content/themes/pub/sandbox-097/comments.php:48
-#: wp-content/themes/pub/sandbox-097/index.php:29
-#: wp-content/themes/pub/sandbox-097/links.php:20
-#: wp-content/themes/pub/sandbox-097/page.php:14
-#: wp-content/themes/pub/sandbox-097/search.php:33
-#: wp-content/themes/pub/sandbox-097/single.php:42
-#: wp-content/themes/pub/sandbox-10/archive.php:40
-#: wp-content/themes/pub/sandbox-10/archives.php:32
-#: wp-content/themes/pub/sandbox-10/attachment.php:38
-#: wp-content/themes/pub/sandbox-10/author.php:29
-#: wp-content/themes/pub/sandbox-10/category.php:31
-#: wp-content/themes/pub/sandbox-10/comments.php:27
-#: wp-content/themes/pub/sandbox-10/comments.php:48
-#: wp-content/themes/pub/sandbox-10/image.php:31
-#: wp-content/themes/pub/sandbox-10/index.php:26
-#: wp-content/themes/pub/sandbox-10/links.php:20
-#: wp-content/themes/pub/sandbox-10/page.php:14
-#: wp-content/themes/pub/sandbox-10/search.php:31
-#: wp-content/themes/pub/sandbox-10/single.php:41
-#: wp-content/themes/pub/sandbox-10/tag.php:31
-#: wp-content/themes/pub/sandbox-161/archive.php:40
-#: wp-content/themes/pub/sandbox-161/archives.php:32
-#: wp-content/themes/pub/sandbox-161/attachment.php:38
-#: wp-content/themes/pub/sandbox-161/author.php:31
-#: wp-content/themes/pub/sandbox-161/category.php:32
-#: wp-content/themes/pub/sandbox-161/comments.php:36
-#: wp-content/themes/pub/sandbox-161/comments.php:51
-#: wp-content/themes/pub/sandbox-161/image.php:33
-#: wp-content/themes/pub/sandbox-161/index.php:27
-#: wp-content/themes/pub/sandbox-161/links.php:22
-#: wp-content/themes/pub/sandbox-161/page.php:15
-#: wp-content/themes/pub/sandbox-161/search.php:32
-#: wp-content/themes/pub/sandbox-161/single.php:42
-#: wp-content/themes/pub/sandbox-161/tag.php:31
-#: wp-content/themes/pub/sandbox/archive.php:42
-#: wp-content/themes/pub/sandbox/author.php:28
-#: wp-content/themes/pub/sandbox/category.php:29
-#: wp-content/themes/pub/sandbox/index.php:27
-#: wp-content/themes/pub/sandbox/search.php:30
-#: wp-content/themes/pub/simpla/image.php:23
-#: wp-content/themes/pub/solipsus/archive.php:49
-#: wp-content/themes/pub/solipsus/comments.php:24
-#: wp-content/themes/pub/solipsus/image.php:21
-#: wp-content/themes/pub/solipsus/index.php:26
-#: wp-content/themes/pub/solipsus/page.php:12
-#: wp-content/themes/pub/solipsus/search.php:28
-#: wp-content/themes/pub/solipsus/single.php:22
-#: wp-content/themes/pub/springloaded/image.php:11
-#: wp-content/themes/pub/springloaded/page.php:17
-#: wp-content/themes/pub/springloaded/single.php:23
-#: wp-content/themes/pub/steira/archive.php:48
-#: wp-content/themes/pub/steira/author.php:40
-#: wp-content/themes/pub/steira/category.php:40
-#: wp-content/themes/pub/steira/functions.php:292
-#: wp-content/themes/pub/steira/index.php:38
-#: wp-content/themes/pub/steira/page.php:22
-#: wp-content/themes/pub/steira/search.php:41
-#: wp-content/themes/pub/steira/single.php:43
-#: wp-content/themes/pub/steira/tag.php:40
-#: wp-content/themes/pub/thirteen/comments.php:23
-#: wp-content/themes/pub/thirteen/index.php:16
-#: wp-content/themes/pub/thirteen/page.php:9
-#: wp-content/themes/pub/thirteen/single.php:14
-#: wp-content/themes/pub/twentyten/attachment.php:28
-#: wp-content/themes/pub/twentyten/attachment.php:80
-#: wp-content/themes/pub/twentyten/loop.php:61
-#: wp-content/themes/pub/twentyten/loop.php:91
-#: wp-content/themes/pub/twentyten/loop.php:133
-#: wp-content/themes/pub/twentyten/onecolumn-page.php:19
-#: wp-content/themes/pub/twentyten/page.php:13
-#: wp-content/themes/pub/twentyten/single.php:21
-#: wp-content/themes/pub/twentyten/single.php:62
-#: wp-content/themes/pub/whiteasmilk/archive.php:49
-#: wp-content/themes/pub/whiteasmilk/index.php:17
-#: wp-content/themes/pub/whiteasmilk/search.php:25
-#: wp-includes/script-loader.php:293 wp-includes/script-loader.php:321
-#: wp-includes/script-loader.php:391
-msgid "Edit"
-msgstr "Modifier"
-
-#: forums-0906/bb-admin/admin-functions.php:382
-#: wp-admin/includes/media.php:1715 wp-admin/wpmu-blogs.php:391
-#: wp-content/admin-plugins/feed-curator.php:831
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1177
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1977
-#: wp-content/admin-plugins/readomattic.php:309
-#: wp-content/admin-plugins/readomattic.php:1001
-#: wp-content/mu-plugins/domains.php:1371
-#: wp-content/themes/pub/freshy/image.php:26
-#: wp-content/themes/pub/freshy/index.php:24
-#: wp-content/themes/pub/freshy/single.php:34
-#: wp-includes/post-template.php:1366
+#: polldaddy.php:1177
+#: polldaddy.php:1977
 msgid "Actions"
 msgstr "Actions"
 
-#: forums-0906/bb-admin/admin-functions.php:563
-#: forums-0906/bb-includes/template-functions.php:1274
-#: wp-admin/categories.php:195 wp-admin/categories.php:235
-#: wp-admin/edit-link-categories.php:114 wp-admin/edit-link-categories.php:168
-#: wp-admin/edit-tags.php:209 wp-admin/edit-tags.php:252
-#: wp-admin/includes/media.php:1256 wp-admin/includes/meta-boxes.php:542
-#: wp-admin/includes/template.php:133 wp-admin/includes/template.php:306
-#: wp-admin/includes/template.php:673 wp-admin/includes/template.php:1551
-#: wp-admin/includes/template.php:2539 wp-admin/includes/theme-install.php:546
-#: wp-admin/includes/widgets.php:201 wp-admin/link-manager.php:105
-#: wp-admin/link-manager.php:201 wp-admin/link-manager.php:263
-#: wp-admin/plugins.php:428 wp-admin/plugins.php:493 wp-admin/widgets.php:299
-#: wp-admin/wpmu-users.php:111 wp-content/admin-plugins/gifts.php:443
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1178
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1243
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1978
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:2019
-#: wp-content/admin-plugins/post-by-email.php:168
-#: wp-content/admin-plugins/post-by-voice.php:137
-#: wp-content/admin-plugins/subscriptions-admin.php:657
-#: wp-content/admin-plugins/subscriptions-admin.php:733
-#: wp-content/admin-plugins/subscriptions-admin.php:763
-#: wp-content/admin-plugins/subscriptions-admin.php:883
-#: wp-content/mu-plugins/hookpress/includes.php:178
-#: wp-content/mu-plugins/openidserver.php:443
-#: wp-content/themes/pub/guruq/guruq-list.php:39
-#: wp-content/themes/pub/prologue-projects/functions-admin.php:289
-#: wp-content/themes/pub/prologue-projects/functions-admin.php:676
-#: wp-content/themes/pub/prologue-projects/functions-admin.php:732
+#: polldaddy.php:1178
+#: polldaddy.php:1243
+#: polldaddy.php:1978
+#: polldaddy.php:2019
 msgid "Delete"
 msgstr "Supprimer "
 
-#: forums-0906/bb-admin/content.php:30 forums-0906/bb-includes/classes.php:896
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1180
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:1247
+#: polldaddy.php:1179
+#: polldaddy.php:1250
+msgid "Close"
+msgstr "Fermer"
+
+#: polldaddy.php:1180
+#: polldaddy.php:1247
 msgid "Open"
 msgstr "Ouvert"
 
-#: forums-0906/bb-admin/options-general.php:41 wp-admin/options-general.php:15
-#: wp-content/admin-plugins/polldaddy/polldaddy.php:4063
+#: polldaddy.php:1182
+#: polldaddy.php:1980
+msgid "Apply"
+msgstr "Appliquer"
+
+#: polldaddy.php:1193
+msgid "Poll"
+msgstr ""
+
+#: polldaddy.php:1194
+#: polldaddy.php:1881
+#: polldaddy.php:1926
+#: polldaddy.php:3861
+msgid "Votes"
+msgstr "Votes"
+
+#: polldaddy.php:1195
+msgid "Created"
+msgstr "Créé"
+
+#: polldaddy.php:1241
+msgid "Results"
+msgstr "Résultats"
+
+#: polldaddy.php:1253
+#: polldaddy.php:1259
+#: polldaddy.php:3256
+msgid "Preview"
+msgstr "Aperçu"
+
+#: polldaddy.php:1255
+msgid "Send to editor"
+msgstr "Envoyer à l&#8217;Editeur"
+
+#: polldaddy.php:1261
+msgid "HTML code"
+msgstr "code HTML"
+
+#: polldaddy.php:1265
+#: polldaddy.php:2021
+msgid "Y/m/d g:i:s A"
+msgstr ""
+"d/m/Y \\à G \\h i \\m\\i\\n"
+" s \\s"
+
+#: polldaddy.php:1265
+#: polldaddy.php:2021
+msgid "Y/m/d"
+msgstr "d/m/Y"
+
+#: polldaddy.php:1269
+msgid "Shortcode"
+msgstr "Shortcode "
+
+#: polldaddy.php:1272
+msgid "JavaScript"
+msgstr "JavaScript"
+
+#: polldaddy.php:1288
+#, php-format
+msgid "What are you doing here?  <a href=\"%s\">Go back</a>."
+msgstr "Que faites-vous ici ? <a href=\"%s\">Revenir en arrière</a>."
+
+#: polldaddy.php:1298
+#, php-format
+msgid "No polls yet.  <a href=\"%s\">Create one</a>"
+msgstr "Aucun sondage.<a href=\"%s\">En créer un</a> "
+
+#: polldaddy.php:1300
+msgid "No polls yet."
+msgstr ""
+
+#: polldaddy.php:1355
+msgid "Publish"
+msgstr "Publier"
+
+#: polldaddy.php:1362
+msgid "Save Poll"
+msgstr "Sauvegarder Sondage"
+
+#: polldaddy.php:1377
+#: polldaddy.php:4102
+msgid "Poll results"
+msgstr "Résultats du sondage"
+
+#: polldaddy.php:1382
+msgid "Show results to voters"
+msgstr "Afficher le résultat aux votants"
+
+#: polldaddy.php:1382
+msgid "Only show percentages"
+msgstr "Afficher seulement les pourcentages"
+
+#: polldaddy.php:1382
+msgid "Hide all results"
+msgstr "Cacher tous les résultats"
+
+#: polldaddy.php:1400
+#: polldaddy.php:4119
+msgid "Block repeat voters"
+msgstr ""
+
+#: polldaddy.php:1405
+msgid "Don't block repeat voters"
+msgstr "Ne pas bloquer les votes à répétition"
+
+#: polldaddy.php:1405
+msgid "Block by cookie (recommended)"
+msgstr "Bloquer par cookies (recommandé)"
+
+#: polldaddy.php:1405
+msgid "Block by cookie and by IP address"
+msgstr "Bloquer par cookie et par adresse IP"
+
+#: polldaddy.php:1420
+msgid "Expires: "
+msgstr "Expirera dans&nbsp;:"
+
+#: polldaddy.php:1422
+#: polldaddy.php:4124
+msgid "Never"
+msgstr "Jamais"
+
+#: polldaddy.php:1423
+#: polldaddy.php:4125
+#, php-format
+msgid "%d hour"
+msgstr ""
+
+#: polldaddy.php:1424
+#: polldaddy.php:1425
+#: polldaddy.php:1426
+#: polldaddy.php:4126
+#: polldaddy.php:4127
+#: polldaddy.php:4128
+#, php-format
+msgid "%d hours"
+msgstr "%d heures"
+
+#: polldaddy.php:1427
+#: polldaddy.php:4129
+#, php-format
+msgid "%d day"
+msgstr ""
+
+#: polldaddy.php:1428
+#: polldaddy.php:4130
+#, php-format
+msgid "%d week"
+msgstr ""
+
+#: polldaddy.php:1429
+#: polldaddy.php:4131
+#, php-format
+msgid "%d month"
+msgstr "%d mois"
+
+#: polldaddy.php:1431
+msgid "Note: Blocking by cookie and IP address can be problematic for some voters."
+msgstr "Note : Le blocage par cookie et adresse IP peut être problématique pour certains votants."
+
+#: polldaddy.php:1446
+msgid "Answers"
+msgstr "Réponses"
+
+#: polldaddy.php:1492
+msgid "Add another"
+msgstr "Ajoutez une autre"
+
+#: polldaddy.php:1498
+msgid "Multiple choice"
+msgstr "Choix multiple"
+
+#: polldaddy.php:1498
+msgid "Randomize answer order"
+msgstr "Ordre des réponses au hasard"
+
+#: polldaddy.php:1498
+msgid "Allow other answers"
+msgstr "Permettre d'autres réponses"
+
+#: polldaddy.php:1498
+msgid "'Share This' link"
+msgstr "lien pour 'Partager Ceci'"
+
+#: polldaddy.php:1627
+msgid "Design"
+msgstr "Apparence"
+
+#: polldaddy.php:1708
+#: polldaddy.php:1763
+msgid "Custom Style"
+msgstr ""
+
+#: polldaddy.php:1721
+#: polldaddy.php:1817
+msgid "Please choose a custom style..."
+msgstr ""
+
+#: polldaddy.php:1727
+#: polldaddy.php:1823
+msgid "Please choose a style."
+msgstr ""
+
+#: polldaddy.php:1732
+#: polldaddy.php:1828
+#, php-format
+msgid "Did you know we have a new editor for building your own custom poll styles? Find out more <a href=\"%s\" target=\"_blank\">here</a>."
+msgstr ""
+
+#: polldaddy.php:1755
+msgid "PollDaddy Style"
+msgstr ""
+
+#: polldaddy.php:1880
+msgid "Answer"
+msgstr "Réponse"
+
+#: polldaddy.php:1895
+#, php-format
+msgid "Other (<a href=\"%s\">see below</a>)"
+msgstr "Autre(<a href=\"%s\">voir ci-dessous</a>) "
+
+#: polldaddy.php:1925
+#: polldaddy.php:4090
+msgid "Other Answer"
+msgstr "Autre réponse"
+
+#: polldaddy.php:1990
+msgid "Style"
+msgstr ""
+
+#: polldaddy.php:1991
+msgid "Last Modified"
+msgstr "Dernière modification"
+
+#: polldaddy.php:2031
+#, php-format
+msgid "No custom styles yet.  <a href=\"%s\">Create one</a>"
+msgstr ""
+
+#: polldaddy.php:2107
+msgid "Style Name"
+msgstr ""
+
+#: polldaddy.php:2122
+msgid "Preload Basic Style"
+msgstr ""
+
+#: polldaddy.php:2136
+msgid "Load Style"
+msgstr ""
+
+#: polldaddy.php:2925
+msgid "Save Style"
+msgstr ""
+
+#: polldaddy.php:3069
+#, php-format
+msgid "Sorry! There was an error creating your rating widget. Please contact <a href=\"%1$s\" %2$s>PollDaddy support</a> to fix this."
+msgstr "Désolé ! Une erreur est survenue lors de la création de votre widget de vote. Vous êtes prié de contacter <a href=\"%1$s\" %2$s>PollDaddy support</a> pour corriger l'erreur."
+
+#: polldaddy.php:3108
+msgid "Rating Settings"
+msgstr ""
+
+#: polldaddy.php:3110
+msgid "Rating updated"
+msgstr ""
+
+#: polldaddy.php:3122
+#: polldaddy.php:3820
+msgid "Posts"
+msgstr "Articles"
+
+#: polldaddy.php:3126
+#: polldaddy.php:3820
+msgid "Pages"
+msgstr "Pages"
+
+#: polldaddy.php:3130
+#: polldaddy.php:3820
+msgid "Comments"
+msgstr "Commentaires"
+
+#: polldaddy.php:3141
+msgid "Enable for blog posts"
+msgstr "Activer pour les message de blog"
+
+#: polldaddy.php:3145
+#: polldaddy.php:3163
+msgid "Above each blog post"
+msgstr "Au dessus de chaque article"
+
+#: polldaddy.php:3145
+#: polldaddy.php:3163
+msgid "Below each blog post"
+msgstr "En dessous de chaque article"
+
+#: polldaddy.php:3159
+msgid "Enable for front page"
+msgstr "Activer pour la page d'accueil"
+
+#: polldaddy.php:3179
+msgid "Enable for pages"
+msgstr ""
+
+#: polldaddy.php:3183
+msgid "Above each page"
+msgstr "Au dessus de chaque page"
+
+#: polldaddy.php:3183
+msgid "Below each page"
+msgstr "En dessous de chaque page"
+
+#: polldaddy.php:3199
+msgid "Enable for comments"
+msgstr ""
+
+#: polldaddy.php:3203
+msgid "Above each comment"
+msgstr "Au dessus de chaque commentaire"
+
+#: polldaddy.php:3203
+msgid "Below each comment"
+msgstr "En dessous de chaque commentaire"
+
+#: polldaddy.php:3218
+#: polldaddy.php:3249
+msgid "Save Changes"
+msgstr "Enregistrer les modifications"
+
+#: polldaddy.php:3229
+msgid "Advanced Settings"
+msgstr "Options avancées"
+
+#: polldaddy.php:3242
+msgid "Save"
+msgstr "Enregistrer"
+
+#: polldaddy.php:3258
+msgid "This is a demo of what your rating widget will look like"
+msgstr ""
+
+#: polldaddy.php:3265
+msgid "Customize Labels"
+msgstr "Personnaliser les étiquettes"
+
+#: polldaddy.php:3269
+msgid "votes"
+msgstr "votes"
+
+#: polldaddy.php:3273
+msgid "rate this"
+msgstr "Évaluer"
+
+#: polldaddy.php:3277
+#, php-format
+msgid "%d star"
+msgstr ""
+
+#: polldaddy.php:3281
+#: polldaddy.php:3285
+#: polldaddy.php:3289
+#: polldaddy.php:3293
+#, php-format
+msgid "%d stars"
+msgstr ""
+
+#: polldaddy.php:3297
+msgid "Thank You"
+msgstr "Merci"
+
+#: polldaddy.php:3301
+msgid "Rate Up"
+msgstr "J'aime"
+
+#: polldaddy.php:3305
+msgid "Rate Down"
+msgstr "Je n'aime pas"
+
+#: polldaddy.php:3314
+msgid "Rating Type"
+msgstr ""
+
+#: polldaddy.php:3316
+msgid "Here you can choose how you want your rating to display. The 5 star rating is the most commonly used. The Nero rating is useful for keeping it simple."
+msgstr "Ici vous pouvez choisir comment montrer vos notations. La notation à 5 étoiles est la plus communément usitée. La notation Nero est utile pour une vue simplifiée."
+
+#: polldaddy.php:3324
+#, php-format
+msgid "%d Star Rating"
+msgstr ""
+
+#: polldaddy.php:3333
+msgid "Nero Rating"
+msgstr ""
+
+#: polldaddy.php:3340
+msgid "Rating Style"
+msgstr ""
+
+#: polldaddy.php:3347
+msgid "Small"
+msgstr "Petit"
+
+#: polldaddy.php:3347
+msgid "Medium"
+msgstr "Moyenne"
+
+#: polldaddy.php:3347
+msgid "Large"
+msgstr "Large"
+
+#: polldaddy.php:3358
+msgid "Star Color"
+msgstr ""
+
+#: polldaddy.php:3361
+msgid "Yellow"
+msgstr "Jaune"
+
+#: polldaddy.php:3361
+msgid "Red"
+msgstr "Rouge"
+
+#: polldaddy.php:3361
+msgid "Blue"
+msgstr "Bleu"
+
+#: polldaddy.php:3361
+msgid "Green"
+msgstr "Vert"
+
+#: polldaddy.php:3361
+msgid "Grey"
+msgstr ""
+
+#: polldaddy.php:3370
+msgid "Hand"
+msgstr "Main"
+
+#: polldaddy.php:3381
+msgid "Custom Image"
+msgstr ""
+
+#: polldaddy.php:3388
+msgid "Text Layout & Font"
+msgstr ""
+
+#: polldaddy.php:3392
+msgid "Align"
+msgstr "Alignement"
+
+#: polldaddy.php:3395
+msgid "Left"
+msgstr "Gauche"
+
+#: polldaddy.php:3395
+msgid "Center"
+msgstr "Centre"
+
+#: polldaddy.php:3395
+#: polldaddy.php:3409
+msgid "Right"
+msgstr "Droite"
+
+#: polldaddy.php:3406
+msgid "Position"
+msgstr "Position"
+
+#: polldaddy.php:3409
+msgid "Top"
+msgstr "Haut"
+
+#: polldaddy.php:3409
+msgid "Bottom"
+msgstr "Bas"
+
+#: polldaddy.php:3420
+msgid "Font"
+msgstr "Font"
+
+#: polldaddy.php:3423
+#: polldaddy.php:3442
+#: polldaddy.php:3456
+msgid "Inherit"
+msgstr ""
+
+#: polldaddy.php:3434
+msgid "Color"
+msgstr "Couleur"
+
+#: polldaddy.php:3439
+msgid "Size"
+msgstr "Taille"
+
+#: polldaddy.php:3453
+msgid "Line Height"
+msgstr "hauteur de ligne"
+
+#: polldaddy.php:3467
+msgid "Bold"
+msgstr "Gras"
+
+#: polldaddy.php:3476
+msgid "Italic"
+msgstr "Italique"
+
+#: polldaddy.php:3489
+#: polldaddy.php:3520
+#: polldaddy.php:3550
+msgid "Extra Settings"
+msgstr ""
+
+#: polldaddy.php:3493
+#: polldaddy.php:3524
+#: polldaddy.php:3554
+msgid "Rating ID"
+msgstr ""
+
+#: polldaddy.php:3499
+msgid "This is the rating ID used in posts"
+msgstr ""
+
+#: polldaddy.php:3504
+msgid "Exclude Posts"
+msgstr ""
+
+#: polldaddy.php:3510
+msgid "Enter the Post IDs where you want to exclude ratings from. Please use a comma-delimited list, eg. 1,2,3"
+msgstr ""
+
+#: polldaddy.php:3530
+msgid "This is the rating ID used in pages"
+msgstr ""
+
+#: polldaddy.php:3535
+msgid "Exclude Pages"
+msgstr ""
+
+#: polldaddy.php:3541
+msgid "Enter the Page IDs where you want to exclude ratings from. Please use a comma-delimited list, eg. 1,2,3"
+msgstr ""
+
+#: polldaddy.php:3560
+msgid "This is the rating ID used in comments"
+msgstr ""
+
+#: polldaddy.php:3807
+msgid "&laquo;"
+msgstr "&laquo;"
+
+#: polldaddy.php:3808
+msgid "&raquo;"
+msgstr "&raquo;"
+
+#: polldaddy.php:3814
+msgid "Rating Reports"
+msgstr ""
+
+#: polldaddy.php:3829
+msgid "View Report"
+msgstr "Voir le rapport"
+
+#: polldaddy.php:3831
+msgid "Last 24 hours"
+msgstr "Dernières 24 heures"
+
+#: polldaddy.php:3831
+msgid "Last 7 days"
+msgstr "Derniers 7 jours"
+
+#: polldaddy.php:3831
+msgid "Last 31 days"
+msgstr "Derniers 31 jours"
+
+#: polldaddy.php:3831
+msgid "Last 3 months"
+msgstr "Derniers 3 mois"
+
+#: polldaddy.php:3831
+msgid "Last 12 months"
+msgstr "12 derniers mois"
+
+#: polldaddy.php:3831
+msgid "All time"
+msgstr "tout le temps "
+
+#: polldaddy.php:3839
+msgid "Filter Report"
+msgstr ""
+
+#: polldaddy.php:3853
+#, php-format
+msgid "No ratings have been collected for your %s yet."
+msgstr "Pas encore de résultats de vote pour votre %s."
+
+#: polldaddy.php:3859
+msgid "Start Date"
+msgstr "Date de début"
+
+#: polldaddy.php:3862
+msgid "Average Rating"
+msgstr "Moyenne des notes"
+
+#: polldaddy.php:4023
+msgid "PollDaddy Account Info"
+msgstr "Information du compte PollDaddy"
+
+#: polldaddy.php:4026
+msgid "This is the PollDadddy account you currently have imported into your WordPress account"
+msgstr "Ceci est le compte PollDadddy que vous avez importé dans votre compte WordPress"
+
+#: polldaddy.php:4057
+msgid "Import Account"
+msgstr "Importer un compte"
+
+#: polldaddy.php:4063
 msgid "General Settings"
 msgstr "Options générales"
+
+#: polldaddy.php:4071
+msgid "Default poll settings"
+msgstr "Paramètres de sondage par défaut"
+
+#: polldaddy.php:4080
+msgid "Multiple Choice"
+msgstr "Choix multiples"
+
+#: polldaddy.php:4085
+msgid "Randomise Answers"
+msgstr ""
+
+#: polldaddy.php:4095
+msgid "Sharing"
+msgstr "Partager"
+
+#: polldaddy.php:4099
+msgid "Show"
+msgstr "Afficher"
+
+#: polldaddy.php:4100
+msgid "Hide"
+msgstr "Cacher"
+
+#: polldaddy.php:4101
+msgid "Percentages"
+msgstr "Pourcentages"
+
+#: polldaddy.php:4111
+msgid "Poll style"
+msgstr "Habillage du sondage"
+
+#: polldaddy.php:4116
+msgid "Off"
+msgstr "Off"
+
+#: polldaddy.php:4117
+msgid "Cookie"
+msgstr "Cookie"
+
+#: polldaddy.php:4118
+msgid "Cookie & IP address"
+msgstr "Cookie et adresse IP"
+
+#: polldaddy.php:4132
+msgid "Block expiration limit"
+msgstr ""
+
+#: polldaddy.php:4144
+msgid "Save Options"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+#, fuzzy
+msgid "PollDaddy Polls"
+msgstr "Compte PollDaddy"
+
+#. Description of the plugin/theme
+msgid "Create and manage PollDaddy polls and ratings in WordPress"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Automattic, Inc."
+msgstr ""
+
+#~ msgid "Account could not be created."
+#~ msgstr "Le compte n'a pas pu être créé."
+
+#~ msgid "Polls in WordPress"
+#~ msgstr "Sondages dans WordPress"
+
+#~ msgid ""
+#~ "To use polls in WordPress, you will need an account with our sister "
+#~ "product, <a href=\"%s\">PollDaddy.com</a>."
+#~ msgstr ""
+#~ "Pour utiliser les sondages dans WordPress, vous devez avoir un compte "
+#~ "chez notre filiale, <a href=\"%s\">PollDaddy.com</a>. "
+
+#~ msgid "Auto-create a new account (recommended)."
+#~ msgstr "Cr&eacute;ation automatique d'un nouveau compte (recommand&eacute;)"
+
+#~ msgid "Do it: I want some polls!"
+#~ msgstr "Le faire: je veux des sondages!"
+
+#~ msgid "The homepage poll has been set."
+#~ msgstr "Le sondage de la page d'accueil a été défini."
