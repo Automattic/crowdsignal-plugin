@@ -1,0 +1,1072 @@
+# Translation of the WordPress plugin PollDaddy Polls 1.8.3 by Automattic, Inc..
+# Copyright (C) 2010 Automattic, Inc.
+# This file is distributed under the same license as the PollDaddy Polls package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PollDaddy Polls 1.8.3\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/polldaddy\n"
+"POT-Creation-Date: 2010-02-23 12:33+0000\n"
+"PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: polldaddy-org.php:134 polldaddy.php:128 polldaddy.php:892
+msgid "Email address required"
+msgstr ""
+
+#: polldaddy-org.php:137 polldaddy.php:131 polldaddy.php:895
+msgid "Password required"
+msgstr ""
+
+#: polldaddy-org.php:169
+msgid "Could not connect to PollDaddy API Key service"
+msgstr ""
+
+#: polldaddy-org.php:183 polldaddy.php:161
+msgid "Can't connect to PollDaddy.com"
+msgstr ""
+
+#: polldaddy-org.php:213
+msgid ""
+"Login to PollDaddy failed.  Double check your email address and password."
+msgstr ""
+
+#: polldaddy-org.php:215
+msgid ""
+"If your email address and password are correct, your host may not support "
+"secure logins."
+msgstr ""
+
+#: polldaddy-org.php:216
+msgid ""
+"In that case, you may be able to log in to PollDaddy by unchecking the \"Use "
+"SSL to Log in\" checkbox."
+msgstr ""
+
+#: polldaddy-org.php:227 polldaddy.php:198
+msgid ""
+"Account could not be accessed.  Are your email address and password correct?"
+msgstr ""
+
+#: polldaddy-org.php:241 polldaddy.php:249
+msgid "PollDaddy Account"
+msgstr ""
+
+#: polldaddy-org.php:243 polldaddy.php:251
+#, php-format
+msgid ""
+"Before you can use the PollDaddy plugin, you need to enter your <a href=\"%s"
+"\">PollDaddy.com</a> account details."
+msgstr ""
+
+#: polldaddy-org.php:250 polldaddy.php:258 polldaddy.php:3867
+msgid "PollDaddy Email Address"
+msgstr ""
+
+#: polldaddy-org.php:258 polldaddy.php:266 polldaddy.php:3877
+msgid "PollDaddy Password"
+msgstr ""
+
+#: polldaddy-org.php:271
+msgid "Use SSL to Log in"
+msgstr ""
+
+#: polldaddy-org.php:275
+msgid ""
+"This ensures a secure login to your PollDaddy account.  Only uncheck if you "
+"are having problems logging in."
+msgstr ""
+
+#: polldaddy-org.php:285 polldaddy.php:278
+msgid "Submit"
+msgstr ""
+
+#: polldaddy-org.php:301
+msgid "Multiple PollDaddy Accounts"
+msgstr ""
+
+#: polldaddy-org.php:307
+msgid "This setting will allow each blog user to import a PollDaddy account."
+msgstr ""
+
+#: polldaddy-org.php:314
+msgid "Sync Ratings Account"
+msgstr ""
+
+#: polldaddy-org.php:320
+msgid "This will syncronize your ratings PollDaddy account."
+msgstr ""
+
+#: polldaddy-org.php:327
+msgid "Posts Rating ID"
+msgstr ""
+
+#: polldaddy-org.php:333
+msgid "This is the rating ID used in posts"
+msgstr ""
+
+#: polldaddy-org.php:340
+msgid "Pages Rating ID"
+msgstr ""
+
+#: polldaddy-org.php:346
+msgid "This is the rating ID used in pages"
+msgstr ""
+
+#: polldaddy-org.php:353
+msgid "Comments Rating ID"
+msgstr ""
+
+#: polldaddy-org.php:359
+msgid "This is the rating ID used in comments"
+msgstr ""
+
+#: polldaddy-org.php:519
+msgid "A list of your top rated posts, pages or comments."
+msgstr ""
+
+#: polldaddy-org.php:528
+msgid "Top Rated"
+msgstr ""
+
+#: polldaddy-org.php:564 polldaddy.php:3693
+msgid "Title"
+msgstr ""
+
+#: polldaddy-org.php:573
+msgid "Show for posts"
+msgstr ""
+
+#: polldaddy-org.php:584
+msgid "Show for pages"
+msgstr ""
+
+#: polldaddy-org.php:595
+msgid "Show for comments"
+msgstr ""
+
+#: polldaddy-org.php:599
+msgid "How many items would you like to display?"
+msgstr ""
+
+#: polldaddy.php:68 polldaddy.php:70 polldaddy.php:86 polldaddy.php:88
+msgid "Ratings"
+msgstr ""
+
+#: polldaddy.php:75 polldaddy.php:77 polldaddy.php:93 polldaddy.php:95
+#: polldaddy.php:107 polldaddy.php:1101
+msgid "Polls"
+msgstr ""
+
+#: polldaddy.php:100
+msgid "Ratings &ndash; Settings"
+msgstr ""
+
+#: polldaddy.php:100
+msgid "Settings"
+msgstr ""
+
+#: polldaddy.php:101 polldaddy.php:104
+msgid "Ratings &ndash; Reports"
+msgstr ""
+
+#: polldaddy.php:101 polldaddy.php:104
+msgid "Reports"
+msgstr ""
+
+#: polldaddy.php:107 polldaddy.php:1233 polldaddy.php:2010
+msgid "Edit"
+msgstr ""
+
+#: polldaddy.php:110
+msgid "Add New Poll"
+msgstr ""
+
+#: polldaddy.php:110
+msgid "Add New"
+msgstr ""
+
+#: polldaddy.php:111 polldaddy.php:1066 polldaddy.php:1739
+msgid "Custom Styles"
+msgstr ""
+
+#: polldaddy.php:112 polldaddy.php:3852
+msgid "Options"
+msgstr ""
+
+#: polldaddy.php:188
+msgid "Invalid Account"
+msgstr ""
+
+#: polldaddy.php:210
+#, php-format
+msgid ""
+"Obsolete PollDaddy User API Key:  <a href=\"%s\">Sign in again to re-"
+"authenticate</a>"
+msgstr ""
+
+#: polldaddy.php:287
+msgid "Add Poll"
+msgstr ""
+
+#: polldaddy.php:358
+msgid "Star Colors"
+msgstr ""
+
+#: polldaddy.php:358 polldaddy.php:3339
+msgid "Star Size"
+msgstr ""
+
+#: polldaddy.php:359
+msgid "Nero Type"
+msgstr ""
+
+#: polldaddy.php:359
+msgid "Nero Size"
+msgstr ""
+
+#: polldaddy.php:452
+msgid "You are not allowed to delete this poll."
+msgstr ""
+
+#: polldaddy.php:460 polldaddy.php:496 polldaddy.php:532 polldaddy.php:566
+msgid "Invalid Poll Author"
+msgstr ""
+
+#: polldaddy.php:488
+msgid "You are not allowed to open this poll."
+msgstr ""
+
+#: polldaddy.php:524
+msgid "You are not allowed to close this poll."
+msgstr ""
+
+#: polldaddy.php:557 polldaddy.php:1329
+msgid "You are not allowed to edit this poll."
+msgstr ""
+
+#: polldaddy.php:573
+msgid "Poll not found"
+msgstr ""
+
+#: polldaddy.php:600
+msgid "Invalid answers"
+msgstr ""
+
+#: polldaddy.php:616
+msgid "You must include at least 2 answers"
+msgstr ""
+
+#: polldaddy.php:627 polldaddy.php:704
+msgid "Please choose a poll style"
+msgstr ""
+
+#: polldaddy.php:649
+msgid "Poll could not be updated"
+msgstr ""
+
+#: polldaddy.php:723
+msgid "Poll could not be created"
+msgstr ""
+
+#: polldaddy.php:775
+msgid "Style could not be updated"
+msgstr ""
+
+#: polldaddy.php:805
+msgid "Style could not be created"
+msgstr ""
+
+#: polldaddy.php:904
+msgid ""
+"Account could not be imported.  Are your email address and password correct?"
+msgstr ""
+
+#: polldaddy.php:922
+msgid "Poll deleted."
+msgstr ""
+
+#: polldaddy.php:924
+#, php-format
+msgid "%s Poll Deleted."
+msgid_plural "%s Polls Deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: polldaddy.php:929
+msgid "Poll opened."
+msgstr ""
+
+#: polldaddy.php:931
+#, php-format
+msgid "%s Poll Opened."
+msgid_plural "%s Polls Opened."
+msgstr[0] ""
+msgstr[1] ""
+
+#: polldaddy.php:936
+msgid "Poll closed."
+msgstr ""
+
+#: polldaddy.php:938
+#, php-format
+msgid "%s Poll Closed."
+msgid_plural "%s Polls Closed."
+msgstr[0] ""
+msgstr[1] ""
+
+#: polldaddy.php:941
+msgid "Poll updated."
+msgstr ""
+
+#: polldaddy.php:944
+msgid "Poll created."
+msgstr ""
+
+#: polldaddy.php:946 polldaddy.php:1362
+msgid "Send to Editor"
+msgstr ""
+
+#: polldaddy.php:949
+msgid "Custom Style updated."
+msgstr ""
+
+#: polldaddy.php:952
+msgid "Custom Style created."
+msgstr ""
+
+#: polldaddy.php:957
+msgid "Custom Style deleted."
+msgstr ""
+
+#: polldaddy.php:959
+#, php-format
+msgid "%s Style Deleted."
+msgid_plural "%s Custom Styles Deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: polldaddy.php:962
+msgid "Account Imported."
+msgstr ""
+
+#: polldaddy.php:965
+msgid "Options Updated."
+msgstr ""
+
+#: polldaddy.php:974
+msgid "Error: An error has occurred;  Poll not created."
+msgstr ""
+
+#: polldaddy.php:977
+msgid "Error: An error has occurred;  Poll not updated."
+msgstr ""
+
+#: polldaddy.php:981
+msgid ""
+"Error: An error has occurred;  Account could not be imported.  Perhaps your "
+"email address or password is incorrect?"
+msgstr ""
+
+#: polldaddy.php:983
+msgid "Error: An error has occurred;  Account could not be created."
+msgstr ""
+
+#: polldaddy.php:1020
+#, php-format
+msgid ""
+"Poll Preview (<a href=\"%s\">Edit Poll</a>, <a href=\"%s\">List Polls</a>)"
+msgstr ""
+
+#: polldaddy.php:1024
+#, php-format
+msgid "Poll Preview (<a href=\"%s\">List Polls</a>)"
+msgstr ""
+
+#: polldaddy.php:1034
+#, php-format
+msgid "Poll Results (<a href=\"%s\">Edit Poll</a>)"
+msgstr ""
+
+#: polldaddy.php:1036
+#, php-format
+msgid "Poll Results (<a href=\"%s\">List Polls</a>)"
+msgstr ""
+
+#: polldaddy.php:1045
+#, php-format
+msgid "Edit Poll (<a href=\"%s\">List Polls</a>)"
+msgstr ""
+
+#: polldaddy.php:1054
+#, php-format
+msgid "Create Poll (<a href=\"%s\">List Polls</a>)"
+msgstr ""
+
+#: polldaddy.php:1064
+#, php-format
+msgid "Custom Styles (<a href=\"%s\">Add New</a>)"
+msgstr ""
+
+#: polldaddy.php:1074
+#, php-format
+msgid "Edit Style (<a href=\"%s\">List Styles</a>)"
+msgstr ""
+
+#: polldaddy.php:1083
+#, php-format
+msgid "Create Style (<a href=\"%s\">List Styles</a>)"
+msgstr ""
+
+#: polldaddy.php:1099
+#, php-format
+msgid "Polls (<a href=\"%s\">Add New</a>)"
+msgstr ""
+
+#: polldaddy.php:1164
+msgid "All Blog's Polls"
+msgstr ""
+
+#: polldaddy.php:1165
+msgid "All My Polls"
+msgstr ""
+
+#: polldaddy.php:1173 polldaddy.php:1973
+msgid "Actions"
+msgstr ""
+
+#: polldaddy.php:1174 polldaddy.php:1239 polldaddy.php:1974 polldaddy.php:2015
+msgid "Delete"
+msgstr ""
+
+#: polldaddy.php:1175 polldaddy.php:1246
+msgid "Close"
+msgstr ""
+
+#: polldaddy.php:1176 polldaddy.php:1243
+msgid "Open"
+msgstr ""
+
+#: polldaddy.php:1178 polldaddy.php:1976
+msgid "Apply"
+msgstr ""
+
+#: polldaddy.php:1189
+msgid "Poll"
+msgstr ""
+
+#: polldaddy.php:1190 polldaddy.php:1877 polldaddy.php:1922 polldaddy.php:3694
+msgid "Votes"
+msgstr ""
+
+#: polldaddy.php:1191
+msgid "Created"
+msgstr ""
+
+#: polldaddy.php:1237
+msgid "Results"
+msgstr ""
+
+#: polldaddy.php:1249 polldaddy.php:1255 polldaddy.php:3251
+msgid "Preview"
+msgstr ""
+
+#: polldaddy.php:1251
+msgid "Send to editor"
+msgstr ""
+
+#: polldaddy.php:1257
+msgid "HTML code"
+msgstr ""
+
+#: polldaddy.php:1261 polldaddy.php:2017
+msgid "Y/m/d g:i:s A"
+msgstr ""
+
+#: polldaddy.php:1261 polldaddy.php:2017
+msgid "Y/m/d"
+msgstr ""
+
+#: polldaddy.php:1265
+msgid "Shortcode"
+msgstr ""
+
+#: polldaddy.php:1268
+msgid "JavaScript"
+msgstr ""
+
+#: polldaddy.php:1284
+#, php-format
+msgid "What are you doing here?  <a href=\"%s\">Go back</a>."
+msgstr ""
+
+#: polldaddy.php:1294
+#, php-format
+msgid "No polls yet.  <a href=\"%s\">Create one</a>"
+msgstr ""
+
+#: polldaddy.php:1296
+msgid "No polls yet."
+msgstr ""
+
+#: polldaddy.php:1351
+msgid "Publish"
+msgstr ""
+
+#: polldaddy.php:1358
+msgid "Save Poll"
+msgstr ""
+
+#: polldaddy.php:1373 polldaddy.php:3935
+msgid "Poll results"
+msgstr ""
+
+#: polldaddy.php:1378
+msgid "Show results to voters"
+msgstr ""
+
+#: polldaddy.php:1378
+msgid "Only show percentages"
+msgstr ""
+
+#: polldaddy.php:1378
+msgid "Hide all results"
+msgstr ""
+
+#: polldaddy.php:1396 polldaddy.php:3952
+msgid "Block repeat voters"
+msgstr ""
+
+#: polldaddy.php:1401
+msgid "Don't block repeat voters"
+msgstr ""
+
+#: polldaddy.php:1401
+msgid "Block by cookie (recommended)"
+msgstr ""
+
+#: polldaddy.php:1401
+msgid "Block by cookie and by IP address"
+msgstr ""
+
+#: polldaddy.php:1416
+msgid "Expires: "
+msgstr ""
+
+#: polldaddy.php:1418 polldaddy.php:3957
+msgid "Never"
+msgstr ""
+
+#: polldaddy.php:1419 polldaddy.php:3958
+#, php-format
+msgid "%d hour"
+msgstr ""
+
+#: polldaddy.php:1420 polldaddy.php:1421 polldaddy.php:1422 polldaddy.php:3959
+#: polldaddy.php:3960 polldaddy.php:3961
+#, php-format
+msgid "%d hours"
+msgstr ""
+
+#: polldaddy.php:1423 polldaddy.php:3962
+#, php-format
+msgid "%d day"
+msgstr ""
+
+#: polldaddy.php:1424 polldaddy.php:3963
+#, php-format
+msgid "%d week"
+msgstr ""
+
+#: polldaddy.php:1425 polldaddy.php:3964
+#, php-format
+msgid "%d month"
+msgstr ""
+
+#: polldaddy.php:1427
+msgid ""
+"Note: Blocking by cookie and IP address can be problematic for some voters."
+msgstr ""
+
+#: polldaddy.php:1442
+msgid "Answers"
+msgstr ""
+
+#: polldaddy.php:1488
+msgid "Add another"
+msgstr ""
+
+#: polldaddy.php:1494
+msgid "Multiple choice"
+msgstr ""
+
+#: polldaddy.php:1494
+msgid "Randomize answer order"
+msgstr ""
+
+#: polldaddy.php:1494
+msgid "Allow other answers"
+msgstr ""
+
+#: polldaddy.php:1494
+msgid "'Share This' link"
+msgstr ""
+
+#: polldaddy.php:1623
+msgid "Design"
+msgstr ""
+
+#: polldaddy.php:1704 polldaddy.php:1759
+msgid "Custom Style"
+msgstr ""
+
+#: polldaddy.php:1717 polldaddy.php:1813
+msgid "Please choose a custom style..."
+msgstr ""
+
+#: polldaddy.php:1723 polldaddy.php:1819
+msgid "Please choose a style."
+msgstr ""
+
+#: polldaddy.php:1728 polldaddy.php:1824
+#, php-format
+msgid ""
+"Did you know we have a new editor for building your own custom poll styles? "
+"Find out more <a href=\"%s\" target=\"_blank\">here</a>."
+msgstr ""
+
+#: polldaddy.php:1751
+msgid "PollDaddy Style"
+msgstr ""
+
+#: polldaddy.php:1876
+msgid "Answer"
+msgstr ""
+
+#: polldaddy.php:1891
+#, php-format
+msgid "Other (<a href=\"%s\">see below</a>)"
+msgstr ""
+
+#: polldaddy.php:1921 polldaddy.php:3923
+msgid "Other Answer"
+msgstr ""
+
+#: polldaddy.php:1986
+msgid "Style"
+msgstr ""
+
+#: polldaddy.php:1987
+msgid "Last Modified"
+msgstr ""
+
+#: polldaddy.php:2027
+#, php-format
+msgid "No custom styles yet.  <a href=\"%s\">Create one</a>"
+msgstr ""
+
+#: polldaddy.php:2103
+msgid "Style Name"
+msgstr ""
+
+#: polldaddy.php:2118
+msgid "Preload Basic Style"
+msgstr ""
+
+#: polldaddy.php:2132
+msgid "Load Style"
+msgstr ""
+
+#: polldaddy.php:2921
+msgid "Save Style"
+msgstr ""
+
+#: polldaddy.php:3064
+#, php-format
+msgid ""
+"Sorry! There was an error creating your rating widget. Please contact <a "
+"href=\"%1$s\" %2$s>PollDaddy support</a> to fix this."
+msgstr ""
+
+#: polldaddy.php:3103
+msgid "Rating Settings"
+msgstr ""
+
+#: polldaddy.php:3105
+msgid "Rating updated"
+msgstr ""
+
+#: polldaddy.php:3117 polldaddy.php:3653
+msgid "Posts"
+msgstr ""
+
+#: polldaddy.php:3121 polldaddy.php:3653
+msgid "Pages"
+msgstr ""
+
+#: polldaddy.php:3125 polldaddy.php:3653
+msgid "Comments"
+msgstr ""
+
+#: polldaddy.php:3136
+msgid "Enable for blog posts"
+msgstr ""
+
+#: polldaddy.php:3140 polldaddy.php:3158
+msgid "Above each blog post"
+msgstr ""
+
+#: polldaddy.php:3140 polldaddy.php:3158
+msgid "Below each blog post"
+msgstr ""
+
+#: polldaddy.php:3154
+msgid "Enable for front page"
+msgstr ""
+
+#: polldaddy.php:3174
+msgid "Enable for pages"
+msgstr ""
+
+#: polldaddy.php:3178
+msgid "Above each page"
+msgstr ""
+
+#: polldaddy.php:3178
+msgid "Below each page"
+msgstr ""
+
+#: polldaddy.php:3194
+msgid "Enable for comments"
+msgstr ""
+
+#: polldaddy.php:3198
+msgid "Above each comment"
+msgstr ""
+
+#: polldaddy.php:3198
+msgid "Below each comment"
+msgstr ""
+
+#: polldaddy.php:3213 polldaddy.php:3244
+msgid "Save Changes"
+msgstr ""
+
+#: polldaddy.php:3224
+msgid "Advanced Settings"
+msgstr ""
+
+#: polldaddy.php:3237
+msgid "Save"
+msgstr ""
+
+#: polldaddy.php:3253
+msgid "This is a demo of what your rating widget will look like"
+msgstr ""
+
+#: polldaddy.php:3260
+msgid "Customize Labels"
+msgstr ""
+
+#: polldaddy.php:3264
+msgid "votes"
+msgstr ""
+
+#: polldaddy.php:3268
+msgid "rate this"
+msgstr ""
+
+#: polldaddy.php:3272
+#, php-format
+msgid "%d star"
+msgstr ""
+
+#: polldaddy.php:3276 polldaddy.php:3280 polldaddy.php:3284 polldaddy.php:3288
+#, php-format
+msgid "%d stars"
+msgstr ""
+
+#: polldaddy.php:3292
+msgid "Thank You"
+msgstr ""
+
+#: polldaddy.php:3296
+msgid "Rate Up"
+msgstr ""
+
+#: polldaddy.php:3300
+msgid "Rate Down"
+msgstr ""
+
+#: polldaddy.php:3309
+msgid "Rating Type"
+msgstr ""
+
+#: polldaddy.php:3311
+msgid ""
+"Here you can choose how you want your rating to display. The 5 star rating "
+"is the most commonly used. The Nero rating is useful for keeping it simple."
+msgstr ""
+
+#: polldaddy.php:3319
+#, php-format
+msgid "%d Star Rating"
+msgstr ""
+
+#: polldaddy.php:3328
+msgid "Nero Rating"
+msgstr ""
+
+#: polldaddy.php:3335
+msgid "Rating Style"
+msgstr ""
+
+#: polldaddy.php:3342
+msgid "Small"
+msgstr ""
+
+#: polldaddy.php:3342
+msgid "Medium"
+msgstr ""
+
+#: polldaddy.php:3342
+msgid "Large"
+msgstr ""
+
+#: polldaddy.php:3353
+msgid "Star Color"
+msgstr ""
+
+#: polldaddy.php:3356
+msgid "Yellow"
+msgstr ""
+
+#: polldaddy.php:3356
+msgid "Red"
+msgstr ""
+
+#: polldaddy.php:3356
+msgid "Blue"
+msgstr ""
+
+#: polldaddy.php:3356
+msgid "Green"
+msgstr ""
+
+#: polldaddy.php:3356
+msgid "Grey"
+msgstr ""
+
+#: polldaddy.php:3365
+msgid "Hand"
+msgstr ""
+
+#: polldaddy.php:3376
+msgid "Custom Image"
+msgstr ""
+
+#: polldaddy.php:3383
+msgid "Text Layout & Font"
+msgstr ""
+
+#: polldaddy.php:3387
+msgid "Align"
+msgstr ""
+
+#: polldaddy.php:3390
+msgid "Left"
+msgstr ""
+
+#: polldaddy.php:3390
+msgid "Center"
+msgstr ""
+
+#: polldaddy.php:3390 polldaddy.php:3404
+msgid "Right"
+msgstr ""
+
+#: polldaddy.php:3401
+msgid "Position"
+msgstr ""
+
+#: polldaddy.php:3404
+msgid "Top"
+msgstr ""
+
+#: polldaddy.php:3404
+msgid "Bottom"
+msgstr ""
+
+#: polldaddy.php:3415
+msgid "Font"
+msgstr ""
+
+#: polldaddy.php:3418 polldaddy.php:3437 polldaddy.php:3451
+msgid "Inherit"
+msgstr ""
+
+#: polldaddy.php:3429
+msgid "Color"
+msgstr ""
+
+#: polldaddy.php:3434
+msgid "Size"
+msgstr ""
+
+#: polldaddy.php:3448
+msgid "Line Height"
+msgstr ""
+
+#: polldaddy.php:3462
+msgid "Bold"
+msgstr ""
+
+#: polldaddy.php:3471
+msgid "Italic"
+msgstr ""
+
+#: polldaddy.php:3640
+msgid "&laquo;"
+msgstr ""
+
+#: polldaddy.php:3641
+msgid "&raquo;"
+msgstr ""
+
+#: polldaddy.php:3647
+msgid "Rating Reports"
+msgstr ""
+
+#: polldaddy.php:3662
+msgid "View Report"
+msgstr ""
+
+#: polldaddy.php:3664
+msgid "Last 24 hours"
+msgstr ""
+
+#: polldaddy.php:3664
+msgid "Last 7 days"
+msgstr ""
+
+#: polldaddy.php:3664
+msgid "Last 31 days"
+msgstr ""
+
+#: polldaddy.php:3664
+msgid "Last 3 months"
+msgstr ""
+
+#: polldaddy.php:3664
+msgid "Last 12 months"
+msgstr ""
+
+#: polldaddy.php:3664
+msgid "All time"
+msgstr ""
+
+#: polldaddy.php:3672
+msgid "Filter Report"
+msgstr ""
+
+#: polldaddy.php:3686
+#, php-format
+msgid "No ratings have been collected for your %s yet."
+msgstr ""
+
+#: polldaddy.php:3692
+msgid "Start Date"
+msgstr ""
+
+#: polldaddy.php:3695
+msgid "Average Rating"
+msgstr ""
+
+#: polldaddy.php:3856
+msgid "PollDaddy Account Info"
+msgstr ""
+
+#: polldaddy.php:3859
+msgid ""
+"This is the PollDadddy account you currently have imported into your "
+"WordPress account"
+msgstr ""
+
+#: polldaddy.php:3890
+msgid "Import Account"
+msgstr ""
+
+#: polldaddy.php:3896
+msgid "General Settings"
+msgstr ""
+
+#: polldaddy.php:3904
+msgid "Default poll settings"
+msgstr ""
+
+#: polldaddy.php:3913
+msgid "Multiple Choice"
+msgstr ""
+
+#: polldaddy.php:3918
+msgid "Randomise Answers"
+msgstr ""
+
+#: polldaddy.php:3928
+msgid "Sharing"
+msgstr ""
+
+#: polldaddy.php:3932
+msgid "Show"
+msgstr ""
+
+#: polldaddy.php:3933
+msgid "Hide"
+msgstr ""
+
+#: polldaddy.php:3934
+msgid "Percentages"
+msgstr ""
+
+#: polldaddy.php:3944
+msgid "Poll style"
+msgstr ""
+
+#: polldaddy.php:3949
+msgid "Off"
+msgstr ""
+
+#: polldaddy.php:3950
+msgid "Cookie"
+msgstr ""
+
+#: polldaddy.php:3951
+msgid "Cookie & IP address"
+msgstr ""
+
+#: polldaddy.php:3965
+msgid "Block expiration limit"
+msgstr ""
+
+#: polldaddy.php:3977
+msgid "Save Options"
+msgstr ""
+
+#. Plugin Name of an extension
+msgid "PollDaddy Polls"
+msgstr ""
+
+#. Description of an extension
+msgid "Create and manage PollDaddy polls and ratings in WordPress"
+msgstr ""
+
+#. Author of an extension
+msgid "Automattic, Inc."
+msgstr ""
