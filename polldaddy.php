@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls and ratings in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 1.8.5
+Version: 1.8.6
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -33,7 +33,7 @@ class WP_PollDaddy {
 		global $current_user;
 		$this->errors = new WP_Error;
 		$this->scheme = 'https';
-		$this->version = '1.8.5';
+		$this->version = '1.8.6';
 		$this->multiple_accounts = true;   
 		$this->polldaddy_client_class = 'api_client';
 		$this->polldaddy_clients = array();
@@ -1258,27 +1258,29 @@ class WP_PollDaddy {
 <?php } else { ?>
 						<span class="view"><a class="thickbox" href="<?php echo $preview_link; ?>"><?php _e( 'Preview', 'polldaddy' ); ?></a> | </span>
 <?php } ?>
-						<span class="shortcode"><a href="#" class="polldaddy-show-shortcode"><?php _e( 'HTML code', 'polldaddy' ); ?></a></span>
+						<span class="shortcode"><a href="#" class="polldaddy-show-shortcode"><?php _e( 'Share-Embed', 'polldaddy' ); ?></a></span>
 <?php $this->poll_table_add_option( $poll_id ); ?>
           </td>
 					<td class="poll-votes column-vote"><?php echo number_format_i18n( $poll->_responses ); ?></td>
-					<td class="date column-date"><abbr title="<?php echo date( __('Y/m/d g:i:s A', 'polldaddy'), $poll_time ); ?>"><?php echo date( __('Y/m/d', 'polldaddy'), $poll_time ); ?></abbr></td>
-				</tr>
-				<tr class="polldaddy-shortcode-row" style="display: none;">
-					<td colspan="4">
-						<h4><?php _e( 'Shortcode', 'polldaddy' ); ?></h4>
-						<pre>[polldaddy poll=<?php echo (int) $poll_id; ?>]</pre> 
-
-						<h4><?php _e( 'JavaScript', 'polldaddy' ); ?></h4>
-						<pre>&lt;script type="text/javascript" language="javascript"
+          <td class="date column-date"><abbr title="<?php echo date( __('Y/m/d g:i:s A', 'polldaddy'), $poll_time ); ?>"><?php echo date( __('Y/m/d', 'polldaddy'), $poll_time ); ?></abbr></td>
+        </tr>
+        <tr class="polldaddy-shortcode-row" style="display: none;">
+          <td colspan="4">
+            <h4><?php _e( 'WordPress Shortcode', 'polldaddy' ); ?></h4>
+            <pre style="width:175px;">[polldaddy poll=<?php echo (int) $poll_id; ?>]</pre>
+            <h4><?php _e( 'JavaScript', 'polldaddy' ); ?></h4>
+            <pre>&lt;script type="text/javascript" language="javascript"
   src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/script&gt;
 &lt;noscript&gt;
  &lt;a href="http://answers.polldaddy.com/poll/<?php echo (int) $poll_id; ?>/"&gt;<?php echo trim( strip_tags( $poll->___content ) ); ?>&lt;/a&gt;&lt;br/&gt;
  &lt;span style="font:9px;"&gt;(&lt;a href="http://www.polldaddy.com"&gt;polls&lt;/a&gt;)&lt;/span&gt;
 &lt;/noscript&gt;</pre>
-					</td>
-				</tr>
-
+            <h4><?php _e( 'Short URL (Good for Twitter etc.)', 'polldaddy' ); ?></h4>
+            <pre style="width:175px;">http://poll.fm/<?php echo base_convert( $poll_id, 10, 36 ); ?></pre>
+            <h4><?php _e( 'Facebook URL', 'polldaddy' ); ?></h4>
+            <pre style="width:175px;">http://poll.fm/f/<?php echo base_convert( $poll_id, 10, 36 ); ?></pre>
+          </td>
+        </tr>
 <?php
 			endforeach;
 		elseif ( $total_polls ) : // $polls
