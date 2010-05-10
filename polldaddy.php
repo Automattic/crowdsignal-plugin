@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls and ratings in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 1.8.6
+Version: 1.8.7
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -26,24 +26,24 @@ class WP_PollDaddy {
 	var $rating_user_code;
 	
 	function WP_PollDaddy(){
-		$this ->__construct();
-	}
-	
-	function __construct() {
-		global $current_user;
-		$this->errors = new WP_Error;
-		$this->scheme = 'https';
-		$this->version = '1.8.6';
-		$this->multiple_accounts = true;   
-		$this->polldaddy_client_class = 'api_client';
-		$this->polldaddy_clients = array();
+    $this ->__construct();
+  }
+
+  function __construct() {
+    global $current_user;
+    $this->errors = new WP_Error;
+    $this->scheme = 'https';
+    $this->version = '1.8.7';
+    $this->multiple_accounts = true;   
+    $this->polldaddy_client_class = 'api_client';
+    $this->polldaddy_clients = array();
 		$this->is_admin = (bool) current_user_can('manage_options');
 		$this->is_author = true;
-		$this->id = (int) $current_user->ID;
-		$this->user_code = null;
-		$this->rating_user_code = null;	
-	}
-	
+    $this->id = (int) $current_user->ID;
+    $this->user_code = null;
+    $this->rating_user_code = null;	
+  }
+   
 	function &get_client( $api_key, $userCode = null ) {
 		if ( isset( $this->polldaddy_clients[$api_key] ) ) {
 			if ( !is_null( $userCode ) ) 
@@ -302,8 +302,8 @@ class WP_PollDaddy {
   }
   
 	function management_page_load() {		
-		wp_reset_vars( array( 'page', 'action', 'poll', 'style', 'rating' ) );
-		global $plugin_page, $page, $action, $poll, $style, $rating, $wp_locale; 		
+		wp_reset_vars( array( 'page', 'action', 'poll', 'style', 'rating', 'id' ) );
+		global $plugin_page, $page, $action, $poll, $style, $rating, $id, $wp_locale; 		
     
     $this->set_api_user_code();
 
@@ -336,6 +336,7 @@ class WP_PollDaddy {
 					wp_enqueue_script( 'polls-style', "http://i.polldaddy.com/js/style-editor.js", array(), $this->version );
 					wp_enqueue_script( 'polls-style-color', "http://i.polldaddy.com/js/jquery/jscolor.js", array(), $this->version );
 					wp_enqueue_style( 'polls', "{$this->base_url}style-editor.css", array(), $this->version );
+					$plugin_page = 'polls&amp;action=list-styles';
 					break;
 				case 'list-styles' :
 					$plugin_page = 'polls&amp;action=list-styles';
@@ -347,11 +348,11 @@ class WP_PollDaddy {
 					break;
 			endswitch;
 		} elseif( $page == 'ratings' ) {
-		  if ( !$this->is_admin && !in_array( $action, array( 'change-report', 'reports' ) ) ) {//check user privileges has access to action
+		  if ( !$this->is_admin && !in_array( $action, array( 'reports', 'delete' ) ) ) {//check user privileges has access to action
 		    $action = 'reports';
 		  }
 			switch ( $action ) :
-				case 'change-report' :
+				case 'delete' :
 				case 'reports' :
 					$plugin_page = 'ratings&amp;action=reports';
 					break;
@@ -869,7 +870,39 @@ class WP_PollDaddy {
 				return;
 			endswitch;
 		} elseif( $page == 'ratings' ) {
-			return;
+			
+			switch ( $action ) :
+			case 'delete' :
+				if ( empty( $id ) )
+					return;
+				if ( empty( $rating ) )
+					return;
+					
+				$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->rating_user_code );
+					
+				if ( is_array( $rating ) ) {
+					check_admin_referer( 'action-rating_bulk' );
+					
+					foreach( $rating as $key => $value ){
+						$polldaddy->reset();
+						$polldaddy->delete_rating_result( $id, $value );
+					}
+				} else {
+					check_admin_referer( "delete-rating_$rating" );
+					
+					$polldaddy->delete_rating_result( $id, $rating );
+				}
+
+				if ( isset( $_REQUEST['filter'] ) )
+					$query_args['filter'] = $_REQUEST['filter'];
+				if ( isset( $_REQUEST['change-report-to'] ) )
+					$query_args['change-report-to'] = $_REQUEST['change-report-to'];
+				$query_args['message'] = 'deleted-rating';
+				$query_args['deleted'] = count( (array) $rating );
+				break;
+			default :				
+				return;
+			endswitch;
 		}
 		
 		wp_redirect( add_query_arg( $query_args, wp_get_referer() ) );
@@ -967,6 +1000,13 @@ class WP_PollDaddy {
 			break;
 		case 'updated-options' :
 			$message = __( 'Options Updated.', 'polldaddy' );
+			break;
+		case 'deleted-rating' :
+			$deleted = (int) $_GET['deleted'];
+			if ( 1 == $deleted )
+				$message = __( 'Rating deleted.', 'polldaddy' );
+			else
+				$message = sprintf( __ngettext( '%s Rating Deleted.', '%s Ratings Deleted.', $deleted ), number_format_i18n( $deleted ) );
 			break;
 		endswitch;
 
@@ -1108,12 +1148,12 @@ class WP_PollDaddy {
 			$this->polls_table( isset( $_GET['view'] ) && 'user' == $_GET['view'] ? 'user' : 'blog' );
 		endswitch;
 	} elseif( $page == 'ratings' ) {
-	  if ( !$this->is_admin && !in_array( $action, array( 'change-report', 'reports' ) ) ) {//check user privileges has access to action
+	  if ( !$this->is_admin && !in_array( $action, array( 'delete', 'reports' ) ) ) {//check user privileges has access to action
 		  $action = 'reports';
 		}
 	   
 		switch ( $action ) :
-		case 'change-report' :
+		case 'delete' :
 		case 'reports' :
 			$this->rating_reports();
 			break;
@@ -1191,7 +1231,7 @@ class WP_PollDaddy {
 				<tr>
           <th id="cb" class="manage-column column-cb check-column" scope="col" /><?php if( $this->is_author ){ ?><input type="checkbox" /><?php } ?></th>
 					<th id="title" class="manage-column column-title" scope="col"><?php _e( 'Poll', 'polldaddy' ); ?></th>
-					<th id="votes" class="manage-column column-vote" scope="col"><?php _e( 'Votes', 'polldaddy' ); ?></th>
+					<th id="votes" class="manage-column column-vote num" scope="col"><?php _e( 'Votes', 'polldaddy' ); ?></th>
 					<th id="date" class="manage-column column-date" scope="col"><?php _e( 'Created', 'polldaddy' ); ?></th>
 				</tr>
 			</thead>
@@ -1228,15 +1268,16 @@ class WP_PollDaddy {
 				list($poll_time) = explode( '.', $poll->_created );
 				$poll_time = strtotime( $poll_time );
 ?>
-
 				<tr<?php echo $class; ?>>
 					<th class="check-column" scope="row"><?php if( $this->is_author and $this->can_edit( $poll ) ){ ?><input type="checkbox" value="<?php echo (int) $poll_id; ?>" name="poll[]" /><?php } ?></th>
 					<td class="post-title column-title">
 <?php	if ( $edit_link ) { ?>
 						<strong><a class="row-title" href="<?php echo $edit_link; ?>"><?php echo wp_specialchars( $poll->___content ); ?></a></strong>
+						<div class="row-actions">
 						<span class="edit"><a href="<?php echo $edit_link; ?>"><?php _e( 'Edit', 'polldaddy' ); ?></a> | </span>
 <?php	} else { ?>
 						<strong><?php echo wp_specialchars( $poll->___content ); ?></strong>
+						<div class="row-actions">
 <?php	} ?>
 						<span class="results"><a href="<?php echo $results_link; ?>"><?php _e( 'Results', 'polldaddy' ); ?></a> | </span>
 <?php	if ( $delete_link ) { ?>
@@ -1258,29 +1299,32 @@ class WP_PollDaddy {
 <?php } else { ?>
 						<span class="view"><a class="thickbox" href="<?php echo $preview_link; ?>"><?php _e( 'Preview', 'polldaddy' ); ?></a> | </span>
 <?php } ?>
-						<span class="shortcode"><a href="#" class="polldaddy-show-shortcode"><?php _e( 'Share-Embed', 'polldaddy' ); ?></a></span>
+					<span class="shortcode"><a href="#" class="polldaddy-show-shortcode"><?php _e( 'Share-Embed', 'polldaddy' ); ?></a></span>
 <?php $this->poll_table_add_option( $poll_id ); ?>
+          	</div>
           </td>
-					<td class="poll-votes column-vote"><?php echo number_format_i18n( $poll->_responses ); ?></td>
-          <td class="date column-date"><abbr title="<?php echo date( __('Y/m/d g:i:s A', 'polldaddy'), $poll_time ); ?>"><?php echo date( __('Y/m/d', 'polldaddy'), $poll_time ); ?></abbr></td>
-        </tr>
-        <tr class="polldaddy-shortcode-row" style="display: none;">
-          <td colspan="4">
-            <h4><?php _e( 'WordPress Shortcode', 'polldaddy' ); ?></h4>
-            <pre style="width:175px;">[polldaddy poll=<?php echo (int) $poll_id; ?>]</pre>
-            <h4><?php _e( 'JavaScript', 'polldaddy' ); ?></h4>
-            <pre>&lt;script type="text/javascript" language="javascript"
+                                        <td class="poll-votes column-vote num"><?php echo number_format_i18n( $poll->_responses ); ?></td>
+                                        <td class="date column-date"><abbr title="<?php echo date( __('Y/m/d g:i:s A', 'polldaddy'), $poll_time ); ?>"><?php echo date( __('Y/m/d', 'polldaddy'), $poll_time ); ?></abbr></td>
+                                </tr>
+                                <tr class="polldaddy-shortcode-row" style="display: none;">
+                                        <td colspan="4">
+                                                <h4><?php _e( 'WordPress Shortcode', 'polldaddy' ); ?></h4>
+                                                <pre style="width:175px;">[polldaddy poll=<?php echo (int) $poll_id; ?>]</pre>
+
+                                                <h4><?php _e( 'JavaScript', 'polldaddy' ); ?></h4>
+                                                <pre>&lt;script type="text/javascript" language="javascript"
   src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/script&gt;
 &lt;noscript&gt;
- &lt;a href="http://answers.polldaddy.com/poll/<?php echo (int) $poll_id; ?>/"&gt;<?php echo trim( strip_tags( $poll->___content ) ); ?>&lt;/a&gt;&lt;br/&gt;
+ &lt;a href="http://polldaddy.com/poll/<?php echo (int) $poll_id; ?>/"&gt;<?php echo trim( strip_tags( $poll->___content ) ); ?>&lt;/a&gt;&lt;br/&gt;
  &lt;span style="font:9px;"&gt;(&lt;a href="http://www.polldaddy.com"&gt;polls&lt;/a&gt;)&lt;/span&gt;
 &lt;/noscript&gt;</pre>
-            <h4><?php _e( 'Short URL (Good for Twitter etc.)', 'polldaddy' ); ?></h4>
-            <pre style="width:175px;">http://poll.fm/<?php echo base_convert( $poll_id, 10, 36 ); ?></pre>
-            <h4><?php _e( 'Facebook URL', 'polldaddy' ); ?></h4>
-            <pre style="width:175px;">http://poll.fm/f/<?php echo base_convert( $poll_id, 10, 36 ); ?></pre>
-          </td>
-        </tr>
+<h4><?php _e( 'Short URL (Good for Twitter etc.)', 'polldaddy' ); ?></h4>
+<pre style="width:175px;">http://poll.fm/<?php echo base_convert( $poll_id, 10, 36 ); ?></pre>
+<h4><?php _e( 'Facebook URL', 'polldaddy' ); ?></h4>
+<pre style="width:175px;">http://poll.fm/f/<?php echo base_convert( $poll_id, 10, 36 ); ?></pre>
+					</td>
+				</tr>
+
 <?php
 			endforeach;
 		elseif ( $total_polls ) : // $polls
@@ -2945,167 +2989,174 @@ class WP_PollDaddy {
 		$show_posts = $show_posts_index = $show_pages = $show_comments = $pos_posts = $pos_posts_index = $pos_pages = $pos_comments = 0;
 		$show_settings = $rating_updated = ( $action == 'update-rating' ? true : false );
 		$error = false;
-
+		
 		$settings_style = 'display: none;';
 		if( $show_settings )
-      $settings_style = 'display: block;';
+			$settings_style = 'display: block;';
+		
+		$rating_id = get_option( 'pd-rating-posts-id' );
+		$report_type = 'posts';
+		$updated = false;
       
-      if ( isset( $_POST[ 'pd_rating_action_type' ] ) ){
-        switch ( $_POST[ 'pd_rating_action_type' ]  ) :
-        
-          case 'posts' :
-            if ( isset( $_POST[ 'pd_show_posts' ] ) && (int) $_POST[ 'pd_show_posts' ] == 1 )
-            $show_posts = get_option( 'pd-rating-posts-id' );
-            
-            update_option( 'pd-rating-posts', $show_posts );
-            
-            if ( isset( $_POST[ 'pd_show_posts_index' ] ) && (int) $_POST[ 'pd_show_posts_index' ] == 1 )
-            $show_posts_index = get_option( 'pd-rating-posts-id' );
-            
-            update_option( 'pd-rating-posts-index', $show_posts_index );
-            
-            if ( isset( $_POST[ 'posts_pos' ] ) && (int) $_POST[ 'posts_pos' ] == 1 )
-            $pos_posts = 1;
-            
-            update_option( 'pd-rating-posts-pos', $pos_posts ); 
-            
-            if ( isset( $_POST[ 'posts_index_pos' ] ) && (int) $_POST[ 'posts_index_pos' ] == 1 )
-            $pos_posts_index = 1;
-            
-            update_option( 'pd-rating-posts-index-pos', $pos_posts_index );
-            $rating_updated = true;
-            break;
-        
-        case 'pages';
-            if ( isset( $_POST[ 'pd_show_pages' ] ) && (int) $_POST[ 'pd_show_pages' ] == 1 )
-            $show_pages = get_option( 'pd-rating-pages-id' );
-            
-            update_option( 'pd-rating-pages', $show_pages );
-            
-            if ( isset( $_POST[ 'pages_pos' ] ) && (int) $_POST[ 'pages_pos' ] == 1 )
-            $pos_pages = 1;
-            
-            update_option( 'pd-rating-pages-pos', $pos_pages );
-            $rating_updated = true;
-            break;
-            
-        case 'comments':
-            if ( isset( $_POST[ 'pd_show_comments' ] ) && (int) $_POST[ 'pd_show_comments' ] == 1 )
-            $show_comments = get_option( 'pd-rating-comments-id' );
-            
-            update_option( 'pd-rating-comments', $show_comments );
-            if ( isset( $_POST[ 'comments_pos' ] ) && (int) $_POST[ 'comments_pos' ] == 1 )
-            $pos_comments = 1;
-            
-            update_option( 'pd-rating-comments-pos', $pos_comments );
-            
-            $rating_updated = true;
-            break;            
-        endswitch;
-      }
+		if ( isset( $rating ) ) {
+			switch ( $rating ) :
+				case 'pages':
+					$report_type = 'pages';
+					$rating_id = (int) get_option( 'pd-rating-pages-id' );
+					break;				
+				case 'comments':
+					$report_type = 'comments';
+					$rating_id = (int) get_option( 'pd-rating-comments-id' );
+					break;
+				case 'posts':
+					$report_type = 'posts';
+					$rating_id = (int) get_option( 'pd-rating-posts-id' );
+					break;
+			endswitch;
+		}
       
-      $show_posts       = (int) get_option( 'pd-rating-posts' );
-      $show_pages       = (int) get_option( 'pd-rating-pages' );
-      $show_comments    = (int) get_option( 'pd-rating-comments' );
-      $show_posts_index = (int) get_option( 'pd-rating-posts-index' );
+		$new_type = 0;
+		if ( $report_type == 'comments' )
+			$new_type = 1;
+		
+		$blog_name = get_option( 'blogname' );
+		
+		if ( empty( $blog_name ) )
+			$blog_name = 'WordPress Blog';      
+		$blog_name .= ' - ' . $report_type; 
+		
+		$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->rating_user_code );
+		$polldaddy->reset();     
+		
+		if ( empty( $rating_id ) ) {
+			$pd_rating = $polldaddy->create_rating( $blog_name , $new_type );
+			if ( !empty( $pd_rating ) ) {
+				$rating_id = (int) $pd_rating->_id;
+				update_option ( 'pd-rating-' . $report_type . '-id', $rating_id );
+				update_option ( 'pd-rating-' . $report_type, 0 );
+			}
+		} else      	
+			$pd_rating = $polldaddy->get_rating( $rating_id );
       
-      $pos_posts        = (int) get_option( 'pd-rating-posts-pos' );
-      $pos_pages        = (int) get_option( 'pd-rating-pages-pos' );
-      $pos_comments     = (int) get_option( 'pd-rating-comments-pos' );
-      $pos_posts_index  = (int) get_option( 'pd-rating-posts-index-pos' );
+		if ( empty( $pd_rating ) || (int) $pd_rating->_id == 0 ) {
+		
+			if ( $polldaddy->errors ) {
+				if( array_key_exists( 4, $polldaddy->errors ) ) { //Obsolete key
+					$this->rating_user_code = '';
+					update_option( 'pd-rating-usercode', '' );   			
+					$this->set_api_user_code();  // get latest key
+					
+					$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->rating_user_code );
+					$polldaddy->reset();
+					$pd_rating = $polldaddy->get_rating( $rating_id ); //see it exists
+				
+					if ( empty( $pd_rating ) || (int) $pd_rating->_id == 0 ) { //if not then create a rating for blog       
+						$polldaddy->reset();				
+						$pd_rating = $polldaddy->create_rating( $blog_name , $new_type );
+					}
+				}  
+			} 
+						
+			if( empty( $pd_rating ) ) { //something's up!
+				echo '<div class="error"><p>'.sprintf(__('Sorry! There was an error creating your rating widget. Please contact <a href="%1$s" %2$s>PollDaddy support</a> to fix this.', 'polldaddy'), 'http://polldaddy.com/feedback/', 'target="_blank"') . '</p></div>';
+				$error = true;
+			} else {
+				$rating_id = (int) $pd_rating->_id;
+				update_option ( 'pd-rating-' . $report_type . '-id', $rating_id );
+				update_option ( 'pd-rating-' . $report_type, 0 );
+			
+				switch ( $report_type ) :
+					case 'posts':
+						$show_posts = 0;
+						break;				
+					case 'pages':
+						$show_pages = 0;
+						break;				
+					case 'comments':
+						$show_comments = 0;
+						break;
+				endswitch;   
+			}
+		}
       
-      $rating_id = get_option( 'pd-rating-posts-id' );
-      $report_type = 'posts';
-      $updated = false;
+		if ( isset( $_POST[ 'pd_rating_action_type' ] ) ) {
+		
+			switch ( $_POST[ 'pd_rating_action_type' ]  ) :	
+				case 'posts' :
+					if ( isset( $_POST[ 'pd_show_posts' ] ) && (int) $_POST[ 'pd_show_posts' ] == 1 )
+						$show_posts = get_option( 'pd-rating-posts-id' );
+					
+					update_option( 'pd-rating-posts', $show_posts );
+					
+					if ( isset( $_POST[ 'pd_show_posts_index' ] ) && (int) $_POST[ 'pd_show_posts_index' ] == 1 )
+						$show_posts_index = get_option( 'pd-rating-posts-id' );
+					
+					update_option( 'pd-rating-posts-index', $show_posts_index );
+					
+					if ( isset( $_POST[ 'posts_pos' ] ) && (int) $_POST[ 'posts_pos' ] == 1 )
+						$pos_posts = 1;
+					
+					update_option( 'pd-rating-posts-pos', $pos_posts ); 
+					
+					if ( isset( $_POST[ 'posts_index_pos' ] ) && (int) $_POST[ 'posts_index_pos' ] == 1 )
+						$pos_posts_index = 1;
+					
+					update_option( 'pd-rating-posts-index-pos', $pos_posts_index );
+					$rating_updated = true;
+					break;
+				
+				case 'pages';
+					if ( isset( $_POST[ 'pd_show_pages' ] ) && (int) $_POST[ 'pd_show_pages' ] == 1 )
+						$show_pages = get_option( 'pd-rating-pages-id' );
+					
+					update_option( 'pd-rating-pages', $show_pages );
+					
+					if ( isset( $_POST[ 'pages_pos' ] ) && (int) $_POST[ 'pages_pos' ] == 1 )
+						$pos_pages = 1;
+					
+					update_option( 'pd-rating-pages-pos', $pos_pages );
+					$rating_updated = true;
+					break;
+					
+				case 'comments':
+					if ( isset( $_POST[ 'pd_show_comments' ] ) && (int) $_POST[ 'pd_show_comments' ] == 1 )
+						$show_comments = get_option( 'pd-rating-comments-id' );
+					
+					update_option( 'pd-rating-comments', $show_comments );
+					
+					if ( isset( $_POST[ 'comments_pos' ] ) && (int) $_POST[ 'comments_pos' ] == 1 )
+						$pos_comments = 1;
+					
+					update_option( 'pd-rating-comments-pos', $pos_comments );
+					
+					$rating_updated = true;
+					break;            
+			endswitch;
+		}
       
-      if ( isset( $rating ) ) {
-        switch ( $rating ) :
-          case 'pages':
-          $report_type = 'pages';
-          $rating_id = get_option( 'pd-rating-pages-id' );
-          break;
-          
-          case 'comments':
-          $report_type = 'comments';
-          $rating_id = get_option( 'pd-rating-comments-id' );
-          break;
-          
-          case 'posts':
-          $report_type = 'posts';
-          $rating_id = get_option( 'pd-rating-posts-id' );
-          break;
-        endswitch;
-      }
-      
-      $polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->rating_user_code );
-      $polldaddy->reset();         
-      $response = $polldaddy->get_rating( $rating_id ); 
-      
-      if ( empty( $response ) || (int) $response->_id == 0 ) {
-        $polldaddy->reset();
-        $new_type = 0;
-        if ( $report_type == 'comments' )
-          $new_type = 1;
-        
-        $blog_name = get_option( 'blogname' );
-      
-        if ( empty( $blog_name ) )
-          $blog_name = 'WordPress Blog';
-      
-        $blog_name .= ' - ' . $report_type;
-      
-        $response = $polldaddy->create_rating( $blog_name , $new_type ); 
-      
-        if ( $polldaddy->errors ) {
-          if( array_key_exists( 4, $polldaddy->errors ) ) { //Obsolete key
-            $this->rating_user_code = '';
-            update_option( 'pd-rating-usercode', '' );   			
-            $this->set_api_user_code();  // get latest key
-            $polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->rating_user_code );
-            $polldaddy->reset();
-            $response = $polldaddy->create_rating( $blog_name , $new_type ); 
-          }           
-        } 
-        
-        if( empty( $response ) ) {
-          echo '<div class="error"><p>'.sprintf(__('Sorry! There was an error creating your rating widget. Please contact <a href="%1$s" %2$s>PollDaddy support</a> to fix this.', 'polldaddy'), 'http://polldaddy.com/feedback/', 'target="_blank"') . '</p></div>';
-          $error = true;
-        } else {
-          $rating_id = (int) $response->_id;
-          update_option ( 'pd-rating-' . $report_type . '-id', $rating_id );
-          update_option ( 'pd-rating-' . $report_type, 0 );
-      
-          switch ( $report_type ) :
-            case 'posts':
-            $show_posts = 0;
-            break;
-            
-            case 'pages':
-            $show_pages = 0;
-            break;
-            
-            case 'comments':
-            $show_comments = 0;
-            break;
-          endswitch;   
-        }
-        $polldaddy->reset();
-        $response = $polldaddy->get_rating( $rating_id );
-      }
-      
-      if ( !empty( $response ) ) {
-        $settings_text = $response->settings;
-        $settings = json_decode( $settings_text );         
-        $rating_type = 0;
-      
-        if( $settings->type == 'stars' )
-          $rating_type = 0;
-        else
-          $rating_type = 1;
-      
-        if( empty( $settings->font_color ) )
-          $settings->font_color = '#000000'; 
-      }?>
+		$show_posts       = (int) get_option( 'pd-rating-posts' );
+		$show_pages       = (int) get_option( 'pd-rating-pages' );
+		$show_comments    = (int) get_option( 'pd-rating-comments' );
+		$show_posts_index = (int) get_option( 'pd-rating-posts-index' );
+		
+		$pos_posts        = (int) get_option( 'pd-rating-posts-pos' );
+		$pos_pages        = (int) get_option( 'pd-rating-pages-pos' );
+		$pos_comments     = (int) get_option( 'pd-rating-comments-pos' );
+		$pos_posts_index  = (int) get_option( 'pd-rating-posts-index-pos' );
+		
+		if ( !empty( $pd_rating ) ) {
+			$settings_text = $pd_rating->settings;
+			$settings = json_decode( $settings_text );         
+			$rating_type = 0;
+		
+			if( $settings->type == 'stars' )
+				$rating_type = 0;
+			else
+				$rating_type = 1;
+		
+			if( empty( $settings->font_color ) )
+				$settings->font_color = '#000000'; 
+      	}?>
 		<div class="wrap">
 		  <h2><?php _e('Rating Settings', 'polldaddy'); ?></h2><?php 
 			if ( $rating_updated )
@@ -3113,8 +3164,8 @@ class WP_PollDaddy {
 
 			if ( !$error ) { ?>
       <div id="side-sortables"> 
-        <div id="categorydiv">
-          <ul id="category-tabs"><?php 
+        <div id="categorydiv" class="categorydiv">
+          <ul id="category-tabs" class="category-tabs"><?php 
 				$this_class = '';
 				$posts_link = clean_url( add_query_arg( array( 'rating' => 'posts', 'message' => false ) ) );
 				$pages_link = clean_url( add_query_arg( array( 'rating' => 'pages', 'message' => false ) ) );
@@ -3658,7 +3709,7 @@ class WP_PollDaddy {
       
       $polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->rating_user_code );
       $polldaddy->reset();		
-      $response = $polldaddy->update_rating( $rating_id, $settings_text, $rating_type );
+      $rating = $polldaddy->update_rating( $rating_id, $settings_text, $rating_type );
     }
     else if( $this->is_admin && $new_rating_id > 0 ){
       switch( $type ){
@@ -3729,8 +3780,8 @@ class WP_PollDaddy {
     $period = '7';
     $show_rating = 0;
     
-    if ( isset( $_REQUEST['rating'] ) ){
-      switch ( $_REQUEST['rating'] ) :
+    if ( isset( $_REQUEST['change-report-to'] ) ){
+      switch ( $_REQUEST['change-report-to'] ) :
         case 'pages':
         $report_type = 'pages';
         $rating_id = (int) get_option( 'pd-rating-pages-id' );
@@ -3802,9 +3853,9 @@ class WP_PollDaddy {
       $total = (int) $response->_total;
       $total_pages = ceil( $total / $page_size );    
     } 
-
+    
 		$page_links = paginate_links( array(
-			'base'       => add_query_arg( array ('paged' => '%#%', 'rating' => $report_type, 'filter' => $period ) ),
+			'base'       => add_query_arg( array ('paged' => '%#%', 'change-report-to' => $report_type, 'filter' => $period ) ),
 			'format'     => '',
 			'prev_text'  => __('&laquo;', 'polldaddy'),
 			'next_text'  => __('&raquo;', 'polldaddy'),
@@ -3815,30 +3866,35 @@ class WP_PollDaddy {
 		<div class="wrap">
 			<h2><?php _e('Rating Reports', 'polldaddy');?> <span style="font-size: 16px;">(<?php echo ( $report_type ); ?>)</span></h2>
 			<div class="clear"></div>
-			<form method="post" action="">
+			<form method="post" action="admin.php?page=ratings&action=reports">
 				<div class="tablenav">
-					<div class="alignleft">
-						<select name="rating"><?php
+					<div class="alignleft actions">
+						<select name="action">
+							<option selected="selected" value=""><?php _e( 'Actions', 'polldaddy' ); ?></option>
+							<option value="delete"><?php _e( 'Delete', 'polldaddy' ); ?></option>
+						</select>
+						<input type="hidden" name="id" id="id" value="<?php echo (int) $rating_id; ?>" />
+						<input class="button-secondary action" type="submit" name="doaction" value="<?php _e( 'Apply', 'polldaddy' ); ?>" />
+						<?php wp_nonce_field( 'action-rating_bulk' ); ?>
+						<select name="change-report-to"><?php
     $select = array( __('Posts', 'polldaddy') => "posts", __('Pages', 'polldaddy') => "pages", __('Comments', 'polldaddy') => "comments" );
     foreach ( $select as $option => $value ) :
         $selected = '';
         if ( $value == $report_type )
-            $selected = ' selected="selected"';
-        echo ( '<option value="' . $value . '" ' . $selected . '>' . $option . '</option>' . "\n" );
-    endforeach;  ?>
+            $selected = ' selected="selected"';?>
+        <option value="<?php echo $value; ?>" <?php echo $selected; ?>><?php echo $option; ?></option>
+    <?php endforeach;  ?>
 						</select>
-						<input type="hidden" name="action" value="change-report" />
-						<input class="button-secondary action" type="submit" value="<?php esc_attr_e('View Report', 'polldaddy');?>" />
-            <select name="filter"><?php
+            			<select name="filter"><?php
 		$select = array( __('Last 24 hours', 'polldaddy') => "1", __('Last 7 days', 'polldaddy') => "7", __('Last 31 days', 'polldaddy') => "31", __('Last 3 months', 'polldaddy') => "90", __('Last 12 months', 'polldaddy') => "365", __('All time', 'polldaddy') => "all" );
 		foreach ( $select as $option => $value ) :
 			$selected = '';
 			if ( $value == $period )
-				$selected = ' selected="selected"';
-			echo ( '<option value="' . $value . '" ' . $selected . '>' . $option . '</option>' . "\n" );							
-		endforeach; ?>
-          	</select>
-          	<input class="button-secondary action" type="submit" value="<?php _e('Filter Report', 'polldaddy');?>" />
+				$selected = ' selected="selected"';?>
+        					<option value="<?php echo $value; ?>" <?php echo $selected; ?>><?php echo $option; ?></option>
+    <?php endforeach; ?>
+          				</select>
+          				<input class="button-secondary action" type="submit" value="<?php _e('Filter', 'polldaddy');?>" />
 					</div>
 					<div class="alignright">
 						<div class="tablenav-pages">
@@ -3846,86 +3902,91 @@ class WP_PollDaddy {
 						</div>	
 					</div>
 				</div>
-			</form>		
 
 			<table class="widefat"><?php
-				if ( count( $ratings ) == 0 ) { ?>
-					<tbody>
-						<tr>
-							<td colspan="4"><?php printf(__('No ratings have been collected for your %s yet.', 'polldaddy'), $report_type); ?></td>
-						</tr>
-					</tbody><?php
-				} else {  ?>
-					<thead>
-						<tr>
-							<th><?php _e('Start Date', 'polldaddy');?></th>
-							<th><?php _e('Title', 'polldaddy');?></th>
-							<th><?php _e('Votes', 'polldaddy');?></th>
-							<th style="width: 120px;"><?php _e('Average Rating', 'polldaddy');?></th>
-						</tr>
-					</thead><?php
-		echo ( '<tbody>' );
-		$alt_counter = 0;
-		$alt = '';
+			if ( empty( $ratings ) ) { ?>
+				<tbody>
+					<tr>
+						<td colspan="4"><?php printf(__('No ratings have been collected for your %s yet.', 'polldaddy'), $report_type); ?></td>
+					</tr>
+				</tbody><?php
+			} else {  ?>
+				<thead>
+					<tr>
+			 	 		<th scope="col" class="manage-column column-cb check-column" id="cb"><input type="checkbox"></th>
+						<th scope="col" class="manage-column column-title" id="title"><?php _e('Title', 'polldaddy');?></th>
+						<th scope="col" class="manage-column column-id" id="id"><?php _e('Unique ID', 'polldaddy');?></th>
+						<th scope="col" class="manage-column column-date" id="date"><?php _e('Start Date', 'polldaddy');?></th>
+						<th scope="col" class="manage-column column-vote num" id="votes"><?php _e('Votes', 'polldaddy');?></th>
+						<th scope="col" class="manage-column column-rating num" id="rating"><?php _e('Average Rating', 'polldaddy');?></th>
+					</tr>
+				</thead>
+				<tbody><?php
+				$alt_counter = 0;
+				$alt = '';
 
-		foreach ( $ratings as $rating  ) :
-			$alt_counter++;
-
-			if ( ( $alt_counter % 2 ) == 0 )
-				$alt = ' class="alternate"';
-			else
-				$alt = '';  ?>
-						<tr <?php echo( $alt ); ?>>
-							<td>
-								<?php echo( str_replace( '-', '/', substr( wp_specialchars( $rating->date ), 0, 10 ) ) ); ?><br/>
-								<?php echo( wp_specialchars( $rating->uid ) ); ?>
-							</td>
-							<td>
-								<?php echo( wp_specialchars( $rating->title ) ); ?>
-								<br />
-								<a href="<?php echo( clean_url( $rating->permalink ) ); ?>" target="_blank"><?php echo( clean_url( $rating->permalink ) ); ?></a>
-							</td>
-							<td style="padding-top: 10px; font-weight: bold;"><?php echo( number_format( $rating->_votes ) ); ?></td>
-							<td style="padding-top: 10px;"><?php
-				if ( $rating->_type == 0 ) {
-					$avg_rating = $this->round( $rating->average_rating, 0.5 );
-
-					echo ( '<div>' );
-					$image_pos = '';
-
-					for ( $c = 1; $c <= 5; $c++ ){
-						if ( $avg_rating > 0 ){
-							if ( $avg_rating < $c ){
-								$image_pos = 'bottom left';
-							}
-							if ( $avg_rating == ( $c - 1 + 0.5 ) ){
-								$image_pos = 'center left';
-							}
-						}
-						echo ('<div style="width: 20px; height: 20px; background: url(http://i.polldaddy.com/ratings/images/star-yellow-med.png) ' . $image_pos . '; float: left;"></div>' );
-					}
-					echo ( '<br class="clear" /></div>' );
-				} else {
-					echo ( '<div>' );
-					echo ( '<div style="margin: 0px 0px 0px 20px; background: transparent url(http://i.polldaddy.com/images/rate-graph-up.png); width: 20px; height: 20px; float: left;"></div>' );
-					echo ( '<div style="float:left; line-height: 20px; padding: 0px 10px 0px 5px;">' . number_format ( $rating->total1 ) . '</div>' );
-					echo ( '<div style="margin: 0px; background: transparent url(http://i.polldaddy.com/images/rate-graph-dn.png); width: 20px; height: 20px; float: left;"></div>' );
-					echo ( '<div style="float:left; line-height: 20px; padding: 0px 10px 0px 5px;">' . number_format( $rating->total2 ) . '</div>' );
-					echo ( '<br class="clear" /></div>' ); 
-				} ?>
-							</td>
-						</tr><?php
-		  endforeach;
-		  echo ( '</tbody>' );
-	 }  ?>
+				foreach ( $ratings as $rating  ) :
+					$delete_link = clean_url( wp_nonce_url( add_query_arg( array( 'action' => 'delete', 'id' => $rating_id, 'rating' => $rating->uid, 'change-report-to' => $report_type, 'message' => false ) ), "delete-rating_$rating->uid" ) );
+					$alt_counter++;?>
+					<tr <?php echo ( $alt_counter & 1 ) ? ' class="alternate"' : ''; ?>>
+						<th class="check-column" scope="row"><input type="checkbox" value="<?php echo wp_specialchars( $rating->uid ); ?>" name="rating[]" /></th>
+						<td class="post-title column-title">
+							<strong><a href="<?php echo clean_url( $rating->permalink ); ?>"><?php echo strlen( wp_specialchars( $rating->title ) ) > 75 ? substr( wp_specialchars( $rating->title ), 0, 72 ) . '&hellip' : wp_specialchars( $rating->title ); ?></a></strong>
+							<div class="row-actions">
+							<?php if ( $delete_link ) { ?>
+								<span class="delete"><a class="delete-rating delete" href="<?php echo $delete_link; ?>"><?php _e( 'Delete', 'polldaddy' ); ?></a></span>
+							<?php } ?>
+							</div>
+						</td>
+						<td class="column-id">
+							<?php echo wp_specialchars( $rating->uid ); ?>
+						</td>
+						<td class="date column-date">
+							<abbr title="<?php echo date( __('Y/m/d g:i:s A', 'polldaddy'), $rating->date ); ?>"><?php echo str_replace( '-', '/', substr( wp_specialchars( $rating->date ), 0, 10 ) ); ?></abbr>
+						</td>
+						<td class="column-vote num"><?php echo number_format( $rating->_votes ); ?></td>
+						<td class="column-rating num"><table width="100%"><tr align="center"><td style="border:none;"><?php
+					if ( $rating->_type == 0 ) {
+						$avg_rating = $this->round( $rating->average_rating, 0.5 );?>
+							<div style="width:100px"><?php
+						$image_pos = '';
+				
+						for ( $c = 1; $c <= 5; $c++ ) :
+							if ( $avg_rating > 0 ) {
+								if ( $avg_rating < $c )
+									$image_pos = 'bottom left';
+								if ( $avg_rating == ( $c - 1 + 0.5 ) )
+									$image_pos = 'center left';
+							} ?>
+								<div style="width: 20px; height: 20px; background: url(http://i.polldaddy.com/ratings/images/star-yellow-med.png) <?php echo $image_pos; ?>; float: left;"></div><?php 
+						endfor; ?>
+								<br class="clear" />
+							</div><?php 
+					} else { ?>
+							<div>
+								<div style="margin: 0px 0px 0px 20px; background: transparent url(http://i.polldaddy.com/images/rate-graph-up.png); width: 20px; height: 20px; float: left;"></div>
+								<div style="float:left; line-height: 20px; padding: 0px 10px 0px 5px;"><?php echo number_format ( $rating->total1 );?></div>
+								<div style="margin: 0px; background: transparent url(http://i.polldaddy.com/images/rate-graph-dn.png); width: 20px; height: 20px; float: left;"></div>
+								<div style="float:left; line-height: 20px; padding: 0px 10px 0px 5px;"><?php echo number_format( $rating->total2 );?></div>
+								<br class="clear" />
+							</div><?php 
+					} ?>
+							</td></tr></table>
+						</td>
+					</tr><?php  
+				endforeach;
+				?>
+				</tbody><?php 
+			} ?>
 			</table>
 	    	<div class="tablenav">
 	        	<div class="alignright">
 	            	<div class="tablenav-pages">
-	                	<?php echo( $page_links ); ?>
+	                	<?php echo $page_links; ?>
 	            	</div>
 	        	</div>
 	    	</div>
+			</form>		
 		</div>
 		<p></p><?php
 	}

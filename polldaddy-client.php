@@ -2,7 +2,6 @@
 
 require_once dirname( __FILE__ ) . '/polldaddy-xml.php';
 
-// TODO: polls->poll should always be an array and similar bad typing
 class api_client {
 	var $polldaddy_url = 'http://api.polldaddy.com/';
 	var $partnerGUID;
@@ -189,7 +188,7 @@ class api_client {
 	// Not Implemented
 	function remove_usercode() {
 		return false;
-	} 
+	}
 
 	/**
 	 * @see polldaddy_account()
@@ -214,6 +213,21 @@ class api_client {
 		return false;
 	}
 
+function sync_rating( ){
+          $pos = $this->add_request( 'syncrating', new PollDaddy_Rating( null , null ) );
+  
+          $this->send_request();
+  
+          $demand = $this->response_part( $pos );
+  
+          if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->rating ) ){
+                  return $demand->rating;
+          }
+  
+          return false;
+  
+  }
+
 /* pdRequest: Request API Objects */
 
   /* Accounts */
@@ -228,7 +242,7 @@ class api_client {
 		if ( isset( $r->account ) && !is_null( $r->account->email ) )
 			return $r->account;
 		return false;
-	} 
+	}
 
 	/**
 	 * @see polldaddy_account()
@@ -245,7 +259,7 @@ class api_client {
 		if ( isset( $this->response->userCode ) )
 			return $this->response->userCode;
 		return false;
-	}          
+	}
 
   /* Polls */
 	/**
@@ -378,7 +392,7 @@ class api_client {
 
 		return empty( $this->errors );
 	}
-
+	
 	/**
 	 * @param int $id PollDaddy Poll ID
 	 * @return bool success
@@ -862,8 +876,26 @@ class api_client {
 		return false;
 	}
 	
+	function delete_rating_result( $id, $uid = '' ){
+		if ( !$id = (int) $id )
+			return false;
+		
+		$pos = $this->add_request( 'deleteratingresult', new PollDaddy_Rating( compact( 'uid' ) , compact( 'id' ) ) );
+
+		$this->send_request();
+
+		$demand = $this->response_part( $pos );
+
+		if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->rating ) ){
+			return $demand->rating;
+		}
+			
+		return false;
+		
+	}
+	
 	function get_xml(){
-		return 'REQUEST::' . $this->request_xml . "\n\nRESPONSE::" . $this->response_xml;
+		return array( 'REQUEST' => $this->request_xml, 'RESPONSE' => $this->response_xml );
 	}
 }
 

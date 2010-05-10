@@ -3,7 +3,7 @@ Contributors: mdawaffe, eoigal
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 2.6
 Tested up to: 2.9.2
-Stable tag: 1.8.6
+Stable tag: 1.8.7
 
 Create and manage PollDaddy polls and ratings from within WordPress.
 
@@ -64,6 +64,10 @@ More info here - http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks
 You need to select the synchronize ratings account in the Options menu to make sure the ratings API key is valid.
 
 == Change Log ==
+= 1.8.7 =
+* Added delete option to rating reports to allow you to reset ratings results for posts/pages/comments
+* Tidied poll and rating reports tables to use WordPress standard tables
+
 = 1.8.6 =
 * Added new Embed options, added short URL to community site and Facebook directory
 
