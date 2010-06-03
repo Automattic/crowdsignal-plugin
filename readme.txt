@@ -1,5 +1,5 @@
 === PollDaddy Polls & Ratings ===
-Contributors: mdawaffe, eoigal
+Contributors: mdawaffe, eoigal, automattic
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings, WordPress.com
 Requires at least: 2.6
 Tested up to: 3.0
