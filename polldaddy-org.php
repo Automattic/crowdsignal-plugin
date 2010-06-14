@@ -290,7 +290,7 @@ class WPORG_PollDaddy extends WP_PollDaddy {
     <td>
       <input type="checkbox" name="polldaddy-sync-account" id="polldaddy-sync-account" value="1" style="width: auto" />
         <span class="description">
-          <label for="polldaddy-sync-account"><?php _e( 'This will syncronize your ratings PollDaddy account.', 'polldaddy' ); ?></label>
+          <label for="polldaddy-sync-account"><?php _e( 'This will synchronize your ratings PollDaddy account.', 'polldaddy' ); ?></label>
         </span>
     </td>
   </tr><?php }       

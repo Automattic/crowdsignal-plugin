@@ -1,24 +1,15 @@
 === PollDaddy Polls & Ratings ===
-Contributors: mdawaffe, eoigal, automattic
-Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings, WordPress.com
+Contributors: mdawaffe, eoigal
+Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 2.6
-Tested up to: 3.0
-Stable tag: 1.8.7
+Tested up to: 2.9.2
+Stable tag: 1.8.8
 
 Create and manage PollDaddy polls and ratings from within WordPress.
 
 == Description ==
 
-The PollDaddy Polls and Ratings plugin allows you to create and manage polls and ratings from within your WordPress dashboard.
-You can create polls, choose from 20 different styles for your polls, and view all results for your polls as they come in.
-
-All PollDaddy polls are fully customizable, you can set a close date for your poll, create multiple choice polls, choose whether
-to display the results or keep them private. You can also create your own custom style for your poll. You can even embed the polls
-you create on other websites. You can collect unlimited votes and create unlimited polls.
-
-The new ratings menu allows you to embed ratings into your posts, pages or comments. The rating editor allows you to fully
-customize you rating. You can also avail of the the 'Top Rated' widget that will allow you to place the widget in your
-sidebar. This widget will show you the top rated posts, pages and comments today, this week and this month.
+The PollDaddy Polls and Ratings plugin allows you to create and manage polls and ratings from within your WordPress dashboard. You can create polls, choose from 20 different styles for your polls, and view all results for your polls as they come in. All PollDaddy polls are fully customizable, you can set a close date for your poll, create multiple choice polls, choose whether to display the results or keep them private. You can also create your own custom style for your poll. You can even embed the polls you create on other websites. You can collect unlimited votes and create unlimited polls. The new ratings menu allows you to embed ratings into your posts, pages or comments. The rating editor allows you to fully customize you rating. You can also avail of the the 'Top Rated' widget that will allow you to place the widget in your sidebar. This widget will show you the top rated posts, pages and comments today, this week and this month.
 
 PollDaddy Polls is localizable and currently available in:
 
@@ -73,6 +64,13 @@ More info here - http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks
 You need to select the synchronize ratings account in the Options menu to make sure the ratings API key is valid.
 
 == Change Log ==
+= 1.8.8 =
+* Updated style editor to catch some missing strings so they can be now be localised
+* Added string maps to javascript files to allow them to be localised
+* Added extra label to ratings settings, vote, so now the label votes has a singular expression for localisation.                              
+* Added option to style editor to update all polls that use this style, so any update to style will automatically be reflected in the poll.
+* Bug Fix: Embed options are now in readonly text inputs, resolves issue of pre tags being pasted along with embed code/URL in the HTML editor.
+
 = 1.8.7 =
 * Added delete option to rating reports to allow you to reset ratings results for posts/pages/comments
 * Tidied poll and rating reports tables to use WordPress standard tables

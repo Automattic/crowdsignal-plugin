@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls and ratings in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 1.8.7
+Version: 1.8.8
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -33,7 +33,7 @@ class WP_PollDaddy {
     global $current_user;
     $this->errors = new WP_Error;
     $this->scheme = 'https';
-    $this->version = '1.8.7';
+    $this->version = '1.8.8';
     $this->multiple_accounts = true;   
     $this->polldaddy_client_class = 'api_client';
     $this->polldaddy_clients = array();
@@ -333,7 +333,7 @@ class WP_PollDaddy {
 					break;
 				case 'edit-style' :
 				case 'create-style' :
-					wp_enqueue_script( 'polls-style', "http://i.polldaddy.com/js/style-editor.js", array(), $this->version );
+					wp_enqueue_script( 'polls-style', "http://i.polldaddy.com/js/style-editor.js", array(), $this->version.mktime() );
 					wp_enqueue_script( 'polls-style-color', "http://i.polldaddy.com/js/jquery/jscolor.js", array(), $this->version );
 					wp_enqueue_style( 'polls', "{$this->base_url}style-editor.css", array(), $this->version );
 					$plugin_page = 'polls&amp;action=list-styles';
@@ -771,6 +771,9 @@ class WP_PollDaddy {
 
 				if ( isset($_POST['CSSXML'] ) )
 					$style_data['css'] = urlencode( stripslashes( trim ( (string) $_POST['CSSXML'] ) ) );
+					
+				if ( isset($_REQUEST['updatePollCheck'] ) && $_REQUEST['updatePollCheck'] == 'on' )
+    				$style_data['retro'] = 1;
 
 				$update_response = $polldaddy->update_style( $style, $style_data );
 
@@ -1309,7 +1312,7 @@ class WP_PollDaddy {
                                 <tr class="polldaddy-shortcode-row" style="display: none;">
                                         <td colspan="4">
                                                 <h4><?php _e( 'WordPress Shortcode', 'polldaddy' ); ?></h4>
-                                                <pre style="width:175px;">[polldaddy poll=<?php echo (int) $poll_id; ?>]</pre>
+                                                <input type="text" readonly="readonly" style="width: 175px;" onclick="this.select();" value="[polldaddy poll=<?php echo (int) $poll_id; ?>]"/>
 
                                                 <h4><?php _e( 'JavaScript', 'polldaddy' ); ?></h4>
                                                 <pre>&lt;script type="text/javascript" language="javascript"
@@ -1319,9 +1322,9 @@ class WP_PollDaddy {
  &lt;span style="font:9px;"&gt;(&lt;a href="http://www.polldaddy.com"&gt;polls&lt;/a&gt;)&lt;/span&gt;
 &lt;/noscript&gt;</pre>
 <h4><?php _e( 'Short URL (Good for Twitter etc.)', 'polldaddy' ); ?></h4>
-<pre style="width:175px;">http://poll.fm/<?php echo base_convert( $poll_id, 10, 36 ); ?></pre>
+<input type="text" readonly="readonly" style="width: 175px;" onclick="this.select();" value="http://poll.fm/<?php echo base_convert( $poll_id, 10, 36 ); ?>"/>
 <h4><?php _e( 'Facebook URL', 'polldaddy' ); ?></h4>
-<pre style="width:175px;">http://poll.fm/f/<?php echo base_convert( $poll_id, 10, 36 ); ?></pre>
+<input type="text" readonly="readonly" style="width: 175px;" onclick="this.select();" value="http://poll.fm/f/<?php echo base_convert( $poll_id, 10, 36 ); ?>"/>
 					</td>
 				</tr>
 
@@ -1355,6 +1358,18 @@ class WP_PollDaddy {
 			<div class="tablenav-pages"><?php echo $page_links; ?></div>
 		</div>
 		<br class="clear" />
+		<script language="javascript">
+		jQuery( document ).ready(function(){ 
+			plugin = new Plugin( {
+				delete_rating: '<?php _e( 'Are you sure you want to delete the rating for "%s"?','polldaddy'); ?>',
+				delete_poll: '<?php _e( 'Are you sure you want to delete "%s"?','polldaddy'); ?>',
+				delete_answer: '<?php _e( 'Are you sure you want to delete this answer?','polldaddy'); ?>',
+				delete_answer_title: '<?php _e( 'delete this answer','polldaddy'); ?>',
+				standard_styles: '<?php _e( 'Standard Styles','polldaddy'); ?>',
+				custom_styles: '<?php _e( 'Custom Styles','polldaddy'); ?>'
+			} );
+		});
+		</script>
 
 <?php
 	}
@@ -1590,63 +1605,63 @@ class WP_PollDaddy {
 			$iframe_view = true;
 		
 		$options = array(
-			101 => 'Aluminum Narrow',
-			102 => 'Aluminum Medium',
-			103 => 'Aluminum Wide',
-			104 => 'Plain White Narrow',
-			105 => 'Plain White Medium',
-			106 => 'Plain White Wide',
-			107 => 'Plain Black Narrow',
-			108 => 'Plain Black Medium',
-			109 => 'Plain Black Wide',
-			110 => 'Paper Narrow',
-			111 => 'Paper Medium',
-			112 => 'Paper Wide',
-			113 => 'Skull Dark Narrow',
-			114 => 'Skull Dark Medium',
-			115 => 'Skull Dark Wide',
-			116 => 'Skull Light Narrow',
-			117 => 'Skull Light Medium',
-			118 => 'Skull Light Wide',
-			157 => 'Micro',
-			119 => 'Plastic White Narrow',
-			120 => 'Plastic White Medium',
-			121 => 'Plastic White Wide',
-			122 => 'Plastic Grey Narrow',
-			123 => 'Plastic Grey Medium',
-			124 => 'Plastic Grey Wide',
-			125 => 'Plastic Black Narrow',
-			126 => 'Plastic Black Medium',
-			127 => 'Plastic Black Wide',
-			128 => 'Manga Narrow',
-			129 => 'Manga Medium',
-			130 => 'Manga Wide',
-			131 => 'Tech Dark Narrow',
-			132 => 'Tech Dark Medium',
-			133 => 'Tech Dark Wide',
-			134 => 'Tech Grey Narrow',
-			135 => 'Tech Grey Medium',
-			136 => 'Tech Grey Wide',
-			137 => 'Tech Light Narrow',
-			138 => 'Tech Light Medium',
-			139 => 'Tech Light Wide',
-			140 => 'Working Male Narrow',
-			141 => 'Working Male Medium',
-			142 => 'Working Male Wide',
-			143 => 'Working Female Narrow',
-			144 => 'Working Female Medium',
-			145 => 'Working Female Wide',
-			146 => 'Thinking Male Narrow',
-			147 => 'Thinking Male Medium',
-			148 => 'Thinking Male Wide',
-			149 => 'Thinking Female Narrow',
-			150 => 'Thinking Female Medium',
-			151 => 'Thinking Female Wide',
-			152 => 'Sunset Narrow',
-			153 => 'Sunset Medium',
-			154 => 'Sunset Wide',
-			155 => 'Music Medium',
-			156 => 'Music Wide'
+			101 => __( 'Aluminum Narrow','polldaddy'),
+			102 => __( 'Aluminum Medium','polldaddy'),
+			103 => __( 'Aluminum Wide','polldaddy'),
+			104 => __( 'Plain White Narrow','polldaddy'),
+			105 => __( 'Plain White Medium','polldaddy'),
+			106 => __( 'Plain White Wide','polldaddy'),
+			107 => __( 'Plain Black Narrow','polldaddy'),
+			108 => __( 'Plain Black Medium','polldaddy'),
+			109 => __( 'Plain Black Wide','polldaddy'),
+			110 => __( 'Paper Narrow','polldaddy'),
+			111 => __( 'Paper Medium','polldaddy'),
+			112 => __( 'Paper Wide','polldaddy'),
+			113 => __( 'Skull Dark Narrow','polldaddy'),
+			114 => __( 'Skull Dark Medium','polldaddy'),
+			115 => __( 'Skull Dark Wide','polldaddy'),
+			116 => __( 'Skull Light Narrow','polldaddy'),
+			117 => __( 'Skull Light Medium','polldaddy'),
+			118 => __( 'Skull Light Wide','polldaddy'),
+			157 => __( 'Micro','polldaddy'),
+			119 => __( 'Plastic White Narrow','polldaddy'),
+			120 => __( 'Plastic White Medium','polldaddy'),
+			121 => __( 'Plastic White Wide','polldaddy'),
+			122 => __( 'Plastic Grey Narrow','polldaddy'),
+			123 => __( 'Plastic Grey Medium','polldaddy'),
+			124 => __( 'Plastic Grey Wide','polldaddy'),
+			125 => __( 'Plastic Black Narrow','polldaddy'),
+			126 => __( 'Plastic Black Medium','polldaddy'),
+			127 => __( 'Plastic Black Wide','polldaddy'),
+			128 => __( 'Manga Narrow','polldaddy'),
+			129 => __( 'Manga Medium','polldaddy'),
+			130 => __( 'Manga Wide','polldaddy'),
+			131 => __( 'Tech Dark Narrow','polldaddy'),
+			132 => __( 'Tech Dark Medium','polldaddy'),
+			133 => __( 'Tech Dark Wide','polldaddy'),
+			134 => __( 'Tech Grey Narrow','polldaddy'),
+			135 => __( 'Tech Grey Medium','polldaddy'),
+			136 => __( 'Tech Grey Wide','polldaddy'),
+			137 => __( 'Tech Light Narrow','polldaddy'),
+			138 => __( 'Tech Light Medium','polldaddy'),
+			139 => __( 'Tech Light Wide','polldaddy'),
+			140 => __( 'Working Male Narrow','polldaddy'),
+			141 => __( 'Working Male Medium','polldaddy'),
+			142 => __( 'Working Male Wide','polldaddy'),
+			143 => __( 'Working Female Narrow','polldaddy'),
+			144 => __( 'Working Female Medium','polldaddy'),
+			145 => __( 'Working Female Wide','polldaddy'),
+			146 => __( 'Thinking Male Narrow','polldaddy'),
+			147 => __( 'Thinking Male Medium','polldaddy'),
+			148 => __( 'Thinking Male Wide','polldaddy'),
+			149 => __( 'Thinking Female Narrow','polldaddy'),
+			150 => __( 'Thinking Female Medium','polldaddy'),
+			151 => __( 'Thinking Female Wide','polldaddy'),
+			152 => __( 'Sunset Narrow','polldaddy'),
+			153 => __( 'Sunset Medium','polldaddy'),
+			154 => __( 'Sunset Wide','polldaddy'),
+			155 => __( 'Music Medium','polldaddy'),
+			156 => __( 'Music Wide','polldaddy')
 		);
 		
 		$polldaddy->reset();
@@ -1773,7 +1788,7 @@ class WP_PollDaddy {
 											<div id="styleIDErr" class="formErr" style="display:none;"><?php _e( 'Please choose a style.', 'polldaddy' ); ?></div></td>
 										</tr>
 										<tr>
-											<td><?php $extra = $show_custom == false ? 'You currently have no custom styles created.' : ''; ?>
+											<td><?php $extra = $show_custom == false ? __( 'You currently have no custom styles created.', 'polldaddy') : ''; ?>
 												<p><?php echo $extra ?></p>
 												<p><?php printf( __( 'Did you know we have a new editor for building your own custom poll styles? Find out more <a href="%s" target="_blank">here</a>.', 'polldaddy' ), 'http://support.polldaddy.com/custom-poll-styles/' ); ?></p>
 											</td>
@@ -1860,16 +1875,16 @@ class WP_PollDaddy {
 											<td><?php $hide = $show_custom == true ? ' style="display:block;"' : ' style="display:none;"'; ?>
 											<select id="customSelect" name="customSelect" onclick="pd_change_style(this.value);" <?php echo $hide ?>>
 												<?php 	$selected = $custom_style_ID == 0 ? ' selected="selected"' : ''; ?>
-														<option value="x"<?php echo $selected; ?>><?php _e( 'Please choose a custom style...'); ?></option>
+														<option value="x"<?php echo $selected; ?>><?php _e( 'Please choose a custom style...', 'polldaddy'); ?></option>
 												<?php 	if( $show_custom) : foreach ( (array)$styles->style as $style ) :
 														$selected = $style->_id == $custom_style_ID ? ' selected="selected"' : ''; ?>
 														<option value="<?php echo (int) $style->_id; ?>"<?php echo $selected; ?>><?php echo wp_specialchars( $style->title ); ?></option>
 												<?php	endforeach; endif;?>
 											</select>
-											<div id="styleIDErr" class="formErr" style="display:none;"><?php _e( 'Please choose a style.'); ?></div></td>
+											<div id="styleIDErr" class="formErr" style="display:none;"><?php _e( 'Please choose a style.', 'polldaddy'); ?></div></td>
 										</tr>
 										<tr>
-											<td><?php $extra = $show_custom == false ? 'You currently have no custom styles created.' : ''; ?>
+											<td><?php $extra = $show_custom == false ? __( 'You currently have no custom styles created.', 'polldaddy' ) : ''; ?>
 												<p><?php echo $extra ?></p>
 												<p><?php printf( __( 'Did you know we have a new editor for building your own custom poll styles? Find out more <a href="%s" target="_blank">here</a>.', 'polldaddy' ), 'http://support.polldaddy.com/custom-poll-styles/' ); ?></p>
 											</td>
@@ -1893,7 +1908,96 @@ class WP_PollDaddy {
 				</div>	
 			<?php } ?>
 			<script language="javascript">
-			current_pos = 0;
+			jQuery( document ).ready(function(){ 
+				plugin = new Plugin( {
+					delete_rating: '<?php _e( 'Are you sure you want to delete the rating for "%s"?','polldaddy'); ?>',
+					delete_poll: '<?php _e( 'Are you sure you want to delete "%s"?','polldaddy'); ?>',
+					delete_answer: '<?php _e( 'Are you sure you want to delete this answer?','polldaddy'); ?>',
+					delete_answer_title: '<?php _e( 'delete this answer','polldaddy'); ?>',
+					standard_styles: '<?php _e( 'Standard Styles','polldaddy'); ?>',
+					custom_styles: '<?php _e( 'Custom Styles','polldaddy'); ?>'
+				} );
+			});
+			</script>
+			<script language="javascript">
+			current_pos = 0;			
+			
+			for( var key in styles_array ) {
+				var name = styles_array[key].name;
+				
+				switch( name ){
+					case 'Aluminum':
+						styles_array[key].name = '<?php _e( 'Aluminum', 'polldaddy' ); ?>';
+						break;
+					case 'Plain White':
+						styles_array[key].name = '<?php _e( 'Plain White', 'polldaddy' ); ?>';
+						break;
+					case 'Plain Black':
+						styles_array[key].name = '<?php _e( 'Plain Black', 'polldaddy' ); ?>';
+						break;
+					case 'Paper':
+						styles_array[key].name = '<?php _e( 'Paper', 'polldaddy' ); ?>';
+						break;
+					case 'Skull Dark':
+						styles_array[key].name = '<?php _e( 'Skull Dark', 'polldaddy' ); ?>';
+						break;
+					case 'Skull Light':
+						styles_array[key].name = '<?php _e( 'Skull Light', 'polldaddy' ); ?>';
+						break;
+					case 'Micro':
+						styles_array[key].name = '<?php _e( 'Micro', 'polldaddy' ); ?>';
+						styles_array[key].n_desc = '<?php _e( 'Width 150px, the micro style is useful when space is tight.', 'polldaddy' ); ?>';
+						break;
+					case 'Plastic White':
+						styles_array[key].name = '<?php _e( 'Plastic White', 'polldaddy' ); ?>';
+						break;
+					case 'Plastic Grey':
+						styles_array[key].name = '<?php _e( 'Plastic Grey', 'polldaddy' ); ?>';
+						break;
+					case 'Plastic Black':
+						styles_array[key].name = '<?php _e( 'Plastic Black', 'polldaddy' ); ?>';
+						break;
+					case 'Manga':
+						styles_array[key].name = '<?php _e( 'Manga', 'polldaddy' ); ?>';
+						break;
+					case 'Tech Dark':
+						styles_array[key].name = '<?php _e( 'Tech Dark', 'polldaddy' ); ?>';
+						break;
+					case 'Tech Grey':
+						styles_array[key].name = '<?php _e( 'Tech Grey', 'polldaddy' ); ?>';
+						break;
+					case 'Tech Light':
+						styles_array[key].name = '<?php _e( 'Tech Light', 'polldaddy' ); ?>';
+						break;
+					case 'Working Male':
+						styles_array[key].name = '<?php _e( 'Working Male', 'polldaddy' ); ?>';
+						break;
+					case 'Working Female':
+						styles_array[key].name = '<?php _e( 'Working Female', 'polldaddy' ); ?>';
+						break;
+					case 'Thinking Male':
+						styles_array[key].name = '<?php _e( 'Thinking Male', 'polldaddy' ); ?>';
+						break;
+					case 'Thinking Female':
+						styles_array[key].name = '<?php _e( 'Thinking Female', 'polldaddy' ); ?>';
+						break;
+					case 'Sunset':
+						styles_array[key].name = '<?php _e( 'Sunset', 'polldaddy' ); ?>';
+						break;
+					case 'Music':
+						styles_array[key].name = '<?php _e( 'Music', 'polldaddy' ); ?>';
+						break;
+				}
+			}
+			pd_map = {
+				wide : '<?php _e( 'Wide', 'polldaddy' ); ?>',
+				medium : '<?php _e( 'Medium', 'polldaddy' ); ?>',
+				narrow : '<?php _e( 'Narrow', 'polldaddy' ); ?>',
+				style_desc_wide : '<?php _e( 'Width: 630px, the wide style is good for blog posts.', 'polldaddy' ); ?>',
+				style_desc_medium : '<?php _e( 'Width: 300px, the medium style is good for general use.', 'polldaddy' ); ?>',
+				style_desc_narrow : '<?php _e( 'Width 150px, the narrow style is good for sidebars etc.', 'polldaddy' ); ?>',
+				style_desc_micro : '<?php _e( 'Width 150px, the micro style is useful when space is tight.', 'polldaddy' ); ?>'
+			}
 			pd_build_styles( current_pos );
 			<?php if( $style_ID > 0 && $style_ID <= 1000 ){ ?>
 			pd_pick_style( <?php echo $style_ID ?> );
@@ -2171,13 +2275,13 @@ class WP_PollDaddy {
 						<div class="CSSE_preload">				
 							<select id="preload_value">
 								<option value="0"></option>
-								<option value="102">Aluminum</option>
-								<option value="105">Plain White</option>
-								<option value="108">Plain Black</option>
-								<option value="111">Paper</option>
-								<option value="114">Skull Dark</option>
-								<option value="117">Skull Light</option>
-								<option value="157">Micro</option>
+								<option value="102"><?php _e( 'Aluminum', 'polldaddy' ); ?></option>
+								<option value="105"><?php _e( 'Plain White', 'polldaddy' ); ?></option>
+								<option value="108"><?php _e( 'Plain Black', 'polldaddy' ); ?></option>
+								<option value="111"><?php _e( 'Paper', 'polldaddy' ); ?></option>
+								<option value="114"><?php _e( 'Skull Dark', 'polldaddy' ); ?></option>
+								<option value="117"><?php _e( 'Skull Light', 'polldaddy' ); ?></option>
+								<option value="157"><?php _e( 'Micro', 'polldaddy' ); ?></option>
 							</select>
 							<a tabindex="4" id="style-preload" href="javascript:preload_pd_style();" class="button"><?php echo attribute_escape( __( 'Load Style', 'polldaddy' ) ); ?></a>
 						</div>
@@ -2185,21 +2289,21 @@ class WP_PollDaddy {
 				</tr>
 				<tr>
 					<td width="13%">
-						<p>Choose a part to edit...</p>
+						<p><?php _e( 'Choose a part to edit...', 'polldaddy' ); ?></p>
 					</td>
 					<td>
 						<select id="styleName" onchange="renderStyleEdit(this.value);">
-							<option value="pds-box" selected="selected">Poll Box</option>
-							<option value="pds-question-top">Question</option>
-							<option value="pds-answer-group">Answer Group</option>
-							<option value="pds-answer-input">Answer Check</option>
-							<option value="pds-answer">Answers</option>
-							<option value="pds-textfield">Other Input</option>
-							<option value="pds-vote-button">Vote Button</option>
-							<option value="pds-link">Links</option>											
-							<option value="pds-answer-feedback">Result Background</option>
-							<option value="pds-answer-feedback-bar">Result Bar</option>
-							<option value="pds-totalvotes-inner">Total Votes</option>
+							<option value="pds-box" selected="selected"><?php _e( 'Poll Box', 'polldaddy' ); ?></option>
+							<option value="pds-question-top"><?php _e( 'Question', 'polldaddy' ); ?></option>
+							<option value="pds-answer-group"><?php _e( 'Answer Group', 'polldaddy' ); ?></option>
+							<option value="pds-answer-input"><?php _e( 'Answer Check', 'polldaddy' ); ?></option>
+							<option value="pds-answer"><?php _e( 'Answers', 'polldaddy' ); ?></option>
+							<option value="pds-textfield"><?php _e( 'Other Input', 'polldaddy' ); ?></option>
+							<option value="pds-vote-button"><?php _e( 'Vote Button', 'polldaddy' ); ?></option>
+							<option value="pds-link"><?php _e( 'Links', 'polldaddy' ); ?></option>											
+							<option value="pds-answer-feedback"><?php _e( 'Result Background', 'polldaddy' ); ?></option>
+							<option value="pds-answer-feedback-bar"><?php _e( 'Result Bar', 'polldaddy' ); ?></option>
+							<option value="pds-totalvotes-inner"><?php _e( 'Total Votes', 'polldaddy' ); ?></option>
 						</select>
 					</td>
 				</tr>
@@ -2211,25 +2315,25 @@ class WP_PollDaddy {
 							<tr>
 								<td class="CSSE_main_l" valign="top">
 									<div class="off" id="D_Font">
-										<a href="javascript:CSSE_changeView('Font');" id="A_Font" class="Aoff">Font</a>
+										<a href="javascript:CSSE_changeView('Font');" id="A_Font" class="Aoff"><?php _e( 'Font', 'polldaddy' ); ?></a>
 									</div>
 									<div class="on" id="D_Background">
-										<a href="javascript:CSSE_changeView('Background');" id="A_Background" class="Aon">Background</a>
+										<a href="javascript:CSSE_changeView('Background');" id="A_Background" class="Aon"><?php _e( 'Background', 'polldaddy' ); ?></a>
 									</div>
 									<div class="off" id="D_Border">
-										<a href="javascript:CSSE_changeView('Border');" id="A_Border" class="Aoff">Border</a>
+										<a href="javascript:CSSE_changeView('Border');" id="A_Border" class="Aoff"><?php _e( 'Border', 'polldaddy' ); ?></a>
 									</div>
 									<div class="off" id="D_Margin">
-										<a href="javascript:CSSE_changeView('Margin');" id="A_Margin" class="Aoff">Margin</a>
+										<a href="javascript:CSSE_changeView('Margin');" id="A_Margin" class="Aoff"><?php _e( 'Margin', 'polldaddy' ); ?></a>
 									</div>
 									<div class="off" id="D_Padding">
-										<a href="javascript:CSSE_changeView('Padding');" id="A_Padding" class="Aoff">Padding</a>
+										<a href="javascript:CSSE_changeView('Padding');" id="A_Padding" class="Aoff"><?php _e( 'Padding', 'polldaddy' ); ?></a>
 									</div>
 									<div class="off" id="D_Scale">
-										<a href="javascript:CSSE_changeView('Scale');" id="A_Scale" class="Aoff">Width</a>
+										<a href="javascript:CSSE_changeView('Scale');" id="A_Scale" class="Aoff"><?php _e( 'Width', 'polldaddy' ); ?></a>
 									</div>
 									<div class="off" id="D_Height">
-										<a href="javascript:CSSE_changeView('Height');" id="A_Height" class="Aoff">Height</a>
+										<a href="javascript:CSSE_changeView('Height');" id="A_Height" class="Aoff"><?php _e( 'Height', 'polldaddy' ); ?></a>
 									</div>
 								</td>
 								<td class="CSSE_main_r" valign="top">
@@ -2242,7 +2346,7 @@ class WP_PollDaddy {
 	<!-- Font Table -->
 												<table class="CSSE_edit" id="editFont" style="display:none;">
 													<tr>
-														<td width="85">Font Size:</td>
+														<td width="85"><?php _e( 'Font Size', 'polldaddy' ); ?>:</td>
 														<td>
 															<select id="font-size" onchange="bind(this);">
 																<option value="6px">6px</option>
@@ -2264,7 +2368,7 @@ class WP_PollDaddy {
 														</td>
 													</tr>
 													<tr>
-														<td>Font Size</td>
+														<td><?php _e( 'Font Size', 'polldaddy' ); ?></td>
 														<td>
 															<select id="font-family" onchange="bind(this);">
 																<option value="Arial">Arial</option>
@@ -2279,31 +2383,31 @@ class WP_PollDaddy {
 														</td>
 													</tr>
 													<tr>
-														<td>Color (#hex):</td>
+														<td><?php _e( 'Color', 'polldaddy' ); ?> (#hex):</td>
 														<td>
 															<input type="text" maxlength="11" id="color" class="elmColor jscolor-picker" onblur="bind(this);" style="float:left;"/>
 														</td>
 													</tr>
 													<tr>
-														<td>Bold:</td>
+														<td><?php _e( 'Bold', 'polldaddy' ); ?>:</td>
 														<td>
 															<input type="checkbox" id="font-weight" value="bold" onclick="bind(this);"/>
 														</td>
 													</tr>
 													<tr>
-														<td>Italic:</td>
+														<td><?php _e( 'Italic', 'polldaddy' ); ?>:</td>
 														<td>
 															<input type="checkbox" id="font-style" value="italic" onclick="bind(this);"/>
 														</td>
 													</tr>
 													<tr>
-														<td>Underline:</td>
+														<td><?php _e( 'Underline', 'polldaddy' ); ?>:</td>
 														<td>
 															<input type="checkbox" id="text-decoration" value="underline" onclick="bind(this);"/>
 														</td>
 													</tr>
 													<tr>
-														<td>Line Height:</td>
+														<td><?php _e( 'Line Height', 'polldaddy' ); ?>:</td>
 														<td>
 															<select id="line-height" onchange="bind(this);">
 																<option value="6px">6px</option>
@@ -2325,12 +2429,12 @@ class WP_PollDaddy {
 														</td>
 													</tr>
 													<tr>
-														<td>Align:</td>
+														<td><?php _e( 'Align', 'polldaddy' ); ?>:</td>
 														<td>
 															<select id="text-align" onchange="bind(this);">
-																<option value="left">Left</option>
-																<option value="center">Center</option>
-																<option value="right">Right</option>
+																<option value="left"><?php _e( 'Left', 'polldaddy' ); ?></option>
+																<option value="center"><?php _e( 'Center', 'polldaddy' ); ?></option>
+																<option value="right"><?php _e( 'Right', 'polldaddy' ); ?></option>
 															</select>
 														</td>
 													</tr>
@@ -2338,41 +2442,41 @@ class WP_PollDaddy {
 	<!-- Background Table -->
 												<table class="CSSE_edit" id="editBackground" style="display:none;">
 													<tr>
-														<td width="85">Color (#hex):</td>
+														<td width="85"><?php _e( 'Color', 'polldaddy' ); ?> (#hex):</td>
 														<td>
 															<input type="text" maxlength="11" id="background-color" class="elmColor jscolor-picker" onblur="bind(this);"/>
 														</td>
 													</tr>
 													<tr>
-														<td>Image URL: <a class="noteLink" title="Click here for more information" onclick="showNote('noteImageURL',this, 'Image URL');">(?)</a></td>
+														<td><?php _e( 'Image URL', 'polldaddy' ); ?>: <a href="http://support.polldaddy.com/custom-poll-styles/" class="noteLink" title="<?php _e( 'Click here for more information', 'polldaddy' ); ?>">(?)</a></td>
 														<td>
 															<input type="text" id="background-image" onblur="bind(this);"/>
 														</td>
 													</tr>
 													<tr>
-														<td>Image Repeat:</td>
+														<td><?php _e( 'Image Repeat', 'polldaddy' ); ?>:</td>
 														<td>
 															<select id="background-repeat" onchange="bind(this);">
-																<option value="repeat">repeat</option>
-																<option value="no-repeat">no-repeat</option>
-																<option value="repeat-x">repeat-x</option>
-																<option value="repeat-y">repeat-y</option>
+																<option value="repeat"><?php _e( 'repeat', 'polldaddy' ); ?></option>
+																<option value="no-repeat"><?php _e( 'no-repeat', 'polldaddy' ); ?></option>
+																<option value="repeat-x"><?php _e( 'repeat-x', 'polldaddy' ); ?></option>
+																<option value="repeat-y"><?php _e( 'repeat-y', 'polldaddy' ); ?></option>
 															</select>
 														</td>
 													</tr>
 													<tr>
-														<td>Image Position:</td>
+														<td><?php _e( 'Image Position', 'polldaddy' ); ?>:</td>
 														<td>
 															<select id="background-position" onchange="bind(this);">
-																<option value="left top">left top</option>
-																<option value="left center">left center</option>
-																<option value="left bottom">left bottom</option>
-																<option value="center top">center top</option>
-																<option value="center center">center center</option>
-																<option value="center bottom">center bottom</option>
-																<option value="right top">right top</option>
-																<option value="right center">right center</option>
-																<option value="right bottom">right bottom</option>
+																<option value="left top"><?php _e( 'left top', 'polldaddy' ); ?></option>
+																<option value="left center"><?php _e( 'left center', 'polldaddy' ); ?></option>
+																<option value="left bottom"><?php _e( 'left bottom', 'polldaddy' ); ?></option>
+																<option value="center top"><?php _e( 'center top', 'polldaddy' ); ?></option>
+																<option value="center center"><?php _e( 'center center', 'polldaddy' ); ?></option>
+																<option value="center bottom"><?php _e( 'center bottom', 'polldaddy' ); ?></option>
+																<option value="right top"><?php _e( 'right top', 'polldaddy' ); ?></option>
+																<option value="right center"><?php _e( 'right center', 'polldaddy' ); ?></option>
+																<option value="right bottom"><?php _e( 'right bottom', 'polldaddy' ); ?></option>
 															</select>
 														</td>
 													</tr>
@@ -2380,7 +2484,7 @@ class WP_PollDaddy {
 	<!-- Border Table -->
 												<table class="CSSE_edit" id="editBorder" style="display:none;">
 													<tr>
-														<td width="85">Width:</td>
+														<td width="85"><?php _e( 'Width', 'polldaddy' ); ?>:</td>
 														<td>
 															<select id="border-width" onchange="bind(this);">
 																<option value="0px">0px</option>
@@ -2418,30 +2522,30 @@ class WP_PollDaddy {
 														</td>
 													</tr>
 													<tr>
-														<td>Style:</td>
+														<td><?php _e( 'Style', 'polldaddy' ); ?>:</td>
 														<td>
 															<select id="border-style" onchange="bind(this);">
-																<option value="none">none</option>
-																<option value="solid">solid</option>
-																<option value="dotted">dotted</option>
-																<option value="dashed">dashed</option>
-																<option value="double">double</option>
-																<option value="groove">groove</option>
-																<option value="inset">inset</option>
-																<option value="outset">outset</option>
-																<option value="ridge">ridge</option>
-																<option value="hidden">hidden</option>
+																<option value="none"><?php _e( 'none', 'polldaddy' ); ?></option>
+																<option value="solid"><?php _e( 'solid', 'polldaddy' ); ?></option>
+																<option value="dotted"><?php _e( 'dotted', 'polldaddy' ); ?></option>
+																<option value="dashed"><?php _e( 'dashed', 'polldaddy' ); ?></option>
+																<option value="double"><?php _e( 'double', 'polldaddy' ); ?></option>
+																<option value="groove"><?php _e( 'groove', 'polldaddy' ); ?></option>
+																<option value="inset"><?php _e( 'inset', 'polldaddy' ); ?></option>
+																<option value="outset"><?php _e( 'outset', 'polldaddy' ); ?></option>
+																<option value="ridge"><?php _e( 'ridge', 'polldaddy' ); ?></option>
+																<option value="hidden"><?php _e( 'hidden', 'polldaddy' ); ?></option>
 															</select>
 														</td>
 													</tr>
 													<tr>
-														<td>Color (#hex):</td>
+														<td><?php _e( 'Color', 'polldaddy' ); ?> (#hex):</td>
 														<td>
 															<input type="text" maxlength="11" class="elmColor jscolor-picker" id="border-color" onblur="bind(this);"/>
 														</td>
 													</tr>
 													<tr>
-														<td width="85">Rounded Corners:</td>
+														<td width="85"><?php _e( 'Rounded Corners', 'polldaddy' ); ?>:</td>
 														<td>
 															<select id="border-radius" onchange="bind(this);">
 																<option value="0px">0px</option>
@@ -2477,14 +2581,14 @@ class WP_PollDaddy {
 																<option value="30px">30px</option>
 															</select>
 															<br/>
-															Not supported in Internet Explorer.
+															<?php _e( 'Not supported in Internet Explorer.', 'polldaddy' ); ?>
 														</td>
 													</tr>
 												</table>
 	<!-- Margin Table -->
 												<table class="CSSE_edit" id="editMargin" style="display:none;">
 													<tr>
-														<td width="85">Top: </td>
+														<td width="85"><?php _e( 'Top', 'polldaddy' ); ?>: </td>
 														<td>
 															<select id="margin-top" onchange="bind(this);">
 																<option value="0px">0px</option>
@@ -2522,7 +2626,7 @@ class WP_PollDaddy {
 														</td>
 													</tr>
 													<tr>
-														<td>Right:</td>
+														<td><?php _e( 'Right', 'polldaddy' ); ?>:</td>
 														<td>
 															<select id="margin-right" onchange="bind(this);">
 																<option value="0px">0px</option>
@@ -2560,7 +2664,7 @@ class WP_PollDaddy {
 														</td>
 													</tr>
 													<tr>
-														<td>Bottom:</td>
+														<td><?php _e( 'Bottom', 'polldaddy' ); ?>:</td>
 														<td>
 															<select id="margin-bottom" onchange="bind(this);">
 																<option value="0px">0px</option>
@@ -2598,7 +2702,7 @@ class WP_PollDaddy {
 														</td>
 													</tr>
 													<tr>
-														<td>Left:</td>
+														<td><?php _e( 'Left', 'polldaddy' ); ?>:</td>
 														<td>
 															<select id="margin-left" onchange="bind(this);">
 																<option value="0px">0px</option>
@@ -2639,7 +2743,7 @@ class WP_PollDaddy {
 	<!-- Padding Table -->
 												<table class="CSSE_edit" id="editPadding" style="display:none;">
 													<tr>
-														<td width="85">Top:</td>
+														<td width="85"><?php _e( 'Top', 'polldaddy' ); ?>:</td>
 														<td>
 															<select id="padding-top" onchange="bind(this);">
 																<option value="0px">0px</option>
@@ -2677,7 +2781,7 @@ class WP_PollDaddy {
 														</td>
 													</tr>
 													<tr>
-														<td>Right:</td>
+														<td><?php _e( 'Right', 'polldaddy' ); ?>:</td>
 														<td>
 															<select id="padding-right" onchange="bind(this);">
 																<option value="0px">0px</option>
@@ -2715,7 +2819,7 @@ class WP_PollDaddy {
 														</td>
 													</tr>
 													<tr>
-														<td>Bottom:</td>
+														<td><?php _e( 'Bottom', 'polldaddy' ); ?>:</td>
 														<td>
 															<select id="padding-bottom" onchange="bind(this);">
 																<option value="0px">0px</option>
@@ -2753,7 +2857,7 @@ class WP_PollDaddy {
 														</td>
 													</tr>
 													<tr>
-														<td>Left:</td>
+														<td><?php _e( 'Left', 'polldaddy' ); ?>:</td>
 														<td>
 															<select id="padding-left" onchange="bind(this);">
 																<option value="0px">0px</option>
@@ -2794,7 +2898,7 @@ class WP_PollDaddy {
 	<!-- Scale Table -->
 												<table class="CSSE_edit" id="editScale" style="display:none;">
 													<tr>
-														<td width="85">Width (px):  <a class="noteLink" title="Click here for more information" onclick="showNote('noteWidth',this, 'Width');">(?)</a></td>
+														<td width="85"><?php _e( 'Width', 'polldaddy' ); ?> (px):  <a href="http://support.polldaddy.com/custom-poll-styles/" class="noteLink" title="<?php _e( 'Click here for more information', 'polldaddy' ); ?>">(?)</a></td>
 														<td>
 															<input type="text" maxlength="4" class="elmColor" id="width" onblur="bind(this);"/>
 														</td>
@@ -2802,7 +2906,7 @@ class WP_PollDaddy {
 													<tr>
 														<td width="85"></td>
 														<td>
-															If you change the width of the<br/> poll you may also need to change<br/> the width of your answers.
+															<?php _e( 'If you change the width of the<br/> poll you may also need to change<br/> the width of your answers.', 'polldaddy' ); ?>
 														</td>
 													</tr>
 												</table>
@@ -2810,7 +2914,7 @@ class WP_PollDaddy {
 	<!-- Height Table -->
 												<table class="CSSE_edit" id="editHeight" style="display:none;">
 													<tr>
-														<td width="85">Height (px):</td>
+														<td width="85"><?php _e( 'Height', 'polldaddy' ); ?> (px):</td>
 														<td>
 															<input type="text" maxlength="4" class="elmColor" id="height" onblur="bind(this);"/>
 														</td>
@@ -2837,7 +2941,7 @@ class WP_PollDaddy {
 													<div class="pds-question">
 														<div class="pds-question-outer">
 															<div class="pds-question-inner">
-																<div class="pds-question-top" id="pds-question-top">Do you mostly use the internet at work, in school or at home?</div>
+																<div class="pds-question-top" id="pds-question-top"><?php _e( 'Do you mostly use the internet at work, in school or at home?', 'polldaddy' ); ?></div>
 															</div>
 														</div>
 													</div>
@@ -2850,7 +2954,7 @@ class WP_PollDaddy {
 																	<span class="pds-answer-input" id="pds-answer-input">
 																		<input type="radio" name="PDI_answer" value="1" id="p1" class="pds-checkbox"/>
 																	</span>
-																	<label for="p1" class="pds-answer" id="pds-answer"><span class="pds-answer-span">I use it in school.</span></label>
+																	<label for="p1" class="pds-answer" id="pds-answer"><span class="pds-answer-span"><?php _e( 'I use it in school.', 'polldaddy' ); ?></span></label>
 																	<span class="pds-clear"></span>
 																</span>
 
@@ -2858,7 +2962,7 @@ class WP_PollDaddy {
 																	<span class="pds-answer-input" id="pds-answer-input1">
 																		<input type="radio" name="PDI_answer" value="2" id="p2" class="pds-checkbox"/>
 																	</span>
-																	<label for="p2" class="pds-answer" id="pds-answer1"><span class="pds-answer-span">I use it at home.</span></label>
+																	<label for="p2" class="pds-answer" id="pds-answer1"><span class="pds-answer-span"><?php _e( 'I use it at home.', 'polldaddy' ); ?></span></label>
 																	<span class="pds-clear"></span>
 																</span>
 
@@ -2866,7 +2970,7 @@ class WP_PollDaddy {
 																	<span class="pds-answer-input" id="pds-answer-input2">
 																		<input type="radio" name="PDI_answer" value="3" id="p3" class="pds-checkbox"/>
 																	</span>
-																	<label for="p3" class="pds-answer" id="pds-answer2"><span class="pds-answer-span">I use it every where I go, at work and home and anywhere else that I can!</span></label>
+																	<label for="p3" class="pds-answer" id="pds-answer2"><span class="pds-answer-span"><?php _e( 'I use it every where I go, at work and home and anywhere else that I can!', 'polldaddy' ); ?></span></label>
 																	<span class="pds-clear"></span>
 																</span>
 
@@ -2874,7 +2978,7 @@ class WP_PollDaddy {
 																	<span class="pds-answer-input" id="pds-answer-input3">
 																		<input type="radio" name="PDI_answer" value="4" id="p4" class="pds-checkbox"/>
 																	</span>
-																	<label for="p4" class="pds-answer" id="pds-answer3"><span class="pds-answer-span">Other:</span></label>
+																	<label for="p4" class="pds-answer" id="pds-answer3"><span class="pds-answer-span"><?php _e( 'Other', 'polldaddy' ); ?>:</span></label>
 																	<span class="pds-clear"></span>
 																	<span class="pds-answer-other">
 																		<input type="text" name="PDI_OtherText1761982" id="pds-textfield" maxlength="80" class="pds-textfield"/>
@@ -2886,9 +2990,9 @@ class WP_PollDaddy {
 															<br/>
 															<div class="pds-vote" id="pds-links">
 																<div class="pds-votebutton-outer">
-																	<a href="javascript:renderStyleEdit('pds-answer-feedback');" id="pds-vote-button" style="display:block;float:left;" class="pds-vote-button"><span>Vote</span></a>
+																	<a href="javascript:renderStyleEdit('pds-answer-feedback');" id="pds-vote-button" style="display:block;float:left;" class="pds-vote-button"><span><?php _e( 'Vote', 'polldaddy' ); ?></span></a>
 																	<span class="pds-links">
-																		<div style="padding: 0px 0px 0px 15px; float:left;"><a href="javascript:renderStyleEdit('pds-answer-feedback');" class="pds-link" id="pds-link">View Results</a></div>
+																		<div style="padding: 0px 0px 0px 15px; float:left;"><a href="javascript:renderStyleEdit('pds-answer-feedback');" class="pds-link" id="pds-link"><?php _e( 'View Results', 'polldaddy' ); ?></a></div>
 																		<span class="pds-clear"></span>
 																	</span>
 																	<span class="pds-clear"></span>
@@ -2901,7 +3005,7 @@ class WP_PollDaddy {
 														<div id="divResults">
 
 															<div class="pds-answer-group" id="pds-answer-group4">
-																<label for="PDI_feedback1" class="pds-answer" id="pds-answer4"><span class="pds-answer-text">I use it in school!</span><xsl:text> </xsl:text><span class="pds-feedback-per"><strong>46%</strong></span><xsl:text> </xsl:text><span class="pds-feedback-votes">(620 votes)</span></label>
+																<label for="PDI_feedback1" class="pds-answer" id="pds-answer4"><span class="pds-answer-text"><?php _e( 'I use it in school!', 'polldaddy' ); ?></span><xsl:text> </xsl:text><span class="pds-feedback-per"><strong>46%</strong></span><xsl:text> </xsl:text><span class="pds-feedback-votes"><?php printf( __( '(%d votes)', 'polldaddy' ), 620 ); ?></span></label>
 																<span class="pds-clear"></span>
 																<div id="pds-answer-feedback">
 																	<div style="width:46%;" id="pds-answer-feedback-bar" class="pds-answer-feedback-bar"></div>
@@ -2910,7 +3014,7 @@ class WP_PollDaddy {
 															</div>
 
 															<div class="pds-answer-group" id="pds-answer-group5">
-																<label for="PDI_feedback2" class="pds-answer" id="pds-answer5"><span class="pds-answer-text">I use it at home.</span><xsl:text> </xsl:text><span class="pds-feedback-per"><strong>30%</strong></span><xsl:text> </xsl:text><span class="pds-feedback-votes">(400 votes)</span></label>
+																<label for="PDI_feedback2" class="pds-answer" id="pds-answer5"><span class="pds-answer-text"><?php _e( 'I use it at home.', 'polldaddy' ); ?></span><xsl:text> </xsl:text><span class="pds-feedback-per"><strong>30%</strong></span><xsl:text> </xsl:text><span class="pds-feedback-votes"><?php printf( __( '(%d votes)', 'polldaddy' ), 400 ); ?></span></label>
 																<span class="pds-clear"></span>
 																<div id="pds-answer-feedback2">
 																	<div style="width:46%;" id="pds-answer-feedback-bar2" class="pds-answer-feedback-bar"></div>
@@ -2919,7 +3023,7 @@ class WP_PollDaddy {
 															</div>
 
 															<div class="pds-answer-group" id="pds-answer-group6">
-																<label for="PDI_feedback3" class="pds-answer" id="pds-answer6"><span class="pds-answer-text">I use it every where I go, at work and home and anywhere else that I can!</span><xsl:text> </xsl:text><span class="pds-feedback-per"><strong>16%</strong></span><xsl:text> </xsl:text><span class="pds-feedback-votes">(220 votes)</span></label>
+																<label for="PDI_feedback3" class="pds-answer" id="pds-answer6"><span class="pds-answer-text"><?php _e( 'I use it every where I go, at work and home and anywhere else that I can!', 'polldaddy' ); ?></span><xsl:text> </xsl:text><span class="pds-feedback-per"><strong>16%</strong></span><xsl:text> </xsl:text><span class="pds-feedback-votes"><?php printf( __( '(%d votes)', 'polldaddy' ), 220 ); ?></span></label>
 																<span class="pds-clear"></span>
 																<div id="pds-answer-feedback3">
 																	<div style="width:16%;" id="pds-answer-feedback-bar3" class="pds-answer-feedback-bar"></div>
@@ -2928,7 +3032,7 @@ class WP_PollDaddy {
 															</div>
 
 															<div class="pds-answer-group" id="pds-answer-group7">
-																<label for="PDI_feedback4" class="pds-answer" id="pds-answer7"><span class="pds-answer-text">Other</span><xsl:text> </xsl:text><span class="pds-feedback-per"><strong>8%</strong></span><xsl:text> </xsl:text><span class="pds-feedback-votes">(110 votes)</span></label>
+																<label for="PDI_feedback4" class="pds-answer" id="pds-answer7"><span class="pds-answer-text"><?php _e( 'Other', 'polldaddy' ); ?></span><xsl:text> </xsl:text><span class="pds-feedback-per"><strong>8%</strong></span><xsl:text> </xsl:text><span class="pds-feedback-votes"><?php printf( __( '(%d votes)', 'polldaddy' ), 110 ); ?></span></label>
 																<span class="pds-clear"></span>
 																<div id="pds-answer-feedback4">
 																	<div style="width:8%;" id="pds-answer-feedback-bar4" class="pds-answer-feedback-bar"></div>
@@ -2940,15 +3044,15 @@ class WP_PollDaddy {
 							<!-- End divResults -->
 														<span class="pds-clear"></span>
 														<div style="height: 10px;"></div>
-														<div id="pds-totalvotes-inner">Total Votes: <strong>1,350</strong></div>
+														<div id="pds-totalvotes-inner"><?php _e( 'Total Votes', 'polldaddy' ); ?>: <strong>1,350</strong></div>
 													</div>
 													<div class="pds-vote" id="pds-links-back">
 														<div class="pds-totalvotes-outer">
 																<span class="pds-links-back">
 																	<br/>
-																	<a href="javascript:" class="pds-link" id="pds-link1">Comments <strong>(19)</strong></a> 
+																	<a href="javascript:" class="pds-link" id="pds-link1"><?php _e( 'Comments', 'polldaddy' ); ?> <strong>(19)</strong></a> 
 																	<xsl:text> </xsl:text>
-																	<a href="javascript:renderStyleEdit('pds-box');" class="pds-link" id="pds-link2">Return To Poll</a>
+																	<a href="javascript:renderStyleEdit('pds-box');" class="pds-link" id="pds-link2"><?php _e( 'Return To Poll', 'polldaddy' ); ?></a>
 																	<span class="pds-clear"></span>
 																</span>
 																<span class="pds-clear"></span>
@@ -2964,15 +3068,36 @@ class WP_PollDaddy {
 				</tr>
 			</table>
 			<div id="editBox"></div>     			
-			<p class="pds-clear"></p>        			
-			<?php wp_nonce_field( $style_id > 1000 ? "edit-style$style_id" : 'create-style' ); ?>
-			<input type="hidden" name="action" value="<?php echo $style_id > 1000 ? 'edit-style' : 'create-style'; ?>" />
-			<input type="hidden" class="polldaddy-style-id" name="style" value="<?php echo $style_id; ?>" />
-			<input type="submit" class="button-primary" value="<?php echo attribute_escape( __( 'Save Style', 'polldaddy' ) ); ?>" />  						
+			<p class="pds-clear"></p>   
+			<p>
+				<?php wp_nonce_field( $style_id > 1000 ? "edit-style$style_id" : 'create-style' ); ?>
+				<input type="hidden" name="action" value="<?php echo $style_id > 1000 ? 'edit-style' : 'create-style'; ?>" />
+				<input type="hidden" class="polldaddy-style-id" name="style" value="<?php echo $style_id; ?>" />
+				<input type="submit" class="button-primary" value="<?php echo attribute_escape( __( 'Save Style', 'polldaddy' ) ); ?>" />  
+				<?php if ( $style_id > 1000 ) { ?>
+				<input name="updatePollCheck" id="updatePollCheck" type="checkbox"> <label for="updatePollCheck"><?php _e( 'Check this box if you wish to update the polls that use this style.' ); ?></label>
+				<?php } ?>
+			</p>
 		</div>
 	</div>		
 	<textarea id="S_www" name="CSSXML" style="display:none;width: 1000px; height: 500px;" rows="10" cols="10"> </textarea>
 	</form>
+<script language="javascript">
+	jQuery( document ).ready(function(){ 
+		plugin = new Plugin( {
+			delete_rating: '<?php _e( 'Are you sure you want to delete the rating for "%s"?','polldaddy'); ?>',
+			delete_poll: '<?php _e( 'Are you sure you want to delete "%s"?','polldaddy'); ?>',
+			delete_answer: '<?php _e( 'Are you sure you want to delete this answer?','polldaddy'); ?>',
+			delete_answer_title: '<?php _e( 'delete this answer','polldaddy'); ?>',
+			standard_styles: '<?php _e( 'Standard Styles','polldaddy'); ?>',
+			custom_styles: '<?php _e( 'Custom Styles','polldaddy'); ?>'
+		} );
+	});
+	pd_map = {
+		thankyou : '<?php _e( 'Thank you for voting!', 'polldaddy' ); ?>',
+		question : '<?php _e( 'Do you mostly use the internet at work, in school or at home?', 'polldaddy' ); ?>'
+	}
+</script>
 <script type="text/javascript" language="javascript">window.onload = function() {
 	var CSSXML;
 	loadStyle();
@@ -3319,11 +3444,15 @@ class WP_PollDaddy {
               <div class="inside">
                 <table>
                   <tr>
-                    <td width="100" height="30"><?php _e('votes', 'polldaddy');?></td>
+                    <td width="100" height="30"><?php _e('Vote', 'polldaddy');?></td>
+                    <td><input onblur="pd_bind(this);" type="text" name="text_vote" id="text_vote" value="<?php echo empty( $settings->text_vote ) ? 'Vote' : wp_specialchars( $settings->text_vote ); ?>" maxlength="20" />
+                  </tr>
+                  <tr>
+                    <td width="100" height="30"><?php _e('Votes', 'polldaddy');?></td>
                     <td><input onblur="pd_bind(this);" type="text" name="text_votes" id="text_votes" value="<?php echo( wp_specialchars( $settings->text_votes ) ); ?>" maxlength="20" />
                   </tr>
                   <tr>
-                    <td height="30"><?php _e('rate this', 'polldaddy');?></td>
+                    <td height="30"><?php _e('Rate This', 'polldaddy');?></td>
                     <td><input onblur="pd_bind(this);" type="text" name="text_rate_this" id="text_rate_this" value="<?php echo( wp_specialchars( $settings->text_rate_this ) ); ?>" maxlength="20" />
                   </tr>
                   <tr>
@@ -3621,6 +3750,18 @@ class WP_PollDaddy {
         </div>
       </div>
     </form>
+	<script language="javascript">
+	jQuery( document ).ready(function(){ 
+		plugin = new Plugin( {
+			delete_rating: '<?php _e( 'Are you sure you want to delete the rating for "%s"?','polldaddy'); ?>',
+			delete_poll: '<?php _e( 'Are you sure you want to delete "%s"?','polldaddy'); ?>',
+			delete_answer: '<?php _e( 'Are you sure you want to delete this answer?','polldaddy'); ?>',
+			delete_answer_title: '<?php _e( 'delete this answer','polldaddy'); ?>',
+			standard_styles: '<?php _e( 'Standard Styles','polldaddy'); ?>',
+			custom_styles: '<?php _e( 'Custom Styles','polldaddy'); ?>'
+		} );
+	});
+	</script>
     <script type="text/javascript">
     PDRTJS_settings = <?php echo ( $settings_text ); ?>;
     PDRTJS_settings.id = "1"; 
@@ -3693,6 +3834,7 @@ class WP_PollDaddy {
       else
         $set->font_italic = 'normal';
       
+      $set->text_vote	   = wp_specialchars( $_REQUEST['text_vote'], 1 );
       $set->text_votes     = wp_specialchars( $_REQUEST['text_votes'], 1 );
       $set->text_rate_this = wp_specialchars( $_REQUEST['text_rate_this'], 1 );
       $set->text_1_star    = wp_specialchars( $_REQUEST['text_1_star'], 1 );
@@ -3988,7 +4130,19 @@ class WP_PollDaddy {
 	    	</div>
 			</form>		
 		</div>
-		<p></p><?php
+		<p></p>
+	<script language="javascript">
+	jQuery( document ).ready(function(){ 
+		plugin = new Plugin( {
+			delete_rating: '<?php _e( 'Are you sure you want to delete the rating for "%s"?','polldaddy'); ?>',
+			delete_poll: '<?php _e( 'Are you sure you want to delete "%s"?','polldaddy'); ?>',
+			delete_answer: '<?php _e( 'Are you sure you want to delete this answer?','polldaddy'); ?>',
+			delete_answer_title: '<?php _e( 'delete this answer','polldaddy'); ?>',
+			standard_styles: '<?php _e( 'Standard Styles','polldaddy'); ?>',
+			custom_styles: '<?php _e( 'Custom Styles','polldaddy'); ?>'
+		} );
+	});
+	</script><?php
 	}
 	
 	function plugin_options() {
@@ -4006,64 +4160,64 @@ class WP_PollDaddy {
 		  $poll = $polldaddy->get_poll( 1 );
 		  
 		  $options = array(
-  			101 => 'Aluminum Narrow',
-  			102 => 'Aluminum Medium',
-  			103 => 'Aluminum Wide',
-  			104 => 'Plain White Narrow',
-  			105 => 'Plain White Medium',
-  			106 => 'Plain White Wide',
-  			107 => 'Plain Black Narrow',
-  			108 => 'Plain Black Medium',
-  			109 => 'Plain Black Wide',
-  			110 => 'Paper Narrow',
-  			111 => 'Paper Medium',
-  			112 => 'Paper Wide',
-  			113 => 'Skull Dark Narrow',
-  			114 => 'Skull Dark Medium',
-  			115 => 'Skull Dark Wide',
-  			116 => 'Skull Light Narrow',
-  			117 => 'Skull Light Medium',
-  			118 => 'Skull Light Wide',
-  			157 => 'Micro',
-  			119 => 'Plastic White Narrow',
-  			120 => 'Plastic White Medium',
-  			121 => 'Plastic White Wide',
-  			122 => 'Plastic Grey Narrow',
-  			123 => 'Plastic Grey Medium',
-  			124 => 'Plastic Grey Wide',
-  			125 => 'Plastic Black Narrow',
-  			126 => 'Plastic Black Medium',
-  			127 => 'Plastic Black Wide',
-  			128 => 'Manga Narrow',
-  			129 => 'Manga Medium',
-  			130 => 'Manga Wide',
-  			131 => 'Tech Dark Narrow',
-  			132 => 'Tech Dark Medium',
-  			133 => 'Tech Dark Wide',
-  			134 => 'Tech Grey Narrow',
-  			135 => 'Tech Grey Medium',
-  			136 => 'Tech Grey Wide',
-  			137 => 'Tech Light Narrow',
-  			138 => 'Tech Light Medium',
-  			139 => 'Tech Light Wide',
-  			140 => 'Working Male Narrow',
-  			141 => 'Working Male Medium',
-  			142 => 'Working Male Wide',
-  			143 => 'Working Female Narrow',
-  			144 => 'Working Female Medium',
-  			145 => 'Working Female Wide',
-  			146 => 'Thinking Male Narrow',
-  			147 => 'Thinking Male Medium',
-  			148 => 'Thinking Male Wide',
-  			149 => 'Thinking Female Narrow',
-  			150 => 'Thinking Female Medium',
-  			151 => 'Thinking Female Wide',
-  			152 => 'Sunset Narrow',
-  			153 => 'Sunset Medium',
-  			154 => 'Sunset Wide',
-  			155 => 'Music Medium',
-  			156 => 'Music Wide'
-  		);
+			101 => __( 'Aluminum Narrow','polldaddy'),
+			102 => __( 'Aluminum Medium','polldaddy'),
+			103 => __( 'Aluminum Wide','polldaddy'),
+			104 => __( 'Plain White Narrow','polldaddy'),
+			105 => __( 'Plain White Medium','polldaddy'),
+			106 => __( 'Plain White Wide','polldaddy'),
+			107 => __( 'Plain Black Narrow','polldaddy'),
+			108 => __( 'Plain Black Medium','polldaddy'),
+			109 => __( 'Plain Black Wide','polldaddy'),
+			110 => __( 'Paper Narrow','polldaddy'),
+			111 => __( 'Paper Medium','polldaddy'),
+			112 => __( 'Paper Wide','polldaddy'),
+			113 => __( 'Skull Dark Narrow','polldaddy'),
+			114 => __( 'Skull Dark Medium','polldaddy'),
+			115 => __( 'Skull Dark Wide','polldaddy'),
+			116 => __( 'Skull Light Narrow','polldaddy'),
+			117 => __( 'Skull Light Medium','polldaddy'),
+			118 => __( 'Skull Light Wide','polldaddy'),
+			157 => __( 'Micro','polldaddy'),
+			119 => __( 'Plastic White Narrow','polldaddy'),
+			120 => __( 'Plastic White Medium','polldaddy'),
+			121 => __( 'Plastic White Wide','polldaddy'),
+			122 => __( 'Plastic Grey Narrow','polldaddy'),
+			123 => __( 'Plastic Grey Medium','polldaddy'),
+			124 => __( 'Plastic Grey Wide','polldaddy'),
+			125 => __( 'Plastic Black Narrow','polldaddy'),
+			126 => __( 'Plastic Black Medium','polldaddy'),
+			127 => __( 'Plastic Black Wide','polldaddy'),
+			128 => __( 'Manga Narrow','polldaddy'),
+			129 => __( 'Manga Medium','polldaddy'),
+			130 => __( 'Manga Wide','polldaddy'),
+			131 => __( 'Tech Dark Narrow','polldaddy'),
+			132 => __( 'Tech Dark Medium','polldaddy'),
+			133 => __( 'Tech Dark Wide','polldaddy'),
+			134 => __( 'Tech Grey Narrow','polldaddy'),
+			135 => __( 'Tech Grey Medium','polldaddy'),
+			136 => __( 'Tech Grey Wide','polldaddy'),
+			137 => __( 'Tech Light Narrow','polldaddy'),
+			138 => __( 'Tech Light Medium','polldaddy'),
+			139 => __( 'Tech Light Wide','polldaddy'),
+			140 => __( 'Working Male Narrow','polldaddy'),
+			141 => __( 'Working Male Medium','polldaddy'),
+			142 => __( 'Working Male Wide','polldaddy'),
+			143 => __( 'Working Female Narrow','polldaddy'),
+			144 => __( 'Working Female Medium','polldaddy'),
+			145 => __( 'Working Female Wide','polldaddy'),
+			146 => __( 'Thinking Male Narrow','polldaddy'),
+			147 => __( 'Thinking Male Medium','polldaddy'),
+			148 => __( 'Thinking Male Wide','polldaddy'),
+			149 => __( 'Thinking Female Narrow','polldaddy'),
+			150 => __( 'Thinking Female Medium','polldaddy'),
+			151 => __( 'Thinking Female Wide','polldaddy'),
+			152 => __( 'Sunset Narrow','polldaddy'),
+			153 => __( 'Sunset Medium','polldaddy'),
+			154 => __( 'Sunset Wide','polldaddy'),
+			155 => __( 'Music Medium','polldaddy'),
+			156 => __( 'Music Wide','polldaddy')
+		);
   		
   		$polldaddy->reset();
   		$styles = $polldaddy->get_styles();
