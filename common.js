@@ -31,31 +31,44 @@ function pd_bind(obj) {
     if (obj.id == 'font_bold') {
         if (obj.checked) {
             PDRTJS_1.font_bold = 'bold';
-        } else {
+            PDRTJS_settings.font_bold = 'bold';
+        }
+        else {
             PDRTJS_1.font_bold = 'normal';
+            PDRTJS_settings.font_bold = 'normal';
         }
     } else if (obj.id == 'font_italic') {
         if (obj.checked) {
             PDRTJS_1.font_italic = 'italic';
-        } else {
-            PDRTJS_1.font_italic = 'normal';
+            PDRTJS_settings.font_italic = 'italic';
         }
+        else {
+            PDRTJS_1.font_italic = 'normal';
+            PDRTJS_settings.font_italic = 'normal';
+        }
+    } else if (obj.id == 'size_sml' || obj.id == 'size_med' || obj.id == 'size_lrg') {
+        PDRTJS_1.size = obj.value;
+        PDRTJS_settings.size = obj.value;
     } else if (obj.id == 'nero_style') {
         PDRTJS_1.star_color = obj.value;
+        PDRTJS_settings.star_color = obj.value;
     } else if (obj.id == 'font_color') {
-    	if ( obj.value.indexOf( '#' ) == -1 )
-    		obj.value = '#' + obj.value;
         PDRTJS_1.font_color = obj.value;
-   	} else if (obj.id == 'polldaddy-rating-popup') {
-    	if ( obj.checked ) {
-    		PDRTJS_1.popup = 'on';
-    		_$('pd_popup_holder_1').style.width = '350px';
-    	} else {
-    		PDRTJS_1.popup = 'off';       
-    		_$('pd_popup_holder_1').style.width = '175px'; 
-    	}
-    } else {
-        eval('PDRTJS_1.' + obj.id + ' = "' + obj.value.replace('"', '&quot;') + '";');
+        PDRTJS_settings.font_color = obj.value;
+    } else if (obj.id == 'polldaddy-rating-popup') {
+        if (obj.checked) {
+            PDRTJS_1.popup = 'on';
+            PDRTJS_settings.popup = 'on';
+            _$('pd_popup_holder_1').style.width = '350px';
+        } else {
+            PDRTJS_1.popup = 'off';
+            PDRTJS_settings.popup = 'off';
+            _$('pd_popup_holder_1').style.width = '175px';
+        }
+    }
+    else {
+        eval('PDRTJS_1.' + obj.id + ' = "' + obj.value.replace('"', '&quot;').replace("'", '&#39;') + '";');
+        eval('PDRTJS_settings.' + obj.id + ' = "' + obj.value.replace('"', '&quot;') + '";');
     }
     PDRTJS_1.build();
 }

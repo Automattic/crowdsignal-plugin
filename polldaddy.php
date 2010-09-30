@@ -4435,7 +4435,7 @@ class WP_PollDaddy {
                 </select> <?php _e( 'Block expiration limit', 'polldaddy' ); ?>
               </label>
               <br />
-            </fildset>
+            </fieldset>
           </td>
         </tr>
         <?php $this->plugin_options_add(); ?>
