@@ -2,8 +2,8 @@
 Contributors: mdawaffe, eoigal
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 2.6
-Tested up to: 2.9.2
-Stable tag: 1.8.8
+Tested up to: 3.0.1
+Stable tag: 1.8.9
 
 Create and manage PollDaddy polls and ratings from within WordPress.
 
@@ -64,6 +64,9 @@ More info here - http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks
 You need to select the synchronize ratings account in the Options menu to make sure the ratings API key is valid.
 
 == Change Log ==
+= 1.8.9 =
+* Added option to rating settings to disable ratings results popup
+* Fixed bug in choosing rating text color
 = 1.8.8 =
 * Updated style editor to catch some missing strings so they can be now be localised
 * Added string maps to javascript files to allow them to be localised

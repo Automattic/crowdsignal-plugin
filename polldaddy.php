@@ -5,7 +5,7 @@ Plugin Name: PollDaddy Polls
 Description: Create and manage PollDaddy polls and ratings in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 1.8.8
+Version: 1.8.9
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -333,7 +333,7 @@ class WP_PollDaddy {
 					break;
 				case 'edit-style' :
 				case 'create-style' :
-					wp_enqueue_script( 'polls-style', "http://i.polldaddy.com/js/style-editor.js", array(), $this->version.mktime() );
+					wp_enqueue_script( 'polls-style', "http://i.polldaddy.com/js/style-editor.js", array(), $this->version );
 					wp_enqueue_script( 'polls-style-color', "http://i.polldaddy.com/js/jquery/jscolor.js", array(), $this->version );
 					wp_enqueue_style( 'polls', "{$this->base_url}style-editor.css", array(), $this->version );
 					$plugin_page = 'polls&amp;action=list-styles';
@@ -3271,7 +3271,10 @@ class WP_PollDaddy {
 		
 		if ( !empty( $pd_rating ) ) {
 			$settings_text = $pd_rating->settings;
-			$settings = json_decode( $settings_text );         
+			$settings = json_decode( $settings_text ); 
+			
+			$popup_disabled = ( isset( $settings->popup ) && $settings->popup == 'off' );
+			
 			$rating_type = 0;
 		
 			if( $settings->type == 'stars' )
@@ -3442,50 +3445,120 @@ class WP_PollDaddy {
             <div class="postbox">
               <h3><?php _e('Customize Labels', 'polldaddy');?></h3>
               <div class="inside">
-                <table>
+                <table width="99.5%">
                   <tr>
-                    <td width="100" height="30"><?php _e('Vote', 'polldaddy');?></td>
-                    <td><input onblur="pd_bind(this);" type="text" name="text_vote" id="text_vote" value="<?php echo empty( $settings->text_vote ) ? 'Vote' : wp_specialchars( $settings->text_vote ); ?>" maxlength="20" />
+                    <td><p style="margin-bottom: 0px;"><?php _e('Vote', 'polldaddy');?></p></td>
                   </tr>
                   <tr>
-                    <td width="100" height="30"><?php _e('Votes', 'polldaddy');?></td>
-                    <td><input onblur="pd_bind(this);" type="text" name="text_votes" id="text_votes" value="<?php echo( wp_specialchars( $settings->text_votes ) ); ?>" maxlength="20" />
+                    <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_vote" id="text_vote" value="<?php echo empty( $settings->text_vote ) ? 'Vote' : wp_specialchars( $settings->text_vote ); ?>" maxlength="20" />
                   </tr>
                   <tr>
-                    <td height="30"><?php _e('Rate This', 'polldaddy');?></td>
-                    <td><input onblur="pd_bind(this);" type="text" name="text_rate_this" id="text_rate_this" value="<?php echo( wp_specialchars( $settings->text_rate_this ) ); ?>" maxlength="20" />
+                    <td><p style="margin-bottom: 0px;"><?php _e('Votes', 'polldaddy');?></p></td>
                   </tr>
                   <tr>
-                    <td height="30"><?php printf(__( '%d star', 'polldaddy' ), 1);?></td>
-                    <td><input onblur="pd_bind(this);" type="text" name="text_1_star" id="text_1_star" value="<?php echo( wp_specialchars( $settings->text_1_star ) ); ?>" maxlength="20" />
+                    <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_votes" id="text_votes" value="<?php echo empty( $settings->text_votes ) ? 'Votes' : wp_specialchars( $settings->text_votes ); ?>" maxlength="20" />
                   </tr>
                   <tr>
-                    <td height="30"><?php printf(__( '%d stars', 'polldaddy' ), 2);?></td>
-                    <td><input onblur="pd_bind(this);" type="text" name="text_2_star" id="text_2_star" value="<?php echo( wp_specialchars( $settings->text_2_star ) ); ?>" maxlength="20" />
+                    <td><p style="margin-bottom: 0px;"><?php _e('Rate This', 'polldaddy');?></p></td>
                   </tr>
                   <tr>
-                    <td height="30"><?php printf(__( '%d stars', 'polldaddy' ), 3);?></td>
-                    <td><input onblur="pd_bind(this);" type="text" name="text_3_star" id="text_3_star" value="<?php echo( wp_specialchars( $settings->text_3_star ) ); ?>" maxlength="20" />
+                    <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_rate_this" id="text_rate_this" value="<?php echo empty( $settings->text_rate_this ) ? 'Rate This' : wp_specialchars( $settings->text_rate_this ); ?>" maxlength="20" />
                   </tr>
                   <tr>
-                    <td height="30"><?php printf(__( '%d stars', 'polldaddy' ), 4);?></td>
-                    <td><input onblur="pd_bind(this);" type="text" name="text_4_star" id="text_4_star" value="<?php echo( wp_specialchars( $settings->text_4_star ) ); ?>" maxlength="20" />
+                    <td><p style="margin-bottom: 0px;"><?php printf(__( '%d star', 'polldaddy' ), 1);?></p></td>
                   </tr>
                   <tr>
-                    <td height="30"><?php printf(__( '%d stars', 'polldaddy' ), 5);?></td>
-                    <td><input onblur="pd_bind(this);" type="text" name="text_5_star" id="text_5_star" value="<?php echo( wp_specialchars( $settings->text_5_star ) ); ?>" maxlength="20" />
+                    <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_1_star" id="text_1_star" value="<?php echo empty( $settings->text_1_star ) ? '1 star' : wp_specialchars( $settings->text_1_star ); ?>" maxlength="20" />
                   </tr>
                   <tr>
-                    <td height="30"><?php _e('Thank You', 'polldaddy');?></td>
-                    <td><input onblur="pd_bind(this);" type="text" name="text_thank_you" id="text_thank_you" value="<?php echo( wp_specialchars( $settings->text_thank_you ) ); ?>" maxlength="20" />
+                    <td><p style="margin-bottom: 0px;"><?php printf(__( '%d stars', 'polldaddy' ), 2);?></p></td>
                   </tr>
                   <tr>
-                    <td height="30"><?php _e('Rate Up', 'polldaddy');?></td>
-                    <td><input onblur="pd_bind(this);" type="text" name="text_rate_up" id="text_rate_up" value="<?php echo( wp_specialchars( $settings->text_rate_up ) ); ?>" maxlength="20" />
+                    <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_2_star" id="text_2_star" value="<?php echo empty( $settings->text_2_star ) ? '2 stars' : wp_specialchars( $settings->text_2_star ); ?>" maxlength="20" />
                   </tr>
                   <tr>
-                    <td height="30"><?php _e('Rate Down', 'polldaddy');?></td>
-                    <td><input onblur="pd_bind(this);" type="text" name="text_rate_down" id="text_rate_down" value="<?php echo( wp_specialchars( $settings->text_rate_down ) ); ?>" maxlength="20" />
+                    <td><p style="margin-bottom: 0px;"><?php printf(__( '%d stars', 'polldaddy' ), 3);?></p></td>
+                  </tr>
+                  <tr>
+                    <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_3_star" id="text_3_star" value="<?php echo empty( $settings->text_3_star ) ? '3 stars' : wp_specialchars( $settings->text_3_star ); ?>" maxlength="20" />
+                  </tr>
+                  <tr>
+                    <td><p style="margin-bottom: 0px;"><?php printf(__( '%d stars', 'polldaddy' ), 4);?></p></td>
+                  </tr>
+                  <tr>
+                    <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_4_star" id="text_4_star" value="<?php echo empty( $settings->text_4_star ) ? '4 stars' : wp_specialchars( $settings->text_4_star ); ?>" maxlength="20" />
+                  </tr>
+                  <tr>
+                    <td><p style="margin-bottom: 0px;"><?php printf(__( '%d stars', 'polldaddy' ), 5);?></p></td>
+                  </tr>
+                  <tr>
+                    <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_5_star" id="text_5_star" value="<?php echo empty( $settings->text_5_star ) ? '5 stars' : wp_specialchars( $settings->text_5_star ); ?>" maxlength="20" />
+                  </tr>
+                  <tr>
+                    <td><p style="margin-bottom: 0px;"><?php _e('Thank You', 'polldaddy');?></p></td>
+                  </tr>
+                  <tr>
+                    <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_thank_you" id="text_thank_you" value="<?php echo empty( $settings->text_thank_you ) ? 'Thank You' : wp_specialchars( $settings->text_thank_you ); ?>" maxlength="20" />
+                  </tr>
+                  <tr>
+                    <td><p style="margin-bottom: 0px;"><?php _e('Rate Up', 'polldaddy');?></p></td>
+                  </tr>
+                  <tr>
+                    <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_rate_up" id="text_rate_up" value="<?php echo empty( $settings->text_rate_up ) ? 'Rate Up' : wp_specialchars( $settings->text_rate_up ); ?>" maxlength="20" />
+                  </tr>
+                  <tr>
+                    <td><p style="margin-bottom: 0px;"><?php _e('Rate Down', 'polldaddy');?></p></td>
+                  </tr>
+                  <tr>
+                    <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_rate_down" id="text_rate_down" value="<?php echo empty( $settings->text_rate_down ) ? 'Rate Down' : wp_specialchars( $settings->text_rate_down ); ?>" maxlength="20" />
+                  </tr>
+                  <tr>
+                    <td><p style="margin-bottom: 0px;"><?php _e('Most Popular Content', 'polldaddy');?></p></td>
+                  </tr>
+                  <tr>
+                    <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_popcontent" id="text_popcontent" value="<?php echo empty( $settings->text_popcontent ) ? 'Most Popular Content' : wp_specialchars( $settings->text_popcontent ); ?>" maxlength="20" />
+                  </tr>
+                  <tr>
+                    <td><p style="margin-bottom: 0px;"><?php _e('Close', 'polldaddy');?></p></td>
+                  </tr>
+                  <tr>
+                    <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_close" id="text_close" value="<?php echo empty( $settings->text_close ) ? 'Close' : wp_specialchars( $settings->text_close ); ?>" maxlength="20" />
+                  </tr>
+                  <tr>
+                    <td><p style="margin-bottom: 0px;"><?php _e('All', 'polldaddy');?></p></td>
+                  </tr>
+                  <tr>
+                    <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_all" id="text_all" value="<?php echo empty( $settings->text_all ) ? 'All' : wp_specialchars( $settings->text_all ); ?>" maxlength="20" />
+                  </tr>
+                  <tr>
+                    <td><p style="margin-bottom: 0px;"><?php _e('Today', 'polldaddy');?></p></td>
+                  </tr>
+                  <tr>
+                    <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_today" id="text_today" value="<?php echo empty( $settings->text_today ) ? 'Today' : wp_specialchars( $settings->text_today ); ?>" maxlength="20" />
+                  </tr>
+                  <tr>
+                    <td><p style="margin-bottom: 0px;"><?php _e('This Week', 'polldaddy');?></p></td>
+                  </tr>
+                  <tr>
+                    <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_thisweek" id="text_thisweek" value="<?php echo empty( $settings->text_thisweek ) ? 'This Week' : wp_specialchars( $settings->text_thisweek ); ?>" maxlength="20" />
+                  </tr>
+                  <tr>
+                    <td><p style="margin-bottom: 0px;"><?php _e('This Month', 'polldaddy');?></p></td>
+                  </tr>
+                  <tr>
+                    <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_thismonth" id="text_thismonth" value="<?php  echo empty( $settings->text_thismonth ) ? 'This Month' : wp_specialchars( $settings->text_thismonth ); ?>" maxlength="20" />
+                  </tr>
+                  <tr>
+                    <td><p style="margin-bottom: 0px;"><?php _e('Rated', 'polldaddy');?></p></td>
+                  </tr>
+                  <tr>
+                    <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_rated" id="text_rated" value="<?php echo empty( $settings->text_rated ) ? 'Rated' : wp_specialchars( $settings->text_rated ); ?>" maxlength="20" />
+                  </tr>
+                  <tr>
+                    <td><p style="margin-bottom: 0px;"><?php _e('There are no rated items for this period', 'polldaddy');?></p></td>
+                  </tr>
+                  <tr>
+                    <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_noratings" id="text_noratings" value="<?php echo empty( $settings->text_noratings ) ? 'There are no rated items for this period' : wp_specialchars( $settings->text_noratings ); ?>" maxlength="50" />
                   </tr>
                 </table>
               </div>
@@ -3665,12 +3738,24 @@ class WP_PollDaddy {
             </div>
           </div>
           <?php            
-            if ( $this->is_admin && $report_type == 'posts' ) {                   
-            $exclude_post_ids = wp_specialchars( get_option( 'pd-rating-exclude-post-ids' ) ); ?>
+            if ( $this->is_admin ) { ?>
             <div class="postbox">
               <h3><?php _e('Extra Settings', 'polldaddy');?></h3>
               <div class="inside">
                 <table> 
+                  <tr>
+                    <td width="100" height="30"><?php _e('Results Popup', 'polldaddy');?></td>
+                    <td>
+                      <input type="checkbox" onchange="pd_bind(this);" value="on" name="polldaddy-rating-popup" id="polldaddy-rating-popup" <?php echo !$popup_disabled ? 'checked="checked"' : ''; ?> />
+                    </td>
+                    <td>
+                      <span class="description">
+                        <label for="polldaddy-rating-popup"><?php _e( 'Uncheck this box to disable the results popup', 'polldaddy' ); ?></label>
+                      </span>
+                    </td>
+                  </tr><?php
+            if ( $report_type == 'posts' ) {                   
+            	$exclude_post_ids = wp_specialchars( get_option( 'pd-rating-exclude-post-ids' ) ); ?>
                   <tr>
                     <td width="100" height="30"><?php _e('Rating ID', 'polldaddy');?></td>
                     <td>
@@ -3692,16 +3777,9 @@ class WP_PollDaddy {
                         <label for="exclude-post-ids"><?php _e( 'Enter the Post IDs where you want to exclude ratings from. Please use a comma-delimited list, eg. 1,2,3', 'polldaddy' ); ?></label>
                       </span>
                     </td>
-                  </tr>
-                </table>
-              </div>
-            </div><?php
-            } else if ( $this->is_admin && $report_type == 'pages' ) {                   
-            $exclude_page_ids = wp_specialchars( get_option( 'pd-rating-exclude-page-ids' ) ); ?>
-            <div class="postbox">
-              <h3><?php _e('Extra Settings', 'polldaddy');?></h3>
-              <div class="inside">
-                <table> 
+                  </tr><?php
+            } else if ( $report_type == 'pages' ) {                   
+            	$exclude_page_ids = wp_specialchars( get_option( 'pd-rating-exclude-page-ids' ) ); ?>
                   <tr>
                     <td width="100" height="30"><?php _e('Rating ID', 'polldaddy');?></td>
                     <td>
@@ -3723,15 +3801,8 @@ class WP_PollDaddy {
                         <label for="exclude-page-ids"><?php _e( 'Enter the Page IDs where you want to exclude ratings from. Please use a comma-delimited list, eg. 1,2,3', 'polldaddy' ); ?></label>
                       </span>
                     </td>
-                  </tr>
-                </table>
-              </div>
-            </div
-            <?php } else if ( $this->is_admin && $report_type == 'comments' ) { ?>
-            <div class="postbox">
-              <h3><?php _e('Extra Settings', 'polldaddy');?></h3>
-              <div class="inside">
-                <table> 
+                  </tr><?php 
+            } else if ( $report_type == 'comments' ) { ?> 
                   <tr>
                     <td width="100" height="30"><?php _e('Rating ID', 'polldaddy');?></td>
                     <td>
@@ -3742,10 +3813,11 @@ class WP_PollDaddy {
                         <label for="polldaddy-comment-rating-id"><?php _e( 'This is the rating ID used in comments', 'polldaddy' ); ?></label>
                       </span>
                     </td>
-                  </tr>
+                  </tr><?php
+           	} ?>              
                 </table>
               </div>
-            </div
+            </div>
             <?php } ?>
         </div>
       </div>
@@ -3801,7 +3873,7 @@ class WP_PollDaddy {
       $type = 'comments';
     } else{
       $new_rating_id = $rating_id;
-    }        
+    }    
     
     if( $rating_id > 0 && $rating_id == $new_rating_id ) {
       if( isset( $_REQUEST['rating_type'] ) && $_REQUEST['rating_type'] == 'stars' ) {
@@ -3847,6 +3919,20 @@ class WP_PollDaddy {
       $set->text_rate_down = wp_specialchars( $_REQUEST['text_rate_down'], 1 );
       $set->font_color     = wp_specialchars( $_REQUEST['font_color'], 1 );
       
+		  $set->text_popcontent= wp_specialchars( $_REQUEST['text_popcontent'], 1 );
+		  $set->text_close     = wp_specialchars( $_REQUEST['text_close'], 1 );
+		  $set->text_all       = wp_specialchars( $_REQUEST['text_all'], 1 );
+		  $set->text_today     = wp_specialchars( $_REQUEST['text_today'], 1 );
+		  $set->text_thisweek  = wp_specialchars( $_REQUEST['text_thisweek'], 1 );
+		  $set->text_thismonth = wp_specialchars( $_REQUEST['text_thismonth'], 1 );
+		  $set->text_rated     = wp_specialchars( $_REQUEST['text_rated'], 1 );
+		  $set->text_noratings = wp_specialchars( $_REQUEST['text_noratings'], 1 );
+      
+      
+		  $set->popup = 'off';
+		  if( isset( $_REQUEST['polldaddy-rating-popup'] ) ) 
+			$set->popup = ( $_REQUEST['polldaddy-rating-popup'] == 'on' ? 'on' : 'off' );
+	  
       $settings_text = json_encode( $set );
       
       $polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->rating_user_code );
@@ -4349,7 +4435,7 @@ class WP_PollDaddy {
                 </select> <?php _e( 'Block expiration limit', 'polldaddy' ); ?>
               </label>
               <br />
-            </fieldset>
+            </fildset>
           </td>
         </tr>
         <?php $this->plugin_options_add(); ?>
