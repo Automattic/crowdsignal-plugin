@@ -1118,10 +1118,15 @@ function &polldaddy_poll( $args = null, $id = null, $_require_data = true ) {
 				return $false;
 		}
 
-		foreach ( array( 'multipleChoice', 'randomiseAnswers', 'otherAnswer', 'makePublic', 'closePoll', 'closePollNow', 'sharing' ) as $bool ) {
+		foreach ( array( 'multipleChoice', 'randomiseAnswers', 'makePublic', 'otherAnswer', 'closePoll', 'closePollNow', 'sharing' ) as $bool ) {
 			if ( 'no' !== $args[$bool] && 'yes' !== $args[$bool] )
 				$args[$bool] = $defaults[$bool];
 		}
+		
+		global $wpdb;		
+		$public = (int) $wpdb->get_var( $wpdb->prepare( "SELECT public FROM wp_blogs WHERE blog_id = %d", $wpdb->blogid ) );
+		if( $public == -1 )
+			$args['makePublic'] = 'no';
 
 		foreach ( array( 'styleID', 'packID', 'folderID', 'languageID', 'choices', 'blockExpiration' ) as $int )
 			if ( !is_numeric( $args[$int] ) )
@@ -1238,10 +1243,11 @@ function _polldaddy_poll_default_language_id() {
 endif;
 
 function &polldaddy_poll_answer( $args, $id = null ) {
-	if ( !is_string( $args['text'] ) || !$args['text'] )
-		return false;
-		
-	$answer = new PollDaddy_Poll_Answer( $args, compact( 'id' ) );
+	$answer = false;
+	
+	if ( is_string( $args['text'] ) && strlen($args['text'] ) > 0 ){
+		$answer = new PollDaddy_Poll_Answer( $args, compact( 'id' ) );
+	}
 
 	return $answer;
 }

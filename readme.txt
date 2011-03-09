@@ -2,8 +2,8 @@
 Contributors: mdawaffe, eoigal
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 2.6
-Tested up to: 3.0.1
-Stable tag: 1.8.9
+Tested up to: 3.1
+Stable tag: 1.8.10
 
 Create and manage PollDaddy polls and ratings from within WordPress.
 
@@ -21,6 +21,8 @@ PollDaddy Polls is localizable and currently available in:
 * Danish
 * Khmer
 * Tegulu
+* Polish (thanks to Maciej Kopeć)
+* Turkish (thanks to Gürol Barın)
 
 A messages.pot file is included in the plugin - please do send us any language files!
 
@@ -64,9 +66,17 @@ More info here - http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks
 You need to select the synchronize ratings account in the Options menu to make sure the ratings API key is valid.
 
 == Change Log ==
+= 1.8.10 =
+* Updated shortcodes to use latest Polldaddy code
+* Fixed minor bug in rating results
+* Fixed minor bug in poll editor to allow use of 0 as poll answer
+* Added extra check to edit permissions on whether user is a blog member
+* Added Turkish and Polish language packs
+
 = 1.8.9 =
 * Added option to rating settings to disable ratings results popup
 * Fixed bug in choosing rating text color
+
 = 1.8.8 =
 * Updated style editor to catch some missing strings so they can be now be localised
 * Added string maps to javascript files to allow them to be localised
