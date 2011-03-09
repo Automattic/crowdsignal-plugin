@@ -1,0 +1,17 @@
+body.poll-preview-iframe div#manage-polls.wrap{text-align:right;}
+table.poll-results .column-vote{padding:3px 3px 3px 5px;}
+table.poll-results span.result-total{right:.75em;left:auto;}
+table.poll-results span.result-percent{right:auto;left:.75em;}
+ul#answers li span.handle{right:0;left:auto;}
+ul#answers li a.delete{left:0;right:auto;}
+ul#answer-options{margin-right:20px;margin-left:0;}
+ul#answer-options li{margin-left:1em;margin-right:0;}
+p#add-answer-holder{text-align:left;}
+.inner-sidebar-ratings{clear:left;float:left;}
+#poststuff #post-body.has-sidebar,.has-sidebar{clear:right;float:right;margin-left:-240px;margin-right:0;}
+.has-sidebar .has-sidebar-content{margin-left:245px;margin-right:0;}
+tr.polldaddy-shortcode-row pre{float:right;}
+tr.polldaddy-shortcode-row input{float:right;}
+.st_selector .dir_left{padding:0 0 0 10px;}
+.polldaddy-show-design-options,.pollStyle .customSelect,body.poll-preview-iframe div#manage-polls.wrap,#design h3,.pollStyle TH{text-align:right;}
+#design_standard,.st_selector .dir_right{padding:0 20px 0 0;}
