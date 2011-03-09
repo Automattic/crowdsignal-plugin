@@ -14,14 +14,14 @@ The PollDaddy Polls and Ratings plugin allows you to create and manage polls and
 PollDaddy Polls is localizable and currently available in:
 
 * English
-* Arabic (thanks <a href="http://www.Ghorab.ws" target="_blank">Ghorab.ws</a>)
+* Arabic (thanks to <a href="http://www.Ghorab.ws" target="_blank">Ghorab.ws</a>)
 * French
 * Spanish
 * Czech
 * Danish
 * Khmer
 * Tegulu
-* Polish (thanks to Maciej Kopeć)
+* Polish (thanks to <a href="http://mkopec.eu" target="_blank">Maciej Kopeć</a>)
 * Turkish (thanks to Gürol Barın)
 
 A messages.pot file is included in the plugin - please do send us any language files!
