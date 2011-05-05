@@ -56,7 +56,9 @@ jQuery(function ($) {
         });
         $('#add-answer-holder').show().find('button').click(function () {
             var aa = (1 + $('#answers li').size()).toString();
-            delAnswerPrep($('#answers').append('<li><span class="handle">&#x2195;</span><div><input type="text" name="answer[new' + aa + ']" size="30" tabindex="2" value="" autocomplete="off" /></div><a title="' + opts.delete_answer_title + '" class="delete-answer delete" href="#">&times;</a></li>').find('li:last'));
+            var src = $( this ).closest( 'p' ).attr( 'class' );
+            delAnswerPrep( $( '#answers' ).append( '<li><span class="handle" title="click and drag to reorder"><img src="' + src + 'img/icon-reorder.png" alt="click and drag to reorder" width="6" height="9" /></span><div><input type="text" autocomplete="off" placeholder="Enter an answer here" value="" tabindex="2" size="30" name="answer[new' + aa + ']" /></div><a href="#" class="delete-answer delete" title="' + opts.delete_answer_title + '"><img src="' + src + 'img/icon-clear-search.png" /></a></li>' ).find( 'li:last' ) );
+            //delAnswerPrep($('#answers').append('<li><span class="handle">&#x2195;</span><div><input type="text" name="answer[new' + aa + ']" size="30" tabindex="2" value="" autocomplete="off" /></div><a title="' + opts.delete_answer_title + '" class="delete-answer delete" href="#">&times;</a></li>').find('li:last'));
             $('#choices').append('<option value="' + aa + '">' + aa + '</option>');
             return false;
         });
@@ -148,3 +150,9 @@ jQuery(function ($) {
         });
     }
 });
+
+
+
+
+
+

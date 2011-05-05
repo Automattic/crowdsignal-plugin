@@ -21,15 +21,13 @@ table.poll-others .column-vote{min-width:50%;}
 ul#answers,ul.poll-options{list-style:none;padding:0;} 
 ul#answers li{position:relative;} 
 ul#answers li div{border:1px solid #ccc;padding:2px 3px;margin:0 20px;}
-ul#answers li span.handle{position:absolute;left:0;top:0;width:18px;height:100%;background-color:#E4F2FD;color:#70A6C4;display:none;cursor:move;text-align:center;line-height:1.8em;} 
+ul#answers li span.handle{position:absolute;left:0;top:7px;width:18px;height:100%;cursor:move;text-align:center;line-height:1.8em;} 
 ul#answers li:hover span.handle{display:block;} 
-ul#answers li a.delete{display:block;position:absolute;top:0;right:0;width:18px;height:100%;text-align:center;line-height:1.8em;} 
-ul#answers li a.delete:hover{color:white;background-color:#f00;} 
+ul#answers li a.delete{display:block;position:absolute;top:4px;right:0;width:18px;height:100%;text-align:center;line-height:1.8em;} 
+ul#answers li a.delete:hover{} 
 ul#answers input{padding:0;width:100%;border:none;} 
-ul#answer-options{list-style:none;padding:0;margin-left:20px;} 
-ul#answer-options li{display:inline;margin-right:1em;white-space:nowrap;} 
 p.submit input{padding:6px;} 
-p#add-answer-holder{display:none;text-align:right;} 
+p#add-answer-holder{display:none;text-align:left;padding-left:10px;} 
 .inner-sidebar-ratings{clear:right;float:right;position:relative;width:281px;} 
 #poststuff #post-body.has-sidebar,.has-sidebar{clear:left;float:left;margin-right:-240px;width:100%;} 
 .has-sidebar .has-sidebar-content{margin-right:245px;} 
@@ -39,7 +37,7 @@ tr.polldaddy-shortcode-row h4{padding:0;margin:0.3em 0;clear:both;}
 tr.polldaddy-shortcode-row pre{float:left;background-color:#fff;padding:.2em;margin:0 0 .5em;border:1px solid #ccc;}
 tr.polldaddy-shortcode-row input{float:left;background-color:#fff;border:1px solid #ccc;padding:0.5em 0;margin:0 0 0.5em;font-size:11px;font-family:monospace;color: rgb(51, 51, 51);-moz-border-radius: 0px;} 
 .polldaddy-show-design-options{text-align:left;width:8em;display:block;font-size:1em;padding:1em 2em;text-decoration:none;} 
-#design{text-align:center;} #design h3{text-align:left;} 
+ #design h3{text-align:left;} 
 #design_standard{display:block;padding:0px 0px 0px 20px;} 
 #design_standard a{width:1em;font-size:4em;text-decoration:none;} 
 #design_custom {display:none;} 
