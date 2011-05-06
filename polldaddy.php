@@ -1115,11 +1115,11 @@ class WP_PollDaddy {
 			case 'results' :
 ?>
 
-		<h2><?php
+		<h2 id="poll-list-header"><?php
 				if ( $this->is_author )
-					printf( __( 'Poll Results <a href="%s" class="button add-new-h2">Edit Poll</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'edit', 'poll' => $poll, 'message' => false ) ) ) );
+					 _e( 'Poll Results');
 				else
-					printf( __( 'Poll Results <a href="%s" class="button add-new-h2">List Polls</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => false, 'poll' => false, 'message' => false ) ) ) ); ?></h2>
+					_e( 'Poll Results'); ?></h2>
 
 <?php
 				$this->poll_results_page( $poll );
@@ -1357,22 +1357,41 @@ class WP_PollDaddy {
           </td>
                                         <td class="poll-votes column-vote num"><?php echo number_format_i18n( $poll->_responses ); ?><span class="votes-label"><?php _e( 'votes' ); ?></span></td>
                                 </tr>
-                                <tr class="polldaddy-shortcode-row" style="display: none;">
-                                        <td colspan="4">
-                                                <h4><?php _e( 'WordPress Shortcode', 'polldaddy' ); ?></h4>
-                                                <input type="text" readonly="readonly" style="width: 175px;" onclick="this.select();" value="[polldaddy poll=<?php echo (int) $poll_id; ?>]"/>
+                                <tr class="polldaddy-shortcode-row <?php if( $class ): ?> alternate <?php endif; ?>" style="display: none;">
+                                    <td colspan="4" style="padding:10px 0px 10px 20px;">
+										
+										<a style="display:block;font-size:12px;font-weight:bold;"  href="<?php echo $edit_link; ?>"><?php echo esc_html( $poll->___content ); ?></a>
+											
+                                    	<div class="pd-embed-col">
+                                        	<h4 style="color:#666;font-weight:normal;"><?php _e( 'WordPress Shortcode', 'polldaddy' ); ?></h4>
+                                        	<input type="text" readonly="readonly" style="width: 175px;" onclick="this.select();" value="[polldaddy poll=<?php echo (int) $poll_id; ?>]"/>
+                                        </div>
 
-                                                <h4><?php _e( 'JavaScript', 'polldaddy' ); ?></h4>
-                                                <pre>&lt;script type="text/javascript" language="javascript"
-  src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/script&gt;
+                                        <div class="pd-embed-col">
+	                                        <h4 style="color:#666;font-weight:normal;"><?php _e( 'Short URL (Good for Twitter etc.)', 'polldaddy' ); ?></h4>
+											<input type="text" readonly="readonly" style="width: 175px;" onclick="this.select();" value="http://poll.fm/<?php echo base_convert( $poll_id, 10, 36 ); ?>"/>
+
+                                        </div>
+
+                                       	<div class="pd-embed-col">
+											<h4 style="color:#666;font-weight:normal;"><?php _e( 'Facebook URL', 'polldaddy' ); ?></h4>
+											<input type="text" readonly="readonly" style="width: 175px;" onclick="this.select();" value="http://poll.fm/f/<?php echo base_convert( $poll_id, 10, 36 ); ?>"/>
+                                        </div>
+                                            
+                                        <br class="clearing" />    
+                                            
+
+                                        <h4 style="padding-top:10px;color:#666;font-weight:normal;"><?php _e( 'JavaScript', 'polldaddy' ); ?></h4>
+                                        <pre style="max-width:542px;text-wrap:word-wrap;margin-bottom:20px;">&lt;script type="text/javascript" language="javascript"
+src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/script&gt;
 &lt;noscript&gt;
- &lt;a href="http://polldaddy.com/poll/<?php echo (int) $poll_id; ?>/"&gt;<?php echo trim( strip_tags( $poll->___content ) ); ?>&lt;/a&gt;&lt;br/&gt;
- &lt;span style="font:9px;"&gt;(&lt;a href="http://www.polldaddy.com"&gt;polls&lt;/a&gt;)&lt;/span&gt;
+&lt;a href="http://polldaddy.com/poll/<?php echo (int) $poll_id; ?>/"&gt;<?php echo trim( strip_tags( $poll->___content ) ); ?>&lt;/a&gt;&lt;br/&gt;
+&lt;span style="font:9px;"&gt;(&lt;a href="http://www.polldaddy.com"&gt;polls&lt;/a&gt;)&lt;/span&gt;
 &lt;/noscript&gt;</pre>
-<h4><?php _e( 'Short URL (Good for Twitter etc.)', 'polldaddy' ); ?></h4>
-<input type="text" readonly="readonly" style="width: 175px;" onclick="this.select();" value="http://poll.fm/<?php echo base_convert( $poll_id, 10, 36 ); ?>"/>
-<h4><?php _e( 'Facebook URL', 'polldaddy' ); ?></h4>
-<input type="text" readonly="readonly" style="width: 175px;" onclick="this.select();" value="http://poll.fm/f/<?php echo base_convert( $poll_id, 10, 36 ); ?>"/>
+						<p class="submit" style="clear:both;padding:0px;">
+							<a href="#" class="button pd-embed-done"><?php _e( 'Done' ); ?></a>
+						</p>					
+					
 					</td>
 				</tr>
 
@@ -1640,13 +1659,12 @@ class WP_PollDaddy {
 		<div id="titlewrap">
 			<input type="text" autocomplete="off" id="title" placeholder="<?php _e( 'Enter Question Here' ); ?>" value="<?php echo $question; ?>" tabindex="1" size="30" name="question" />
 			
-			<?php if( isset( $poll ) ): ?>
+			<?php if( isset( $poll->_id ) ): ?>
 				<div class="inside">
 					<div id="edit-slug-box" style="margin-bottom:30px;">
 						<strong><?php _e( 'WordPress Shortcode:' ); ?></strong> 
-						<span style="color:#999;">[polldaddy poll=<?php echo $poll->_id; ?>]</span>
-						<span><a href="#" class="button"><?php _e( 'Copy' ); ?></a></span>
-						<span><a href="#" class="button"><?php _e( 'Embed in New Post' ); ?></a></span>
+						<input type="text" style="color:#999;" value="[polldaddy poll=<?php echo $poll->_id; ?>]" id="shortcode-field" readonly="readonly" />
+						<span><a href="post-new.php?content=[polldaddy poll=<?php echo $poll->_id; ?>]" class="button"><?php _e( 'Embed Poll in New Post' ); ?></a></span>
 					</div>
 				</div>
 			<?php endif; ?> 
@@ -2179,13 +2197,17 @@ class WP_PollDaddy {
 		$polldaddy->reset();
 
 		$results = $polldaddy->get_poll_results( $poll_id );
+		$poll = $polldaddy->get_poll( $poll_id );
+		
 ?>
-
+		<h3 style="line-height:21px;"><?php echo $poll->question;  ?></h3>
 		<table class="poll-results widefat">
 			<thead>
 				<tr>
-					<th scope="col" class="column-title"><?php _e( 'Answer', 'polldaddy' ); ?></th>
+					<th scope="col" class="column-title" style="width:50%;"><?php _e( 'Answer', 'polldaddy' ); ?></th>
 					<th scope="col" class="column-vote"><?php _e( 'Votes', 'polldaddy' ); ?></th>
+					<th scope="col" class="column-vote"><?php _e( 'Percent', 'polldaddy' ); ?></th>
+					<th scope="col" class="column-vote" style="width:50%;">&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -2204,13 +2226,15 @@ class WP_PollDaddy {
 ?>
 
 				<tr<?php echo $class; ?>>
-					<th scope="row" class="column-title"><?php echo $content; ?></th>
-					<td class="column-vote">
-						<div class="result-holder">
-							<span class="result-bar" style="width: <?php echo number_format( $answer->_percent, 2 ); ?>%;">&nbsp;</span>
-							<span class="result-total alignleft"><?php echo number_format_i18n( $answer->_total ); ?></span>
-							<span class="result-percent alignright"><?php echo number_format_i18n( $answer->_percent ); ?>%</span>
-						</div>
+					<th scope="row" style="vertical-align:bottom;" class="column-title"><?php echo $content; ?></th>
+					<td class="column-vote" style="text-align:right;vertical-align:middle;">
+						<?php echo number_format_i18n( $answer->_total ); ?>
+					</td>	
+					<td style="text-align:right;vertical-align:middle;">
+						<?php echo number_format_i18n( $answer->_percent ); ?>%						
+					</td>
+					<td style="vertical-align:middle;">
+						<span class="result-bar" style="width: <?php echo number_format( $answer->_percent, 2 ); ?>%;">&nbsp;</span>
 					</td>
 				</tr>
 <?php

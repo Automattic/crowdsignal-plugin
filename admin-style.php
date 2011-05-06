@@ -118,6 +118,7 @@
 		text-align:right;
 		color: #666;
 		padding: 10px;
+		padding-bottom:0px;
 	}
 	
 	.votes-label{
@@ -202,6 +203,17 @@
 	#no-polls{
 		font-size:14px;
 		text-align: center;
+	}
+	
+	input#shortcode-field{
+		background: #FFF;
+		border: none;
+		width: 165px;
+	}
+	
+	.pd-embed-col{
+		width: 33%;
+		float: left;
 	}
 	
 </style>

@@ -32,7 +32,7 @@ p#add-answer-holder{display:none;text-align:left;padding-left:10px;}
 #poststuff #post-body.has-sidebar,.has-sidebar{clear:left;float:left;margin-right:-240px;width:100%;} 
 .has-sidebar .has-sidebar-content{margin-right:245px;} 
 #post-body-content #titlediv{margin:10px 0;}
-tr.polldaddy-shortcode-row{background-color:#FFFEEB;} 
+tr.polldaddy-shortcode-row{} 
 tr.polldaddy-shortcode-row h4{padding:0;margin:0.3em 0;clear:both;} 
 tr.polldaddy-shortcode-row pre{float:left;background-color:#fff;padding:.2em;margin:0 0 .5em;border:1px solid #ccc;}
 tr.polldaddy-shortcode-row input{float:left;background-color:#fff;border:1px solid #ccc;padding:0.5em 0;margin:0 0 0.5em;font-size:11px;font-family:monospace;color: rgb(51, 51, 51);-moz-border-radius: 0px;} 

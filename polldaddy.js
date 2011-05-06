@@ -29,6 +29,12 @@ jQuery(function ($) {
                 selection.setBaseAndExtent(refNode, 0, refNode, 1);
             }
         });
+        $('input#shortcode-field').click( function(){ 
+        
+        	$( this ).select();
+        		
+        } );
+        
         $('a.delete-rating').click(function () {
             return confirm( opts.delete_rating.replace("%s", $(this).parents('td').find('strong').text() ) );
         });
@@ -68,14 +74,24 @@ jQuery(function ($) {
             if (!pollID) pollID = $('.polldaddy-poll-id:first').val();
             win.send_to_editor('[polldaddy poll=' + parseInt(pollID).toString() + ']');
         });
-        $('.polldaddy-show-shortcode').toggle(function () {
+        $('.polldaddy-show-shortcode').toggle(function (ev) {
+            ev.preventDefault();
             $(this).parents('tr:first').next('tr').fadeIn();
             $(this).parents('tr:first').next('tr').show();
+            $(this).closest('tr').css('display','none');
+            
             return false;
         }, function () {
             $(this).parents('tr:first').next('tr').fadeOut();
             $(this).parents('tr:first').next('tr').hide();
             return false;
+        });
+        
+        $('.pd-embed-done').click(function(ev){
+        	ev.preventDefault();
+			$( this ).closest('tr').hide();
+			$( this ).closest('tr').prev('tr').show();        	
+        
         });
         var hiddenStyleID = $(':input[name=styleID]');
         var customStyle = $(':input[name=customSelect]');
