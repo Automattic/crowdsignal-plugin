@@ -96,10 +96,7 @@ jQuery(function ($) {
         var hiddenStyleID = $(':input[name=styleID]');
         var customStyle = $(':input[name=customSelect]');
         var customStyleVal = parseInt(customStyle.val());
-        customStyle.change(function () {
-            var customStyleVal = parseInt(customStyle.val());
-            hiddenStyleID.val(customStyleVal.toString());
-        });
+        
         if (customStyleVal > 0) {
             $('#design_standard').hide();
             $('#design_custom').show();

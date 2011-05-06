@@ -393,10 +393,12 @@ class WP_PollDaddy {
 			endswitch;
 		}
 
+		wp_enqueue_style( 'polls', "{$this->base_url}polldaddy.css", array( 'global', 'wp-admin' ), $this->version );
 		wp_enqueue_script( 'admin-forms' );
 		add_thickbox();
 
-		wp_enqueue_style( 'polls', "{$this->base_url}polldaddy.css", array( 'global', 'wp-admin' ), $this->version );
+		
+		
 		if ( isset( $wp_locale->text_direction ) && 'rtl' == $wp_locale->text_direction )
 			wp_enqueue_style( 'polls-rtl', "{$this->base_url}polldaddy-rtl.css", array( 'global', 'wp-admin' ), $this->version );
 		add_action( 'admin_body_class', array( &$this, 'admin_body_class' ) );
@@ -1115,11 +1117,11 @@ class WP_PollDaddy {
 			case 'results' :
 ?>
 
-		<h2 id="poll-list-header"><?php
+		<h2 id="polldaddy-header"><?php
 				if ( $this->is_author )
-					 _e( 'Poll Results');
+					 _e( 'Poll Results', 'polldaddy');
 				else
-					_e( 'Poll Results'); ?></h2>
+					_e( 'Poll Results', 'polldaddy'); ?></h2>
 
 <?php
 				$this->poll_results_page( $poll );
@@ -1137,7 +1139,7 @@ class WP_PollDaddy {
 			case 'create-poll' :
 ?>
 
-		<h2 id="poll-list-header"><?php _e( 'Add New Poll') ?></h2>
+		<h2 id="poll-list-header"><?php _e( 'Add New Poll', 'polldaddy') ?></h2>
 
 <?php
 				$this->poll_edit_form();
@@ -1145,7 +1147,7 @@ class WP_PollDaddy {
 			case 'list-styles' :
 ?>
 
-		<h2><?php
+		<h2 id="polldaddy-header"><?php
 				if ( $this->is_author )
 					printf( __( 'Custom Styles <a href="%s" class="button add-new-h2">Add New</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'create-style', 'poll' => false, 'message' => false ) ) ) );
 				else
@@ -1157,7 +1159,7 @@ class WP_PollDaddy {
 			case 'edit-style' :
 ?>
 
-		<h2><?php printf( __( 'Edit Style <a href="%s" class="button add-new-h2">List Styles</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'list-styles', 'style' => false, 'message' => false, 'preload' => false ) ) ) ); ?></h2>
+		<h2 id="polldaddy-header"><?php printf( __( 'Edit Style <a href="%s" class="button add-new-h2">List Styles</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'list-styles', 'style' => false, 'message' => false, 'preload' => false ) ) ) ); ?></h2>
 
 <?php
 
@@ -1166,7 +1168,7 @@ class WP_PollDaddy {
 			case 'create-style' :
 ?>
 
-		<h2><?php printf( __( 'Create Style <a href="%s" class="button add-new-h2">List Styles</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'list-styles', 'style' => false, 'message' => false, 'preload' => false ) ) ) ); ?></h2>
+		<h2 id="polldaddy-header"><?php printf( __( 'Create Style <a href="%s" class="button add-new-h2">List Styles</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'list-styles', 'style' => false, 'message' => false, 'preload' => false ) ) ) ); ?></h2>
 
 <?php
 				$this->style_edit_form();
@@ -1327,7 +1329,7 @@ class WP_PollDaddy {
 <?php if ( $edit_link ) { ?>
 						<a class="row-title" style="display:block;" href="<?php echo $edit_link; ?>"><?php echo esc_html( $poll->___content ); ?></a>
 						
-						<abbr title="<?php echo date( __( 'Y/m/d g:i:s A', 'polldaddy' ), $poll_time ); ?>"> <?php _e( 'created' ); ?> <?php echo date( __( 'M d, Y', 'polldaddy' ), $poll_time ); ?></abbr>
+						<abbr title="<?php echo date( __( 'Y/m/d g:i:s A', 'polldaddy' ), $poll_time ); ?>"> <?php _e( 'created', 'polldaddy' ); ?> <?php echo date( __( 'M d, Y', 'polldaddy' ), $poll_time ); ?></abbr>
 						
 						<div class="row-actions">
 						<span class="edit"><a href="<?php echo $edit_link; ?>"><?php _e( 'Edit', 'polldaddy' ); ?></a> | </span>
@@ -1347,10 +1349,16 @@ class WP_PollDaddy {
 <?php } } ?>
 
 <?php if ( $delete_link ) { ?>
-						<span class="delete"><a class="delete-poll delete" href="<?php echo $delete_link; ?>"><?php _e( 'Trash', 'polldaddy' ); ?></a> | </span>
+						<span class="delete"><a class="delete-poll delete" href="<?php echo $delete_link; ?>"><?php _e( 'Delete', 'polldaddy' ); ?></a>
 <?php } ?>
-						<span class="results"><a href="<?php echo $results_link; ?>"><?php _e( 'Results', 'polldaddy' ); ?></a>
 
+<?php if ( $poll->_responses > 0 ):?>
+						 | </span>
+						<span class="results"><a href="<?php echo $results_link; ?>"><?php _e( 'Results', 'polldaddy' ); ?></a>
+<?php else:?>
+
+		</span>						
+<?php endif; ?>
 					
 <?php $this->poll_table_add_option( $poll_id ); ?>
           	</div>
@@ -1409,17 +1417,17 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 ?>
 
 				<tr>
-					<td colspan="4" style="padding:0px 10px 20px 10px;background:#F8F7F3;"><?php
+					<td colspan="4" id="empty-set"><?php
 			if ( $this->is_author ){ ?>
 			
-				<h3 style="margin-bottom:0px;"><?php _e( 'You haven\'t used our fancy plugin to create any polls for this blog!');?> </h3>
-				<p style="margin-bottom:20px;"><?php _e( 'Why don\'t you go ahead and get started on that?' ); ?></p>
-				<a href="<?php echo esc_url( add_query_arg( array( 'action' => 'create-poll' ) ) ); ?>" class="button-primary"><?php _e( 'Create a Poll Now' ); ?></a>
+				<h3 style="margin-bottom:0px;"><?php _e( 'You haven\'t used our fancy plugin to create any polls for this blog!', 'polldaddy');?> </h3>
+				<p style="margin-bottom:20px;"><?php _e( 'Why don\'t you go ahead and get started on that?', 'polldaddy' ); ?></p>
+				<a href="<?php echo esc_url( add_query_arg( array( 'action' => 'create-poll' ) ) ); ?>" class="button-primary"><?php _e( 'Create a Poll Now', 'polldaddy' ); ?></a>
 
 			<?php
 			} else{ ?>
 				
-				<p id="no-polls"><?php _e( 'No one has created any polls for this blog via our fancy plugin!' ); ?></p>
+				<p id="no-polls"><?php _e( 'No one has created any polls for this blog via our fancy plugin!', 'polldaddy' ); ?></p>
 				
 			<?php	}
 				?></td>
@@ -1657,12 +1665,12 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 
 	<div id="titlediv" style="margin-top:0px;">
 		<div id="titlewrap">
-			<input type="text" autocomplete="off" id="title" placeholder="<?php _e( 'Enter Question Here' ); ?>" value="<?php echo $question; ?>" tabindex="1" size="30" name="question" />
+			<input type="text" autocomplete="off" id="title" placeholder="<?php _e( 'Enter Question Here', 'polldaddy' ); ?>" value="<?php echo $question; ?>" tabindex="1" size="30" name="question" />
 			
 			<?php if( isset( $poll->_id ) ): ?>
 				<div class="inside">
 					<div id="edit-slug-box" style="margin-bottom:30px;">
-						<strong><?php _e( 'WordPress Shortcode:' ); ?></strong> 
+						<strong><?php _e( 'WordPress Shortcode:', 'polldaddy' ); ?></strong> 
 						<input type="text" style="color:#999;" value="[polldaddy poll=<?php echo $poll->_id; ?>]" id="shortcode-field" readonly="readonly" />
 						<span><a href="post-new.php?content=[polldaddy poll=<?php echo $poll->_id; ?>]" class="button"><?php _e( 'Embed Poll in New Post' ); ?></a></span>
 					</div>
@@ -1695,7 +1703,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 
 			<li>
 				<span class="handle" title="<?php echo esc_attr( 'click and drag to reorder' ); ?>"><img src="<?php echo $this->base_url; ?>img/icon-reorder.png" alt="click and drag to reorder" width="6" height="9" /></span>
-				<div><input type="text" autocomplete="off" placeholder="<?php _e( 'Enter an answer here' ); ?>" id="answer-<?php echo $answer_id; ?>" value="<?php echo $answer; ?>" tabindex="2" size="30" name="answer[<?php echo $answer_id; ?>]" /></div>
+				<div><input type="text" autocomplete="off" placeholder="<?php _e( 'Enter an answer here', 'polldaddy' ); ?>" id="answer-<?php echo $answer_id; ?>" value="<?php echo $answer; ?>" tabindex="2" size="30" name="answer[<?php echo $answer_id; ?>]" /></div>
 				<a href="<?php echo $delete_link; ?>" class="delete-answer delete" title="<?php echo esc_attr( 'delete this answer' ); ?>"><img src="<?php echo $this->base_url; ?>img/icon-clear-search.png" width="16" height="16" /></a>
 			</li>
 
@@ -1708,7 +1716,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 
 			<li>
 				<span class="handle" title="<?php echo esc_attr( 'click and drag to reorder' ); ?>"><img src="<?php echo $this->base_url; ?>img/icon-reorder.png" alt="click and drag to reorder" width="6" height="9" /></span>
-				<div><input type="text" autocomplete="off" placeholder="<?php _e( 'Enter an answer here' ); ?>" value="" tabindex="2" size="30" name="answer[new<?php echo $a; ?>]" /></div>
+				<div><input type="text" autocomplete="off" placeholder="<?php _e( 'Enter an answer here', 'polldaddy' ); ?>" value="" tabindex="2" size="30" name="answer[new<?php echo $a; ?>]" /></div>
 				<a href="#" class="delete-answer delete" title="<?php echo esc_attr( 'delete this answer' ); ?>"><img src="<?php echo $this->base_url; ?>img/icon-clear-search.png" width="16" height="16" /></a>
 			</li>
 
@@ -1849,9 +1857,9 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 		<div class="inside">
 
 			<ul class="pd-tabs">
-				<li class="selected" id="pd-styles"><a href="#"><?php _e( 'Default Polldaddy Styles' ); ?></a></li>
+				<li class="selected" id="pd-styles"><a href="#"><?php _e( 'Default Polldaddy Styles', 'polldaddy' ); ?></a></li>
 				<?php $hide = $show_custom == true ? ' style="display:block;"' : ' style="display:none;"'; ?>
-				<li id="pd-custom-styles" <?php echo $hide; ?>><a href="#"><?php _e( 'Custom Styles' ); ?></a></li>
+				<li id="pd-custom-styles" <?php echo $hide; ?>><a href="#"><?php _e( 'Custom Styles', 'polldaddy' ); ?></a></li>
 			
 			</ul>
 			
@@ -2313,7 +2321,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 			</div>
 			<div class="tablenav-pages"></div>
 		</div>
-		<br class="clear" />
+		
 		<table class="widefat">
 			<thead>
 				<tr>
@@ -2342,12 +2350,14 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 						<td class="post-title column-title">
 	<?php     if ( $edit_link ) : ?>
 							<strong><a class="row-title" href="<?php echo $edit_link; ?>"><?php echo esc_html( $style->title ); ?></a></strong>
+							<div class="row-actions">
 							<span class="edit"><a href="<?php echo $edit_link; ?>"><?php _e( 'Edit', 'polldaddy' ); ?></a> | </span>
 	<?php     else : ?>
 							<strong><?php echo esc_html( $style->title ); ?></strong>
 	<?php     endif; ?>
 
 							<span class="delete"><a class="delete-poll delete" href="<?php echo $delete_link; ?>"><?php _e( 'Delete', 'polldaddy' ); ?></a></span>
+							</div>
 						</td>
 						<td class="date column-date"><abbr title="<?php echo date( __( 'Y/m/d g:i:s A', 'polldaddy' ), $style_time ); ?>"><?php echo date( __( 'Y/m/d', 'polldaddy' ), $style_time ); ?></abbr></td>
 					</tr>
@@ -2359,7 +2369,13 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 ?>
 
 				<tr>
-					<td colspan="4"><?php printf( __( 'No custom styles yet.  <a href="%s">Create one</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'create-style' ) ) ) ); ?></td>
+					<td colspan="4" id="empty-set">
+			
+						<h3 style="margin-bottom:0px;"><?php _e( 'You haven\'t used our fancy style editor to create any custom styles!', 'polldaddy');?> </h3>
+						<p style="margin-bottom:20px;"><?php _e( 'Why don\'t you go ahead and get started on that?', 'polldaddy' ); ?></p>
+						<a href="<?php echo esc_url( add_query_arg( array( 'action' => 'create-style' ) ) ); ?>" class="button-primary"><?php _e( 'Create a Custom Style Now', 'polldaddy' ); ?></a>
+					
+					</td>
 				</tr>
 <?php  endif; // $styles ?>
 
@@ -2428,27 +2444,21 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 	<div id="poststuff">
 		<div id="post-body">
 			<br/>
-			<table width="100%">
+			<table>
 				<tr>
-					<td colspan="2">
-						<table width="100%">
-							<tr>
-								<td valign="middle" width="8%">
-									<label class="CSSE_title_label"><?php _e( 'Style Name', 'polldaddy' ); ?></label>
-								</td>
-								<td>
-									<div id="titlediv" style="margin:0px;">
-										<div id="titlewrap">
-											<input type="text" autocomplete="off" id="title" value="<?php echo $style_id > 1000 ? $style->title : ''; ?>" tabindex="1" size="30" name="style-title" />
-										</div>
-									</div>
-								</td>
-							</tr>
-						</table>
+					<td class="pd-editor-label">
+						<label class="CSSE_title_label"><?php _e( 'Style Name', 'polldaddy' ); ?></label>
+					</td>
+					<td>
+						<div id="titlediv" style="margin:0px;">
+							<div id="titlewrap">
+								<input type="text" autocomplete="off" value="<?php echo $style_id > 1000 ? $style->title : ''; ?>" tabindex="1" style="width:25em;" name="style-title" />
+							</div>
+						</div>
 					</td>
 				</tr>
 				<tr>
-					<td width="13%">
+					<td class="pd-editor-label">
 						<label class="CSSE_title_label"><?php _e( 'Preload Basic Style', 'polldaddy' ); ?></label>
 					</td>
 					<td>
@@ -2467,10 +2477,13 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 						</div>
 					</td>
 				</tr>
+			</table>
+				
+			<h3><?php _e( 'Style Editor', 'polldaddy' ); ?></h3>
+			
+			<table>
 				<tr>
-					<td width="13%">
-						<p><?php _e( 'Choose a part to edit...', 'polldaddy' ); ?></p>
-					</td>
+					<td class="pd-editor-label"><label for="styleName"><?php _e( 'Select a template part to edit:' ); ?></label></td>
 					<td>
 						<select id="styleName" onchange="renderStyleEdit(this.value);">
 							<option value="pds-box" selected="selected"><?php _e( 'Poll Box', 'polldaddy' ); ?></option>
@@ -2485,9 +2498,13 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 							<option value="pds-answer-feedback-bar"><?php _e( 'Result Bar', 'polldaddy' ); ?></option>
 							<option value="pds-totalvotes-inner"><?php _e( 'Total Votes', 'polldaddy' ); ?></option>
 						</select>
+					
 					</td>
 				</tr>
+			
 			</table>
+	
+			
 			<table width="100%">
 				<tr>
 					<td valign="top">
@@ -3112,7 +3129,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 					</td>
 					<td width="10"> </td>
 					<td valign="top">
-						<div style="overflow-x:auto;width:633px;">
+						<div style="overflow-x:auto;">
 							<!-- POLL XHTML START -->
 									<div class="pds-box" id="pds-box">
 										<div class="pds-box-outer">
@@ -3255,7 +3272,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 				<input type="hidden" class="polldaddy-style-id" name="style" value="<?php echo $style_id; ?>" />
 				<input type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Save Style', 'polldaddy' ) ); ?>" />
 				<?php if ( $style_id > 1000 ) { ?>
-				<input name="updatePollCheck" id="updatePollCheck" type="checkbox"> <label for="updatePollCheck"><?php _e( 'Check this box if you wish to update the polls that use this style.' ); ?></label>
+				<input name="updatePollCheck" id="updatePollCheck" type="checkbox"> <label for="updatePollCheck"><?php _e( 'Check this box if you wish to update the polls that use this style.', 'polldaddy' ); ?></label>
 				<?php } ?>
 			</p>
 		</div>
@@ -4272,7 +4289,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 			) );
 ?>
 		<div class="wrap">
-			<h2><?php _e( 'Rating Reports', 'polldaddy' );?> <span style="font-size: 16px;">(<?php echo $report_type; ?>)</span></h2>
+			<h2 id="polldaddy-header"><?php _e( 'Rating Reports', 'polldaddy' );?> </h2>
 			<div class="clear"></div>
 			<form method="post" action="admin.php?page=ratings&action=reports">
 				<div class="tablenav">
@@ -4537,7 +4554,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
       <?php wp_nonce_field( 'polldaddy-account' ); ?>
       <input type="hidden" name="action" value="import-account" />
       <input type="hidden" name="account" value="import" />
-      <input type="submit" value="<?php echo esc_attr( __( 'Import Account', 'polldaddy' ) ); ?>" />
+      <input type="submit" class="button-primary" style="padding:3px 8px;" value="<?php echo esc_attr( __( 'Import Account', 'polldaddy' ) ); ?>" />
     </p>
   </form>
   <br />
@@ -4576,45 +4593,57 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 		if ( $poll->sharing == 'yes' )
 			$selected = 'checked="checked"';?>
               <label for="sharing"><input type="checkbox" <?php echo $selected; ?> value="1" id="sharing" name="sharing"> <?php _e( 'Sharing', 'polldaddy' ); ?></label>
-              <br />
-              <label for="resultsType">
+              <br class="clear" />
+              <div class="field">
+              <label for="resultsType" class="pd-label">
+              	<?php _e( 'Results Display', 'polldaddy' ); ?></label>
                 <select id="resultsType" name="resultsType">
                   <option <?php echo $poll->resultsType == 'show' ? 'selected="selected"':''; ?> value="show"><?php _e( 'Show', 'polldaddy' ); ?></option>
                   <option <?php echo $poll->resultsType == 'hide' ? 'selected="selected"':''; ?> value="hide"><?php _e( 'Hide', 'polldaddy' ); ?></option>
                   <option <?php echo $poll->resultsType == 'percent' ? 'selected="selected"':''; ?> value="percent"><?php _e( 'Percentages', 'polldaddy' ); ?></option>
-                </select> <?php _e( 'Results Display', 'polldaddy' ); ?>
-              </label>
-              <br />
-              <label for="styleID">
+                </select> 
+              </div>  
+              <br class="clear" />
+              <div class="field">
+              <label for="styleID" class="pd-label">
+               <?php _e( 'Poll style', 'polldaddy' ); ?></label>
                 <select id="styleID" name="styleID"><?php
 		foreach ( (array) $options as $styleID => $label ) :
 			$selected = $styleID == $poll->styleID ? ' selected="selected"' : ''; ?>
         						<option value="<?php echo (int) $styleID; ?>"<?php echo $selected; ?>><?php echo esc_html( $label ); ?></option><?php
 		endforeach;?>
-                </select> <?php _e( 'Poll style', 'polldaddy' ); ?>
-              </label>
-              <br />
-              <label for="blockRepeatVotersType">
+                </select>
+                </div>
+                </div>
+              <br class="clear" />
+              <div class="field">
+              <label for="blockRepeatVotersType" class="pd-label">
+              <?php _e( 'Repeat Voting', 'polldaddy' ); ?></label>
                 <select id="poll-block-repeat" name="blockRepeatVotersType">
                   <option <?php echo $poll->blockRepeatVotersType == 'off' ? 'selected="selected"':''; ?> value="off"><?php _e( 'Off', 'polldaddy' ); ?></option>
                   <option <?php echo $poll->blockRepeatVotersType == 'cookie' ? 'selected="selected"':''; ?> value="cookie"><?php _e( 'Cookie', 'polldaddy' ); ?></option>
                   <option <?php echo $poll->blockRepeatVotersType == 'cookieip' ? 'selected="selected"':''; ?> value="cookieip"><?php _e( 'Cookie & IP address', 'polldaddy' ); ?></option>
-                </select> <?php _e( 'Repeat Voting', 'polldaddy' ); ?>
-              </label>
-              <br />
-              <label for="blockExpiration">
+                </select> 
+               </div> 
+              <br  class="clear" />
+              <div class="field">
+
+               <label for="blockExpiration" class="pd-label"><?php _e( 'Block expiration limit', 'polldaddy' ); ?></label>
+              
+
                 <select id="blockExpiration" name="blockExpiration">
                   <option value="0" <?php echo $poll->blockExpiration == 0 ? 'selected="selected"':''; ?>><?php _e( 'Never', 'polldaddy' ); ?></option>
                   <option value="3600" <?php echo $poll->blockExpiration == 3600 ? 'selected="selected"':''; ?>><?php printf( __( '%d hour', 'polldaddy' ), 1 ); ?></option>
                   <option value="10800" <?php echo (int) $poll->blockExpiration == 10800 ? 'selected="selected"' : ''; ?>><?php printf( __( '%d hours', 'polldaddy' ), 3 ); ?></option>
-          				<option value="21600" <?php echo (int) $poll->blockExpiration == 21600 ? 'selected="selected"' : ''; ?>><?php printf( __( '%d hours', 'polldaddy' ), 6 ); ?></option>
-          				<option value="43200" <?php echo (int) $poll->blockExpiration == 43200 ? 'selected="selected"' : ''; ?>><?php printf( __( '%d hours', 'polldaddy' ), 12 ); ?></option>
-          				<option value="86400" <?php echo (int) $poll->blockExpiration == 86400 ? 'selected="selected"' : ''; ?>><?php printf( __( '%d day', 'polldaddy' ), 1 ); ?></option>
-          				<option value="604800" <?php echo (int) $poll->blockExpiration == 604800 ? 'selected="selected"' : ''; ?>><?php printf( __( '%d week', 'polldaddy' ), 1 ); ?></option>
-          				<option value="2419200" <?php echo (int) $poll->blockExpiration == 2419200 ? 'selected="selected"' : ''; ?>><?php printf( __( '%d month', 'polldaddy' ), 1 ); ?></option>
-                </select> <?php _e( 'Block expiration limit', 'polldaddy' ); ?>
-              </label>
-              <br />
+	  				<option value="21600" <?php echo (int) $poll->blockExpiration == 21600 ? 'selected="selected"' : ''; ?>><?php printf( __( '%d hours', 'polldaddy' ), 6 ); ?></option>
+	  				<option value="43200" <?php echo (int) $poll->blockExpiration == 43200 ? 'selected="selected"' : ''; ?>><?php printf( __( '%d hours', 'polldaddy' ), 12 ); ?></option>
+	  				<option value="86400" <?php echo (int) $poll->blockExpiration == 86400 ? 'selected="selected"' : ''; ?>><?php printf( __( '%d day', 'polldaddy' ), 1 ); ?></option>
+	  				<option value="604800" <?php echo (int) $poll->blockExpiration == 604800 ? 'selected="selected"' : ''; ?>><?php printf( __( '%d week', 'polldaddy' ), 1 ); ?></option>
+	  				<option value="2419200" <?php echo (int) $poll->blockExpiration == 2419200 ? 'selected="selected"' : ''; ?>><?php printf( __( '%d month', 'polldaddy' ), 1 ); ?></option>
+	        	</select>
+             </div>
+             </div>
+              <br class="clear" />
             </fieldset>
           </td>
         </tr>
@@ -4624,7 +4653,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
     <p class="submit">
       <?php wp_nonce_field( 'polldaddy-account' ); ?>
       <input type="hidden" name="action" value="update-options" />
-      <input type="submit" value="<?php echo esc_attr( __( 'Save Options', 'polldaddy' ) ); ?>" />
+      <input type="submit" class="button-primary" style="padding:3px 8px;" value="<?php echo esc_attr( __( 'Save Options', 'polldaddy' ) ); ?>" />
     </p>
   </form>
 </div>
