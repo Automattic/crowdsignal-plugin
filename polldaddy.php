@@ -89,8 +89,8 @@ class WP_PollDaddy {
 
 			add_action( "load-$hook", array( &$this, 'api_key_page_load' ) );
 
-			if ( ( empty( $_GET['page'] ) || 'polls' != $_GET['page'] ) && ( empty( $_GET['page'] ) || 'ratings' != $_GET['page'] ) )
-				add_action( 'admin_notices', create_function( '', 'echo "<div class=\"error\" id=\"polldaddy-error\"><p>" . sprintf( "<strong>Hey there!</strong> For Polldaddy Polls to work, we need you to <a href=\"%s\">enter your Polldaddy.com account details</a>.", "admin.php?page=polls" ) . "</p></div>";' ) );
+			//if ( ( empty( $_GET['page'] ) || 'polls' != $_GET['page'] ) && ( empty( $_GET['page'] ) || 'ratings' != $_GET['page'] ) )
+			//	add_action( 'admin_notices', create_function( '', 'echo "<div class=\"error\" id=\"polldaddy-error\"><p>" . sprintf( "<strong>Hey there!</strong> For Polldaddy Polls to work, we need you to <a href=\"%s\">enter your Polldaddy.com account details</a>.", "admin.php?page=polls" ) . "</p></div>";' ) );
 
 			return false;
 
