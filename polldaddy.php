@@ -1338,7 +1338,7 @@ class WP_PollDaddy {
 						<div class="row-actions">
 						
 <?php } ?>	
-						<span class="shortcode"><a href="#" class="polldaddy-show-shortcode"><?php _e( 'Embed &amp; Link', 'polldaddy' ); ?></a></span> | </span>
+						<span class="shortcode"><a href="javascript:void(0);" class="polldaddy-show-shortcode"><?php _e( 'Embed &amp; Link', 'polldaddy' ); ?></a></span> | </span>
 <?php
 		if ( $poll_closed == 2 ) {
 			if ( $open_link ) { ?>
@@ -1464,7 +1464,6 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 			
 			jQuery( '#filter-polls' ).click( function(){ 
 					
-					console.log( 'hi' );
 					
 					if( jQuery( '#filter-options' ).val() == 'blog' ){
 						window.location = '<?php echo add_query_arg( array( 'view' => 'blog', 'paged' => false ) ); ?>';
@@ -1835,7 +1834,6 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 						
 						jQuery( '.pd-tab-panel' ).removeClass( 'show' );
 						jQuery( '.pd-tab-panel#' + $( this ).closest( 'li' ).attr( 'id' ) + '-panel' ).addClass( 'show' );
-						console.log( '.pd-tab-panel#' + $( this ).attr( 'id' ) + '-panel' );
 					}
 					
 				
