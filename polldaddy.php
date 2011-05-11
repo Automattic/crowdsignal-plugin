@@ -1023,7 +1023,7 @@ class WP_PollDaddy {
 		case 'created' :
 			$message = __( 'Poll created.', 'polldaddy' );
 			if ( isset( $_GET['iframe'] ) )
-				$message .= ' <input type="button" class="button polldaddy-send-to-editor" value="' . esc_attr( __( 'Send to Editor', 'polldaddy' ) ) . '" />';
+				$message .= ' <input type="button" class="button polldaddy-send-to-editor" value="' . esc_attr( __( 'Embed in Post', 'polldaddy' ) ) . '" />';
 			break;
 		case 'updated-style' :
 			$message = __( 'Custom Style updated.', 'polldaddy' );
@@ -1337,8 +1337,16 @@ class WP_PollDaddy {
 						<strong><?php echo esc_html( $poll->___content ); ?></strong>
 						<div class="row-actions">
 						
-<?php } ?>	
+<?php } ?>
+
+<?php if( !isset( $_GET['iframe'] ) ):?>	
 						<span class="shortcode"><a href="javascript:void(0);" class="polldaddy-show-shortcode"><?php _e( 'Embed &amp; Link', 'polldaddy' ); ?></a></span> | </span>
+<?php else: ?>
+						<input type="hidden" class="polldaddy-poll-id" value="<?php echo $poll_id; ?>" />
+						<span><a href="javascript:void(0);" class="polldaddy-send-to-editor"><?php _e( 'Embed in Post', 'polldaddy' ); ?></a></span> | </span>
+<?php endif; ?>
+
+
 <?php
 		if ( $poll_closed == 2 ) {
 			if ( $open_link ) { ?>
@@ -1588,9 +1596,9 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 					<input type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Save Poll', 'polldaddy' ) ); ?>" />
 
 <?php if ( isset( $_GET['iframe'] ) && $poll_id ) : ?>
-
-					<input type="button" class="button polldaddy-send-to-editor" value="<?php echo esc_attr( __( 'Send to Editor', 'polldaddy' ) ); ?>" />
-
+					<div id="delete-action">
+					<input type="button" class="button polldaddy-send-to-editor" style="margin-top:8px;" value="<?php echo esc_attr( __( 'Embed in Post', 'polldaddy' ) ); ?>" />
+					</div>
 <?php endif; ?>
 
 				</p>
@@ -1666,7 +1674,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 		<div id="titlewrap">
 			<input type="text" autocomplete="off" id="title" placeholder="<?php _e( 'Enter Question Here', 'polldaddy' ); ?>" value="<?php echo $question; ?>" tabindex="1" size="30" name="question" />
 			
-			<?php if( isset( $poll->_id ) ): ?>
+			<?php if( isset( $poll->_id ) && !isset( $_GET['iframe']) ): ?>
 				<div class="inside">
 					<div id="edit-slug-box" style="margin-bottom:30px;">
 						<strong><?php _e( 'WordPress Shortcode:', 'polldaddy' ); ?></strong> 
