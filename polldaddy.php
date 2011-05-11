@@ -1863,7 +1863,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 		<div class="inside">
 
 			<ul class="pd-tabs">
-				<li class="selected" id="pd-styles"><a href="#"><?php _e( 'Default Polldaddy Styles', 'polldaddy' ); ?></a></li>
+				<li class="selected" id="pd-styles"><a href="#"><?php _e( 'Polldaddy Styles', 'polldaddy' ); ?></a></li>
 				<?php $hide = $show_custom == true ? ' style="display:block;"' : ' style="display:none;"'; ?>
 				<li id="pd-custom-styles" <?php echo $hide; ?>><a href="#"><?php _e( 'Custom Styles', 'polldaddy' ); ?></a></li>
 			
@@ -1873,7 +1873,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 			
 			
 				<?php if ( $iframe_view ) { ?>
-				<div id="design_standard" style="padding:0px;">
+				<div id="design_standard" style="padding:0px;padding-top:10px;">
 					<div class="hide-if-no-js">
 						<table class="pollStyle">
 							<thead>
@@ -1886,15 +1886,15 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 								</tr>
 							</thead>
 							<tr>
-								<td class="selector">
+								<td class="selector" style="width:120px;">
 									<table class="st_selector">
 										<tr>
-											<td class="dir_left">
-												<a href="javascript:pd_move('prev');" style="width: 1em;display: block;font-size: 4em;text-decoration: none;">&#171;</a>
+											<td class="dir_left" style="padding:0px;width:30px;">
+												<a href="javascript:pd_move('prev');" style="display: block;font-size: 3.2em;text-decoration: none;">&#171;</a>
 											</td>
 											<td class="img"><div class="st_image_loader"><div id="st_image" onmouseover="st_results(this, 'show');" onmouseout="st_results(this, 'hide');"></div></div></td>
-											<td class="dir_right">
-												<a href="javascript:pd_move('next');" style="width: 1em;display: block;font-size: 4em;text-decoration: none;">&#187;</a>
+											<td class="dir_right" style="padding:0px;width:30px;">
+												<a href="javascript:pd_move('next');" style="display: block;padding-left:20px;font-size: 3.2em;text-decoration: none;">&#187;</a>
 											</td>
 										</tr>
 										<tr>
@@ -1920,7 +1920,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 										</tr>
 										<tr>
 											<td colspan="3">
-												<div id="st_description"></div>
+												<div style="width:230px;" id="st_description"></div>
 											</td>
 										</tr>
 									</table>

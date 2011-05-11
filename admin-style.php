@@ -39,7 +39,15 @@
 	<?php if( isset( $_GET['iframe']) ):?>
 	h2#polldaddy-header, h2#poll-list-header{
 		background-position: 0px 0px;
+		margin-top: 20px;
 	}
+	
+	.pd-tabs li a{
+		font-size:11px !important;
+	}
+	
 	<?php endif; ?>
+	
+	
 	
 </style>
