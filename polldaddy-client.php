@@ -894,6 +894,46 @@ function sync_rating( ){
 		
 	}
 	
+	/* Add Media 
+	 * @param string $name PollDaddy media name
+	 * @param string $type PollDaddy media type
+	 * @param string $size PollDaddy media size
+	 * @param string $data PollDaddy media data
+	 * @return array|false PollDaddy Media or false on failure
+	 */
+
+    function upload_image( $name, $url, $type, $id = 0 ){
+
+	    $pos = $this->add_request( 'uploadimageurl', new PollDaddy_Media( compact( 'name', 'type', 'url'  ) , compact( 'id' ) ) );
+
+	    $this->send_request(30);
+
+	    $demand = $this->response_part( $pos );
+
+	    if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->media ) ){
+	        return $demand->media;
+	    }
+
+	    return false;
+    }
+    
+    function get_media( $id ){
+		if ( !$id = (int) $id )
+			return false;
+			
+	    $pos = $this->add_request( 'getmedia', new PollDaddy_Media( null, compact( 'id' ) ) );
+
+	    $this->send_request();
+
+	    $demand = $this->response_part( $pos );
+
+	    if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->media ) ){
+	        return $demand->media;
+	    }
+
+	    return false;
+    }
+	
 	function get_xml(){
 		return array( 'REQUEST' => $this->request_xml, 'RESPONSE' => $this->response_xml );
 	}

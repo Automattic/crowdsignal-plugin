@@ -161,6 +161,82 @@ jQuery(function ($) {
                 $('#cookieip_expiration').show();
             }
         });
+        var uploading = false;
+        function init() {
+        	$('.image').click(function() {
+	        	var media_id = $( this ).attr('id').replace('add_poll_image', '');
+				tb_show('Add an Image', 'media-upload.php?type=image&amp;&amp;polls_media=1TB_iframe=1');			
+				win.send_to_editor = function(html) {
+					var $h = $('<div/>').html(html);
+			 		url = $h.find('img').attr('src');
+					console.log( url );
+			 		tb_remove();
+			 		send_media( url, media_id );
+				}
+				return false;
+			});
+        	$('.video').click(function() {
+	        	var media_id = $( this ).attr('id').replace('add_poll_video', '');
+				tb_show('Add Video', 'media-upload.php?type=video&amp;tab=type_url&amp;polls_media=1&amp;TB_iframe=1');			
+				win.send_to_editor = function(shortcode) {
+			 		console.log( media_id + '::' + shortcode );
+			 		tb_remove();
+			 		add_media( media_id, shortcode, '<img height="16" width="16" src="http://i0.poll.fm/images/icon-report-ip-analysis.png" alt="Video Embed">' );
+				}
+				return false;
+			});
+        	$('.audio').click(function() {
+	        	var media_id = $( this ).attr('id').replace('add_poll_audio', '');
+				tb_show('Add Audio', 'media-upload.php?type=audio&amp;polls_media=1&amp;TB_iframe=1');			
+				win.send_to_editor = function(html) {
+					var $h = $('<div/>').html(html);
+			 		url = $h.find('a').attr('href');
+			 		console.log( url );
+			 		tb_remove();
+			 		send_media( url, media_id );
+				}
+				return false;
+			});
+        }
+        function send_media( url, media_id ) {
+			if ( uploading == true )
+				return false;
+				
+			uploading = true;
+			$('input[name="media\[' + media_id + '\]"]').parents('ul:first').find('.media-preview').addClass('st_image_loader');
+			
+			$( 'form[name=send-media] input[name=attach-id]' ).val( media_id );
+			$( 'form[name=send-media] input[name=url]' ).val( url );
+			$( 'form[name=send-media] input[name=action]' ).val( 'polls_upload_image' );
+			
+			$( 'form[name=send-media]' ).ajaxSubmit( function( response ) {
+				uploading = false;
+				response = response.replace( /<div.*/, '' );
+				if ( response.substr( 0, 4 ) == 'true' ) {
+					var parts = response.split( '||' );
+					console.log( parts );				
+					add_media( parts[4], parts[1], parts[2] );
+				}
+			} );
+			
+			return false;
+		}
+		function add_media( media_id, upload_id, img ) {
+			if (parseInt(upload_id) > 0) $('input[name="mediaType\[' + media_id + '\]"]').val(1);
+			else $('input[name="mediaType\[' + media_id + '\]"]').val(2);
+			
+			$('input[name="media\[' + media_id + '\]"]').val(upload_id);
+			$('input[name="media\[' + media_id + '\]"]').parents('ul:first').find('.media-preview').removeClass('st_image_loader');
+			$('input[name="media\[' + media_id + '\]"]').parents('ul:first').find('.media-preview').html(img);
+		};
+		
+		init();
+		
+		var api = {
+			add_media: add_media
+		};
+		
+		return api;
     }
 });
 

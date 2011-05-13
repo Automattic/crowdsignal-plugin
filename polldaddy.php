@@ -341,7 +341,7 @@ class WP_PollDaddy {
 
 		require_once WP_POLLDADDY__POLLDADDY_CLIENT_PATH;
 
-		wp_enqueue_script( 'polls', "{$this->base_url}polldaddy.js", array( 'jquery', 'jquery-ui-sortable' ), $this->version );
+		wp_enqueue_script( 'polls', "{$this->base_url}polldaddy.js", array( 'jquery', 'jquery-ui-sortable', 'jquery-form' ), $this->version );
 		wp_enqueue_script( 'polls-common', "{$this->base_url}common.js", array(), $this->version );
 
 		if ( $page == 'polls' ) {
@@ -353,6 +353,8 @@ class WP_PollDaddy {
 			case 'edit' :
 			case 'edit-poll' :
 			case 'create-poll' :
+			case 'add-media' :
+				wp_enqueue_script( 'media-upload', array(), $this->version );
 				wp_enqueue_script( 'polls-style', "http://i.polldaddy.com/js/poll-style-picker.js", array(), $this->version );
 
 				if ( $action == 'create-poll' )
@@ -609,6 +611,17 @@ class WP_PollDaddy {
 	
 				if ( $this->errors->get_error_codes() )
 					return false;
+					
+				$media = $mediaType = array();
+				if ( isset( $_POST['media'] ) ){
+					$media = $_POST['media'];	
+					unset( $_POST['media'] );
+				}
+
+				if ( isset( $_POST['mediaType'] ) ){
+					$mediaType = $_POST['mediaType'];
+					unset( $_POST['mediaType'] );
+				}
 	
 				$poll_data = get_object_vars( $poll_object );
 				foreach ( $poll_data as $key => $value )
@@ -642,11 +655,27 @@ class WP_PollDaddy {
 						$answer = wp_kses( $answer, $allowedtags );
 	
 						$args['text'] = (string) $answer;
+						
+						$answer_id = str_replace('new', '', $answer_id );
+						$mc = '';
+						$mt = 0;
+						
+						if( isset( $media[$answer_id] ) )
+							$mc = esc_html( $media[$answer_id] );
+						
+						if( isset( $mediaType[$answer_id] ) )
+							$mt = intval( $mediaType[$answer_id] );
+						
+						$args['mediaType'] = $mt;
+						$args['mediaCode'] = $mc;
 	
-						if ( is_numeric( $answer_id ) )
-							$answers[] = polldaddy_poll_answer( $args, $answer_id );
+						if ( $answer_id > 1000 )
+							$answer = polldaddy_poll_answer( $args, $answer_id );
 						else
-							$answers[] = polldaddy_poll_answer( $args );
+							$answer = polldaddy_poll_answer( $args );
+						
+						if( isset( $answer ) && is_a( $answer, 'PollDaddy_Poll_Answer' ) )
+							$answers[] = $answer;
 					}
 				}
 	
@@ -676,6 +705,12 @@ class WP_PollDaddy {
 					if ( isset( $_POST['cookieip_expiration'] ) )
 						$poll_data['blockExpiration'] = (int) $_POST['cookieip_expiration'];
 				}
+				
+				if( isset( $media[999999999] ) )
+					$poll_data['mediaCode'] = esc_html( $media[999999999] );
+				
+				if( isset( $mediaType[999999999] ) )
+					$poll_data['mediaType'] = intval( $mediaType[999999999] );
 	
 				$polldaddy->reset();
 	
@@ -701,17 +736,44 @@ class WP_PollDaddy {
 	
 				$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->user_code );
 				$polldaddy->reset();
+				
+				$media = $mediaType = array();
+				if ( isset( $_POST['media'] ) ){
+					$media = $_POST['media'];	
+					unset( $_POST['media'] );
+				}
+
+				if ( isset( $_POST['mediaType'] ) ){
+					$mediaType = $_POST['mediaType'];
+					unset( $_POST['mediaType'] );
+				}
 	
 				$answers = array();
 				foreach ( $_POST['answer'] as $answer ) {
 					$answer = stripslashes( trim( $answer ) );
 	
-					if ( strlen( $answer ) > 0 ) {
-						$answer = wp_kses( $answer, $allowedtags );
-	
+					if ( strlen( $answer ) > 0 ) {			
+						$answer = wp_kses( $answer, $allowedtags );		
+		
 						$args['text'] = (string) $answer;
-	
-						$answers[] = polldaddy_poll_answer( $args );
+						
+						$answer_id = str_replace('new', '', $answer_id );
+						$mc = '';
+						$mt = 0;
+						
+						if( isset( $media[$answer_id] ) )
+							$mc = esc_html( $media[$answer_id] );
+						
+						if( isset( $mediaType[$answer_id] ) )
+							$mt = intval( $mediaType[$answer_id] );
+						
+						$args['mediaType'] = $mt;
+						$args['mediaCode'] = $mc;
+		
+						$answer = polldaddy_poll_answer( $args );
+						
+						if( isset( $answer ) && is_a( $answer, 'PollDaddy_Poll_Answer' ) )
+							$answers[] = $answer;
 					}
 				}
 	
@@ -756,6 +818,12 @@ class WP_PollDaddy {
 					if ( isset( $_POST['cookieip_expiration'] ) )
 						$poll_data['blockExpiration'] = (int) $_POST['cookieip_expiration'];
 				}
+				
+				if( isset( $media[999999999] ) )
+					$poll_data['mediaCode'] = esc_html( $media[999999999] );
+				
+				if( isset( $mediaType[999999999] ) )
+					$poll_data['mediaType'] = intval( $mediaType[999999999] );
 	
 				$poll = $polldaddy->create_poll( $poll_data );
 				$this->parse_errors( $polldaddy );
@@ -1178,6 +1246,9 @@ class WP_PollDaddy {
 			case 'update-options' :
 				$this->plugin_options();
 				break;
+			case 'media-editor' :
+				$this->media_editor();
+				break;
 			default :
 
 ?>
@@ -1525,6 +1596,14 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 		
 ?>
 
+<form enctype="multipart/form-data" name="send-media" action="admin-ajax.php" method="post">
+	<?php wp_nonce_field( 'send-media' ); ?>
+	<input type="hidden" value="" name="action">
+	<input type="hidden" value="<?php echo $this->user_code; ?>" name="uc">
+	<input type="hidden" value="" name="attach-id">
+	<input type="hidden" value="" name="url">
+</form>
+
 <form action="" method="post">
 <div id="poststuff"><div id="post-body" class="has-sidebar has-right-sidebar">
 
@@ -1694,13 +1773,36 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 		<ul id="answers">
 <?php
 		$a = 0;
-		$answers = array();
-		if ( $is_POST && $_POST['answer'] ) {
+		$answers = $media = $mediaType = array();
+		if ( $is_POST && $_POST['answer'] ) {		
+			if ( isset( $_POST['mediaType'] ) )
+				$mediaType = $_POST['mediaType'];
+				
+			if ( isset( $_POST['media'] ) ){ 
+				$mc = $_POST['media'];
+				
+				foreach( $mc as $answer_id => $id ){
+					if ( $mediaType[$answer_id] == 1 ){
+						$media[$answer_id] = $polldaddy->get_media( $id );
+					}
+				}
+			}
+				
 			foreach ( $_POST['answer'] as $answer_id => $answer )
-				$answers[esc_attr( $answer_id )] = esc_attr( stripslashes( $answer ) );
+				$answers[attribute_escape($answer_id)] = attribute_escape( stripslashes($answer) );
 		} elseif ( isset( $poll->answers->answer ) ) {
-			foreach ( $poll->answers->answer as $answer )
-				$answers[(int) $answer->_id] = esc_attr( $answer->text );
+			foreach ( $poll->answers->answer as $answer ) {
+				$answers[(int) $answer->_id] = attribute_escape( $answer->text );
+				
+				if( $answer->mediaType == 1 && !empty( $answer->mediaCode ) ) {
+					$polldaddy->reset();
+					$media[$answer->_id] = $polldaddy->get_media( $answer->mediaCode );
+					$mediaType[$answer->_id] = 1;
+				}	
+				else if ( $answer->mediaType == 2 ) {
+					$mediaType[$answer->_id] = 2;
+				}				
+			}
 		}
 
 		foreach ( $answers as $answer_id => $answer ) :
@@ -1711,7 +1813,21 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 			<li>
 				<span class="handle" title="<?php echo esc_attr( 'click and drag to reorder' ); ?>"><img src="<?php echo $this->base_url; ?>img/icon-reorder.png" alt="click and drag to reorder" width="6" height="9" /></span>
 				<div><input type="text" autocomplete="off" placeholder="<?php _e( 'Enter an answer here', 'polldaddy' ); ?>" id="answer-<?php echo $answer_id; ?>" value="<?php echo $answer; ?>" tabindex="2" size="30" name="answer[<?php echo $answer_id; ?>]" /></div>
-				<a href="<?php echo $delete_link; ?>" class="delete-answer delete" title="<?php echo esc_attr( 'delete this answer' ); ?>"><img src="<?php echo $this->base_url; ?>img/icon-clear-search.png" width="16" height="16" /></a>
+				<span class="answer-options">
+					<ul class="nav-control">
+<?php		if ( $mediaType[$answer_id] == 2 ) { ?>
+						<li class="media-preview" style="width: 20px; height: 20px;padding: 0pt 0pt 5px;"><img height="16" width="16" src="http://i0.poll.fm/images/icon-report-ip-analysis.png" alt="Video Embed"></li>
+<?php 		} else { ?>
+						<li class="media-preview" style="width: 20px; height: 20px;padding: 0pt 0pt 5px;"><?php echo isset($media[$answer_id])?urldecode($media[$answer_id]->img_small):''; ?></li>
+<?php 		} ?>
+						<li style="padding: 0pt 5px 5px;"><a title="Add an Image" class="thickbox media image" id="add_poll_image<?php echo $answer_id; ?>" href="#"><img style="vertical-align:middle;" alt="Add an Image" src="images/media-button-image.gif"></a></a></li>
+						<li style="padding: 0pt 5px 5px;"><a title="Add Video" class="thickbox media video" id="add_poll_video<?php echo $answer_id; ?>" href="#"><img style="vertical-align:middle;" alt="Add Video" src="images/media-button-video.gif"></a></li>
+						<li style="padding: 0pt 5px 5px;"><a title="Add Audio" class="thickbox media audio" id="add_poll_audio<?php echo $answer_id; ?>" href="#"><img style="vertical-align:middle;" alt="Add Audio" src="images/media-button-music.gif"></a></li>
+						<li style="padding: 0pt 5px 5px;"><a href="<?php echo $delete_link; ?>" class="delete-answer delete" title="<?php echo esc_attr( 'delete this answer' ); ?>"><img src="<?php echo $this->base_url; ?>img/icon-clear-search.png" width="16" height="16" /></a></li>
+						<li><input type="hidden" value="<?php echo isset( $media[$answer_id] ) ? $media[$answer_id]->_id : ''; ?>" id="hMC<?php echo $answer_id; ?>" name="media[<?php echo $answer_id; ?>]"></li>
+						<li><input type="hidden" value="<?php echo isset( $mediaType[$answer_id] ) ? $mediaType[$answer_id] : ''; ?>" id="hMT<?php echo $answer_id; ?>" name="mediaType[<?php echo $answer_id; ?>]"></li>						
+					</ul>
+				</span>	
 			</li>
 
 <?php
@@ -1724,7 +1840,17 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 			<li>
 				<span class="handle" title="<?php echo esc_attr( 'click and drag to reorder' ); ?>"><img src="<?php echo $this->base_url; ?>img/icon-reorder.png" alt="click and drag to reorder" width="6" height="9" /></span>
 				<div><input type="text" autocomplete="off" placeholder="<?php _e( 'Enter an answer here', 'polldaddy' ); ?>" value="" tabindex="2" size="30" name="answer[new<?php echo $a; ?>]" /></div>
-				<a href="#" class="delete-answer delete" title="<?php echo esc_attr( 'delete this answer' ); ?>"><img src="<?php echo $this->base_url; ?>img/icon-clear-search.png" width="16" height="16" /></a>
+				<span class="answer-options">
+					<ul class="nav-control">
+						<li class="media-preview" style="width: 20px; height: 20px;padding: 0pt 0pt 5px;"></li>
+						<li style="padding: 0pt 5px 5px;"><a title="Add an Image" class="thickbox media image" id="add_poll_image<?php echo $a; ?>" href="#"><img style="vertical-align:middle;" alt="Add an Image" src="images/media-button-image.gif"></a></a></li>
+						<li style="padding: 0pt 5px 5px;"><a title="Add Video" class="thickbox media video" id="add_poll_video<?php echo $a; ?>" href="#"><img style="vertical-align:middle;" alt="Add Video" src="images/media-button-video.gif"></a></a></li>
+						<li style="padding: 0pt 5px 5px;"><a title="Add Audio" class="thickbox media audio" id="add_poll_audio<?php echo $a; ?>" href="#"><img style="vertical-align:middle;" alt="Add Audio" src="images/media-button-music.gif"></a></li>
+						<li style="padding: 0pt 5px 5px;"><a href="#" class="delete-answer delete" title="<?php echo esc_attr( 'delete this answer' ); ?>"><img src="<?php echo $this->base_url; ?>img/icon-clear-search.png" width="16" height="16" /></a></li>
+						<li><input type="hidden" value="" id="hMC<?php echo $a; ?>" name="media[<?php echo $a; ?>]"></li>
+						<li><input type="hidden" value="" id="hMT<?php echo $a; ?>" name="mediaType[<?php echo $a; ?>]"></li>								
+					</ul>
+				</span>
 			</li>
 
 <?php
@@ -4673,6 +4799,79 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 		return round( $number * $increments ) / $increments;
 	}
 
+	function media_editor()
+		{?>
+<div id="media-selector-body">
+	<div id="media-selector-tabs">
+		<ul>
+			<li class="first selected"><a href="#image">Upload</a></li>
+			<li class="middle"><a href="#embed">Media Embed</a></li>
+		</ul>
+		<br class="clear">
+	</div>
+
+	<div id="image" class="media-tab" style="display: block;">
+		<form enctype="multipart/form-data" action="admin-ajax.php" method="post">
+			<div class="action">
+				<input type="hidden" value="" name="nonce">
+				<input type="hidden" value="polls_upload_image" name="action">
+				<input type="hidden" value="<?php echo $this->user_code; ?>" name="uc">
+				<input type="hidden" value="<?php echo ( isset( $_REQUEST['a'] ) ? $_REQUEST['a'] : 0 ); ?>" name="attach-id">
+				<p>You can upload PNG, JPEG, and GIF images, and MP3 audio files.</p>
+				<div class="uploader">
+					<input type="file" name="upload">
+				</div>
+				<div style="padding-bottom: 9px; display: none;" class="uploader-info">
+					<img width="16" height="16" alt="loading" src="http://i0.poll.fm/images/ajax-loader-square.gif">
+
+					Uploading  <span></span>
+				</div>
+
+				<div class="clear"></div>
+
+				<div style="display: none;" class="file-error"></div>
+			</div>
+
+			<div class="media-actions">
+				<a class="upload" href="#"><span>Upload</span></a>
+				<a class="cancel" href="#"><span>Cancel</span></a>
+			</div>
+		</form>
+	</div>
+
+	<div style="display: none;" id="embed" class="media-tab">
+		<form enctype="multipart/form-data" action="/media/video" method="post">
+			<div class="action">
+				<p>Media link/embed code</p>
+				<p>
+					<textarea style="width: 95%;" cols="30" rows="2" name="embed"></textarea>
+					<small><a href="http://support.polldaddy.com/media-shortcodes/" target="_blank">Full list of shortcodes</a></small>
+				</p>
+
+				<input type="hidden" value="" name="nonce">
+
+				<div style="text-align: center; padding-bottom: 9px; display: none;" class="media-info">
+					<img width="16" height="16" alt="loading" src="http://i0.poll.fm/images/ajax-loader-square.gif">
+				</div>
+
+				<div style="display: none;" class="embed-error">Invalid embed code</div>
+			</div>
+
+			<div class="media-actions">
+				<a class="upload insert" href="#"><span>Insert</span></a>
+				<a class="cancel" href="#"><span>Cancel</span></a>
+			</div>
+		</form>
+	</div>
+</div>
+<script language="javascript">
+		jQuery( document ).ready(function(){
+			plugin = new Plugin();
+		});
+		</script>
+<?php
+	}
+
 	function signup() {
 		return $this->api_key_page();
 	}
@@ -4695,4 +4894,6 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 }
 
 require 'rating.php';
+require 'ajax.php';
+require 'popups.php';
 require 'polldaddy-org.php';

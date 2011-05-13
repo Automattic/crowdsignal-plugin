@@ -237,6 +237,7 @@ class PollDaddy_Demand extends PollDaddy_XML_Object {
 	var $rating;
 	var $nonce;
 	var $partner;
+	var $media;
 }
 
 class PollDaddy_Partner extends PollDaddy_XML_Object {
@@ -355,8 +356,6 @@ class PollDaddy_Poll_Answer extends PollDaddy_XML_Object {
 	var $_id;
 	var $_total;
 	var $_percent;
-	var $_mediaType; // old way
-	var $_mediaCode;  // old way
 	
 	var $___content;
 	
@@ -589,49 +588,67 @@ class PollDaddy_Email_Message extends PollDaddy_XML_Object {
 	var $groups;
 }
 
+class PollDaddy_Media extends PollDaddy_XML_Object {
+	var $___cdata = array( 'name', 'data', 'type', 'upload_result', 'img', 'img_small', 'url' );
+	var $___name = 'media';
+
+	var $_size;
+	var $_id;
+	
+	var $name;
+	var $type;
+	var $ext;
+	var $data;
+	var $upload_result;
+	var $img;
+	var $img_small;
+	var $url;
+}
+
 class PollDaddy_XML_Parser {
 	var $parser;
 	var $polldaddy_objects = array(
-		'http://api.polldaddy.com/pdapi.xsd:pdAccess' => 'PollDaddy_Access',
-		'http://api.polldaddy.com/pdapi.xsd:pdInitiate' => 'PollDaddy_Initiate',
-		'http://api.polldaddy.com/pdapi.xsd:pdRequest' => 'PollDaddy_Request',
-		'http://api.polldaddy.com/pdapi.xsd:pdResponse' => 'PollDaddy_Response',
-		'http://api.polldaddy.com/pdapi.xsd:errors' => 'PollDaddy_Errors',
-		'http://api.polldaddy.com/pdapi.xsd:error' => 'PollDaddy_Error',
-		'http://api.polldaddy.com/pdapi.xsd:demands' => 'PollDaddy_Demands',
-		'http://api.polldaddy.com/pdapi.xsd:demand' => 'PollDaddy_Demand',
-		'http://api.polldaddy.com/pdapi.xsd:queries' => 'PollDaddy_Queries',
-		'http://api.polldaddy.com/pdapi.xsd:query' => 'PollDaddy_Query',
-		'http://api.polldaddy.com/pdapi.xsd:account' => 'PollDaddy_Account',
-		'http://api.polldaddy.com/pdapi.xsd:list' => 'PollDaddy_List',
-		'http://api.polldaddy.com/pdapi.xsd:polls' => 'PollDaddy_Polls',
-		'http://api.polldaddy.com/pdapi.xsd:search' => 'PollDaddy_Search',
-		'http://api.polldaddy.com/pdapi.xsd:poll' => 'PollDaddy_Poll',
-		'http://api.polldaddy.com/pdapi.xsd:emailAddress' => 'PollDaddy_Email',
-		'http://api.polldaddy.com/pdapi.xsd:message' => 'PollDaddy_Email_Message',
-		'http://api.polldaddy.com/pdapi.xsd:answers' => 'PollDaddy_Poll_Answers',
-		'http://api.polldaddy.com/pdapi.xsd:answer' => 'PollDaddy_Poll_Answer',
-		'http://api.polldaddy.com/pdapi.xsd:otherAnswers' => 'PollDaddy_Other_Answers',
-		'http://api.polldaddy.com/pdapi.xsd:result' => 'PollDaddy_Poll_Result',
-		'http://api.polldaddy.com/pdapi.xsd:comments' => 'PollDaddy_Comments',
-		'http://api.polldaddy.com/pdapi.xsd:comment' => 'PollDaddy_Comment',
-		'http://api.polldaddy.com/pdapi.xsd:extensions' => 'PollDaddy_Extensions',
-		'http://api.polldaddy.com/pdapi.xsd:folders' => 'PollDaddy_Folders',
-		'http://api.polldaddy.com/pdapi.xsd:folder' => 'PollDaddy_Folder',
-		'http://api.polldaddy.com/pdapi.xsd:styles' => 'PollDaddy_Styles',
-		'http://api.polldaddy.com/pdapi.xsd:style' => 'PollDaddy_Style',
-		'http://api.polldaddy.com/pdapi.xsd:packs' => 'PollDaddy_Packs',
-		'http://api.polldaddy.com/pdapi.xsd:pack' => 'PollDaddy_Pack',
-		'http://api.polldaddy.com/pdapi.xsd:languages' => 'PollDaddy_Languages',
-		'http://api.polldaddy.com/pdapi.xsd:language' => 'PollDaddy_Language',
-		'http://api.polldaddy.com/pdapi.xsd:activity' => 'PollDaddy_Activity',
-		'pack' => 'Custom_Pack',
-		'phrase' => 'Custom_Pack_Phrase',
+		'http://api.polldaddy.com/pdapi.xsd:pdAccess'      => 'PollDaddy_Access',
+		'http://api.polldaddy.com/pdapi.xsd:pdInitiate'    => 'PollDaddy_Initiate',
+		'http://api.polldaddy.com/pdapi.xsd:pdRequest'     => 'PollDaddy_Request',
+		'http://api.polldaddy.com/pdapi.xsd:pdResponse'    => 'PollDaddy_Response',
+		'http://api.polldaddy.com/pdapi.xsd:errors'        => 'PollDaddy_Errors',
+		'http://api.polldaddy.com/pdapi.xsd:error'         => 'PollDaddy_Error',
+		'http://api.polldaddy.com/pdapi.xsd:demands'       => 'PollDaddy_Demands',
+		'http://api.polldaddy.com/pdapi.xsd:demand'        => 'PollDaddy_Demand',
+		'http://api.polldaddy.com/pdapi.xsd:queries'       => 'PollDaddy_Queries',
+		'http://api.polldaddy.com/pdapi.xsd:query'         => 'PollDaddy_Query',
+		'http://api.polldaddy.com/pdapi.xsd:account'       => 'PollDaddy_Account',
+		'http://api.polldaddy.com/pdapi.xsd:list'          => 'PollDaddy_List',
+		'http://api.polldaddy.com/pdapi.xsd:polls'         => 'PollDaddy_Polls',
+		'http://api.polldaddy.com/pdapi.xsd:search'        => 'PollDaddy_Search',
+		'http://api.polldaddy.com/pdapi.xsd:poll'          => 'PollDaddy_Poll',
+		'http://api.polldaddy.com/pdapi.xsd:emailAddress'  => 'PollDaddy_Email',
+		'http://api.polldaddy.com/pdapi.xsd:message'       => 'PollDaddy_Email_Message',
+		'http://api.polldaddy.com/pdapi.xsd:answers'       => 'PollDaddy_Poll_Answers',
+		'http://api.polldaddy.com/pdapi.xsd:answer'        => 'PollDaddy_Poll_Answer',
+		'http://api.polldaddy.com/pdapi.xsd:otherAnswers'  => 'PollDaddy_Other_Answers',
+		'http://api.polldaddy.com/pdapi.xsd:result'        => 'PollDaddy_Poll_Result',
+		'http://api.polldaddy.com/pdapi.xsd:comments'      => 'PollDaddy_Comments',
+		'http://api.polldaddy.com/pdapi.xsd:comment'       => 'PollDaddy_Comment',
+		'http://api.polldaddy.com/pdapi.xsd:extensions'    => 'PollDaddy_Extensions',
+		'http://api.polldaddy.com/pdapi.xsd:folders'       => 'PollDaddy_Folders',
+		'http://api.polldaddy.com/pdapi.xsd:folder'        => 'PollDaddy_Folder',
+		'http://api.polldaddy.com/pdapi.xsd:styles'        => 'PollDaddy_Styles',
+		'http://api.polldaddy.com/pdapi.xsd:style'         => 'PollDaddy_Style',
+		'http://api.polldaddy.com/pdapi.xsd:packs'         => 'PollDaddy_Packs',
+		'http://api.polldaddy.com/pdapi.xsd:pack'          => 'PollDaddy_Pack',
+		'http://api.polldaddy.com/pdapi.xsd:languages'     => 'PollDaddy_Languages',
+		'http://api.polldaddy.com/pdapi.xsd:language'      => 'PollDaddy_Language',
+		'http://api.polldaddy.com/pdapi.xsd:activity'      => 'PollDaddy_Activity',
 		'http://api.polldaddy.com/pdapi.xsd:rating_result' => 'PollDaddy_Rating_Result',
-		'http://api.polldaddy.com/pdapi.xsd:ratings' => 'PollDaddy_Ratings',
-		'http://api.polldaddy.com/pdapi.xsd:rating' => 'PollDaddy_Rating',
-		'http://api.polldaddy.com/pdapi.xsd:nonce' => 'PollDaddy_Nonce',
-		'http://api.polldaddy.com/pdapi.xsd:partner' => 'PollDaddy_Partner'
+		'http://api.polldaddy.com/pdapi.xsd:ratings'       => 'PollDaddy_Ratings',
+		'http://api.polldaddy.com/pdapi.xsd:rating'        => 'PollDaddy_Rating',
+		'http://api.polldaddy.com/pdapi.xsd:nonce'         => 'PollDaddy_Nonce',
+		'http://api.polldaddy.com/pdapi.xsd:partner'       => 'PollDaddy_Partner',
+		'http://api.polldaddy.com/pdapi.xsd:media'         => 'PollDaddy_Media',
+		'pack'                                             => 'Custom_Pack',
+		'phrase'                                           => 'Custom_Pack_Phrase'
 	);// the parser matches the tag names to the class name and creates an object defined by that class
 
 	var $object_stack = array();
