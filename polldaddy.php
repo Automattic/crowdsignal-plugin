@@ -1811,10 +1811,19 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 ?>
 
 			<li>
-				<span class="handle" title="<?php echo esc_attr( 'click and drag to reorder' ); ?>"><img src="<?php echo $this->base_url; ?>img/icon-reorder.png" alt="click and drag to reorder" width="6" height="9" /></span>
-				<div><input type="text" autocomplete="off" placeholder="<?php _e( 'Enter an answer here', 'polldaddy' ); ?>" id="answer-<?php echo $answer_id; ?>" value="<?php echo $answer; ?>" tabindex="2" size="30" name="answer[<?php echo $answer_id; ?>]" /></div>
-				<span class="answer-options">
-					<ul class="answer-media">
+				
+			
+				<table class="answer">
+					
+						<tr>
+							<th>
+								<span class="handle" title="<?php echo esc_attr( 'click and drag to reorder' ); ?>"><img src="<?php echo $this->base_url; ?>img/icon-reorder.png" alt="click and drag to reorder" width="6" height="9" /></span>
+							</th>
+							<td class="answer-input">
+								<input type="text" autocomplete="off" placeholder="<?php _e( 'Enter an answer here', 'polldaddy' ); ?>" id="answer-<?php echo $answer_id; ?>" value="<?php echo $answer; ?>" tabindex="2" size="30" name="answer[<?php echo $answer_id; ?>]" />
+							</td>
+							<td class="answer-media-icons">
+							<ul class="answer-media">
 <?php		if ( $mediaType[$answer_id] == 2 ) { ?>
 						<li class="media-preview" style="width: 20px; height: 16px;"><img height="16" width="16" src="http://i0.poll.fm/images/icon-report-ip-analysis.png" alt="Video Embed"></li>
 <?php 		} else { ?>
@@ -1824,11 +1833,18 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 						<li><a title="Add Video" class="thickbox media video" id="add_poll_video<?php echo $answer_id; ?>" href="#"><img style="vertical-align:middle;" alt="Add Video" src="images/media-button-video.gif"></a></li>
 						<li><a title="Add Audio" class="thickbox media audio" id="add_poll_audio<?php echo $answer_id; ?>" href="#"><img style="vertical-align:middle;" alt="Add Audio" src="images/media-button-music.gif"></a></li>
 						<li><a href="<?php echo $delete_link; ?>" class="delete-answer delete" title="<?php echo esc_attr( 'delete this answer' ); ?>"><img src="<?php echo $this->base_url; ?>img/icon-clear-search.png" width="16" height="16" /></a></li>
-						<li><input type="hidden" value="<?php echo isset( $media[$answer_id] ) ? $media[$answer_id]->_id : ''; ?>" id="hMC<?php echo $answer_id; ?>" name="media[<?php echo $answer_id; ?>]"></li>
-						<li><input type="hidden" value="<?php echo isset( $mediaType[$answer_id] ) ? $mediaType[$answer_id] : ''; ?>" id="hMT<?php echo $answer_id; ?>" name="mediaType[<?php echo $answer_id; ?>]"></li>						
+					
 					</ul>
-				</span>	
-			</li>
+					
+						<input type="hidden" value="<?php echo isset( $media[$answer_id] ) ? $media[$answer_id]->_id : ''; ?>" id="hMC<?php echo $answer_id; ?>" name="media[<?php echo $answer_id; ?>]">
+						<input type="hidden" value="<?php echo isset( $mediaType[$answer_id] ) ? $mediaType[$answer_id] : ''; ?>" id="hMT<?php echo $answer_id; ?>" name="mediaType[<?php echo $answer_id; ?>]">					
+
+							</td>
+						</tr>
+					</table>		
+							
+				
+								</li>
 
 <?php
 		endforeach;
