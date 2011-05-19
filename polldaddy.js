@@ -169,8 +169,7 @@ jQuery(function ($) {
 				win.send_to_editor = function(html) {
 					var $h = $('<div/>').html(html);
 			 		url = $h.find('img').attr('src');
-					console.log( url );
-			 		tb_remove();
+								 		tb_remove();
 			 		send_media( url, media_id );
 				}
 				return false;
@@ -179,7 +178,7 @@ jQuery(function ($) {
 	        	var media_id = $( this ).attr('id').replace('add_poll_video', '');
 				tb_show('Add Video', 'media-upload.php?type=video&amp;tab=type_url&amp;polls_media=1&amp;TB_iframe=1');			
 				win.send_to_editor = function(shortcode) {
-			 		console.log( media_id + '::' + shortcode );
+			 		
 			 		tb_remove();
 			 		add_media( media_id, shortcode, '<img height="16" width="16" src="http://i0.poll.fm/images/icon-report-ip-analysis.png" alt="Video Embed">' );
 				}
@@ -191,7 +190,7 @@ jQuery(function ($) {
 				win.send_to_editor = function(html) {
 					var $h = $('<div/>').html(html);
 			 		url = $h.find('a').attr('href');
-			 		console.log( url );
+			 		
 			 		tb_remove();
 			 		send_media( url, media_id );
 				}
@@ -203,7 +202,7 @@ jQuery(function ($) {
 				return false;
 				
 			uploading = true;
-			$('input[name="media\[' + media_id + '\]"]').parents('ul:first').find('.media-preview').addClass('st_image_loader');
+			$('input[name="media\[' + media_id + '\]"]').parents('td').find('.media-preview').addClass('st_image_loader');
 			
 			$( 'form[name=send-media] input[name=attach-id]' ).val( media_id );
 			$( 'form[name=send-media] input[name=url]' ).val( url );
@@ -212,9 +211,11 @@ jQuery(function ($) {
 			$( 'form[name=send-media]' ).ajaxSubmit( function( response ) {
 				uploading = false;
 				response = response.replace( /<div.*/, '' );
+				
+				
 				if ( response.substr( 0, 4 ) == 'true' ) {
 					var parts = response.split( '||' );
-					console.log( parts );				
+									
 					add_media( parts[4], parts[1], parts[2] );
 				}
 			} );

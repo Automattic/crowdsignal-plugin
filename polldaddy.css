@@ -194,6 +194,43 @@ input#shortcode-field{
 	vertical-align: middle;
 }
 
+.answer-media{
+	
+}
+
+.answer-media li{
+	padding-right: 10px;
+	margin-bottom: 0px;
+	float: left;
+}
+
+.answer-media li:last-of-type{
+	padding-right: 0px;
+}
+
+.delete-answer{
+	width: 20px;
+	display: block;
+}
+
+table.answer{
+	width: 100%;
+}
+
+table.answer th{
+	width:16px;
+}
+
+table.answer td.answer-input{
+}
+
+table.answer td.answer-media-icons{
+	width: 130px !important;
+}
+
+table.answer td.answer-media-icons ul{
+	min-width: 130px;
+}
 
 
 /* OLD STYLES, PRE-1.9 ------------------------------------------------------------
@@ -221,12 +258,8 @@ table.poll-others{margin-top:1.5em;}
 table.poll-others .column-vote{min-width:50%;} 
 ul#answers,ul.poll-options{list-style:none;padding:0;} 
 ul#answers li{position:relative;} 
-ul#answers li div{border:1px solid #ccc;padding:2px 3px;margin:0 20px;}
-ul#answers li span.handle{position:absolute;left:0;top:7px;width:18px;height:100%;cursor:move;text-align:center;line-height:1.8em;} 
-ul#answers li:hover span.handle{display:block;} 
-ul#answers li a.delete{display:block;position:absolute;top:4px;right:0;width:18px;height:100%;text-align:center;line-height:1.8em;} 
-ul#answers li a.delete:hover{} 
-ul#answers input{padding:0;width:100%;border:none;} 
+ul#answers li span.handle{width:18px;height:100%;cursor:move;text-align:center;line-height:1.8em;} 
+ul#answers input{padding:0;border:none;float:left;margin-right: 0px; width:100%;border:1px solid #ccc;padding:2px 3px;margin-left: 3px;} 
 p.submit input{padding:6px;} 
 p#add-answer-holder{display:none;text-align:left;padding-left:10px;} 
 .inner-sidebar-ratings{clear:right;float:right;position:relative;width:281px;} 

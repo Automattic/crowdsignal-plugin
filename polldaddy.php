@@ -1814,16 +1814,16 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 				<span class="handle" title="<?php echo esc_attr( 'click and drag to reorder' ); ?>"><img src="<?php echo $this->base_url; ?>img/icon-reorder.png" alt="click and drag to reorder" width="6" height="9" /></span>
 				<div><input type="text" autocomplete="off" placeholder="<?php _e( 'Enter an answer here', 'polldaddy' ); ?>" id="answer-<?php echo $answer_id; ?>" value="<?php echo $answer; ?>" tabindex="2" size="30" name="answer[<?php echo $answer_id; ?>]" /></div>
 				<span class="answer-options">
-					<ul class="nav-control">
+					<ul class="answer-media">
 <?php		if ( $mediaType[$answer_id] == 2 ) { ?>
-						<li class="media-preview" style="width: 20px; height: 20px;padding: 0pt 0pt 5px;"><img height="16" width="16" src="http://i0.poll.fm/images/icon-report-ip-analysis.png" alt="Video Embed"></li>
+						<li class="media-preview" style="width: 20px; height: 16px;"><img height="16" width="16" src="http://i0.poll.fm/images/icon-report-ip-analysis.png" alt="Video Embed"></li>
 <?php 		} else { ?>
-						<li class="media-preview" style="width: 20px; height: 20px;padding: 0pt 0pt 5px;"><?php echo isset($media[$answer_id])?urldecode($media[$answer_id]->img_small):''; ?></li>
+						<li class="media-preview" style="width: 20px; height: 16px;"><?php echo isset($media[$answer_id])?urldecode($media[$answer_id]->img_small):''; ?></li>
 <?php 		} ?>
-						<li style="padding: 0pt 5px 5px;"><a title="Add an Image" class="thickbox media image" id="add_poll_image<?php echo $answer_id; ?>" href="#"><img style="vertical-align:middle;" alt="Add an Image" src="images/media-button-image.gif"></a></a></li>
-						<li style="padding: 0pt 5px 5px;"><a title="Add Video" class="thickbox media video" id="add_poll_video<?php echo $answer_id; ?>" href="#"><img style="vertical-align:middle;" alt="Add Video" src="images/media-button-video.gif"></a></li>
-						<li style="padding: 0pt 5px 5px;"><a title="Add Audio" class="thickbox media audio" id="add_poll_audio<?php echo $answer_id; ?>" href="#"><img style="vertical-align:middle;" alt="Add Audio" src="images/media-button-music.gif"></a></li>
-						<li style="padding: 0pt 5px 5px;"><a href="<?php echo $delete_link; ?>" class="delete-answer delete" title="<?php echo esc_attr( 'delete this answer' ); ?>"><img src="<?php echo $this->base_url; ?>img/icon-clear-search.png" width="16" height="16" /></a></li>
+						<li><a title="Add an Image" class="thickbox media image" id="add_poll_image<?php echo $answer_id; ?>" href="#"><img style="vertical-align:middle;" alt="Add an Image" src="images/media-button-image.gif"></a></a></li>
+						<li><a title="Add Video" class="thickbox media video" id="add_poll_video<?php echo $answer_id; ?>" href="#"><img style="vertical-align:middle;" alt="Add Video" src="images/media-button-video.gif"></a></li>
+						<li><a title="Add Audio" class="thickbox media audio" id="add_poll_audio<?php echo $answer_id; ?>" href="#"><img style="vertical-align:middle;" alt="Add Audio" src="images/media-button-music.gif"></a></li>
+						<li><a href="<?php echo $delete_link; ?>" class="delete-answer delete" title="<?php echo esc_attr( 'delete this answer' ); ?>"><img src="<?php echo $this->base_url; ?>img/icon-clear-search.png" width="16" height="16" /></a></li>
 						<li><input type="hidden" value="<?php echo isset( $media[$answer_id] ) ? $media[$answer_id]->_id : ''; ?>" id="hMC<?php echo $answer_id; ?>" name="media[<?php echo $answer_id; ?>]"></li>
 						<li><input type="hidden" value="<?php echo isset( $mediaType[$answer_id] ) ? $mediaType[$answer_id] : ''; ?>" id="hMT<?php echo $answer_id; ?>" name="mediaType[<?php echo $answer_id; ?>]"></li>						
 					</ul>
@@ -1838,19 +1838,37 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 ?>
 
 			<li>
-				<span class="handle" title="<?php echo esc_attr( 'click and drag to reorder' ); ?>"><img src="<?php echo $this->base_url; ?>img/icon-reorder.png" alt="click and drag to reorder" width="6" height="9" /></span>
-				<div><input type="text" autocomplete="off" placeholder="<?php _e( 'Enter an answer here', 'polldaddy' ); ?>" value="" tabindex="2" size="30" name="answer[new<?php echo $a; ?>]" /></div>
-				<span class="answer-options">
-					<ul class="nav-control">
-						<li class="media-preview" style="width: 20px; height: 20px;padding: 0pt 0pt 5px;"></li>
-						<li style="padding: 0pt 5px 5px;"><a title="Add an Image" class="thickbox media image" id="add_poll_image<?php echo $a; ?>" href="#"><img style="vertical-align:middle;" alt="Add an Image" src="images/media-button-image.gif"></a></a></li>
-						<li style="padding: 0pt 5px 5px;"><a title="Add Video" class="thickbox media video" id="add_poll_video<?php echo $a; ?>" href="#"><img style="vertical-align:middle;" alt="Add Video" src="images/media-button-video.gif"></a></a></li>
-						<li style="padding: 0pt 5px 5px;"><a title="Add Audio" class="thickbox media audio" id="add_poll_audio<?php echo $a; ?>" href="#"><img style="vertical-align:middle;" alt="Add Audio" src="images/media-button-music.gif"></a></li>
-						<li style="padding: 0pt 5px 5px;"><a href="#" class="delete-answer delete" title="<?php echo esc_attr( 'delete this answer' ); ?>"><img src="<?php echo $this->base_url; ?>img/icon-clear-search.png" width="16" height="16" /></a></li>
-						<li><input type="hidden" value="" id="hMC<?php echo $a; ?>" name="media[<?php echo $a; ?>]"></li>
-						<li><input type="hidden" value="" id="hMT<?php echo $a; ?>" name="mediaType[<?php echo $a; ?>]"></li>								
-					</ul>
-				</span>
+				<table class="answer">
+					
+						<tr>
+							<th>
+								<span class="handle" title="<?php echo esc_attr( 'click and drag to reorder' ); ?>"><img src="<?php echo $this->base_url; ?>img/icon-reorder.png" alt="click and drag to reorder" width="6" height="9" /></span>
+							</th>
+							<td class="answer-input">
+								<input type="text" autocomplete="off" placeholder="<?php _e( 'Enter an answer here', 'polldaddy' ); ?>" value="" tabindex="2" size="30" name="answer[new<?php echo $a; ?>]" />
+							</td>
+							<td class="answer-media-icons">
+								<ul class="answer-media">
+									<li class="media-preview" style="width: 20px; height: 16px;"></li>
+									<li><a title="Add an Image" class="thickbox media image" id="add_poll_image<?php echo $a; ?>" href="#"><img style="vertical-align:middle;" alt="Add an Image" src="images/media-button-image.gif"></a></a></li>
+									<li><a title="Add Video" class="thickbox media video" id="add_poll_video<?php echo $a; ?>" href="#"><img style="vertical-align:middle;" alt="Add Video" src="images/media-button-video.gif"></a></a></li>
+									<li><a title="Add Audio" class="thickbox media audio" id="add_poll_audio<?php echo $a; ?>" href="#"><img style="vertical-align:middle;" alt="Add Audio" src="images/media-button-music.gif"></a></li>
+									<li><a href="#" class="delete-answer delete" title="<?php echo esc_attr( 'delete this answer' ); ?>"><img src="<?php echo $this->base_url; ?>img/icon-clear-search.png" width="16" height="16" /></a></li>
+								</ul>
+								
+									<input type="hidden" value="" id="hMC<?php echo $a; ?>" name="media[<?php echo $a; ?>]">
+									<input type="hidden" value="" id="hMT<?php echo $a; ?>" name="mediaType[<?php echo $a; ?>]">
+								
+							</td>						
+						</tr>
+					
+				
+				</table>
+				
+					
+				
+		
+					
 			</li>
 
 <?php
