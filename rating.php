@@ -42,9 +42,9 @@ function polldaddy_show_rating( $content ) {
 
 				if ( is_page() ) {
 					$rating_pos = (int) get_option( 'pd-rating-pages-pos' );
-				} else if ( is_home() ) {
-						$rating_pos = (int) get_option( 'pd-rating-posts-index-pos' );
-					} else {
+				} elseif ( is_home() ) {
+					$rating_pos = (int) get_option( 'pd-rating-posts-index-pos' );
+				} else {
 					$rating_pos = (int) get_option( 'pd-rating-posts-pos' );
 				}
 
@@ -83,27 +83,27 @@ function polldaddy_get_rating_html( $condition = '' ) {
 					$rating_id = (int) get_option( 'pd-rating-pages-id' );
 				}
 			}
-		} else if ( !in_array( $post->ID, $exclude_posts ) ) {
-				$unique_id = 'wp-post-' . $post->ID;
-				$item_id =  '_post_' . $post->ID;
-				if ( is_home() ) {
-					if ( $condition == 'check-options' ) {
-						if ( (int) get_option( 'pd-rating-posts-index' ) > 0 ) {
-							$rating_id = (int) get_option( 'pd-rating-posts-id' );
-						}
-					} else {
+		} elseif ( !in_array( $post->ID, $exclude_posts ) ) {
+			$unique_id = 'wp-post-' . $post->ID;
+			$item_id =  '_post_' . $post->ID;
+			if ( is_home() ) {
+				if ( $condition == 'check-options' ) {
+					if ( (int) get_option( 'pd-rating-posts-index' ) > 0 ) {
 						$rating_id = (int) get_option( 'pd-rating-posts-id' );
 					}
 				} else {
-					if ( $condition == 'check-options' ) {
-						if ( (int) get_option( 'pd-rating-posts' ) > 0 ) {
-							$rating_id = (int) get_option( 'pd-rating-posts-id' );
-						}
-					} else {
+					$rating_id = (int) get_option( 'pd-rating-posts-id' );
+				}
+			} else {
+				if ( $condition == 'check-options' ) {
+					if ( (int) get_option( 'pd-rating-posts' ) > 0 ) {
 						$rating_id = (int) get_option( 'pd-rating-posts-id' );
 					}
+				} else {
+					$rating_id = (int) get_option( 'pd-rating-posts-id' );
 				}
 			}
+		}
 
 		if ( $rating_id > 0 ) {
 			$title = apply_filters( 'wp_title', $post->post_title );

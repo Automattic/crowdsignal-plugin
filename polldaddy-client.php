@@ -6,25 +6,22 @@ class api_client {
 	var $polldaddy_url = 'http://api.polldaddy.com/';
 	var $partnerGUID;
 	var $userCode;
-	var $admin = 0;
-	var $version = '1.0';
-
-	var $request = null;
-	var $response = null;
-	var $request_xml = '';
-	var $response_xml = '';	
-	
-	var $requests = array();
-	var $responses = array();
-
-	var $errors = array();
+	var $admin        = 0;
+	var $version      = '1.0';
+	var $request      = null;
+	var $response     = null;
+	var $request_xml  = '';
+	var $response_xml = '';
+	var $requests     = array();
+	var $responses    = array();
+	var $errors       = array();
 
 	function api_client( $partnerGUID = '', $userCode = null ) {
 		$this->partnerGUID = $partnerGUID;
 		$this->userCode = $userCode;
 	}
 
-	function send_request() {
+	function send_request( $timeout = 3 ) {
 		$this->request_xml  = "<?xml version='1.0' encoding='utf-8' ?>\n";
 		$this->request_xml .= $this->request->xml( 'all' );
 		
@@ -34,6 +31,7 @@ class api_client {
 			$response = wp_remote_post( $this->polldaddy_url, array(
 				'headers' => array( 'Content-Type' => 'text/xml; charset=utf-8', 'Content-Length' => strlen( $this->request_xml ) ),
 				'user-agent' => 'PollDaddy PHP Client/0.1',
+				'timeout' => $timeout,
 				'body' => $this->request_xml
 			) );
 			if ( !$response || is_wp_error( $response ) ) {
@@ -54,7 +52,7 @@ class api_client {
 				$parsed['scheme'] == 'ssl' || $parsed['scheme'] == 'https' && extension_loaded('openssl') ? 443 : 80,
 				$err_num,
 				$err_str,
-				3
+				$timeout
 			);
 
 			if ( !$fp ) {
@@ -63,7 +61,7 @@ class api_client {
 			}
 
 			if ( function_exists( 'stream_set_timeout' ) )
-				stream_set_timeout( $fp, 3 );
+				stream_set_timeout( $fp, $timeout );
 
 			if ( !isset( $parsed['path']) || !$path = $parsed['path'] . ( isset($parsed['query']) ? '?' . $parsed['query'] : '' ) )
 				$path = '/';
@@ -92,6 +90,7 @@ class api_client {
 		$this->responses[] = $this->response_xml;
 
 		$parser = new PollDaddy_XML_Parser( $this->response_xml );
+		
 		$this->response =& $parser->objects[0];
 		if ( isset( $this->response->errors->error ) ) {
 			if ( !is_array( $this->response->errors->error ) )
@@ -141,11 +140,15 @@ class api_client {
 	}
 
 	function reset() {
-		$this->request = null;
-		$this->response = null;
-		$this->request_xml = '';
-		$this->response_xml = '';
-		$this->errors = array();
+		$this->request       = null;
+		$this->response      = null;
+		$this->request_data  = '';
+		$this->response_data = '';
+		$this->request_xml   = '';
+		$this->response_xml  = '';
+		$this->request_json  = '';
+		$this->response_json = '';
+		$this->errors        = array();
 	}
 
 /* pdInitiate: Initiate API "connection" */
@@ -778,7 +781,7 @@ function sync_rating( ){
 
 //		$pos = $this->add_request( __FUNCTION__, $style );
 		$pos = $this->add_request( 'updatestyle', $style );
-		$this->send_request();
+		$this->send_request(30);
 		if ( !$demand = $this->response_part( $pos ) )
 			return $demand;
 		if ( !isset( $demand->style ) )
