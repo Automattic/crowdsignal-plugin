@@ -115,57 +115,26 @@ jQuery(function ($) {
 			$( this ).closest('tr').prev('tr').show();        	
         
         });
+                
+        $( '.pd-tabs a' ).click( function(){
+			if( !jQuery( this ).closest('li').hasClass( 'selected' ) ){
+
+				jQuery( '.pd-tabs li' ).removeClass( 'selected' );
+				jQuery( this ).closest( 'li' ).addClass( 'selected' );
+
+				jQuery( '.pd-tab-panel' ).removeClass( 'show' );
+				jQuery( '.pd-tab-panel#' + $( this ).closest( 'li' ).attr( 'id' ) + '-panel' ).addClass( 'show' );
+			}
+		} );
         var hiddenStyleID = $(':input[name=styleID]');
         var customStyle = $(':input[name=customSelect]');
         var customStyleVal = parseInt(customStyle.val());
         
         if (customStyleVal > 0) {
-            $('#design_standard').hide();
-            $('#design_custom').show();
-            $('.polldaddy-show-design-options').html( opts.standard_styles );
-            hiddenStyleID.val(customStyleVal.toString());
-            $('.polldaddy-show-design-options').toggle(function () {
-                $('#design_custom').hide();
-                $('#design_standard').fadeIn();
-                $('.polldaddy-show-design-options').html( opts.custom_styles );
-                hiddenStyleID.val('x');
-                return false;
-            }, function () {
-                $('#design_standard').hide();
-                $('#design_custom').fadeIn();
-                $('.polldaddy-show-design-options').html( opts.standard_styles );
-                var customStyle = $(':input[name=customSelect]');
-                var customStyleVal = parseInt(customStyle.val());
-                if (customStyleVal > 0) {
-                    hiddenStyleID.val(customStyleVal.toString());
-                } else {
-                    hiddenStyleID.val('x');
-                }
-                return false;
-            });
-        } else {
-            $('#design_custom').hide();
-            $('#design_standard').show();
-            $('.polldaddy-show-design-options').toggle(function () {
-                $('#design_standard').hide();
-                $('#design_custom').fadeIn();
-                $('.polldaddy-show-design-options').html( opts.standard_styles );
-                var customStyle = $(':input[name=customSelect]');
-                var customStyleVal = parseInt(customStyle.val());
-                if (customStyleVal > 0) {
-                    hiddenStyleID.val(customStyleVal.toString());
-                } else {
-                    hiddenStyleID.val('x');
-                }
-                return false;
-            }, function () {
-                $('#design_custom').hide();
-                $('#design_standard').fadeIn();
-                $('.polldaddy-show-design-options').html( opts.custom_styles );
-                hiddenStyleID.val('x');
-                return false;
-            });
-        }
+        	hiddenStyleID.val(customStyleVal.toString());
+		    $( '#pd-custom-styles a' ).click();           
+        } 
+
         $("#multipleChoice").click(function () {
             if ($("#multipleChoice").is(":checked")) {
                 $("#numberChoices").show("fast");

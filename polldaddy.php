@@ -6,7 +6,7 @@ Plugin URI: http://wordpress.org/extend/plugins/polldaddy/
 Description: Create and manage Polldaddy polls and ratings in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 2.0
+Version: 2.0.1
 */
 
 // You can hardcode your PollDaddy PartnerGUID (API Key) here
@@ -34,7 +34,7 @@ class WP_PollDaddy {
 		global $current_user;
 		$this->errors                 = new WP_Error;
 		$this->scheme                 = 'https';
-		$this->version                = '2.0';
+		$this->version                = '2.0.1';
 		$this->multiple_accounts      = true;
 		$this->polldaddy_client_class = 'api_client';
 		$this->polldaddy_clients      = array();
@@ -2079,44 +2079,14 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 			$custom_style_ID = 0;
 		}
 ?>
-
-		<script language="javascript" type="text/javascript">
-
-			jQuery( document ).ready( function(){
-
-				jQuery( '.pd-tabs a' ).click( function(){
-
-					if( !jQuery( this ).closest('li').hasClass( 'selected' ) ){
-
-						jQuery( '.pd-tabs li' ).removeClass( 'selected' );
-						jQuery( this ).closest( 'li' ).addClass( 'selected' );
-
-						jQuery( '.pd-tab-panel' ).removeClass( 'show' );
-						jQuery( '.pd-tab-panel#' + $( this ).closest( 'li' ).attr( 'id' ) + '-panel' ).addClass( 'show' );
-					}
-
-
-				} );
-
-
-
-
-
-			} );
-
-		</script>
-
-
-
-
 		<h3><?php _e( 'Poll Style', 'polldaddy' ); ?></h3>
 		<input type="hidden" name="styleID" id="styleID" value="<?php echo $style_ID ?>">
 		<div class="inside">
 
 			<ul class="pd-tabs">
-				<li class="selected" id="pd-styles"><a href="#"><?php _e( 'Polldaddy Styles', 'polldaddy' ); ?></a></li>
+				<li class="selected" id="pd-styles"><a href="#"><?php _e( 'Polldaddy Styles', 'polldaddy' ); ?></a><input type="checkbox" style="display:none;" id="regular"/></li>
 				<?php $hide = $show_custom == true ? ' style="display:block;"' : ' style="display:none;"'; ?>
-				<li id="pd-custom-styles" <?php echo $hide; ?>><a href="#"><?php _e( 'Custom Styles', 'polldaddy' ); ?></a></li>
+				<li id="pd-custom-styles" <?php echo $hide; ?>><a href="#"><?php _e( 'Custom Styles', 'polldaddy' ); ?></a><input type="checkbox" style="display:none;" id="custom"/></li>
 
 			</ul>
 
@@ -2191,48 +2161,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 						</select>
 					</p>
 				</div>
-				<?php if ( $show_custom ) { ?>
-				<div id="design_custom">
-					<p class="hide-if-no-js">
-						<table class="pollStyle">
-							<thead>
-								<tr>
-									<th>
-										<div style="display:none;">
-											<?php $disabled = $show_custom == false ? ' disabled="true"' : ''; ?>
-											<input type="radio" name="styleTypeCB" id="custom" onclick="javascript:pd_change_style(_$('customSelect').value);" <?php echo $disabled; ?> />
-											<label onclick="javascript:pd_change_style(_$('customSelect').value);"><?php _e( 'Custom Style', 'polldaddy' ); ?></label>
-										</div>
-									</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td class="customSelect">
-										<table>
-											<tr>
-												<td>
-												</td>
-											</tr>
-											<tr>
-												<td><?php $extra = $show_custom == false ? __( 'You currently have no custom styles created.', 'polldaddy' ) : ''; ?>
-													<p><?php echo $extra ?></p>
-													<p><?php printf( __( 'Did you know we have a new editor for building your own custom poll styles? Find out more <a href="%s" target="_blank">here</a>.', 'polldaddy' ), 'http://support.polldaddy.com/custom-poll-styles/' ); ?></p>
-												</td>
-											</tr>
-										</table>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</p>
-				</div>
-
-
-
-
-				<?php }}else {?>
-
+				<?php } else {?>
 
 					<div class="design_standard">
 						<div class="hide-if-no-js">
@@ -2320,7 +2249,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 
 			<div class="pd-tab-panel" id="pd-custom-styles-panel">
 				<div  style="padding:20px;">
-					<select id="customSelect" name="customSelect" onclick="pd_change_style(this.value);">
+					<select id="customSelect" name="customSelect" onchange="javascript:pd_change_style(this.value);">
 						<?php  $selected = $custom_style_ID == 0 ? ' selected="selected"' : ''; ?>
 								<option value="x"<?php echo $selected; ?>><?php _e( 'Please choose a custom style...', 'polldaddy' ); ?></option>
 						<?php  if ( $show_custom ) : foreach ( (array)$styles->style as $style ) :
