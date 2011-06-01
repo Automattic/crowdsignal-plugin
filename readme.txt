@@ -19,10 +19,11 @@ Polldaddy Polls is localizable and currently available in:
 * Spanish
 * Czech
 * Danish
-* Khmer
-* Tegulu
 * Polish (thanks to <a href="http://mkopec.eu" target="_blank">Maciej Kopeć</a>)
 * Turkish (thanks to Gürol Barın)
+* Brazilian Portuguese
+* Khmer
+* Tegulu
 
 Want to help translate the plugin or keep an existing translation uptodate? Head on over to http://translate.wordpress.com/projects/polldaddy/plugin
 

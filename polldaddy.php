@@ -3,7 +3,7 @@
 /*
 Plugin Name: Polldaddy Polls & Ratings
 Plugin URI: http://wordpress.org/extend/plugins/polldaddy/
-Description: Create and manage PollDaddy polls and ratings in WordPress
+Description: Create and manage Polldaddy polls and ratings in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
 Version: 2.0
