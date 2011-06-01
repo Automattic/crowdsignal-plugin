@@ -2469,10 +2469,10 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 		<table class="poll-results widefat">
 			<thead>
 				<tr>
-					<th scope="col" class="column-title" style="width:50%;"><?php _e( 'Answer', 'polldaddy' ); ?></th>
-					<th scope="col" class="column-vote"><?php _e( 'Votes', 'polldaddy' ); ?></th>
-					<th scope="col" class="column-vote"><?php _e( 'Percent', 'polldaddy' ); ?></th>
-					<th scope="col" class="column-vote" style="width:50%;">&nbsp;</th>
+					<th scope="col" class="column-title" style="width:40%;"><?php _e( 'Answer', 'polldaddy' ); ?></th>
+					<th scope="col" class="column-vote" style="width:10%;text-align:center;"><?php _e( 'Votes', 'polldaddy' ); ?></th>
+					<th scope="col" class="column-vote" style="width:10%;text-align:center;"><?php _e( 'Percent', 'polldaddy' ); ?></th>
+					<th scope="col" class="column-vote" style="width:40%;">&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -2491,11 +2491,11 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 ?>
 
 				<tr<?php echo $class; ?>>
-					<th scope="row" style="vertical-align:bottom;" class="column-title"><?php echo $content; ?></th>
-					<td class="column-vote" style="text-align:right;vertical-align:middle;">
+					<th scope="row" style="vertical-align:bottom" class="column-title"><?php echo $content; ?></th>
+					<td class="column-vote" style="text-align:center;vertical-align:middle;">
 						<?php echo number_format_i18n( $answer->_total ); ?>
 					</td>
-					<td style="text-align:right;vertical-align:middle;">
+					<td style="text-align:center;vertical-align:middle;">
 						<?php echo number_format_i18n( $answer->_percent ); ?>%
 					</td>
 					<td style="vertical-align:middle;">
