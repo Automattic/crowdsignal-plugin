@@ -262,7 +262,7 @@ body.poll-preview-iframe div#wpbody-content{margin:0;padding:0;border:none;}
 body.poll-preview-iframe div#manage-polls.wrap{text-align:left;} 
 body.poll-preview-iframe .pds-box{margin-left:auto;margin-right:auto;} 
 table td.post-title strong{display:block;} 
-table.poll-results .column-vote{min-width:50%;padding:3px 5px 3px 3px;margin:0;} 
+table.poll-results .column-vote{padding:3px 5px 3px 3px;margin:0;} 
 table.poll-results div.result-holder{position:relative;} 
 table.poll-results span.result-bar{display:block;padding:5px 0 4px 0;margin:0;height:100%;border:1px solid #EDB918;background-color:#FBD55E;} 
 table.poll-results span.result-total{position:absolute;left:.75em;top:6px;} 
