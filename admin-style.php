@@ -1,8 +1,18 @@
+<?php
+
+if( $color == 'blue' ){
+	$yoffset = 7;
+} else {
+	$yoffset = -60;
+}
+
+ ?>
+
 <style type="text/css" media="screen" type="text/css">
 
 	#toplevel_page_polls .wp-menu-image,
 	#toplevel_page_ratings .wp-menu-image{
-		background:url('<?php echo $this->base_url; ?>img/pd-wp-icon-<?php echo $color; ?>.png') 7px 7px no-repeat !important;
+		background:url('<?php echo $this->base_url; ?>img/pd-wp-icons.png') 7px <?php echo $yoffset; ?>px no-repeat !important;
 
 	}
 	
@@ -10,7 +20,7 @@
 	#toplevel_page_ratings:hover .wp-menu-image,
 	#toplevel_page_polls.wp-has-current-submenu .wp-menu-image,
 	#toplevel_page_ratings.wp-has-current-submenu .wp-menu-image {
-		background:url('<?php echo $this->base_url; ?>img/pd-wp-icon-hover.png') 7px 7px no-repeat !important;
+		background:url('<?php echo $this->base_url; ?>img/pd-wp-icons.png') 7px -77px no-repeat !important;
 	}
 
 	#toplevel_page_polls img, #toplevel_page_ratings img{
