@@ -317,7 +317,7 @@ class WP_PollDaddy {
 
 	function set_api_user_code() {
 
-		$this->user_code = get_option( 'pd-usercode' );		
+		$this->user_code = get_option( 'pd-usercode-'.$this->id );		
 
 		if ( empty( $this->user_code ) ) {
 			$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID );
@@ -326,7 +326,7 @@ class WP_PollDaddy {
 			$this->user_code = $polldaddy->get_usercode( $this->id );
 			
 			if ( !empty( $this->user_code ) ) {
-				update_option( 'pd-usercode', $this->user_code );
+				update_option( 'pd-usercode-'.$this->id, $this->user_code );
 			}
 		}
 	}
@@ -454,7 +454,7 @@ class WP_PollDaddy {
 				check_admin_referer( 'polldaddy-account' );
 				
 				$this->user_code = '';
-				update_option( 'pd-usercode', '' );
+				update_option( 'pd-usercode-'.$this->id, '' );
 
 				if ( $new_args = $this->management_page_load_signup() )
 					$query_args = array_merge( $query_args, $new_args );
@@ -720,7 +720,6 @@ class WP_PollDaddy {
 				$polldaddy->reset();
 
 				$update_response = $polldaddy->update_poll( $poll, $poll_data );
-
 				$this->parse_errors( $polldaddy );
 
 				if ( !$update_response )
