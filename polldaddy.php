@@ -1182,7 +1182,7 @@ class WP_PollDaddy {
 				<h2 id="poll-list-header"><?php _e( 'Polldaddy Polls', 'polldaddy' ); ?></h2>	
 <?php 
 					} else { ?>
-				<h2 id="poll-list-header"><?php printf( __( '<a href="%s">Polldaddy Polls</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ) ); ?></h2>
+				<h2 id="poll-list-header"><?php printf( __( 'Preview Poll <a href="%s" class="button add-new-h2">All Polls</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ) ); ?></h2> 
 <?php
 					}
 				endif;
@@ -1205,7 +1205,7 @@ class WP_PollDaddy {
 			case 'edit-poll' :
 ?>
 
-		<h2 id="poll-list-header"><?php  _e( 'Edit Poll', 'polldaddy' ); ?></h2>
+		<h2 id="poll-list-header"><?php printf( __( 'Edit Poll <a href="%s" class="button add-new-h2">All Polls</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ) ); ?></h2> 
 
 <?php
 
@@ -1214,7 +1214,7 @@ class WP_PollDaddy {
 			case 'create-poll' :
 ?>
 
-		<h2 id="poll-list-header"><?php _e( 'Add New Poll', 'polldaddy') ?></h2>
+		<h2 id="poll-list-header"><?php printf( __( 'Add New Poll <a href="%s" class="button add-new-h2">All Polls</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ) ); ?></h2>
 
 <?php
 				$this->poll_edit_form();
