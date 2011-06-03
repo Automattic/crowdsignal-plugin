@@ -1415,45 +1415,39 @@ class WP_PollDaddy {
 						<abbr title="<?php echo date( __( 'Y/m/d g:i:s A', 'polldaddy' ), $poll_time ); ?>"> <?php _e( 'created', 'polldaddy' ); ?> <?php echo date( __( 'M d, Y', 'polldaddy' ), $poll_time ); ?></abbr>
 
 						<div class="row-actions">
-						<span class="edit"><a href="<?php echo $edit_link; ?>"><?php _e( 'Edit', 'polldaddy' ); ?></a> | </span>
-<?php } else { ?>
+						<span class="edit"><a href="<?php echo $edit_link; ?>"><?php _e( 'Edit', 'polldaddy' ); ?></a></span><span> | </span> <?php } else { ?>
 						<strong><?php echo esc_html( $poll->___content ); ?></strong>
 						<div class="row-actions">
 
 <?php } ?>
 
 <?php if ( !isset( $_GET['iframe'] ) ):?>
-						<span class="shortcode"><a href="javascript:void(0);" class="polldaddy-show-shortcode"><?php _e( 'Embed &amp; Link', 'polldaddy' ); ?></a></span> | </span>
+						<span class="shortcode"><a href="javascript:void(0);" class="polldaddy-show-shortcode"><?php _e( 'Embed &amp; Link', 'polldaddy' ); ?></a></span> 
 <?php else: ?>
 						<input type="hidden" class="polldaddy-poll-id" value="<?php echo $poll_id; ?>" />
-						<span><a href="javascript:void(0);" class="polldaddy-send-to-editor"><?php _e( 'Embed in Post', 'polldaddy' ); ?></a></span> | </span>
+						<span><a href="javascript:void(0);" class="polldaddy-send-to-editor"><?php _e( 'Embed in Post', 'polldaddy' ); ?></a></span>
 <?php endif; ?>
 
 
 <?php
 		if ( $poll_closed == 2 ) {
 			if ( $open_link ) { ?>
-						<span class="open"><a class="open-poll" href="<?php echo $open_link; ?>"><?php _e( 'Open', 'polldaddy' ); ?></a> | </span>
+						<span> | </span><span class="open"><a class="open-poll" href="<?php echo $open_link; ?>"><?php _e( 'Open', 'polldaddy' ); ?></a></span> 
 <?php } } else {
 			if ( $close_link ) { ?>
-						<span class="close"><a class="close-poll" href="<?php echo $close_link; ?>"><?php _e( 'Close', 'polldaddy' ); ?></a> | </span>
+						<span> | </span><span class="close"><a class="close-poll" href="<?php echo $close_link; ?>"><?php _e( 'Close', 'polldaddy' ); ?></a></span>
 <?php } }
 		if ( !isset( $_GET['iframe'] ) ): ?>
-						<span class="view"><a class="thickbox" href="<?php echo $preview_link; ?>"><?php _e( 'Preview', 'polldaddy' ); ?></a> | </span>
+						<span> | </span><span class="view"><a class="thickbox" href="<?php echo $preview_link; ?>"><?php _e( 'Preview', 'polldaddy' ); ?></a></span>
 <?php   else: ?>
-						<span class="view"><a href="<?php echo $preview_link; ?>"><?php _e( 'Preview', 'polldaddy' ); ?></a> | </span>
+						<span> | </span><span class="view"><a href="<?php echo $preview_link; ?>"><?php _e( 'Preview', 'polldaddy' ); ?></a></span>
 <?php   endif;
 		if ( $delete_link ) { ?>
-						<span class="delete"><a class="delete-poll delete" href="<?php echo $delete_link; ?>"><?php _e( 'Delete', 'polldaddy' ); ?></a>
+						<span> | </span><span class="delete"><a class="delete-poll delete" href="<?php echo $delete_link; ?>"><?php _e( 'Delete', 'polldaddy' ); ?></a>
 <?php }
 		if ( $poll->_responses > 0 ):?>
-						 | </span>
-						<span class="results"><a href="<?php echo $results_link; ?>"><?php _e( 'Results', 'polldaddy' ); ?></a>
-<?php else:?>
-
-		</span>
-<?php endif; ?>
-
+						<span> | </span><span class="results"><a href="<?php echo $results_link; ?>"><?php _e( 'Results', 'polldaddy' ); ?></a></span>       
+<?php   endif; ?> 
 <?php $this->poll_table_add_option( $poll_id ); ?>
           	</div>
           </td>
@@ -4865,10 +4859,12 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 			return true;
 
 		//check to see if poll owner is a member of this blog
-		if ( function_exists( 'get_users_of_blog' ) ) { //WP 2.2 +
-			if ( !array_key_exists( $poll->_owner, get_users_of_blog() ) )
-				return false;
-		}
+		if ( function_exists( 'get_users' ) ) {
+			$user = get_users( array( 'include' => $poll->_owner ) );
+			
+			if ( empty( $user ) ) 
+ 	        	return false; 		
+ 	        }
 
 		return (bool) current_user_can( 'edit_others_posts' );
 	}
