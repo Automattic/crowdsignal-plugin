@@ -247,6 +247,16 @@ table.answer td.answer-media-icons ul, table.question td.answer-media-icons ul{
     z-index: -1;
 }
 
+hardbreak { 
+	white-space: pre-wrap; /* css-3 */ 
+	white-space: -moz-pre-wrap; /* Mozilla, since 1999 */ 
+	white-space: -pre-wrap; /* Opera 4-6 */ 
+	white-space: -o-pre-wrap; /* Opera 7 */ 
+	word-wrap: break-word; 
+}
+ 	
+ 	
+
 
 /* OLD STYLES, PRE-2.0 ------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------*/
