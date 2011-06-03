@@ -714,9 +714,9 @@ class WP_PollDaddy {
 				if ( isset( $media[999999999] ) )
 					$poll_data['mediaCode'] = esc_html( $media[999999999] );
 
-				if ( isset( $mediaType[999999999] ) )
-					$poll_data['mediaType'] = intval( $mediaType[999999999] );
-
+				if( isset( $GLOBALS['blog_id'] ) )
+					$poll_data['parentID'] = (int) $GLOBALS['blog_id'];
+				
 				$polldaddy->reset();
 
 				$update_response = $polldaddy->update_poll( $poll, $poll_data );
