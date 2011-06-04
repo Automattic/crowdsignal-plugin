@@ -3,7 +3,7 @@ Contributors: eoigal, alternatekev, mdawaffe
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 2.6
 Tested up to: 3.1.3
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 
 Create and manage Polldaddy polls and ratings from within WordPress.
 
@@ -67,6 +67,9 @@ More info here - http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks
 You need to select the synchronize ratings account in the Options menu to make sure the ratings API key is valid.
 
 == Change Log ==
+= 2.0.3 =
+* Fixed side nav gray theme icon bug introduced by usage of sprite image
+
 = 2.0.2 =
 * Added support to the shortcode for alignment. Usage: [polldaddy poll=xxxxxx align=right|left]
 * Fixed layout issues in Firefox 4 on embed interface
