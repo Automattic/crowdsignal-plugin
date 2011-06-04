@@ -34,7 +34,7 @@ class WP_PollDaddy {
 		global $current_user;
 		$this->errors                 = new WP_Error;
 		$this->scheme                 = 'https';
-		$this->version                = '2.0.1';
+		$this->version                = '2.0.2';
 		$this->multiple_accounts      = true;
 		$this->polldaddy_client_class = 'api_client';
 		$this->polldaddy_clients      = array();
