@@ -3,7 +3,7 @@
 if( $color == 'blue' ){
 	$yoffset = 7;
 } else {
-	$yoffset = -60;
+	$yoffset = -35;
 }
 
  ?>
