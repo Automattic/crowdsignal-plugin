@@ -1,0 +1,1118 @@
+# Translation of the WordPress plugin PollDaddy Polls 1.8.3 by Automattic, Inc..
+# Copyright (C) 2010 Automattic, Inc.
+# This file is distributed under the same license as the PollDaddy Polls package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PollDaddy Polls 1.8.3\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/polldaddy\n"
+"POT-Creation-Date: 2010-02-23 12:33+0000\n"
+"PO-Revision-Date: 2010-02-28 15:48+0200\n"
+"Last-Translator: Ghorab <ghorab.ws@gmail.com>\n"
+"Language-Team: Ghorab.ws <ghorab.ws@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Poedit-Language: Arabic\n"
+"X-Poedit-Country: EGYPT\n"
+
+#: polldaddy-org.php:134
+#: polldaddy.php:128
+#: polldaddy.php:892
+msgid "Email address required"
+msgstr "البريد الإلكتروني مطلوب"
+
+#: polldaddy-org.php:137
+#: polldaddy.php:131
+#: polldaddy.php:895
+msgid "Password required"
+msgstr "كلمة المرور مطلوبة"
+
+#: polldaddy-org.php:169
+msgid "Could not connect to PollDaddy API Key service"
+msgstr "تعذر الإتصال بخدمة PollDaddy API"
+
+#: polldaddy-org.php:183
+#: polldaddy.php:161
+msgid "Can't connect to PollDaddy.com"
+msgstr "لا يمكن الإتصال بـ PollDaddy.com"
+
+#: polldaddy-org.php:213
+msgid "Login to PollDaddy failed.  Double check your email address and password."
+msgstr "فشل تسجيل الدخول في PollDaddy. تأكد من عنوان البريد الإلكتروني و كلمة المرور."
+
+#: polldaddy-org.php:215
+msgid "If your email address and password are correct, your host may not support secure logins."
+msgstr "إذا كان بريدك وكلمة المرور صحيحة, قد يكون المستضيف الخاص بك لا يدعم عمليات الدخول الآمن."
+
+#: polldaddy-org.php:216
+msgid "In that case, you may be able to log in to PollDaddy by unchecking the \"Use SSL to Log in\" checkbox."
+msgstr "في هذه الحالة, قد تتمكن من تسجيل الدخول إلي PollDaddy بإلغاء تحديد \"استخدام الدخول الآمن\" من المربع."
+
+#: polldaddy-org.php:227
+#: polldaddy.php:198
+msgid "Account could not be accessed.  Are your email address and password correct?"
+msgstr "لا يمكن الوصول للحساب. هل عنوان البريد و كلمة المرور صحيحة؟"
+
+#: polldaddy-org.php:241
+#: polldaddy.php:249
+msgid "PollDaddy Account"
+msgstr "حساب PollDaddy"
+
+#: polldaddy-org.php:243
+#: polldaddy.php:251
+#, php-format
+msgid "Before you can use the PollDaddy plugin, you need to enter your <a href=\"%s\">PollDaddy.com</a> account details."
+msgstr "قبل إستخدام اضافة PollDaddy, يجب عليك إدخال بيانات حسابك في <a href=\"%s\">PollDaddy.com</a>."
+
+#: polldaddy-org.php:250
+#: polldaddy.php:258
+#: polldaddy.php:3867
+msgid "PollDaddy Email Address"
+msgstr "بريدك الإلكتروني في PollDaddy"
+
+#: polldaddy-org.php:258
+#: polldaddy.php:266
+#: polldaddy.php:3877
+msgid "PollDaddy Password"
+msgstr "كلمة مرورك في PollDaddy"
+
+#: polldaddy-org.php:271
+msgid "Use SSL to Log in"
+msgstr "استخدم الدخول الآمن"
+
+#: polldaddy-org.php:275
+msgid "This ensures a secure login to your PollDaddy account.  Only uncheck if you are having problems logging in."
+msgstr "هذا يضمن دخول آمن لحسابك. ازل هذا الخيار اذا واجهت مشاكل في تسجيل الدخول."
+
+#: polldaddy-org.php:285
+#: polldaddy.php:278
+msgid "Submit"
+msgstr "يرسل"
+
+#: polldaddy-org.php:301
+msgid "Multiple PollDaddy Accounts"
+msgstr "حسابات PollDaddy متعددة"
+
+#: polldaddy-org.php:307
+msgid "This setting will allow each blog user to import a PollDaddy account."
+msgstr "هذا الخيار سوف يسمح لكل مستخد بإستيراد حساب PollDaddy"
+
+#: polldaddy-org.php:314
+msgid "Sync Ratings Account"
+msgstr "تزامن حساب التقييمات"
+
+#: polldaddy-org.php:320
+msgid "This will syncronize your ratings PollDaddy account."
+msgstr "سوف يتم مزامنة تقييماتك مع حساب PollDaddy."
+
+#: polldaddy-org.php:327
+msgid "Posts Rating ID"
+msgstr "رقم معرف ID لتقييم التدوينات"
+
+#: polldaddy-org.php:333
+msgid "This is the rating ID used in posts"
+msgstr "هذا هو رقم معرف ID المستخدم في التدوينات"
+
+#: polldaddy-org.php:340
+msgid "Pages Rating ID"
+msgstr "رقم معرف ID لتقييم الصفحات"
+
+#: polldaddy-org.php:346
+msgid "This is the rating ID used in pages"
+msgstr "رقم معرف ID المستخدم في الصفحات"
+
+#: polldaddy-org.php:353
+msgid "Comments Rating ID"
+msgstr "رقم معرف ID للتعليقات"
+
+#: polldaddy-org.php:359
+msgid "This is the rating ID used in comments"
+msgstr "رقم معرف ID المستخدم في التعليقات"
+
+#: polldaddy-org.php:519
+msgid "A list of your top rated posts, pages or comments."
+msgstr "قائمة التدوينات, الصفحات او التعليقات الأكثر تقييماً."
+
+#: polldaddy-org.php:528
+msgid "Top Rated"
+msgstr "الأعلي تقييماً"
+
+#: polldaddy-org.php:564
+#: polldaddy.php:3693
+msgid "Title"
+msgstr "العنوان"
+
+#: polldaddy-org.php:573
+msgid "Show for posts"
+msgstr "عرض في التدوينات"
+
+#: polldaddy-org.php:584
+msgid "Show for pages"
+msgstr "عرض في الصفحات"
+
+#: polldaddy-org.php:595
+msgid "Show for comments"
+msgstr "عرض في التعليقات"
+
+#: polldaddy-org.php:599
+msgid "How many items would you like to display?"
+msgstr "كم عدد العناصر التي تريد أن تُعرض؟"
+
+#: polldaddy.php:68
+#: polldaddy.php:70
+#: polldaddy.php:86
+#: polldaddy.php:88
+msgid "Ratings"
+msgstr "التقييم"
+
+#: polldaddy.php:75
+#: polldaddy.php:77
+#: polldaddy.php:93
+#: polldaddy.php:95
+#: polldaddy.php:107
+#: polldaddy.php:1101
+msgid "Polls"
+msgstr "إستطلاعات الرأي"
+
+#: polldaddy.php:100
+msgid "Ratings &ndash; Settings"
+msgstr "إعدادات &ndash; التقييم"
+
+#: polldaddy.php:100
+msgid "Settings"
+msgstr "إعدادات"
+
+#: polldaddy.php:101
+#: polldaddy.php:104
+msgid "Ratings &ndash; Reports"
+msgstr "تقارير &ndash; التقييم"
+
+#: polldaddy.php:101
+#: polldaddy.php:104
+msgid "Reports"
+msgstr "تقارير"
+
+#: polldaddy.php:107
+#: polldaddy.php:1233
+#: polldaddy.php:2010
+msgid "Edit"
+msgstr "تحرير"
+
+#: polldaddy.php:110
+msgid "Add New Poll"
+msgstr "إضافة استطلاع رأي"
+
+#: polldaddy.php:110
+msgid "Add New"
+msgstr "إضافة جديد"
+
+#: polldaddy.php:111
+#: polldaddy.php:1066
+#: polldaddy.php:1739
+msgid "Custom Styles"
+msgstr "تخصيص الستايل"
+
+#: polldaddy.php:112
+#: polldaddy.php:3852
+msgid "Options"
+msgstr "خيارات"
+
+#: polldaddy.php:188
+msgid "Invalid Account"
+msgstr "حساب غير صالح"
+
+#: polldaddy.php:210
+#, php-format
+msgid "Obsolete PollDaddy User API Key:  <a href=\"%s\">Sign in again to re-authenticate</a>"
+msgstr "مفتاح PollDaddy API  عفا عليه الزمن :  <a href=\"%s\">تسجيل الدخول لعمل إعادة توثيق له</a>"
+
+#: polldaddy.php:287
+msgid "Add Poll"
+msgstr "إضافة استطلاع رأي"
+
+#: polldaddy.php:358
+msgid "Star Colors"
+msgstr "ألون النجمة"
+
+#: polldaddy.php:358
+#: polldaddy.php:3339
+msgid "Star Size"
+msgstr "حجم النجمة"
+
+#: polldaddy.php:359
+msgid "Nero Type"
+msgstr "نوع Nero"
+
+#: polldaddy.php:359
+msgid "Nero Size"
+msgstr "حجم Nero"
+
+#: polldaddy.php:452
+msgid "You are not allowed to delete this poll."
+msgstr "غير مسموح لك بحذف هذا الإستطلاع."
+
+#: polldaddy.php:460
+#: polldaddy.php:496
+#: polldaddy.php:532
+#: polldaddy.php:566
+msgid "Invalid Poll Author"
+msgstr "مؤلف استطلاع رأي غير صالح"
+
+#: polldaddy.php:488
+msgid "You are not allowed to open this poll."
+msgstr "غير مسموح لك بفتح هذا الاستطلاع."
+
+#: polldaddy.php:524
+msgid "You are not allowed to close this poll."
+msgstr "غير مسموح لك بغلق هذا الاستطلاع."
+
+#: polldaddy.php:557
+#: polldaddy.php:1329
+msgid "You are not allowed to edit this poll."
+msgstr "غير مسموح لك بتحرير هذا الاستطلاع."
+
+#: polldaddy.php:573
+msgid "Poll not found"
+msgstr "لن يتم العثور علي الاستطلاع"
+
+#: polldaddy.php:600
+msgid "Invalid answers"
+msgstr "اجابات غير صالحة"
+
+#: polldaddy.php:616
+msgid "You must include at least 2 answers"
+msgstr "يجب ان تكون الأجوبة 2 علي الأقل"
+
+#: polldaddy.php:627
+#: polldaddy.php:704
+msgid "Please choose a poll style"
+msgstr "من فضلك اختر ستايل للإستطلاع"
+
+#: polldaddy.php:649
+msgid "Poll could not be updated"
+msgstr "لا يمكن تحديث الاستطلاع"
+
+#: polldaddy.php:723
+msgid "Poll could not be created"
+msgstr "لا يمكن انشاء الاستطلاع"
+
+#: polldaddy.php:775
+msgid "Style could not be updated"
+msgstr "الستايل لا يمكن تحديثه"
+
+#: polldaddy.php:805
+msgid "Style could not be created"
+msgstr "لا يمكن انشاء ستايل"
+
+#: polldaddy.php:904
+msgid "Account could not be imported.  Are your email address and password correct?"
+msgstr "لا يمكن استيراد الحساب. هل عنوان البريد الإلكتروني و كلمة المرور صالحة؟"
+
+#: polldaddy.php:922
+msgid "Poll deleted."
+msgstr "تم حذف الاستطلاع."
+
+#: polldaddy.php:924
+#, php-format
+msgid "%s Poll Deleted."
+msgid_plural "%s Polls Deleted."
+
+#: polldaddy.php:929
+msgid "Poll opened."
+msgstr "تم فتح الاستطلاع."
+
+#: polldaddy.php:931
+#, php-format
+msgid "%s Poll Opened."
+msgid_plural "%s Polls Opened."
+
+#: polldaddy.php:936
+msgid "Poll closed."
+msgstr "تم اغلاق الاستطلاع."
+
+#: polldaddy.php:938
+#, php-format
+msgid "%s Poll Closed."
+msgid_plural "%s Polls Closed."
+
+#: polldaddy.php:941
+msgid "Poll updated."
+msgstr "تم تحديث الاستطلاع."
+
+#: polldaddy.php:944
+msgid "Poll created."
+msgstr "تم عمل الاستطلاع."
+
+#: polldaddy.php:946
+#: polldaddy.php:1362
+msgid "Send to Editor"
+msgstr "ارسال للمحرر"
+
+#: polldaddy.php:949
+msgid "Custom Style updated."
+msgstr "تم تخصيص الستايل."
+
+#: polldaddy.php:952
+msgid "Custom Style created."
+msgstr "تم عمل الستايل."
+
+#: polldaddy.php:957
+msgid "Custom Style deleted."
+msgstr "تم حذف الستايل المخصص."
+
+#: polldaddy.php:959
+#, php-format
+msgid "%s Style Deleted."
+msgid_plural "%s Custom Styles Deleted."
+
+#: polldaddy.php:962
+msgid "Account Imported."
+msgstr "تم استيراد الحساب."
+
+#: polldaddy.php:965
+msgid "Options Updated."
+msgstr "تم تحديث الخيارات."
+
+#: polldaddy.php:974
+msgid "Error: An error has occurred;  Poll not created."
+msgstr "خطأ: لقد حدث خطأ; لم يتم صناعة الاستطلاع."
+
+#: polldaddy.php:977
+msgid "Error: An error has occurred;  Poll not updated."
+msgstr "خطأ: لقد حدث خطأ; لم يتم تحديث الاستطلاع."
+
+#: polldaddy.php:981
+msgid "Error: An error has occurred;  Account could not be imported.  Perhaps your email address or password is incorrect?"
+msgstr "خطأ: لقد حدث خطأ; لا يمكن استيراد الحساب. ربما عنوان البريد و كلمة المرور غير صحيحة؟"
+
+#: polldaddy.php:983
+msgid "Error: An error has occurred;  Account could not be created."
+msgstr "خطأ: لقد حدث خطأ; غير قادر علي صناعة الحساب."
+
+#: polldaddy.php:1020
+#, php-format
+msgid "Poll Preview (<a href=\"%s\">Edit Poll</a>, <a href=\"%s\">List Polls</a>)"
+msgstr "معاينة الاستطلاع (<a href=\"%s\">تحرير</a>, <a href=\"%s\">قائمة الاستطلاعات</a>)"
+
+#: polldaddy.php:1024
+#, php-format
+msgid "Poll Preview (<a href=\"%s\">List Polls</a>)"
+msgstr "معاينة الاستطلاع (<a href=\"%s\">قائمة الاستطلاعات</a>)"
+
+#: polldaddy.php:1034
+#, php-format
+msgid "Poll Results (<a href=\"%s\">Edit Poll</a>)"
+msgstr "نتائج الاستطلاع (<a href=\"%s\">تحرير</a>)"
+
+#: polldaddy.php:1036
+#, php-format
+msgid "Poll Results (<a href=\"%s\">List Polls</a>)"
+msgstr "نتائج الاستطلاع (<a href=\"%s\">قائمة الاستطلاعات</a>)"
+
+#: polldaddy.php:1045
+#, php-format
+msgid "Edit Poll (<a href=\"%s\">List Polls</a>)"
+msgstr "تحرير الاستطلاع (<a href=\"%s\">قائمة الاستطلاعات</a>)"
+
+#: polldaddy.php:1054
+#, php-format
+msgid "Create Poll (<a href=\"%s\">List Polls</a>)"
+msgstr "إنشاء استطلاع (<a href=\"%s\">قائمة الإستطلاعات</a>)"
+
+#: polldaddy.php:1064
+#, php-format
+msgid "Custom Styles (<a href=\"%s\">Add New</a>)"
+msgstr "ستايلات مخصصة (<a href=\"%s\">إضافة جديد</a>)"
+
+#: polldaddy.php:1074
+#, php-format
+msgid "Edit Style (<a href=\"%s\">List Styles</a>)"
+msgstr "تحرير الستايل (<a href=\"%s\">قائمة الستايلات</a>)"
+
+#: polldaddy.php:1083
+#, php-format
+msgid "Create Style (<a href=\"%s\">List Styles</a>)"
+msgstr "إنشاء ستايل (<a href=\"%s\">قائمة الستايلات</a>)"
+
+#: polldaddy.php:1099
+#, php-format
+msgid "Polls (<a href=\"%s\">Add New</a>)"
+msgstr "استطلاعات الرأي (<a href=\"%s\">إضافة جديد</a>)"
+
+#: polldaddy.php:1164
+msgid "All Blog's Polls"
+msgstr "كل استطلاعات الرأي في المدونة"
+
+#: polldaddy.php:1165
+msgid "All My Polls"
+msgstr "كل استطلاعاتي للرأي"
+
+#: polldaddy.php:1173
+#: polldaddy.php:1973
+msgid "Actions"
+msgstr "إجرائات"
+
+#: polldaddy.php:1174
+#: polldaddy.php:1239
+#: polldaddy.php:1974
+#: polldaddy.php:2015
+msgid "Delete"
+msgstr "حذف"
+
+#: polldaddy.php:1175
+#: polldaddy.php:1246
+msgid "Close"
+msgstr "غلق"
+
+#: polldaddy.php:1176
+#: polldaddy.php:1243
+msgid "Open"
+msgstr "فتح"
+
+#: polldaddy.php:1178
+#: polldaddy.php:1976
+msgid "Apply"
+msgstr "تطبيق"
+
+#: polldaddy.php:1189
+msgid "Poll"
+msgstr "استطلاع"
+
+#: polldaddy.php:1190
+#: polldaddy.php:1877
+#: polldaddy.php:1922
+#: polldaddy.php:3694
+msgid "Votes"
+msgstr "أصوات"
+
+#: polldaddy.php:1191
+msgid "Created"
+msgstr "تم الإنشاء"
+
+#: polldaddy.php:1237
+msgid "Results"
+msgstr "النتائج"
+
+#: polldaddy.php:1249
+#: polldaddy.php:1255
+#: polldaddy.php:3251
+msgid "Preview"
+msgstr "معاينة"
+
+#: polldaddy.php:1251
+msgid "Send to editor"
+msgstr "ارسال للمحرر"
+
+#: polldaddy.php:1257
+msgid "HTML code"
+msgstr "كود HTML"
+
+#: polldaddy.php:1261
+#: polldaddy.php:2017
+msgid "Y/m/d g:i:s A"
+msgstr ""
+
+#: polldaddy.php:1261
+#: polldaddy.php:2017
+msgid "Y/m/d"
+msgstr ""
+
+#: polldaddy.php:1265
+msgid "Shortcode"
+msgstr "كود قصير"
+
+#: polldaddy.php:1268
+msgid "JavaScript"
+msgstr "جافا سكربت"
+
+#: polldaddy.php:1284
+#, php-format
+msgid "What are you doing here?  <a href=\"%s\">Go back</a>."
+msgstr "ماذا تفعل هنا؟  <a href=\"%s\">العودة للخلف</a>."
+
+#: polldaddy.php:1294
+#, php-format
+msgid "No polls yet.  <a href=\"%s\">Create one</a>"
+msgstr "لا يوجد استطلاعات للرأي  <a href=\"%s\">إنشاء استطلاع جديد</a>"
+
+#: polldaddy.php:1296
+msgid "No polls yet."
+msgstr "لا يوجد استطلاعات بعد"
+
+#: polldaddy.php:1351
+msgid "Publish"
+msgstr "نشر"
+
+#: polldaddy.php:1358
+msgid "Save Poll"
+msgstr "حفظ الإستطلاع"
+
+#: polldaddy.php:1373
+#: polldaddy.php:3935
+msgid "Poll results"
+msgstr "نتائج الإستطلاع"
+
+#: polldaddy.php:1378
+msgid "Show results to voters"
+msgstr "إظهار النتائج للمصوتين"
+
+#: polldaddy.php:1378
+msgid "Only show percentages"
+msgstr "النسبة المئوية فقط"
+
+#: polldaddy.php:1378
+msgid "Hide all results"
+msgstr "إخفاء كل النتائج"
+
+#: polldaddy.php:1396
+#: polldaddy.php:3952
+msgid "Block repeat voters"
+msgstr "عدم السماح بالتصويت المتعدد"
+
+#: polldaddy.php:1401
+msgid "Don't block repeat voters"
+msgstr "السماح بالتصويت المتعدد"
+
+#: polldaddy.php:1401
+msgid "Block by cookie (recommended)"
+msgstr "منع بالكوكيز (مستحسن)"
+
+#: polldaddy.php:1401
+msgid "Block by cookie and by IP address"
+msgstr "منع بالكوكيز و رقم IP"
+
+#: polldaddy.php:1416
+msgid "Expires: "
+msgstr "ينتهي في:"
+
+#: polldaddy.php:1418
+#: polldaddy.php:3957
+msgid "Never"
+msgstr "أبداً"
+
+#: polldaddy.php:1419
+#: polldaddy.php:3958
+#, php-format
+msgid "%d hour"
+msgstr "%d ساعة"
+
+#: polldaddy.php:1420
+#: polldaddy.php:1421
+#: polldaddy.php:1422
+#: polldaddy.php:3959
+#: polldaddy.php:3960
+#: polldaddy.php:3961
+#, php-format
+msgid "%d hours"
+msgstr "%d ساعات"
+
+#: polldaddy.php:1423
+#: polldaddy.php:3962
+#, php-format
+msgid "%d day"
+msgstr "%d يوم"
+
+#: polldaddy.php:1424
+#: polldaddy.php:3963
+#, php-format
+msgid "%d week"
+msgstr "%d اسبوع"
+
+#: polldaddy.php:1425
+#: polldaddy.php:3964
+#, php-format
+msgid "%d month"
+msgstr "%d شهر"
+
+#: polldaddy.php:1427
+msgid "Note: Blocking by cookie and IP address can be problematic for some voters."
+msgstr "ملاحظة: منع التصويت المتعدد بالكوكيز ورقم IP ممكن يسبب مشكلة لبعض المصوتين."
+
+#: polldaddy.php:1442
+msgid "Answers"
+msgstr "الخيارات"
+
+#: polldaddy.php:1488
+msgid "Add another"
+msgstr "إضافة آخر"
+
+#: polldaddy.php:1494
+msgid "Multiple choice"
+msgstr "اختيار متعدد"
+
+#: polldaddy.php:1494
+msgid "Randomize answer order"
+msgstr "ترتيب عشوائي للخيارات"
+
+#: polldaddy.php:1494
+msgid "Allow other answers"
+msgstr "السماح بتخصيص إجابة"
+
+#: polldaddy.php:1494
+msgid "'Share This' link"
+msgstr "رابط \"شارك هذا\""
+
+#: polldaddy.php:1623
+msgid "Design"
+msgstr "تصميم"
+
+#: polldaddy.php:1704
+#: polldaddy.php:1759
+msgid "Custom Style"
+msgstr "ستايل مخصص"
+
+#: polldaddy.php:1717
+#: polldaddy.php:1813
+msgid "Please choose a custom style..."
+msgstr "من فضلك اختر ستايل مخصص..."
+
+#: polldaddy.php:1723
+#: polldaddy.php:1819
+msgid "Please choose a style."
+msgstr "من فضلك اختر ستايل."
+
+#: polldaddy.php:1728
+#: polldaddy.php:1824
+#, php-format
+msgid "Did you know we have a new editor for building your own custom poll styles? Find out more <a href=\"%s\" target=\"_blank\">here</a>."
+msgstr "هل تعلم لدينا محرر جديد لعمل ستايلات مخصصة؟ تستطيع الوصول له من <a href=\"%s\" target=\"_blank\">هنا</a>."
+
+#: polldaddy.php:1751
+msgid "PollDaddy Style"
+msgstr "ستايلات PollDaddy"
+
+#: polldaddy.php:1876
+msgid "Answer"
+msgstr "التصويتات"
+
+#: polldaddy.php:1891
+#, php-format
+msgid "Other (<a href=\"%s\">see below</a>)"
+msgstr "أخري (<a href=\"%s\">انظر أدناه</a>)"
+
+#: polldaddy.php:1921
+#: polldaddy.php:3923
+msgid "Other Answer"
+msgstr "تصويتات أخري"
+
+#: polldaddy.php:1986
+msgid "Style"
+msgstr "ستايل"
+
+#: polldaddy.php:1987
+msgid "Last Modified"
+msgstr "آخر تعديل"
+
+#: polldaddy.php:2027
+#, php-format
+msgid "No custom styles yet.  <a href=\"%s\">Create one</a>"
+msgstr "لا توجد ستايلات مخصصة بعد.  <a href=\"%s\">إنشاء واحد</a>"
+
+#: polldaddy.php:2103
+msgid "Style Name"
+msgstr "اسم الستايل"
+
+#: polldaddy.php:2118
+msgid "Preload Basic Style"
+msgstr "الستايل المسبق الأساسي"
+
+#: polldaddy.php:2132
+msgid "Load Style"
+msgstr "تحميل الستايل"
+
+#: polldaddy.php:2921
+msgid "Save Style"
+msgstr "حفظ الستايل"
+
+#: polldaddy.php:3064
+#, php-format
+msgid "Sorry! There was an error creating your rating widget. Please contact <a href=\"%1$s\" %2$s>PollDaddy support</a> to fix this."
+msgstr "آسف! هناك خطأ في عمل اضافة Widget الخاصة بالتقييم. من فضلك اتصل <a href=\"%1$s\" %2$s>بدعم PollDaddy الفني</a> لتصليحه."
+
+#: polldaddy.php:3103
+msgid "Rating Settings"
+msgstr "إعدادات التقييم"
+
+#: polldaddy.php:3105
+msgid "Rating updated"
+msgstr "تم تحديث التقييم"
+
+#: polldaddy.php:3117
+#: polldaddy.php:3653
+msgid "Posts"
+msgstr "التدوينات"
+
+#: polldaddy.php:3121
+#: polldaddy.php:3653
+msgid "Pages"
+msgstr "الصفحات"
+
+#: polldaddy.php:3125
+#: polldaddy.php:3653
+msgid "Comments"
+msgstr "التعليقات"
+
+#: polldaddy.php:3136
+msgid "Enable for blog posts"
+msgstr "تفعيل للتدوينات"
+
+#: polldaddy.php:3140
+#: polldaddy.php:3158
+msgid "Above each blog post"
+msgstr "فوق كل تدوينة"
+
+#: polldaddy.php:3140
+#: polldaddy.php:3158
+msgid "Below each blog post"
+msgstr "تحت كل تدوينة"
+
+#: polldaddy.php:3154
+msgid "Enable for front page"
+msgstr "تفعيل للصفحة الرئيسية"
+
+#: polldaddy.php:3174
+msgid "Enable for pages"
+msgstr "تفعيل للصفحات"
+
+#: polldaddy.php:3178
+msgid "Above each page"
+msgstr "فوق كل صفحة"
+
+#: polldaddy.php:3178
+msgid "Below each page"
+msgstr "تحت كل صفحة"
+
+#: polldaddy.php:3194
+msgid "Enable for comments"
+msgstr "تفعيل للتعليقات"
+
+#: polldaddy.php:3198
+msgid "Above each comment"
+msgstr "فوق كل تعليق"
+
+#: polldaddy.php:3198
+msgid "Below each comment"
+msgstr "تحت كل تعليق"
+
+#: polldaddy.php:3213
+#: polldaddy.php:3244
+msgid "Save Changes"
+msgstr "حفظ التغييرات"
+
+#: polldaddy.php:3224
+msgid "Advanced Settings"
+msgstr "خيارات متقدمة"
+
+#: polldaddy.php:3237
+msgid "Save"
+msgstr "حفظ"
+
+#: polldaddy.php:3253
+msgid "This is a demo of what your rating widget will look like"
+msgstr "هذا هو عرض لما سوف تكون عليه اضافة التقييم"
+
+#: polldaddy.php:3260
+msgid "Customize Labels"
+msgstr "تخصيص المسميات"
+
+#: polldaddy.php:3264
+msgid "votes"
+msgstr "أصوات"
+
+#: polldaddy.php:3268
+msgid "rate this"
+msgstr "قيّم هذا"
+
+#: polldaddy.php:3272
+#, php-format
+msgid "%d star"
+msgstr "%dنجمة"
+
+#: polldaddy.php:3276
+#: polldaddy.php:3280
+#: polldaddy.php:3284
+#: polldaddy.php:3288
+#, php-format
+msgid "%d stars"
+msgstr "%d نجمات"
+
+#: polldaddy.php:3292
+msgid "Thank You"
+msgstr "شكراً لك"
+
+#: polldaddy.php:3296
+msgid "Rate Up"
+msgstr "أعلي معدل"
+
+#: polldaddy.php:3300
+msgid "Rate Down"
+msgstr "معدل منخفض"
+
+#: polldaddy.php:3309
+msgid "Rating Type"
+msgstr "نوع التقييم"
+
+#: polldaddy.php:3311
+msgid "Here you can choose how you want your rating to display. The 5 star rating is the most commonly used. The Nero rating is useful for keeping it simple."
+msgstr "هنا يمكنك اختيار الطريقة التي ترغب بعرض ظهور أسلوب التقييم. أسلوب الخمس نجوم هو الأكثر شيوعاً. طريقة Nero أكثر بساطة."
+
+#: polldaddy.php:3319
+#, php-format
+msgid "%d Star Rating"
+msgstr "%d نجمة تقييم"
+
+#: polldaddy.php:3328
+msgid "Nero Rating"
+msgstr "تقييم Nero"
+
+#: polldaddy.php:3335
+msgid "Rating Style"
+msgstr "ستايل التقييم"
+
+#: polldaddy.php:3342
+msgid "Small"
+msgstr "صغير"
+
+#: polldaddy.php:3342
+msgid "Medium"
+msgstr "متوسط"
+
+#: polldaddy.php:3342
+msgid "Large"
+msgstr "كبير"
+
+#: polldaddy.php:3353
+msgid "Star Color"
+msgstr "لون النجمة"
+
+#: polldaddy.php:3356
+msgid "Yellow"
+msgstr "أصفر"
+
+#: polldaddy.php:3356
+msgid "Red"
+msgstr "أحمر"
+
+#: polldaddy.php:3356
+msgid "Blue"
+msgstr "أزرق"
+
+#: polldaddy.php:3356
+msgid "Green"
+msgstr "أخضر"
+
+#: polldaddy.php:3356
+msgid "Grey"
+msgstr "رمادي"
+
+#: polldaddy.php:3365
+msgid "Hand"
+msgstr ""
+
+#: polldaddy.php:3376
+msgid "Custom Image"
+msgstr "صورة مخصصة"
+
+#: polldaddy.php:3383
+msgid "Text Layout & Font"
+msgstr "تنسيق النص و الخط"
+
+#: polldaddy.php:3387
+msgid "Align"
+msgstr ""
+
+#: polldaddy.php:3390
+msgid "Left"
+msgstr "يسار"
+
+#: polldaddy.php:3390
+msgid "Center"
+msgstr "وسط"
+
+#: polldaddy.php:3390
+#: polldaddy.php:3404
+msgid "Right"
+msgstr "يمين"
+
+#: polldaddy.php:3401
+msgid "Position"
+msgstr ""
+
+#: polldaddy.php:3404
+msgid "Top"
+msgstr ""
+
+#: polldaddy.php:3404
+msgid "Bottom"
+msgstr "الزر"
+
+#: polldaddy.php:3415
+msgid "Font"
+msgstr "الخط"
+
+#: polldaddy.php:3418
+#: polldaddy.php:3437
+#: polldaddy.php:3451
+msgid "Inherit"
+msgstr ""
+
+#: polldaddy.php:3429
+msgid "Color"
+msgstr "اللون"
+
+#: polldaddy.php:3434
+msgid "Size"
+msgstr "الحجم"
+
+#: polldaddy.php:3448
+msgid "Line Height"
+msgstr "طول الخط"
+
+#: polldaddy.php:3462
+msgid "Bold"
+msgstr "عريض"
+
+#: polldaddy.php:3471
+msgid "Italic"
+msgstr "مائل"
+
+#: polldaddy.php:3640
+msgid "&laquo;"
+msgstr ""
+
+#: polldaddy.php:3641
+msgid "&raquo;"
+msgstr ""
+
+#: polldaddy.php:3647
+msgid "Rating Reports"
+msgstr "تقارير التقييم"
+
+#: polldaddy.php:3662
+msgid "View Report"
+msgstr "عرض التقرير"
+
+#: polldaddy.php:3664
+msgid "Last 24 hours"
+msgstr "اخر 24 ساعة"
+
+#: polldaddy.php:3664
+msgid "Last 7 days"
+msgstr "اخر 7 ايام"
+
+#: polldaddy.php:3664
+msgid "Last 31 days"
+msgstr "اخر 31 يزك"
+
+#: polldaddy.php:3664
+msgid "Last 3 months"
+msgstr "اخر 3 شهور"
+
+#: polldaddy.php:3664
+msgid "Last 12 months"
+msgstr "اخر 12 شهر"
+
+#: polldaddy.php:3664
+msgid "All time"
+msgstr "كل الوقت"
+
+#: polldaddy.php:3672
+msgid "Filter Report"
+msgstr "مصفاة التقرير"
+
+#: polldaddy.php:3686
+#, php-format
+msgid "No ratings have been collected for your %s yet."
+msgstr "لا تقييمات تم جمعها لـ %s بعد."
+
+#: polldaddy.php:3692
+msgid "Start Date"
+msgstr "تاريخ البدء"
+
+#: polldaddy.php:3695
+msgid "Average Rating"
+msgstr "متوسط التقييم"
+
+#: polldaddy.php:3856
+msgid "PollDaddy Account Info"
+msgstr "معلومات حساب PollDaddy"
+
+#: polldaddy.php:3859
+msgid "This is the PollDadddy account you currently have imported into your WordPress account"
+msgstr "هذا هو حساب PollDaddy الذي تم استيراده في مدونتك"
+
+#: polldaddy.php:3890
+msgid "Import Account"
+msgstr "إستيراد حساب"
+
+#: polldaddy.php:3896
+msgid "General Settings"
+msgstr "الإعدادات العامة"
+
+#: polldaddy.php:3904
+msgid "Default poll settings"
+msgstr "إعدادات الإستطلاع الإفتراضية"
+
+#: polldaddy.php:3913
+msgid "Multiple Choice"
+msgstr "إختيار متعدد"
+
+#: polldaddy.php:3918
+msgid "Randomise Answers"
+msgstr "إجابات عشوائية"
+
+#: polldaddy.php:3928
+msgid "Sharing"
+msgstr "مشاركة"
+
+#: polldaddy.php:3932
+msgid "Show"
+msgstr "إظهار"
+
+#: polldaddy.php:3933
+msgid "Hide"
+msgstr "إخفاء"
+
+#: polldaddy.php:3934
+msgid "Percentages"
+msgstr "النسب المئوية"
+
+#: polldaddy.php:3944
+msgid "Poll style"
+msgstr "نمط الإستطلاع"
+
+#: polldaddy.php:3949
+msgid "Off"
+msgstr ""
+
+#: polldaddy.php:3950
+msgid "Cookie"
+msgstr "كوكيز"
+
+#: polldaddy.php:3951
+msgid "Cookie & IP address"
+msgstr "الكوكيز وعنوان IP"
+
+#: polldaddy.php:3965
+msgid "Block expiration limit"
+msgstr "حظر انتهاء الحدود"
+
+#: polldaddy.php:3977
+msgid "Save Options"
+msgstr "حفظ الخيارات"
+
+#. Plugin Name of an extension
+msgid "PollDaddy Polls"
+msgstr "استطلاعات الرأي"
+
+#. Description of an extension
+msgid "Create and manage PollDaddy polls and ratings in WordPress"
+msgstr "إنشاء وإدارة الإستفتائات و التقييم من خدمة PollDaddy في مدونات Wordpress"
+
+#. Author of an extension
+msgid "Automattic, Inc."
+msgstr ""
+
