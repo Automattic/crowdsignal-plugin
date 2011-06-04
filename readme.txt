@@ -3,7 +3,7 @@ Contributors: eoigal, alternatekev, mdawaffe
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 2.6
 Tested up to: 3.1.3
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 
 Create and manage Polldaddy polls and ratings from within WordPress.
 
@@ -25,7 +25,7 @@ Polldaddy Polls is localizable and currently available in:
 * Khmer
 * Tegulu
 
-Want to help translate the plugin or keep an existing translation uptodate? Head on over to http://translate.wordpress.com/projects/polldaddy/plugin
+Want to help translate the plugin or keep an existing translation up-to-date? Head on over to http://translate.wordpress.com/projects/polldaddy/plugin
 
 == Installation ==
 
@@ -67,6 +67,12 @@ More info here - http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks
 You need to select the synchronize ratings account in the Options menu to make sure the ratings API key is valid.
 
 == Change Log ==
+= 2.0.2 =
+* Added support to the shortcode for alignment. Usage: [polldaddy poll=xxxxxx align=right|left]
+* Fixed layout issues in Firefox 4 on embed interface
+* Fixed extraneous dividers bug
+* Changed nav menu icon to sprite to fix hover flash bug
+
 = 2.0.1 =
 * Fixed bug in selecting custom styles in poll editor for webkit browsers
 
