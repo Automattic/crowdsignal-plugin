@@ -3,7 +3,7 @@ Contributors: eoigal, alternatekev, mdawaffe
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 2.6
 Tested up to: 3.1.3
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 
 Create and manage Polldaddy polls and ratings from within WordPress.
 
@@ -25,7 +25,7 @@ Polldaddy Polls is localizable and currently available in:
 * Khmer
 * Tegulu
 
-Want to help translate the plugin or keep an existing translation uptodate? Head on over to http://translate.wordpress.com/projects/polldaddy/plugin
+Want to help translate the plugin or keep an existing translation up-to-date? Head on over to http://translate.wordpress.com/projects/polldaddy/plugin
 
 == Installation ==
 
