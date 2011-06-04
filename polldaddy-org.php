@@ -517,8 +517,20 @@ if ( !function_exists( 'polldaddy_shortcode_handler' ) ) {
 				$mod = ( $poll % ( count( $keywords ) - 1 ) );
 				$keywords_link = '<a href="' . $keywords[ $mod ][ 'url' ] . '">' . $keywords[ $mod ][ 'keyword' ] . '</a>';
 			}
+			
+			if( isset( $align ) )
+				$float = "float:" . $align .";";
+			else
+				$float = null;	
+				
+			if( $align == 'left')
+				$margins = 'margin:0px 10px 0px 0px;';
+			else if ( $margin == 'right' )
+				$margins =	'margin: 0px 0px 0px 10px';
+			else
+				$margins = null;	
 
-			return '<a name="pd_a_' . $poll . '"></a><div class="PDS_Poll" id="PDI_container' . $poll . '" style="display:inline-block;"></div><div id="PD_superContainer"></div><script type="text/javascript" language="javascript" charset="utf-8" src="http://static.polldaddy.com/p/' . $poll . '.js' . $cb . '"></script>
+			return '<a name="pd_a_' . $poll . '"></a><div class="PDS_Poll" id="PDI_container' . $poll . '" style="display:inline-block;' . $float . '' . $margins . '"></div><div id="PD_superContainer"></div><script type="text/javascript" language="javascript" charset="utf-8" src="http://static.polldaddy.com/p/' . $poll . '.js' . $cb . '"></script>
 <noscript>
 <a href="http://polldaddy.com/poll/' . $poll . '/">View This Poll</a><br/><span style="font-size:10px;">' . $keywords_link . '</span>
 </noscript>';
