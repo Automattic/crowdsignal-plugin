@@ -65,11 +65,17 @@ jQuery(function ($) {
             handle: '.handle',
             tolerance: 'pointer'
         });
+        var loading = false;
         
         function add_answer( aa, src ) {			
 			return false;
 		}
         $('#add-answer-holder').show().find('button').click(function () {
+        	if ( loading )
+        		return false;
+        		
+        	loading = true;
+        	
             var aa = (1 + get_number_answers()).toString();
             var src = $( this ).closest( 'p' ).attr( 'class' );            
             			
@@ -78,6 +84,7 @@ jQuery(function ($) {
 			$( 'form[name=add-answer] input[name=action]' ).val( 'polls_add_answer' );
 			
 			$( 'form[name=add-answer]' ).ajaxSubmit( function( response ) {
+				loading = false;
 				delAnswerPrep( $( '#answers' ).append( response ).find( 'li:last' ) );
             	$('#choices').append('<option value="' + (aa-1) + '">' + (aa-1) + '</option>');
             	init();

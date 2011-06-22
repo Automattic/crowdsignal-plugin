@@ -11,7 +11,7 @@ class WPORG_PollDaddy extends WP_PollDaddy {
 
 	function __construct() {
 		parent::__construct();
-		$this->version                = '2.0.2';
+		$this->version                = '2.0.4';
 		$this->base_url               = plugins_url() . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
 		$this->polldaddy_client_class = 'WPORG_PollDaddy_Client';
 		$this->use_ssl                = (int) get_option( 'polldaddy_use_ssl' );
@@ -378,9 +378,12 @@ if ( !function_exists( 'polldaddy_shortcode_handler' ) ) {
 	function polldaddy_shortcode_handler_set_data() {
 		$resource     = wp_remote_get( 'http://polldaddy.com/xml/keywords.xml' );
 		$body         = wp_remote_retrieve_body( $resource );
-		$keywords_xml = simplexml_load_string( $body );
+		$keywords_xml = false;
 		$keywords     = array();
-
+		
+		if( function_exists( 'simplexml_load_string' ) )
+			$keywords_xml = simplexml_load_string( $body );
+	
 		if ( $keywords_xml !== false ) {
 			$keywords['generated'] = time();
 
@@ -525,7 +528,7 @@ if ( !function_exists( 'polldaddy_shortcode_handler' ) ) {
 				
 			if( $align == 'left')
 				$margins = 'margin:0px 10px 0px 0px;';
-			else if ( $margin == 'right' )
+			elseif ( $align == 'right' )
 				$margins =	'margin: 0px 0px 0px 10px';
 			else
 				$margins = null;	

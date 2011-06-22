@@ -3,7 +3,12 @@
 add_action( 'wp_ajax_myajax-submit', 'myajax_submit' );
 
 class Polldaddy_Ajax {
-	public function __construct() {
+
+	function Polldaddy_Ajax() {
+		$this->__construct();
+	}
+
+	function __construct() {
 		// Catch AJAX
 		add_action( 'wp_ajax_polls_upload_image', array( &$this, 'ajax_upload_image' ) );
 		add_action( 'wp_ajax_polls_add_answer', array( &$this, 'ajax_add_answer' ) );
@@ -16,7 +21,7 @@ class Polldaddy_Ajax {
 		}
 	}
 
-	public function ajax_upload_image() {
+	function ajax_upload_image() {
 		require_once dirname( __FILE__ ) . '/polldaddy-client.php';
 
 		check_admin_referer( 'send-media' );
@@ -43,7 +48,7 @@ class Polldaddy_Ajax {
 		die();
 	}
 
-	public function ajax_add_answer() {
+	function ajax_add_answer() {
 		check_admin_referer( 'add-answer' );
 
 		$a     = 0;
