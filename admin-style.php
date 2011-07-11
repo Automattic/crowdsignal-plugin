@@ -42,13 +42,13 @@ if( $color == 'blue' ){
 
 	h2#polldaddy-header, h2#poll-list-header{
 		padding-left:38px;
-		background:url('<?php echo $this->base_url; ?>img/pd-wp-icon-<?php echo $color; ?>-lrg.png') no-repeat 0px 13px;
+		background:url('<?php echo $this->base_url; ?>img/pd-wp-icon-<?php echo $color; ?>-lrg.png') no-repeat 0 9px;
 		margin-bottom: 14px; 
 	}
 	
 	<?php if( isset( $_GET['iframe']) ):?>
 	h2#polldaddy-header, h2#poll-list-header{
-		background-position: 0px 0px;
+		background-position: 0 0; 
 		margin-top: 20px;
 	}
 	

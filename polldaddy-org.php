@@ -11,7 +11,7 @@ class WPORG_PollDaddy extends WP_PollDaddy {
 
 	function __construct() {
 		parent::__construct();
-		$this->version                = '2.0.4';
+		$this->version                = '2.0.5';
 		$this->base_url               = plugins_url() . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
 		$this->polldaddy_client_class = 'WPORG_PollDaddy_Client';
 		$this->use_ssl                = (int) get_option( 'polldaddy_use_ssl' );
@@ -402,6 +402,12 @@ if ( !function_exists( 'polldaddy_shortcode_handler' ) ) {
 
 	function polldaddy_shortcode_handler( $atts, $content = null ) {
 		global $post;
+		global $content_width;	
+		
+		$no_script = false;
+		
+		if ( is_feed() || defined( 'DOING_AJAX' ) )
+			$no_script = true;
 
 		extract( shortcode_atts( array(
 					'survey'     => null,
@@ -418,11 +424,22 @@ if ( !function_exists( 'polldaddy_shortcode_handler' ) ) {
 					'text_color' => '000000',
 					'back_color' => 'FFFFFF',
 					'align'      => '',
-					'style'      => ''
+					'style'      => '',
+					'width'      => $content_width,
+					'height'     => floor( $content_width * 3 / 4 )
 				), $atts ) );
 
 		$survey = esc_attr( str_replace( "'", "", $survey ) );
 		$link_text = esc_attr( $link_text );
+	
+		if ( isset( $content_width ) && is_numeric( $width ) && $width > $content_width ) 
+			$width = $content_width;
+	
+		if ( !$width )
+			$width = '100%';
+	
+		if ( !$height )
+			$height = '600';
 
 		if ( null != $survey ) {
 
@@ -437,25 +454,34 @@ if ( !function_exists( 'polldaddy_shortcode_handler' ) ) {
 				$back_color = preg_replace( '/&amp;(\w*);/', '&$1;', esc_js( esc_attr( $back_color ) ) );
 				$align      = preg_replace( '/&amp;(\w*);/', '&$1;', esc_js( esc_attr( $align ) ) );
 				$style      = preg_replace( '/&amp;(\w*);/', '&$1;', esc_js( esc_attr( $style ) ) );
-
-				return "
-					<script type='text/javascript' src='http://i0.poll.fm/survey.js' charset='UTF-8'></script>
-					<noscript><a href='http://polldaddy.com/s/$survey'>$title</a></noscript>
-					<script type='text/javascript'>
-					  polldaddy.add( {
-					    title: '$title',
-					    type: '$type',
-					    body: '$body',
-					    button: '$button',
-					    text_color: '$text_color',
-					    back_color: '$back_color',
-					    align: '$align',
-					    style: '$style',
-					    id: '$survey'
-					  } );
-					</script>
-				";
-
+				
+				if ( $no_script ) {
+					return "<a href='http://polldaddy.com/s/$survey'>$title</a>";
+				} else {
+					if ( $type == 'inline' ) {
+						return <<<EOD
+<iframe src="$survey?iframe=1" frameborder="0" width="$width" height="$height" scrolling="auto" marginheight="0" marginwidth="0"><a href='$survey'>$link_text</a></iframe>
+EOD;
+					}
+	
+					return "
+						<script type='text/javascript' src='http://i0.poll.fm/survey.js' charset='UTF-8'></script>
+						<noscript><a href='http://polldaddy.com/s/$survey'>$title</a></noscript>
+						<script type='text/javascript'>
+						  polldaddy.add( {
+						    title: '$title',
+						    type: '$type',
+						    body: '$body',
+						    button: '$button',
+						    text_color: '$text_color',
+						    back_color: '$back_color',
+						    align: '$align',
+						    style: '$style',
+						    id: '$survey'
+						  } );
+						</script>
+					";
+				}
 			} else {
 				return "
 					<script language='javascript' type='text/javascript'>
@@ -472,7 +498,7 @@ if ( !function_exists( 'polldaddy_shortcode_handler' ) ) {
 		$rating = (int) $rating;
 		$cb     = (int) $cb;
 
-		if ( $rating > 0 ) {
+		if ( !$no_script && $rating > 0 ) {
 			if ( null != $unique_id ) {
 				$unique_id = wp_specialchars( $unique_id );
 			} else {
@@ -533,7 +559,10 @@ if ( !function_exists( 'polldaddy_shortcode_handler' ) ) {
 			else
 				$margins = null;	
 
-			return '<a name="pd_a_' . $poll . '"></a><div class="PDS_Poll" id="PDI_container' . $poll . '" style="display:inline-block;' . $float . '' . $margins . '"></div><div id="PD_superContainer"></div><script type="text/javascript" language="javascript" charset="utf-8" src="http://static.polldaddy.com/p/' . $poll . '.js' . $cb . '"></script>
+			if ( $no_script )
+				return '<a href="http://polldaddy.com/poll/' . $poll . '/">View This Poll</a><br/><span style="font-size:10px;">' . $keywords_link . '</span>';
+			else
+				return '<a name="pd_a_' . $poll . '"></a><div class="PDS_Poll" id="PDI_container' . $poll . '" style="display:inline-block;' . $float . '' . $margins . '"></div><div id="PD_superContainer"></div><script type="text/javascript" language="javascript" charset="utf-8" src="http://static.polldaddy.com/p/' . $poll . '.js' . $cb . '"></script>
 <noscript>
 <a href="http://polldaddy.com/poll/' . $poll . '/">View This Poll</a><br/><span style="font-size:10px;">' . $keywords_link . '</span>
 </noscript>';
