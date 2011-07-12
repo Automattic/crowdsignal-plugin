@@ -3,7 +3,7 @@ Contributors: eoigal, alternatekev, mdawaffe
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 2.6
 Tested up to: 3.2
-Stable tag: 2.0.5
+Stable tag: 2.0.6
 
 Create and manage Polldaddy polls and ratings from within WordPress.
 
@@ -67,6 +67,9 @@ More info here - http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks
 You need to select the synchronize ratings account in the Options menu to make sure the ratings API key is valid.
 
 == Change Log ==
+= 2.0.6 =
+* Tidy up shortcodes - remove keywords from no script tags, inline javascript is now xhtml compatible, load survey and poll javascript files in the footer to assist page load speeds
+
 = 2.0.5 =
 * Tested with version 3.2
 * Added extra shortcode handler for inline surveys
