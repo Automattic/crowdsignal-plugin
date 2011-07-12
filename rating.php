@@ -129,18 +129,25 @@ function polldaddy_get_rating_html( $condition = '' ) {
  */
 function polldaddy_get_rating_code( $rating_id, $unique_id, $title, $permalink, $item_id = '' ) {
 	$rating_id = absint( $rating_id );
-	$html = "\n".'<div class="pd-rating" id="pd_rating_holder_' . $rating_id . $item_id . '"></div>';
+	
 	$settings = array(
-		'id'=>$rating_id,
-		'unique_id'=>$unique_id,
-		'title'=>trim( $title ),
-		'permalink'=>esc_url_raw( $permalink )
+		'id'        => $rating_id,
+		'unique_id' => $unique_id,
+		'title'     => trim( $title ),
+		'permalink' => esc_url_raw( $permalink )
 	);
+	
 	if ( !empty( $item_id ) )
 		$settings['item_id'] = $item_id;
-	$html .= '<script type="text/javascript" charset="utf-8"><!--//--><![CDATA[//><!--' . "\n";
-	$html .= "PDRTJS_settings_{$rating_id}{$item_id}=" . json_encode( $settings ) . "\n";
-	$html .= "//--><!]]></script>\n";
+	
+	$settings = json_encode( $settings );
+			
+	$html = <<<EOD
+<div class="pd-rating" id="pd_rating_holder_{$rating_id}{$item_id}"></div>
+<script type="text/javascript" charset="UTF-8"><!--//--><![CDATA[//><!--
+PDRTJS_settings_{$rating_id}{$item_id}={$settings};
+//--><!]]></script>
+EOD;
 
 	return $html;
 }
