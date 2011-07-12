@@ -444,7 +444,7 @@ if ( !function_exists( 'polldaddy_shortcode_handler' ) ) {
 				$style      = preg_replace( '/&amp;(\w*);/', '&$1;', esc_js( esc_attr( $style ) ) );
 				
 				if ( $no_script ) {
-					return "<a href='http://surveys.polldaddy.com/s/{$survey}'>{$title}</a>";
+					return "<a href='http://polldaddy.com/s/{$survey}'>{$title}</a>";
 				} else {
 					if ( $type == 'inline' ) {
 						return <<<EOD
@@ -470,7 +470,7 @@ EOD;
 <script type="text/javascript" charset="UTF-8"><!--//--><![CDATA[//><!--
   polldaddy.add( {$settings} );
 //--><!]]></script>
-<noscript><a href="http://surveys.polldaddy.com/s/{$survey}">{$title}</a></noscript>
+<noscript><a href="http://polldaddy.com/s/{$survey}">{$title}</a></noscript>
 EOD;
 				}
 			} else {
@@ -483,7 +483,7 @@ EOD;
 var PDF_surveyID = "{$survey}";
 var PDF_openText = "{$link_text}";
 //--><!]]></script>
-<noscript><a href="http://surveys.polldaddy.com/s/{$survey}/">{$link_text}</a></noscript>
+<noscript><a href="http://polldaddy.com/s/{$survey}/">{$link_text}</a></noscript>
 EOD;
 			}
 		}
@@ -592,10 +592,10 @@ if ( class_exists( 'WP_Widget' ) ) {
 			$widget = <<<EOD
 {$before_title}{$title}{$after_title}
 <div id="pd_top_rated_holder"></div>
+<script language="javascript" charset="UTF-8" src="http://i.polldaddy.com/ratings/rating-top.js"></script>
 <script type="text/javascript" charset="UTF-8"><!--//--><![CDATA[//><!--
 PDRTJS_TOP = new PDRTJS_RATING_TOP( {$posts_rating_id}, {$pages_rating_id}, {$comments_rating_id}, '{$rating_seq}', {$instance['item_count']} );
 //--><!]]></script>
-<script language="javascript" src="http://i.polldaddy.com/ratings/rating-top.js"></script>
 EOD;
 			echo $before_widget;
 			echo $widget;
