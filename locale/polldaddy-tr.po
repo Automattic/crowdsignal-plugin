@@ -1,0 +1,1147 @@
+#!/usr/bin/env php
+# Translation of the WordPress plugin PollDaddy Polls 1.8.5 by Automattic, Inc..
+# Copyright (C) 2010 Automattic, Inc.
+# This file is distributed under the same license as the PollDaddy Polls package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PollDaddy Polls 1.8.5\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/polldaddy\n"
+"POT-Creation-Date: 2010-03-16 14:42+0000\n"
+"PO-Revision-Date: 2010-12-31 20:18+0200\n"
+"Last-Translator: Arvantis <gbarin@gmail.com>\n"
+"Language-Team: Arvanitis <gbarin@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Turkish\n"
+"X-Poedit-Country: TURKEY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: polldaddy-org.php:107
+#: polldaddy.php:132
+#: polldaddy.php:896
+msgid "Email address required"
+msgstr "E-posta adresi gereklidir"
+
+#: polldaddy-org.php:110
+#: polldaddy.php:135
+#: polldaddy.php:899
+msgid "Password required"
+msgstr "Şifre gereklidir"
+
+#: polldaddy-org.php:142
+msgid "Could not connect to PollDaddy API Key service"
+msgstr "PollDaddy API Anahtarı hizmeti ile bağlantı kurulamadı"
+
+#: polldaddy-org.php:156
+#: polldaddy.php:165
+msgid "Can't connect to PollDaddy.com"
+msgstr "PollDaddy.com ile bağlantı kurulamıyor."
+
+#: polldaddy-org.php:186
+msgid "Login to PollDaddy failed.  Double check your email address and password."
+msgstr "PollDaddy girişiniz başarısız. E-posta adresinizi ve şifrenizi birkez daha kontrol edin."
+
+#: polldaddy-org.php:188
+msgid "If your email address and password are correct, your host may not support secure logins."
+msgstr "E-posta adresiniz ve şifreniz doğru ise sunucunuz güvenli girişi desteklemiyor olabilir."
+
+#: polldaddy-org.php:189
+msgid "In that case, you may be able to log in to PollDaddy by unchecking the \"Use SSL to Log in\" checkbox."
+msgstr "Bu durumda \"Giriş için SSL kullan\" kutusundaki işareti kadırarak PollDaddy'ye giriş yapabilirsiniz."
+
+#: polldaddy-org.php:200
+#: polldaddy.php:202
+msgid "Account could not be accessed.  Are your email address and password correct?"
+msgstr "Heasbınıza erişilemedi. E-posta adresiniz ve şifreniz doğru mu?"
+
+#: polldaddy-org.php:214
+#: polldaddy.php:253
+msgid "PollDaddy Account"
+msgstr "PollDaddy Hesabı"
+
+#: polldaddy-org.php:216
+#: polldaddy.php:255
+#, php-format
+msgid "Before you can use the PollDaddy plugin, you need to enter your <a href=\"%s\">PollDaddy.com</a> account details."
+msgstr "PollDaddy eklentisini kullanmadan önce <a href=\"%s\">PollDaddy.com</a>'da hesap detaylarınızı girmeniz gereklidir."
+
+#: polldaddy-org.php:223
+#: polldaddy.php:262
+#: polldaddy.php:4034
+msgid "PollDaddy Email Address"
+msgstr "PollDaddy E-posta Adresi"
+
+#: polldaddy-org.php:231
+#: polldaddy.php:270
+#: polldaddy.php:4044
+msgid "PollDaddy Password"
+msgstr "PollDaddy Şifre"
+
+#: polldaddy-org.php:244
+msgid "Use SSL to Log in"
+msgstr "Giriş için SSL kullan"
+
+#: polldaddy-org.php:248
+msgid "This ensures a secure login to your PollDaddy account.  Only uncheck if you are having problems logging in."
+msgstr "Bu sizin PollDaddy hesabınıza güvenli girişinizi sağlar. Giriş sorunları yaşıyorsanız ,sadece işareti kaldırın."
+
+#: polldaddy-org.php:258
+#: polldaddy.php:282
+msgid "Submit"
+msgstr "Yolla"
+
+#: polldaddy-org.php:274
+msgid "Multiple PollDaddy Accounts"
+msgstr "Çoklu PollDaddy Hesabı"
+
+#: polldaddy-org.php:280
+msgid "This setting will allow each blog user to import a PollDaddy account."
+msgstr "Bu ayar her blog kullanıcısına PollDaddy hesabı almayı sağlayacaktır."
+
+#: polldaddy-org.php:287
+msgid "Sync Ratings Account"
+msgstr "Derecelendirme Hesabını Eşleme"
+
+#: polldaddy-org.php:293
+msgid "This will syncronize your ratings PollDaddy account."
+msgstr "Bu PollDaddy hesabınızdaki derecelendirmeleri eşleştirecektir."
+
+#: polldaddy-org.php:453
+msgid "A list of your top rated posts, pages or comments."
+msgstr "Sizin zirvedeki yazı, sayfa veya yorumlarınızın listesi."
+
+#: polldaddy-org.php:462
+msgid "Top Rated"
+msgstr "Zirveki Derecelendirmeler"
+
+#: polldaddy-org.php:498
+#: polldaddy.php:3860
+msgid "Title"
+msgstr "Başlık"
+
+#: polldaddy-org.php:507
+msgid "Show for posts"
+msgstr "Yazılarda göster"
+
+#: polldaddy-org.php:518
+msgid "Show for pages"
+msgstr "Sayfalarda göster"
+
+#: polldaddy-org.php:529
+msgid "Show for comments"
+msgstr "Yorumlarda göster"
+
+#: polldaddy-org.php:533
+msgid "How many items would you like to display?"
+msgstr "Kaç madde görüntülemek istiyorsunuz?"
+
+#: polldaddy.php:72
+#: polldaddy.php:74
+#: polldaddy.php:90
+#: polldaddy.php:92
+msgid "Ratings"
+msgstr "Derecelendirmeler"
+
+#: polldaddy.php:79
+#: polldaddy.php:81
+#: polldaddy.php:97
+#: polldaddy.php:99
+#: polldaddy.php:111
+#: polldaddy.php:1105
+msgid "Polls"
+msgstr "Anketler"
+
+#: polldaddy.php:104
+msgid "Ratings &ndash; Settings"
+msgstr "Derecelendirme &ndash; Ayarları"
+
+#: polldaddy.php:104
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: polldaddy.php:105
+#: polldaddy.php:108
+msgid "Ratings &ndash; Reports"
+msgstr "Derecelendirme &ndash; Raporlar"
+
+#: polldaddy.php:105
+#: polldaddy.php:108
+msgid "Reports"
+msgstr "Raporlar"
+
+#: polldaddy.php:111
+#: polldaddy.php:1237
+#: polldaddy.php:2014
+msgid "Edit"
+msgstr "Düzenle"
+
+#: polldaddy.php:114
+msgid "Add New Poll"
+msgstr "Yeni Anket Ekle"
+
+#: polldaddy.php:114
+msgid "Add New"
+msgstr "Yeni ekle"
+
+#: polldaddy.php:115
+#: polldaddy.php:1070
+#: polldaddy.php:1743
+msgid "Custom Styles"
+msgstr "Özel Biçim"
+
+#: polldaddy.php:116
+#: polldaddy.php:4019
+msgid "Options"
+msgstr "Seçenekler"
+
+#: polldaddy.php:192
+msgid "Invalid Account"
+msgstr "Geçersiz Hesap"
+
+#: polldaddy.php:214
+#, php-format
+msgid "Obsolete PollDaddy User API Key:  <a href=\"%s\">Sign in again to re-authenticate</a>"
+msgstr "Eski PollDaddy Kullanıcı API Anahtarı: <a href=\"%s\">Tekrar yetkilendirme için yeniden  oturum açın</ a>"
+
+#: polldaddy.php:291
+msgid "Add Poll"
+msgstr "Anket Ekle"
+
+#: polldaddy.php:362
+msgid "Star Colors"
+msgstr "Yıldız Renkleri"
+
+#: polldaddy.php:362
+#: polldaddy.php:3344
+msgid "Star Size"
+msgstr "Yıldız Boyutu"
+
+#: polldaddy.php:363
+msgid "Nero Type"
+msgstr "Nero Tipi"
+
+#: polldaddy.php:363
+msgid "Nero Size"
+msgstr "Nero Boyutu"
+
+#: polldaddy.php:456
+msgid "You are not allowed to delete this poll."
+msgstr "Bu anketi silmenize izin verilmedi."
+
+#: polldaddy.php:464
+#: polldaddy.php:500
+#: polldaddy.php:536
+#: polldaddy.php:570
+msgid "Invalid Poll Author"
+msgstr "Geçersiz Anket Yazarı"
+
+#: polldaddy.php:492
+msgid "You are not allowed to open this poll."
+msgstr "Bu anketi açmanıza izin verilmedi."
+
+#: polldaddy.php:528
+msgid "You are not allowed to close this poll."
+msgstr "Bu anketi kapatmanıza izin verilmedi."
+
+#: polldaddy.php:561
+#: polldaddy.php:1333
+msgid "You are not allowed to edit this poll."
+msgstr "Bu anketi düzenlemenize izin verilmedi."
+
+#: polldaddy.php:577
+msgid "Poll not found"
+msgstr "Anket bulunamadı"
+
+#: polldaddy.php:604
+msgid "Invalid answers"
+msgstr "Geçersiz yanıtlar"
+
+#: polldaddy.php:620
+msgid "You must include at least 2 answers"
+msgstr "En az 2 yanıt içermelidir"
+
+#: polldaddy.php:631
+#: polldaddy.php:708
+msgid "Please choose a poll style"
+msgstr "Lütfen anket biçimini seç"
+
+#: polldaddy.php:653
+msgid "Poll could not be updated"
+msgstr "Anket güncellenemedi"
+
+#: polldaddy.php:727
+msgid "Poll could not be created"
+msgstr "Anket oluşturulamadı"
+
+#: polldaddy.php:779
+msgid "Style could not be updated"
+msgstr "Biçim güncellenemedi"
+
+#: polldaddy.php:809
+msgid "Style could not be created"
+msgstr "Biçim oluşturulamadı"
+
+#: polldaddy.php:908
+msgid "Account could not be imported.  Are your email address and password correct?"
+msgstr "Hesap alınamadı. E-posta adresiniz ve şifreniz doğru mu?"
+
+#: polldaddy.php:926
+msgid "Poll deleted."
+msgstr "Anket silindi."
+
+#: polldaddy.php:928
+#, php-format
+msgid "%s Poll Deleted."
+msgid_plural "%s Polls Deleted."
+msgstr[0] "%s Anket Silindi."
+msgstr[1] "%s Anketler Silindi."
+
+#: polldaddy.php:933
+msgid "Poll opened."
+msgstr "Anket açıldı."
+
+#: polldaddy.php:935
+#, php-format
+msgid "%s Poll Opened."
+msgid_plural "%s Polls Opened."
+msgstr[0] "%s Anket Açıldı."
+msgstr[1] "%s Anketler Açıldı."
+
+#: polldaddy.php:940
+msgid "Poll closed."
+msgstr "Anket kapandı."
+
+#: polldaddy.php:942
+#, php-format
+msgid "%s Poll Closed."
+msgid_plural "%s Polls Closed."
+msgstr[0] "%s Anket Kapandı."
+msgstr[1] "%s Anketler Kapandı."
+
+#: polldaddy.php:945
+msgid "Poll updated."
+msgstr "Anket güncellendi."
+
+#: polldaddy.php:948
+msgid "Poll created."
+msgstr "Anket oluşturuldu."
+
+#: polldaddy.php:950
+#: polldaddy.php:1366
+msgid "Send to Editor"
+msgstr "Düzenleyiciye Yolla"
+
+#: polldaddy.php:953
+msgid "Custom Style updated."
+msgstr "Özel Biçim güncellendi."
+
+#: polldaddy.php:956
+msgid "Custom Style created."
+msgstr "Özel Biçim oluşturuldu."
+
+#: polldaddy.php:961
+msgid "Custom Style deleted."
+msgstr "Özel Biçim silindi."
+
+#: polldaddy.php:963
+#, php-format
+msgid "%s Style Deleted."
+msgid_plural "%s Styles Deleted."
+msgstr[0] "%s Biçim Silindi"
+msgstr[1] "%s Biçim Silindi"
+
+#: polldaddy.php:966
+msgid "Account Imported."
+msgstr "Hesap Aktarıldı."
+
+#: polldaddy.php:969
+msgid "Options Updated."
+msgstr "Seçenekler Güncellendi."
+
+#: polldaddy.php:978
+msgid "Error: An error has occurred;  Poll not created."
+msgstr "Hata: Bir hata oluştu; Anket oluşturulamadı."
+
+#: polldaddy.php:981
+msgid "Error: An error has occurred;  Poll not updated."
+msgstr "Hata: Bir hata oluştu; Anket güncellenmedi."
+
+#: polldaddy.php:985
+msgid "Error: An error has occurred;  Account could not be imported.  Perhaps your email address or password is incorrect?"
+msgstr "Hata: Bir hata oluştu; Hesap alınamadı. Belki e-posta adresiniz veya şifreniz yanlıştır?"
+
+#: polldaddy.php:987
+msgid "Error: An error has occurred;  Account could not be created."
+msgstr "Hata: Bir hata oluştu; Hesap oluşturulamadı."
+
+#: polldaddy.php:1024
+#, php-format
+msgid "Poll Preview (<a href=\"%s\">Edit Poll</a>, <a href=\"%s\">List Polls</a>)"
+msgstr "Anket Ön İzleme (<a href=\"%s\">Anketi Düzenle</a>, <a href=\"%s\">Anketler Listesi</a>)"
+
+#: polldaddy.php:1028
+#, php-format
+msgid "Poll Preview (<a href=\"%s\">List Polls</a>)"
+msgstr "Anket Ön İzleme (<a href=\"%s\">Anketler Listesi</a>)"
+
+#: polldaddy.php:1038
+#, php-format
+msgid "Poll Results (<a href=\"%s\">Edit Poll</a>)"
+msgstr "Anket Sonuçları(<a href=\"%s\">Anketi Düzenle</a>)"
+
+#: polldaddy.php:1040
+#, php-format
+msgid "Poll Results (<a href=\"%s\">List Polls</a>)"
+msgstr "Anket Sonuçları (<a href=\"%s\">Anketler Listesi</a>)"
+
+#: polldaddy.php:1049
+#, php-format
+msgid "Edit Poll (<a href=\"%s\">List Polls</a>)"
+msgstr "Anket Düzenle (<a href=\"%s\">Anketler Listesi</a>) "
+
+#: polldaddy.php:1058
+#, php-format
+msgid "Create Poll (<a href=\"%s\">List Polls</a>)"
+msgstr "Anket Oluştur (<a href=\"%s\">Anketler Listesi</a>)"
+
+#: polldaddy.php:1068
+#, php-format
+msgid "Custom Styles (<a href=\"%s\">Add New</a>)"
+msgstr "Özel Biçimler (<a href=\"%s\">Yeni Ekle</a>)"
+
+#: polldaddy.php:1078
+#, php-format
+msgid "Edit Style (<a href=\"%s\">List Styles</a>)"
+msgstr "Biçimi düzenle (<a href=\"%s\">Biçim Listesi</a>)"
+
+#: polldaddy.php:1087
+#, php-format
+msgid "Create Style (<a href=\"%s\">List Styles</a>)"
+msgstr "Biçim Oluştur (<a href=\"%s\">Biçim Listesi</a>)"
+
+#: polldaddy.php:1103
+#, php-format
+msgid "Polls (<a href=\"%s\">Add New</a>)"
+msgstr "Anketler (<a href=\"%s\">Yeni Ekle</a>) "
+
+#: polldaddy.php:1168
+msgid "All Blog's Polls"
+msgstr "Bütün Blogun Anketleri"
+
+#: polldaddy.php:1169
+msgid "All My Polls"
+msgstr "Bütün Anketlerim"
+
+#: polldaddy.php:1177
+#: polldaddy.php:1977
+msgid "Actions"
+msgstr "Eylemler"
+
+#: polldaddy.php:1178
+#: polldaddy.php:1243
+#: polldaddy.php:1978
+#: polldaddy.php:2019
+msgid "Delete"
+msgstr "Sil"
+
+#: polldaddy.php:1179
+#: polldaddy.php:1250
+msgid "Close"
+msgstr "Kapat"
+
+#: polldaddy.php:1180
+#: polldaddy.php:1247
+msgid "Open"
+msgstr "Aç"
+
+#: polldaddy.php:1182
+#: polldaddy.php:1980
+msgid "Apply"
+msgstr "Ekle"
+
+#: polldaddy.php:1193
+msgid "Poll"
+msgstr "Anket"
+
+#: polldaddy.php:1194
+#: polldaddy.php:1881
+#: polldaddy.php:1926
+#: polldaddy.php:3861
+msgid "Votes"
+msgstr "Oylar"
+
+#: polldaddy.php:1195
+msgid "Created"
+msgstr "Oluşturuldu"
+
+#: polldaddy.php:1241
+msgid "Results"
+msgstr "Sonuçlar"
+
+#: polldaddy.php:1253
+#: polldaddy.php:1259
+#: polldaddy.php:3256
+msgid "Preview"
+msgstr "Ön İzleme"
+
+#: polldaddy.php:1255
+msgid "Send to editor"
+msgstr "Düzenleyiciye gönder"
+
+#: polldaddy.php:1261
+msgid "HTML code"
+msgstr "HTML kodu"
+
+#: polldaddy.php:1265
+#: polldaddy.php:2021
+msgid "Y/m/d g:i:s A"
+msgstr "d.m.Y H:i"
+
+#: polldaddy.php:1265
+#: polldaddy.php:2021
+msgid "Y/m/d"
+msgstr "d.m.Y"
+
+#: polldaddy.php:1269
+msgid "Shortcode"
+msgstr "Kısakodlar"
+
+#: polldaddy.php:1272
+msgid "JavaScript"
+msgstr "JavaScript"
+
+#: polldaddy.php:1288
+#, php-format
+msgid "What are you doing here?  <a href=\"%s\">Go back</a>."
+msgstr "Burada ne yapıyorsunuz?  <a href=\"%s\">Geri dön</a>."
+
+#: polldaddy.php:1298
+#, php-format
+msgid "No polls yet.  <a href=\"%s\">Create one</a>"
+msgstr "Henüz anket yok.  <a href=\"%s\">Bir tane oluştur</a>"
+
+#: polldaddy.php:1300
+msgid "No polls yet."
+msgstr "Henüz anket yok."
+
+#: polldaddy.php:1355
+msgid "Publish"
+msgstr "Yayınla"
+
+#: polldaddy.php:1362
+msgid "Save Poll"
+msgstr "Anketi Kaydet"
+
+#: polldaddy.php:1377
+#: polldaddy.php:4102
+msgid "Poll results"
+msgstr "Anket sonuçları"
+
+#: polldaddy.php:1382
+msgid "Show results to voters"
+msgstr "Sonuçları oy verenlere göster"
+
+#: polldaddy.php:1382
+msgid "Only show percentages"
+msgstr "Sadece yüzde göster"
+
+#: polldaddy.php:1382
+msgid "Hide all results"
+msgstr "Bütün sonuçları gizle"
+
+#: polldaddy.php:1400
+#: polldaddy.php:4119
+msgid "Block repeat voters"
+msgstr "Oy verenlerin tekrarlamasını engelle"
+
+#: polldaddy.php:1405
+msgid "Don't block repeat voters"
+msgstr "Oy verenlerin tekrarlamasını engelleme"
+
+#: polldaddy.php:1405
+msgid "Block by cookie (recommended)"
+msgstr "Çerezle engelle (tavsiye edilen)"
+
+#: polldaddy.php:1405
+msgid "Block by cookie and by IP address"
+msgstr "Çerez ve IP adresi ile engelle"
+
+#: polldaddy.php:1420
+msgid "Expires: "
+msgstr "Geçerlilik:"
+
+#: polldaddy.php:1422
+#: polldaddy.php:4124
+msgid "Never"
+msgstr "Asla"
+
+#: polldaddy.php:1423
+#: polldaddy.php:4125
+#, php-format
+msgid "%d hour"
+msgstr "%d saat"
+
+#: polldaddy.php:1424
+#: polldaddy.php:1425
+#: polldaddy.php:1426
+#: polldaddy.php:4126
+#: polldaddy.php:4127
+#: polldaddy.php:4128
+#, php-format
+msgid "%d hours"
+msgstr "%d saat"
+
+#: polldaddy.php:1427
+#: polldaddy.php:4129
+#, php-format
+msgid "%d day"
+msgstr "%d gün"
+
+#: polldaddy.php:1428
+#: polldaddy.php:4130
+#, php-format
+msgid "%d week"
+msgstr "%d hafta"
+
+#: polldaddy.php:1429
+#: polldaddy.php:4131
+#, php-format
+msgid "%d month"
+msgstr "%d ay"
+
+#: polldaddy.php:1431
+msgid "Note: Blocking by cookie and IP address can be problematic for some voters."
+msgstr "Not: Çerez ve IP adresi engelleme bazı oy verenler için sorunlu olabilir."
+
+#: polldaddy.php:1446
+msgid "Answers"
+msgstr "Yanıtlar"
+
+#: polldaddy.php:1492
+msgid "Add another"
+msgstr "Diğerini ekle"
+
+#: polldaddy.php:1498
+msgid "Multiple choice"
+msgstr "Çoklu seçim"
+
+#: polldaddy.php:1498
+msgid "Randomize answer order"
+msgstr "Rasgele yanıt düzeni"
+
+#: polldaddy.php:1498
+msgid "Allow other answers"
+msgstr "Diğer yanıtlara izin ver"
+
+#: polldaddy.php:1498
+msgid "'Share This' link"
+msgstr "'Bunu Paylaş' bağlantısı"
+
+#: polldaddy.php:1627
+msgid "Design"
+msgstr "Tasarım"
+
+#: polldaddy.php:1708
+#: polldaddy.php:1763
+msgid "Custom Style"
+msgstr "Özel Biçim"
+
+#: polldaddy.php:1721
+#: polldaddy.php:1817
+msgid "Please choose a custom style..."
+msgstr "Özel biçim seçiniz..."
+
+#: polldaddy.php:1727
+#: polldaddy.php:1823
+msgid "Please choose a style."
+msgstr "Lütfen bir biçim seç."
+
+#: polldaddy.php:1732
+#: polldaddy.php:1828
+#, php-format
+msgid "Did you know we have a new editor for building your own custom poll styles? Find out more <a href=\"%s\" target=\"_blank\">here</a>."
+msgstr "Kendi özel anket tarzınızı oluşturmak için bizim yeni bir editörümüz var biliyor muydunuz?  <a href=\"%s\" Burada</a> target=\"_blank\"> daha fazlasını bulabilirsiniz."
+
+#: polldaddy.php:1755
+msgid "PollDaddy Style"
+msgstr "PollDaddy Biçimi"
+
+#: polldaddy.php:1880
+msgid "Answer"
+msgstr "Yanıtlar"
+
+#: polldaddy.php:1895
+#, php-format
+msgid "Other (<a href=\"%s\">see below</a>)"
+msgstr "Diğeri (<a href=\"%s\">Aşağıya bakın</a>)"
+
+#: polldaddy.php:1925
+#: polldaddy.php:4090
+msgid "Other Answer"
+msgstr "Diğer Yanıtlar"
+
+#: polldaddy.php:1990
+msgid "Style"
+msgstr "Biçim"
+
+#: polldaddy.php:1991
+msgid "Last Modified"
+msgstr "Son Değiştirme"
+
+#: polldaddy.php:2031
+#, php-format
+msgid "No custom styles yet.  <a href=\"%s\">Create one</a>"
+msgstr "Henüz özel biçim yok. <a href=\"%s\">Bir tane oluştur</a>"
+
+#: polldaddy.php:2107
+msgid "Style Name"
+msgstr "Biçim Adı"
+
+#: polldaddy.php:2122
+msgid "Preload Basic Style"
+msgstr "Önceden Yüklü Temel Biçim"
+
+#: polldaddy.php:2136
+msgid "Load Style"
+msgstr "Biçim Yükle"
+
+#: polldaddy.php:2925
+msgid "Save Style"
+msgstr "Biçimi Kaydet"
+
+#: polldaddy.php:3069
+#, php-format
+msgid "Sorry! There was an error creating your rating widget. Please contact <a href=\"%1$s\" %2$s>PollDaddy support</a> to fix this."
+msgstr "Üzgünüm! Derecelendirme bileşeninizi oluştururken bir hata oluştu. Bunu düzeltmek için <a href=\"%1$s\" %2$s>PollDaddy desteğine</a> başvurun."
+
+#: polldaddy.php:3108
+msgid "Rating Settings"
+msgstr "Derecelendirme Ayarları"
+
+#: polldaddy.php:3110
+msgid "Rating updated"
+msgstr "Derecelendirme güncellendi"
+
+#: polldaddy.php:3122
+#: polldaddy.php:3820
+msgid "Posts"
+msgstr "Yazılar"
+
+#: polldaddy.php:3126
+#: polldaddy.php:3820
+msgid "Pages"
+msgstr "Sayfalar"
+
+#: polldaddy.php:3130
+#: polldaddy.php:3820
+msgid "Comments"
+msgstr "Yorumlar"
+
+#: polldaddy.php:3141
+msgid "Enable for blog posts"
+msgstr "Blog yazıları için etkinleştir"
+
+#: polldaddy.php:3145
+#: polldaddy.php:3163
+msgid "Above each blog post"
+msgstr "Her blog yazısının üstünde"
+
+#: polldaddy.php:3145
+#: polldaddy.php:3163
+msgid "Below each blog post"
+msgstr "Her blog yazısının altında"
+
+#: polldaddy.php:3159
+msgid "Enable for front page"
+msgstr "Ana sayfa için etkinleştir"
+
+#: polldaddy.php:3179
+msgid "Enable for pages"
+msgstr "Sayfalar için etkinleştir"
+
+#: polldaddy.php:3183
+msgid "Above each page"
+msgstr "Her sayfanın üstünde"
+
+#: polldaddy.php:3183
+msgid "Below each page"
+msgstr "Her sayfanın altında"
+
+#: polldaddy.php:3199
+msgid "Enable for comments"
+msgstr "Yorumlar için etkinleştir"
+
+#: polldaddy.php:3203
+msgid "Above each comment"
+msgstr "Her yorumun üstünde"
+
+#: polldaddy.php:3203
+msgid "Below each comment"
+msgstr "Her yorumun altında"
+
+#: polldaddy.php:3218
+#: polldaddy.php:3249
+msgid "Save Changes"
+msgstr "Değişiklikleri Kaydet"
+
+#: polldaddy.php:3229
+msgid "Advanced Settings"
+msgstr "İleri Düzey Ayarlar"
+
+#: polldaddy.php:3242
+msgid "Save"
+msgstr "Kaydet"
+
+#: polldaddy.php:3258
+msgid "This is a demo of what your rating widget will look like"
+msgstr "Bu sizin derecelendirme bileşeninizin nasıl görüneceğinin bir gösterimidir"
+
+#: polldaddy.php:3265
+msgid "Customize Labels"
+msgstr "Etiketleri Kişiselleştir "
+
+#: polldaddy.php:3269
+msgid "votes"
+msgstr "oylar"
+
+#: polldaddy.php:3273
+msgid "rate this"
+msgstr "bunu derecelendir"
+
+#: polldaddy.php:3277
+#, php-format
+msgid "%d star"
+msgstr "%d yıldız"
+
+#: polldaddy.php:3281
+#: polldaddy.php:3285
+#: polldaddy.php:3289
+#: polldaddy.php:3293
+#, php-format
+msgid "%d stars"
+msgstr "%d yıldızlar"
+
+#: polldaddy.php:3297
+msgid "Thank You"
+msgstr "Teşekkürler"
+
+#: polldaddy.php:3301
+msgid "Rate Up"
+msgstr "Olumlu"
+
+#: polldaddy.php:3305
+msgid "Rate Down"
+msgstr "Olumsuz"
+
+#: polldaddy.php:3314
+msgid "Rating Type"
+msgstr "Derecelendirme Tipi"
+
+#: polldaddy.php:3316
+msgid "Here you can choose how you want your rating to display. The 5 star rating is the most commonly used. The Nero rating is useful for keeping it simple."
+msgstr "Burada derecelendirmenizi nasıl görüntülemek istediğinizi seçebilirsiniz. 5 yıldız çok sık kullanılır. Nero derecelendirmeyi basit tutmak için yararlıdır."
+
+#: polldaddy.php:3324
+#, php-format
+msgid "%d Star Rating"
+msgstr "%d Yıldız Derecelendirme"
+
+#: polldaddy.php:3333
+msgid "Nero Rating"
+msgstr "Nero Derecelendirme"
+
+#: polldaddy.php:3340
+msgid "Rating Style"
+msgstr "Derecelendirme Biçimi"
+
+#: polldaddy.php:3347
+msgid "Small"
+msgstr "Küçük"
+
+#: polldaddy.php:3347
+msgid "Medium"
+msgstr "Orta"
+
+#: polldaddy.php:3347
+msgid "Large"
+msgstr "Geniş"
+
+#: polldaddy.php:3358
+msgid "Star Color"
+msgstr "Yıldız Renkleri"
+
+#: polldaddy.php:3361
+msgid "Yellow"
+msgstr "Sarı"
+
+#: polldaddy.php:3361
+msgid "Red"
+msgstr "Kırmızı"
+
+#: polldaddy.php:3361
+msgid "Blue"
+msgstr "Mavi"
+
+#: polldaddy.php:3361
+msgid "Green"
+msgstr "Yeşil"
+
+#: polldaddy.php:3361
+msgid "Grey"
+msgstr "Gri"
+
+#: polldaddy.php:3370
+msgid "Hand"
+msgstr "El"
+
+#: polldaddy.php:3381
+msgid "Custom Image"
+msgstr "Özel Resim"
+
+#: polldaddy.php:3388
+msgid "Text Layout & Font"
+msgstr "Metin Düzeni & Yazı Tipi"
+
+#: polldaddy.php:3392
+msgid "Align"
+msgstr "Hizalama"
+
+#: polldaddy.php:3395
+msgid "Left"
+msgstr "Sol"
+
+#: polldaddy.php:3395
+msgid "Center"
+msgstr "Ortalı"
+
+#: polldaddy.php:3395
+#: polldaddy.php:3409
+msgid "Right"
+msgstr "Sağ"
+
+#: polldaddy.php:3406
+msgid "Position"
+msgstr "Yerleştirme"
+
+#: polldaddy.php:3409
+msgid "Top"
+msgstr "Üst"
+
+#: polldaddy.php:3409
+msgid "Bottom"
+msgstr "Alt"
+
+#: polldaddy.php:3420
+msgid "Font"
+msgstr "Yazı Tipi"
+
+#: polldaddy.php:3423
+#: polldaddy.php:3442
+#: polldaddy.php:3456
+msgid "Inherit"
+msgstr "Devral"
+
+#: polldaddy.php:3434
+msgid "Color"
+msgstr "Renk"
+
+#: polldaddy.php:3439
+msgid "Size"
+msgstr "Boyut"
+
+#: polldaddy.php:3453
+msgid "Line Height"
+msgstr "Satır Yüksekliği"
+
+#: polldaddy.php:3467
+msgid "Bold"
+msgstr "Koyu"
+
+#: polldaddy.php:3476
+msgid "Italic"
+msgstr "Yatık"
+
+#: polldaddy.php:3489
+#: polldaddy.php:3520
+#: polldaddy.php:3550
+msgid "Extra Settings"
+msgstr "Ek Ayarlar"
+
+#: polldaddy.php:3493
+#: polldaddy.php:3524
+#: polldaddy.php:3554
+msgid "Rating ID"
+msgstr "Derecelendirme Kimliği"
+
+#: polldaddy.php:3499
+msgid "This is the rating ID used in posts"
+msgstr "Bu yazılarda kullanılan derecelendirme kimliğidir"
+
+#: polldaddy.php:3504
+msgid "Exclude Posts"
+msgstr "Hariç Yazılar"
+
+#: polldaddy.php:3510
+msgid "Enter the Post IDs where you want to exclude ratings from. Please use a comma-delimited list, eg. 1,2,3"
+msgstr "Derecelendirmede hariç tutmak istediğiniz Yazı kimliklerini girin. Virgülle ayrılmış liste kullanın. , örneğin: 1,2,3 gibi."
+
+#: polldaddy.php:3530
+msgid "This is the rating ID used in pages"
+msgstr "Bu sayfalarda kullanılan derecelendirme kimliğidir"
+
+#: polldaddy.php:3535
+msgid "Exclude Pages"
+msgstr "Hariç Sayfalar"
+
+#: polldaddy.php:3541
+msgid "Enter the Page IDs where you want to exclude ratings from. Please use a comma-delimited list, eg. 1,2,3"
+msgstr "Derecelendirmede hariç tutmak istediğiniz Sayfa kimliklerini girin. Virgülle ayrılmış liste kullanın. , örneğin: 1,2,3 gibi."
+
+#: polldaddy.php:3560
+msgid "This is the rating ID used in comments"
+msgstr "Bu yorumlarda kullanılan derecelendirme kimliğidir."
+
+#: polldaddy.php:3807
+msgid "&laquo;"
+msgstr "&laquo;"
+
+#: polldaddy.php:3808
+msgid "&raquo;"
+msgstr "&raquo;"
+
+#: polldaddy.php:3814
+msgid "Rating Reports"
+msgstr "Derecelendirme Raporları"
+
+#: polldaddy.php:3829
+msgid "View Report"
+msgstr "Raporlara Bak"
+
+#: polldaddy.php:3831
+msgid "Last 24 hours"
+msgstr "Son 24 saat"
+
+#: polldaddy.php:3831
+msgid "Last 7 days"
+msgstr "Son 7 gün"
+
+#: polldaddy.php:3831
+msgid "Last 31 days"
+msgstr "Son 31 gün"
+
+#: polldaddy.php:3831
+msgid "Last 3 months"
+msgstr "Son 3 ay"
+
+#: polldaddy.php:3831
+msgid "Last 12 months"
+msgstr "Son 12 ay"
+
+#: polldaddy.php:3831
+msgid "All time"
+msgstr "Bütün zamanlar"
+
+#: polldaddy.php:3839
+msgid "Filter Report"
+msgstr "Ayıklanmış Rapor"
+
+#: polldaddy.php:3853
+#, php-format
+msgid "No ratings have been collected for your %s yet."
+msgstr "%s için henüz toplanmış derecelendirme yok."
+
+#: polldaddy.php:3859
+msgid "Start Date"
+msgstr "Başlama Tarihi"
+
+#: polldaddy.php:3862
+msgid "Average Rating"
+msgstr "Derecelendirme Ortalaması"
+
+#: polldaddy.php:4023
+msgid "PollDaddy Account Info"
+msgstr "PollDaddy Hesap Bilgileri"
+
+#: polldaddy.php:4026
+msgid "This is the PollDadddy account you currently have imported into your WordPress account"
+msgstr "Şu anda WordPress hesabınıza aktarılmış olan PollDaddy hesabınızdır."
+
+#: polldaddy.php:4057
+msgid "Import Account"
+msgstr "Hesabı içe aktar"
+
+#: polldaddy.php:4063
+msgid "General Settings"
+msgstr "Genel Ayarlar"
+
+#: polldaddy.php:4071
+msgid "Default poll settings"
+msgstr "Varsayılan anket ayarları"
+
+#: polldaddy.php:4080
+msgid "Multiple Choice"
+msgstr "Çoklu Seçim"
+
+#: polldaddy.php:4085
+msgid "Randomise Answers"
+msgstr "Rasgele Yanıtlar"
+
+#: polldaddy.php:4095
+msgid "Sharing"
+msgstr "Paylaşım"
+
+#: polldaddy.php:4099
+msgid "Show"
+msgstr "Göster"
+
+#: polldaddy.php:4100
+msgid "Hide"
+msgstr "Gizle"
+
+#: polldaddy.php:4101
+msgid "Percentages"
+msgstr "Yüzdeler"
+
+#: polldaddy.php:4111
+msgid "Poll style"
+msgstr "Anket biçimi"
+
+#: polldaddy.php:4116
+msgid "Off"
+msgstr "Kapalı"
+
+#: polldaddy.php:4117
+msgid "Cookie"
+msgstr "Çerez"
+
+#: polldaddy.php:4118
+msgid "Cookie & IP address"
+msgstr "Çerez & IP adresi"
+
+#: polldaddy.php:4132
+msgid "Block expiration limit"
+msgstr "Geçerlilik sınırlamasını engelle"
+
+#: polldaddy.php:4144
+msgid "Save Options"
+msgstr "Seçenekleri Kaydet"
+
+#. Plugin Name of the plugin/theme
+msgid "PollDaddy Polls"
+msgstr "PollDaddy Anketler"
+
+#. Description of the plugin/theme
+msgid "Create and manage PollDaddy polls and ratings in WordPress"
+msgstr "WordPress'te PollDaddy anketler oluştur ve derecelendirmeleri yönet"
+
+#. Author of the plugin/theme
+msgid "Automattic, Inc."
+msgstr "Automattic, A.Ş."
+
+#~ msgid "Polls in WordPress"
+#~ msgstr "Afstemninger i WordPress"
+
