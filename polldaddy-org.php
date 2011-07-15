@@ -11,7 +11,7 @@ class WPORG_PollDaddy extends WP_PollDaddy {
 
 	function __construct() {
 		parent::__construct();
-		$this->version                = '2.0.6';
+		$this->version                = '2.0.7';
 		$this->base_url               = plugins_url() . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
 		$this->polldaddy_client_class = 'WPORG_PollDaddy_Client';
 		$this->use_ssl                = (int) get_option( 'polldaddy_use_ssl' );
@@ -378,11 +378,19 @@ if ( !function_exists( 'polldaddy_shortcode_handler' ) ) {
 	function polldaddy_add_rating_js() {
 		wp_print_scripts( 'polldaddy-rating-js' );
 	}
-	
-	function polldaddy_add_poll_js() {
-		wp_print_scripts( 'polldaddy-poll-js' );
+
+	class pd_poll_shortcodes {
+		private $poll_id;
+		
+		public function pd_poll_shortcodes( $poll_id ){
+			$this->poll_id = (int) $poll_id;
+		}
+		
+		public function polldaddy_add_poll_js() {
+			wp_print_scripts( 'polldaddy-poll-js-'. $this->poll_id );
+		}
 	}
-	
+
 	function polldaddy_add_survey_js() {
 		wp_print_scripts( 'polldaddy-survey-js' );
 	}
@@ -536,9 +544,10 @@ EOD;
 			if ( $no_script )
 				return '<a href="http://polldaddy.com/poll/' . $poll . '/">View This Poll</a>';
 			else {
-			
-				wp_register_script( 'polldaddy-poll-js', "http://static.polldaddy.com/p/{$poll}.js", array(), $cb, true );
-				add_filter( 'wp_footer', 'polldaddy_add_poll_js' );	
+		
+				$pd_poll_shortcodes = new pd_poll_shortcodes( $poll );
+				wp_register_script( "polldaddy-poll-js-{$poll}", "http://static.polldaddy.com/p/{$poll}.js", array(), $cb, true );
+				add_filter( 'wp_footer', array( &$pd_poll_shortcodes, 'polldaddy_add_poll_js' ) );
 				
 				return <<<EOD
 <a name="pd_a_{$poll}"></a><div class="PDS_Poll" id="PDI_container{$poll}" style="display:inline-block;{$float}{$margins}"></div><div id="PD_superContainer"></div>

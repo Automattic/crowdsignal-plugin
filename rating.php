@@ -130,6 +130,8 @@ function polldaddy_get_rating_html( $condition = '' ) {
 function polldaddy_get_rating_code( $rating_id, $unique_id, $title, $permalink, $item_id = '' ) {
 	$rating_id = absint( $rating_id );
 	
+	$html = "\n";
+	
 	$settings = array(
 		'id'        => $rating_id,
 		'unique_id' => $unique_id,
@@ -140,9 +142,9 @@ function polldaddy_get_rating_code( $rating_id, $unique_id, $title, $permalink, 
 	if ( !empty( $item_id ) )
 		$settings['item_id'] = $item_id;
 	
-	$settings = json_encode( $settings );
-			
-	$html = <<<EOD
+	$settings = addslashes( json_encode( $settings ) );
+	
+	$html .= <<<EOD
 <div class="pd-rating" id="pd_rating_holder_{$rating_id}{$item_id}"></div>
 <script type="text/javascript" charset="UTF-8"><!--//--><![CDATA[//><!--
 PDRTJS_settings_{$rating_id}{$item_id}={$settings};
