@@ -135,14 +135,14 @@ function polldaddy_get_rating_code( $rating_id, $unique_id, $title, $permalink, 
 	$settings = array(
 		'id'        => $rating_id,
 		'unique_id' => $unique_id,
-		'title'     => trim( $title ),
+		'title'     => addslashes( trim( $title ) ),
 		'permalink' => esc_url_raw( $permalink )
 	);
 	
 	if ( !empty( $item_id ) )
 		$settings['item_id'] = $item_id;
 	
-	$settings = addslashes( json_encode( $settings ) );
+	$settings = json_encode( $settings );
 	
 	$html .= <<<EOD
 <div class="pd-rating" id="pd_rating_holder_{$rating_id}{$item_id}"></div>
