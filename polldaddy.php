@@ -3655,7 +3655,6 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 		if ( !empty( $pd_rating ) ) {
 			$settings_text = $pd_rating->settings;
 			$settings = json_decode( $settings_text );
-			$settings[ 'title' ] = stripslashes( $settings[ 'title' ] );
 
 			$popup_disabled = ( isset( $settings->popup ) && $settings->popup == 'off' );
 
