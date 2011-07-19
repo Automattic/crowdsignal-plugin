@@ -1414,7 +1414,7 @@ class WP_PollDaddy {
 					<th class="check-column" scope="row"><?php if ( $this->is_author and $this->can_edit( $poll ) ) { ?><input type="checkbox" value="<?php echo (int) $poll_id; ?>" name="poll[]" /><?php } ?></th>
 					<td class="post-title column-title" style="padding-top:7px;">
 <?php if ( $edit_link ) { ?>
-						<a class="row-title" style="display:block;" href="<?php echo $edit_link; ?>"><?php echo esc_html( $poll->___content ); ?></a>
+						<a class="row-title" style="display:block;" href="<?php echo $edit_link; ?>"><strong><?php echo esc_html( $poll->___content ); ?></strong></a>
 
 						<abbr title="<?php echo date( __( 'Y/m/d g:i:s A', 'polldaddy' ), $poll_time ); ?>"> <?php _e( 'created', 'polldaddy' ); ?> <?php echo date( __( 'M d, Y', 'polldaddy' ), $poll_time ); ?></abbr>
 
@@ -1549,7 +1549,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 		jQuery( document ).ready(function(){
 			plugin = new Plugin( {
 				delete_rating: '<?php echo esc_attr( __( 'Are you sure you want to delete the rating for "%s"?', 'polldaddy' ) ); ?>',
-				delete_poll: '<?php echo esc_attr( __( 'Are you sure you want to delete "%s"?', 'polldaddy' ) ); ?>',
+				delete_poll: '<?php echo esc_attr( __( 'Are you sure you want to delete the poll %s?', 'polldaddy' ) ); ?>',
 				delete_answer: '<?php echo esc_attr( __( 'Are you sure you want to delete this answer?', 'polldaddy' ) ); ?>',
 				delete_answer_title: '<?php echo esc_attr( __( 'delete this answer', 'polldaddy' ) ); ?>',
 				standard_styles: '<?php echo esc_attr( __( 'Standard Styles', 'polldaddy' ) ); ?>',

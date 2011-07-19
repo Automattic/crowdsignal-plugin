@@ -44,7 +44,7 @@ jQuery(function ($) {
             return confirm( opts.delete_rating.replace("%s", $(this).parents('td').find('strong').text() ) );
         });
         $('a.delete-poll').click(function () {
-            return confirm( opts.delete_poll.replace("%s", $(this).parents('td').find('strong').text() ) );
+            return confirm( opts.delete_poll.replace( "%s", "'" + $(this).parents('td').find('strong').text() + "'" ) );
         });
         $('span.view a.thickbox').attr('href', function () {
             return $(this).attr('href') + '&iframe&TB_iframe=true';
