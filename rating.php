@@ -117,8 +117,8 @@ function polldaddy_get_rating_html( $condition = '' ) {
 }
 
 /**
- * Construct a PollDaddy target div for a given rating_id and optional item_id
- * Define a PollDaddy ratings variable for a given rating_id and optional item_id
+ * Construct a Polldaddy target div for a given rating_id and optional item_id
+ * Define a Polldaddy ratings variable for a given rating_id and optional item_id
  *
  * @param int     $rating_id
  * @param string  $unique_id

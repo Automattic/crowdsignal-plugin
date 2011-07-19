@@ -1,12 +1,12 @@
 #!/usr/bin/env php
-# Translation of the WordPress plugin PollDaddy Polls 1.8.5 by Automattic, Inc..
+# Translation of the WordPress plugin Polldaddy Polls 1.8.5 by Automattic, Inc..
 # Copyright (C) 2010 Automattic, Inc.
-# This file is distributed under the same license as the PollDaddy Polls package.
+# This file is distributed under the same license as the Polldaddy Polls package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PollDaddy Polls 1.8.5\n"
+"Project-Id-Version: Polldaddy Polls 1.8.5\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/polldaddy\n"
 "POT-Creation-Date: 2010-03-16 14:42+0000\n"
 "PO-Revision-Date: 2010-03-16 14:46-0000\n"
@@ -31,17 +31,17 @@ msgstr "តំរូវអោយមាន ពាក្យសំងាត់"
 
 #: polldaddy-org.php:142
 #, fuzzy
-msgid "Could not connect to PollDaddy API Key service"
-msgstr "គ្មានអាច តជាប់ ទៅ PollDaddy.com "
+msgid "Could not connect to Polldaddy API Key service"
+msgstr "គ្មានអាច តជាប់ ទៅ Polldaddy.com "
 
 #: polldaddy-org.php:156
 #: polldaddy.php:165
-msgid "Can't connect to PollDaddy.com"
-msgstr "គ្មានអាច តជាប់ ទៅ PollDaddy.com "
+msgid "Can't connect to Polldaddy.com"
+msgstr "គ្មានអាច តជាប់ ទៅ Polldaddy.com "
 
 #: polldaddy-org.php:186
 #, fuzzy
-msgid "Login to PollDaddy failed.  Double check your email address and password."
+msgid "Login to Polldaddy failed.  Double check your email address and password."
 msgstr "គ្មានអាច ចូលទៅ គណនី។ អាសយដ្ឋានអ៊ីមែវល៍ និង ពាក្យសំងាត់ របស់អ្នក ត្រឹមត្រូវ ឬ?"
 
 #: polldaddy-org.php:188
@@ -49,7 +49,7 @@ msgid "If your email address and password are correct, your host may not support
 msgstr ""
 
 #: polldaddy-org.php:189
-msgid "In that case, you may be able to log in to PollDaddy by unchecking the \"Use SSL to Log in\" checkbox."
+msgid "In that case, you may be able to log in to Polldaddy by unchecking the \"Use SSL to Log in\" checkbox."
 msgstr ""
 
 #: polldaddy-org.php:200
@@ -59,33 +59,33 @@ msgstr "គ្មានអាច ចូលទៅ គណនី។ អាសយដ
 
 #: polldaddy-org.php:214
 #: polldaddy.php:253
-msgid "PollDaddy Account"
-msgstr "គណនី PollDaddy"
+msgid "Polldaddy Account"
+msgstr "គណនី Polldaddy"
 
 #: polldaddy-org.php:216
 #: polldaddy.php:255
 #, php-format
-msgid "Before you can use the PollDaddy plugin, you need to enter your <a href=\"%s\">PollDaddy.com</a> account details."
-msgstr "មុនអ្នកអាចប្រើប្រាស់ plugin PollDaddy, អ្នកចាំបាច់ បញ្ចូល លំអិតគណនី <a href=\"%s\">PollDaddy.com</a> របស់អ្នក។"
+msgid "Before you can use the Polldaddy plugin, you need to enter your <a href=\"%s\">Polldaddy.com</a> account details."
+msgstr "មុនអ្នកអាចប្រើប្រាស់ plugin Polldaddy, អ្នកចាំបាច់ បញ្ចូល លំអិតគណនី <a href=\"%s\">Polldaddy.com</a> របស់អ្នក។"
 
 #: polldaddy-org.php:223
 #: polldaddy.php:262
 #: polldaddy.php:4034
-msgid "PollDaddy Email Address"
-msgstr "អាសយដ្ឋានអ៊ីមែវល៍ PollDaddy"
+msgid "Polldaddy Email Address"
+msgstr "អាសយដ្ឋានអ៊ីមែវល៍ Polldaddy"
 
 #: polldaddy-org.php:231
 #: polldaddy.php:270
 #: polldaddy.php:4044
-msgid "PollDaddy Password"
-msgstr "ពាក្យសំងាត់ PollDaddy"
+msgid "Polldaddy Password"
+msgstr "ពាក្យសំងាត់ Polldaddy"
 
 #: polldaddy-org.php:244
 msgid "Use SSL to Log in"
 msgstr ""
 
 #: polldaddy-org.php:248
-msgid "This ensures a secure login to your PollDaddy account.  Only uncheck if you are having problems logging in."
+msgid "This ensures a secure login to your Polldaddy account.  Only uncheck if you are having problems logging in."
 msgstr ""
 
 #: polldaddy-org.php:258
@@ -95,11 +95,11 @@ msgstr "ដាក់ស្នើ"
 
 #: polldaddy-org.php:274
 #, fuzzy
-msgid "Multiple PollDaddy Accounts"
-msgstr "គណនី PollDaddy"
+msgid "Multiple Polldaddy Accounts"
+msgstr "គណនី Polldaddy"
 
 #: polldaddy-org.php:280
-msgid "This setting will allow each blog user to import a PollDaddy account."
+msgid "This setting will allow each blog user to import a Polldaddy account."
 msgstr ""
 
 #: polldaddy-org.php:287
@@ -109,8 +109,8 @@ msgstr "គណនី គ្មានសុពលភាព"
 
 #: polldaddy-org.php:293
 #, fuzzy
-msgid "This will syncronize your ratings PollDaddy account."
-msgstr "នាំចូល គណនី PollDaddy មានស្រាប់ របស់ខ្ញុំ។"
+msgid "This will syncronize your ratings Polldaddy account."
+msgstr "នាំចូល គណនី Polldaddy មានស្រាប់ របស់ខ្ញុំ។"
 
 #: polldaddy-org.php:453
 msgid "A list of your top rated posts, pages or comments."
@@ -208,7 +208,7 @@ msgstr "គណនី គ្មានសុពលភាព"
 
 #: polldaddy.php:214
 #, php-format
-msgid "Obsolete PollDaddy User API Key:  <a href=\"%s\">Sign in again to re-authenticate</a>"
+msgid "Obsolete Polldaddy User API Key:  <a href=\"%s\">Sign in again to re-authenticate</a>"
 msgstr ""
 
 #: polldaddy.php:291
@@ -667,7 +667,7 @@ msgid "Did you know we have a new editor for building your own custom poll style
 msgstr ""
 
 #: polldaddy.php:1755
-msgid "PollDaddy Style"
+msgid "Polldaddy Style"
 msgstr ""
 
 #: polldaddy.php:1880
@@ -715,8 +715,8 @@ msgstr ""
 
 #: polldaddy.php:3069
 #, php-format
-msgid "Sorry! There was an error creating your rating widget. Please contact <a href=\"%1$s\" %2$s>PollDaddy support</a> to fix this."
-msgstr "អធ្យាស្រ័យ! មានកំហុសបង្កើត វិដជិតវាយតំលៃ របស់អ្នក។ សូមទាក់ទង <a href=\"%1$s\" %2$s>ក្រុមជំនួយ PollDaddy</a> សំរាប់ជួសជុល នេះ។"
+msgid "Sorry! There was an error creating your rating widget. Please contact <a href=\"%1$s\" %2$s>Polldaddy support</a> to fix this."
+msgstr "អធ្យាស្រ័យ! មានកំហុសបង្កើត វិដជិតវាយតំលៃ របស់អ្នក។ សូមទាក់ទង <a href=\"%1$s\" %2$s>ក្រុមជំនួយ Polldaddy</a> សំរាប់ជួសជុល នេះ។"
 
 #: polldaddy.php:3108
 msgid "Rating Settings"
@@ -1063,12 +1063,12 @@ msgid "Average Rating"
 msgstr "ការវាយតំលៃ មធ្យម"
 
 #: polldaddy.php:4023
-msgid "PollDaddy Account Info"
-msgstr "ពត៌មានគណនី PollDaddy"
+msgid "Polldaddy Account Info"
+msgstr "ពត៌មានគណនី Polldaddy"
 
 #: polldaddy.php:4026
 msgid "This is the PollDadddy account you currently have imported into your WordPress account"
-msgstr "នេះជា គណនី PollDaddy  អ្នក បច្ចុប្បន្ន បាននាំចូល ទៅក្នុង គណនី WordPress របស់អ្នក"
+msgstr "នេះជា គណនី Polldaddy  អ្នក បច្ចុប្បន្ន បាននាំចូល ទៅក្នុង គណនី WordPress របស់អ្នក"
 
 #: polldaddy.php:4057
 msgid "Import Account"
@@ -1132,11 +1132,11 @@ msgstr "រក្សាទុកជំរើស"
 
 #. Plugin Name of the plugin/theme
 #, fuzzy
-msgid "PollDaddy Polls"
-msgstr "ពាក្យសំងាត់ PollDaddy"
+msgid "Polldaddy Polls"
+msgstr "ពាក្យសំងាត់ Polldaddy"
 
 #. Description of the plugin/theme
-msgid "Create and manage PollDaddy polls and ratings in WordPress"
+msgid "Create and manage Polldaddy polls and ratings in WordPress"
 msgstr ""
 
 #. Author of the plugin/theme
@@ -1151,10 +1151,10 @@ msgstr ""
 
 #~ msgid ""
 #~ "To use polls in WordPress, you will need an account with our sister "
-#~ "product, <a href=\"%s\">PollDaddy.com</a>."
+#~ "product, <a href=\"%s\">Polldaddy.com</a>."
 #~ msgstr ""
 #~ "ដើម្បីប្រើប្រាស់ ការស្ទង់មតិ លើ WordPress, អ្នក នឹងចាំបាច់ មានមួយគណនី ជាមួយផលិតផលប្អូន "
-#~ "របស់យើង, <a href=\"%s\">PollDaddy.com</a>។"
+#~ "របស់យើង, <a href=\"%s\">Polldaddy.com</a>។"
 
 #~ msgid "Auto-create a new account (recommended)."
 #~ msgstr "បង្កើតស្វ័យប្រវត្តិ មួយគណនីថ្មី (ជាអនុសាស)។"

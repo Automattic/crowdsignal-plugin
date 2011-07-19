@@ -2,10 +2,10 @@
 
 require_once dirname( __FILE__ ) . '/polldaddy-client.php';
 
-class WPORG_PollDaddy extends WP_PollDaddy {
+class WPORG_Polldaddy extends WP_Polldaddy {
 	var $use_ssl;
 
-	function WPORG_PollDaddy() {
+	function WPORG_Polldaddy() {
 		$this->__construct();
 	}
 
@@ -13,7 +13,7 @@ class WPORG_PollDaddy extends WP_PollDaddy {
 		parent::__construct();
 		$this->version                = '2.0.7';
 		$this->base_url               = plugins_url() . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
-		$this->polldaddy_client_class = 'WPORG_PollDaddy_Client';
+		$this->polldaddy_client_class = 'WPORG_Polldaddy_Client';
 		$this->use_ssl                = (int) get_option( 'polldaddy_use_ssl' );
 		$this->multiple_accounts      = (bool) get_option( 'polldaddy_multiple_accounts' );
 		$this->is_author              = ( ( (bool) current_user_can('edit_others_posts')) or ( $this->multiple_accounts ) );
@@ -139,7 +139,7 @@ class WPORG_PollDaddy extends WP_PollDaddy {
 			}
 			$response_code = wp_remote_retrieve_response_code( $polldaddy_api_key );
 			if ( 200 != $response_code ) {
-				$this->errors->add( 'http_code', __( 'Could not connect to PollDaddy API Key service', 'polldaddy' ) );
+				$this->errors->add( 'http_code', __( 'Could not connect to Polldaddy API Key service', 'polldaddy' ) );
 				return false;
 			}
 			$polldaddy_api_key = wp_remote_retrieve_body( $polldaddy_api_key );
@@ -153,7 +153,7 @@ class WPORG_PollDaddy extends WP_PollDaddy {
 			);
 
 			if ( !$fp ) {
-				$this->errors->add( 'connect', __( "Can't connect to PollDaddy.com", 'polldaddy' ) );
+				$this->errors->add( 'connect', __( "Can't connect to Polldaddy.com", 'polldaddy' ) );
 				return false;
 			}
 
@@ -183,10 +183,10 @@ class WPORG_PollDaddy extends WP_PollDaddy {
 			update_option( 'polldaddy_api_key', $polldaddy_api_key );
 		}
 		else {
-			$this->errors->add( 'polldaddy_api_key', __( 'Login to PollDaddy failed.  Double check your email address and password.', 'polldaddy' ) );
+			$this->errors->add( 'polldaddy_api_key', __( 'Login to Polldaddy failed.  Double check your email address and password.', 'polldaddy' ) );
 			if ( 1 !== $this->use_ssl ) {
 				$this->errors->add( 'polldaddy_api_key', __( 'If your email address and password are correct, your host may not support secure logins.', 'polldaddy' ) );
-				$this->errors->add( 'polldaddy_api_key', __( 'In that case, you may be able to log in to PollDaddy by unchecking the "Use SSL to Log in" checkbox.', 'polldaddy' ) );
+				$this->errors->add( 'polldaddy_api_key', __( 'In that case, you may be able to log in to Polldaddy by unchecking the "Use SSL to Log in" checkbox.', 'polldaddy' ) );
 				$this->use_ssl = 0;
 			}
 			update_option( 'polldaddy_use_ssl', $this->use_ssl );
@@ -211,16 +211,16 @@ class WPORG_PollDaddy extends WP_PollDaddy {
 
 <div class="wrap">
 
-	<h2><?php _e( 'PollDaddy Account', 'polldaddy' ); ?></h2>
+	<h2><?php _e( 'Polldaddy Account', 'polldaddy' ); ?></h2>
 
-	<p><?php printf( __('Before you can use the PollDaddy plugin, you need to enter your <a href="%s">PollDaddy.com</a> account details.' ), 'http://polldaddy.com/' ); ?></p>
+	<p><?php printf( __('Before you can use the Polldaddy plugin, you need to enter your <a href="%s">Polldaddy.com</a> account details.' ), 'http://polldaddy.com/' ); ?></p>
 
 	<form action="" method="post">
 		<table class="form-table">
 			<tbody>
 				<tr class="form-field form-required">
 					<th valign="top" scope="row">
-						<label for="polldaddy-email"><?php _e( 'PollDaddy Email Address', 'polldaddy' ); ?></label>
+						<label for="polldaddy-email"><?php _e( 'Polldaddy Email Address', 'polldaddy' ); ?></label>
 					</th>
 					<td>
 						<input type="text" name="polldaddy_email" id="polldaddy-email" aria-required="true" size="40" value="<?php if ( isset( $_POST['polldaddy_email'] ) ) echo attribute_escape( $_POST['polldaddy_email'] ); ?>" />
@@ -228,7 +228,7 @@ class WPORG_PollDaddy extends WP_PollDaddy {
 				</tr>
 				<tr class="form-field form-required">
 					<th valign="top" scope="row">
-						<label for="polldaddy-password"><?php _e( 'PollDaddy Password', 'polldaddy' ); ?></label>
+						<label for="polldaddy-password"><?php _e( 'Polldaddy Password', 'polldaddy' ); ?></label>
 					</th>
 					<td>
 						<input type="password" name="polldaddy_password" id="polldaddy-password" aria-required="true" size="40" />
@@ -245,7 +245,7 @@ class WPORG_PollDaddy extends WP_PollDaddy {
 					</th>
 					<td>
 						<input type="checkbox" name="polldaddy_use_ssl" id="polldaddy-use-ssl" value="1" <?php echo $checked ?> style="width: auto"/>
-						<label for="polldaddy-use-ssl"><?php _e( 'This ensures a secure login to your PollDaddy account.  Only uncheck if you are having problems logging in.', 'polldaddy' ); ?></label>
+						<label for="polldaddy-use-ssl"><?php _e( 'This ensures a secure login to your Polldaddy account.  Only uncheck if you are having problems logging in.', 'polldaddy' ); ?></label>
 						<input type="hidden" name="polldaddy_use_ssl_checkbox" value="1" />
 					</td>
 				</tr>
@@ -271,13 +271,13 @@ class WPORG_PollDaddy extends WP_PollDaddy {
 			?><tr class="form-field form-required">
     <th valign="top" scope="row">
       <label for="polldaddy-multiple-accounts">
-        <?php _e( 'Multiple PollDaddy Accounts', 'polldaddy' ); ?>
+        <?php _e( 'Multiple Polldaddy Accounts', 'polldaddy' ); ?>
       </label>
     </th>
     <td>
       <input type="checkbox" name="polldaddy-multiple-accounts" id="polldaddy-multiple-accounts" value="1" <?php echo $checked ?> style="width: auto" />
         <span class="description">
-          <label for="polldaddy-multiple-accounts"><?php _e( 'This setting will allow each blog user to import a PollDaddy account.', 'polldaddy' ); ?></label>
+          <label for="polldaddy-multiple-accounts"><?php _e( 'This setting will allow each blog user to import a Polldaddy account.', 'polldaddy' ); ?></label>
         </span>
     </td>
   </tr>
@@ -290,7 +290,7 @@ class WPORG_PollDaddy extends WP_PollDaddy {
     <td>
       <input type="checkbox" name="polldaddy-sync-account" id="polldaddy-sync-account" value="1" style="width: auto" />
         <span class="description">
-          <label for="polldaddy-sync-account"><?php _e( 'This will synchronize your ratings PollDaddy account.', 'polldaddy' ); ?></label>
+          <label for="polldaddy-sync-account"><?php _e( 'This will synchronize your ratings Polldaddy account.', 'polldaddy' ); ?></label>
         </span>
     </td>
   </tr><?php }
@@ -298,11 +298,11 @@ class WPORG_PollDaddy extends WP_PollDaddy {
 	}
 }
 
-class WPORG_PollDaddy_Client extends api_client {
+class WPORG_Polldaddy_Client extends api_client {
 	/**
 	 *
 	 *
-	 * @return string|false PollDaddy partner account or false on failure
+	 * @return string|false Polldaddy partner account or false on failure
 	 */
 	function get_partner_account() {
 		$pos = $this->add_request( 'getpartneraccount' );
@@ -318,7 +318,7 @@ class WPORG_PollDaddy_Client extends api_client {
 	 *
 	 * @see polldaddy_partner()
 	 * @param array   $args polldaddy_partner() args
-	 * @return string|false PollDaddy partner account or false on failure
+	 * @return string|false Polldaddy partner account or false on failure
 	 */
 	function update_partner_account( $args ) {
 		if ( !$partner = polldaddy_partner( $args ) )
@@ -335,7 +335,7 @@ class WPORG_PollDaddy_Client extends api_client {
 
 function &polldaddy_partner( $args = null ) {
 	$false = false;
-	if ( is_a( $args, 'PollDaddy_Partner' ) )
+	if ( is_a( $args, 'Polldaddy_Partner' ) )
 		return $args;
 
 	$defaults = _polldaddy_partner_defaults();
@@ -346,7 +346,7 @@ function &polldaddy_partner( $args = null ) {
 		if ( !is_string( $args[$required] ) || !$args[$required] )
 			return $false;
 
-		$obj = new PollDaddy_Partner( $args, $args );
+		$obj = new Polldaddy_Partner( $args, $args );
 
 	return $obj;
 }
@@ -358,7 +358,7 @@ function _polldaddy_partner_defaults() {
 	);
 }
 
-define( 'WP_POLLDADDY__CLASS', 'WPORG_PollDaddy' );
+define( 'WP_POLLDADDY__CLASS', 'WPORG_Polldaddy' );
 define( 'WP_POLLDADDY__POLLDADDY_CLIENT_PATH', dirname( __FILE__ ) . '/polldaddy-client.php' );
 
 function polldaddy_loader() {
@@ -576,7 +576,7 @@ add_action( 'init', 'polldaddy_loader' );
 add_filter( 'widget_text', 'do_shortcode' );
 
 /**
- * PollDaddy Top Rated Widget
+ * Polldaddy Top Rated Widget
  *
  * **/
 if ( class_exists( 'WP_Widget' ) ) {

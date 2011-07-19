@@ -9,10 +9,10 @@ Author URL: http://automattic.com/
 Version: 2.0.7
 */
 
-// You can hardcode your PollDaddy PartnerGUID (API Key) here
+// You can hardcode your Polldaddy PartnerGUID (API Key) here
 //define( 'WP_POLLDADDY__PARTNERGUID', '12345...' );
 
-class WP_PollDaddy {
+class WP_Polldaddy {
 	var $errors;
 	var $base_url;
 	var $is_admin;
@@ -26,7 +26,7 @@ class WP_PollDaddy {
 	var $user_code;
 	var $rating_user_code;
 
-	function WP_PollDaddy() {
+	function WP_Polldaddy() {
 		$this->__construct();
 	}
 
@@ -679,7 +679,7 @@ class WP_PollDaddy {
 						else
 							$answer = polldaddy_poll_answer( $args );
 
-						if ( isset( $answer ) && is_a( $answer, 'PollDaddy_Poll_Answer' ) )
+						if ( isset( $answer ) && is_a( $answer, 'Polldaddy_Poll_Answer' ) )
 							$answers[] = $answer;
 					}
 				}
@@ -779,7 +779,7 @@ class WP_PollDaddy {
 
 						$answer = polldaddy_poll_answer( $args );
 
-						if ( isset( $answer ) && is_a( $answer, 'PollDaddy_Poll_Answer' ) )
+						if ( isset( $answer ) && is_a( $answer, 'Polldaddy_Poll_Answer' ) )
 							$answers[] = $answer;
 					}
 				}

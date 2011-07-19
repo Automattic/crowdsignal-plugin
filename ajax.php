@@ -43,7 +43,7 @@ class Polldaddy_Ajax {
 		$polldaddy = new api_client( WP_POLLDADDY__PARTNERGUID, $user_code );
 		$response  = $polldaddy->upload_image( $name, $url, 'poll', ($attach_id>1000?$attach_id:0) );
 
-		if ( is_a( $response, "PollDaddy_Media" ) )
+		if ( is_a( $response, "Polldaddy_Media" ) )
 			echo urldecode( $response->upload_result ).'||'.$attach_id;
 		die();
 	}

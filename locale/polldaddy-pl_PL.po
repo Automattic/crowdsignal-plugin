@@ -1,11 +1,11 @@
-# Translation of the WordPress plugin PollDaddy Polls 1.8.8 by Automattic, Inc..
+# Translation of the WordPress plugin Polldaddy Polls 1.8.8 by Automattic, Inc..
 # Copyright (C) 2010 Automattic, Inc.
-# This file is distributed under the same license as the PollDaddy Polls package.
+# This file is distributed under the same license as the Polldaddy Polls package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PollDaddy Polls 1.8.8\n"
+"Project-Id-Version: Polldaddy Polls 1.8.8\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/polldaddy\n"
 "POT-Creation-Date: 2010-06-14 15:14+0000\n"
 "PO-Revision-Date: 2011-01-06 13:25+0100\n"
@@ -31,24 +31,24 @@ msgid "Password required"
 msgstr "Wymagane jest hasło"
 
 #: polldaddy-org.php:142
-msgid "Could not connect to PollDaddy API Key service"
-msgstr "Nie udało się połączyć z API kluczy serwisu PollDaddy"
+msgid "Could not connect to Polldaddy API Key service"
+msgstr "Nie udało się połączyć z API kluczy serwisu Polldaddy"
 
 #: polldaddy-org.php:156
 #: polldaddy.php:165
-msgid "Can't connect to PollDaddy.com"
-msgstr "Nie udało się połączyć z serwisem PollDaddy"
+msgid "Can't connect to Polldaddy.com"
+msgstr "Nie udało się połączyć z serwisem Polldaddy"
 
 #: polldaddy-org.php:186
-msgid "Login to PollDaddy failed.  Double check your email address and password."
-msgstr "Nie udało się zalogować do serwisu PollDaddy. Sprawdź wpisany adres email i hasło."
+msgid "Login to Polldaddy failed.  Double check your email address and password."
+msgstr "Nie udało się zalogować do serwisu Polldaddy. Sprawdź wpisany adres email i hasło."
 
 #: polldaddy-org.php:188
 msgid "If your email address and password are correct, your host may not support secure logins."
 msgstr "Jeśli masz pewność co do poprawności emaila i hasła, Twój serwer może nie udostępniać możliwości szyfrowanego logowania."
 
 #: polldaddy-org.php:189
-msgid "In that case, you may be able to log in to PollDaddy by unchecking the \"Use SSL to Log in\" checkbox."
+msgid "In that case, you may be able to log in to Polldaddy by unchecking the \"Use SSL to Log in\" checkbox."
 msgstr "W takim wypadku, możliwość logowania może być dostępna jedynie przez odznaczenie opcji \"Użyj szyfrowanego połączenia do logowania\"."
 
 #: polldaddy-org.php:200
@@ -58,34 +58,34 @@ msgstr "Nie udało się dostać do konta. Sprawdź poprawność adresu email i h
 
 #: polldaddy-org.php:214
 #: polldaddy.php:253
-msgid "PollDaddy Account"
-msgstr "Konto w serwisie PollDaddy"
+msgid "Polldaddy Account"
+msgstr "Konto w serwisie Polldaddy"
 
 #: polldaddy-org.php:216
 #: polldaddy.php:255
 #, php-format
-msgid "Before you can use the PollDaddy plugin, you need to enter your <a href=\"%s\">PollDaddy.com</a> account details."
-msgstr "Zanim będziesz mógł korzystać z wtyczki, musisz podać dane Twojego konta w <a href=\"%s\">PollDaddy.com</a>."
+msgid "Before you can use the Polldaddy plugin, you need to enter your <a href=\"%s\">Polldaddy.com</a> account details."
+msgstr "Zanim będziesz mógł korzystać z wtyczki, musisz podać dane Twojego konta w <a href=\"%s\">Polldaddy.com</a>."
 
 #: polldaddy-org.php:223
 #: polldaddy.php:262
 #: polldaddy.php:4251
-msgid "PollDaddy Email Address"
-msgstr "Adres email konta PollDaddy"
+msgid "Polldaddy Email Address"
+msgstr "Adres email konta Polldaddy"
 
 #: polldaddy-org.php:231
 #: polldaddy.php:270
 #: polldaddy.php:4261
-msgid "PollDaddy Password"
-msgstr "Hasło do konta w PollDaddy"
+msgid "Polldaddy Password"
+msgstr "Hasło do konta w Polldaddy"
 
 #: polldaddy-org.php:244
 msgid "Use SSL to Log in"
 msgstr "Użyj szyfrowanego połączenia do logowania"
 
 #: polldaddy-org.php:248
-msgid "This ensures a secure login to your PollDaddy account.  Only uncheck if you are having problems logging in."
-msgstr "Ta opcja zapewnia szyfrowane logowanie do Twojego konta w PollDaddy. Odznacz tylko w przypadku problemów z logowaniem."
+msgid "This ensures a secure login to your Polldaddy account.  Only uncheck if you are having problems logging in."
+msgstr "Ta opcja zapewnia szyfrowane logowanie do Twojego konta w Polldaddy. Odznacz tylko w przypadku problemów z logowaniem."
 
 #: polldaddy-org.php:258
 #: polldaddy.php:282
@@ -93,20 +93,20 @@ msgid "Submit"
 msgstr "Zaakceptuj"
 
 #: polldaddy-org.php:274
-msgid "Multiple PollDaddy Accounts"
-msgstr "Wiele kont PollDaddy"
+msgid "Multiple Polldaddy Accounts"
+msgstr "Wiele kont Polldaddy"
 
 #: polldaddy-org.php:280
-msgid "This setting will allow each blog user to import a PollDaddy account."
-msgstr "Ta opcja umożliwia każdemu użytkownikowi bloga na zimportowanie swojego konta PollDaddy."
+msgid "This setting will allow each blog user to import a Polldaddy account."
+msgstr "Ta opcja umożliwia każdemu użytkownikowi bloga na zimportowanie swojego konta Polldaddy."
 
 #: polldaddy-org.php:287
 msgid "Sync Ratings Account"
 msgstr "Zsynchronizuj konto ocen"
 
 #: polldaddy-org.php:293
-msgid "This will synchronize your ratings PollDaddy account."
-msgstr "Ta opcja umozliwi synchronizację Twojego konta ocen w PollDaddy."
+msgid "This will synchronize your ratings Polldaddy account."
+msgstr "Ta opcja umozliwi synchronizację Twojego konta ocen w Polldaddy."
 
 #: polldaddy-org.php:453
 msgid "A list of your top rated posts, pages or comments."
@@ -207,8 +207,8 @@ msgstr "Nieprawidlowe konto"
 
 #: polldaddy.php:214
 #, php-format
-msgid "Obsolete PollDaddy User API Key:  <a href=\"%s\">Sign in again to re-authenticate</a>"
-msgstr "Przestarzały klucz użytkownika PollDaddy: <a href=\"%s\">Zaloguj się aby potwierdzić ponownie informacje o koncie</a>"
+msgid "Obsolete Polldaddy User API Key:  <a href=\"%s\">Sign in again to re-authenticate</a>"
+msgstr "Przestarzały klucz użytkownika Polldaddy: <a href=\"%s\">Zaloguj się aby potwierdzić ponownie informacje o koncie</a>"
 
 #: polldaddy.php:291
 msgid "Add Poll"
@@ -1020,8 +1020,8 @@ msgid "Did you know we have a new editor for building your own custom poll style
 msgstr "Czy wiesz, że usostępniamy nowy edytor do tworzenia własnych styli sond? Więcej dowiesz się <a href=\"%s\" target=\"_blank\">tutaj</a>."
 
 #: polldaddy.php:1816
-msgid "PollDaddy Style"
-msgstr "Styl PollDaddy"
+msgid "Polldaddy Style"
+msgstr "Styl Polldaddy"
 
 #: polldaddy.php:1930
 #: polldaddy.php:2278
@@ -1510,8 +1510,8 @@ msgstr "Dziękujemy za oddanie głosu!"
 
 #: polldaddy.php:3186
 #, php-format
-msgid "Sorry! There was an error creating your rating widget. Please contact <a href=\"%1$s\" %2$s>PollDaddy support</a> to fix this."
-msgstr "Przykro nam, ale wystąpił błąd w tworzenie widżeta Twoich Ocen. Proszę skontaktuj się ze <a href=\"%1$s\" %2$s>wsparciem PollDaddy</a> aby rozwiązać ten problem."
+msgid "Sorry! There was an error creating your rating widget. Please contact <a href=\"%1$s\" %2$s>Polldaddy support</a> to fix this."
+msgstr "Przykro nam, ale wystąpił błąd w tworzenie widżeta Twoich Ocen. Proszę skontaktuj się ze <a href=\"%1$s\" %2$s>wsparciem Polldaddy</a> aby rozwiązać ten problem."
 
 #: polldaddy.php:3286
 msgid "Rating Settings"
@@ -1800,12 +1800,12 @@ msgid "Average Rating"
 msgstr "Średnia ocena"
 
 #: polldaddy.php:4240
-msgid "PollDaddy Account Info"
-msgstr "Informacje konta PollDaddy"
+msgid "Polldaddy Account Info"
+msgstr "Informacje konta Polldaddy"
 
 #: polldaddy.php:4243
 msgid "This is the PollDadddy account you currently have imported into your WordPress account"
-msgstr "To jest konto PollDaddy aktualnie zaimportowane do Twojego konta WordPressa."
+msgstr "To jest konto Polldaddy aktualnie zaimportowane do Twojego konta WordPressa."
 
 #: polldaddy.php:4274
 msgid "Import Account"
@@ -1868,12 +1868,12 @@ msgid "Save Options"
 msgstr "Zapisz zmiany"
 
 #. Plugin Name of the plugin/theme
-msgid "PollDaddy Polls"
-msgstr "Sondy PollDaddy"
+msgid "Polldaddy Polls"
+msgstr "Sondy Polldaddy"
 
 #. Description of the plugin/theme
-msgid "Create and manage PollDaddy polls and ratings in WordPress"
-msgstr "Twórz i zarządzaj sondami i ocenami PollDaddy przy pomocy WordPressa"
+msgid "Create and manage Polldaddy polls and ratings in WordPress"
+msgstr "Twórz i zarządzaj sondami i ocenami Polldaddy przy pomocy WordPressa"
 
 #. Author of the plugin/theme
 msgid "Automattic, Inc."
