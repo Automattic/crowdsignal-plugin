@@ -14,12 +14,12 @@ The Polldaddy Polls and Ratings plugin allows you to create and manage polls and
 Polldaddy Polls is localizable and currently available in:
 
 * English
-* Arabic (thanks to <a href="http://www.Ghorab.ws" target="_blank">Ghorab.ws</a>)
+* Arabic (thanks to [Ghorab.ws](http://www.Ghorab.ws))
 * French
 * Spanish
 * Czech
 * Danish
-* Polish (thanks to <a href="http://mkopec.eu" target="_blank">Maciej Kopeć</a>)
+* Polish (thanks to [Maciej Kopeć](http://mkopec.eu))
 * Turkish (thanks to Gürol Barın)
 * Brazilian Portuguese
 * Khmer
@@ -31,7 +31,7 @@ Want to help translate the plugin or keep an existing translation up-to-date? He
 
 Upload the plugin to your blog, Activate it, then enter your Polldaddy.com email address and password.
 
-More info here - http://support.polldaddy.com/installing-wordpress-org-plugin/
+More info on this [support page](http://support.polldaddy.com/installing-wordpress-org-plugin/).
 
 == Screenshots ==
 
@@ -66,7 +66,16 @@ More info here - http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks
 
 You need to select the synchronize ratings account in the Options menu to make sure the ratings API key is valid.
 
+== Upgrade Notice ==
+= 2.0.8 =
+* Fixed display of ratings on posts and pages.
+
 == Change Log ==
+= 2.0.8 =
+* Fixed display of ratings on posts and pages.
+* Fixed confirmation dialog when deleting polls
+* Changed PollDaddy to Polldaddy
+
 = 2.0.7 =
 * Fixed bug in displaying multiple polls in a post
 * Fixed bug when using json_encode, it converts utf8 charaters to unicode values in post title but they were not getting escaped properly and thus were not displayed properly in reports or in top rated widget.
