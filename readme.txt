@@ -1,5 +1,5 @@
 === Polldaddy Polls & Ratings ===
-Contributors: eoigal, alternatekev, mdawaffe
+Contributors: eoigal, alternatekev, mdawaffe, donncha, johnny5
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 2.6
 Tested up to: 3.2.1
