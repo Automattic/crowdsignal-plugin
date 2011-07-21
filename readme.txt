@@ -24,6 +24,7 @@ Polldaddy Polls is localizable and currently available in:
 * Brazilian Portuguese
 * Khmer
 * Tegulu
+* Latvian (thanks to [Edgars Bergs](http://www.yourwebagency.co.uk/))
 
 Want to help translate the plugin or keep an existing translation up-to-date? Head on over to http://translate.wordpress.com/projects/polldaddy/plugin
 
