@@ -11,6 +11,7 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 
 	function __construct() {
 		parent::__construct();
+		$GLOBALS[ 'wp_log' ][ 'polldaddy' ][] = 'Created WPORG_Polldaddy Object: constructor';
 		$this->version                = '2.0.7';
 		$this->base_url               = plugins_url() . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
 		$this->polldaddy_client_class = 'WPORG_Polldaddy_Client';

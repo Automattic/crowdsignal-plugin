@@ -32,6 +32,7 @@ class WP_Polldaddy {
 
 	function __construct() {
 		global $current_user;
+		$GLOBALS[ 'wp_log' ][ 'polldaddy' ][] = 'Created WP_Polldaddy Object: constructor';
 		$this->errors                 = new WP_Error;
 		$this->scheme                 = 'https';
 		$this->version                = '2.0.8';
@@ -4858,18 +4859,27 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 	}
 
 	function can_edit( &$poll ) {
-		if ( empty( $poll->_owner ) )
+		if ( empty( $poll->_owner ) ) {
+			$GLOBALS[ 'wp_log' ][ 'polldaddy' ][] = 'can_edit: poll owner is empty.';
 			return true;
+		}
 
-		if ( $this->id == $poll->_owner )
+		if ( $this->id == $poll->_owner ) {
+			$GLOBALS[ 'wp_log' ][ 'polldaddy' ][] = 'can_edit: poll owner equals id.';
 			return true;
+		}
 
 		//check to see if poll owner is a member of this blog
 		if ( function_exists( 'get_users' ) ) {      
 			$user = get_users( array( 'include' => $poll->_owner ) ); 
-			if ( empty( $user ) )
+			if ( empty( $user ) ) {
+				$GLOBALS[ 'wp_log' ][ 'polldaddy' ][] = 'can_edit: poll owner is not a member of this blog.';
 				return false;
+			}
 		}
+
+		if ( false == (bool) current_user_can( 'edit_others_posts' ) )
+			$GLOBALS[ 'wp_log' ][ 'polldaddy' ][] = 'can_edit: current user cannot edit_others_posts.';
 
 		return (bool) current_user_can( 'edit_others_posts' );
 	}
@@ -4879,3 +4889,5 @@ require dirname( __FILE__ ).'/rating.php';
 require dirname( __FILE__ ).'/ajax.php';
 require dirname( __FILE__ ).'/popups.php';
 require dirname( __FILE__ ).'/polldaddy-org.php';
+
+$GLOBALS[ 'wp_log_plugins' ][] = 'polldaddy';
