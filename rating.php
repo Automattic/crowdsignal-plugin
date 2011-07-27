@@ -135,7 +135,7 @@ function polldaddy_get_rating_code( $rating_id, $unique_id, $title, $permalink, 
 	$settings = array(
 		'id'        => $rating_id,
 		'unique_id' => $unique_id,
-		'title'     => addslashes( trim( $title ) ),
+		'title'     => rawurlencode( trim( $title ) ),
 		'permalink' => esc_url_raw( $permalink )
 	);
 	
