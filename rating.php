@@ -106,7 +106,15 @@ function polldaddy_get_rating_html( $condition = '' ) {
 		}
 
 		if ( $rating_id > 0 ) {
-			$title = apply_filters( 'wp_title', $post->post_title );
+			$rating_title_filter = get_option( 'pd-rating-title-filter' );
+			
+			if ( $rating_title_filter === false )
+				$title = apply_filters( 'wp_title', $post->post_title );
+			elseif ( strlen( $rating_title_filter ) > 0 )
+				$title = apply_filters( $rating_title_filter, $post->post_title );
+			else
+				$title = $post->post_title;
+				
 			$permalink = get_permalink( $post->ID );
 			$html = polldaddy_get_rating_code( $rating_id, $unique_id, $title, $permalink, $item_id );
 			wp_register_script( 'polldaddy-rating-js', 'http://i.polldaddy.com/ratings/rating.js' );

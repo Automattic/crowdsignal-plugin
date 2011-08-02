@@ -3548,9 +3548,12 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 			$pd_rating = $polldaddy->get_rating( $rating_id );
 
 		if ( empty( $pd_rating ) || (int) $pd_rating->_id == 0 ) {
+			
+			$this->log( 'rating_settings: unable to get rating id - '.$rating_id );
 
 			if ( $polldaddy->errors ) {
 				if ( array_key_exists( 4, $polldaddy->errors ) ) { //Obsolete key
+					$this->log( 'rating_settings: obsolete key - '.$this->rating_user_code );
 					$this->rating_user_code = '';
 					update_option( 'pd-rating-usercode', '' );
 					$this->set_api_user_code();  // get latest key
