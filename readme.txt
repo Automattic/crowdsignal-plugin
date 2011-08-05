@@ -32,7 +32,7 @@ Want to help translate the plugin or keep an existing translation up-to-date? He
 
 Upload the plugin to your blog, Activate it, then enter your Polldaddy.com email address and password.
 
-More info on this [support page](http://support.polldaddy.com/installing-wordpress-org-plugin/).
+You can find further help on our [support page](http://support.polldaddy.com/installing-wordpress-org-plugin/). If you have any problems please use the [support forum](http://wordpress.org/tags/polldaddy?forum_id=10). The plugin also logs activity to a file using the [WP Debug Logger](http://wordpress.org/extend/plugins/wp-debug-logger/) plugin which can be useful in determining the cause of a problem.
 
 == Screenshots ==
 
@@ -67,11 +67,17 @@ More info here - http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks
 
 You need to select the synchronize ratings account in the Options menu to make sure the ratings API key is valid.
 
+
 == Upgrade Notice ==
-= 2.0.8 =
-* Fixed display of ratings on posts and pages.
+= 2.0.9 =
+Added support for variable sized surveys, added activity logging. Added Latvian translation.
 
 == Change Log ==
+= 2.0.9 =
+* Added support for variable sized surveys
+* Added activity logging
+* Added Latvian translation
+
 = 2.0.8 =
 * Fixed display of ratings on posts and pages.
 * Fixed confirmation dialog when deleting polls
