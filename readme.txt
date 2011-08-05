@@ -70,13 +70,15 @@ You need to select the synchronize ratings account in the Options menu to make s
 
 == Upgrade Notice ==
 = 2.0.9 =
-Added support for variable sized surveys, added activity logging. Added Latvian translation.
+Added support for slider popup polls and variable sized surveys. Added activity logging. Added Latvian translation.
 
 == Change Log ==
 = 2.0.9 =
-* Added support for variable sized surveys
+* Added support for slider popup polls and variable sized surveys
 * Added activity logging
 * Added Latvian translation
+* Added setting to configure filter used on blog title with ratings
+* Fixed bug in preview polls
 
 = 2.0.8 =
 * Fixed display of ratings on posts and pages.
