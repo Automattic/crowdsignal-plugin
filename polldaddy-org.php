@@ -468,10 +468,10 @@ if ( !function_exists( 'polldaddy_shortcode_handler' ) ) {
 			$width = $content_width;
 	
 		if ( !$width )
-			$width = '100%';
+			$width = '840px';
 	
 		if ( !$height )
-			$height = '600';
+			$height = '80%';
 
 		if ( null != $survey ) {
 
@@ -506,7 +506,9 @@ EOD;
 						'back_color' => $back_color,
 						'align'      => $align,
 						'style'      => $style,
-						'id'         => $survey
+						'id'         => $survey,
+						'height'     => $height,
+						'width'      => $width
 					) );
 	
 					return <<<EOD
