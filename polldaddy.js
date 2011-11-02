@@ -41,7 +41,7 @@ jQuery(function ($) {
         } );
         
         $('a.delete-rating').click(function () {
-            return confirm( opts.delete_rating.replace("%s", $(this).parents('td').find('strong').text() ) );
+            return confirm( opts.delete_rating.replace( "%s", "'" + $(this).parents('td').find('strong').text() + "'" ) );
         });
         $('a.delete-poll').click(function () {
             return confirm( opts.delete_poll.replace( "%s", "'" + $(this).parents('td').find('strong').text() + "'" ) );
@@ -65,31 +65,29 @@ jQuery(function ($) {
             handle: '.handle',
             tolerance: 'pointer'
         });
-        var loading = false;
         
         function add_answer( aa, src ) {			
 			return false;
 		}
+		
+		var busy = false;
         $('#add-answer-holder').show().find('button').click(function () {
-        	if ( loading )
-        		return false;
-        		
-        	loading = true;
-        	
-            var aa = (1 + get_number_answers()).toString();
-            var src = $( this ).closest( 'p' ).attr( 'class' );            
-            			
-			$( 'form[name=add-answer] input[name=aa]' ).val( aa );
-			$( 'form[name=add-answer] input[name=src]' ).val( src );
-			$( 'form[name=add-answer] input[name=action]' ).val( 'polls_add_answer' );
-			
-			$( 'form[name=add-answer]' ).ajaxSubmit( function( response ) {
-				loading = false;
-				delAnswerPrep( $( '#answers' ).append( response ).find( 'li:last' ) );
-            	$('#choices').append('<option value="' + (aa-1) + '">' + (aa-1) + '</option>');
-            	init();
-			} );           	
-            
+        	if ( !busy ) {
+        		busy = true;
+	            var aa = (1 + get_number_answers()).toString();
+	            var src = $( this ).closest( 'p' ).attr( 'class' );            
+	            			
+				$( 'form[name=add-answer] input[name=aa]' ).val( aa );
+				$( 'form[name=add-answer] input[name=src]' ).val( src );
+				$( 'form[name=add-answer] input[name=action]' ).val( 'polls_add_answer' );
+				
+				$( 'form[name=add-answer]' ).ajaxSubmit( function( response ) {
+					delAnswerPrep( $( '#answers' ).append( response ).find( 'li:last' ) );
+	            	$('#choices').append('<option value="' + (aa-1) + '">' + (aa-1) + '</option>');
+	            	busy = false;
+	            	init();
+				} ); 
+        	}            
             return false;
         });   
 	    var win = window.dialogArguments || opener || parent || top;  

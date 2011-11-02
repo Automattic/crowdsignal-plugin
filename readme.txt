@@ -3,7 +3,7 @@ Contributors: eoigal, alternatekev, mdawaffe, donncha, johnny5
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 2.6
 Tested up to: 3.2.1
-Stable tag: 2.0.9
+Stable tag: 2.0.10
 
 Create and manage Polldaddy polls and ratings from within WordPress.
 
@@ -67,12 +67,25 @@ More info here - http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks
 
 You need to select the synchronize ratings account in the Options menu to make sure the ratings API key is valid.
 
+= When I try to use a rating on a page, I get a PHP warning about the post title. =
+
+Your rating uses the filter 'wp_title' by default when retrieving the post title, you may need to remove this in the Polls & Ratings settings to allow ratings to work with your theme.
+
+= Why is a poll loading in the footer of my main page? =
+
+Your theme is getting the post content, without necessarily showing it. If the post has a poll, the poll javascript is loaded in the footer. To fix this, you need to enable the 'Load Shortcodes Inline' setting in the Polls & Ratings settings. This will load the poll shortcode inline and will only load the poll if the content of the post is actually displayed.
+
 
 == Upgrade Notice ==
-= 2.0.9 =
-Added support for slider popup polls and variable sized surveys. Added activity logging. Added Latvian translation.
+= 2.0.10 =
+Create custom poll styles that support RTL text direction.
+
 
 == Change Log ==
+= 2.0.10 =
+* Added option to custom style editor to set direction of text.
+* Added option to allow shortcodes to load inline rather than in the footer. Some themes need this.
+
 = 2.0.9 =
 * Added support for slider popup polls and variable sized surveys
 * Added activity logging
