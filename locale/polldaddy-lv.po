@@ -1,0 +1,1179 @@
+# Translation of the WordPress plugin Polldaddy Polls 1.8.5 by Automattic, Inc..
+# Copyright (C) 2010 Automattic, Inc.
+# This file is distributed under the same license as the Polldaddy Polls package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Polldaddy Polls 1.8.5\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/polldaddy\n"
+"POT-Creation-Date: 2010-03-16 14:42+0000\n"
+"PO-Revision-Date: 2011-07-20 16:37+0200\n"
+"Last-Translator: Edgars <edgars.bergs@gmail.com>\n"
+"Language-Team: Edgars Bergs <edgars.bergs@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"X-Poedit-Country: LATVIA\n"
+
+#: polldaddy-org.php:107
+#: polldaddy.php:132
+#: polldaddy.php:896
+msgid "Email address required"
+msgstr "Nepieciešama e-pasta adrese"
+
+#: polldaddy-org.php:110
+#: polldaddy.php:135
+#: polldaddy.php:899
+msgid "Password required"
+msgstr "Nepieciešama parole"
+
+#: polldaddy-org.php:142
+msgid "Could not connect to Polldaddy API Key service"
+msgstr "Neizdevās savienoties ar Polldaddy API servisu"
+
+#: polldaddy-org.php:156
+#: polldaddy.php:165
+msgid "Can't connect to Polldaddy.com"
+msgstr "Neizdodas savienoties ar Polldaddy.com"
+
+#: polldaddy-org.php:186
+msgid "Login to Polldaddy failed.  Double check your email address and password."
+msgstr ""
+"Neizdevās ielogoties Polldaddy servisā. Rūpīgi pārbaudiet jūsu e-pasta adresi "
+"un paroli."
+
+#: polldaddy-org.php:188
+msgid "If your email address and password are correct, your host may not support secure logins."
+msgstr ""
+"Ja jūsu e-pasta adrese un parole ir pareizas, jūsu hostings,iespējams, "
+"neatļauj drošās ielogošanās (secure logins)"
+
+#: polldaddy-org.php:189
+msgid "In that case, you may be able to log in to Polldaddy by unchecking the \"Use SSL to Log in\" checkbox."
+msgstr ""
+"Šādā gadījumā, jūs varēsiet ielogoties Polldaddy, atspējot \"Lietot SSL, lai "
+"ielogotos\" rūtiņu"
+
+#: polldaddy-org.php:200
+#: polldaddy.php:202
+msgid "Account could not be accessed.  Are your email address and password correct?"
+msgstr "Neizdodas piekļūt lietotāja kontam. Vai jūsu e-pasta adrese un parole ir pareizas?"
+
+#: polldaddy-org.php:214
+#: polldaddy.php:253
+msgid "Polldaddy Account"
+msgstr "Polldaddy lietotāja konts"
+
+#: polldaddy-org.php:216
+#: polldaddy.php:255
+#, php-format
+msgid "Before you can use the Polldaddy plugin, you need to enter your <a href=\"%s\">Polldaddy.com</a> account details."
+msgstr ""
+"Lai lietotu Polldaddy spraudni, jums vajag ievadīt <a "
+"href=\"%s\">Polldaddy.com</a> lietotāja konta informāciju."
+
+#: polldaddy-org.php:223
+#: polldaddy.php:262
+#: polldaddy.php:4034
+msgid "Polldaddy Email Address"
+msgstr "Polldaddy E-pasta Adrese"
+
+#: polldaddy-org.php:231
+#: polldaddy.php:270
+#: polldaddy.php:4044
+msgid "Polldaddy Password"
+msgstr "Polldaddy parole"
+
+#: polldaddy-org.php:244
+msgid "Use SSL to Log in"
+msgstr "Lietot SSL, lai ielogotos"
+
+#: polldaddy-org.php:248
+msgid "This ensures a secure login to your Polldaddy account.  Only uncheck if you are having problems logging in."
+msgstr ""
+"Šis nodrošina drošu ielogošanos jūsu Polldaddy lietotāja kontā. Atspējojiet "
+"to tikai tad, ja jums ir problēmas ielogoties."
+
+#: polldaddy-org.php:258
+#: polldaddy.php:282
+msgid "Submit"
+msgstr "Apstiprināt"
+
+#: polldaddy-org.php:274
+msgid "Multiple Polldaddy Accounts"
+msgstr "Vairāki Polldaddy  profili"
+
+#: polldaddy-org.php:280
+msgid "This setting will allow each blog user to import a Polldaddy account."
+msgstr ""
+"Šis uzstādījums ļauj katram bloga lietotājam ielādēt Polldaddy lietotāja "
+"kontu."
+
+#: polldaddy-org.php:287
+msgid "Sync Ratings Account"
+msgstr "Sinhronizēt Vērtējumu kontu"
+
+#: polldaddy-org.php:293
+msgid "This will syncronize your ratings Polldaddy account."
+msgstr "Šis sinhronizēs jūsu vērtējumu Polldaddy lietotāja kontu"
+
+#: polldaddy-org.php:453
+msgid "A list of your top rated posts, pages or comments."
+msgstr "Vērtētāko rakstu, lapu vai komentāru saraksts"
+
+#: polldaddy-org.php:462
+msgid "Top Rated"
+msgstr "Visaugstāk vērtētie"
+
+#: polldaddy-org.php:498
+#: polldaddy.php:3860
+msgid "Title"
+msgstr "Nosaukums"
+
+#: polldaddy-org.php:507
+msgid "Show for posts"
+msgstr "Rādīt rakstiem"
+
+#: polldaddy-org.php:518
+msgid "Show for pages"
+msgstr "Rādīt lapām"
+
+#: polldaddy-org.php:529
+msgid "Show for comments"
+msgstr "Rādīt komentāriem"
+
+#: polldaddy-org.php:533
+msgid "How many items would you like to display?"
+msgstr "Cik elementus rādīt"
+
+#: polldaddy.php:72
+#: polldaddy.php:74
+#: polldaddy.php:90
+#: polldaddy.php:92
+msgid "Ratings"
+msgstr "Vērtējumi"
+
+#: polldaddy.php:79
+#: polldaddy.php:81
+#: polldaddy.php:97
+#: polldaddy.php:99
+#: polldaddy.php:111
+#: polldaddy.php:1105
+msgid "Polls"
+msgstr "Aptaujas"
+
+#: polldaddy.php:104
+msgid "Ratings &ndash; Settings"
+msgstr "Vērtējumi &ndash; Uzstādījumi"
+
+#: polldaddy.php:104
+msgid "Settings"
+msgstr "Uzstādījumi"
+
+#: polldaddy.php:105
+#: polldaddy.php:108
+msgid "Ratings &ndash; Reports"
+msgstr "Uzstādījumi &ndash; Ziņojumi"
+
+#: polldaddy.php:105
+#: polldaddy.php:108
+msgid "Reports"
+msgstr "Ziņojumi"
+
+#: polldaddy.php:111
+#: polldaddy.php:1237
+#: polldaddy.php:2014
+msgid "Edit"
+msgstr "Rediģēt"
+
+#: polldaddy.php:114
+msgid "Add New Poll"
+msgstr "Pievienot jaunu aptauju"
+
+#: polldaddy.php:114
+msgid "Add New"
+msgstr "Pievienot jaunu"
+
+#: polldaddy.php:115
+#: polldaddy.php:1070
+#: polldaddy.php:1743
+msgid "Custom Styles"
+msgstr "Personalizētie stili"
+
+#: polldaddy.php:116
+#: polldaddy.php:4019
+msgid "Options"
+msgstr "Uzstādījumi"
+
+#: polldaddy.php:192
+msgid "Invalid Account"
+msgstr "Nepareizs Lietotāja konts"
+
+#: polldaddy.php:214
+#, php-format
+msgid "Obsolete Polldaddy User API Key:  <a href=\"%s\">Sign in again to re-authenticate</a>"
+msgstr ""
+"Novecojusi Polldaddy lietotāja API atslēga: <a href=\"%s\">Ielogojieties, lai "
+"noteiktu autentiskumu</a></a>"
+
+#: polldaddy.php:291
+msgid "Add Poll"
+msgstr "Pievienot aptauju"
+
+#: polldaddy.php:362
+msgid "Star Colors"
+msgstr "Zvaigznes krāsas"
+
+#: polldaddy.php:362
+#: polldaddy.php:3344
+msgid "Star Size"
+msgstr "Zvaigznes lielums"
+
+#: polldaddy.php:363
+msgid "Nero Type"
+msgstr "Nero tips"
+
+#: polldaddy.php:363
+msgid "Nero Size"
+msgstr "Nero izmērs"
+
+#: polldaddy.php:456
+msgid "You are not allowed to delete this poll."
+msgstr "Jums nav atļaujas dzēst šo aptauju."
+
+#: polldaddy.php:464
+#: polldaddy.php:500
+#: polldaddy.php:536
+#: polldaddy.php:570
+msgid "Invalid Poll Author"
+msgstr "Nepareizs Aptaujas Autors"
+
+#: polldaddy.php:492
+msgid "You are not allowed to open this poll."
+msgstr "Jums nav atļaujas atvērt šo aptauju."
+
+#: polldaddy.php:528
+msgid "You are not allowed to close this poll."
+msgstr "Jums nav atļaujas aizvērt šo aptauju."
+
+#: polldaddy.php:561
+#: polldaddy.php:1333
+msgid "You are not allowed to edit this poll."
+msgstr "Jums nav atļaujas rediģēt šo aptauju."
+
+#: polldaddy.php:577
+msgid "Poll not found"
+msgstr "Aptauja nav atrasta"
+
+#: polldaddy.php:604
+msgid "Invalid answers"
+msgstr "Nepareizas atbildes"
+
+#: polldaddy.php:620
+msgid "You must include at least 2 answers"
+msgstr "Nepieciešams iekļaut vismaz 2 atbildes"
+
+#: polldaddy.php:631
+#: polldaddy.php:708
+msgid "Please choose a poll style"
+msgstr "Lūdzu izvēlieties aptaujas stilu"
+
+#: polldaddy.php:653
+msgid "Poll could not be updated"
+msgstr "Nav iespējams atjaunināt aptauju"
+
+#: polldaddy.php:727
+msgid "Poll could not be created"
+msgstr "Nav iespējams izveidot aptauju"
+
+#: polldaddy.php:779
+msgid "Style could not be updated"
+msgstr "Nav iespējams atjaunināt stilu"
+
+#: polldaddy.php:809
+msgid "Style could not be created"
+msgstr "Nav iespējams izveidot stilu"
+
+#: polldaddy.php:908
+msgid "Account could not be imported.  Are your email address and password correct?"
+msgstr "Nav iespējams ielādēt lietotāja kontu. Vai jūsu e-pasta adrese un parole ir pareizas?"
+
+#: polldaddy.php:926
+msgid "Poll deleted."
+msgstr "Aptauja dzēsta."
+
+#: polldaddy.php:928
+#, php-format
+msgid "%s Poll Deleted."
+msgid_plural "%s Polls Deleted."
+msgstr[0] "%s Aptauja izdzēsta."
+msgstr[1] "%s Aptaujas izdzēstas."
+
+#: polldaddy.php:933
+msgid "Poll opened."
+msgstr "Aptauja atvērta"
+
+#: polldaddy.php:935
+#, php-format
+msgid "%s Poll Opened."
+msgid_plural "%s Polls Opened."
+msgstr[0] "%s Aptauja izdzēsta."
+msgstr[1] "%s Aptaujas izdzēstas."
+
+#: polldaddy.php:940
+msgid "Poll closed."
+msgstr "Aptauja aizvērta."
+
+#: polldaddy.php:942
+#, php-format
+msgid "%s Poll Closed."
+msgid_plural "%s Polls Closed."
+msgstr[0] "%s Aptauja izdzēsta."
+msgstr[1] "%s Aptaujas izdzēstas."
+
+#: polldaddy.php:945
+msgid "Poll updated."
+msgstr "Aptauja atjaunināta"
+
+#: polldaddy.php:948
+msgid "Poll created."
+msgstr "Aptauja izveidota"
+
+#: polldaddy.php:950
+#: polldaddy.php:1366
+msgid "Send to Editor"
+msgstr "Sūtīt uz redaktoru"
+
+#: polldaddy.php:953
+msgid "Custom Style updated."
+msgstr "Personalizētais stils atjaunināts"
+
+#: polldaddy.php:956
+msgid "Custom Style created."
+msgstr "Personalizētais stils izveidots"
+
+#: polldaddy.php:961
+msgid "Custom Style deleted."
+msgstr "Personalizētais stils izdzēsts"
+
+#: polldaddy.php:963
+#, php-format
+msgid "%s Style Deleted."
+msgid_plural "%s Custom Styles Deleted."
+msgstr[0] "%s Stils izdzēsts"
+msgstr[1] "%s Personalizētie stili izdzēsti."
+
+#: polldaddy.php:966
+msgid "Account Imported."
+msgstr "Lietotāja konts ielādēts."
+
+#: polldaddy.php:969
+msgid "Options Updated."
+msgstr "Uzstādījumi atjaunināti."
+
+#: polldaddy.php:978
+msgid "Error: An error has occurred;  Poll not created."
+msgstr "Kļūda: Notika kļūda; Aptauja netika izveidota"
+
+#: polldaddy.php:981
+msgid "Error: An error has occurred;  Poll not updated."
+msgstr "Kļūda: Notika kļūda; Aptauja netika atjaunināta."
+
+#: polldaddy.php:985
+msgid "Error: An error has occurred;  Account could not be imported.  Perhaps your email address or password is incorrect?"
+msgstr "Kļūda: Notika kļūda; Neizdevās ielādēt Lietotāja kontu. Varbūt jūsu e-pasta adrese vai parole ir nepareiza?"
+
+#: polldaddy.php:987
+msgid "Error: An error has occurred;  Account could not be created."
+msgstr "Kļūda: Notika kļūda; Neizdevās izveidot Lietotāja kontu."
+
+#: polldaddy.php:1024
+#, php-format
+msgid "Poll Preview (<a href=\"%s\">Edit Poll</a>, <a href=\"%s\">List Polls</a>)"
+msgstr "Aptaujas priekšskats (<a href=\"%s\">Rediģēt aptauju</a>, <a href=\"%s\">Aptauju saraksts</a>)"
+
+#: polldaddy.php:1028
+#, php-format
+msgid "Poll Preview (<a href=\"%s\">List Polls</a>)"
+msgstr "Aptaujas priekšskats (<a href=\"%s\">Aptauju saraksts</a>)"
+
+#: polldaddy.php:1038
+#, php-format
+msgid "Poll Results (<a href=\"%s\">Edit Poll</a>)"
+msgstr "Aptaujas rezultāti (<a href=\"%s\">Rediģēt aptauju</a>)"
+
+#: polldaddy.php:1040
+#, php-format
+msgid "Poll Results (<a href=\"%s\">List Polls</a>)"
+msgstr "Aptaujas rezultāti(<a href=\"%s\">Aptauju saraksts</a>) "
+
+#: polldaddy.php:1049
+#, php-format
+msgid "Edit Poll (<a href=\"%s\">List Polls</a>)"
+msgstr "Rediģēt aptauju (<a href=\"%s\">Aptauju saraksts</a>)"
+
+#: polldaddy.php:1058
+#, php-format
+msgid "Create Poll (<a href=\"%s\">List Polls</a>)"
+msgstr "Izveidot aptauju (<a href=\"%s\">Aptauju saraksts</a>) "
+
+#: polldaddy.php:1068
+#, php-format
+msgid "Custom Styles (<a href=\"%s\">Add New</a>)"
+msgstr "Personalizētie stili (<a href=\"%s\">Pievienot jaunu</a>)"
+
+#: polldaddy.php:1078
+#, php-format
+msgid "Edit Style (<a href=\"%s\">List Styles</a>)"
+msgstr "Rediģēt stilu (<a href=\"%s\">Stilu saraksts</a>)"
+
+#: polldaddy.php:1087
+#, php-format
+msgid "Create Style (<a href=\"%s\">List Styles</a>)"
+msgstr "Izveidot stilu (<a href=\"%s\">Stilu saraksts</a>)"
+
+#: polldaddy.php:1103
+#, php-format
+msgid "Polls (<a href=\"%s\">Add New</a>)"
+msgstr "Aptaujas (<a href=\"%s\">Izveidot jaunu</a>) "
+
+#: polldaddy.php:1168
+msgid "All Blog's Polls"
+msgstr "Visas bloga aptaujas"
+
+#: polldaddy.php:1169
+msgid "All My Polls"
+msgstr "Visas manas aptaujas"
+
+#: polldaddy.php:1177
+#: polldaddy.php:1977
+msgid "Actions"
+msgstr "Darbības"
+
+#: polldaddy.php:1178
+#: polldaddy.php:1243
+#: polldaddy.php:1978
+#: polldaddy.php:2019
+msgid "Delete"
+msgstr "Dzēst"
+
+#: polldaddy.php:1179
+#: polldaddy.php:1250
+msgid "Close"
+msgstr "Aizvērt"
+
+#: polldaddy.php:1180
+#: polldaddy.php:1247
+msgid "Open"
+msgstr "Atvērt"
+
+#: polldaddy.php:1182
+#: polldaddy.php:1980
+msgid "Apply"
+msgstr "Pielietot"
+
+#: polldaddy.php:1193
+msgid "Poll"
+msgstr "Aptauju"
+
+#: polldaddy.php:1194
+#: polldaddy.php:1881
+#: polldaddy.php:1926
+#: polldaddy.php:3861
+msgid "Votes"
+msgstr "Balsis"
+
+#: polldaddy.php:1195
+msgid "Created"
+msgstr "Izveidota"
+
+#: polldaddy.php:1241
+msgid "Results"
+msgstr "Rezultāti"
+
+#: polldaddy.php:1253
+#: polldaddy.php:1259
+#: polldaddy.php:3256
+msgid "Preview"
+msgstr "Priekšskats"
+
+#: polldaddy.php:1255
+msgid "Send to editor"
+msgstr "Sūtīt uz redaktoru"
+
+#: polldaddy.php:1261
+msgid "HTML code"
+msgstr "HTML kods"
+
+#: polldaddy.php:1265
+#: polldaddy.php:2021
+msgid "Y/m/d g:i:s A"
+msgstr "d/m/Y g:i:s A"
+
+#: polldaddy.php:1265
+#: polldaddy.php:2021
+msgid "Y/m/d"
+msgstr "d/m/Y"
+
+#: polldaddy.php:1269
+msgid "Shortcode"
+msgstr "Shortcode "
+
+#: polldaddy.php:1272
+msgid "JavaScript"
+msgstr "JavaScript"
+
+#: polldaddy.php:1288
+#, php-format
+msgid "What are you doing here?  <a href=\"%s\">Go back</a>."
+msgstr "Ko jūs šeit darāt ? <a href=\"%s\">Doties atpakaļ</a>."
+
+#: polldaddy.php:1298
+#, php-format
+msgid "No polls yet.  <a href=\"%s\">Create one</a>"
+msgstr "Pagaidām nav aptauju. <a href=\"%s\">Izveidot vienu</a> "
+
+#: polldaddy.php:1300
+msgid "No polls yet."
+msgstr "Pagaidām nav aptauju"
+
+#: polldaddy.php:1355
+msgid "Publish"
+msgstr "Publicēt"
+
+#: polldaddy.php:1362
+msgid "Save Poll"
+msgstr "Saglabāt aptauju"
+
+#: polldaddy.php:1377
+#: polldaddy.php:4102
+msgid "Poll results"
+msgstr "Aptaujas rezultāti"
+
+#: polldaddy.php:1382
+msgid "Show results to voters"
+msgstr "Rādīt rezultātus balsotājiem"
+
+#: polldaddy.php:1382
+msgid "Only show percentages"
+msgstr "Rādīt tikai procentus"
+
+#: polldaddy.php:1382
+msgid "Hide all results"
+msgstr "Slēpt visus rezultātus"
+
+#: polldaddy.php:1400
+#: polldaddy.php:4119
+msgid "Block repeat voters"
+msgstr "Bloķēt atkārtotos balsotājus"
+
+#: polldaddy.php:1405
+msgid "Don't block repeat voters"
+msgstr "Nebloķēt atkārtotos balsotājus"
+
+#: polldaddy.php:1405
+msgid "Block by cookie (recommended)"
+msgstr "Bloķēt pēc sīkdatnēm (ieteicams)"
+
+#: polldaddy.php:1405
+msgid "Block by cookie and by IP address"
+msgstr "Bloķēt pēc sīkdatnēm un pēc IP adreses"
+
+#: polldaddy.php:1420
+msgid "Expires: "
+msgstr "Beidzas pēc:"
+
+#: polldaddy.php:1422
+#: polldaddy.php:4124
+msgid "Never"
+msgstr "Nekad"
+
+#: polldaddy.php:1423
+#: polldaddy.php:4125
+#, php-format
+msgid "%d hour"
+msgstr "%d stunda"
+
+#: polldaddy.php:1424
+#: polldaddy.php:1425
+#: polldaddy.php:1426
+#: polldaddy.php:4126
+#: polldaddy.php:4127
+#: polldaddy.php:4128
+#, php-format
+msgid "%d hours"
+msgstr "%d stundas"
+
+#: polldaddy.php:1427
+#: polldaddy.php:4129
+#, php-format
+msgid "%d day"
+msgstr "%d diena"
+
+#: polldaddy.php:1428
+#: polldaddy.php:4130
+#, php-format
+msgid "%d week"
+msgstr "%d nedēļa"
+
+#: polldaddy.php:1429
+#: polldaddy.php:4131
+#, php-format
+msgid "%d month"
+msgstr "%d mēnesis"
+
+#: polldaddy.php:1431
+msgid "Note: Blocking by cookie and IP address can be problematic for some voters."
+msgstr "Piezīme: Bloķēšana pēc sīkdatnēm un IP adreses dažiem balsotājiem varbūt apgrūtinoša."
+
+#: polldaddy.php:1446
+msgid "Answers"
+msgstr "Atbildes"
+
+#: polldaddy.php:1492
+msgid "Add another"
+msgstr "Pievienot citu"
+
+#: polldaddy.php:1498
+msgid "Multiple choice"
+msgstr "Iespējamas vairākas atbildes"
+
+#: polldaddy.php:1498
+msgid "Randomize answer order"
+msgstr "Rādīt atbildes nejaušā secībā (random)"
+
+#: polldaddy.php:1498
+msgid "Allow other answers"
+msgstr "Atļaut citas atbildes"
+
+#: polldaddy.php:1498
+msgid "'Share This' link"
+msgstr "'Share This' links"
+
+#: polldaddy.php:1627
+msgid "Design"
+msgstr "Dizains"
+
+#: polldaddy.php:1708
+#: polldaddy.php:1763
+msgid "Custom Style"
+msgstr "Personalizēts stils"
+
+#: polldaddy.php:1721
+#: polldaddy.php:1817
+msgid "Please choose a custom style..."
+msgstr "Lūdzu izvēlieties personalizētu stilu..."
+
+#: polldaddy.php:1727
+#: polldaddy.php:1823
+msgid "Please choose a style."
+msgstr "Lūdzu izvēlieties stilu."
+
+#: polldaddy.php:1732
+#: polldaddy.php:1828
+#, php-format
+msgid "Did you know we have a new editor for building your own custom poll styles? Find out more <a href=\"%s\" target=\"_blank\">here</a>."
+msgstr "Vai jūs zinājāt, ka mums ir jauns redaktors, kas jums atļauj veidot personalizētus aptauju stilus? Uzziniet vairāk<a href=\"%s\" target=\"_blank\">šeit</a>."
+
+#: polldaddy.php:1755
+msgid "Polldaddy Style"
+msgstr "Polldaddy Stils"
+
+#: polldaddy.php:1880
+msgid "Answer"
+msgstr "Atbilde"
+
+#: polldaddy.php:1895
+#, php-format
+msgid "Other (<a href=\"%s\">see below</a>)"
+msgstr "Cits(<a href=\"%s\">skatīt zemāk</a>) "
+
+#: polldaddy.php:1925
+#: polldaddy.php:4090
+msgid "Other Answer"
+msgstr "Cita atbilde"
+
+#: polldaddy.php:1990
+msgid "Style"
+msgstr "Stils"
+
+#: polldaddy.php:1991
+msgid "Last Modified"
+msgstr "Pēdējo reizi labota"
+
+#: polldaddy.php:2031
+#, php-format
+msgid "No custom styles yet.  <a href=\"%s\">Create one</a>"
+msgstr "Nav personalizēto stilu. <a href=\"%s\">Izveidot</a>"
+
+#: polldaddy.php:2107
+msgid "Style Name"
+msgstr "Stila nosaukums"
+
+#: polldaddy.php:2122
+msgid "Preload Basic Style"
+msgstr "Ielādēt pamata stilu"
+
+#: polldaddy.php:2136
+msgid "Load Style"
+msgstr "Ielādēt stilu"
+
+#: polldaddy.php:2925
+msgid "Save Style"
+msgstr "Saglabāt stilu"
+
+#: polldaddy.php:3069
+#, php-format
+msgid "Sorry! There was an error creating your rating widget. Please contact <a href=\"%1$s\" %2$s>Polldaddy support</a> to fix this."
+msgstr ""
+"Atvainojiet! Veidojot reitingu logdaļu notika kļūda. Lūdzu sazinieties ar <a "
+"href=\"%1$s\" %2$s>Polldaddy atbalstu</a> , lai novērstu kļūdu."
+
+#: polldaddy.php:3108
+msgid "Rating Settings"
+msgstr "Vērtējuma uzstādījumi"
+
+#: polldaddy.php:3110
+msgid "Rating updated"
+msgstr "Vērtējums atjaunots"
+
+#: polldaddy.php:3122
+#: polldaddy.php:3820
+msgid "Posts"
+msgstr "Raksti"
+
+#: polldaddy.php:3126
+#: polldaddy.php:3820
+msgid "Pages"
+msgstr "Lapas"
+
+#: polldaddy.php:3130
+#: polldaddy.php:3820
+msgid "Comments"
+msgstr "Komentāri"
+
+#: polldaddy.php:3141
+msgid "Enable for blog posts"
+msgstr "Iespējot bloga rakstiem"
+
+#: polldaddy.php:3145
+#: polldaddy.php:3163
+msgid "Above each blog post"
+msgstr "Virs katra bloga raksta"
+
+#: polldaddy.php:3145
+#: polldaddy.php:3163
+msgid "Below each blog post"
+msgstr "Zem katra bloga raksta"
+
+#: polldaddy.php:3159
+msgid "Enable for front page"
+msgstr "Iespējot sākumlapai"
+
+#: polldaddy.php:3179
+msgid "Enable for pages"
+msgstr "Iespējot lapām"
+
+#: polldaddy.php:3183
+msgid "Above each page"
+msgstr "Virs katras lapas"
+
+#: polldaddy.php:3183
+msgid "Below each page"
+msgstr "Zem katras lapas"
+
+#: polldaddy.php:3199
+msgid "Enable for comments"
+msgstr "Iespējot komentāriem"
+
+#: polldaddy.php:3203
+msgid "Above each comment"
+msgstr "Virs katra komentāra"
+
+#: polldaddy.php:3203
+msgid "Below each comment"
+msgstr "Zem katra komentāra"
+
+#: polldaddy.php:3218
+#: polldaddy.php:3249
+msgid "Save Changes"
+msgstr "Saglabāt izmaiņas"
+
+#: polldaddy.php:3229
+msgid "Advanced Settings"
+msgstr "Papildus uzstādījumi"
+
+#: polldaddy.php:3242
+msgid "Save"
+msgstr "Saglabāt"
+
+#: polldaddy.php:3258
+msgid "This is a demo of what your rating widget will look like"
+msgstr "Šis ir piemērs, kā izskatīsies jūsu izveidotā vērtējumu logdaļa"
+
+#: polldaddy.php:3265
+msgid "Customize Labels"
+msgstr "Personalizēt etiķetes (label)"
+
+#: polldaddy.php:3269
+msgid "votes"
+msgstr "balsis"
+
+#: polldaddy.php:3273
+msgid "rate this"
+msgstr "vērtēt šo"
+
+#: polldaddy.php:3277
+#, php-format
+msgid "%d star"
+msgstr "%d zvaigzne"
+
+#: polldaddy.php:3281
+#: polldaddy.php:3285
+#: polldaddy.php:3289
+#: polldaddy.php:3293
+#, php-format
+msgid "%d stars"
+msgstr "%d zvaigznes"
+
+#: polldaddy.php:3297
+msgid "Thank You"
+msgstr "Paldies"
+
+#: polldaddy.php:3301
+msgid "Rate Up"
+msgstr "Vērtēt par"
+
+#: polldaddy.php:3305
+msgid "Rate Down"
+msgstr "Vērēt pret"
+
+#: polldaddy.php:3314
+msgid "Rating Type"
+msgstr "Vērtējuma tips"
+
+#: polldaddy.php:3316
+msgid "Here you can choose how you want your rating to display. The 5 star rating is the most commonly used. The Nero rating is useful for keeping it simple."
+msgstr "Šeit jūs varat izvēlēties, kā noformēt vērtējumus. 5 zvaigžņu vērtējums ir visbiežāk lietotais. Nero vēretējumi ir izdevīgi vienkāršu balsošanu nodrošināšanai"
+
+#: polldaddy.php:3324
+#, php-format
+msgid "%d Star Rating"
+msgstr "%d zvaigžņu vērtējums"
+
+#: polldaddy.php:3333
+msgid "Nero Rating"
+msgstr "Nero vērtējums"
+
+#: polldaddy.php:3340
+msgid "Rating Style"
+msgstr "Vērtējums stils"
+
+#: polldaddy.php:3347
+msgid "Small"
+msgstr "Maza"
+
+#: polldaddy.php:3347
+msgid "Medium"
+msgstr "Vidēja"
+
+#: polldaddy.php:3347
+msgid "Large"
+msgstr "Liela"
+
+#: polldaddy.php:3358
+msgid "Star Color"
+msgstr "Zvaigznes krāsa"
+
+#: polldaddy.php:3361
+msgid "Yellow"
+msgstr "Dzeltena"
+
+#: polldaddy.php:3361
+msgid "Red"
+msgstr "Sarkana"
+
+#: polldaddy.php:3361
+msgid "Blue"
+msgstr "Zila"
+
+#: polldaddy.php:3361
+msgid "Green"
+msgstr "Zaļa"
+
+#: polldaddy.php:3361
+msgid "Grey"
+msgstr "Pelēka"
+
+#: polldaddy.php:3370
+msgid "Hand"
+msgstr "Roka"
+
+#: polldaddy.php:3381
+msgid "Custom Image"
+msgstr "Personalizēts attēls"
+
+#: polldaddy.php:3388
+msgid "Text Layout & Font"
+msgstr "Teksta izkārtojums un šrifts"
+
+#: polldaddy.php:3392
+msgid "Align"
+msgstr "Līdzinājums"
+
+#: polldaddy.php:3395
+msgid "Left"
+msgstr "Pa kreisi"
+
+#: polldaddy.php:3395
+msgid "Center"
+msgstr "Centrā"
+
+#: polldaddy.php:3395
+#: polldaddy.php:3409
+msgid "Right"
+msgstr "Pa labi"
+
+#: polldaddy.php:3406
+msgid "Position"
+msgstr "Novietojums"
+
+#: polldaddy.php:3409
+msgid "Top"
+msgstr "Augšā"
+
+#: polldaddy.php:3409
+msgid "Bottom"
+msgstr "Apakšā"
+
+#: polldaddy.php:3420
+msgid "Font"
+msgstr "Šrifts"
+
+#: polldaddy.php:3423
+#: polldaddy.php:3442
+#: polldaddy.php:3456
+msgid "Inherit"
+msgstr "Mantot"
+
+#: polldaddy.php:3434
+msgid "Color"
+msgstr "Krāsa"
+
+#: polldaddy.php:3439
+msgid "Size"
+msgstr "Izmērs"
+
+#: polldaddy.php:3453
+msgid "Line Height"
+msgstr "Līnijas augstums"
+
+#: polldaddy.php:3467
+msgid "Bold"
+msgstr "Treknraksts"
+
+#: polldaddy.php:3476
+msgid "Italic"
+msgstr "Slīpraksts"
+
+#: polldaddy.php:3489
+#: polldaddy.php:3520
+#: polldaddy.php:3550
+msgid "Extra Settings"
+msgstr "Papildus uzstādījumi"
+
+#: polldaddy.php:3493
+#: polldaddy.php:3524
+#: polldaddy.php:3554
+msgid "Rating ID"
+msgstr "Vērtējuma ID"
+
+#: polldaddy.php:3499
+msgid "This is the rating ID used in posts"
+msgstr "Šis ir vērtējuma ID, kurš tiks izmantots rakstos"
+
+#: polldaddy.php:3504
+msgid "Exclude Posts"
+msgstr "Neiekļaut rakstus"
+
+#: polldaddy.php:3510
+msgid "Enter the Post IDs where you want to exclude ratings from. Please use a comma-delimited list, eg. 1,2,3"
+msgstr "Ievadiet to rakstu ID, kuriem nerādīt retingus. ID atdaliet ar komatu, piem. 1,2,3"
+
+#: polldaddy.php:3530
+msgid "This is the rating ID used in pages"
+msgstr "Šis reitinga ID tiks lietots lapās"
+
+#: polldaddy.php:3535
+msgid "Exclude Pages"
+msgstr "Neiekļaut lapas"
+
+#: polldaddy.php:3541
+msgid "Enter the Page IDs where you want to exclude ratings from. Please use a comma-delimited list, eg. 1,2,3"
+msgstr "Ievadiet to lapu ID, kurām nerādīt retingus. ID atdaliet ar komatu, piem. 1,2,3"
+
+#: polldaddy.php:3560
+msgid "This is the rating ID used in comments"
+msgstr "Šis ir vērtējuma ID, kurš tiks izmantots komentāros"
+
+#: polldaddy.php:3807
+msgid "&laquo;"
+msgstr "&laquo;"
+
+#: polldaddy.php:3808
+msgid "&raquo;"
+msgstr "&raquo;"
+
+#: polldaddy.php:3814
+msgid "Rating Reports"
+msgstr "Vērtējumu ziņojjumi"
+
+#: polldaddy.php:3829
+msgid "View Report"
+msgstr "Rādīt ziņojumu"
+
+#: polldaddy.php:3831
+msgid "Last 24 hours"
+msgstr "Pēdējās 24 stundas"
+
+#: polldaddy.php:3831
+msgid "Last 7 days"
+msgstr "Pēdējās 7 dienas"
+
+#: polldaddy.php:3831
+msgid "Last 31 days"
+msgstr "Pēdējās 31 dienas"
+
+#: polldaddy.php:3831
+msgid "Last 3 months"
+msgstr "Pēdējie 3 mēneši"
+
+#: polldaddy.php:3831
+msgid "Last 12 months"
+msgstr "Pēdējie 12 mēnešis"
+
+#: polldaddy.php:3831
+msgid "All time"
+msgstr "Viss laiks"
+
+#: polldaddy.php:3839
+msgid "Filter Report"
+msgstr "Šķirot ziņojumus"
+
+#: polldaddy.php:3853
+#, php-format
+msgid "No ratings have been collected for your %s yet."
+msgstr "Nav reitingu tipam: %s."
+
+#: polldaddy.php:3859
+msgid "Start Date"
+msgstr "Sākuma datums"
+
+#: polldaddy.php:3862
+msgid "Average Rating"
+msgstr "Vidējais vērtējums"
+
+#: polldaddy.php:4023
+msgid "Polldaddy Account Info"
+msgstr "Polldaddy Lietotāja konta info"
+
+#: polldaddy.php:4026
+msgid "This is the PollDadddy account you currently have imported into your WordPress account"
+msgstr ""
+"Šis ir Polldaddy lietotāja konts, kuru jūs veiksmīgi esat ielādējis jūsu "
+"Wordpress profilā"
+
+#: polldaddy.php:4057
+msgid "Import Account"
+msgstr "Ielādēt Lietotāja kontu"
+
+#: polldaddy.php:4063
+msgid "General Settings"
+msgstr "Vispārīgie uzstādījumi"
+
+#: polldaddy.php:4071
+msgid "Default poll settings"
+msgstr "Noklusētie (default) aptaujas uzstādījumi"
+
+#: polldaddy.php:4080
+msgid "Multiple Choice"
+msgstr "Iespējamas vairākas atbildes"
+
+#: polldaddy.php:4085
+msgid "Randomise Answers"
+msgstr "Atbildes rādīt nejaušā (random) secībā"
+
+#: polldaddy.php:4095
+msgid "Sharing"
+msgstr "Padalīties ar citiem"
+
+#: polldaddy.php:4099
+msgid "Show"
+msgstr "Rādīt"
+
+#: polldaddy.php:4100
+msgid "Hide"
+msgstr "Slēpt"
+
+#: polldaddy.php:4101
+msgid "Percentages"
+msgstr "Procenti"
+
+#: polldaddy.php:4111
+msgid "Poll style"
+msgstr "Aptaujas stils"
+
+#: polldaddy.php:4116
+msgid "Off"
+msgstr "Izslēgts"
+
+#: polldaddy.php:4117
+msgid "Cookie"
+msgstr "Sīkdatne"
+
+#: polldaddy.php:4118
+msgid "Cookie & IP address"
+msgstr "Sīkdatne & IP adrese"
+
+#: polldaddy.php:4132
+msgid "Block expiration limit"
+msgstr "Bloķēt beigšanās ierobežojumu"
+
+#: polldaddy.php:4144
+msgid "Save Options"
+msgstr "Saglabāt uzstādījumus"
+
+#. Plugin Name of the plugin/theme
+msgid "Polldaddy Polls"
+msgstr "Polldaddy Aptaujas"
+
+#. Description of the plugin/theme
+msgid "Create and manage Polldaddy polls and ratings in WordPress"
+msgstr "Izveidot un pārvaldīt Polldaddy aptaujas un vērtējumus WordPress'ā"
+
+#. Author of the plugin/theme
+msgid "Automattic, Inc."
+msgstr "Automattic, Inc."
+
+#~ msgid "Account could not be created."
+#~ msgstr "Neizdevās izveidot lietotāja kontu"
+
+#~ msgid "Polls in WordPress"
+#~ msgstr "Aptaujas WordPress'ā"
+
+#~ msgid ""
+#~ "To use polls in WordPress, you will need an account with our sister "
+#~ "product, <a href=\"%s\">Polldaddy.com</a>."
+#~ msgstr ""
+#~ "Lai lietotu aptaujas WordPress'ā, jums vajag lietotāja kontu saitā <a href=\"%s\">Polldaddy.com</a>. "
+
+#~ msgid "Auto-create a new account (recommended)."
+#~ msgstr "Automātiski izveidot jaunu lietotāja kontu (ieteicams)"
+
+#~ msgid "Do it: I want some polls!"
+#~ msgstr "Darīt to: Es gribu dažas aptaujas!"
+
+#~ msgid "The homepage poll has been set."
+#~ msgstr "Mājaslapas aptauja izveidota"
