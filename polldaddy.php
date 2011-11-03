@@ -6,7 +6,7 @@ Plugin URI: http://wordpress.org/extend/plugins/polldaddy/
 Description: Create and manage Polldaddy polls and ratings in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 2.0.9
+Version: 2.0.10
 */
 
 // You can hardcode your Polldaddy PartnerGUID (API Key) here
@@ -35,7 +35,7 @@ class WP_Polldaddy {
 		$this->log( 'Created WP_Polldaddy Object: constructor' );
 		$this->errors                 = new WP_Error;
 		$this->scheme                 = 'https';
-		$this->version                = '2.0.8';
+		$this->version                = '2.0.10';
 		$this->multiple_accounts      = true;
 		$this->polldaddy_client_class = 'api_client';
 		$this->polldaddy_clients      = array();
@@ -2593,7 +2593,11 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 		}
 
 		$style->css = trim( urldecode( $style->css ) );
-
+		
+		$direction = 'ltr';
+		if ( in_array( $style->_direction, array( 'ltr', 'rtl') ) )
+			$direction = $style->_direction;
+		
 		if ( $start = stripos( $style->css, '<data>' ) )
 			$style->css = substr( $style->css, $start );
 
@@ -2660,7 +2664,18 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 								<option value="117"><?php _e( 'Skull Light', 'polldaddy' ); ?></option>
 								<option value="157"><?php _e( 'Micro', 'polldaddy' ); ?></option>
 							</select>
-							<a tabindex="4" id="style-preload" href="javascript:preload_pd_style();" class="button"><?php echo esc_attr( __( 'Load Style', 'polldaddy' ) ); ?></a>
+							<a tabindex="4" id="style-preload" href="javascript:preload_pd_style();" class="button"><?php echo esc_attr( __( 'Load Style', 'polldaddy' ) ); ?></a>								
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="pd-editor-label">
+						<label class="CSSE_title_label"><?php _e( 'Text Direction', 'polldaddy' ); ?></label>
+					</td>
+					<td>
+						<div class="CSSE_rtl_ltr">
+							<a tabindex="4" id="style-force-rtl" href="#" onclick="javascript:force_rtl();" class="button" style="<?php echo $direction == 'rtl' ? 'display:none;' : '' ;?>"><?php echo esc_attr( __( 'Force RTL', 'polldaddy' ) ); ?></a>
+							<a tabindex="4" id="style-force-ltr" href="#" onclick="javascript:force_ltr();" class="button" style="<?php echo $direction == 'ltr' ? 'display:none;' : '' ;?>"><?php echo esc_attr( __( 'Force LTR', 'polldaddy' ) ); ?></a>
 						</div>
 					</td>
 				</tr>
@@ -2681,8 +2696,13 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 							<option value="pds-textfield"><?php _e( 'Other Input', 'polldaddy' ); ?></option>
 							<option value="pds-vote-button"><?php _e( 'Vote Button', 'polldaddy' ); ?></option>
 							<option value="pds-link"><?php _e( 'Links', 'polldaddy' ); ?></option>
-							<option value="pds-answer-feedback"><?php _e( 'Result Background', 'polldaddy' ); ?></option>
-							<option value="pds-answer-feedback-bar"><?php _e( 'Result Bar', 'polldaddy' ); ?></option>
+							<option value="pds-feedback-group"><?php _e( 'Feedback Group', 'polldaddy' ); ?></option>
+							<option value="pds-feedback-result"><?php _e( 'Results Group', 'polldaddy' ); ?></option>
+							<option value="pds-feedback-per"><?php _e( 'Results Percent', 'polldaddy' ); ?></option>
+							<option value="pds-feedback-votes"><?php _e( 'Results Votes', 'polldaddy' ); ?></option>
+							<option value="pds-answer-text"><?php _e( 'Results Text', 'polldaddy' ); ?></option>
+							<option value="pds-answer-feedback"><?php _e( 'Results Background', 'polldaddy' ); ?></option>
+							<option value="pds-answer-feedback-bar"><?php _e( 'Results Bar', 'polldaddy' ); ?></option>
 							<option value="pds-totalvotes-inner"><?php _e( 'Total Votes', 'polldaddy' ); ?></option>
 						</select>
 
@@ -2718,6 +2738,9 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 									</div>
 									<div class="off" id="D_Height">
 										<a href="javascript:CSSE_changeView('Height');" id="A_Height" class="Aoff"><?php _e( 'Height', 'polldaddy' ); ?></a>
+									</div>
+									<div class="off" id="D_Position">
+										<a href="javascript:CSSE_changeView('Position');" id="A_Position" class="Aoff"><?php _e( 'Position', 'polldaddy' ); ?></a>
 									</div>
 								</td>
 								<td class="CSSE_main_r" valign="top">
@@ -3304,6 +3327,20 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 														</td>
 													</tr>
 												</table>
+							
+												<table class="CSSE_edit" id="editPosition" style="display:none;">
+													<tr>
+														<td width="85"><?php _e( 'Position', 'polldaddy' ); ?> (px):</td>
+														<td>
+															<select class="set-width" id="float" onchange="bind(this);">
+																<option value="left">Left</option>
+																<option value="right">Right</option>
+															</select>
+															<input type="hidden" id="position" />
+															<input type="hidden" id="direction" />
+														</td>
+													</tr>							
+												</table>
 											</td>
 										</tr>
 										<tr>
@@ -3387,41 +3424,61 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 							<!-- End divAnswers -->
 							<!-- divResults -->
 														<div id="divResults">
-
-															<div class="pds-answer-group" id="pds-answer-group4">
-																<label for="PDI_feedback1" class="pds-answer" id="pds-answer4"><span class="pds-answer-text"><?php _e( 'I use it in school!', 'polldaddy' ); ?></span><xsl:text> </xsl:text><span class="pds-feedback-per"><strong>46%</strong></span><xsl:text> </xsl:text><span class="pds-feedback-votes"><?php printf( __( '(%d votes)', 'polldaddy' ), 620 ); ?></span></label>
-																<span class="pds-clear"></span>
-																<div id="pds-answer-feedback">
-																	<div style="width:46%;" id="pds-answer-feedback-bar" class="pds-answer-feedback-bar"></div>
+														
+															<div class="pds-feedback-group" id="pds-feedback-group" > 
+																<label class="pds-feedback-label" id="pds-feedback-label"> 
+																	<span class="pds-answer-text" id="pds-answer-text"><?php _e( 'I use it in school!', 'polldaddy' ); ?></span>
+																	<span class="pds-feedback-result" id="pds-feedback-result">
+																		<span class="pds-feedback-per" id="pds-feedback-per">&nbsp;46%</span>&nbsp;<span class="pds-feedback-votes" id="pds-feedback-votes"> <?php printf( __( '(%d votes)', 'polldaddy' ), 620 ); ?></span>
+																	</span>
+																</label>
+																<span style="display: block;clear: both;height:1px;line-height:1px;" class="pds-clear">&nbsp;</span>
+																<div class="pds-answer-feedback" id="pds-answer-feedback">
+																	<div style="width:46%" class="pds-answer-feedback-bar" id="pds-answer-feedback-bar"></div>
 																</div>
-																<span class="pds-clear"></span>
+																<span style="display: block;clear: both;height:1px;line-height:1px;" class="pds-clear">&nbsp;</span>
 															</div>
-
-															<div class="pds-answer-group" id="pds-answer-group5">
-																<label for="PDI_feedback2" class="pds-answer" id="pds-answer5"><span class="pds-answer-text"><?php _e( 'I use it at home.', 'polldaddy' ); ?></span><xsl:text> </xsl:text><span class="pds-feedback-per"><strong>30%</strong></span><xsl:text> </xsl:text><span class="pds-feedback-votes"><?php printf( __( '(%d votes)', 'polldaddy' ), 400 ); ?></span></label>
-																<span class="pds-clear"></span>
-																<div id="pds-answer-feedback2">
-																	<div style="width:46%;" id="pds-answer-feedback-bar2" class="pds-answer-feedback-bar"></div>
+															
+															<div class="pds-feedback-group" id="pds-feedback-group1"> 
+																<label class="pds-feedback-label" id="pds-feedback-label1"> 
+																	<span class="pds-answer-text" id="pds-answer-text1"><?php _e( 'I use it at home.', 'polldaddy' ); ?></span>
+																	<span class="pds-feedback-result" id="pds-feedback-result1">
+																		<span class="pds-feedback-per" id="pds-feedback-per1">&nbsp;30%</span>&nbsp;<span class="pds-feedback-votes" id="pds-feedback-votes1"> <?php printf( __( '(%d votes)', 'polldaddy' ), 400 ); ?></span>
+																	</span>
+																</label>
+																<span style="display: block;clear: both;height:1px;line-height:1px;" class="pds-clear">&nbsp;</span>
+																<div class="pds-answer-feedback" id="pds-answer-feedback1">
+																	<div style="width:30%" class="pds-answer-feedback-bar" id="pds-answer-feedback-bar1"></div>
 																</div>
-																<span class="pds-clear"></span>
+																<span style="display: block;clear: both;height:1px;line-height:1px;" class="pds-clear">&nbsp;</span>
 															</div>
-
-															<div class="pds-answer-group" id="pds-answer-group6">
-																<label for="PDI_feedback3" class="pds-answer" id="pds-answer6"><span class="pds-answer-text"><?php _e( 'I use it every where I go, at work and home and anywhere else that I can!', 'polldaddy' ); ?></span><xsl:text> </xsl:text><span class="pds-feedback-per"><strong>16%</strong></span><xsl:text> </xsl:text><span class="pds-feedback-votes"><?php printf( __( '(%d votes)', 'polldaddy' ), 220 ); ?></span></label>
-																<span class="pds-clear"></span>
-																<div id="pds-answer-feedback3">
-																	<div style="width:16%;" id="pds-answer-feedback-bar3" class="pds-answer-feedback-bar"></div>
+															
+															<div class="pds-feedback-group" id="pds-feedback-group2"> 
+																<label class="pds-feedback-label" id="pds-feedback-label2"> 
+																	<span class="pds-answer-text" id="pds-answer-text2"><?php _e( 'I use it every where I go, at work and home and anywhere else that I can!', 'polldaddy' ); ?></span>
+																	<span class="pds-feedback-result" id="pds-feedback-result2">
+																		<span class="pds-feedback-per" id="pds-feedback-per2">&nbsp;16%</span>&nbsp;<span class="pds-feedback-votes" id="pds-feedback-votes2"> <?php printf( __( '(%d votes)', 'polldaddy' ), 220 ); ?></span>
+																	</span>
+																</label>
+																<span style="display: block;clear: both;height:1px;line-height:1px;" class="pds-clear">&nbsp;</span>
+																<div class="pds-answer-feedback" id="pds-answer-feedback2">
+																	<div style="width:16%" class="pds-answer-feedback-bar" id="pds-answer-feedback-bar2"></div>
 																</div>
-																<span class="pds-clear"></span>
+																<span style="display: block;clear: both;height:1px;line-height:1px;" class="pds-clear">&nbsp;</span>
 															</div>
-
-															<div class="pds-answer-group" id="pds-answer-group7">
-																<label for="PDI_feedback4" class="pds-answer" id="pds-answer7"><span class="pds-answer-text"><?php _e( 'Other', 'polldaddy' ); ?></span><xsl:text> </xsl:text><span class="pds-feedback-per"><strong>8%</strong></span><xsl:text> </xsl:text><span class="pds-feedback-votes"><?php printf( __( '(%d votes)', 'polldaddy' ), 110 ); ?></span></label>
-																<span class="pds-clear"></span>
-																<div id="pds-answer-feedback4">
-																	<div style="width:8%;" id="pds-answer-feedback-bar4" class="pds-answer-feedback-bar"></div>
+															
+															<div class="pds-feedback-group" id="pds-feedback-group3"> 
+																<label class="pds-feedback-label" id="pds-feedback-label3"> 
+																	<span class="pds-answer-text" id="pds-answer-text3"><?php _e( 'Other', 'polldaddy' ); ?></span>
+																	<span class="pds-feedback-result" id="pds-feedback-result3">
+																		<span class="pds-feedback-per" id="pds-feedback-per3">&nbsp;8%</span>&nbsp;<span class="pds-feedback-votes" id="pds-feedback-votes3"> <?php printf( __( '(%d votes)', 'polldaddy' ), 110 ); ?></span>
+																	</span>
+																</label>
+																<span style="display: block;clear: both;height:1px;line-height:1px;" class="pds-clear">&nbsp;</span>
+																<div class="pds-answer-feedback" id="pds-answer-feedback3">
+																	<div style="width:8%" class="pds-answer-feedback-bar" id="pds-answer-feedback-bar3"></div>
 																</div>
-																<span class="pds-clear"></span>
+																<span style="display: block;clear: both;height:1px;line-height:1px;" class="pds-clear">&nbsp;</span>
 															</div>
 
 														</div>
@@ -4510,6 +4567,13 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
     <?php endforeach; ?>
           				</select>
           				<input class="button-secondary action" type="submit" value="<?php _e( 'Filter', 'polldaddy' );?>" />
+          				<?php if ( in_array( $period, array( 1, 7 ) ) ) : ?>
+          				<label><?php _e( '* The results are cached and are updated every hour' ); ?></label>
+          				<?php elseif ( $period == 31 ) : ?>
+          				<label><?php _e( '* The results are cached and are updated every day' ); ?></label>
+          				<?php else : ?>
+          				<label><?php _e( '* The results are cached and are updated every 3 days' ); ?></label>
+          				<?php endif; ?>
 					</div>
 					<div class="alignright">
 						<div class="tablenav-pages">
@@ -4887,10 +4951,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 		return (bool) current_user_can( 'edit_others_posts' );
 	}
 
-	function log( $message ) {
-		if ( defined( 'WP_DEBUG_LOG' ) )
-			$GLOBALS[ 'wp_log' ][ 'polldaddy' ][] = $message;
-	}
+	function log( $message ) {}
 }
 
 require dirname( __FILE__ ).'/rating.php';
