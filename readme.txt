@@ -3,7 +3,7 @@ Contributors: eoigal, alternatekev, mdawaffe, donncha, johnny5
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 2.6
 Tested up to: 3.2.1
-Stable tag: 2.0.10
+Stable tag: 2.0.11
 
 Create and manage Polldaddy polls and ratings from within WordPress.
 
@@ -82,6 +82,10 @@ Create custom poll styles that support RTL text direction.
 
 
 == Change Log ==
+
+= 2.0.11 =
+* Fixed URL encoding bug
+
 = 2.0.10 =
 * Added option to custom style editor to set direction of text.
 * Added option to allow shortcodes to load inline rather than in the footer. Some themes need this.
