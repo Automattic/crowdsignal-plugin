@@ -6,7 +6,7 @@ Plugin URI: http://wordpress.org/extend/plugins/polldaddy/
 Description: Create and manage Polldaddy polls and ratings in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 2.0.10
+Version: 2.0.11
 */
 
 // You can hardcode your Polldaddy PartnerGUID (API Key) here
@@ -35,7 +35,7 @@ class WP_Polldaddy {
 		$this->log( 'Created WP_Polldaddy Object: constructor' );
 		$this->errors                 = new WP_Error;
 		$this->scheme                 = 'https';
-		$this->version                = '2.0.10';
+		$this->version                = '2.0.11';
 		$this->multiple_accounts      = true;
 		$this->polldaddy_client_class = 'api_client';
 		$this->polldaddy_clients      = array();
@@ -1543,17 +1543,14 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 			<div class="tablenav-pages"><?php echo $page_links; ?></div>
 		</div>
 
-
-
-
-		<script language="javascript">
+		<script type="text/javascript">
 		jQuery( document ).ready(function(){
 			plugin = new Plugin( {
-				delete_rating: '<?php echo esc_attr( __( 'Are you sure you want to delete the rating for "%s"?', 'polldaddy' ) ); ?>',
-				delete_poll: '<?php echo esc_attr( __( 'Are you sure you want to delete the poll %s?', 'polldaddy' ) ); ?>',
-				delete_answer: '<?php echo esc_attr( __( 'Are you sure you want to delete this answer?', 'polldaddy' ) ); ?>',
-				delete_answer_title: '<?php echo esc_attr( __( 'delete this answer', 'polldaddy' ) ); ?>',
-				standard_styles: '<?php echo esc_attr( __( 'Standard Styles', 'polldaddy' ) ); ?>',
+				delete_rating: '<?php echo esc_js( __( 'Are you sure you want to delete the rating for "%s"?', 'polldaddy' ) ); ?>',
+				delete_poll: '<?php echo esc_js( __( 'Are you sure you want to delete the poll %s?', 'polldaddy' ) ); ?>',
+				delete_answer: '<?php echo esc_js( __( 'Are you sure you want to delete this answer?', 'polldaddy' ) ); ?>',
+				delete_answer_title: '<?php echo esc_js( __( 'delete this answer', 'polldaddy' ) ); ?>',
+				standard_styles: '<?php echo esc_js( __( 'Standard Styles', 'polldaddy' ) ); ?>',
 				custom_styles: '<?php echo esc_attr( __( 'Custom Styles', 'polldaddy' ) ); ?>'
 			} );
 
@@ -1561,9 +1558,9 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 
 
 					if( jQuery( '#filter-options' ).val() == 'blog' ){
-						window.location = '<?php echo add_query_arg( array( 'view' => 'blog', 'paged' => false ) ); ?>';
+						window.location = '<?php echo add_query_arg( array( 'page' => 'polls', 'view' => 'blog' ), admin_url( 'admin.php' ) ); ?>';
 					} else {
-						window.location = '<?php echo add_query_arg( array( 'view' => false, 'paged' => false ) ); ?>';
+						window.location = '<?php echo add_query_arg( array( 'page' => 'polls' ), admin_url( 'admin.php' ) ); ?>';
 					}
 
 
