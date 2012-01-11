@@ -2,8 +2,8 @@
 Contributors: eoigal, alternatekev, mdawaffe, donncha, johnny5
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 2.6
-Tested up to: 3.2.1
-Stable tag: 2.0.11
+Tested up to: 3.3.1
+Stable tag: 2.0.12
 
 Create and manage Polldaddy polls and ratings from within WordPress.
 
@@ -13,18 +13,63 @@ The Polldaddy Polls and Ratings plugin allows you to create and manage polls and
 
 Polldaddy Polls is localizable and currently available in:
 
-* English
-* Arabic (thanks to [Ghorab.ws](http://www.Ghorab.ws))
-* French
-* Spanish
+* Arabic
+* Assamese
+* Bengali
+* Bosnian
+* Bulgarian
+* Burmese
+* Catalan
+* Chinese(China)
+* Chinese(Taiwan)
+* Croatian
 * Czech
 * Danish
-* Polish (thanks to [Maciej Kopeć](http://mkopec.eu))
-* Turkish (thanks to Gürol Barın)
-* Brazilian Portuguese
+* Dutch
+* Finnish
+* French(Canada)
+* French(France)
+* French(Switzerland)
+* Galician
+* German
+* Greek
+* Greek(Polytonic)
+* Hebrew
+* Hungarian
+* Indonesian
+* Irish
+* Italian
+* Japanese
 * Khmer
-* Tegulu
-* Latvian (thanks to [Edgars Bergs](http://www.yourwebagency.co.uk/))
+* Korean
+* Kurdish(Sorani)
+* Lithuanian
+* Macedonian
+* Malay
+* Mari(Meadow)
+* Norwegian
+* Norwegian(Nynorsk)
+* Persian
+* Polish
+* Portuguese(Brazil)
+* Portuguese(Portugal)
+* Romanian
+* Russian
+* Serbian
+* Slovak
+* Spanish(PuertoRico)
+* Spanish(Spain)
+* Sundanese
+* Swedish
+* Tagalog
+* Tamil
+* Telugu
+* Thai
+* Turkish
+* Uighur
+* Ukrainian
+* Vietnamese
+* Welsh
 
 Want to help translate the plugin or keep an existing translation up-to-date? Head on over to http://translate.wordpress.com/projects/polldaddy/plugin
 
@@ -77,14 +122,19 @@ Your theme is getting the post content, without necessarily showing it. If the p
 
 
 == Upgrade Notice ==
-= 2.0.10 =
-Create custom poll styles that support RTL text direction.
-
+= 2.0.12 =
+Added range of new languages to further localize the plugin 
 
 == Change Log ==
 
+= 2.0.12 =
+* Fix for CSS bug on admin pages with WordPress 3.3
+* Add range of new languages to further localize the plugin
+* Updated the shortcodes to be better sanitized to prevent possibility of XSS 
+
 = 2.0.11 =
-* Fixed URL encoding bug
+* Fix for CSS bug on admin pages with WordPress 3.3
+* Update Translation files from GlotPress to use 
 
 = 2.0.10 =
 * Added option to custom style editor to set direction of text.

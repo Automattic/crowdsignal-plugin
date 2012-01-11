@@ -6,7 +6,7 @@ Plugin URI: http://wordpress.org/extend/plugins/polldaddy/
 Description: Create and manage Polldaddy polls and ratings in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 2.0.11
+Version: 2.0.12
 */
 
 // You can hardcode your Polldaddy PartnerGUID (API Key) here
@@ -35,7 +35,7 @@ class WP_Polldaddy {
 		$this->log( 'Created WP_Polldaddy Object: constructor' );
 		$this->errors                 = new WP_Error;
 		$this->scheme                 = 'https';
-		$this->version                = '2.0.11';
+		$this->version                = '2.0.12';
 		$this->multiple_accounts      = true;
 		$this->polldaddy_client_class = 'api_client';
 		$this->polldaddy_clients      = array();
@@ -398,8 +398,8 @@ class WP_Polldaddy {
 						'nero_type' => __( 'Nero Type', 'polldaddy' ), 'nero_size' => __( 'Nero Size', 'polldaddy' ), ) );
 			}//end switch
 		}
-
-		wp_enqueue_style( 'polls', "{$this->base_url}polldaddy.css", array( 'global', 'wp-admin' ), $this->version );
+		
+		wp_enqueue_style( 'polldaddy', "{$this->base_url}polldaddy.css", array(), $this->version );
 		wp_enqueue_script( 'admin-forms' );
 		add_thickbox();
 
@@ -1024,7 +1024,7 @@ class WP_Polldaddy {
 			}//end switch
 		}
 
-		wp_redirect( add_query_arg( $query_args, wp_get_referer() ) );
+		wp_safe_redirect( add_query_arg( $query_args, wp_get_referer() ) );
 		exit;
 	}
 
@@ -1543,6 +1543,9 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 			<div class="tablenav-pages"><?php echo $page_links; ?></div>
 		</div>
 
+
+
+
 		<script type="text/javascript">
 		jQuery( document ).ready(function(){
 			plugin = new Plugin( {
@@ -1551,7 +1554,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 				delete_answer: '<?php echo esc_js( __( 'Are you sure you want to delete this answer?', 'polldaddy' ) ); ?>',
 				delete_answer_title: '<?php echo esc_js( __( 'delete this answer', 'polldaddy' ) ); ?>',
 				standard_styles: '<?php echo esc_js( __( 'Standard Styles', 'polldaddy' ) ); ?>',
-				custom_styles: '<?php echo esc_attr( __( 'Custom Styles', 'polldaddy' ) ); ?>'
+				custom_styles: '<?php echo esc_js( __( 'Custom Styles', 'polldaddy' ) ); ?>'
 			} );
 
 			jQuery( '#filter-polls' ).click( function(){
@@ -3734,7 +3737,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 		if ( !$error ) { ?>
       <div id="side-sortables">
         <div id="categorydiv" class="categorydiv">
-          <ul id="category-tabs" class="category-tabs"><?php
+          <ul id="category-tabs" class="category-tabs wp-tab-bar"><?php
 			$this_class = '';
 			$posts_link = esc_url( add_query_arg( array( 'rating' => 'posts', 'message' => false ) ) );
 			$pages_link = esc_url( add_query_arg( array( 'rating' => 'pages', 'message' => false ) ) );
@@ -4347,28 +4350,27 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 			else
 				$set->font_italic = 'normal';
 
-			$set->text_vote    = stripslashes( esc_html( $_REQUEST['text_vote'], 1 ) );
-			$set->text_votes     = stripslashes( esc_html( $_REQUEST['text_votes'], 1 ) );
-			$set->text_rate_this = stripslashes( esc_html( $_REQUEST['text_rate_this'], 1 ) );
-			$set->text_1_star    = stripslashes( esc_html( $_REQUEST['text_1_star'], 1 ) );
-			$set->text_2_star    = stripslashes( esc_html( $_REQUEST['text_2_star'], 1 ) );
-			$set->text_3_star    = stripslashes( esc_html( $_REQUEST['text_3_star'], 1 ) );
-			$set->text_4_star    = stripslashes( esc_html( $_REQUEST['text_4_star'], 1 ) );
-			$set->text_5_star    = stripslashes( esc_html( $_REQUEST['text_5_star'], 1 ) );
-			$set->text_thank_you = stripslashes( esc_html( $_REQUEST['text_thank_you'], 1 ) );
-			$set->text_rate_up   = stripslashes( esc_html( $_REQUEST['text_rate_up'], 1 ) );
-			$set->text_rate_down = stripslashes( esc_html( $_REQUEST['text_rate_down'], 1 ) );
-			$set->font_color     = stripslashes( esc_html( $_REQUEST['font_color'], 1 ) );
+			$set->text_vote      = rawurlencode( stripslashes( esc_html( $_REQUEST['text_vote'], 1 ) ) );
+			$set->text_votes     = rawurlencode( stripslashes( esc_html( $_REQUEST['text_votes'], 1 ) ) );
+			$set->text_rate_this = rawurlencode( stripslashes( esc_html( $_REQUEST['text_rate_this'], 1 ) ) );
+			$set->text_1_star    = rawurlencode( stripslashes( esc_html( $_REQUEST['text_1_star'], 1 ) ) );
+			$set->text_2_star    = rawurlencode( stripslashes( esc_html( $_REQUEST['text_2_star'], 1 ) ) );
+			$set->text_3_star    = rawurlencode( stripslashes( esc_html( $_REQUEST['text_3_star'], 1 ) ) );
+			$set->text_4_star    = rawurlencode( stripslashes( esc_html( $_REQUEST['text_4_star'], 1 ) ) );
+			$set->text_5_star    = rawurlencode( stripslashes( esc_html( $_REQUEST['text_5_star'], 1 ) ) );
+			$set->text_thank_you = rawurlencode( stripslashes( esc_html( $_REQUEST['text_thank_you'], 1 ) ) );
+			$set->text_rate_up   = rawurlencode( stripslashes( esc_html( $_REQUEST['text_rate_up'], 1 ) ) );
+			$set->text_rate_down = rawurlencode( stripslashes( esc_html( $_REQUEST['text_rate_down'], 1 ) ) );
+			$set->font_color     = rawurlencode( stripslashes( esc_html( $_REQUEST['font_color'], 1 ) ) );
 
-			$set->text_popcontent= stripslashes( esc_html( $_REQUEST['text_popcontent'], 1 ) );
-			$set->text_close     = stripslashes( esc_html( $_REQUEST['text_close'], 1 ) );
-			$set->text_all       = stripslashes( esc_html( $_REQUEST['text_all'], 1 ) );
-			$set->text_today     = stripslashes( esc_html( $_REQUEST['text_today'], 1 ) );
-			$set->text_thisweek  = stripslashes( esc_html( $_REQUEST['text_thisweek'], 1 ) );
-			$set->text_thismonth = stripslashes( esc_html( $_REQUEST['text_thismonth'], 1 ) );
-			$set->text_rated     = stripslashes( esc_html( $_REQUEST['text_rated'], 1 ) );
-			$set->text_noratings = stripslashes( esc_html( $_REQUEST['text_noratings'], 1 ) );
-
+			$set->text_popcontent= rawurlencode( stripslashes( esc_html( $_REQUEST['text_popcontent'], 1 ) ) );
+			$set->text_close     = rawurlencode( stripslashes( esc_html( $_REQUEST['text_close'], 1 ) ) );
+			$set->text_all       = rawurlencode( stripslashes( esc_html( $_REQUEST['text_all'], 1 ) ) );
+			$set->text_today     = rawurlencode( stripslashes( esc_html( $_REQUEST['text_today'], 1 ) ) );
+			$set->text_thisweek  = rawurlencode( stripslashes( esc_html( $_REQUEST['text_thisweek'], 1 ) ) );
+			$set->text_thismonth = rawurlencode( stripslashes( esc_html( $_REQUEST['text_thismonth'], 1 ) ) );
+			$set->text_rated     = rawurlencode( stripslashes( esc_html( $_REQUEST['text_rated'], 1 ) ) );
+			$set->text_noratings = rawurlencode( stripslashes( esc_html( $_REQUEST['text_noratings'], 1 ) ) );
 
 			$set->popup = 'off';
 			if ( isset( $_REQUEST['polldaddy-rating-popup'] ) )
@@ -4774,7 +4776,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
     <?php _e( 'Polldaddy Account Info', 'polldaddy' ); ?>
   </h3>
   <p>
-  <?php _e( 'This is the PollDadddy account you currently have imported into your WordPress account', 'polldaddy' ); ?>.
+  <?php _e( 'This is the Polldaddy account you currently have imported into your WordPress account', 'polldaddy' ); ?>.
   </p>
   <form action="" method="post">
     <table class="form-table">

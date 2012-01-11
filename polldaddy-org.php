@@ -423,6 +423,18 @@ function _polldaddy_partner_defaults() {
 	);
 }
 
+if ( !function_exists( 'wp_strip_all_tags' ) ) {
+	function wp_strip_all_tags($string, $remove_breaks = false) {
+		$string = preg_replace( '@<(script|style)[^>]*?>.*?</\\1>@si', '', $string );
+		$string = strip_tags($string);
+	
+		if ( $remove_breaks )
+			$string = preg_replace('/[\r\n\t ]+/', ' ', $string);
+	
+		return trim($string);
+	}
+}
+
 define( 'WP_POLLDADDY__CLASS', 'WPORG_Polldaddy' );
 define( 'WP_POLLDADDY__POLLDADDY_CLIENT_PATH', dirname( __FILE__ ) . '/polldaddy-client.php' );
 
@@ -464,143 +476,164 @@ if ( !function_exists( 'polldaddy_shortcode_handler' ) ) {
 		global $post;
 		global $content_width;
 		
-		$inline    = false;
-		$no_script = false;
-		
-		if ( get_option( 'polldaddy_load_poll_inline' ) )
+		$inline = false;
+		$no_script   = false;
+			
+		if ( defined( 'PADPRESS_LOADED' ) )
+			$inline = true;
+			
+		if ( function_exists( 'get_option' ) && get_option( 'polldaddy_load_poll_inline' ) )
 			$inline = true;
 		
 		if ( is_feed() || defined( 'DOING_AJAX' ) )
 			$no_script = true;
 	
 		extract( shortcode_atts( array(
-					'survey'     => null,
-					'link_text'  => 'View Survey',
-					'poll'       => 'empty',
-					'rating'     => 'empty',
-					'unique_id'  => null,
-					'item_id'    => null,
-					'title'      => null,
-					'permalink'  => null,
-					'cb'         => 0,
-					'type'       => null,
-					'body'       => '',
-					'button'     => '',
-					'text_color' => '000000',
-					'back_color' => 'FFFFFF',
-					'align'      => '',
-					'style'      => '',
-					'width'      => $content_width,
-					'height'     => floor( $content_width * 3 / 4 ),
-					'delay'      => 100,
-					'visit'      => 'single'
-				), $atts ) );
+			'survey'     => null,
+			'link_text'  => 'Take Our Survey',
+			'poll'       => 'empty',
+			'rating'     => 'empty',
+			'unique_id'  => null,
+			'item_id'    => null,
+			'title'      => null,
+			'permalink'  => null,
+			'cb'         => 0,
+			'type'       => 'button',
+			'body'       => '',
+			'button'     => '',
+			'text_color' => '000000',
+			'back_color' => 'FFFFFF',
+			'align'      => '',
+			'style'      => '',
+			'width'      => $content_width,
+			'height'     => floor( $content_width * 3 / 4 ),
+			'delay'      => 100,
+			'visit'      => 'single',
+			'domain'     => '',
+			'id'         => ''
+		), $atts ) );
 	
-		$survey = esc_attr( str_replace( "'", "", $survey ) );
-		$link_text = esc_attr( $link_text );
-	
-		if ( isset( $content_width ) && is_numeric( $width ) && $width > $content_width ) 
-			$width = $content_width;
-	
-		if ( !$width )
-			$width = '100%';
-	
-		if ( !$height )
-			$height = '600';
-	
-		if ( null != $survey ) {
-	
-			// This is the new survey embed			
-			if ( $type != null ) {
-				//need to use esc_js and esc_attr as the values will be inserted into javascript while being enclosed in single quotes.
-				$title      = preg_replace( '/&amp;(\w*);/', '&$1;', esc_js( esc_attr( $title ) ) );
-				$type       = preg_replace( '/&amp;(\w*);/', '&$1;', esc_js( esc_attr( $type ) ) );
-				$body       = preg_replace( '/&amp;(\w*);/', '&$1;', esc_js( esc_attr( $body ) ) );
-				$button     = preg_replace( '/&amp;(\w*);/', '&$1;', esc_js( esc_attr( $button ) ) );
-				$text_color = preg_replace( '/&amp;(\w*);/', '&$1;', esc_js( esc_attr( $text_color ) ) );
-				$back_color = preg_replace( '/&amp;(\w*);/', '&$1;', esc_js( esc_attr( $back_color ) ) );
-				$align      = preg_replace( '/&amp;(\w*);/', '&$1;', esc_js( esc_attr( $align ) ) );
-				$style      = preg_replace( '/&amp;(\w*);/', '&$1;', esc_js( esc_attr( $style ) ) );
-							
-				if ( $type == 'inline' ) {
-					if ( $inline )
-						return '<a href="'.$survey.'">'.$link_text.'</a>';
-					else
-						return <<<EOD
-<iframe src="{$survey}?iframe=1" frameborder="0" width="{$width}" height="{$height}" scrolling="auto" marginheight="0" marginwidth="0"><a href="{$survey}">{$link_text}</a></iframe>
-EOD;
+		if ( !empty( $survey ) ) { //survey embed
+				
+			if ( in_array( $type, array( 'iframe', 'button', 'banner', 'slider' ) ) ) {
+				
+				if ( empty( $title ) ) {
+					$title = 'Take Our Survey';
+					if( !empty( $link_text ) )
+						$title = $link_text;
 				}
 				
-				if ( $no_script || $inline )
-					return "<a href='http://polldaddy.com/s/{$survey}'>{$title}</a>";
+				$survey      = preg_replace( '/[^a-f0-9]/i', '', $survey );
+				$survey_url  = esc_url( "http://polldaddy.com/s/{$survey}" );			
+				$survey_link = sprintf( '<a href="%s">%s</a>', $survey_url, esc_html( $title ) );	
 				
-				$settings = json_encode( array(
-					'title'      => $title,
-					'type'       => $type,
-					'body'       => $body,
-					'button'     => $button,
-					'body'       => $body,
-					'text_color' => $text_color,
-					'back_color' => $back_color,
-					'align'      => $align,
-					'style'      => $style,
-					'id'         => $survey
-				) );
-	
+				if ( $no_script || $inline )
+					return $survey_link;			
+							
+				if ( $type == 'iframe' ) {	
+					if ( $height != 'auto' ) {
+						if ( isset( $content_width ) && is_numeric( $width ) && $width > $content_width ) 
+							$width = $content_width;
+					
+						if ( !$width )
+							$width = '100%';
+						else
+							$width = (int) $width;
+					
+						if ( !$height )
+							$height = '600';
+						else
+							$height = (int) $height;		
+										
+						return <<<EOD
+<iframe src="{$survey_url}?iframe=1" frameborder="0" width="{$width}" height="{$height}" scrolling="auto" allowtransparency="true" marginheight="0" marginwidth="0">{$survey_link}</iframe> 
+EOD;
+					}	
+					else if ( !empty( $domain ) && !empty( $id ) ) {
+					
+						$auto_src = esc_url( "http://{$domain}.polldaddy.com/s/{$id}" );					
+						$auto_src = parse_url( $auto_src );
+						
+						if ( !is_array( $auto_src ) || count( $auto_src ) == 0 )
+							return '<!-- no poll daddy output -->';
+							
+						if ( !isset( $auto_src['host'] ) || !isset( $auto_src['path'] ) )
+							return '<!-- no poll daddy output -->';
+						
+						$domain   = $auto_src['host'].'/s/';
+						$id       = str_ireplace( '/s/', '', $auto_src['path'] );
+						
+						$settings = json_encode( array(
+							'type'       => $type,
+							'auto'       => true,
+							'domain'     => $domain,
+							'id'         => $id
+						) );
+					}
+				}			
+				else {				
+					$text_color = preg_replace( '/[^a-f0-9]/i', '', $text_color );
+					$back_color = preg_replace( '/[^a-f0-9]/i', '', $back_color );
+					
+					if ( !in_array( $align, array( 'right', 'left', 'top-left', 'top-right', 'middle-left', 'middle-right', 'bottom-left', 'bottom-right' ) ) )
+						$align = '';
+						
+					if ( !in_array( $style, array( 'inline', 'side', 'corner', 'rounded', 'square' ) ) )
+						$style = '';
+				
+					$title  = wp_strip_all_tags( $title );
+					$body   = wp_strip_all_tags( $body );
+					$button = wp_strip_all_tags( $button );
+					
+					$settings = json_encode( array_filter( array(
+						'title'      => $title,
+						'type'       => $type,
+						'body'       => $body,
+						'button'     => $button,
+						'text_color' => $text_color,
+						'back_color' => $back_color,
+						'align'      => $align,
+						'style'      => $style,
+						'id'         => $survey
+					) ) );	
+				}
 				return <<<EOD
 <script type="text/javascript" charset="UTF-8" src="http://i0.poll.fm/survey.js"></script>
 <script type="text/javascript" charset="UTF-8"><!--//--><![CDATA[//><!--
 polldaddy.add( {$settings} );
 //--><!]]></script>
-<noscript><a href="http://polldaddy.com/s/{$survey}">{$title}</a></noscript>
+<noscript>{$survey_link}</noscript>
 EOD;
 			} 
-			else {					
-				wp_register_script( 'polldaddy-survey-js', 'http://i0.poll.fm/s.js' );
-				add_filter( 'wp_footer', 'polldaddy_add_survey_js' );
-	
-				return <<<EOD
-<script type="text/javascript" charset="UTF-8"><!--//--><![CDATA[//><!--
-var PDF_surveyID = "{$survey}";
-var PDF_openText = "{$link_text}";
-//--><!]]></script>
-<noscript><a href="http://polldaddy.com/s/{$survey}/">{$link_text}</a></noscript>
-EOD;
-			}
 		}
-	
-		$poll   = (int) $poll;
-		$rating = (int) $rating;
-		$cb     = (int) $cb;
-	
-		if ( !$no_script && $rating > 0 ) {
-			if ( null != $unique_id )
-				$unique_id = esc_html( $unique_id );
-			else
+		elseif ( intval( $rating ) > 0 && !$no_script ) { //rating embed		
+		
+			if ( empty( $unique_id ) )
 				$unique_id = is_page() ? 'wp-page-'.$post->ID : 'wp-post-'.$post->ID;
 			
-			if ( null != $item_id )
-				$item_id = esc_html( $item_id );
-			else
+			if ( empty( $item_id ) )
 				$item_id = is_page() ? '_page_'.$post->ID : '_post_'.$post->ID;
 	
-			if ( null != $title )
-				$title = esc_html( $title );
-			else
+			if ( empty( $title ) )
 				$title = apply_filters( 'wp_title', $post->post_title );
 	
-			if ( null != $permalink )
-				$permalink = clean_url( $permalink );
-			else
+			if ( empty( $permalink ) )
 				$permalink = get_permalink( $post->ID );
+				
+			$rating    = intval( $rating );
+			$unique_id = wp_strip_all_tags( $unique_id );
+			$item_id   = wp_strip_all_tags( $item_id );
+			$item_id   = preg_replace( '/[^_a-z0-9]/i', '', $item_id );
 			
 			$settings = json_encode( array(
 				'id'        => $rating,
 				'unique_id' => $unique_id,
 				'title'     => rawurlencode( trim( $title ) ),
-				'permalink' => esc_url_raw( $permalink ),
+				'permalink' => esc_url( $permalink ),
 				'item_id'   => $item_id
 			) );
+			
+			$item_id = esc_js( $item_id );
 			
 			if ( $inline ) {		
 				return <<<EOD
@@ -622,56 +655,58 @@ PDRTJS_settings_{$rating}{$item_id}={$settings};
 //--><!]]></script>
 EOD;
 			}
-		} elseif ( $poll > 0 ) {
+		} 
+		elseif ( intval( $poll ) > 0 ) { //poll embed
+			
+			$poll      = intval( $poll );
+			$poll_url  = sprintf( 'http://polldaddy.com/poll/%d', $poll );
+			$poll_js   = sprintf( 'http://static.polldaddy.com/p/%d.js', $poll );
+			$poll_link = sprintf( '<a href="%s">Take Our Poll</a>', $poll_url );
 	
 			if ( $no_script )
-				return '<a href="http://polldaddy.com/poll/' . $poll . '/">View This Poll</a>';
+				return $poll_link;
 			else {
 				if ( $type == 'slider' && !$inline ) {
-					$delay = (int) $delay;
-					
-					if( $visit !== 'single' && $visit !== 'multiple' )
+				
+					if( !in_array( $visit, array( 'single', 'multiple' ) ) )
 						$visit = 'single';
 						
 					$settings = json_encode( array(
 						'type'  => 'slider',
 						'embed' => 'poll',
-						'delay' => $delay,
+						'delay' => intval( $delay ),
 						'visit' => $visit,
-						'id'    => $poll
+						'id'    => intval( $poll )
 					) );
 					
 					return <<<EOD
 <script type="text/javascript" charset="UTF-8" src="http://i0.poll.fm/survey.js"></script>
 <script type="text/javascript" charset="UTF-8"><!--//--><![CDATA[//><!--
 polldaddy.add( {$settings} );
-//--><!]]></script>
-<noscript><a href="http://polldaddy.com/poll/{$poll}/">View This Poll</a></noscript>
+//--><!]]></script><noscript>{$poll_link}</noscript>
 EOD;
 				}
 				else {
-					$cb = ( $cb == 1 ? '?cb='.mktime() : false );
-				
-					if( isset( $align ) )
-						$float = "float:" . $align .";";
-					else
-						$float = null;	
+					$cb      = ( $cb == 1 ? '?cb='.mktime() : false );
+					$margins = '';
+					$float   = '';
+					
+					if ( in_array( $align, array( 'right', 'left' ) ) ) {
+						$float = sprintf( 'float: %s;', $align );					
 						
-					if( $align == 'left')
-						$margins = 'margin: 0px 10px 0px 0px;';
-					elseif ( $align == 'right' )
-						$margins =	'margin: 0px 0px 0px 10px';
-					else
-						$margins = null;				
+						if ( $align == 'left')
+							$margins = 'margin: 0px 10px 0px 0px;';
+						else if ( $align == 'right' )
+							$margins = 'margin: 0px 0px 0px 10px';
+					}									
 			
 					if ( $cb === false && !$inline ) {
 						$pd_poll_shortcodes = new pd_poll_shortcodes( $poll );
-						wp_register_script( "polldaddy-poll-js-{$poll}", "http://static.polldaddy.com/p/{$poll}.js" );
+						wp_register_script( "polldaddy-poll-js-{$poll}", $poll_js );
 						add_filter( 'wp_footer', array( &$pd_poll_shortcodes, 'polldaddy_add_poll_js' ) );
 						
 						return <<<EOD
-<a name="pd_a_{$poll}"></a><div class="PDS_Poll" id="PDI_container{$poll}" style="display:inline-block;{$float}{$margins}"></div><div id="PD_superContainer"></div>
-<noscript><a href="http://polldaddy.com/poll/{$poll}/">View This Poll</a></noscript>
+<a name="pd_a_{$poll}"></a><div class="PDS_Poll" id="PDI_container{$poll}" style="display:inline-block;{$float}{$margins}"></div><div id="PD_superContainer"></div><noscript>{$poll_link}</noscript>
 EOD;
 					}
 					else {
@@ -680,14 +715,14 @@ EOD;
 							
 						return <<<EOD
 <a name="pd_a_{$poll}"></a><div class="PDS_Poll" id="PDI_container{$poll}" style="display:inline-block;{$float}{$margins}"></div><div id="PD_superContainer"></div>
-<script type="text/javascript" charset="UTF-8" src="http://static.polldaddy.com/p/{$poll}.js{$cb}"></script><noscript><a href="http://polldaddy.com/poll/{$poll}/">View This Poll</a></noscript>
+<script type="text/javascript" charset="UTF-8" src="{$poll_js}{$cb}"></script><noscript>{$poll_link}</noscript>
 EOD;
 					}				
 				}		
 			}
 		}
 	
-		return '<!-- no polldaddy output -->';
+		return '<!-- no poll daddy output -->';
 	}
 
 	// http://polldaddy.com/poll/1562975/?view=results&msg=voted
