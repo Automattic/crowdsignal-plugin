@@ -615,7 +615,7 @@ EOD;
 				$item_id = is_page() ? '_page_'.$post->ID : '_post_'.$post->ID;
 	
 			if ( empty( $title ) )
-				$title = apply_filters( 'wp_title', $post->post_title );
+				$title = apply_filters( 'wp_title', $post->post_title, '', '' );			
 	
 			if ( empty( $permalink ) )
 				$permalink = get_permalink( $post->ID );
