@@ -1081,21 +1081,21 @@ class WP_Polldaddy {
 			if ( 1 == $deleted )
 				$message = __( 'Poll deleted.', 'polldaddy' );
 			else
-				$message = sprintf( __ngettext( '%s Poll Deleted.', '%s Polls Deleted.', $deleted ), number_format_i18n( $deleted ) );
+				$message = sprintf( _n( '%s Poll Deleted.', '%s Polls Deleted.', $deleted, 'polldaddy' ), number_format_i18n( $deleted ) );
 			break;
 		case 'opened' :
 			$opened = (int) $_GET['opened'];
 			if ( 1 == $opened )
 				$message = __( 'Poll opened.', 'polldaddy' );
 			else
-				$message = sprintf( __ngettext( '%s Poll Opened.', '%s Polls Opened.', $opened ), number_format_i18n( $opened ) );
+				$message = sprintf( _n( '%s Poll Opened.', '%s Polls Opened.', $opened, 'polldaddy' ), number_format_i18n( $opened ) );
 			break;
 		case 'closed' :
 			$closed = (int) $_GET['closed'];
 			if ( 1 == $closed )
 				$message = __( 'Poll closed.', 'polldaddy' );
 			else
-				$message = sprintf( __ngettext( '%s Poll Closed.', '%s Polls Closed.', $closed ), number_format_i18n( $closed ) );
+				$message = sprintf( _n( '%s Poll Closed.', '%s Polls Closed.', $closed, 'polldaddy' ), number_format_i18n( $closed ) );
 			break;
 		case 'updated' :
 			$message = __( 'Poll updated.', 'polldaddy' );
@@ -1116,7 +1116,7 @@ class WP_Polldaddy {
 			if ( 1 == $deleted )
 				$message = __( 'Custom Style deleted.', 'polldaddy' );
 			else
-				$message = sprintf( __ngettext( '%s Style Deleted.', '%s Custom Styles Deleted.', $deleted ), number_format_i18n( $deleted ) );
+				$message = sprintf( _n( '%s Style Deleted.', '%s Custom Styles Deleted.', $deleted, 'polldaddy' ), number_format_i18n( $deleted ) );
 			break;
 		case 'imported-account' :
 			$message = __( 'Account Imported.', 'polldaddy' );
@@ -1129,7 +1129,7 @@ class WP_Polldaddy {
 			if ( 1 == $deleted )
 				$message = __( 'Rating deleted.', 'polldaddy' );
 			else
-				$message = sprintf( __ngettext( '%s Rating Deleted.', '%s Ratings Deleted.', $deleted ), number_format_i18n( $deleted ) );
+				$message = sprintf( _n( '%s Rating Deleted.', '%s Ratings Deleted.', $deleted, 'polldaddy' ), number_format_i18n( $deleted ) );
 			break;
 		}//end switch
 
@@ -1458,7 +1458,7 @@ class WP_Polldaddy {
 <?php $this->poll_table_add_option( $poll_id ); ?>
           	</div>
           </td>
-                                        <td class="poll-votes column-vote num"><?php echo number_format_i18n( $poll->_responses ); ?><span class="votes-label"><?php _e( 'votes' ); ?></span></td>
+                                        <td class="poll-votes column-vote num"><?php echo number_format_i18n( $poll->_responses ); ?><span class="votes-label"><?php _e( 'votes', 'polldaddy' ); ?></span></td>
                                 </tr>
                                 <tr class="polldaddy-shortcode-row <?php if ( $class ): ?> alternate <?php endif; ?>" style="display: none;">
                                     <td colspan="4" style="padding:10px 0px 10px 20px;">
@@ -1492,7 +1492,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 &lt;span style="font:9px;"&gt;(&lt;a href="http://www.polldaddy.com"&gt;polls&lt;/a&gt;)&lt;/span&gt;
 &lt;/noscript&gt;</pre>
 						<p class="submit" style="clear:both;padding:0px;">
-							<a href="#" class="button pd-embed-done"><?php _e( 'Done' ); ?></a>
+							<a href="#" class="button pd-embed-done"><?php _e( 'Done', 'polldaddy' ); ?></a>
 						</p>
 
 					</td>
