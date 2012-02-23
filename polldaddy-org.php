@@ -243,7 +243,7 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 
 	<h2><?php _e( 'Polldaddy Account', 'polldaddy' ); ?></h2>
 
-	<p><?php printf( __('Before you can use the Polldaddy plugin, you need to enter your <a href="%s">Polldaddy.com</a> account details.' ), 'http://polldaddy.com/' ); ?></p>
+	<p><?php printf( __( 'Before you can use the Polldaddy plugin, you need to enter your <a href="%s">Polldaddy.com</a> account details.', 'polldaddy' ), 'http://polldaddy.com/' ); ?></p>
 
 	<form action="" method="post">
 		<table class="form-table">
@@ -750,7 +750,7 @@ if ( class_exists( 'WP_Widget' ) ) {
 
 		function PD_Top_Rated() {
 
-			$widget_ops = array( 'classname' => 'top_rated', 'description' => __( 'A list of your top rated posts, pages or comments.' ) );
+			$widget_ops = array( 'classname' => 'top_rated', 'description' => __( 'A list of your top rated posts, pages or comments.', 'polldaddy' ) );
 			$this->WP_Widget( 'PD_Top_Rated', 'Top Rated', $widget_ops );
 		}
 
