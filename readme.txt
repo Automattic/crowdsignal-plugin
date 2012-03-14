@@ -122,10 +122,16 @@ Your theme is getting the post content, without necessarily showing it. If the p
 
 
 == Upgrade Notice ==
-= 2.0.12 =
-Added range of new languages to further localize the plugin 
+= 2.0.13 =
+Bugfixes
 
-== Change Log ==
+== Changelog ==
+
+= 2.0.13 =
+* Updated translation files and fixed gettext domain in plugin strings
+* Fixed wp_title filter parameter
+* Fixed ratings to show on category and archive pages.
+* Added better sanitization to stop xss vulnerabilities
 
 = 2.0.12 =
 * Fix for CSS bug on admin pages with WordPress 3.3
