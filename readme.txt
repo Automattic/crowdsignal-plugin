@@ -11,6 +11,8 @@ Create and manage Polldaddy polls and ratings from within WordPress.
 
 The Polldaddy Polls and Ratings plugin allows you to create and manage polls and ratings from within your WordPress dashboard. You can create polls, choose from 20 different styles for your polls, and view all results for your polls as they come in. All Polldaddy polls are fully customizable, you can set a close date for your poll, create multiple choice polls, choose whether to display the results or keep them private. You can also create your own custom style for your poll. You can even embed the polls you create on other websites. You can collect unlimited votes and create unlimited polls. The new ratings menu allows you to embed ratings into your posts, pages or comments. The rating editor allows you to fully customize you rating. You can also avail of the the 'Top Rated' widget that will allow you to place the widget in your sidebar. This widget will show you the top rated posts, pages and comments today, this week and this month.
 
+The Polldaddy plugin requires PHP 5.
+
 Polldaddy Polls is localizable and currently available in:
 
 * Arabic
