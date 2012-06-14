@@ -112,7 +112,7 @@ More info here - http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks
 
 = I cannot access my ratings settings, I am getting a "Sorry! There was an error creating your rating widget. Please contact Polldaddy support to fix this." message. =
 
-You need to select the synchronize ratings account in the Options menu to make sure the ratings API key is valid.
+You need to select the synchronize ratings account in the WordPress options page at Settings->Polls & Ratings to make sure the ratings API key is valid.
 
 = When I try to use a rating on a page, I get a PHP warning about the post title. =
 
