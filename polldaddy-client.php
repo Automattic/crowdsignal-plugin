@@ -1167,7 +1167,7 @@ function &polldaddy_poll( $args = null, $id = null, $_require_data = true ) {
 		}
 		
 		global $wpdb;		
-		$public = (int) $wpdb->get_var( $wpdb->prepare( "SELECT public FROM wp_blogs WHERE blog_id = %d", $wpdb->blogid ) );
+		$public = (int) $wpdb->get_var( $wpdb->prepare( "SELECT public FROM {$wpdb->blogs} WHERE blog_id = %d", $wpdb->blogid ) );
 		if( $public == -1 )
 			$args['makePublic'] = 'no';
 
