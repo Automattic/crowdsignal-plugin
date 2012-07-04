@@ -77,9 +77,9 @@ Want to help translate the plugin or keep an existing translation up-to-date? He
 
 == Installation ==
 
-Upload the plugin to your blog, Activate it, then enter your Polldaddy.com email address and password.
+Upload the plugin to your blog (or search for it and install it on your plugins page), activate it, then go to the Polls page. Enter your [Polldaddy.com](http://polldaddy.com/) email address and password to sync your account and pull in your existing polls and ratings.
 
-You can find further help on our [support page](http://support.polldaddy.com/installing-wordpress-org-plugin/). If you have any problems please use the [support forum](http://wordpress.org/tags/polldaddy?forum_id=10). The plugin also logs activity to a file using the [WP Debug Logger](http://wordpress.org/extend/plugins/wp-debug-logger/) plugin which can be useful in determining the cause of a problem.
+You can find further help on our [support page](http://support.polldaddy.com/). If you have any problems please use the [support forum](http://wordpress.org/tags/polldaddy?forum_id=10). The plugin also logs activity to a file using the [WP Debug Logger](http://wordpress.org/extend/plugins/wp-debug-logger/) plugin which can be useful in determining the cause of a problem.
 
 == Screenshots ==
 
