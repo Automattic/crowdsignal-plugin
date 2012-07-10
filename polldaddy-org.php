@@ -829,15 +829,17 @@ SCRIPT;
 // kick it all off
 new PolldaddyShortcode();
 
-// http://polldaddy.com/poll/1562975/?view=results&msg=voted
-function polldaddy_link( $content ) {
-	return preg_replace( '!(?:\n|\A)http://polldaddy.com/poll/([0-9]+?)/(.+)?(?:\n|\Z)!i', "\n<script type='text/javascript' language='javascript' charset='utf-8' src='http://static.polldaddy.com/p/$1.js'></script><noscript> <a href='http://polldaddy.com/poll/$1/'>View Poll</a></noscript>\n", $content );
+if ( !in_array( 'jetpack/jetpack.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) && !function_exists( 'polldaddy_link' ) ) {
+	// http://polldaddy.com/poll/1562975/?view=results&msg=voted
+	function polldaddy_link( $content ) {
+		return preg_replace( '!(?:\n|\A)http://polldaddy.com/poll/([0-9]+?)/(.+)?(?:\n|\Z)!i', "\n<script type='text/javascript' language='javascript' charset='utf-8' src='http://static.polldaddy.com/p/$1.js'></script><noscript> <a href='http://polldaddy.com/poll/$1/'>View Poll</a></noscript>\n", $content );
+	}
+	
+	// higher priority because we need it before auto-link and autop get to it
+	add_filter( 'the_content', 'polldaddy_link', 1 );
+	add_filter( 'the_content_rss', 'polldaddy_link', 1 );
+	add_filter( 'comment_text', 'polldaddy_link', 1 );
 }
-
-// higher priority because we need it before auto-link and autop get to it
-add_filter( 'the_content', 'polldaddy_link', 1 );
-add_filter( 'the_content_rss', 'polldaddy_link', 1 );
-add_filter( 'comment_text', 'polldaddy_link', 1 );
 
 }
 
