@@ -2,8 +2,8 @@
 Contributors: eoigal, alternatekev, mdawaffe, donncha, johnny5
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 3.2
-Tested up to: 3.3.1
-Stable tag: 2.0.13
+Tested up to: 3.4.1
+Stable tag: 2.0.14
 
 Create and manage Polldaddy polls and ratings from within WordPress.
 
@@ -124,10 +124,16 @@ Your theme is getting the post content, without necessarily showing it. If the p
 
 
 == Upgrade Notice ==
-= 2.0.13 =
-Bugfixes
+= 2.0.14 =
+SSL support and faster page loads 
 
 == Changelog ==
+
+= 2.0.14
+* Added support for SSL on the admin dashboard.
+* Updated the shortcodes to load more efficiently in the footer.
+* Fixed number of minor javascript errors.
+* Fixed bug with admin menu and toolbar showing in popup
 
 = 2.0.13 =
 * Updated translation files and fixed gettext domain in plugin strings

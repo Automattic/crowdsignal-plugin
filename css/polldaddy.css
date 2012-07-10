@@ -247,21 +247,19 @@ table.answer td.answer-media-icons ul, table.question td.answer-media-icons ul{
     z-index: -1;
 }
 
-hardbreak { 
-	white-space: pre-wrap; /* css-3 */ 
-	white-space: -moz-pre-wrap; /* Mozilla, since 1999 */ 
-	white-space: -pre-wrap; /* Opera 4-6 */ 
-	white-space: -o-pre-wrap; /* Opera 7 */ 
-	word-wrap: break-word; 
+.hardbreak {
+white-space: pre-wrap; /* css-3 */
+white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+white-space: -pre-wrap; /* Opera 4-6 */
+white-space: -o-pre-wrap; /* Opera 7 */
+word-wrap: break-word;
 }
- 	
- 	
 
 
 /* OLD STYLES, PRE-2.0 ------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------*/
 body.poll-preview-iframe{min-width:0;} 
-body.poll-preview-iframe #sidemenu, body.poll-preview-iframe #submenu, body.poll-preview-iframe #wpcombar, body.poll-preview-iframe #wphead, body.poll-preview-iframe #gears-info-box, body.poll-preview-iframe #user_info, body.poll-preview-iframe #dashmenu, body.poll-preview-iframe #adminmenu, body.poll-preview-iframe #sidemenu-bg, body.poll-preview-iframe #footer, body.poll-preview-iframe #feedbacklink, body.poll-preview-iframe #screen-meta, body.poll-preview-iframe #manage-polls h2#preview-header{display:none;} body.poll-preview-iframe-editor #manage-polls h2#preview-header{display:block;} 
+body.poll-preview-iframe #sidemenu, body.poll-preview-iframe #submenu, body.poll-preview-iframe #wpadminbar, body.poll-preview-iframe #wphead, body.poll-preview-iframe #gears-info-box, body.poll-preview-iframe #user_info, body.poll-preview-iframe #dashmenu, body.poll-preview-iframe #adminmenu, body.poll-preview-iframe #sidemenu-bg, body.poll-preview-iframe #footer, body.poll-preview-iframe #feedbacklink, body.poll-preview-iframe #screen-meta, body.poll-preview-iframe #manage-polls h2#preview-header{display:none;} body.poll-preview-iframe-editor #manage-polls h2#preview-header{display:block;} 
 body.poll-preview-iframe h2{padding-top:0;} 
 body.poll-preview-iframe{margin:0 !important;padding:0 !important;} 
 body.poll-preview-iframe .wrap{max-width:100%;} 
@@ -312,5 +310,5 @@ tr.polldaddy-shortcode-row input{float:left;background-color:#fff;border:1px sol
 #st_image{width:150px;padding:0px;margin:0px;height:200px;} 
 #st_sizes{width:152px;text-align:center;font-size:12px;} 
 #st_sizes a{width:150px;text-align:center;font-size:12px;} 
-.st_image_loader{width:150px;padding:0px;margin:0px;background:url(http://i.polldaddy.com/polls/st-loader.gif) no-repeat center center;} 
+.st_image_loader{width:150px;padding:0px;margin:0px;background:url(../img/st-loader.gif) no-repeat center center;} 
 #st_description{padding:6px 0px;font-size:9px;width:300px;text-align:center;}

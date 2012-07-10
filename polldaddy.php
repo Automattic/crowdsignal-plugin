@@ -6,11 +6,11 @@ Plugin URI: http://wordpress.org/extend/plugins/polldaddy/
 Description: Create and manage Polldaddy polls and ratings in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 2.0.13
+Version: 2.0.14
 */
 
 // You can hardcode your Polldaddy PartnerGUID (API Key) here
-//define( 'WP_POLLDADDY__PARTNERGUID', '12345...' );
+//define( 'WP_POLLDADDY__PARTNERGUID', '12345…' );
 
 class WP_Polldaddy {
 	var $errors;
@@ -41,10 +41,9 @@ class WP_Polldaddy {
 		$this->polldaddy_clients      = array();
 		$this->is_admin               = (bool) current_user_can( 'manage_options' );
 		$this->is_author              = true;
-		$this->id                     = (int) $current_user->ID;
 		$this->user_code              = null;
 		$this->rating_user_code       = null;
-
+		$this->id                     = ($current_user instanceof WP_User) ? intval( $current_user->ID ): 0;
 	}
 
 	function &get_client( $api_key, $userCode = null ) {
@@ -313,7 +312,7 @@ class WP_Polldaddy {
 
 	function media_buttons() {
 		$title = __( 'Add Poll', 'polldaddy' );
-		echo "<a href='admin.php?page=polls&amp;iframe&amp;TB_iframe=true' onclick='return false;' id='add_poll' class='thickbox' title='$title'><img src='{$this->base_url}polldaddy.png' alt='$title' /></a>";
+		echo "<a href='admin.php?page=polls&amp;iframe&amp;TB_iframe=true' onclick='return false;' id='add_poll' class='thickbox' title='$title'><img src='{$this->base_url}img/polldaddy.png' alt='$title' /></a>";
 	}
 
 	function set_api_user_code() {
@@ -345,8 +344,8 @@ class WP_Polldaddy {
 
 		require_once WP_POLLDADDY__POLLDADDY_CLIENT_PATH;
 
-		wp_enqueue_script( 'polls', "{$this->base_url}polldaddy.js", array( 'jquery', 'jquery-ui-sortable', 'jquery-form' ), $this->version );
-		wp_enqueue_script( 'polls-common', "{$this->base_url}common.js", array(), $this->version );
+		wp_enqueue_script( 'polls', "{$this->base_url}js/polldaddy.js", array( 'jquery', 'jquery-ui-sortable', 'jquery-form' ), $this->version );
+		wp_enqueue_script( 'polls-common', "{$this->base_url}js/common.js", array(), $this->version );
 
 		if ( $page == 'polls' ) {
 			if ( !$this->is_author && in_array( $action, array( 'edit', 'edit-poll', 'create-poll', 'edit-style', 'create-style', 'list-styles', 'options', 'update-options', 'import-account' ) ) ) {//check user privileges has access to action
@@ -359,7 +358,7 @@ class WP_Polldaddy {
 			case 'create-poll' :
 			case 'add-media' :
 				wp_enqueue_script( 'media-upload', array(), $this->version );
-				wp_enqueue_script( 'polls-style', "http://i.polldaddy.com/js/poll-style-picker.js", array(), $this->version );
+				wp_enqueue_script( 'polls-style', "{$this->base_url}js/poll-style-picker.js", array( 'polls', 'polls-common' ), $this->version );
 
 				if ( $action == 'create-poll' )
 					$plugin_page = 'polls&amp;action=create-poll';
@@ -367,9 +366,9 @@ class WP_Polldaddy {
 				break;
 			case 'edit-style' :
 			case 'create-style' :
-				wp_enqueue_script( 'polls-style', "http://i.polldaddy.com/js/style-editor.js", array(), $this->version );
-				wp_enqueue_script( 'polls-style-color', "http://i.polldaddy.com/js/jquery/jscolor.js", array(), $this->version );
-				wp_enqueue_style( 'polls', "{$this->base_url}style-editor.css", array(), $this->version );
+				wp_enqueue_script( 'polls-style', "{$this->base_url}js/style-editor.js", array( 'polls', 'polls-common' ), $this->version );
+				wp_enqueue_script( 'polls-style-color', "{$this->base_url}js/jscolor.js", array(), $this->version );
+				wp_enqueue_style( 'polls', "{$this->base_url}css/style-editor.css", array(), $this->version );
 				$plugin_page = 'polls&amp;action=list-styles';
 				break;
 			case 'list-styles' :
@@ -391,22 +390,24 @@ class WP_Polldaddy {
 				$plugin_page = 'ratings&amp;action=reports';
 				break;
 			default :
-				wp_enqueue_script( 'rating-text-color', "http://i.polldaddy.com/js/jquery/jscolor.js", array(), $this->version );
-				wp_enqueue_script( 'ratings', 'http://i.polldaddy.com/ratings/rating.js', array(), $this->version );
+				wp_enqueue_script( 'rating-text-color', "{$this->base_url}js/jscolor.js", array(), $this->version );
+				wp_enqueue_script( 'ratings', "{$this->base_url}js/rating.js", array(), $this->version );
 				wp_localize_script( 'polls-common', 'adminRatingsL10n', array(
 						'star_colors' => __( 'Star Colors', 'polldaddy' ), 'star_size' =>  __( 'Star Size', 'polldaddy' ),
 						'nero_type' => __( 'Nero Type', 'polldaddy' ), 'nero_size' => __( 'Nero Size', 'polldaddy' ), ) );
 			}//end switch
 		}
 		
-		wp_enqueue_style( 'polldaddy', "{$this->base_url}polldaddy.css", array(), $this->version );
+		wp_enqueue_style( 'polldaddy', "{$this->base_url}css/polldaddy.css", array(), $this->version );
 		wp_enqueue_script( 'admin-forms' );
 		add_thickbox();
-
-
+		
+		if ( isset( $_GET['iframe'] ) ) {
+			add_action( 'admin_head', array( &$this, 'hide_admin_menu' ) );
+		}
 
 		if ( isset( $wp_locale->text_direction ) && 'rtl' == $wp_locale->text_direction )
-			wp_enqueue_style( 'polls-rtl', "{$this->base_url}polldaddy-rtl.css", array( 'global', 'wp-admin' ), $this->version );
+			wp_enqueue_style( 'polls-rtl', "{$this->base_url}css/polldaddy-rtl.css", array( 'global', 'wp-admin' ), $this->version );
 		add_action( 'admin_body_class', array( &$this, 'admin_body_class' ) );
 
 		add_action( 'admin_notices', array( &$this, 'management_page_notices' ) );
@@ -1027,6 +1028,10 @@ class WP_Polldaddy {
 		wp_safe_redirect( add_query_arg( $query_args, wp_get_referer() ) );
 		exit;
 	}
+	
+	function hide_admin_menu() {
+		echo '<style>#adminmenuback,#adminmenuwrap,#screen-meta-links,#footer{display:none;visibility:hidden;}#wpcontent{margin-left:10px;}</style>';
+	}
 
 	function management_page_load_signup() {
 
@@ -1198,11 +1203,7 @@ class WP_Polldaddy {
 			case 'results' :
 ?>
 
-		<h2 id="polldaddy-header"><?php
-				if ( $this->is_author )
-					_e( 'Poll Results', 'polldaddy');
-				else
-					_e( 'Poll Results', 'polldaddy'); ?></h2>
+				<h2 id="poll-list-header"><?php printf( __( 'Poll Results <a href="%s" class="button add-new-h2">All Polls</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ) ); ?></h2>
 
 <?php
 				$this->poll_results_page( $poll );
@@ -1334,6 +1335,7 @@ class WP_Polldaddy {
 
 ?>
 		<form method="post" action="">
+		<input type="hidden" name="iframe" id="iframe1" value="<?php echo isset( $_GET['iframe'] ) ? 1: 0;?>">
 		<div class="tablenav">
 
 <?php if ( $this->is_author ) { ?>
@@ -1659,6 +1661,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 	<input type="hidden" value="" name="action">
 	<input type="hidden" value="<?php echo $this->user_code; ?>" name="uc">
 	<input type="hidden" value="" name="attach-id">
+	<input type="hidden" value="" name="media-id">
 	<input type="hidden" value="" name="url">
 </form>
 
@@ -1852,9 +1855,17 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 					<td class="answer-media-icons" <?php echo isset( $_GET['iframe'] ) ? 'style="width: 55px !important;"' : '';?>>
 					<ul class="answer-media" <?php echo isset( $_GET['iframe'] ) ? 'style="min-width: 30px;"' : '';?>>
 <?php  if ( $mediaType[999999999] == 2 ) { ?>
-				<li class="media-preview" style="width: 20px; height: 16px; padding-left: 5px;"><img height="16" width="16" src="http://i0.poll.fm/images/icon-report-ip-analysis.png" alt="Video Embed"></li>
+				<li class="media-preview" style="width: 20px; height: 16px; padding-left: 5px;"><img height="16" width="16" src="<?php echo plugins_url( 'img/icon-report-ip-analysis', __FILE__ ); ?>" alt="Video Embed"></li>
 <?php   } else { ?>
-				<li class="media-preview" style="width: 20px; height: 16px; padding-left: 5px;"><?php echo isset($media[999999999])?urldecode($media[999999999]->img_small):''; ?></li>
+				<li class="media-preview" style="width: 20px; height: 16px; padding-left: 5px;"><?php 
+				$url = '';
+				if ( isset($media[999999999]) ) {
+					$url = urldecode( $media[999999999]->img_small );
+					
+					if ( is_ssl() )
+						$url = preg_replace( '/http\:/', 'https:', $url );
+				}
+				echo $url; ?></li>
 <?php   }
 
 		if ( !isset( $_GET['iframe'] ) ) : ?>
@@ -1911,9 +1922,17 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 							<td class="answer-media-icons" <?php echo isset( $_GET['iframe'] ) ? 'style="width: 55px !important;"' : '';?>>
 							<ul class="answer-media" <?php echo isset( $_GET['iframe'] ) ? 'style="min-width: 30px;"' : '';?>>
 <?php  if ( isset( $mediaType[$answer_id] ) && $mediaType[$answer_id] == 2 ) { ?>
-						<li class="media-preview" style="width: 20px; height: 16px; padding-left: 5px;"><img height="16" width="16" src="http://i0.poll.fm/images/icon-report-ip-analysis.png" alt="Video Embed"></li>
+						<li class="media-preview" style="width: 20px; height: 16px; padding-left: 5px;"><img height="16" width="16" src="<?php echo plugins_url( 'img/icon-report-ip-analysis', __FILE__ ); ?>" alt="Video Embed"></li>
 <?php   } else { ?>
-						<li class="media-preview" style="width: 20px; height: 16px; padding-left: 5px;"><?php echo isset($media[$answer_id])?urldecode($media[$answer_id]->img_small):''; ?></li>
+						<li class="media-preview" style="width: 20px; height: 16px; padding-left: 5px;"><?php 
+						$url = '';
+				if ( isset($media[$answer_id]) ) {
+					$url = urldecode( $media[$answer_id]->img_small );
+					
+					if ( is_ssl() )
+						$url = preg_replace( '/http\:/', 'https:', $url );
+				}
+				echo $url; ?></li>
 <?php   }
 
 		if ( !isset( $_GET['iframe'] ) ) : ?>
@@ -2252,7 +2271,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 				<div  style="padding:20px;">
 					<select id="customSelect" name="customSelect" onchange="javascript:pd_change_style(this.value);">
 						<?php  $selected = $custom_style_ID == 0 ? ' selected="selected"' : ''; ?>
-								<option value="x"<?php echo $selected; ?>><?php _e( 'Please choose a custom style...', 'polldaddy' ); ?></option>
+								<option value="x"<?php echo $selected; ?>><?php _e( 'Please choose a custom style…', 'polldaddy' ); ?></option>
 						<?php  if ( $show_custom ) : foreach ( (array)$styles->style as $style ) :
 				$selected = $style->_id == $custom_style_ID ? ' selected="selected"' : ''; ?>
 								<option value="<?php echo (int) $style->_id; ?>"<?php echo $selected; ?>><?php echo esc_html( $style->title ); ?></option>
@@ -2366,7 +2385,8 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 				style_desc_wide : '<?php echo esc_attr( __( 'Width: 630px, the wide style is good for blog posts.', 'polldaddy' ) ); ?>',
 				style_desc_medium : '<?php echo esc_attr( __( 'Width: 300px, the medium style is good for general use.', 'polldaddy' ) ); ?>',
 				style_desc_narrow : '<?php echo esc_attr( __( 'Width 150px, the narrow style is good for sidebars etc.', 'polldaddy' ) ); ?>',
-				style_desc_micro : '<?php echo esc_attr( __( 'Width 150px, the micro style is useful when space is tight.', 'polldaddy' ) ); ?>'
+				style_desc_micro : '<?php echo esc_attr( __( 'Width 150px, the micro style is useful when space is tight.', 'polldaddy' ) ); ?>',
+				image_path : '<?php echo plugins_url( 'img', __FILE__ );?>'
 			}
 			pd_build_styles( current_pos );
 			<?php if ( $style_ID > 0 && $style_ID <= 1000 ) { ?>
@@ -2416,7 +2436,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 		}
 
 		$class = $class ? '' : ' class="alternate"';
-		$content = $results->others && 'Other answer...' === $answer->text ? sprintf( __( 'Other (<a href="%s">see below</a>)', 'polldaddy' ), '#other-answers-results' ) : esc_html( $answer->text );
+		$content = $results->others && 'Other answer…' === $answer->text ? sprintf( __( 'Other (<a href="%s">see below</a>)', 'polldaddy' ), '#other-answers-results' ) : esc_html( $answer->text );
 
 ?>
 
@@ -2664,7 +2684,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 								<option value="117"><?php _e( 'Skull Light', 'polldaddy' ); ?></option>
 								<option value="157"><?php _e( 'Micro', 'polldaddy' ); ?></option>
 							</select>
-							<a tabindex="4" id="style-preload" href="javascript:preload_pd_style();" class="button"><?php echo esc_attr( __( 'Load Style', 'polldaddy' ) ); ?></a>								
+							<a tabindex="4" id="style-preload" href="javascript:preload_style();" class="button"><?php echo esc_attr( __( 'Load Style', 'polldaddy' ) ); ?></a>								
 						</div>
 					</td>
 				</tr>
@@ -4636,15 +4656,15 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 						if ( $avg_rating == ( $c - 1 + 0.5 ) )
 							$image_pos = 'center left';
 					} ?>
-								<div style="width: 20px; height: 20px; background: url(http://i.polldaddy.com/ratings/images/star-yellow-med.png) <?php echo $image_pos; ?>; float: left;"></div><?php
+								<div style="width: 20px; height: 20px; background: url(<?php echo plugins_url( 'img/star-yellow-med.png', __FILE__ ); ?>) <?php echo $image_pos; ?>; float: left;"></div><?php
 				endfor; ?>
 								<br class="clear" />
 							</div><?php
 			} else { ?>
 							<div>
-								<div style="margin: 0px 0px 0px 20px; background: transparent url(http://i.polldaddy.com/images/rate-graph-up.png); width: 20px; height: 20px; float: left;"></div>
+								<div style="margin: 0px 0px 0px 20px; background: transparent url(<?php echo plugins_url( 'img/rate-graph-up.png', __FILE__ ); ?>); width: 20px; height: 20px; float: left;"></div>
 								<div style="float:left; line-height: 20px; padding: 0px 10px 0px 5px;"><?php echo number_format( $rating->total1 );?></div>
-								<div style="margin: 0px; background: transparent url(http://i.polldaddy.com/images/rate-graph-dn.png); width: 20px; height: 20px; float: left;"></div>
+								<div style="margin: 0px; background: transparent url(<?php echo plugins_url( 'img/rate-graph-dn.png', __FILE__ ); ?>); width: 20px; height: 20px; float: left;"></div>
 								<div style="float:left; line-height: 20px; padding: 0px 10px 0px 5px;"><?php echo number_format( $rating->total2 );?></div>
 								<br class="clear" />
 							</div><?php

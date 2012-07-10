@@ -3,12 +3,7 @@
 add_action( 'wp_ajax_myajax-submit', 'myajax_submit' );
 
 class Polldaddy_Ajax {
-
-	function Polldaddy_Ajax() {
-		$this->__construct();
-	}
-
-	function __construct() {
+	public function __construct() {
 		// Catch AJAX
 		add_action( 'wp_ajax_polls_upload_image', array( &$this, 'ajax_upload_image' ) );
 		add_action( 'wp_ajax_polls_add_answer', array( &$this, 'ajax_add_answer' ) );
@@ -21,16 +16,19 @@ class Polldaddy_Ajax {
 		}
 	}
 
-	function ajax_upload_image() {
+	public function ajax_upload_image() {
 		require_once dirname( __FILE__ ) . '/polldaddy-client.php';
 
 		check_admin_referer( 'send-media' );
 
-		$attach_id = $user_code = 0;
+		$attach_id = $media_id = $user_code = 0;
 		$name = $url = '';
 
 		if ( isset( $_POST['attach-id'] ) )
 			$attach_id = (int) $_POST['attach-id'];
+
+		if ( isset( $_POST['media-id'] ) )
+			$media_id = (int) $_POST['media-id'];
 
 		if ( isset( $_POST['uc'] ) )
 			$user_code = $_POST['uc'];
@@ -39,16 +37,23 @@ class Polldaddy_Ajax {
 			$url = $_POST['url'];
 
 		$parts     = pathinfo( $url );
-		$name      = $parts['basename'];
+		$name      = preg_replace('/\?.*/', '', $parts['basename']);
 		$polldaddy = new api_client( WP_POLLDADDY__PARTNERGUID, $user_code );
-		$response  = $polldaddy->upload_image( $name, $url, 'poll', ($attach_id>1000?$attach_id:0) );
+		$data      = '';
+		
+		if ( function_exists( 'is_private_blog' ) && is_private_blog() ) {
+			$file_path = get_attached_file( $attach_id );
+			$data = base64_encode( @file_get_contents($file_path) );
+		}
+		
+		$response  = $polldaddy->upload_image( $name, $url, 'poll', ($media_id>1000?$media_id:0), $data );
 
-		if ( is_a( $response, "Polldaddy_Media" ) )
-			echo urldecode( $response->upload_result ).'||'.$attach_id;
+		if ( is_a( $response, "PollDaddy_Media" ) )
+			echo urldecode( $response->upload_result ).'||'.$media_id;
 		die();
 	}
 
-	function ajax_add_answer() {
+	public function ajax_add_answer() {
 		check_admin_referer( 'add-answer' );
 
 		$a     = 0;

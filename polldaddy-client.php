@@ -905,9 +905,12 @@ function sync_rating( ){
 	 * @return array|false Polldaddy Media or false on failure
 	 */
 
-    function upload_image( $name, $url, $type, $id = 0 ){
+    function upload_image( $name, $url, $type, $id = 0, $data = '' ){
 
-	    $pos = $this->add_request( 'uploadimageurl', new Polldaddy_Media( compact( 'name', 'type', 'url'  ) , compact( 'id' ) ) );
+		if ( !empty( $data ) )
+			$pos = $this->add_request( 'uploadimagebinary', new Polldaddy_Media( compact( 'name', 'type', 'data'  ) , compact( 'id' ) ) );
+		else
+	    	$pos = $this->add_request( 'uploadimageurl', new Polldaddy_Media( compact( 'name', 'type', 'url' ) , compact( 'id' ) ) );
 
 	    $this->send_request(30);
 

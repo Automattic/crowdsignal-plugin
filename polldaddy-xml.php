@@ -442,6 +442,7 @@ class Polldaddy_Style extends Polldaddy_XML_Object {
 	var $_id;
 	var $_type;
 	var $_retro;
+	var $_direction;
 	
 	var $title;
 	var $date;	
