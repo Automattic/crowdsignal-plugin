@@ -1,16 +1,21 @@
-# Translation of WordPress.org Plugin in Khmer
-# This file is distributed under the same license as the WordPress.org Plugin package.
+# Polldaddy.com POT file.
+# Copyright (C) 2012 Automattic
+# This file is distributed under the same license as the Polldaddy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: WordPress.org Plugin\n"
+"Project-Id-Version: Polldaddy \n"
 "Report-Msgid-Bugs-To: support@polldaddy.com\n"
-"POT-Creation-Date: 2012-07-16 11:35+0000\n"
-"PO-Revision-Date: 2012-07-16 11:35:51+0000\n"
+"POT-Creation-Date: 2012-07-16 11:36+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: GlotPress/0.1\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 msgid "Polldaddy Invitation"
 msgstr ""
@@ -24,6 +29,7 @@ msgstr ""
 msgid "%d incomplete response has been added to %s."
 msgid_plural "%d incomplete responses have been added to %s."
 msgstr[0] ""
+msgstr[1] ""
 
 msgid ""
 "Thanks,\n"
@@ -51,6 +57,7 @@ msgstr ""
 msgid "Note that the PDFs are available for %d day."
 msgid_plural "Note that the PDFs are available for %d days."
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "[Polldaddy] PDF report has been generated"
 msgstr ""
@@ -841,9 +848,8 @@ msgstr ""
 msgid "Congo"
 msgstr ""
 
-#, fuzzy
 msgid "Previous"
-msgstr "មើលមុន"
+msgstr ""
 
 msgid "Next"
 msgstr ""
@@ -874,34 +880,40 @@ msgstr ""
 msgid "%d minute ago"
 msgid_plural "%d minutes ago"
 msgstr[0] ""
+msgstr[1] ""
 
-#, fuzzy, php-format
+#, php-format
 msgid "%d hour ago"
 msgid_plural "%d hours ago"
-msgstr[0] "%d ម៉ោង"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "yesterday"
 msgstr ""
 
-#, fuzzy, php-format
+#, php-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
-msgstr[0] "%d ថ្ងៃ"
+msgstr[0] ""
+msgstr[1] ""
 
-#, fuzzy, php-format
+#, php-format
 msgid "%d week ago"
 msgid_plural "%d weeks ago"
-msgstr[0] "%d សប្តាហ៍"
+msgstr[0] ""
+msgstr[1] ""
 
-#, fuzzy, php-format
+#, php-format
 msgid "%d month ago"
 msgid_plural "%d months ago"
-msgstr[0] "%d ខែ"
+msgstr[0] ""
+msgstr[1] ""
 
 #, php-format
 msgid "%d year ago"
 msgid_plural "%d years ago"
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "Invalid Videolog identifier"
 msgstr ""
@@ -938,13 +950,13 @@ msgid "Rating"
 msgstr ""
 
 msgid "Ratings"
-msgstr "ភាពពេញចិត្ត"
+msgstr ""
 
 msgid "Vote"
 msgstr ""
 
 msgid "Votes"
-msgstr "សន្លឹកឆ្នោត"
+msgstr ""
 
 msgid ""
 "Did you know you can send polls and surveys out in an email? <a href=\"[cta]"
@@ -1082,7 +1094,7 @@ msgid "Address Fields"
 msgstr ""
 
 msgid "Answers"
-msgstr "ចំលើយ"
+msgstr ""
 
 msgid "Import Survey"
 msgstr ""
@@ -1305,7 +1317,7 @@ msgid "Total Votes:"
 msgstr ""
 
 msgid "votes"
-msgstr "សន្លឹកឆ្នោត"
+msgstr ""
 
 msgid "Poll Closed"
 msgstr ""
@@ -1314,7 +1326,7 @@ msgid "Please choose an answer first!"
 msgstr ""
 
 msgid "Comments"
-msgstr "វិចារ"
+msgstr ""
 
 msgid "Share This"
 msgstr ""
@@ -1529,13 +1541,13 @@ msgid "Excellent"
 msgstr ""
 
 msgid "Thank You"
-msgstr "អរគុណ អ្នក"
+msgstr ""
 
 msgid "Rate Up"
-msgstr "វាយតំលៃ ឡើង"
+msgstr ""
 
 msgid "Rate Down"
-msgstr "វាយតំលៃ ចុះ"
+msgstr ""
 
 msgid "Data is hourly"
 msgstr ""
@@ -1553,6 +1565,7 @@ msgstr ""
 msgid "%s participant"
 msgid_plural "%s participants"
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "H:i d M Y"
 msgstr ""
@@ -1915,7 +1928,7 @@ msgid "Free Text"
 msgstr ""
 
 msgid "Multiple Choice"
-msgstr "ច្រើនជំរើស"
+msgstr ""
 
 msgid "Name"
 msgstr ""
@@ -1963,13 +1976,13 @@ msgid "Page Heading"
 msgstr ""
 
 msgid "Small"
-msgstr "តូច"
+msgstr ""
 
 msgid "Medium"
-msgstr "មធ្យម"
+msgstr ""
 
 msgid "Large"
-msgstr "ធំ"
+msgstr ""
 
 msgid "Input size"
 msgstr ""
@@ -2008,9 +2021,8 @@ msgstr ""
 msgid "Please help us understand why you selected this answer"
 msgstr ""
 
-#, fuzzy
 msgid "As entered"
-msgstr "កណ្តាល"
+msgstr ""
 
 msgid "A-Z"
 msgstr ""
@@ -2081,7 +2093,7 @@ msgid "(e.g. http://www.example.com)"
 msgstr ""
 
 msgid "Title"
-msgstr "  ចំណងជើង"
+msgstr ""
 
 msgid "First Name"
 msgstr ""
@@ -2332,22 +2344,26 @@ msgstr ""
 #, php-format
 msgid "%d day"
 msgid_plural "%d d"
-msgstr[0] "%d ថ្ងៃ"
+msgstr[0] ""
+msgstr[1] ""
 
 #, php-format
 msgid "%d hour"
 msgid_plural "%d h"
-msgstr[0] "%d ម៉ោង"
+msgstr[0] ""
+msgstr[1] ""
 
 #, php-format
 msgid "%d minute"
 msgid_plural "%d mins"
 msgstr[0] ""
+msgstr[1] ""
 
 #, php-format
 msgid "%d second"
 msgid_plural "%d secs"
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "Instant"
 msgstr ""
@@ -2396,7 +2412,7 @@ msgid "Participants"
 msgstr ""
 
 msgid "Results"
-msgstr "លទ្ធផល"
+msgstr ""
 
 msgid "Devices"
 msgstr ""
@@ -2577,16 +2593,19 @@ msgstr ""
 msgid "%s min"
 msgid_plural "%s mins"
 msgstr[0] ""
+msgstr[1] ""
 
 #, php-format
 msgid "%s hour"
 msgid_plural "%s hours"
 msgstr[0] ""
+msgstr[1] ""
 
 #, php-format
 msgid "%s day"
 msgid_plural "%s days"
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "&hellip;"
 msgstr ""
@@ -2626,10 +2645,12 @@ msgctxt "context"
 msgid "singular"
 msgid_plural "plural"
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "singular"
 msgid_plural "plural"
 msgstr[0] ""
+msgstr[1] ""
 
 #. translators: weekday
 msgid "Sunday"
@@ -2849,7 +2870,7 @@ msgid "Vote Count"
 msgstr ""
 
 msgid "Poll"
-msgstr "ការស្ទង់មតិ"
+msgstr ""
 
 #, php-format
 msgid ""
@@ -2929,7 +2950,7 @@ msgid ""
 msgstr ""
 
 msgid "Start Date"
-msgstr "ថ្ងៃខែឆ្នាំ ផ្កាយ"
+msgstr ""
 
 msgid "Unique ID"
 msgstr ""
@@ -2983,7 +3004,7 @@ msgid "Filename"
 msgstr ""
 
 msgid "Size"
-msgstr "ទំហំ"
+msgstr ""
 
 msgid "Choice"
 msgstr ""
@@ -3018,9 +3039,8 @@ msgstr ""
 msgid "EndDate"
 msgstr ""
 
-#, fuzzy
 msgid "Agent"
-msgstr "តំរឹម"
+msgstr ""
 
 msgid "Referrer"
 msgstr ""
@@ -3371,9 +3391,8 @@ msgstr ""
 msgid "SurveyMonkey Importer"
 msgstr ""
 
-#, fuzzy
 msgid "Newsletter"
-msgstr "លុបចេញ"
+msgstr ""
 
 msgid "You are currently subscribed to our newsletter."
 msgstr ""
@@ -3680,28 +3699,31 @@ msgstr ""
 msgid "%d Survey <span>use this pack</span>"
 msgid_plural "%d Surveys <span>use this pack</span>"
 msgstr[0] ""
+msgstr[1] ""
 
 #, php-format
 msgid "%d Quiz <span>use this style</span>"
 msgid_plural "%d Quizzes <span>use this pack</span>"
 msgstr[0] ""
+msgstr[1] ""
 
 #, php-format
 msgid "%d Poll <span>use this pack</span>"
 msgid_plural "%d Polls <span>use this pack</span>"
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "Empty Pack"
 msgstr ""
 
 msgid "Edit"
-msgstr "  កែប្រែ"
+msgstr ""
 
 msgid "Delete"
-msgstr "លុបចេញ"
+msgstr ""
 
 msgid "Preview"
-msgstr "មើលមុន"
+msgstr ""
 
 msgid "No language packs created yet."
 msgstr ""
@@ -3773,11 +3795,13 @@ msgstr ""
 msgid "%d Survey <span>use this style</span>"
 msgid_plural "%d Surveys/Quizzes <span>use this style</span>"
 msgstr[0] ""
+msgstr[1] ""
 
 #, php-format
 msgid "%d Poll <span>use this style</span>"
 msgid_plural "%d Polls <span>use this style</span>"
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "No custom styles created yet."
 msgstr ""
@@ -3877,7 +3901,7 @@ msgid "Surveys"
 msgstr ""
 
 msgid "Polls"
-msgstr "ការស្ទង់មតិ"
+msgstr ""
 
 msgid " (pending)"
 msgstr ""
@@ -3946,10 +3970,10 @@ msgid "Poll Options"
 msgstr ""
 
 msgid "Reports"
-msgstr "របាយការ"
+msgstr ""
 
 msgid "Close"
-msgstr "បិទ"
+msgstr ""
 
 msgid "Your comment has been added."
 msgstr ""
@@ -3980,11 +4004,13 @@ msgstr ""
 msgid "%s vote"
 msgid_plural "%s votes"
 msgstr[0] ""
+msgstr[1] ""
 
 #, php-format
 msgid "%s Total Vote"
 msgid_plural "%s Total Votes"
 msgstr[0] ""
+msgstr[1] ""
 
 #, php-format
 msgid "Posted %s."
@@ -4000,6 +4026,7 @@ msgstr ""
 msgid "%s Comment"
 msgid_plural "%s Comments"
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "This poll was created on Facebook, to comment go to..."
 msgstr ""
@@ -5293,7 +5320,7 @@ msgid "No Limit"
 msgstr ""
 
 msgid "Randomize answer order"
-msgstr "បំព្រាវ លំដាប់ចំលើយ"
+msgstr ""
 
 msgid "Allow users to enter their own answer"
 msgstr ""
@@ -5398,9 +5425,8 @@ msgstr ""
 msgid "Keep open"
 msgstr ""
 
-#, fuzzy
 msgid "Close after"
-msgstr "បិទ"
+msgstr ""
 
 #, php-format
 msgid "<a href=\"%s\">Time is in your chosen timezone</a>"
@@ -5417,7 +5443,7 @@ msgid "Default"
 msgstr ""
 
 msgid "Hide all results"
-msgstr "បិទបាំង គ្រប់លទ្ធផល"
+msgstr ""
 
 msgid "Percentages only"
 msgstr ""
@@ -5432,7 +5458,7 @@ msgid "Order By: "
 msgstr ""
 
 msgid "Position"
-msgstr "ទីតាំង"
+msgstr ""
 
 msgid "Repeat Voters"
 msgstr ""
@@ -5447,22 +5473,22 @@ msgid "Block by cookie &amp; IP address"
 msgstr ""
 
 msgid "Expires: "
-msgstr "ផុតពេលកំណត់៖"
+msgstr ""
 
 msgid "Never"
-msgstr "គ្មាន"
+msgstr ""
 
 #, php-format
 msgid "%d hours"
-msgstr "%d ម៉ោង"
+msgstr ""
 
 #, php-format
 msgid "%d week"
-msgstr "%d សប្តាហ៍"
+msgstr ""
 
 #, php-format
 msgid "%d month"
-msgstr "%d ខែ"
+msgstr ""
 
 msgid "Allow comments"
 msgstr ""
@@ -5474,7 +5500,7 @@ msgid "No comments"
 msgstr ""
 
 msgid "Sharing"
-msgstr "ការចែករំលែក"
+msgstr ""
 
 msgid "Allow sharing"
 msgstr ""
@@ -5495,9 +5521,8 @@ msgid ""
 "collected for this answer will be lost."
 msgstr ""
 
-#, fuzzy
 msgid "Delete Answer"
-msgstr "លុបចេញ"
+msgstr ""
 
 msgid ""
 "Are you sure you want to delete this answer?\\n Any votes you have collected "
@@ -5586,7 +5611,7 @@ msgid "Total Votes"
 msgstr ""
 
 msgid "Font"
-msgstr "ក្រមអក្សរ"
+msgstr ""
 
 msgid "Background"
 msgstr ""
@@ -5610,10 +5635,10 @@ msgid "Font Style"
 msgstr ""
 
 msgid "Bold"
-msgstr "អក្សរដិត"
+msgstr ""
 
 msgid "Italic"
-msgstr "អក្សរទ្រេត"
+msgstr ""
 
 msgid "Underline"
 msgstr ""
@@ -5628,10 +5653,10 @@ msgid "Color (hex code)"
 msgstr ""
 
 msgid "Line Height"
-msgstr "កំពស់ បន្ទាត់"
+msgstr ""
 
 msgid "Align"
-msgstr "តំរឹម"
+msgstr ""
 
 msgid "Image URL"
 msgstr ""
@@ -5652,16 +5677,16 @@ msgid "Not supported in Internet Explorer."
 msgstr ""
 
 msgid "Top"
-msgstr "កំពូល"
+msgstr ""
 
 msgid "Right"
-msgstr "ស្តាំ"
+msgstr ""
 
 msgid "Bottom"
-msgstr "បាត"
+msgstr ""
 
 msgid "Left"
-msgstr "ឆ្វេង"
+msgstr ""
 
 msgid "what's this?"
 msgstr ""
@@ -5790,9 +5815,8 @@ msgstr ""
 msgid "All states"
 msgstr ""
 
-#, fuzzy
 msgid "Share Report"
-msgstr "របាយការ"
+msgstr ""
 
 msgid "Overall"
 msgstr ""
@@ -5849,7 +5873,7 @@ msgid "Host"
 msgstr ""
 
 msgid "Answer"
-msgstr "ចំលើយ"
+msgstr ""
 
 msgid "Votes for this answer from this IP address will be permanently deleted."
 msgstr ""
@@ -6155,7 +6179,7 @@ msgid "Quiz reports"
 msgstr ""
 
 msgid "Rating Reports"
-msgstr "របាយការ ភាពពេញចិត្ត"
+msgstr ""
 
 msgid "Filter &amp; Export"
 msgstr ""
@@ -6202,7 +6226,7 @@ msgid "Online survey software - conduct your customer surveys Surveydaddy."
 msgstr ""
 
 msgid "JavaScript"
-msgstr "ចាវ៉ាស្ក្រិប"
+msgstr ""
 
 msgid "WordPress Blogs"
 msgstr ""
@@ -6247,13 +6271,13 @@ msgid "Please enter a rating name."
 msgstr ""
 
 msgid "Rating Type"
-msgstr "ប្រភេទ វាយតំលៃ"
+msgstr ""
 
 msgid "Layout & Fonts"
 msgstr ""
 
 msgid "Center"
-msgstr "កណ្តាល"
+msgstr ""
 
 msgid "Change Text"
 msgstr ""
@@ -6289,25 +6313,25 @@ msgid "Rating Size"
 msgstr ""
 
 msgid "Color"
-msgstr "ពណ៌"
+msgstr ""
 
 msgid "Yellow"
-msgstr "លឿង"
+msgstr ""
 
 msgid "Red"
-msgstr "ក្រហម"
+msgstr ""
 
 msgid "Blue"
-msgstr "ខៀវ"
+msgstr ""
 
 msgid "Green"
-msgstr "បៃតង"
+msgstr ""
 
 msgid "Grey"
-msgstr "ប្រផែះ"
+msgstr ""
 
 msgid "Hand"
-msgstr "ដៃ"
+msgstr ""
 
 #, php-format
 msgid "Image URL <a href='%s' target='_blank' >what's this?</a>"
@@ -6317,7 +6341,7 @@ msgid "5-Star Rating"
 msgstr ""
 
 msgid "Nero Rating"
-msgstr "ភាពពេញចិត្ត Nero"
+msgstr ""
 
 msgid "Most commonly used"
 msgstr ""
@@ -6357,7 +6381,7 @@ msgid "Show results from:"
 msgstr ""
 
 msgid "Last 24 hours"
-msgstr "២៤ ម៉ោង ចុងក្រោយ"
+msgstr ""
 
 msgid "Last 7 Days"
 msgstr ""
@@ -6378,10 +6402,10 @@ msgid "Filter results by:"
 msgstr ""
 
 msgid "Rating ID"
-msgstr "អត្តសញ្ញា​ (ID) ការវាយតំលៃ"
+msgstr ""
 
 msgid "Average Rating"
-msgstr "ការវាយតំលៃ មធ្យម"
+msgstr ""
 
 msgid "Start Date & ID"
 msgstr ""
@@ -7159,9 +7183,8 @@ msgstr ""
 msgid "We'll need to know the name of the card holder."
 msgstr ""
 
-#, fuzzy
 msgid "(Optional)"
-msgstr "ជំរើស នានា"
+msgstr ""
 
 msgid "Please enter at least one line of the card holders address."
 msgstr ""
@@ -7563,7 +7586,7 @@ msgid "Closed"
 msgstr ""
 
 msgid "Open"
-msgstr "បើក"
+msgstr ""
 
 msgid "Failed to update survey"
 msgstr ""
@@ -7959,7 +7982,7 @@ msgid "Myself"
 msgstr ""
 
 msgid "Actions"
-msgstr "សកម្មភាព"
+msgstr ""
 
 msgid "Star"
 msgstr ""
@@ -7996,7 +8019,7 @@ msgid "Rename"
 msgstr ""
 
 msgid "Save"
-msgstr "រក្សាទុក"
+msgstr ""
 
 msgid "Loading&hellip;"
 msgstr ""
@@ -8033,16 +8056,14 @@ msgstr ""
 msgid "I'm not new here!"
 msgstr ""
 
-#, fuzzy
 msgid "Thanks!"
-msgstr "អរគុណ អ្នក"
+msgstr ""
 
 msgid "What do you want to create?"
 msgstr ""
 
-#, fuzzy
 msgid "Multiple questions"
-msgstr "ច្រើនជំរើស"
+msgstr ""
 
 msgid "Variety of question types"
 msgstr ""
@@ -8080,9 +8101,8 @@ msgstr ""
 msgid "Great for creating engagement with photos, blog posts"
 msgstr ""
 
-#, fuzzy
 msgid "Create a Rating"
-msgstr "ការវាយតំលៃ មធ្យម"
+msgstr ""
 
 msgid "Are you a developer?"
 msgstr ""
@@ -8492,7 +8512,7 @@ msgid "Allow user to see the following reports&hellip;"
 msgstr ""
 
 msgid "Options"
-msgstr "ជំរើស នានា"
+msgstr ""
 
 msgid "Allow user to export report data"
 msgstr ""
@@ -9516,6 +9536,7 @@ msgstr ""
 msgid "%d email imported"
 msgid_plural "%d emails imported"
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "Export to CSV"
 msgstr ""
@@ -9577,6 +9598,7 @@ msgstr ""
 msgid "%d response"
 msgid_plural "%d responses"
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "Report"
 msgstr ""
@@ -9817,9 +9839,8 @@ msgstr ""
 msgid "Area Code"
 msgstr ""
 
-#, fuzzy
 msgid "Contains"
-msgstr "វិចារ"
+msgstr ""
 
 msgid "SMS Reply Message <span>optional</span>"
 msgstr ""
@@ -9974,9 +9995,8 @@ msgstr ""
 msgid "with selection"
 msgstr ""
 
-#, fuzzy
 msgid "at position"
-msgstr "ទីតាំង"
+msgstr ""
 
 msgid "(Correct)"
 msgstr ""
@@ -10003,6 +10023,7 @@ msgstr ""
 msgid "%d choice"
 msgid_plural "%d choices"
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "with"
 msgstr ""
@@ -10067,9 +10088,8 @@ msgstr ""
 msgid "Enter your option"
 msgstr ""
 
-#, fuzzy
 msgid "Plain"
-msgstr "តំរឹម"
+msgstr ""
 
 msgid "Visual"
 msgstr ""
@@ -10146,6 +10166,7 @@ msgstr ""
 msgid "<strong>%s match</strong> out of %s total"
 msgid_plural "<strong>%s matches</strong> out of %s total"
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "Filter Enabled"
 msgstr ""
@@ -10429,6 +10450,7 @@ msgstr ""
 msgid "Edit %d Rule"
 msgid_plural "Edit %d Rules"
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "New Rule"
 msgstr ""
@@ -10642,6 +10664,7 @@ msgstr ""
 msgid "One New Jetpack Module"
 msgid_plural "%s New Jetpack Modules"
 msgstr[0] ""
+msgstr[1] ""
 
 msgid ""
 "<strong>Your Jetpack is almost ready</strong> &#8211; Connect to WordPress."
@@ -10770,11 +10793,13 @@ msgstr ""
 msgid "Jetpack contains the most recent version of the old %l plugin."
 msgid_plural "Jetpack contains the most recent versions of the old %l plugins."
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "The old version has been deactivated and can be removed from your site."
 msgid_plural ""
 "The old versions have been deactivated and can be removed from your site."
 msgstr[0] ""
+msgstr[1] ""
 
 msgid "Connected to WordPress.com"
 msgstr ""
@@ -11275,7 +11300,7 @@ msgid "Title:"
 msgstr ""
 
 msgid "Posts"
-msgstr "  ប្រកាស"
+msgstr ""
 
 msgid "Posts & Comments"
 msgstr ""
@@ -11540,7 +11565,7 @@ msgid "Index pages only"
 msgstr ""
 
 msgid "Save Changes"
-msgstr "រក្សាទុក បំលាស់ប្តូរ"
+msgstr ""
 
 msgid "Service name"
 msgstr ""
