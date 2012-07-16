@@ -3,7 +3,7 @@ Contributors: eoigal, alternatekev, mdawaffe, donncha, johnny5
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 3.2
 Tested up to: 3.4.1
-Stable tag: 2.0.14
+Stable tag: 2.0.15
 
 Create and manage Polldaddy polls and ratings from within WordPress.
 
@@ -16,62 +16,42 @@ The Polldaddy plugin requires PHP 5.
 Polldaddy Polls is localizable and currently available in:
 
 * Arabic
-* Assamese
-* Bengali
 * Bosnian
 * Bulgarian
-* Burmese
-* Catalan
-* Chinese(China)
-* Chinese(Taiwan)
+* Chinese (Taiwan)
 * Croatian
 * Czech
 * Danish
 * Dutch
 * Finnish
-* French(Canada)
-* French(France)
-* French(Switzerland)
+* French (Canada)
+* French (France)
+* French (Switzerland)
 * Galician
 * German
-* Greek
-* Greek(Polytonic)
+* Greek (Polytonic)
 * Hebrew
 * Hungarian
 * Indonesian
 * Irish
 * Italian
-* Japanese
-* Khmer
 * Korean
-* Kurdish(Sorani)
 * Lithuanian
-* Macedonian
 * Malay
-* Mari(Meadow)
 * Norwegian
-* Norwegian(Nynorsk)
+* Norwegian (Nynorsk)
 * Persian
 * Polish
-* Portuguese(Brazil)
-* Portuguese(Portugal)
+* Portuguese (Brazil)
+* Portuguese (Portugal)
 * Romanian
 * Russian
 * Serbian
 * Slovak
-* Spanish(PuertoRico)
-* Spanish(Spain)
-* Sundanese
+* Spanish (Puerto Rico)
+* Spanish (Spain)
 * Swedish
-* Tagalog
-* Tamil
-* Telugu
-* Thai
-* Turkish
 * Uighur
-* Ukrainian
-* Vietnamese
-* Welsh
 
 Want to help translate the plugin or keep an existing translation up-to-date? Head on over to http://translate.wordpress.com/projects/polldaddy/plugin
 
@@ -124,12 +104,15 @@ Your theme is getting the post content, without necessarily showing it. If the p
 
 
 == Upgrade Notice ==
-= 2.0.14 =
-SSL support and faster page loads 
+= 2.0.15 =
+Fix for conflict with jetpack plugin 
 
 == Changelog ==
+= 2.0.15 =
+* Fix for conflict with jetpack plugin. When both plugins were installed, conflict with older jetpack implementation of shortcode handler and redeclaration of polldaddy plugin function 'polldaddy_link()'
+* Updated translations to use latest from glotpress and removed a lot of untranslated text, making plugin a much smaller download.
 
-= 2.0.14
+= 2.0.14 =
 * Added support for SSL on the admin dashboard.
 * Updated the shortcodes to load more efficiently in the footer.
 * Fixed number of minor javascript errors.
