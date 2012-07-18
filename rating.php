@@ -18,12 +18,12 @@ function polldaddy_show_rating_comments( $content ) {
 				$title = mb_substr( preg_replace( '/[\x00-\x1F\x80-\xFF]/', '', $comment->comment_content ), 0, 195 ) . '...';
 				$permalink = get_permalink( $post->ID ) . '#comment-' . $comment->comment_ID;
 				$html = polldaddy_get_rating_code( $rating_id, $unique_id, $title, $permalink, '_comm_' . $comment->comment_ID );
-			}
 
-			if ( $rating_pos == 0 )
-				$content = $html . '<br/>' . $content;
-			else
-				$content .= $html;
+				if ( $rating_pos == 0 )
+					$content = $html . '<br/>' . $content;
+				else
+					$content .= $html;
+			}
 		}
 	}
 	return $content;
