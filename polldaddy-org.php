@@ -767,7 +767,7 @@ CONTAINER;
 		
 		if ( is_array( self::$scripts ) ) {
 			if ( isset( self::$scripts['rating'] ) ) {
-				$script = "<script type='text/javascript' charset='UTF-8' id='polldaddyRatings'><!--//--><![CDATA[//><!--\n";
+				$script = "<script type='text/javascript' id='polldaddyRatings'><!--//--><![CDATA[//><!--\n";
 				foreach( self::$scripts['rating'] as $rating ) {
 					$script .= "PDRTJS_settings_{$rating['id']}{$rating['item_id']}={$rating['settings']}; if ( typeof PDRTJS_RATING !== 'undefined' ){if ( typeof PDRTJS_{$rating['id']}{$rating['item_id']} == 'undefined' ){PDRTJS_{$rating['id']}{$rating['item_id']} = new PDRTJS_RATING( PDRTJS_settings_{$rating['id']}{$rating['item_id']} );}}";
 				}
