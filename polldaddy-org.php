@@ -15,7 +15,7 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 	function __construct() {
 		parent::__construct();
 		$this->log( 'Created WPORG_Polldaddy Object: constructor' );
-		$this->version                = '2.0.10';
+		$this->version                = '2.0.16';
 		$this->base_url               = plugins_url() . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
 		$this->polldaddy_client_class = 'WPORG_Polldaddy_Client';
 		$this->use_ssl                = (int) get_option( 'polldaddy_use_ssl' );
@@ -57,6 +57,30 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 			}
 		}
 		parent::set_api_user_code();
+	}
+	
+	function admin_title( $admin_title ) {
+		global $page;
+		if ( $page == 'polls' )
+			return __( "Polls", "polldaddy" ).$admin_title;
+		else
+			return __( "Ratings", "polldaddy" ).$admin_title;
+	}
+	
+	function admin_menu() {				
+		parent::admin_menu();			
+		
+		if ( class_exists( 'Jetpack' ) ) {
+			add_submenu_page( 'edit.php?post_type=feedback', __( 'Feedbacks', 'polldaddy' ), __( 'Feedbacks', 'polldaddy' ), 'edit_pages', 'edit.php?post_type=feedback' );	
+	
+			foreach( array( 'polls' => __( 'Polls', 'polldaddy' ), 'ratings' => __( 'Ratings', 'polldaddy' ) ) as $menu_slug => $menu_title ) {
+				remove_menu_page( $menu_slug );
+				add_submenu_page( 'edit.php?post_type=feedback', $menu_title, $menu_title, 'edit_posts', 'edit.php?page='.$menu_slug );
+			}
+		}
+		else {
+			remove_menu_page( 'ratings' );
+		}
 	}
 
 	function management_page_load() {
@@ -113,6 +137,29 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 				}
 				break;
 			} //end switch
+		}
+		
+		global $parent_file, $submenu_file, $typenow;
+		
+		//need to set this to make sure that menus behave properly
+		if ( in_array( $action, array( 'options', 'update-rating' ) ) ) {
+			$parent_file  = 'options-general.php';
+			$submenu_file = $page.'&action=options';
+		}
+		else {					
+			if ( class_exists( 'Jetpack' ) ) {
+				//need to fix admin title when viewing polls and rating pages
+				add_filter( 'admin_title', array( &$this, 'admin_title' ) );
+	
+				$parent_file  = 'edit.php?post_type=feedback';
+				$typenow      = 'feedback';
+				$submenu_file = 'edit.php?page='.$page;	
+				remove_submenu_page( $page, $page );
+			}	
+			elseif ( $page == 'ratings' ) {
+				add_filter( 'admin_title', array( &$this, 'admin_title' ) );
+				$submenu_file = 'ratings';	
+			}
 		}
 
 		parent::management_page_load();
@@ -767,7 +814,7 @@ CONTAINER;
 		
 		if ( is_array( self::$scripts ) ) {
 			if ( isset( self::$scripts['rating'] ) ) {
-				$script = "<script type='text/javascript' id='polldaddyRatings'><!--//--><![CDATA[//><!--\n";
+				$script = "<script type='text/javascript' charset='UTF-8' id='polldaddyRatings'><!--//--><![CDATA[//><!--\n";
 				foreach( self::$scripts['rating'] as $rating ) {
 					$script .= "PDRTJS_settings_{$rating['id']}{$rating['item_id']}={$rating['settings']}; if ( typeof PDRTJS_RATING !== 'undefined' ){if ( typeof PDRTJS_{$rating['id']}{$rating['item_id']} == 'undefined' ){PDRTJS_{$rating['id']}{$rating['item_id']} = new PDRTJS_RATING( PDRTJS_settings_{$rating['id']}{$rating['item_id']} );}}";
 				}
