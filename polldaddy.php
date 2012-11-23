@@ -41,6 +41,7 @@ class WP_Polldaddy {
 		$this->polldaddy_clients      = array();
 		$this->is_admin               = (bool) current_user_can( 'manage_options' );
 		$this->is_author              = (bool) current_user_can( 'edit_posts' );
+		$this->is_editor              = (bool) current_user_can( 'delete_others_pages' );
 		$this->user_code              = null;
 		$this->rating_user_code       = null;
 		$this->id                     = ($current_user instanceof WP_User) ? intval( $current_user->ID ): 0;
@@ -4550,6 +4551,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 			<form method="post" action="">
 				<div class="tablenav">
 					<div class="alignleft actions">
+						<?php if ( $this->is_editor ) { ?>
 						<select name="action">
 							<option selected="selected" value=""><?php _e( 'Actions', 'polldaddy' ); ?></option>
 							<option value="delete"><?php _e( 'Delete', 'polldaddy' ); ?></option>
@@ -4557,6 +4559,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 						<input type="hidden" name="id" id="id" value="<?php echo (int) $rating_id; ?>" />
 						<input class="button-secondary action" type="submit" name="doaction" value="<?php _e( 'Apply', 'polldaddy' ); ?>" />
 						<?php wp_nonce_field( 'action-rating_bulk' ); ?>
+						<?php } ?>
 						<select name="change-report-to"><?php
 		$select = array( __( 'Posts', 'polldaddy' ) => "posts", __( 'Pages', 'polldaddy' ) => "pages", __( 'Comments', 'polldaddy' ) => "comments" );
 		foreach ( $select as $option => $value ) :
@@ -4621,7 +4624,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 						<td class="post-title column-title">
 							<strong><a href="<?php echo esc_url( $rating->permalink ); ?>"><?php echo strlen( esc_html( $rating->title ) ) > 75 ? substr( esc_html( $rating->title ), 0, 72 ) . '&hellip' : esc_html( $rating->title ); ?></a></strong>
 							<div class="row-actions">
-							<?php if ( $delete_link ) { ?>
+							<?php if ( $this->is_editor && $delete_link ) { ?>
 								<span class="delete"><a class="delete-rating delete" href="<?php echo $delete_link; ?>"><?php _e( 'Delete', 'polldaddy' ); ?></a></span>
 							<?php } ?>
 							</div>
