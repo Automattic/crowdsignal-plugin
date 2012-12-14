@@ -63,7 +63,7 @@ class WP_Polldaddy {
 		return $client;
 	}
 
-	function admin_menu() {
+	function admin_menu() {	
 		add_action( 'admin_head', array( &$this, 'do_admin_css' ) );
 
 		if ( !defined( 'WP_POLLDADDY__PARTNERGUID' ) ) {
@@ -214,9 +214,11 @@ class WP_Polldaddy {
 		if ( $polldaddy->errors )
 			foreach ( $polldaddy->errors as $code => $error )
 				$this->errors->add( $code, $error );
+				
 			if ( isset( $this->errors->errors[4] ) ) {
-				$this->errors->errors[4] = array( sprintf( __( 'Obsolete Polldaddy User API Key:  <a href="%s">Sign in again to re-authenticate</a>', 'polldaddy' ), add_query_arg( array( 'action' => 'signup', 'reaction' => empty( $_GET['action'] ) ? false : $_GET['action'] ) ) ) );
-				$this->errors->add_data( true, 4 );
+				//need to get latest usercode
+				update_option( 'pd-usercode-'.$this->id, '' );
+				$this->set_api_user_code();
 			}
 	}
 
@@ -292,7 +294,7 @@ class WP_Polldaddy {
 
 	function media_buttons() {
 		$title = __( 'Add Poll', 'polldaddy' );
-		echo "<a href='admin.php?page=polls&amp;iframe&amp;TB_iframe=true' onclick='return false;' id='add_poll' class='thickbox' title='$title'><img src='{$this->base_url}img/polldaddy.png' alt='$title' /></a>";
+		echo "<a href='admin.php?page=polls&amp;iframe&amp;TB_iframe=true' onclick='return false;' id='add_poll' class='thickbox' title='$title'><img src='{$this->base_url}img/polldaddy@2x.png' width='15' height='15' alt='$title' style='padding:0 7px 0 2px;' /></a>";
 	}
 
 	function set_api_user_code() {
@@ -1665,7 +1667,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 						<ul id="answer-options">
 
 <?php
-		foreach ( array(  'randomiseAnswers' => __( 'Randomize answer order', 'polldaddy' ), 'otherAnswer' => __( 'Allow other answers', 'polldaddy' ), 'multipleChoice' => __( 'Multiple choice', 'polldaddy' ) ) as $option => $label ) :
+		foreach ( array(  'randomiseAnswers' => __( 'Randomize answer order', 'polldaddy' ), 'otherAnswer' => __( 'Allow other answers', 'polldaddy' ), 'multipleChoice' => __( 'Multiple choice', 'polldaddy' ), 'sharing' => __( 'Sharing', 'polldaddy' ) ) as $option => $label ) :
 			if ( $is_POST )
 				$checked = 'yes' === $_POST[$option] ? ' checked="checked"' : '';
 			else
@@ -3760,94 +3762,101 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 				$this_class = ' class="tabs"';  ?>
             <li <?php echo $this_class; ?>><a href="<?php echo $comments_link; ?>"><?php _e( 'Comments', 'polldaddy' );?></a></li>
           </ul>
-          <div class="tabs-panel" id="categories-all" style="background: #FFFFFF;height: auto; overflow: visible;">
+          <div class="tabs-panel" id="categories-all" style="background: #FFFFFF;height: auto; overflow: visible;max-height:400px;">
             <form action="" method="post">
             <input type="hidden" name="pd_rating_action_type" value="<?php echo $report_type; ?>" />
             <table class="form-table" style="width: normal;">
               <tbody><?php
 			if ( $report_type == 'posts' ) { ?>
                 <tr valign="top">
-                  <td style="padding-left: 0px; padding-right: 0px; padding-top: 7px;">
-                    <label for="pd_show_posts">
-                      <input type="checkbox" name="pd_show_posts" id="pd_show_posts" <?php if ( $show_posts > 0 ) echo ' checked="checked" '; ?> value="1" /> <?php _e( 'Enable for blog posts', 'polldaddy' );?>
-                    </label>
-                    <span id="span_posts">
-                      <select name="posts_pos"><?php
-				$select = array( __( 'Above each blog post', 'polldaddy' ) => '0', __( 'Below each blog post', 'polldaddy' ) => '1' );
-				foreach ( $select as $option => $value ) :
-					$selected = '';
-				if ( $value == $pos_posts )
-					$selected = ' selected="selected"';
-				echo '<option value="' . $value . '" ' . $selected . '>' . $option . '</option>';
-				endforeach;?>
-                      </select>
-                    </span>
-                  </td>
-                </tr>
-                <tr valign="top">
-                  <td style="padding-left: 0px; padding-right: 0px; padding-top: 7px;">
-                    <label for="pd_show_posts_index">
-                      <input type="checkbox" name="pd_show_posts_index" id="pd_show_posts_index" <?php if ( $show_posts_index > 0 ) echo ' checked="checked" '; ?> value="1" /> <?php _e( 'Enable for front page', 'polldaddy' );?>
-                    </label>
-                    <span id="span_posts">
-                      <select name="posts_index_pos"><?php
-				$select = array( __( 'Above each blog post', 'polldaddy' ) => '0', __( 'Below each blog post', 'polldaddy' ) => '1' );
-				foreach ( $select as $option => $value ) :
-					$selected = '';
-				if ( $value == $pos_posts_index )
-					$selected = ' selected="selected"';
-				echo '<option value="' . $value . '" ' . $selected . '>' . $option . '</option>';
-				endforeach;?>
-                      </select>
-                    </span>
-                  </td>
-                </tr><?php
+					<th scope="row"><label><?php _e( 'Show Ratings on', 'polldaddy' );?></label></th>
+					<td>
+						<label><input type="checkbox" name="pd_show_posts_index" id="pd_show_posts_index" <?php if ( $show_posts_index > 0 ) echo ' checked="checked" '; ?> value="1" /> <?php _e( 'Front Page, Archive Pages, and Search Results', 'polldaddy' );?></label>
+						<br><label><input type="checkbox" name="pd_show_posts" id="pd_show_posts" <?php if ( $show_posts > 0 ) echo ' checked="checked" '; ?> value="1" /> <?php _e( 'Posts', 'polldaddy' );?></label>
+					</td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label><?php _e( 'Position Front Page, Archive Pages, and Search Results Ratings', 'polldaddy' );?></label></th>
+					<td>
+						<select name="posts_index_pos"><?php
+						$select = array( __( 'Above each blog post', 'polldaddy' ) => '0', __( 'Below each blog post', 'polldaddy' ) => '1' );
+						foreach ( $select as $option => $value ) :
+							$selected = '';
+						if ( $value == $pos_posts_index )
+							$selected = ' selected="selected"';
+						echo '<option value="' . $value . '" ' . $selected . '>' . $option . '</option>';
+						endforeach;?>
+		                </select>
+					</td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label><?php _e( 'Position Post Ratings', 'polldaddy' );?></label></th>
+					<td>
+						<select name="posts_pos"><?php
+						$select = array( __( 'Above each blog post', 'polldaddy' ) => '0', __( 'Below each blog post', 'polldaddy' ) => '1' );
+						foreach ( $select as $option => $value ) :
+							$selected = '';
+						if ( $value == $pos_posts )
+							$selected = ' selected="selected"';
+						echo '<option value="' . $value . '" ' . $selected . '>' . $option . '</option>';
+						endforeach;?>
+		                </select>
+					</td>
+				</tr><?php
 			}
 			if ( $report_type == 'pages' ) {?>
-                <tr valign="top">
-                  <td style="padding-left: 0px; padding-right: 0px;  padding-top: 7px;">
-                    <label for="pd_show_pages">
-                      <input type="checkbox" name="pd_show_pages" id="pd_show_pages" <?php if ( $show_pages > 0 ) echo ' checked="checked" '; ?> value="1" /> <?php _e( 'Enable for pages', 'polldaddy' );?>
-                    </label>
-                    <span id="span_pages">
-                      <select name="pages_pos"><?php
-				$select = array( __( 'Above each page', 'polldaddy' ) => '0', __( 'Below each page', 'polldaddy' ) => '1' );
-				foreach ( $select as $option => $value ) :
-					$selected = '';
-				if ( $value == $pos_pages )
-					$selected = ' selected="selected"';
-				echo '<option value="' . $value . '" ' . $selected . '>' . $option . '</option>';
-				endforeach; ?>
-                      </select>
-                    </span>
-                  </td>
-                </tr><?php
+				<tr valign="top">
+					<th scope="row"><label><?php _e( 'Show Ratings on', 'polldaddy' );?></label></th>
+					<td>
+						<label><input type="checkbox" name="pd_show_pages" id="pd_show_pages" <?php if ( $show_pages > 0 ) echo ' checked="checked" '; ?> value="1" /> <?php _e( 'Pages', 'polldaddy' );?></label>
+					</td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label><?php _e( 'Position Page Ratings', 'polldaddy' );?></label></th>
+					<td>
+						<select name="pages_pos"><?php
+						$select = array( __( 'Above each blog page', 'polldaddy' ) => '0', __( 'Below each blog page', 'polldaddy' ) => '1' );
+						foreach ( $select as $option => $value ) :
+							$selected = '';
+						if ( $value == $pos_pages )
+							$selected = ' selected="selected"';
+						echo '<option value="' . $value . '" ' . $selected . '>' . $option . '</option>';
+						endforeach;?>
+		                </select>
+					</td>
+				</tr><?php
 			}
 			if ( $report_type == 'comments' ) {?>
-                <tr valign="top">
-                  <td style="padding-left: 0px; padding-right: 0px; padding-top: 7px;">
-                    <label for="pd_show_comments">
-                      <input type="checkbox" name="pd_show_comments" id="pd_show_comments" <?php if (    $show_comments > 0 ) echo ' checked="checked" '; ?> value="1" /> <?php _e( 'Enable for comments', 'polldaddy' );?>
-                    </label>
-                    <span id="span_comments">
-                      <select name="comments_pos"><?php
-				$select = array( __( 'Above each comment', 'polldaddy' ) => '0', __( 'Below each comment', 'polldaddy' ) => '1' );
-				foreach ( $select as $option => $value ) :
-					$selected = '';
-				if ( $value == $pos_comments )
-					$selected = ' selected="selected"';
-				echo '<option value="' . $value . '" ' . $selected . '>' . $option . '</option>';
-				endforeach; ?>
-                      </select>
-                    </span>
-                  </td>
-                </tr><?php
+				<tr valign="top">
+					<th scope="row"><label><?php _e( 'Show Ratings on', 'polldaddy' );?></label></th>
+					<td>
+						<label><input type="checkbox" name="pd_show_comments" id="pd_show_comments" <?php if ( $show_comments > 0 ) echo ' checked="checked" '; ?> value="1" /> <?php _e( 'Comments', 'polldaddy' );?></label>
+					</td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label><?php _e( 'Position Comment Ratings', 'polldaddy' );?></label></th>
+					<td>
+						<select name="comments_pos"><?php
+						$select = array( __( 'Above each comment', 'polldaddy' ) => '0', __( 'Below each comment', 'polldaddy' ) => '1' );
+						foreach ( $select as $option => $value ) :
+							$selected = '';
+						if ( $value == $pos_comments )
+							$selected = ' selected="selected"';
+						echo '<option value="' . $value . '" ' . $selected . '>' . $option . '</option>';
+						endforeach;?>
+		                </select>
+					</td>
+				</tr><?php
 			} ?>
+				<tr valign="top">
+					<td height="30"><input class="button-primary" type="submit" value="<?php esc_attr_e( 'Save Changes', 'polldaddy' );?>" name="Submit" /></td>
+				</tr>
               </tbody>
             </table>
-            <p class="submit">
-              <input class="button-primary" type="submit" value="<?php esc_attr_e( 'Save Changes', 'polldaddy' );?>" name="Submit" />
-            </p><?php
+          </form>
+        </div>
+        
+          <div style="padding:20px 0px 0px 0px"><?php
 			if ( $report_type == 'posts' ) {
 				if ( $show_posts > 0 || $show_posts_index > 0 )
 					$show_settings = true;
@@ -3857,9 +3866,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 			if ( $report_type == 'comments' && $show_comments > 0 )
 				$show_settings = true;
 			if ( $show_settings == true )
-				echo '<a href="javascript:" onclick="show_settings();">'.__( 'Advanced Settings', 'polldaddy' ).'</a>';?>
-          </form>
-        </div>
+				echo '<a href="javascript:" onclick="show_settings();">'.__( 'Advanced Settings', 'polldaddy' ).'</a>';?></div>
       </div>
     </div>
 
@@ -3869,20 +3876,20 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
       <div id="poststuff" style="<?php echo $settings_style; ?>">
         <div  class="has-sidebar has-right-sidebar">
           <div class="inner-sidebar-ratings">
-            <div class="postbox" id="submitdiv">
-              <h3><?php _e( 'Save', 'polldaddy' );?></h3>
-              <div class="inside">
-                <div id="major-	-actions">
-                  <input type="hidden" name="type" value="<?php echo $report_type; ?>" />
-                  <input type="hidden" name="rating_id" value="<?php echo $rating_id; ?>" />
-                  <input type="hidden" name="action" value="update-rating" />
-                  <p id="publishing-action">
-                    <input type="submit" value="<?php _e( 'Save Changes', 'polldaddy' );?>" class="button-primary"/>
-                  </p>
-                  <br class="clear"/>
-                </div>
-              </div>
-            </div>
+           <div id="submitdiv" class="postbox ">
+			    <h3 class="hndle"><span><?php _e( 'Save Advanced Settings', 'polldaddy' );?></span></h3>
+			
+			    <div class="inside">
+			        <div class="submitbox" id="submitpost">
+			            <div id="minor-publishing" style="padding:10px;">
+			                <input type="submit" name="save_menu" id="save_menu_header" class="button button-primary menu-save" value="<?php echo esc_attr( __( 'Save Changes', 'polldaddy' ) );?>">
+			                <input type="hidden" name="type" value="<?php echo $report_type; ?>" />
+							<input type="hidden" name="rating_id" value="<?php echo $rating_id; ?>" />
+							<input type="hidden" name="action" value="update-rating" />
+			            </div>
+			        </div>
+			    </div>
+			</div>
             <div class="postbox">
               <h3><?php _e( 'Preview', 'polldaddy' );?></h3>
               <div class="inside">
@@ -4604,7 +4611,11 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 		} else {  ?>
 				<thead>
 					<tr>
+						<?php if ( $this->is_editor ) { ?>
 			 	 		<th scope="col" class="manage-column column-cb check-column" id="cb"><input type="checkbox"></th>
+						<?php } else { ?>
+			 	 		<th scope="col" class="manage-column column-cb check-column" id="cb"></th>
+						<?php } ?>
 						<th scope="col" class="manage-column column-title" id="title"><?php _e( 'Title', 'polldaddy' );?></th>
 						<th scope="col" class="manage-column column-id" id="id"><?php _e( 'Unique ID', 'polldaddy' );?></th>
 						<th scope="col" class="manage-column column-date" id="date"><?php _e( 'Start Date', 'polldaddy' );?></th>
@@ -4840,20 +4851,12 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
           <td>
             <fieldset>
               <legend class="screen-reader-text"><span>poll-defaults</span></legend><?php
-		$selected = '';
-		if ( $poll->multipleChoice == 'yes' )
-			$selected = 'checked="checked"';?>
-              <label for="multipleChoice"><input type="checkbox" <?php echo $selected; ?> value="1" id="multipleChoice" name="multipleChoice"> <?php _e( 'Multiple Choice', 'polldaddy' ); ?></label>
-              <br /><?php
-		$selected = '';
-		if ( $poll->randomiseAnswers == 'yes' )
-			$selected = 'checked="checked"';?>
-              <label for="randomiseAnswers"><input type="checkbox" <?php echo $selected; ?> value="1" id="randomiseAnswers" name="randomiseAnswers"> <?php _e( 'Randomise Answers', 'polldaddy' ); ?></label>
-              <br /><?php
-		$selected = '';
-		if ( $poll->otherAnswer == 'yes' )
-			$selected = 'checked="checked"';?>
-              <label for="otherAnswer"><input type="checkbox" <?php echo $selected; ?> value="1" id="otherAnswer" name="otherAnswer"> <?php _e( 'Other Answer', 'polldaddy' ); ?></label>
+		foreach ( array(  'randomiseAnswers' => __( 'Randomize answer order', 'polldaddy' ), 'otherAnswer' => __( 'Allow other answers', 'polldaddy' ), 'multipleChoice' => __( 'Multiple choice', 'polldaddy' ), 'sharing' => __( 'Sharing', 'polldaddy' ) ) as $option => $label ) :
+			$checked = 'yes' === $poll->$option ? ' checked="checked"' : '';
+?>
+			<label for="<?php echo $option; ?>"><input type="checkbox"<?php echo $checked; ?> value="1" id="<?php echo $option; ?>" name="<?php echo $option; ?>" /> <?php echo esc_html( $label ); ?></label><br />
+
+<?php  endforeach; ?>
               <br class="clear" />
               <br class="clear" />
               <div class="field">

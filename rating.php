@@ -4,18 +4,18 @@ function polldaddy_show_rating_comments( $content ) {
 		global $comment;
 		global $post;
 
-		if ( $comment->comment_ID > 0 ) {
-			$unique_id = '';
-			$title = '';
-			$permalink = '';
-			$html = '';
+		if ( isset( $comment->comment_ID ) && $comment->comment_ID > 0 ) {
+			$unique_id  = '';
+			$title      = '';
+			$permalink  = '';
+			$html       = '';
 			$rating_pos = 0;
 
 			if ( (int) get_option( 'pd-rating-comments' ) > 0 ) {
 				$rating_id = (int) get_option( 'pd-rating-comments' );
 				$unique_id = 'wp-comment-' . $comment->comment_ID;
 				$rating_pos = (int) get_option( 'pd-rating-comments-pos' );
-				$title = mb_substr( preg_replace( '/[\x00-\x1F\x80-\xFF]/', '', $comment->comment_content ), 0, 195 ) . '...';
+				$title = mb_substr( preg_replace( '/[\x00-\x1F\x80-\xFF]/', '', $comment->comment_content ), 0, 195 ) . '…';
 				$permalink = get_permalink( $post->ID ) . '#comment-' . $comment->comment_ID;
 				$html = polldaddy_get_rating_code( $rating_id, $unique_id, $title, $permalink, '_comm_' . $comment->comment_ID );
 
@@ -30,25 +30,28 @@ function polldaddy_show_rating_comments( $content ) {
 }
 
 function polldaddy_show_rating( $content ) {
-	if ( !is_feed() && !is_attachment() ) {
-		if ( is_single() || is_page() || is_home() || is_archive() || is_category() ) {
-			$html = polldaddy_get_rating_html( 'check-options' );
-
-			if ( !empty( $html ) ) {
-				$rating_pos = 0;
-
-				if ( is_page() ) {
-					$rating_pos = (int) get_option( 'pd-rating-pages-pos' );
-				} elseif ( is_home() || is_archive() || is_category() ) {
-					$rating_pos = (int) get_option( 'pd-rating-posts-index-pos' );
-				} else {
-					$rating_pos = (int) get_option( 'pd-rating-posts-pos' );
+	global $wp_current_filter;
+	if ( !in_array( 'get_the_excerpt', (array) $wp_current_filter ) ) {
+		if ( !is_feed() && !is_attachment() ) {
+			if ( is_single() || is_page() || is_home() || is_archive() || is_search() || is_category() ) {
+				$html = polldaddy_get_rating_html( 'check-options' );
+	
+				if ( !empty( $html ) ) {
+					$rating_pos = 0;
+	
+					if ( is_page() ) {
+						$rating_pos = (int) get_option( 'pd-rating-pages-pos' );
+					} elseif ( is_home() || is_archive() || is_search() || is_category() ) {
+						$rating_pos = (int) get_option( 'pd-rating-posts-index-pos' );
+					} else {
+						$rating_pos = (int) get_option( 'pd-rating-posts-pos' );
+					}
+	
+					if ( $rating_pos == 0 )
+						$content = $html . '<br/>' . $content;
+					else
+						$content .= $html;
 				}
-
-				if ( $rating_pos == 0 )
-					$content = $html . '<br/>' . $content;
-				else
-					$content .= $html;
 			}
 		}
 	}
@@ -83,7 +86,7 @@ function polldaddy_get_rating_html( $condition = '' ) {
 		} elseif ( !in_array( $post->ID, $exclude_posts ) ) {
 			$unique_id = 'wp-post-' . $post->ID;
 			$item_id =  '_post_' . $post->ID;
-			if ( is_home() || is_archive() || is_category() ) {
+			if ( is_home() || is_archive() || is_search() || is_category() ) {
 				if ( $condition == 'check-options' ) {
 					if ( (int) get_option( 'pd-rating-posts-index' ) > 0 ) {
 						$rating_id = (int) get_option( 'pd-rating-posts-id' );
@@ -106,9 +109,9 @@ function polldaddy_get_rating_html( $condition = '' ) {
 			$rating_title_filter = get_option( 'pd-rating-title-filter' );
 			
 			if ( $rating_title_filter === false )
-				$title = apply_filters( 'wp_title', $post->post_title, '', '' );
+				$title = apply_filters( 'the_title', $post->post_title, '', '' );
 			elseif ( strlen( $rating_title_filter ) > 0 )
-				$title = apply_filters( $rating_title_filter, $post->post_title );
+				$title = apply_filters( $rating_title_filter, $post->post_title, '', '' );
 			else
 				$title = $post->post_title;
 				
@@ -140,19 +143,9 @@ function polldaddy_sanitize_shortcode( $text ) {
 	return esc_attr( $text );
 }
 
-function polldaddy_show_rating_excerpt( $content ) {
-	remove_filter( 'the_content', 'polldaddy_show_rating', 5 );
-	return $content;
-}
-
-function polldaddy_show_rating_excerpt_for_real( $content ) {
-	return polldaddy_show_rating( $content );
-}
-
 if ( (int) get_option( 'pd-rating-pages' ) > 0 || (int) get_option( 'pd-rating-posts-index' ) > 0 || (int) get_option( 'pd-rating-posts' ) > 0 ) {
 	add_filter( 'the_content', 'polldaddy_show_rating', 5 );
-	add_filter( 'get_the_excerpt', 'polldaddy_show_rating_excerpt', 5 );
-	add_filter( 'the_excerpt', 'polldaddy_show_rating_excerpt_for_real' );
+	add_filter( 'the_excerpt', 'polldaddy_show_rating' );
 }
 
 add_filter( 'comment_text', 'polldaddy_show_rating_comments', 50 );

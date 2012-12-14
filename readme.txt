@@ -3,7 +3,7 @@ Contributors: eoigal, alternatekev, mdawaffe, donncha, johnny5
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 3.2
 Tested up to: 3.5
-Stable tag: 2.0.16
+Stable tag: 2.0.17
 
 Create and manage Polldaddy polls and ratings from within WordPress.
 
@@ -104,10 +104,14 @@ Your theme is getting the post content, without necessarily showing it. If the p
 
 
 == Upgrade Notice ==
-= 2.0.16 =
-Tidy plugins menus to only use one Top-level menu for Polls and Ratings, also includes better integration with Jetpack 
+= 2.0.17 =
+Updated ratings settings to allow blog to show rating in search and archive pages
 
 == Changelog ==
+= 2.0.17 =
+* Updated ratings settings to allow blog to show rating in search and archive pages
+* Updated how ratings are shown in excerpts which should work better with Jetpack and certain themes
+
 = 2.0.16 =
 * Updated menus to only use one Top level menu - Feedback
 * Updated Settings->Polls & Ratings menu to break into 2 separate menu items - Settings->Polls / Settings->Ratings
