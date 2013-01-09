@@ -109,9 +109,9 @@ function polldaddy_get_rating_html( $condition = '' ) {
 			$rating_title_filter = get_option( 'pd-rating-title-filter' );
 			
 			if ( $rating_title_filter === false )
-				$title = apply_filters( 'the_title', $post->post_title, '', '' );
+				$title = apply_filters( 'the_title', $post->post_title, $post->ID, '' );
 			elseif ( strlen( $rating_title_filter ) > 0 )
-				$title = apply_filters( $rating_title_filter, $post->post_title, '', '' );
+				$title = apply_filters( $rating_title_filter, $post->post_title, $post->ID, '' );
 			else
 				$title = $post->post_title;
 				
