@@ -6,7 +6,7 @@ Plugin URI: http://wordpress.org/extend/plugins/polldaddy/
 Description: Create and manage Polldaddy polls and ratings in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 2.0.17
+Version: 2.0.18
 */
 
 // You can hardcode your Polldaddy PartnerGUID (API Key) here
@@ -35,7 +35,7 @@ class WP_Polldaddy {
 		$this->log( 'Created WP_Polldaddy Object: constructor' );
 		$this->errors                 = new WP_Error;
 		$this->scheme                 = 'https';
-		$this->version                = '2.0.17';
+		$this->version                = '2.0.18';
 		$this->multiple_accounts      = true;
 		$this->polldaddy_client_class = 'api_client';
 		$this->polldaddy_clients      = array();
@@ -740,7 +740,7 @@ class WP_Polldaddy {
 				}
 
 				$answers = array();
-				foreach ( $_POST['answer'] as $answer ) {
+				foreach ( $_POST['answer'] as $answer_id => $answer ) {
 					$answer = stripslashes( trim( $answer ) );
 
 					if ( strlen( $answer ) > 0 ) {
@@ -748,7 +748,7 @@ class WP_Polldaddy {
 
 						$args['text'] = (string) $answer;
 
-						$answer_id = (int) str_replace('new', '', $answer );
+						$answer_id = (int) str_replace('new', '', $answer_id );
 						$mc = '';
 						$mt = 0;
 
@@ -819,7 +819,7 @@ class WP_Polldaddy {
 
 				if ( isset( $mediaType[999999999] ) )
 					$poll_data['mediaType'] = intval( $mediaType[999999999] );
-
+				
 				$poll = $polldaddy->create_poll( $poll_data );
 				$this->parse_errors( $polldaddy );
 
@@ -1636,6 +1636,8 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 			}
 		}
 		$this->print_errors();
+		
+		$delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . esc_attr( __( 'delete this image' ) ) . '"><img src="' . $this->base_url . 'img/icon-clear-search.png" width="16" height="16" /></a>';
 ?>
 
 <form enctype="multipart/form-data" name="send-media" action="admin-ajax.php" method="post">
@@ -1837,17 +1839,16 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 					<td class="answer-media-icons" <?php echo isset( $_GET['iframe'] ) ? 'style="width: 55px !important;"' : '';?>>
 					<ul class="answer-media" <?php echo isset( $_GET['iframe'] ) ? 'style="min-width: 30px;"' : '';?>>
 <?php  if ( $mediaType[999999999] == 2 ) { ?>
-				<li class="media-preview" style="width: 20px; height: 16px; padding-left: 5px;"><img height="16" width="16" src="<?php echo plugins_url( 'img/icon-report-ip-analysis', __FILE__ ); ?>" alt="Video Embed"></li>
-<?php   } else { ?>
-				<li class="media-preview" style="width: 20px; height: 16px; padding-left: 5px;"><?php 
-				$url = '';
-				if ( isset($media[999999999]) ) {
-					$url = urldecode( $media[999999999]->img_small );
-					
-					if ( is_ssl() )
-						$url = preg_replace( '/http\:/', 'https:', $url );
-				}
-				echo $url; ?></li>
+				<li class="media-preview image-added" style="width: 20px; height: 16px; padding-left: 5px;"><img height="16" width="16" src="<?php echo $this->base_url; ?>img/icon-report-ip-analysis.png" alt="Video Embed"><?php echo $delete_media_link;?></li>
+<?php   } else {
+			$url = '';
+			if ( isset($media[999999999]) ) {
+				$url = urldecode( $media[999999999]->img_small );
+				
+				if ( is_ssl() )
+					$url = preg_replace( '/http\:/', 'https:', $url );
+			}?>
+			<li class="media-preview <?php echo !empty( $url ) ? 'image-added' : ''; ?>" style="width: 20px; height: 16px; padding-left: 5px;"><?php echo $url; ?><?php echo $delete_media_link;?></li>				
 <?php   }
 
 		if ( !isset( $_GET['iframe'] ) ) : ?>
@@ -1904,17 +1905,16 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 							<td class="answer-media-icons" <?php echo isset( $_GET['iframe'] ) ? 'style="width: 55px !important;"' : '';?>>
 							<ul class="answer-media" <?php echo isset( $_GET['iframe'] ) ? 'style="min-width: 30px;"' : '';?>>
 <?php  if ( isset( $mediaType[$answer_id] ) && $mediaType[$answer_id] == 2 ) { ?>
-						<li class="media-preview" style="width: 20px; height: 16px; padding-left: 5px;"><img height="16" width="16" src="<?php echo plugins_url( 'img/icon-report-ip-analysis', __FILE__ ); ?>" alt="Video Embed"></li>
-<?php   } else { ?>
-						<li class="media-preview" style="width: 20px; height: 16px; padding-left: 5px;"><?php 
-						$url = '';
-				if ( isset($media[$answer_id]) ) {
-					$url = urldecode( $media[$answer_id]->img_small );
+						<li class="media-preview image-added" style="width: 20px; height: 16px; padding-left: 5px;"><img height="16" width="16" src="<?php echo $this->base_url; ?>img/icon-report-ip-analysis.png" alt="Video Embed"><?php echo $delete_media_link;?></li>
+<?php   } else {
+			$url = '';
+			if ( isset($media[$answer_id]) ) {
+				$url = urldecode( $media[$answer_id]->img_small );
 					
-					if ( is_ssl() )
-						$url = preg_replace( '/http\:/', 'https:', $url );
-				}
-				echo $url; ?></li>
+				if ( is_ssl() )
+					$url = preg_replace( '/http\:/', 'https:', $url );
+			}?>
+						<li class="media-preview <?php echo !empty( $url ) ? 'image-added' : ''; ?>" style="width: 20px; height: 16px; padding-left: 5px;"><?php echo $url; ?><?php echo $delete_media_link;?></li>
 <?php   }
 
 		if ( !isset( $_GET['iframe'] ) ) : ?>
@@ -1992,6 +1992,8 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 
 		</div>
 	</div>
+	
+	<div class="hidden-links"><div class="delete-media-link"><?php echo $delete_media_link;?></div></div>
 
 	<div id="design" class="postbox">
 
@@ -2289,7 +2291,8 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 		            add_audio_title: '<?php echo esc_attr( __( 'Add Audio', 'polldaddy' ) ); ?>',
 		            add_video_title: '<?php echo esc_attr( __( 'Add Video', 'polldaddy' ) ); ?>',
 		            standard_styles: '<?php echo esc_attr( __( 'Standard Styles', 'polldaddy' ) ); ?>',
-		            custom_styles: '<?php echo esc_attr( __( 'Custom Styles', 'polldaddy' ) ); ?>'
+		            custom_styles: '<?php echo esc_attr( __( 'Custom Styles', 'polldaddy' ) ); ?>',
+		            base_url: '<?php echo esc_attr( $this->base_url ); ?>'
 				} );
 			});
 			</script>
