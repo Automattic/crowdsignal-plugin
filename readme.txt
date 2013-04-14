@@ -2,8 +2,8 @@
 Contributors: eoigal, alternatekev, mdawaffe, donncha, johnny5
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 3.2
-Tested up to: 3.5
-Stable tag: 2.0.18
+Tested up to: 3.5.1
+Stable tag: 2.0.19
 
 Create and manage Polldaddy polls and ratings from within WordPress.
 
@@ -104,10 +104,16 @@ Your theme is getting the post content, without necessarily showing it. If the p
 
 
 == Upgrade Notice ==
-= 2.0.17 =
-Fixed couple of bugs with adding/deleting images in poll editor
+= 2.0.19 =
+Bug Fixes and added filter by catergory to Top Rated Widget
 
 == Changelog ==
+= 2.0.19 =
+* Added filter by category to Top Rated Widget
+* Added more retina images for ratings
+* Updated edit permissions on poll to allow an editor to edit a poll belonging to a user no longer member of blog
+* Fixed minor JS/CSS bugs
+
 = 2.0.18 =
 * Update poll editor to allow a user to delete an image from a poll answer
 * Fixed bug with new polls not including images when a poll is created

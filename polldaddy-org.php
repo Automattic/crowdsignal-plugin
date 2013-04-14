@@ -15,7 +15,7 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 	function __construct() {
 		parent::__construct();
 		$this->log( 'Created WPORG_Polldaddy Object: constructor' );
-		$this->version                = '2.0.16';
+		$this->version                = '2.0.19';
 		$this->base_url               = plugins_url() . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
 		$this->polldaddy_client_class = 'WPORG_Polldaddy_Client';
 		$this->use_ssl                = (int) get_option( 'polldaddy_use_ssl' );
@@ -332,7 +332,7 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 			<?php wp_nonce_field( 'polldaddy-account' ); ?>
 			<input type="hidden" name="action" value="account" />
 			<input type="hidden" name="account" value="import" />
-			<input type="submit" value="<?php echo attribute_escape( __( 'Submit', 'polldaddy' ) ); ?>" />
+			<input class="button-secondary" type="submit" value="<?php echo attribute_escape( __( 'Submit', 'polldaddy' ) ); ?>" />
 		</p>
 	</form>
 </div>
@@ -555,7 +555,7 @@ class PolldaddyShortcode {
 			return '<!-- Polldaddy shortcode passed invalid attributes -->';
 		}
 		
-		$inline          = false;
+		$inline          = !in_the_loop();
 		$no_script       = false;
 		$infinite_scroll = false;
 		
@@ -582,7 +582,7 @@ class PolldaddyShortcode {
 				$item_id = is_page() ? '_page_'.$post->ID : '_post_'.$post->ID;
 	
 			if ( empty( $title ) )
-				$title = apply_filters( 'wp_title', $post->post_title, '', '' );
+				$title = apply_filters( 'the_title', $post->post_title );
 	
 			if ( empty( $permalink ) )
 				$permalink = get_permalink( $post->ID );
@@ -608,7 +608,7 @@ class PolldaddyShortcode {
 <script type="text/javascript" charset="UTF-8"><!--//--><![CDATA[//><!--
 PDRTJS_settings_{$rating}{$item_id}={$settings};
 //--><!]]></script>
-<script type="text/javascript" charset="UTF-8" src="http://i.polldaddy.com/ratings/rating.js"></script>
+<script type="text/javascript" charset="UTF-8" src="http://i0.poll.fm/js/rating/rating.js"></script>
 SCRIPT;
 			}
 			else {				
@@ -818,7 +818,7 @@ CONTAINER;
 				foreach( self::$scripts['rating'] as $rating ) {
 					$script .= "PDRTJS_settings_{$rating['id']}{$rating['item_id']}={$rating['settings']}; if ( typeof PDRTJS_RATING !== 'undefined' ){if ( typeof PDRTJS_{$rating['id']}{$rating['item_id']} == 'undefined' ){PDRTJS_{$rating['id']}{$rating['item_id']} = new PDRTJS_RATING( PDRTJS_settings_{$rating['id']}{$rating['item_id']} );}}";
 				}
-				$script .= "\n//--><!]]></script><script type='text/javascript' charset='UTF-8' src='http://i.polldaddy.com/ratings/rating.js'></script>";
+				$script .= "\n//--><!]]></script><script type='text/javascript' charset='UTF-8' src='http://i0.poll.fm/js/rating/rating.js'></script>";
 			
 			}
 			
@@ -837,9 +837,8 @@ CONTAINER;
 	 * If the theme uses infinite scroll, include jquery at the start
 	 */
 	function check_infinite() {
-		if ( current_theme_supports( 'infinite-scroll' ) ) {
+		if ( current_theme_supports( 'infinite-scroll' ) && class_exists( 'The_Neverending_Home_Page' ) && The_Neverending_Home_Page::archive_supports_infinity() )
 			wp_enqueue_script( 'jquery' );
-		}
 	}
 
 	/**
@@ -854,7 +853,7 @@ CONTAINER;
 			$script_url = json_encode( esc_url_raw( plugins_url( 'js/polldaddy-shortcode.js', __FILE__ ) ) );
 
 			// if the script hasn't been loaded, load it
-			// if the script loads successfully, fire an 'as-script-load' event
+			// if the script loads successfully, fire an 'pd-script-load' event
 			echo <<<SCRIPT
 				<script type='text/javascript'>
 				//<![CDATA[
@@ -921,12 +920,46 @@ if ( class_exists( 'WP_Widget' ) ) {
 			$comments_rating_id = (int) get_option( 'pd-rating-comments-id' );
 			$rating_seq         = $instance['show_posts'] . $instance['show_pages'] . $instance['show_comments'];
 			
+			$filter = '';
+			if ( $instance['show_posts'] == 1 && $instance['filter_by_category'] == 1 ) {
+				if ( is_single() ) { //get all posts in current category					
+					global $post;
+					if( !empty( $post ) )
+						$current_category = get_the_category( $post->ID );
+				}
+				
+				if ( is_category() ) { //get all posts in category archive page					
+					global $posts;
+					if( !empty( $posts ) )
+						$current_category = get_the_category( $posts[0]->ID );
+				}					
+				
+				if ( is_array( $current_category ) && (int) $current_category[0]->cat_ID > 0 ) {
+					$args = array( 'category' => $current_category[0]->cat_ID );
+					$post_ids = '';
+					foreach( get_posts( $args ) as $p )
+						$post_ids .= $p->ID . ',';
+					$post_ids = substr( $post_ids, 0, -1 ); 
+				}
+
+				if ( !empty( $post_ids ) ) //set variable
+					$filter = 'PDRTJS_TOP.filters = [' . $post_ids . '];';
+			}
+			
+			$show = "PDRTJS_TOP.get_top( 'posts', '0' );";
+			if ( $instance['show_pages'] == 1 )
+				$show = "PDRTJS_TOP.get_top( 'pages', '0' );";
+			elseif ( $instance['show_comments'] == 1 )
+				$show = "PDRTJS_TOP.get_top( 'comments', '0' );";
+
+        	echo '</script>';
+			
 			$widget = <<<EOD
 {$before_title}{$title}{$after_title}
 <div id="pd_top_rated_holder"></div>
-<script language="javascript" charset="UTF-8" src="http://i.polldaddy.com/ratings/rating-top.js"></script>
+<script language="javascript" charset="UTF-8" src="http://i0.poll.fm/js/rating/rating-top.js"></script>
 <script type="text/javascript" charset="UTF-8"><!--//--><![CDATA[//><!--
-PDRTJS_TOP = new PDRTJS_RATING_TOP( {$posts_rating_id}, {$pages_rating_id}, {$comments_rating_id}, '{$rating_seq}', {$instance['item_count']} );
+PDRTJS_TOP = new PDRTJS_RATING_TOP( {$posts_rating_id}, {$pages_rating_id}, {$comments_rating_id}, '{$rating_seq}', {$instance['item_count']} );{$filter}{$show}
 //--><!]]></script>
 EOD;
 			echo $before_widget;
@@ -941,63 +974,57 @@ EOD;
 			$instance['show_posts']    = (int) $new_instance['show_posts'];
 			$instance['show_pages']    = (int) $new_instance['show_pages'];
 			$instance['show_comments'] = (int) $new_instance['show_comments'];
+	        $instance['filter_by_category'] = (int) $new_instance['filter_by_category'];
 			$instance['item_count']    = (int) $new_instance['item_count'];
 			return $instance;
 		}
 
 		function form( $instance ) {
 
-			$instance      = wp_parse_args( (array) $instance, array( 'title' => '', 'show_posts' => '1', 'show_pages' => '1', 'show_comments' => '1', 'item_count' => '5' ) );
+			$instance      = wp_parse_args( (array) $instance, array( 'title' => '', 'show_posts' => '1', 'show_pages' => '1', 'show_comments' => '1', 'item_count' => '5', 'filter_by_category' => '', ) );
 			$title         = strip_tags( $instance['title'] );
 			$show_posts    = (int) $instance['show_posts'];
 			$show_pages    = (int) $instance['show_pages'];
 			$show_comments = (int) $instance['show_comments'];
+	        $filter_by_category = (int) $instance['filter_by_category'];
 			$item_count    = (int) $instance['item_count'];
 ?>
-				<p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e( 'Title', 'polldaddy' ); ?>: <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo attribute_escape( $title ); ?>" /></label></p>
+				<p>
+					<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e( 'Title', 'polldaddy' ); ?>: <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo attribute_escape( $title ); ?>" /></label></p>
 				<p>
 					<label for="<?php echo $this->get_field_id( 'show_posts' ); ?>">
-						<?php
-			$checked = '';
-			if ( $show_posts == 1 )
-				$checked = 'checked="checked"';
-?>
-					<input type="checkbox" class="checkbox"  id="<?php echo $this->get_field_id( 'show_posts' ); ?>" name="<?php echo $this->get_field_name( 'show_posts' ); ?>" value="1" <?php echo $checked; ?> />
+						<input type="checkbox" class="checkbox"  id="<?php echo $this->get_field_id( 'show_posts' ); ?>" name="<?php echo $this->get_field_name( 'show_posts' ); ?>" value="1" <?php echo $show_posts == 1 ? 'checked="checked"' : ''; ?> />
 						 <?php _e( 'Show for posts', 'polldaddy' ); ?>
 					</label>
 				</p>
-						<p>
-							<label for="<?php echo $this->get_field_id( 'show_pages' ); ?>">
-								<?php
-			$checked = '';
-			if ( $show_pages == 1 )
-				$checked = 'checked="checked"';
+				<p>
+					<label for="<?php echo $this->get_field_id( 'show_pages' ); ?>">
+						<input type="checkbox" class="checkbox"  id="<?php echo $this->get_field_id( 'show_pages' ); ?>" name="<?php echo $this->get_field_name( 'show_pages' ); ?>" value="1" <?php echo $show_pages == 1 ? 'checked="checked"' : ''; ?> />
+						 <?php _e( 'Show for pages', 'polldaddy' ); ?>
+					</label>
+				</p>
+				<p>
+					<label for="<?php echo $this->get_field_id( 'show_comments' ); ?>">
+						<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'show_comments' ); ?>" name="<?php echo $this->get_field_name( 'show_comments' ); ?>" value="1" <?php echo $show_comments == 1 ? 'checked="checked"' : ''; ?> />
+						 <?php _e( 'Show for comments', 'polldaddy' ); ?>
+					</label>
+				</p>
+        		<p>
+            		<label for="<?php echo $this->get_field_id( 'filter_by_category' ); ?>">
+                    	<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'filter_by_category' ); ?>" name="<?php echo $this->get_field_name( 'filter_by_category' ); ?>" value="1" <?php echo $filter_by_category == 1 ? 'checked="checked"':''; ?>/>
+                 		<?php _e('Filter by category'); ?>
+        			</label>
+    			</p>
+				<p>
+					<label for="rss-items-<?php echo $number; ?>"><?php _e( 'How many items would you like to display?', 'polldaddy' ); ?>
+							<select id="<?php echo $this->get_field_id( 'item_count' ); ?>" name="<?php echo $this->get_field_name( 'item_count' ); ?>">
+						<?php
+	for ( $i = 1; $i <= 20; ++$i )
+		echo "<option value='$i' " . ( $item_count == $i ? "selected='selected'" : '' ) . ">$i</option>";
 ?>
-							<input type="checkbox" class="checkbox"  id="<?php echo $this->get_field_id( 'show_pages' ); ?>" name="<?php echo $this->get_field_name( 'show_pages' ); ?>" value="1" <?php echo $checked; ?> />
-								 <?php _e( 'Show for pages', 'polldaddy' ); ?>
-							</label>
-						</p>
-						<p>
-							<label for="<?php echo $this->get_field_id( 'show_comments' ); ?>">
-								<?php
-			$checked = '';
-			if ( $show_comments == 1 )
-				$checked = 'checked="checked"';
-?>
-									<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'show_comments' ); ?>" name="<?php echo $this->get_field_name( 'show_comments' ); ?>" value="1" <?php echo $checked; ?>/>
-								 <?php _e( 'Show for comments', 'polldaddy' ); ?>
-							</label>
-						</p>
-						<p>
-							<label for="rss-items-<?php echo $number; ?>"><?php _e( 'How many items would you like to display?', 'polldaddy' ); ?>
-									<select id="<?php echo $this->get_field_id( 'item_count' ); ?>" name="<?php echo $this->get_field_name( 'item_count' ); ?>">
-								<?php
-			for ( $i = 1; $i <= 20; ++$i )
-				echo "<option value='$i' " . ( $item_count == $i ? "selected='selected'" : '' ) . ">$i</option>";
-?>
-							</select>
-						</label>
-					</p>
+					</select>
+				</label>
+			</p>
 	<?php
 		}
 	}

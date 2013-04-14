@@ -6,7 +6,7 @@ Plugin URI: http://wordpress.org/extend/plugins/polldaddy/
 Description: Create and manage Polldaddy polls and ratings in WordPress
 Author: Automattic, Inc.
 Author URL: http://automattic.com/
-Version: 2.0.18
+Version: 2.0.19
 */
 
 // You can hardcode your Polldaddy PartnerGUID (API Key) here
@@ -35,7 +35,7 @@ class WP_Polldaddy {
 		$this->log( 'Created WP_Polldaddy Object: constructor' );
 		$this->errors                 = new WP_Error;
 		$this->scheme                 = 'https';
-		$this->version                = '2.0.18';
+		$this->version                = '2.0.19';
 		$this->multiple_accounts      = true;
 		$this->polldaddy_client_class = 'api_client';
 		$this->polldaddy_clients      = array();
@@ -284,7 +284,7 @@ class WP_Polldaddy {
 			<?php wp_nonce_field( 'polldaddy-account' ); ?>
 			<input type="hidden" name="action" value="account" />
 			<input type="hidden" name="account" value="import" />
-			<input type="submit" value="<?php echo esc_attr( __( 'Submit', 'polldaddy' ) ); ?>" />
+			<input class="button-secondary" type="submit" value="<?php echo esc_attr( __( 'Submit', 'polldaddy' ) ); ?>" />
 		</p>
 	</form>
 </div>
@@ -469,7 +469,7 @@ class WP_Polldaddy {
 
 				foreach ( (array) $_REQUEST['poll'] as $poll_id ) {
 					$polldaddy->reset();
-					$poll_object = $polldaddy->get_poll( $poll );
+					$poll_object = $polldaddy->get_poll( $poll_id );
 
 					if ( !$this->can_edit( $poll_object ) ) {
 						$this->errors->add( 'permission', __( 'You are not allowed to delete this poll.', 'polldaddy' ) );
@@ -505,7 +505,7 @@ class WP_Polldaddy {
 
 				foreach ( (array) $_REQUEST['poll'] as $poll_id ) {
 					$polldaddy->reset();
-					$poll_object = $polldaddy->get_poll( $poll );
+					$poll_object = $polldaddy->get_poll( $poll_id );
 
 					if ( !$this->can_edit( $poll_object ) ) {
 						$this->errors->add( 'permission', __( 'You are not allowed to open this poll.', 'polldaddy' ) );
@@ -541,7 +541,7 @@ class WP_Polldaddy {
 
 				foreach ( (array) $_REQUEST['poll'] as $poll_id ) {
 					$polldaddy->reset();
-					$poll_object = $polldaddy->get_poll( $poll );
+					$poll_object = $polldaddy->get_poll( $poll_id );
 
 					if ( !$this->can_edit( $poll_object ) ) {
 						$this->errors->add( 'permission', __( 'You are not allowed to close this poll.', 'polldaddy' ) );
@@ -1185,7 +1185,7 @@ class WP_Polldaddy {
 			case 'results' :
 ?>
 
-				<h2 id="poll-list-header"><?php printf( __( 'Poll Results <a href="%s" class="add-new-h2">All Polls</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ) ); ?></h2>
+				<h2 id="poll-list-header"><?php printf( __( 'Poll Results <a href="%s" class="add-new-h2">All Polls</a> <a href="%s" class="add-new-h2">Edit Poll</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ), esc_url( add_query_arg( array( 'action' => 'edit-poll', 'poll' => $poll, 'message' => false ) ) ) ); ?></h2>
 
 <?php
 				$this->poll_results_page( $poll );
@@ -1194,7 +1194,7 @@ class WP_Polldaddy {
 			case 'edit-poll' :
 ?>
 
-		<h2 id="poll-list-header"><?php printf( __( 'Edit Poll <a href="%s" class="add-new-h2">All Polls</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ) ); ?></h2>
+		<h2 id="poll-list-header"><?php printf( __( 'Edit Poll <a href="%s" class="add-new-h2">All Polls</a> <a href="%s" class="add-new-h2">View Results</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ), esc_url( add_query_arg( array( 'action' => 'results', 'poll' => $poll, 'message' => false ) ) ) ); ?></h2>
 
 <?php
 
@@ -4834,7 +4834,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
       <?php wp_nonce_field( 'polldaddy-account' ); ?>
       <input type="hidden" name="action" value="import-account" />
       <input type="hidden" name="account" value="import" />
-      <input type="submit" class="button-primary" style="padding:3px 8px;" value="<?php echo esc_attr( __( 'Import Account', 'polldaddy' ) ); ?>" />
+      <input type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Import Account', 'polldaddy' ) ); ?>" />
     </p>
   </form>
   <br />
@@ -4921,7 +4921,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
     <p class="submit">
       <?php wp_nonce_field( 'polldaddy-account' ); ?>
       <input type="hidden" name="action" value="update-options" />
-      <input type="submit" class="button-primary" style="padding:3px 8px;" value="<?php echo esc_attr( __( 'Save Options', 'polldaddy' ) ); ?>" />
+      <input type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Save Options', 'polldaddy' ) ); ?>" />
     </p>
   </form>
 </div>
@@ -4947,6 +4947,11 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 
 		if ( $this->id == $poll->_owner ) {
 			$this->log( 'can_edit: poll owner equals id.' );
+			return true;
+		}
+		
+		if ( $poll->parentID == (int) $GLOBALS['blog_id'] && current_user_can( 'edit_others_posts' ) ) {
+			$this->log( 'can_edit: poll was created on this blog and current user can edit_others_posts' );
 			return true;
 		}
 
