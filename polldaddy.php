@@ -1294,9 +1294,9 @@ class WP_Polldaddy {
 		$polldaddy->reset();
 
 		if ( 'user' == $view )
-			$polls_object = $polldaddy->get_polls( ( $page - 1 ) * 10 + 1, $page * 10 );
+			$polls_object = $polldaddy->get_polls( ( $page - 1 ) * 10 + 1, $page * 10 + 1);
 		else
-			$polls_object = $polldaddy->get_polls_by_parent_id( ( $page - 1 ) * 10 + 1, $page * 10 );
+			$polls_object = $polldaddy->get_polls_by_parent_id( ( $page - 1 ) * 10 + 1, $page * 10 + 1);
 
 		$this->parse_errors( $polldaddy );
 		$this->print_errors();
