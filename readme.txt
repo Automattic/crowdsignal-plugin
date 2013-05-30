@@ -74,7 +74,7 @@ You can find further help on our [support page](http://support.polldaddy.com/). 
 
 = Where do I find my Polls & Ratings menus? =
 
-If you have [Jetpack](http://jetpack.me) installed then the Polls & Ratings menus can be found under the Feedbacks menu. Otherwise they will be found under the Polls menu.
+The Polls & Ratings menus can now be found under the Feedbacks top level menu.
 
 = I have multiple authors on my blog?  What happens? =
 
