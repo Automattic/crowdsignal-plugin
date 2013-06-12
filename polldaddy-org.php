@@ -1030,4 +1030,12 @@ EOD;
 	}
 	add_action('widgets_init', create_function('', 'return register_widget("PD_Top_Rated");'));
 }
+
+function polldaddy_login_warning() {
+	global $cache_enabled;
+	$page = isset( $_GET[ 'page' ] ) ? $_GET[ 'page' ] : '';
+	if ( $page != 'polls' && false == get_option( 'polldaddy_api_key' ) && function_exists( "admin_url" ) )
+		echo '<div class="updated"><p><strong>' . sprintf( __( 'Warning! The Polldaddy plugin must be linked to your Polldaddy.com account. Please visit the <a href="%s">plugin settings page</a> to login.', 'polldaddy' ), admin_url( 'options-general.php?page=polls&action=options' ) ) . '</strong></p></div>';
+}
+add_action( 'admin_notices', 'polldaddy_login_warning' );
 ?>
