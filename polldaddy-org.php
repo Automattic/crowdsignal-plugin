@@ -70,7 +70,8 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 	function admin_menu() {				
 		parent::admin_menu();			
 		
-		if ( class_exists( 'Jetpack' ) ) {
+		$jetpack_active_modules = get_option('jetpack_active_modules');
+		if ( class_exists( 'Jetpack' ) && ( $jetpack_active_modules && in_array( 'contact-form', $jetpack_active_modules ) ) ) {
 			add_submenu_page( 'edit.php?post_type=feedback', __( 'Feedbacks', 'polldaddy' ), __( 'Feedbacks', 'polldaddy' ), 'edit_pages', 'edit.php?post_type=feedback' );	
 	
 			foreach( array( 'polls' => __( 'Polls', 'polldaddy' ), 'ratings' => __( 'Ratings', 'polldaddy' ) ) as $menu_slug => $menu_title ) {

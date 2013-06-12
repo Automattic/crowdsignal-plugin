@@ -90,10 +90,11 @@ class WP_Polldaddy {
 			$menu_title  = $page_title;
 			$parent_slug = $menu_slug;
 			
-			if ( !class_exists( 'Jetpack' ) ) {
+			$jetpack_active_modules = get_option('jetpack_active_modules');
+			if ( false == class_exists( 'Jetpack' ) || ( class_exists( 'Jetpack' ) && $jetpack_active_modules && false == in_array( 'contact-form', $jetpack_active_modules ) ) ) {
 				//Create a Feedback Top level menu, like with Jetpack, to hold the Polls and Ratings submenus.
 				if ( $menu_slug == 'polls' )
-					$menu_title = __( 'Feedback', 'polldaddy' );	
+					$menu_title = __( 'Feedbacks', 'polldaddy' );	
 					
 				$parent_slug = 'polls';
 			}
