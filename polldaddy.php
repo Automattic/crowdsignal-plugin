@@ -4805,9 +4805,10 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
   <h3>
     <?php _e( 'Polldaddy Account Info', 'polldaddy' ); ?>
   </h3>
-  <p>
-  <?php _e( 'This is the Polldaddy account you currently have imported into your WordPress account', 'polldaddy' ); ?>.
-  </p>
+  <p><?php printf( __( 'This is the Polldaddy account you currently have linked with your WordPress blog: <strong>%s</strong>', 'polldaddy' ), $account_email ); ?></p>
+  <p><?php _e( 'Your password is not saved. An API key is used to access your Polldaddy account.', 'polldaddy' ); ?></p>
+  <h4><?php _e( 'Use A Different Account', 'polldaddy' ); ?></h4>
+  <p><?php printf( __( 'Any polls or ratings created in your current account will still be available on Polldaddy.com when you login as %s.', 'polldaddy' ), $account_email ); ?></p>
   <form action="" method="post">
     <table class="form-table">
       <tbody>
@@ -4818,7 +4819,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
             </label>
           </th>
           <td>
-            <input type="text" name="polldaddy_email" id="polldaddy-email" aria-required="true" size="40" value="<?php echo $account_email; ?>" />
+            <input type="text" name="polldaddy_email" id="polldaddy-email" aria-required="true" size="40" value="" />
           </td>
         </tr>
         <tr class="form-field form-required">
