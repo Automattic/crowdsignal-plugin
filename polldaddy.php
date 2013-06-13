@@ -455,6 +455,8 @@ class WP_Polldaddy {
 					$query_args['action'] = $_GET['action'];
 				else
 					$query_args['action'] = false;
+				if ( $action == 'import-account' )
+					$query_args[ 'action' ] = 'options'; // make sure we redirect back to the right page.
 				break;
 
 			case 'delete' :
