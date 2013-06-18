@@ -61,26 +61,21 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 	
 	function admin_title( $admin_title ) {
 		global $page;
-		if ( $page == 'polls' )
-			return __( "Polls", "polldaddy" ).$admin_title;
-		else
-			return __( "Ratings", "polldaddy" ).$admin_title;
+		
+		if ( $page == 'ratings' )
+			return (stripos( $admin_title, $page ) === false ? __( "Ratings", "polldaddy" ) : '' ).$admin_title;
+		elseif ( $page == 'polls' )
+			return (stripos( $admin_title, $page ) === false ? __( "Polls", "polldaddy" ) : '' ).$admin_title;
+		
+		return $admin_title;
 	}
 	
 	function admin_menu() {				
-		parent::admin_menu();			
+		parent::admin_menu();
 		
-		$jetpack_active_modules = get_option('jetpack_active_modules');
-		if ( class_exists( 'Jetpack' ) && ( $jetpack_active_modules && in_array( 'contact-form', $jetpack_active_modules ) ) ) {
-			add_submenu_page( 'edit.php?post_type=feedback', __( 'Feedbacks', 'polldaddy' ), __( 'Feedbacks', 'polldaddy' ), 'edit_pages', 'edit.php?post_type=feedback' );	
-	
-			foreach( array( 'polls' => __( 'Polls', 'polldaddy' ), 'ratings' => __( 'Ratings', 'polldaddy' ) ) as $menu_slug => $menu_title ) {
-				remove_menu_page( $menu_slug );
-				add_submenu_page( 'edit.php?post_type=feedback', $menu_title, $menu_title, 'edit_posts', 'edit.php?page='.$menu_slug );
-			}
-		}
-		else {
-			remove_menu_page( 'ratings' );
+		if ( $this->has_feedback_menu ) {		
+			add_submenu_page( 'feedback', __( 'Feedbacks', 'polldaddy' ), __( 'Feedbacks', 'polldaddy' ), 'edit_posts', 'edit.php?post_type=feedback' );			
+			remove_menu_page( 'edit.php?post_type=feedback' );		
 		}
 	}
 
@@ -148,19 +143,8 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 			$submenu_file = $page.'&action=options';
 		}
 		else {					
-			if ( class_exists( 'Jetpack' ) ) {
-				//need to fix admin title when viewing polls and rating pages
-				add_filter( 'admin_title', array( &$this, 'admin_title' ) );
-	
-				$parent_file  = 'edit.php?post_type=feedback';
-				$typenow      = 'feedback';
-				$submenu_file = 'edit.php?page='.$page;	
-				remove_submenu_page( $page, $page );
-			}	
-			elseif ( $page == 'ratings' ) {
-				add_filter( 'admin_title', array( &$this, 'admin_title' ) );
-				$submenu_file = 'ratings';	
-			}
+			add_filter( 'admin_title', array( &$this, 'admin_title' ) );	
+			$submenu_file = $page;
 		}
 
 		parent::management_page_load();

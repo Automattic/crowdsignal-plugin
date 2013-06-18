@@ -25,7 +25,8 @@ class WP_Polldaddy {
 	var $multiple_accounts;
 	var $user_code;
 	var $rating_user_code;
-
+	var $has_feedback_menu;
+	
 	function WP_Polldaddy() {
 		$this->__construct();
 	}
@@ -45,6 +46,15 @@ class WP_Polldaddy {
 		$this->user_code              = null;
 		$this->rating_user_code       = null;
 		$this->id                     = ($current_user instanceof WP_User) ? intval( $current_user->ID ): 0;
+		$this->has_feedback_menu      = false;
+		
+		if ( class_exists( 'Jetpack' ) ) {
+			if ( Jetpack::is_active() ) {
+				$jetpack_active_modules = get_option('jetpack_active_modules');
+				if ( $jetpack_active_modules && in_array( 'contact-form', $jetpack_active_modules ) )
+					$this->has_feedback_menu = true;
+			}
+		}
 	}
 
 	function &get_client( $api_key, $userCode = null ) {
@@ -86,27 +96,23 @@ class WP_Polldaddy {
 			return false;
 		}
 		
+		$hook = add_object_page( __( 'Feedback', 'polldaddy' ), __( 'Feedback', 'polldaddy' ), $capability, 'feedback', $function, $icon );
+		add_action( "load-$hook", array( &$this, 'management_page_load' ) );
+		
 		foreach( array( 'polls' => __( 'Polls', 'polldaddy' ), 'ratings' => __( 'Ratings', 'polldaddy' ) ) as $menu_slug => $page_title ) {
 			$menu_title  = $page_title;
-			$parent_slug = $menu_slug;
 			
-			$jetpack_active_modules = get_option('jetpack_active_modules');
-			if ( false == class_exists( 'Jetpack' ) || ( class_exists( 'Jetpack' ) && $jetpack_active_modules && false == in_array( 'contact-form', $jetpack_active_modules ) ) ) {
-				//Create a Feedback Top level menu, like with Jetpack, to hold the Polls and Ratings submenus.
-				if ( $menu_slug == 'polls' )
-					$menu_title = __( 'Feedbacks', 'polldaddy' );	
-					
-				$parent_slug = 'polls';
-			}
-				
-			$hook = add_object_page( $page_title, $menu_title, $capability, $menu_slug, array( &$this, 'management_page' ), $icon );
-			add_action( "load-$hook", array( &$this, 'management_page_load' ) );			
-
-			add_submenu_page( $parent_slug, $page_title, $page_title, $capability, $menu_slug, $function );
-		
+			$hook = add_object_page( $menu_title, $menu_title, $capability, $menu_slug, $function, $icon );
+			add_action( "load-$hook", array( &$this, 'management_page_load' ) );
+			
+			add_submenu_page( 'feedback', $page_title, $page_title, $capability, $menu_slug, $function );			
 			add_options_page( $page_title, $page_title, $menu_slug == 'ratings' ? 'manage_options' : $capability, $menu_slug.'&action=options', $function );
 		}
-
+		
+		remove_submenu_page( 'feedback', 'feedback' );
+		remove_menu_page( 'polls' );
+		remove_menu_page( 'ratings' );
+		
 		add_action( 'media_buttons', array( &$this, 'media_buttons' ) );		
 	}
 
@@ -315,7 +321,7 @@ class WP_Polldaddy {
 	}
 
 	function management_page_load() {
-
+	
 		wp_reset_vars( array( 'page', 'action', 'poll', 'style', 'rating', 'id' ) );
 		global $plugin_page, $page, $action, $poll, $style, $rating, $id, $wp_locale;
 
