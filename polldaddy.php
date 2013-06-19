@@ -49,7 +49,7 @@ class WP_Polldaddy {
 		$this->has_feedback_menu      = false;
 		
 		if ( class_exists( 'Jetpack' ) ) {
-			if ( Jetpack::is_active() ) {
+			if ( method_exists( 'Jetpack', 'is_active' ) && Jetpack::is_active() ) {
 				$jetpack_active_modules = get_option('jetpack_active_modules');
 				if ( $jetpack_active_modules && in_array( 'contact-form', $jetpack_active_modules ) )
 					$this->has_feedback_menu = true;
@@ -75,6 +75,7 @@ class WP_Polldaddy {
 
 	function admin_menu() {	
 		add_action( 'admin_head', array( &$this, 'do_admin_css' ) );
+		add_action( 'admin_enqueue_scripts', array( &$this, 'menu_alter' ) );
 
 		if ( !defined( 'WP_POLLDADDY__PARTNERGUID' ) ) {
 			$guid = get_option( 'polldaddy_api_key' );
@@ -113,8 +114,15 @@ class WP_Polldaddy {
 		remove_menu_page( 'polls' );
 		remove_menu_page( 'ratings' );
 		
+		if ( $this->has_feedback_menu ) {		
+			add_submenu_page( 'feedback', __( 'Feedback', 'polldaddy' ), __( 'Feedback', 'polldaddy' ), 'edit_posts', 'edit.php?post_type=feedback' );			
+			remove_menu_page( 'edit.php?post_type=feedback' );		
+		}
+		
 		add_action( 'media_buttons', array( &$this, 'media_buttons' ) );		
 	}
+	
+	function menu_alter() {}
 
 	function do_admin_css() {
 
@@ -301,7 +309,7 @@ class WP_Polldaddy {
 
 	function media_buttons() {
 		$title = __( 'Add Poll', 'polldaddy' );
-		echo "<a href='admin.php?page=polls&amp;iframe&amp;TB_iframe=true' onclick='return false;' id='add_poll' class='thickbox' title='$title'><img src='{$this->base_url}img/polldaddy@2x.png' width='15' height='15' alt='$title' style='padding:0 7px 0 2px;' /></a>";
+		echo " <a href='admin.php?page=polls&iframe&TB_iframe=true' onclick='return false;' id='add_poll' class='button thickbox' title='" . esc_attr( $title ) . "'><img src='{$this->base_url}img/polldaddy@2x.png' width='15' height='15' alt='" . esc_attr( $title ) . "' style='margin: -2px 0 0 -1px; padding: 0 2px 0 0; vertical-align: middle;' /> " . esc_html( $title ) . "</a>";
 	}
 
 	function set_api_user_code() {

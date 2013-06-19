@@ -72,11 +72,6 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 	
 	function admin_menu() {				
 		parent::admin_menu();
-		
-		if ( $this->has_feedback_menu ) {		
-			add_submenu_page( 'feedback', __( 'Feedbacks', 'polldaddy' ), __( 'Feedbacks', 'polldaddy' ), 'edit_posts', 'edit.php?post_type=feedback' );			
-			remove_menu_page( 'edit.php?post_type=feedback' );		
-		}
 	}
 
 	function management_page_load() {
