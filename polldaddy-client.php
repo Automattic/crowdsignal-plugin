@@ -1169,12 +1169,8 @@ function &polldaddy_poll( $args = null, $id = null, $_require_data = true ) {
 				$args[$bool] = $defaults[$bool];
 		}
 		
-		global $wpdb;		
-		if ( isset( $wpdb->blogs ) ) { // single hosted WordPress sites don't have a blogs table.
-			$public = (int) $wpdb->get_var( $wpdb->prepare( "SELECT public FROM {$wpdb->blogs} WHERE blog_id = %d", $wpdb->blogid ) );
-			if( $public == -1 )
-				$args['makePublic'] = 'no';
-		}
+		if ( '0' == get_option( 'blog_public' ) )
+			$args['makePublic'] = 'no';
 
 		foreach ( array( 'styleID', 'packID', 'folderID', 'languageID', 'choices', 'blockExpiration' ) as $int )
 			if ( !is_numeric( $args[$int] ) )
