@@ -280,7 +280,7 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 						<label for="polldaddy-email"><?php _e( 'Polldaddy Email Address', 'polldaddy' ); ?></label>
 					</th>
 					<td>
-						<input type="text" name="polldaddy_email" id="polldaddy-email" aria-required="true" size="40" value="<?php if ( isset( $_POST['polldaddy_email'] ) ) echo attribute_escape( $_POST['polldaddy_email'] ); ?>" />
+						<input type="text" name="polldaddy_email" id="polldaddy-email" aria-required="true" size="40" value="<?php if ( isset( $_POST['polldaddy_email'] ) ) echo esc_attr( $_POST['polldaddy_email'] ); ?>" />
 					</td>
 				</tr>
 				<tr class="form-field form-required">
@@ -312,7 +312,7 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 			<?php wp_nonce_field( 'polldaddy-account' ); ?>
 			<input type="hidden" name="action" value="account" />
 			<input type="hidden" name="account" value="import" />
-			<input class="button-secondary" type="submit" value="<?php echo attribute_escape( __( 'Submit', 'polldaddy' ) ); ?>" />
+			<input class="button-secondary" type="submit" value="<?php echo esc_attr( __( 'Submit', 'polldaddy' ) ); ?>" />
 		</p>
 	</form>
 </div>
@@ -970,7 +970,7 @@ EOD;
 			$item_count    = (int) $instance['item_count'];
 ?>
 				<p>
-					<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e( 'Title', 'polldaddy' ); ?>: <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo attribute_escape( $title ); ?>" /></label></p>
+					<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e( 'Title', 'polldaddy' ); ?>: <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></label></p>
 				<p>
 					<label for="<?php echo $this->get_field_id( 'show_posts' ); ?>">
 						<input type="checkbox" class="checkbox"  id="<?php echo $this->get_field_id( 'show_posts' ); ?>" name="<?php echo $this->get_field_name( 'show_posts' ); ?>" value="1" <?php echo $show_posts == 1 ? 'checked="checked"' : ''; ?> />

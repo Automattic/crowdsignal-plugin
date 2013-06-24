@@ -740,18 +740,18 @@ class Polldaddy_XML_Parser {
 				die( 'damn' );
 
 			$new = $this->polldaddy_objects[$tag];
-			$new_object =& new $new( $this->object_stack[$this->object_pos]['args'], $this->object_stack[$this->object_pos]['atts'] );
+			$new_object = new $new( $this->object_stack[$this->object_pos]['args'], $this->object_stack[$this->object_pos]['atts'] );
                                                                                                                                 
 			if ( is_numeric( $this->object_stack[$this->object_pos]['parent'] ) ) {
 				$this->object_pos = $this->object_stack[$this->object_pos]['parent'];
 				if ( $this->object_stack[$this->object_pos]['args_tag_pos'] ) {
-					$this->object_stack[$this->object_pos]['args'][$this->object_stack[$this->object_pos]['args_tag']][$this->object_stack[$this->object_pos]['args_tag_pos']] =& $new_object;
+					$this->object_stack[$this->object_pos]['args'][$this->object_stack[$this->object_pos]['args_tag']][$this->object_stack[$this->object_pos]['args_tag_pos']] = $new_object;
 				} elseif ( $this->object_stack[$this->object_pos]['args_tag'] ) {
-					$this->object_stack[$this->object_pos]['args'][$this->object_stack[$this->object_pos]['args_tag']] =& $new_object;
+					$this->object_stack[$this->object_pos]['args'][$this->object_stack[$this->object_pos]['args_tag']] = $new_object;
 				}
 			} else {
 				$this->object_pos = null;
-				$this->objects[] =& $new_object;
+				$this->objects[] = $new_object;
 			}
 
 			array_pop( $this->object_stack );

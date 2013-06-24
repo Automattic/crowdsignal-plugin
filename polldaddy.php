@@ -1626,10 +1626,10 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 
 			if ( isset( $_POST['answer'] ) )
 				foreach ( $_POST['answer'] as $answer_id => $answer )
-					$answers[attribute_escape($answer_id)] = attribute_escape( stripslashes($answer) );
+					$answers[esc_attr($answer_id)] = esc_attr( stripslashes($answer) );
 		} elseif ( isset( $poll->answers->answer ) ) {
 			foreach ( $poll->answers->answer as $answer ) {
-				$answers[(int) $answer->_id] = attribute_escape( $answer->text );
+				$answers[(int) $answer->_id] = esc_attr( $answer->text );
 
 				if ( $answer->mediaType == 1 && !empty( $answer->mediaCode ) ) {
 					$polldaddy->reset();
@@ -1855,7 +1855,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 					</td>
 					<td class="answer-media-icons" <?php echo isset( $_GET['iframe'] ) ? 'style="width: 55px !important;"' : '';?>>
 					<ul class="answer-media" <?php echo isset( $_GET['iframe'] ) ? 'style="min-width: 30px;"' : '';?>>
-<?php  if ( $mediaType[999999999] == 2 ) { ?>
+<?php  if ( isset( $mediaType[999999999] ) && $mediaType[999999999] == 2 ) { ?>
 				<li class="media-preview image-added" style="width: 20px; height: 16px; padding-left: 5px;"><img height="16" width="16" src="<?php echo $this->base_url; ?>img/icon-report-ip-analysis.png" alt="Video Embed"><?php echo $delete_media_link;?></li>
 <?php   } else {
 			$url = '';

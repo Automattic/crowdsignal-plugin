@@ -91,7 +91,7 @@ class api_client {
 
 		$parser = new Polldaddy_XML_Parser( $this->response_xml );
 		
-		$this->response =& $parser->objects[0];
+		$this->response = $parser->objects[0];
 		if ( isset( $this->response->errors->error ) ) {
 			if ( !is_array( $this->response->errors->error ) )
 				$this->response->errors->error = array( $this->response->errors->error );
@@ -130,7 +130,7 @@ class api_client {
 		if ( is_a( $object, 'Ghetto_XML_Object' ) )
 			$args = array( $object->___name => &$object );
 		elseif ( is_array( $object ) )
-			$args =& $object;
+			$args = $object;
 		else
 			$args = null;
 
@@ -1317,7 +1317,7 @@ function wp_parse_args( $args, $defaults = '' ) {
 	if ( is_object( $args ) )
 		$r = get_object_vars( $args );
 	elseif ( is_array( $args ) )
-		$r =& $args;
+		$r = $args;
 	else
 		wp_parse_str( $args, $r );
 
