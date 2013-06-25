@@ -1267,9 +1267,15 @@ class WP_Polldaddy {
 				if ( $this->is_author )
 					printf( __( 'Polldaddy Polls <a href="%s" class="add-new-h2">Add New</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'create-poll', 'poll' => false, 'message' => false ) ) ) );
 				else
-					_e( 'Polldaddy Polls ', 'polldaddy' ); ?></h2>
-
-				<?php
+					_e( 'Polldaddy Polls ', 'polldaddy' );
+		?></h2><?php
+				$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->user_code );
+				$account = $polldaddy->get_account();
+				if ( !empty( $account ) )
+					$account_email = esc_attr( $account->email );
+				if ( isset( $account_email ) && current_user_can( 'manage_options' ) ) {
+					echo "<p>" . sprintf( __( 'Linked to Polldaddy Account: <strong>%s</strong> (<a target="_blank" href="options-general.php?page=polls&action=options">Settings</a> / <a target="_blank" href="http://polldaddy.com/dashboard/">Polldaddy.com</a>)', 'polldaddy' ), $account_email ) . "</p>";
+				}
 
 				if ( !isset( $_GET['view'] ) )
 					$this->polls_table( 'user' );
