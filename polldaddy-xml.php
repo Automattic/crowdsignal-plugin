@@ -265,6 +265,7 @@ class Polldaddy_Account extends Polldaddy_XML_Object {
 	var $websiteURL;
 	var $avatarURL;
 	var $bio;
+	var $src;
 }
 
 class Polldaddy_List extends Polldaddy_XML_Object {

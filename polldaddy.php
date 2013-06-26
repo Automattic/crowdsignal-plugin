@@ -336,7 +336,10 @@ class WP_Polldaddy {
 		$this->set_api_user_code();
 
 		if ( empty( $this->user_code ) && $page == 'polls' ) {
-			$action = 'signup';
+			// one last try to get the user code automatically if possible
+			$this->user_code = apply_filters_ref_array( 'polldaddy_get_user_code', array( $this->user_code, &$this ) );
+			if ( false == $this->user_code )
+				$action = 'signup';
 		}
 
 		require_once WP_POLLDADDY__POLLDADDY_CLIENT_PATH;
@@ -451,12 +454,13 @@ class WP_Polldaddy {
 					return;
 
 				check_admin_referer( 'polldaddy-account' );
-				
+
 				$this->user_code = '';
 				update_option( 'pd-usercode-'.$this->id, '' );
 
 				if ( $new_args = $this->management_page_load_signup() )
 					$query_args = array_merge( $query_args, $new_args );
+
 				if ( $this->errors->get_error_codes() )
 					return false;
 
@@ -1522,14 +1526,14 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 					<td colspan="4" id="empty-set"><?php
 			if ( $this->is_author ) { ?>
 
-				<h3 style="margin-bottom:0px;"><?php _e( 'You haven\'t used our fancy plugin to create any polls for this blog!', 'polldaddy');?> </h3>
+				<h3 style="margin-bottom:0px;"><?php _e( 'You haven\'t created any polls for this blog.', 'polldaddy');?> </h3>
 				<p style="margin-bottom:20px;"><?php _e( 'Why don\'t you go ahead and get started on that?', 'polldaddy' ); ?></p>
 				<a href="<?php echo esc_url( add_query_arg( array( 'action' => 'create-poll' ) ) ); ?>" class="button-primary"><?php _e( 'Create a Poll Now', 'polldaddy' ); ?></a>
 
 			<?php
 			} else { ?>
 
-				<p id="no-polls"><?php _e( 'No one has created any polls for this blog via our fancy plugin!', 'polldaddy' ); ?></p>
+				<p id="no-polls"><?php _e( 'No one has created any polls for this blog.', 'polldaddy' ); ?></p>
 
 			<?php }
 		?></td>
