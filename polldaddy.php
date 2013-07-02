@@ -1127,7 +1127,7 @@ class WP_Polldaddy {
 				$message = sprintf( _n( '%s Style Deleted.', '%s Custom Styles Deleted.', $deleted, 'polldaddy' ), number_format_i18n( $deleted ) );
 			break;
 		case 'imported-account' :
-			$message = __( 'Account Imported.', 'polldaddy' );
+			$message = __( 'Account Linked.', 'polldaddy' );
 			break;
 		case 'updated-options' :
 			$message = __( 'Options Updated.', 'polldaddy' );
@@ -4862,7 +4862,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
       <?php wp_nonce_field( 'polldaddy-account' ); ?>
       <input type="hidden" name="action" value="import-account" />
       <input type="hidden" name="account" value="import" />
-      <input type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Import Account', 'polldaddy' ) ); ?>" />
+      <input type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Link Account', 'polldaddy' ) ); ?>" />
     </p>
   </form>
   <br />
