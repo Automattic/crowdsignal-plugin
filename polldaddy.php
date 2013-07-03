@@ -1278,7 +1278,7 @@ class WP_Polldaddy {
 				if ( !empty( $account ) )
 					$account_email = esc_attr( $account->email );
 				if ( isset( $account_email ) && current_user_can( 'manage_options' ) ) {
-					echo "<p>" . sprintf( __( 'Linked to Polldaddy Account: <strong>%s</strong> (<a target="_blank" href="options-general.php?page=polls&action=options">Settings</a> / <a target="_blank" href="http://polldaddy.com/dashboard/">Polldaddy.com</a>)', 'polldaddy' ), $account_email ) . "</p>";
+					echo "<p>" . sprintf( __( 'Linked to WordPress.com Account: <strong>%s</strong> (<a target="_blank" href="options-general.php?page=polls&action=options">Settings</a> / <a target="_blank" href="http://polldaddy.com/dashboard/">Polldaddy.com</a>)', 'polldaddy' ), $account_email ) . "</p>";
 				}
 
 				if ( !isset( $_GET['view'] ) )
@@ -4737,9 +4737,8 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 
 	function plugin_options() {
 		if ( isset( $_POST['polldaddy_email'] ) ) {
-			$account_email = esc_attr( $_POST['polldaddy_email'] );
-		}
-		else {
+			$account_email = false;
+		} else {
 			$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->user_code );
 			$account = $polldaddy->get_account();
 
@@ -4825,35 +4824,46 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
   <h2>
     <?php _e( 'Poll Settings', 'polldaddy' ); ?>
   </h2>
-    <?php if ( $this->is_admin || $this->multiple_accounts ) {?>
-  <h3>
-    <?php _e( 'Polldaddy Account Info', 'polldaddy' ); ?>
-  </h3>
-  <p><?php printf( __( 'This is the Polldaddy account you currently have linked with your WordPress blog: <strong>%s</strong>', 'polldaddy' ), $account_email ); ?></p>
-  <p><?php _e( 'Your password is not saved. An API key is used to access your Polldaddy account.', 'polldaddy' ); ?></p>
-  <h4><?php _e( 'Use A Different Account', 'polldaddy' ); ?></h4>
-  <p><?php printf( __( 'Any polls or ratings created in your current account will still be available on Polldaddy.com when you login as %s.', 'polldaddy' ), $account_email ); ?></p>
+	<?php 
+		if ( $this->is_admin || $this->multiple_accounts ) {
+			if ( $account_email != false ) {
+	?>
+	<h3>
+		<?php _e( 'Polldaddy Account Info', 'polldaddy' ); ?>
+	</h3>
+	<p><?php _e( '<em>Polldaddy</em> and <em>WordPress.com</em> are now connected using <a href="http://en.support.wordpress.com/wpcc-faq/">WordPress.com Connect</a>. If you have a WordPress.com account you can use it to login to <a href="http://polldaddy.com/">Polldaddy.com</a>. Click on the Polldaddy "sign in" button, authorize the connection and create your new Polldaddy account. Use the same email and password to login on this page.', 'polldaddy' ); ?></p>
+	<p><strong><?php _e( 'You must login at least once on <a href="http://polldaddy.com/">Polldaddy.com</a> before using this plugin.' ); ?></strong></p>
+	<p><?php printf( __( 'Your account is currently link to this WordPress.com account: <strong>%s</strong>', 'polldaddy' ), $account_email ); ?></p>
+	<br />
+	<h3><?php _e( 'Link to a different Polldaddy account', 'polldaddy' ); ?></h3>
+		<?php } else { ?>
+			<br />
+			<h3><?php _e( 'Link to your Polldaddy account', 'polldaddy' ); ?></h3>
+		<?php } ?>
   <form action="" method="post">
     <table class="form-table">
       <tbody>
         <tr class="form-field form-required">
           <th valign="top" scope="row">
             <label for="polldaddy-email">
-              <?php _e( 'Polldaddy Email Address', 'polldaddy' ); ?>
+              <?php _e( 'WordPress.com Email Address', 'polldaddy' ); ?>
             </label>
           </th>
           <td>
-            <input type="text" name="polldaddy_email" id="polldaddy-email" aria-required="true" size="40" value="" />
+		  <input type="text" name="polldaddy_email" id="polldaddy-email" aria-required="true" size="40" value="<?php if ( isset( $_POST[ 'polldaddy_email' ] ) ) echo esc_attr( $_POST[ 'polldaddy_email' ] ); ?>" />
           </td>
         </tr>
         <tr class="form-field form-required">
           <th valign="top" scope="row">
             <label for="polldaddy-password">
-              <?php _e( 'Polldaddy Password', 'polldaddy' ); ?>
+              <?php _e( 'WordPress.com Password', 'polldaddy' ); ?>
             </label>
           </th>
           <td>
             <input type="password" name="polldaddy_password" id="polldaddy-password" aria-required="true" size="40" />
+			<?php if ( $account_email ) { ?>
+			<p><?php printf( __( 'Any polls or ratings created in your current account will still be available on Polldaddy.com when you login as %s.', 'polldaddy' ), $account_email ); ?></p>
+			<?php } ?>
           </td>
         </tr>
       </tbody>
