@@ -111,10 +111,17 @@ Your theme is getting the post content, without necessarily showing it. If the p
 
 
 == Upgrade Notice ==
-= 2.0.19 =
-Bug Fixes and added filter by catergory to Top Rated Widget
+= 2.0.20 =
+Updated poll settings page, bugfixes
 
 == Changelog ==
+= 2.0.20 =
+* Updated settings page: text, layout, Import -> Link.
+* On MU sites use blog_public blog option.
+* Removed deprecated warnings, props @Till
+* 
+
+
 = 2.0.19 =
 * Added filter by category to Top Rated Widget
 * Added more retina images for ratings
