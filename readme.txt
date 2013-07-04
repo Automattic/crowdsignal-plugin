@@ -53,13 +53,16 @@ Polldaddy Polls is localizable and currently available in:
 * Swedish
 * Uighur
 
-Want to help translate the plugin or keep an existing translation up-to-date? Head on over to http://translate.wordpress.com/projects/polldaddy/plugin
+Want to help translate the plugin or keep an existing translation up-to-date? Head on over to the [translation site](http://translate.wordpress.com/projects/polldaddy/plugin).
+
+Some strings are not translated when polls and surveys are embedded. You will have to translate them using a language pack on [http://polldaddy.com/](Polldaddy.com).
 
 == Installation ==
 
-Upload the plugin to your blog (or search for it and install it on your plugins page), activate it, then go to the Polls page. Enter your [Polldaddy.com](http://polldaddy.com/) email address and password to sync your account and pull in your existing polls and ratings.
+Upload the plugin to your blog (or search for it and install it on your plugins page), activate it, then go to Settings->Polls while logged into your site. Enter your [Polldaddy.com](http://polldaddy.com/) email address and password to sync your account and pull in your existing polls and ratings.
+Polldaddy.com is now linked to WordPress.com using [WordPress.com Connect](http://en.support.wordpress.com/wpcc-faq/) which means you can use your WordPress.com username and password to login to Polldaddy.com. If you have a WordPress.com account and have never used Polldaddy.com you can login [here](https://polldaddy.com/login/) to access Polldaddy.com. You can then use those login details to sign in to the plugin.
 
-You can find further help on our [support page](http://support.polldaddy.com/). If you have any problems please use the [support forum](http://wordpress.org/tags/polldaddy?forum_id=10). The plugin also logs activity to a file using the [WP Debug Logger](http://wordpress.org/extend/plugins/wp-debug-logger/) plugin which can be useful in determining the cause of a problem.
+You can find further help on our [support page](http://support.polldaddy.com/). If you have any problems please use the [support forum](http://wordpress.org/support/plugin/polldaddy). The plugin also logs activity to a file using the [WP Debug Logger](http://wordpress.org/extend/plugins/wp-debug-logger/) plugin which can be useful in determining the cause of a problem.
 
 == Screenshots ==
 
