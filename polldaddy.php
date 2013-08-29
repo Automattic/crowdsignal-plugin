@@ -1812,16 +1812,18 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 
 			</ul>
 
+<?php 
+		if ( $poll->blockExpiration == 0 || $poll->blockExpiration > 604800 )
+			$poll->blockExpiration = 604800;
+?>
 			<span style="margin:6px 6px 8px;<?php echo $poll->blockRepeatVotersType == 'off' ? 'display:none;' : ''; ?>" id="cookieip_expiration_label"><label><?php _e( 'Expires: ', 'polldaddy' ); ?></label></span>
 			<select id="cookieip_expiration" name="cookieip_expiration" style="width: auto;<?php echo $poll->blockRepeatVotersType == 'off' ? 'display:none;' : ''; ?>">
-				<option value="0" <?php echo (int) $poll->blockExpiration == 0 ? 'selected' : ''; ?>><?php _e( 'Never', 'polldaddy' ); ?></option>
 				<option value="3600" <?php echo (int) $poll->blockExpiration == 3600 ? 'selected' : ''; ?>><?php printf( __( '%d hour', 'polldaddy' ), 1 ); ?></option>
 				<option value="10800" <?php echo (int) $poll->blockExpiration == 10800 ? 'selected' : ''; ?>><?php printf( __( '%d hours', 'polldaddy' ), 3 ); ?></option>
 				<option value="21600" <?php echo (int) $poll->blockExpiration == 21600 ? 'selected' : ''; ?>><?php printf( __( '%d hours', 'polldaddy' ), 6 ); ?></option>
 				<option value="43200" <?php echo (int) $poll->blockExpiration == 43200 ? 'selected' : ''; ?>><?php printf( __( '%d hours', 'polldaddy' ), 12 ); ?></option>
 				<option value="86400" <?php echo (int) $poll->blockExpiration == 86400 ? 'selected' : ''; ?>><?php printf( __( '%d day', 'polldaddy' ), 1 ); ?></option>
 				<option value="604800" <?php echo (int) $poll->blockExpiration == 604800 ? 'selected' : ''; ?>><?php printf( __( '%d week', 'polldaddy' ), 1 ); ?></option>
-				<option value="2419200" <?php echo (int) $poll->blockExpiration == 2419200 ? 'selected' : ''; ?>><?php printf( __( '%d month', 'polldaddy' ), 1 ); ?></option>
 			</select>
 			<p><?php _e( 'Note: Blocking by cookie and IP address can be problematic for some voters.', 'polldaddy' ); ?></p>
 		</div>
