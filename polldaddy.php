@@ -1048,27 +1048,19 @@ class WP_Polldaddy {
 	}
 
 	function import_account() {
-
-
-		$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID );
-		$polldaddy->reset();
-		$email = trim( stripslashes( $_POST['polldaddy_email'] ) );
-		$password = trim( stripslashes( $_POST['polldaddy_password'] ) );
-
-		if ( !is_email( $email ) )
-			$this->errors->add( 'polldaddy_email', __( 'Email address required', 'polldaddy' ) );
-
-		if ( !$password )
-			$this->errors->add( 'polldaddy_password', __( 'Password required', 'polldaddy' ) );
-
-		if ( $this->errors->get_error_codes() )
-			return false;
-
-		if ( $usercode = $polldaddy->initiate( $email, $password, $this->id ) ) {
-			$this->user_code = $usercode;
+		if ( isset( $_POST[ 'polldaddy_key' ] ) ) {
+			$polldaddy_api_key = trim( stripslashes( $_POST[ 'polldaddy_key' ] ) );
+			$polldaddy = $this->get_client( $polldaddy_api_key );
+			$polldaddy->reset();
+			if ( !$polldaddy->get_usercode( $this->id ) ) {
+				$this->parse_errors( $polldaddy );
+				$this->errors->add( 'GetUserCode', __( 'Account could not be accessed.  Is your API code correct?', 'polldaddy' ) );
+				return false;
+			}
+			update_option( 'polldaddy_api_key', $polldaddy_api_key );
 		} else {
-			$this->parse_errors( $polldaddy );
-			$this->errors->add( 'import-account', __( 'Account could not be imported.  Are your email address and password correct?', 'polldaddy' ) );
+			$this->user_code = false;
+			$this->errors->add( 'import-account', __( 'Account could not be imported. Did you enter the correct API key?', 'polldaddy' ) );
 			return false;
 		}
 	}
@@ -4833,9 +4825,9 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 	<h3>
 		<?php _e( 'Polldaddy Account Info', 'polldaddy' ); ?>
 	</h3>
-	<p><?php _e( '<em>Polldaddy</em> and <em>WordPress.com</em> are now connected using <a href="http://en.support.wordpress.com/wpcc-faq/">WordPress.com Connect</a>. If you have a WordPress.com account you can use it to login to <a href="http://polldaddy.com/">Polldaddy.com</a>. Click on the Polldaddy "sign in" button, authorize the connection and create your new Polldaddy account. Use the same email and password to login on this page.', 'polldaddy' ); ?></p>
-	<p><strong><?php _e( 'You must login at least once on <a href="http://polldaddy.com/">Polldaddy.com</a> before using this plugin.' ); ?></strong></p>
-	<p><?php printf( __( 'Your account is currently link to this WordPress.com account: <strong>%s</strong>', 'polldaddy' ), $account_email ); ?></p>
+	<p><?php _e( '<em>Polldaddy</em> and <em>WordPress.com</em> are now connected using <a href="http://en.support.wordpress.com/wpcc-faq/">WordPress.com Connect</a>. If you have a WordPress.com account you can use it to login to <a href="http://polldaddy.com/">Polldaddy.com</a>. Click on the Polldaddy "sign in" button, authorize the connection and create your new Polldaddy account.', 'polldaddy' ); ?></p>
+	<p><?php _e( 'Login to the Polldaddy website and scroll to the end of your <a href="http://polldaddy.com/account/#apikey">account page</a> to create or retrieve an API key.', 'polldaddy' ); ?></p>
+	<p><?php printf( __( 'Your account is currently linked to this API key: <strong>%s</strong>', 'polldaddy' ), WP_POLLDADDY__PARTNERGUID ); ?></p>
 	<br />
 	<h3><?php _e( 'Link to a different Polldaddy account', 'polldaddy' ); ?></h3>
 		<?php } else { ?>
@@ -4848,24 +4840,11 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
         <tr class="form-field form-required">
           <th valign="top" scope="row">
             <label for="polldaddy-email">
-              <?php _e( 'WordPress.com Email Address', 'polldaddy' ); ?>
+              <?php _e( 'Polldaddy.com API Key', 'polldaddy' ); ?>
             </label>
           </th>
           <td>
-		  <input type="text" name="polldaddy_email" id="polldaddy-email" aria-required="true" size="40" value="<?php if ( isset( $_POST[ 'polldaddy_email' ] ) ) echo esc_attr( $_POST[ 'polldaddy_email' ] ); ?>" />
-          </td>
-        </tr>
-        <tr class="form-field form-required">
-          <th valign="top" scope="row">
-            <label for="polldaddy-password">
-              <?php _e( 'WordPress.com Password', 'polldaddy' ); ?>
-            </label>
-          </th>
-          <td>
-            <input type="password" name="polldaddy_password" id="polldaddy-password" aria-required="true" size="40" />
-			<?php if ( $account_email ) { ?>
-			<p><?php printf( __( 'Any polls or ratings created in your current account will still be available on Polldaddy.com when you login as %s.', 'polldaddy' ), $account_email ); ?></p>
-			<?php } ?>
+		  <input type="text" name="polldaddy_key" id="polldaddy-key" aria-required="true" size="20" value="<?php if ( isset( $_POST[ 'polldaddy_key' ] ) ) echo esc_attr( $_POST[ 'polldaddy_key' ] ); ?>" />
           </td>
         </tr>
       </tbody>
