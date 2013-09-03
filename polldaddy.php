@@ -1040,7 +1040,7 @@ class WP_Polldaddy {
 
 		switch ( $_POST['account'] ) {
 		case 'import' :
-			return $this->import_account();
+			return array( $this->import_account() );
 			break;
 		default :
 			return;
