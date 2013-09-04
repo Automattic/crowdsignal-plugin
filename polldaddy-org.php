@@ -1067,6 +1067,8 @@ function polldaddy_update_ratings_cache( $ratings ) {
 }
 
 function polldaddy_post_rating( $content ) {
+	if ( false == is_singular() )
+		return $content;
 	if ( false == get_option( 'pd-rating-usercode' ) )
 		return $content;
 	$rating = get_post_meta( $GLOBALS[ 'post' ]->ID, 'pd_rating' );
