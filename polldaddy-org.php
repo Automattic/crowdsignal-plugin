@@ -1066,7 +1066,7 @@ function polldaddy_post_rating( $content ) {
 	if ( false == $rating )
 		return $content;
 	// convert to 5 star rating
-	if ( $rating[ 'type' ] == 1 )
+	if ( $rating[0][ 'type' ] == 1 )
 		$average = ceil( ( $rating[0][ 'average' ] / $rating[0][ 'votes' ] ) * 5 );
 	else
 		$average = $rating[ 'average' ];
