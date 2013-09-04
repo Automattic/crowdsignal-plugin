@@ -136,8 +136,7 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 		if ( in_array( $action, array( 'options', 'update-rating' ) ) ) {
 			$parent_file  = 'options-general.php';
 			$submenu_file = $page.'&action=options';
-		}
-		else {					
+		} else {					
 			add_filter( 'admin_title', array( &$this, 'admin_title' ) );	
 			$submenu_file = $page;
 		}
@@ -236,8 +235,7 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 
 		if ( isset( $polldaddy_api_key ) && strlen( $polldaddy_api_key ) > 0 ) {
 			update_option( 'polldaddy_api_key', $polldaddy_api_key );
-		}
-		else {
+		} else {
 			$this->log( 'management_page_load: login to Polldaddy failed' );
 			$this->errors->add( 'polldaddy_api_key', __( 'Login to Polldaddy failed.  Double check your email address and password.', 'polldaddy' ) );
 			if ( 1 !== $this->use_ssl ) {
@@ -590,8 +588,7 @@ PDRTJS_settings_{$rating}{$item_id}={$settings};
 //--><!]]></script>
 <script type="text/javascript" charset="UTF-8" src="http://i0.poll.fm/js/rating/rating.js"></script>
 SCRIPT;
-			}
-			else {				
+			} else {				
 				if ( self::$scripts === false )
 					self::$scripts = array();
 					
@@ -612,17 +609,16 @@ CONTAINER;
 <div class="pd-rating" id="pd_rating_holder_{$rating}{$item_id}"></div>
 CONTAINER;
 			}
-		} 
-		elseif ( intval( $poll ) > 0 ) { //poll embed
+		} elseif ( intval( $poll ) > 0 ) { //poll embed
 		
 			$poll      = intval( $poll );
 			$poll_url  = sprintf( 'http://polldaddy.com/poll/%d', $poll );
 			$poll_js   = sprintf( '%s.polldaddy.com/p/%d.js', ( is_ssl() ? 'https://secure' : 'http://static' ), $poll );
 			$poll_link = sprintf( '<a href="%s">Take Our Poll</a>', $poll_url );
 	
-			if ( $no_script )
+			if ( $no_script ) {
 				return $poll_link;
-			else {
+			} else {
 				if ( $type == 'slider' && !$inline ) {
 				
 					if( !in_array( $visit, array( 'single', 'multiple' ) ) )
@@ -643,8 +639,7 @@ polldaddy.add( {$settings} );
 //--><!]]></script>
 <noscript>{$poll_link}</noscript>
 SCRIPT;
-				}
-				else {
+				} else {
 					$cb      = ( $cb == 1 ? '?cb='.mktime() : false );
 					$margins = '';
 					$float   = '';
@@ -676,8 +671,7 @@ SCRIPT;
 <div id="PD_superContainer"></div>
 <noscript>{$poll_link}</noscript>
 CONTAINER;
-					}
-					else {
+					} else {
 						if ( $inline )
 							$cb = '';
 							
@@ -691,8 +685,7 @@ CONTAINER;
 					}				
 				}		
 			}
-		}
-		elseif ( !empty( $survey ) ) { //survey embed
+		} elseif ( !empty( $survey ) ) { //survey embed
 	
 			if ( in_array( $type, array( 'iframe', 'button', 'banner', 'slider' ) ) ) {
 				
@@ -727,8 +720,7 @@ CONTAINER;
 						return <<<CONTAINER
 <iframe src="{$survey_url}?iframe=1" frameborder="0" width="{$width}" height="{$height}" scrolling="auto" allowtransparency="true" marginheight="0" marginwidth="0">{$survey_link}</iframe> 
 CONTAINER;
-					}	
-					elseif ( !empty( $domain ) && !empty( $id ) ) {
+					} elseif ( !empty( $domain ) && !empty( $id ) ) {
 					
 						$auto_src = esc_url( "http://{$domain}.polldaddy.com/s/{$id}" );					
 						$auto_src = parse_url( $auto_src );
@@ -749,8 +741,7 @@ CONTAINER;
 							'id'         => $id
 						) );
 					}
-				}			
-				else {				
+				} else {				
 					$text_color = preg_replace( '/[^a-f0-9]/i', '', $text_color );
 					$back_color = preg_replace( '/[^a-f0-9]/i', '', $back_color );
 					
@@ -784,9 +775,9 @@ polldaddy.add( {$settings} );
 <noscript>{$survey_link}</noscript>
 CONTAINER;
 			} 
-		}
-		else
+		} else {
 			return '<!-- no polldaddy output -->';
+		}
 	}
 	
 	function generate_scripts() {
