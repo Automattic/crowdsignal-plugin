@@ -1034,7 +1034,7 @@ register_deactivation_hook( __FILE__, 'polldaddy_deactivation' );
 function polldaddy_rating_update() {
 	global $polldaddy_object;
 	$polldaddy = $polldaddy_object->get_client( WP_POLLDADDY__PARTNERGUID, get_option( 'pd-rating-usercode' ) );
-	$response = $polldaddy->get_rating_results( $rating[ 'id' ], 1, 0, 5 );
+	$response = $polldaddy->get_rating_results( $rating[ 'id' ], 2, 0, 15 );
 	$ratings = $response->ratings;
 	if ( empty( $ratings ) )
 		return false;
