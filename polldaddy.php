@@ -4632,7 +4632,9 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 						<td colspan="4"><?php printf( __( 'No ratings have been collected for your %s yet.', 'polldaddy' ), $report_type ); ?></td>
 					</tr>
 				</tbody><?php
-		} else {  ?>
+		} else {  
+			polldaddy_update_ratings_cache( $ratings );
+			?>
 				<thead>
 					<tr>
 						<?php if ( $this->is_editor ) { ?>

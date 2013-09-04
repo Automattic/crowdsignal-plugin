@@ -1018,4 +1018,70 @@ function polldaddy_login_warning() {
 		echo '<div class="updated"><p><strong>' . sprintf( __( 'Warning! The Polldaddy plugin must be linked to your Polldaddy.com account. Please visit the <a href="%s">plugin settings page</a> to login.', 'polldaddy' ), admin_url( 'options-general.php?page=polls&action=options' ) ) . '</strong></p></div>';
 }
 add_action( 'admin_notices', 'polldaddy_login_warning' );
+
+/**
+ * check if the hook is scheduled - if not, schedule it.
+ */
+function polldaddy_setup_schedule() {
+	if ( false == wp_next_scheduled( 'polldaddy_rating_update_job' ) ) {
+		wp_schedule_event( time(), 'daily', 'polldaddy_rating_update_job');
+	}
+}
+add_action( 'init', 'polldaddy_setup_schedule' );
+
+/**
+ * On deactivation, remove all functions from the scheduled action hook.
+ */
+function polldaddy_deactivation() {
+	wp_clear_scheduled_hook( 'polldaddy_rating_update_job' );
+}
+register_deactivation_hook( __FILE__, 'polldaddy_deactivation' );
+
+/**
+ * On the scheduled action hook, run a function.
+ */
+function polldaddy_rating_update() {
+	global $polldaddy_object;
+	$polldaddy = $polldaddy_object->get_client( WP_POLLDADDY__PARTNERGUID, get_option( 'pd-rating-usercode' ) );
+	$response = $polldaddy->get_rating_results( $rating[ 'id' ], 1, 0, 5 );
+	$ratings = $response->ratings;
+	if ( empty( $ratings ) )
+		return false;
+
+	polldaddy_update_ratings_cache( $ratings );
+}
+
+add_action( 'polldaddy_rating_update_job', 'polldaddy_rating_update' );
+
+function polldaddy_update_ratings_cache( $ratings ) {
+	foreach( $ratings as $rating ) {
+		$post_id = str_replace( 'wp-post-', '', $rating->uid );
+		update_post_meta( $post_id, 'pd_rating', array( 'type' => $rating->_type, 'votes' => $rating->_votes, 
+			'total1' => $rating->total1,
+			'total2' => $rating->total2,
+			'total3' => $rating->total3,
+			'total4' => $rating->total4,
+			'total5' => $rating->total5, 
+			'average' => $rating->average_rating ) );
+	}
+}
+
+function polldaddy_post_rating( $content ) {
+	if ( false == get_option( 'pd-rating-usercode' ) )
+		return $content;
+	$rating = get_post_meta( $GLOBALS[ 'post' ]->ID, 'pd_rating' );
+	if ( false == $rating )
+		return $content;
+	// convert to 5 star rating
+	if ( $rating[ 'type' ] == 1 )
+		$average = ceil( ( $rating[0][ 'average' ] / $rating[0][ 'votes' ] ) * 5 );
+	else
+		$average = $rating[ 'average' ];
+	return $content . '
+		<div itemtype="http://schema.org/AggregateRating" itemscope itemprop="aggregateRating">
+		<meta itemprop="ratingValue" content=' . $average . '>
+		<meta itemprop="ratingCount" content=' . $rating[0][ 'votes' ] . '>
+		</div>';
+}
+add_filter( 'the_content', 'polldaddy_post_rating' );
 ?>
