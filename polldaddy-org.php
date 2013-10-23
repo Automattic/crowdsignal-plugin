@@ -8,10 +8,6 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 	var $use_ssl;
 	var $inline;
 
-	function WPORG_Polldaddy() {
-		$this->__construct();
-	}
-
 	function __construct() {
 		parent::__construct();
 		$this->log( 'Created WPORG_Polldaddy Object: constructor' );

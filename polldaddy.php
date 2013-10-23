@@ -27,10 +27,6 @@ class WP_Polldaddy {
 	var $rating_user_code;
 	var $has_feedback_menu;
 	
-	function WP_Polldaddy() {
-		$this->__construct();
-	}
-
 	function __construct() {
 		global $current_user;
 		$this->log( 'Created WP_Polldaddy Object: constructor' );
