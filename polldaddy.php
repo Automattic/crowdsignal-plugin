@@ -3674,6 +3674,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 		}
 
 		if ( isset( $_POST[ 'pd_rating_action_type' ] ) ) {
+			check_admin_referer( 'action-rating_settings_' . $_POST[ 'pd_rating_action_type' ] );
 
 			switch ( $_POST[ 'pd_rating_action_type' ]  ) {
 			case 'posts' :
@@ -3785,6 +3786,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
           <div class="tabs-panel" id="categories-all" style="background: #FFFFFF;height: auto; overflow: visible;max-height:400px;">
             <form action="" method="post">
             <input type="hidden" name="pd_rating_action_type" value="<?php echo $report_type; ?>" />
+<?php wp_nonce_field( 'action-rating_settings_' . $report_type ); ?>
             <table class="form-table" style="width: normal;">
               <tbody><?php
 			if ( $report_type == 'posts' ) { ?>
