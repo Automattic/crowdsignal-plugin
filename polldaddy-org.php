@@ -1030,12 +1030,21 @@ register_deactivation_hook( __FILE__, 'polldaddy_deactivation' );
 function polldaddy_rating_update() {
 	global $polldaddy_object;
 	$polldaddy = $polldaddy_object->get_client( WP_POLLDADDY__PARTNERGUID, get_option( 'pd-rating-usercode' ) );
-	$response = $polldaddy->get_rating_results( $rating[ 'id' ], 2, 0, 15 );
-	$ratings = $response->ratings;
-	if ( empty( $ratings ) )
-		return false;
-
-	polldaddy_update_ratings_cache( $ratings );
+	$rating_id = get_option( 'pd-rating-posts-id' );
+	$finished = false;
+	$c = 0;
+	while ( !$finished ) {
+		$response = $polldaddy->get_rating_results( $rating_id, 2, $c, 50 );
+		$ratings = $response->rating;
+		if ( false == is_array( $ratings ) )
+			$finished = true;
+		else
+			polldaddy_update_ratings_cache( $ratings );
+		$c += 50;
+		if ( $c > 1000 ) // gotta stop somewhere
+			$finished = true;
+	}
+	return true;
 }
 
 add_action( 'polldaddy_rating_update_job', 'polldaddy_rating_update' );
@@ -1066,11 +1075,10 @@ function polldaddy_post_rating( $content ) {
 		$average = ceil( ( $rating[0][ 'average' ] / $rating[0][ 'votes' ] ) * 5 );
 	else
 		$average = $rating[ 'average' ];
-	return $content . '
-		<div itemtype="http://schema.org/AggregateRating" itemscope itemprop="aggregateRating">
-		<meta itemprop="ratingValue" content=' . $average . '>
-		<meta itemprop="ratingCount" content=' . $rating[0][ 'votes' ] . '>
-		</div>';
+	if ( $average < 0 )
+		return $content;
+	global $post;
+	return $content . '<span class="hreview-aggregate"><span class="item"><span class="fn">"' . $post->post_title . '"</span></span>, <span class="rating"><span class="average">' . $average . '</span> out of <span class="best">5</span> based on <span class="votes">' . $rating[0][ 'votes' ] . '</span> ratings.</span></span>';
 }
 add_filter( 'the_content', 'polldaddy_post_rating' );
 ?>
