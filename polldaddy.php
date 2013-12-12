@@ -85,13 +85,6 @@ class WP_Polldaddy {
 		$icon       = "{$this->base_url}img/pd-wp-icon-gray.png";
 		$function   = array( &$this, 'management_page' );
 					
-		if ( !WP_POLLDADDY__PARTNERGUID ) {
-			foreach( array( 'polls' => __( 'Polls', 'polldaddy' ), 'ratings' => __( 'Ratings', 'polldaddy' ) ) as $menu_slug => $menu_title ) {
-				$hook = add_object_page( $menu_title, $menu_title, $capability, $menu_slug, array( &$this, 'api_key_page' ), $icon );
-				add_action( "load-$hook", array( &$this, 'api_key_page_load' ) );
-			}
-			return false;
-		}
 		
 		$hook = add_object_page( __( 'Feedback', 'polldaddy' ), __( 'Feedback', 'polldaddy' ), $capability, 'feedback', $function, $icon );
 		add_action( "load-$hook", array( &$this, 'management_page_load' ) );
@@ -1172,10 +1165,6 @@ class WP_Polldaddy {
 				$action = '';
 			}
 			switch ( $action ) {
-			case 'signup' :
-			case 'account' :
-				$this->signup();
-				break;
 			case 'preview' :
 				if ( isset( $_GET['iframe'] ) ):
 					if ( !isset( $_GET['popup'] ) ) { ?>
@@ -1314,6 +1303,8 @@ class WP_Polldaddy {
 			$polls_object = $polldaddy->get_polls_by_parent_id( ( $page - 1 ) * 10 + 1, $page * 10 );
 
 		$this->parse_errors( $polldaddy );
+        if ( in_array( 'API Key Not Found, 890', $polldaddy->errors ) )
+            return false;
 		$this->print_errors();
 		$polls = & $polls_object->poll;
 		if ( isset( $polls_object->_total ) )
