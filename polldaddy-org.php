@@ -914,16 +914,20 @@ if ( class_exists( 'WP_Widget' ) ) {
 			}
 			
 			$show = "PDRTJS_TOP.get_top( 'posts', '0' );";
-			if ( $instance['show_pages'] == 1 )
+			$widget_class = 'posts';
+			if ( $instance['show_pages'] == 1 ) {
 				$show = "PDRTJS_TOP.get_top( 'pages', '0' );";
-			elseif ( $instance['show_comments'] == 1 )
+				$widget_class = 'pages';
+			} elseif ( $instance['show_comments'] == 1 ) {
 				$show = "PDRTJS_TOP.get_top( 'comments', '0' );";
+				$widget_class = 'comments';
+			}
 
         	echo '</script>';
 			
 			$widget = <<<EOD
 {$before_title}{$title}{$after_title}
-<div id="pd_top_rated_holder"></div>
+<div id="pd_top_rated_holder" class="pd_top_rated_holder_{$widget_class}"></div>
 <script language="javascript" charset="UTF-8" src="http://i0.poll.fm/js/rating/rating-top.js"></script>
 <script type="text/javascript" charset="UTF-8"><!--//--><![CDATA[//><!--
 PDRTJS_TOP = new PDRTJS_RATING_TOP( {$posts_rating_id}, {$pages_rating_id}, {$comments_rating_id}, '{$rating_seq}', {$instance['item_count']} );{$filter}{$show}
