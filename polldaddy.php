@@ -3642,7 +3642,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 			$blog_name = 'WordPress Blog';
 		$blog_name .= ' - ' . $report_type;
 
-		if ( !defined( WP_POLLDADDY__PARTNERGUID ) )
+		if ( !defined( 'WP_POLLDADDY__PARTNERGUID' ) )
 			return false;
 		$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->rating_user_code );
 		$polldaddy->reset();
