@@ -84,8 +84,7 @@ class WP_Polldaddy {
 		
 		$capability = 'edit_posts';
 		$function   = array( &$this, 'management_page' );
-					
-		
+
 		$hook = add_object_page( __( 'Feedback', 'polldaddy' ), __( 'Feedback', 'polldaddy' ), $capability, 'feedback', $function, 'div' );
 		add_action( "load-$hook", array( &$this, 'management_page_load' ) );
 		
