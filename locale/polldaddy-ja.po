@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress.org Plugin\n"
 "Report-Msgid-Bugs-To: support@polldaddy.com\n"
-"POT-Creation-Date: 2014-02-18 17:26+0000\n"
-"PO-Revision-Date: 2013-11-24 05:57:29+0000\n"
+"POT-Creation-Date: 2014-03-11 14:32+0000\n"
+"PO-Revision-Date: 2014-02-19 09:52:22+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,19 +13,19 @@ msgstr ""
 "X-Generator: GlotPress/0.1\n"
 
 msgid "click and drag to reorder"
-msgstr ""
+msgstr "クリックしてレコーダーにドラッグ"
 
 msgid "Enter an answer here"
-msgstr ""
+msgstr "回答を入力してください"
 
 msgid "Add an Image"
-msgstr ""
+msgstr "画像を追加"
 
 msgid "Add Audio"
-msgstr ""
+msgstr "音声を追加"
 
 msgid "Add Video"
-msgstr ""
+msgstr "動画を追加"
 
 msgid "Ratings"
 msgstr "評価機能"
@@ -34,306 +34,331 @@ msgid "Polls"
 msgstr "投票"
 
 msgid "Email address required"
-msgstr ""
+msgstr "メールアドレスは入力必須項目です"
 
 msgid "Password required"
-msgstr ""
+msgstr "パスワードは入力必須項目です"
 
 msgid "Could not connect to Polldaddy API Key service"
-msgstr ""
+msgstr "Polldaddy API キーサービスに接続できませんでした"
 
 msgid "Can't connect to Polldaddy.com"
-msgstr ""
+msgstr "Polldaddy.com に接続できません。"
 
 msgid ""
 "Login to Polldaddy failed.  Double check your email address and password."
 msgstr ""
+"Polldaddy へのログインに失敗しました。メールアドレスとパスワードをもう一度お"
+"確かめください。"
 
 msgid ""
 "If your email address and password are correct, your host may not support "
 "secure logins."
 msgstr ""
+"メールアドレスとパスワードが正しい場合、お使いのホスティングサービスが SSL ロ"
+"グインに対応していない可能性があります。"
 
 msgid ""
 "In that case, you may be able to log in to Polldaddy by unchecking the \"Use "
 "SSL to Log in\" checkbox."
 msgstr ""
+"その場合は、「ログイン時に SSL を使用」のチェックを外すとログインできるかもし"
+"れません。"
 
 msgid ""
 "Account could not be accessed.  Are your email address and password correct?"
 msgstr ""
+"アカウントにアクセスできません。メールアドレスとパスワードは合っていますか ?"
 
 msgid "Polldaddy Account"
-msgstr ""
+msgstr "Polldaddy アカウント"
 
 #, php-format
 msgid ""
 "Before you can use the Polldaddy plugin, you need to enter your <a href=\"%s"
 "\">Polldaddy.com</a> account details."
 msgstr ""
+"PollDaddy プラグインを使う前に、<a href=\"%s\">Polldaddy.com</a> のアカウント"
+"情報を入力してください。 "
 
 msgid "Polldaddy Email Address"
-msgstr ""
+msgstr "Polldaddy メールアドレス"
 
 msgid "Polldaddy Password"
-msgstr ""
+msgstr "Polldaddy パスワード"
 
 msgid "Use SSL to Log in"
-msgstr ""
+msgstr "ログイン時に SSL を使用"
 
 msgid ""
 "This ensures a secure login to your Polldaddy account.  Only uncheck if you "
 "are having problems logging in."
 msgstr ""
+"これにより Polldaddy アカウントへの安全なログインが約束されます。ログインの際"
+"に問題が発生する場合のみチェックを外してください。"
 
 msgid "Submit"
-msgstr ""
+msgstr "送信"
 
 msgid "Load Shortcodes Inline"
-msgstr ""
+msgstr "ショートコードをインラインで読み込む"
 
 msgid ""
 "This will load the Polldaddy shortcodes inline rather than in the page "
 "footer."
 msgstr ""
+"Polldaddy のショートコードを、ページのフッター部ではなくインラインで読み込み"
+"ます。"
 
 msgid "Multiple Polldaddy Accounts"
-msgstr ""
+msgstr "複数の Polldaddy アカウント"
 
 msgid "This setting will allow each blog user to import a Polldaddy account."
 msgstr ""
+"この設定によって、ブログのユーザーがそれぞれの Polldaddy アカウントをインポー"
+"トできます。"
 
 msgid "Sync Ratings Account"
-msgstr ""
+msgstr "評価アカウントを同期"
 
 msgid "This will synchronize your ratings Polldaddy account."
-msgstr ""
+msgstr "Polldaddy の評価アカウントを同期します。"
 
 msgid "Ratings Title Filter"
-msgstr ""
+msgstr "評価タイトルフィルター"
 
 msgid ""
 "This setting allows you to specify a filter to use with your ratings title."
-msgstr ""
+msgstr "この設定を使うと評価タイトルのフィルターを指定できるようになります。"
 
 msgid "A list of your top rated posts, pages or comments."
-msgstr ""
+msgstr "高評価の投稿、固定ページ、コメントの一覧。"
 
 msgid "Top Rated"
-msgstr ""
+msgstr "高評価"
 
 msgid "Title"
 msgstr "タイトル"
 
 msgid "Show for posts"
-msgstr ""
+msgstr "投稿上に表示"
 
 msgid "Show for pages"
-msgstr ""
+msgstr "固定ページ上に表示"
 
 msgid "Show for comments"
-msgstr ""
+msgstr "コメント上に表示"
 
 msgid "Filter by category"
-msgstr ""
+msgstr "カテゴリーごとにフィルター"
 
 msgid "How many items would you like to display?"
-msgstr ""
+msgstr "項目をいくつ表示しますか ?"
 
 #, php-format
 msgid ""
 "Warning! The Polldaddy plugin must be linked to your Polldaddy.com account. "
 "Please visit the <a href=\"%s\">plugin settings page</a> to login."
 msgstr ""
+"注: Polldaddy プラグインと Polldaddy.com アカウントをリンクする必要がありま"
+"す。ログインするには<a href=\"%s\">プラグイン設定ページ</a>へ移動してくださ"
+"い。"
 
 msgid "Feedback"
 msgstr "フィードバック"
 
 msgid "Invalid Account"
-msgstr ""
+msgstr "無効なアカウント"
 
 msgid "Polldaddy"
 msgstr "Polldaddy"
 
 msgid "Add Poll"
-msgstr ""
+msgstr "投票を追加"
 
 msgid "Star Colors"
-msgstr ""
+msgstr "星の色"
 
 msgid "Star Size"
-msgstr ""
+msgstr "星のサイズ"
 
 msgid "Nero Type"
-msgstr ""
+msgstr "Nero 方式"
 
 msgid "Nero Size"
-msgstr ""
+msgstr "Nero サイズ"
 
 msgid "You are not allowed to delete this poll."
-msgstr ""
+msgstr "この投票を削除する権限がありません。"
 
 msgid "Invalid Poll Author"
-msgstr ""
+msgstr "無効な投票作成者"
 
 msgid "You are not allowed to open this poll."
-msgstr ""
+msgstr "この投票を公開する権限がありません。"
 
 msgid "You are not allowed to close this poll."
-msgstr ""
+msgstr "この投票を公開終了する権限がありません。"
 
 msgid "You are not allowed to edit this poll."
-msgstr ""
+msgstr "この投票を編集する権限がありません。"
 
 msgid "Poll not found"
-msgstr ""
+msgstr "投票が見つかりません"
 
 msgid "Invalid answers"
-msgstr ""
+msgstr "無効な回答"
 
 msgid "You must include at least 2 answers"
-msgstr ""
+msgstr "最低2つの回答を含めてください。"
 
 msgid "Please choose a poll style"
-msgstr ""
+msgstr "投票のスタイルを選択してください"
 
 msgid "Poll could not be updated"
-msgstr ""
+msgstr "投票を更新できませんでした"
 
 msgid "Poll could not be created"
-msgstr ""
+msgstr "投票を作成できませんでした"
 
 msgid "Style could not be updated"
-msgstr ""
+msgstr "スタイルを更新できませんでした"
 
 msgid "Style could not be created"
-msgstr ""
+msgstr "スタイルを作成できませんでした"
 
 msgid "Account could not be accessed.  Is your API code correct?"
-msgstr ""
+msgstr "アカウントにアクセスできません。API コードは合っていますか ?"
 
 msgid "Account could not be imported. Did you enter the correct API key?"
-msgstr ""
+msgstr "アカウントをインポートできませんでした。API キーが間違っていませんか。"
 
 msgid "Poll deleted."
-msgstr ""
+msgstr "投票を削除しました。"
 
 #, php-format
 msgid "%s Poll Deleted."
 msgid_plural "%s Polls Deleted."
-msgstr[0] ""
+msgstr[0] "%s件の投票を削除しました。"
 
 msgid "Poll opened."
-msgstr ""
+msgstr "投票を公開しました。"
 
 #, php-format
 msgid "%s Poll Opened."
 msgid_plural "%s Polls Opened."
-msgstr[0] ""
+msgstr[0] "%s件の投票を公開しました。"
 
 msgid "Poll closed."
-msgstr ""
+msgstr "投票の公開を終了しました。"
 
 #, php-format
 msgid "%s Poll Closed."
 msgid_plural "%s Polls Closed."
-msgstr[0] ""
+msgstr[0] "%s件の投票を公開終了しました。"
 
 msgid "Poll updated."
-msgstr ""
+msgstr "投票を更新しました。"
 
 msgid "Poll created."
-msgstr ""
+msgstr "投票を作成しました。"
 
 msgid "Embed in Post"
-msgstr ""
+msgstr "投稿に埋め込む"
 
 msgid "Custom Style updated."
-msgstr ""
+msgstr "カスタムスタイルを更新しました。"
 
 msgid "Custom Style created."
-msgstr ""
+msgstr "カスタムスタイルを作成しました。"
 
 msgid "Custom Style deleted."
-msgstr ""
+msgstr "カスタムスタイルを削除しました。"
 
 #, php-format
 msgid "%s Style Deleted."
 msgid_plural "%s Custom Styles Deleted."
-msgstr[0] ""
+msgstr[0] "%s個のスタイルを削除しました。"
 
 msgid "Account Linked."
-msgstr ""
+msgstr "アカウントをリンクしました。"
 
 msgid "Options Updated."
-msgstr ""
+msgstr "設定を更新しました。"
 
 msgid "Rating deleted."
-msgstr ""
+msgstr "評価を削除しました。"
 
 #, php-format
 msgid "%s Rating Deleted."
 msgid_plural "%s Ratings Deleted."
-msgstr[0] ""
+msgstr[0] "%s件の評価を削除しました。"
 
 msgid "Error: An error has occurred;  Poll not created."
-msgstr ""
+msgstr "エラー: エラーが発生しました。投票を作成できませんでした。"
 
 msgid "Error: An error has occurred;  Poll not updated."
-msgstr ""
+msgstr "エラー: エラーが発生しました。投票を更新できませんでした。"
 
 msgid ""
 "Error: An error has occurred;  Account could not be imported.  Perhaps your "
 "email address or password is incorrect?"
 msgstr ""
+"エラー: エラーが発生しました。アカウントをインポートできませんでした。メール"
+"アドレスまたはパスワードが間違っていませんか ?"
 
 msgid "Error: An error has occurred;  Account could not be created."
-msgstr ""
+msgstr "エラー: エラーが発生しました。アカウントを作成できませんでした。"
 
 msgid "Polldaddy Polls"
-msgstr ""
+msgstr "Polldaddy 投票"
 
 #, php-format
 msgid "Preview Poll <a href=\"%s\" class=\"add-new-h2\">All Polls</a>"
-msgstr ""
+msgstr "投票をプレビュー <a href=\"%s\" class=\"add-new-h2\">投票一覧</a>"
 
 #, php-format
 msgid ""
 "Poll Results <a href=\"%s\" class=\"add-new-h2\">All Polls</a> <a href=\"%s"
 "\" class=\"add-new-h2\">Edit Poll</a>"
 msgstr ""
+"投票結果 <a href=\"%s\" class=\"add-new-h2\">投票一覧</a> <a href=\"%s\" "
+"class=\"add-new-h2\">投票を編集</a>"
 
 #, php-format
 msgid ""
 "Edit Poll <a href=\"%s\" class=\"add-new-h2\">All Polls</a> <a href=\"%s\" "
 "class=\"add-new-h2\">View Results</a>"
 msgstr ""
+"投票の編集 <a href=\"%s\" class=\"add-new-h2\">投票一覧</a> <a href=\"%s\" "
+"class=\"add-new-h2\">結果を表示</a>"
 
 #, php-format
 msgid "Add New Poll <a href=\"%s\" class=\"add-new-h2\">All Polls</a>"
-msgstr ""
+msgstr "投票を新規追加 <a href=\"%s\" class=\"add-new-h2\">投票一覧</a>"
 
 #, php-format
 msgid "Custom Styles <a href=\"%s\" class=\"add-new-h2\">Add New</a>"
-msgstr ""
+msgstr "カスタムスタイル <a href=\"%s\" class=\"add-new-h2\">新規追加</a>"
 
 msgid "Custom Styles"
 msgstr "カスタムスタイル"
 
 #, php-format
 msgid "Edit Style <a href=\"%s\" class=\"add-new-h2\">List Styles</a>"
-msgstr ""
+msgstr "スタイルを編集 <a href=\"%s\" class=\"add-new-h2\">スタイル一覧</a>"
 
 #, php-format
 msgid "Create Style <a href=\"%s\" class=\"add-new-h2\">List Styles</a>"
 msgstr ""
+"スタイルを新規作成 <a href=\"%s\" class=\"add-new-h2\">スタイル一覧</a>"
 
 #, php-format
 msgid "Polldaddy Polls <a href=\"%s\" class=\"add-new-h2\">Add New</a>"
-msgstr ""
+msgstr "Polldaddy 投票 <a href=\"%s\" class=\"add-new-h2\">新規追加</a>"
 
 msgid "Polldaddy Polls "
-msgstr ""
+msgstr "Polldaddy 投票"
 
 #, php-format
 msgid ""
@@ -341,6 +366,9 @@ msgid ""
 "href=\"options-general.php?page=polls&action=options\">Settings</a> / <a "
 "target=\"_blank\" href=\"http://polldaddy.com/dashboard/\">Polldaddy.com</a>)"
 msgstr ""
+"WordPress.com アカウントにリンク済み: <strong>%s</strong> (<a target=\"_blank"
+"\" href=\"options-general.php?page=polls&action=options\">設定</a> / <a "
+"target=\"_blank\" href=\"http://polldaddy.com/dashboard/\">Polldaddy.com</a>)"
 
 msgid "Actions"
 msgstr "操作"
@@ -355,13 +383,13 @@ msgid "Open"
 msgstr "オープン"
 
 msgid "Apply"
-msgstr ""
+msgstr "適用"
 
 msgid "View All Polls"
-msgstr ""
+msgstr "投票をすべて表示"
 
 msgid "This Blog's Polls"
-msgstr ""
+msgstr "このブログの投票"
 
 msgid "Filter"
 msgstr "絞り込み検索"
@@ -370,13 +398,13 @@ msgid "Poll"
 msgstr "投票"
 
 msgid "Y/m/d g:i:s A"
-msgstr ""
+msgstr "Y年n月j日 g:i:s a"
 
 msgid "created"
 msgstr "作成日"
 
 msgid "M d, Y"
-msgstr ""
+msgstr "Y年Md日"
 
 msgid "Edit"
 msgstr "編集"
@@ -394,13 +422,13 @@ msgid "votes"
 msgstr "票"
 
 msgid "WordPress Shortcode"
-msgstr ""
+msgstr "WordPress ショートコード"
 
 msgid "Short URL (Good for Twitter etc.)"
-msgstr ""
+msgstr "短縮 URL (Twitter などに最適)"
 
 msgid "Facebook URL"
-msgstr ""
+msgstr "Facebook URL"
 
 msgid "JavaScript"
 msgstr "JavaScript"
@@ -410,39 +438,39 @@ msgstr "完了"
 
 #, php-format
 msgid "What are you doing here?  <a href=\"%s\">Go back</a>."
-msgstr ""
+msgstr "間違えてこのページに来てしまったようです。<a href=\"%s\">前へ戻る</a>"
 
 msgid "You haven't created any polls for this blog."
-msgstr ""
+msgstr "このブログではまだ投票を作成していません。"
 
 msgid "Why don't you go ahead and get started on that?"
-msgstr ""
+msgstr "今すぐ始めませんか ?"
 
 msgid "Create a Poll Now"
-msgstr ""
+msgstr "今すぐ投票を作成"
 
 msgid "No one has created any polls for this blog."
-msgstr ""
+msgstr "このブログではまだ誰も投票を作成していません。"
 
 #, php-format
 msgid "Are you sure you want to delete the rating for \"%s\"?"
-msgstr ""
+msgstr "\"%s\" に対する評価を本当に削除してもよいですか ?"
 
 #, php-format
 msgid "Are you sure you want to delete the poll %s?"
-msgstr ""
+msgstr "本当に投票「%s」を削除しますか ?"
 
 msgid "Are you sure you want to delete this answer?"
-msgstr ""
+msgstr "本当にこの回答を削除しますか ?"
 
 msgid "delete this answer"
-msgstr ""
+msgstr "この回答を削除"
 
 msgid "Standard Styles"
-msgstr ""
+msgstr "標準スタイル"
 
 msgid "delete this image"
-msgstr ""
+msgstr "この画像を削除"
 
 msgid "Save"
 msgstr "保存"
@@ -451,10 +479,10 @@ msgid "Randomize answer order"
 msgstr "ランダムな順序で回答を表示"
 
 msgid "Allow other answers"
-msgstr ""
+msgstr "その他の回答も許可する"
 
 msgid "Multiple choice"
-msgstr ""
+msgstr "複数選択可"
 
 msgid "Sharing"
 msgstr "共有"
@@ -466,31 +494,31 @@ msgid "No Limit"
 msgstr "上限なし"
 
 msgid "Save Poll"
-msgstr ""
+msgstr "投票を保存"
 
 msgid "Results Display"
-msgstr ""
+msgstr "結果の表示"
 
 msgid "Show results to voters"
-msgstr ""
+msgstr "投票者に結果を表示する"
 
 msgid "Only show percentages"
-msgstr ""
+msgstr "割合のみ表示"
 
 msgid "Hide all results"
 msgstr "結果をすべて非表示"
 
 msgid "Repeat Voting"
-msgstr ""
+msgstr "複数回の投票"
 
 msgid "Don't block repeat voters"
-msgstr ""
+msgstr "複数回の投票を許可"
 
 msgid "Block by cookie (recommended)"
-msgstr ""
+msgstr "Cookie によってブロック (おすすめ)"
 
 msgid "Block by cookie and by IP address"
-msgstr ""
+msgstr "Cookie と IP によってブロック"
 
 msgid "Expires: "
 msgstr "有効期限:"
@@ -514,6 +542,8 @@ msgstr "%d週"
 msgid ""
 "Note: Blocking by cookie and IP address can be problematic for some voters."
 msgstr ""
+"注: Cookie や IP によるブロックを行うと、投票時に問題が発生することがありま"
+"す。"
 
 msgid "Comments"
 msgstr "コメント"
@@ -528,13 +558,13 @@ msgid "No comments"
 msgstr "コメントはありません"
 
 msgid "Enter Question Here"
-msgstr ""
+msgstr "質問を入力してください。"
 
 msgid "WordPress Shortcode:"
-msgstr ""
+msgstr "WordPress ショートコード:"
 
 msgid "Embed Poll in New Post"
-msgstr ""
+msgstr "新規投稿に投票を埋め込む"
 
 msgid "Answers"
 msgstr "回答"
@@ -582,7 +612,7 @@ msgid "Skull Dark Narrow"
 msgstr "スカル・ダーク - 縦長"
 
 msgid "Skull Dark Medium"
-msgstr ""
+msgstr "スカル・ダーク - 普通幅"
 
 msgid "Skull Dark Wide"
 msgstr "スカル・ダーク - 幅広"
@@ -711,7 +741,7 @@ msgid "Music Medium"
 msgstr "ミュージック - 普通幅"
 
 msgid "Music Wide"
-msgstr ""
+msgstr "ミュージック - 幅広"
 
 msgid "Poll Style"
 msgstr "投票スタイル"
@@ -720,19 +750,19 @@ msgid "Polldaddy Styles"
 msgstr "Polldaddy スタイル"
 
 msgid "Polldaddy Style"
-msgstr ""
+msgstr "Polldaddy スタイル"
 
 msgid "Custom Style"
-msgstr ""
+msgstr "カスタムスタイル"
 
 msgid "Please choose a custom style…"
-msgstr ""
+msgstr "カスタムスタイルを選択してください"
 
 msgid "Please choose a style."
-msgstr ""
+msgstr "スタイルを選択してください。"
 
 msgid "You currently have no custom styles created."
-msgstr ""
+msgstr "まだカスタムスタイルを作成していません。"
 
 msgid "New Style"
 msgstr "新しいスタイル"
@@ -742,10 +772,12 @@ msgid ""
 "Did you know we have a new editor for building your own custom poll styles? "
 "Find out more <a href=\"%s\" target=\"_blank\">here</a>."
 msgstr ""
+"カスタムスタイルを編集できる新しい編集ツールがあるのをご存じですか ? <a href="
+"\"%s\" target=\"_blank\">詳細を読む</a>"
 
 #, php-format
 msgid "Are you sure you want to delete \"%s\"?"
-msgstr ""
+msgstr "本当に「%s」を削除しますか ?"
 
 msgid "Aluminum"
 msgstr "アルミニウム"
@@ -766,7 +798,7 @@ msgid "Skull Light"
 msgstr "スカルライト"
 
 msgid "Width 150px, the micro style is useful when space is tight."
-msgstr ""
+msgstr "マイクロ (150px) サイズは狭いスペースに埋め込む時に便利です。"
 
 msgid "Plastic White"
 msgstr "プラスチックホワイト"
@@ -790,16 +822,16 @@ msgid "Tech Light"
 msgstr "ハイテクライト"
 
 msgid "Working Male"
-msgstr ""
+msgstr "働く男性"
 
 msgid "Working Female"
-msgstr ""
+msgstr "働く女性"
 
 msgid "Thinking Male"
-msgstr ""
+msgstr "考える男性"
 
 msgid "Thinking Female"
-msgstr ""
+msgstr "考える女性"
 
 msgid "Sunset"
 msgstr "サンセット"
@@ -817,13 +849,13 @@ msgid "Narrow"
 msgstr "幅狭"
 
 msgid "Width: 630px, the wide style is good for blog posts."
-msgstr ""
+msgstr "幅広 (630px) サイズはブログ投稿内に含めるのに適しています。"
 
 msgid "Width: 300px, the medium style is good for general use."
-msgstr ""
+msgstr "普通幅 (300px) サイズは一般的な用途に適しています。"
 
 msgid "Width 150px, the narrow style is good for sidebars etc."
-msgstr ""
+msgstr "縦長 (150px) サイズはサイドバーなどに適しています。"
 
 msgid "Answer"
 msgstr "回答"
@@ -836,37 +868,37 @@ msgstr "パーセント"
 
 #, php-format
 msgid "Other (<a href=\"%s\">see below</a>)"
-msgstr ""
+msgstr "その他 (<a href=\"%s\">以下を参照</a>)"
 
 msgid "Other Answer"
-msgstr ""
+msgstr "その他の回答"
 
 msgid "Style"
 msgstr "スタイル"
 
 msgid "Last Modified"
-msgstr ""
+msgstr "最終更新日"
 
 msgid "Y/m/d"
-msgstr ""
+msgstr "m/d/Y"
 
 msgid "You haven't used our fancy style editor to create any custom styles!"
-msgstr ""
+msgstr "カスタムスタイルをまだ作成していません。"
 
 msgid "Create a Custom Style Now"
-msgstr ""
+msgstr "カスタムスタイルを作成"
 
 msgid "Style Name"
 msgstr "スタイル名"
 
 msgid "Preload Basic Style"
-msgstr ""
+msgstr "既存のスタイルを読み込む"
 
 msgid "Load Style"
-msgstr ""
+msgstr "スタイルを読み込む"
 
 msgid "Text Direction"
-msgstr ""
+msgstr "テキストの方向"
 
 msgid "Force RTL"
 msgstr "強制的に RTL にする"
@@ -875,10 +907,10 @@ msgid "Force LTR"
 msgstr "強制的に LTR にする"
 
 msgid "Style Editor"
-msgstr ""
+msgstr "スタイルエディター"
 
 msgid "Select a template part to edit:"
-msgstr ""
+msgstr "編集するテンプレートパーツを選択:"
 
 msgid "Poll Box"
 msgstr "投票ボックス"
@@ -983,82 +1015,82 @@ msgid "Image URL"
 msgstr "画像の URL"
 
 msgid "Click here for more information"
-msgstr ""
+msgstr "クリックして詳細を表示"
 
 msgid "Image Repeat"
 msgstr "画像繰り返し"
 
 msgid "repeat"
-msgstr ""
+msgstr "repeat"
 
 msgid "no-repeat"
-msgstr ""
+msgstr "no-repeat"
 
 msgid "repeat-x"
-msgstr ""
+msgstr "repeat-x"
 
 msgid "repeat-y"
-msgstr ""
+msgstr "repeat-y"
 
 msgid "Image Position"
 msgstr "画像位置"
 
 msgid "left top"
-msgstr ""
+msgstr "左上"
 
 msgid "left center"
-msgstr ""
+msgstr "左中央"
 
 msgid "left bottom"
-msgstr ""
+msgstr "左下"
 
 msgid "center top"
-msgstr ""
+msgstr "中央上"
 
 msgid "center center"
-msgstr ""
+msgstr "中央"
 
 msgid "center bottom"
-msgstr ""
+msgstr "中央下"
 
 msgid "right top"
-msgstr ""
+msgstr "右上"
 
 msgid "right center"
-msgstr ""
+msgstr "中央右"
 
 msgid "right bottom"
-msgstr ""
+msgstr "右下"
 
 msgid "none"
-msgstr ""
+msgstr "なし"
 
 msgid "solid"
-msgstr ""
+msgstr "solid"
 
 msgid "dotted"
-msgstr ""
+msgstr "dotted"
 
 msgid "dashed"
-msgstr ""
+msgstr "dashed"
 
 msgid "double"
-msgstr ""
+msgstr "double"
 
 msgid "groove"
-msgstr ""
+msgstr "groove"
 
 msgid "inset"
-msgstr ""
+msgstr "inset"
 
 msgid "outset"
-msgstr ""
+msgstr "outset"
 
 msgid "ridge"
-msgstr ""
+msgstr "ridge"
 
 msgid "hidden"
-msgstr ""
+msgstr "非表示"
 
 msgid "Rounded Corners"
 msgstr "丸角"
@@ -1076,19 +1108,20 @@ msgid ""
 "If you change the width of the<br/> poll you may also need to change<br/> "
 "the width of your answers."
 msgstr ""
+"投票の幅を変えた場合、<br />回答の幅も変える必要がある<br />かもしれません。"
 
 msgid "Do you mostly use the internet at work, in school or at home?"
-msgstr ""
+msgstr "インターネットを主に使用する場所は職場、学校、家庭のうちどこですか ?"
 
 msgid "I use it in school."
-msgstr ""
+msgstr "学校で使います。"
 
 msgid "I use it at home."
-msgstr ""
+msgstr "自宅で使います。"
 
 msgid ""
 "I use it every where I go, at work and home and anywhere else that I can!"
-msgstr ""
+msgstr "職場や自宅、可能なら外出先のどこでも使います。"
 
 msgid "Other"
 msgstr "他"
@@ -1100,17 +1133,17 @@ msgid "View Results"
 msgstr "結果を表示"
 
 msgid "I use it in school!"
-msgstr ""
+msgstr "学校で使います。"
 
 #, php-format
 msgid "(%d votes)"
-msgstr ""
+msgstr "(投票%d件)"
 
 msgid "Return To Poll"
 msgstr "投票へ戻る"
 
 msgid "Save Style"
-msgstr ""
+msgstr "スタイルを保存"
 
 msgid "Check this box if you wish to update the polls that use this style."
 msgstr ""
@@ -1125,80 +1158,85 @@ msgid ""
 "Sorry! There was an error creating your rating widget. Please contact <a "
 "href=\"%1$s\" %2$s>Polldaddy support</a> to fix this."
 msgstr ""
+"評価ウィジェットを作成する際にエラーが発生しました。修正するには<a href="
+"\"%1$s\" %2$s>Polldaddy サポート</a>にご連絡ください。"
 
 msgid "Rating Settings"
-msgstr ""
+msgstr "評価設定"
 
 msgid "Rating updated"
-msgstr ""
+msgstr "評価を更新しました。"
 
 msgid "Posts"
 msgstr "投稿"
 
 msgid "Pages"
-msgstr ""
+msgstr "ページ"
 
 msgid "Show Ratings on"
-msgstr ""
+msgstr "評価を表示:"
 
 msgid "Front Page, Archive Pages, and Search Results"
-msgstr ""
+msgstr "フロントページ、アーカイブページ、検索結果ページ"
 
 msgid "Position Front Page, Archive Pages, and Search Results Ratings"
-msgstr ""
+msgstr "フロント・アーカイブ・検索結果ページ評価配置"
 
+#, fuzzy
 msgid "Above each blog post"
-msgstr ""
+msgstr "各ブログページの上部"
 
+#, fuzzy
 msgid "Below each blog post"
-msgstr ""
+msgstr "各ブログのページ下"
 
 msgid "Position Post Ratings"
-msgstr ""
+msgstr "投稿評価配置"
 
 msgid "Position Page Ratings"
-msgstr ""
+msgstr "固定ページ評価配置"
 
 msgid "Above each blog page"
-msgstr ""
+msgstr "各ブログページの上部"
 
 msgid "Below each blog page"
-msgstr ""
+msgstr "各ブログのページ下"
 
 msgid "Position Comment Ratings"
-msgstr ""
+msgstr "コメント評価配置"
 
 msgid "Above each comment"
-msgstr ""
+msgstr "各コメントの上"
 
 msgid "Below each comment"
-msgstr ""
+msgstr "各コメントの下"
 
 msgid "Save Changes"
 msgstr "変更を保存"
 
+#, fuzzy
 msgid "Advanced Settings"
-msgstr ""
+msgstr "高度な設定を保存"
 
 msgid "Save Advanced Settings"
-msgstr ""
+msgstr "高度な設定を保存"
 
 msgid "This is a demo of what your rating widget will look like"
-msgstr ""
+msgstr "これは評価ウィジェットのデモです"
 
 msgid "Customize Labels"
-msgstr ""
+msgstr "ラベルをカスタマイズ"
 
 msgid "Rate This"
 msgstr "評価する"
 
 #, php-format
 msgid "%d star"
-msgstr ""
+msgstr "%dつ星"
 
 #, php-format
 msgid "%d stars"
-msgstr ""
+msgstr "%dつ星"
 
 msgid "Thank You"
 msgstr "ありがとうございます"
@@ -1237,16 +1275,18 @@ msgid ""
 "Here you can choose how you want your rating to display. The 5 star rating "
 "is the most commonly used. The Nero rating is useful for keeping it simple."
 msgstr ""
+"ここでは評価の表示を設定できます。5つ星評価はもっともよく使われています。"
+"Nero 方式評価はシンプルにしたい場合におすすめです。"
 
 #, php-format
 msgid "%d Star Rating"
-msgstr ""
+msgstr "%dつ星評価"
 
 msgid "Nero Rating"
-msgstr "Nero タイプ評価"
+msgstr "Nero 方式評価"
 
 msgid "Rating Style"
-msgstr ""
+msgstr "評価スタイル"
 
 msgid "Small"
 msgstr "小"
@@ -1255,7 +1295,7 @@ msgid "Large"
 msgstr "大"
 
 msgid "Star Color"
-msgstr ""
+msgstr "星の色"
 
 msgid "Yellow"
 msgstr "黄"
@@ -1276,97 +1316,101 @@ msgid "Hand"
 msgstr "ハンド"
 
 msgid "Custom Image"
-msgstr ""
+msgstr "カスタム画像"
 
 msgid "Text Layout & Font"
-msgstr ""
+msgstr "テキストレイアウト & フォント"
 
 msgid "Inherit"
-msgstr ""
+msgstr "継承"
 
 msgid "Size"
 msgstr "サイズ"
 
 msgid "Extra Settings"
-msgstr ""
+msgstr "追加設定"
 
 msgid "Results Popup"
 msgstr "結果"
 
 msgid "Uncheck this box to disable the results popup"
-msgstr ""
+msgstr "結果のポップアップ表示を無効化するにはチェックを外してください"
 
 msgid "Rating ID"
-msgstr "評価"
+msgstr "評価 ID"
 
 msgid "This is the rating ID used in posts"
-msgstr ""
+msgstr "これは投稿で使用されている評価 ID です"
 
 msgid "Exclude Posts"
-msgstr ""
+msgstr "投稿を除外"
 
 msgid ""
 "Enter the Post IDs where you want to exclude ratings from. Please use a "
 "comma-delimited list, eg. 1,2,3"
 msgstr ""
+"評価を表示したくない投稿の ID を入力してください。複数ある場合は 1,2,3 のよう"
+"に半角カンマで区切ります。"
 
 msgid "This is the rating ID used in pages"
-msgstr ""
+msgstr "これは固定ページで使用されている評価 ID です"
 
 msgid "Exclude Pages"
-msgstr ""
+msgstr "固定ページを除外"
 
 msgid ""
 "Enter the Page IDs where you want to exclude ratings from. Please use a "
 "comma-delimited list, eg. 1,2,3"
 msgstr ""
+"評価を表示したくない固定ページの ID を入力してください。複数ある場合は 1,2,3 "
+"のように半角カンマで区切ります。"
 
 msgid "This is the rating ID used in comments"
-msgstr ""
+msgstr "これはコメントで使用されている評価 ID です"
 
 msgid "&laquo;"
-msgstr ""
+msgstr "&laquo;"
 
 msgid "&raquo;"
-msgstr ""
+msgstr "&raquo;"
 
 #, php-format
 msgid "Rating Results <a href=\"%s\" class=\"add-new-h2\">Settings</a>"
-msgstr ""
+msgstr "評価結果 <a href=\"%s\" class=\"add-new-h2\">設定</a>"
 
 msgid "Rating Results"
-msgstr ""
+msgstr "評価結果"
 
 msgid "Last 24 hours"
 msgstr "過去24時間"
 
 msgid "Last 7 days"
-msgstr ""
+msgstr "過去7日間"
 
 msgid "Last 31 days"
-msgstr ""
+msgstr "過去31日"
 
 msgid "Last 3 months"
-msgstr ""
+msgstr "過去3ヶ月"
 
 msgid "Last 12 months"
-msgstr ""
+msgstr "過去12ヶ月"
 
 msgid "All time"
-msgstr ""
+msgstr "全期間"
 
 msgid "* The results are cached and are updated every hour"
-msgstr ""
+msgstr "* 結果はキャッシュされ、毎時一度更新されます。"
 
 msgid "* The results are cached and are updated every day"
-msgstr ""
+msgstr "* 結果はキャッシュされ、毎日一度更新されます。"
 
 msgid "* The results are cached and are updated every 3 days"
-msgstr ""
+msgstr "* 結果はキャッシュされ、3日に一度更新されます。"
 
 #, php-format
 msgid "No ratings have been collected for your %s yet."
-msgstr ""
+msgstr "%s の評価はまだありません。"
 
 msgid "Unique ID"
 msgstr "ユニーク ID"
@@ -1378,10 +1422,10 @@ msgid "Average Rating"
 msgstr "評価の平均"
 
 msgid "Poll Settings"
-msgstr ""
+msgstr "投票設定"
 
 msgid "Polldaddy Account Info"
-msgstr ""
+msgstr "Polldaddy アカウント情報"
 
 msgid ""
 "<em>Polldaddy</em> and <em>WordPress.com</em> are now connected using <a "
@@ -1390,61 +1434,70 @@ msgid ""
 "\"http://polldaddy.com/\">Polldaddy.com</a>. Click on the Polldaddy \"sign in"
 "\" button, authorize the connection and create your new Polldaddy account."
 msgstr ""
+"<em>Polldaddy</em> と <em>WordPress.com</em> は <a href=\"http://en.support."
+"wordpress.com/wpcc-faq/\">WordPress.com Connect</a> で連携できるようになりま"
+"した。WordPress.com アカウントをすでにお持ちの場合、<a href=\"http://"
+"polldaddy.com/\">Polldaddy.com</a> へのログインにご利用いただけます。"
+"Polldaddy のログインボタンをクリックし、連携を承認して新しい Polldaddy アカウ"
+"ントを作成しましょう。"
 
 msgid ""
 "Login to the Polldaddy website and scroll to the end of your <a href="
 "\"http://polldaddy.com/account/#apikey\">account page</a> to create or "
 "retrieve an API key."
 msgstr ""
+"API をキーを作成して取得するには、Polldaddy のサイトにログインし、<a href="
+"\"http://polldaddy.com/account/#apikey\">アカウントページ</a>の下までスクロー"
+"ルしてください。"
 
 #, php-format
 msgid "Your account is currently linked to this API key: <strong>%s</strong>"
-msgstr ""
+msgstr "アカウントは現在この API キーにリンクされています: <strong>%s</strong>"
 
 msgid "Link to a different Polldaddy account"
-msgstr ""
+msgstr "他の Polldaddy アカウントにリンクする"
 
 msgid "Link to your Polldaddy account"
-msgstr ""
+msgstr "Polldaddy アカウントにリンクする"
 
 msgid "Polldaddy.com API Key"
-msgstr ""
+msgstr "Polldaddy.com API キー"
 
 msgid "Link Account"
-msgstr ""
+msgstr "アカウントをリンク"
 
 msgid "General Settings"
-msgstr ""
+msgstr "一般設定"
 
 msgid "Default poll settings"
-msgstr ""
+msgstr "デフォルトの投票設定"
 
 msgid "Show"
-msgstr ""
+msgstr "表示"
 
 msgid "Hide"
-msgstr ""
+msgstr "非表示"
 
 msgid "Percentages"
-msgstr ""
+msgstr "割合"
 
 msgid "Poll style"
-msgstr ""
+msgstr "投票スタイル"
 
 msgid "Off"
-msgstr ""
+msgstr "オフ"
 
 msgid "Cookie"
-msgstr ""
+msgstr "Cookie"
 
 msgid "Cookie & IP address"
-msgstr ""
+msgstr "Cookie・ IP アドレス"
 
 msgid "Block expiration limit"
-msgstr ""
+msgstr "ブロック期間"
 
 msgid "Save Options"
-msgstr ""
+msgstr "設定を保存"
 
 msgid "URL"
 msgstr "URL"
@@ -1452,27 +1505,41 @@ msgstr "URL"
 msgid ""
 "Paste your YouTube or Google Video URL above, or use the examples below."
 msgstr ""
+"上に YouTube または Google Video の URL を貼り付けるか、以下の例を使ってくだ"
+"さい。"
 
 #, php-format
 msgid "<a href=\"%s\" target=\"_blank\">YouTube instructions</a> %s"
-msgstr ""
+msgstr "<a href=\"%s\" target=\"_blank\"> YouTube 利用方法</a> %s"
 
 #, php-format
 msgid "<a href=\"%s\" target=\"_blank\">Google instructions</a> %s"
-msgstr ""
+msgstr "<a href=\"%s\" target=\"_blank\"> Google 利用方法</a> %s"
 
 #, php-format
 msgid "<a href=\"%s\" target=\"_blank\">DailyMotion instructions</a> %s"
-msgstr ""
+msgstr "<a href=\"%s\" target=\"_blank\">DailyMotion 利用方法</a> %s"
 
 msgid "Insert into Poll"
-msgstr ""
+msgstr "投票に挿入"
 
 msgid "Audio File URL"
-msgstr ""
+msgstr "音声ファイル URL"
 
 msgid "Insert an image from another web site"
-msgstr ""
+msgstr "外部サイトからの画像を挿入"
 
 msgid "Image Title"
-msgstr ""
+msgstr "画像タイトル"
+
+#~ msgid "Create and manage Polldaddy polls and ratings in WordPress"
+#~ msgstr "WordPress で Polldaddy アンケートや評価を作成"
+
+#~ msgid "Polldaddy Polls & Ratings"
+#~ msgstr "Polldaddy 投票 & 評価"
+
+#~ msgid "http://wordpress.org/extend/plugins/polldaddy/"
+#~ msgstr "http://wordpress.org/extend/plugins/polldaddy/"
+
+#~ msgid "Automattic, Inc."
+#~ msgstr "Automattic, Inc."

@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress.org Plugin\n"
 "Report-Msgid-Bugs-To: support@polldaddy.com\n"
-"POT-Creation-Date: 2014-02-18 17:25+0000\n"
-"PO-Revision-Date: 2012-07-16 10:55:41+0000\n"
+"POT-Creation-Date: 2014-03-11 14:32+0000\n"
+"PO-Revision-Date: 2014-03-11 10:20:46+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -66,7 +66,7 @@ msgstr ""
 "contraseña?"
 
 msgid "Polldaddy Account"
-msgstr ""
+msgstr "Cuenta PollDaddy"
 
 #, php-format
 msgid ""
@@ -87,6 +87,8 @@ msgid ""
 "This ensures a secure login to your Polldaddy account.  Only uncheck if you "
 "are having problems logging in."
 msgstr ""
+"Esto asegura un acceso seguro a su cuenta PollDaddy. Sólo desmarque si tiene "
+"problemas para accesar."
 
 msgid "Submit"
 msgstr "Enviar"
@@ -100,16 +102,18 @@ msgid ""
 msgstr ""
 
 msgid "Multiple Polldaddy Accounts"
-msgstr ""
+msgstr "Cuentas PollDaddy Múltiples"
 
 msgid "This setting will allow each blog user to import a Polldaddy account."
 msgstr ""
+"Esta configuración permitirá a cada usuario de blog importar una cuenta "
+"PollDaddy."
 
 msgid "Sync Ratings Account"
 msgstr ""
 
 msgid "This will synchronize your ratings Polldaddy account."
-msgstr ""
+msgstr "Esto sincronizará sus calificaciones de una cuenta PollDaddy."
 
 msgid "Ratings Title Filter"
 msgstr ""
@@ -137,7 +141,7 @@ msgid "Show for comments"
 msgstr ""
 
 msgid "Filter by category"
-msgstr ""
+msgstr "Filtrar por categoría"
 
 msgid "How many items would you like to display?"
 msgstr ""
@@ -147,6 +151,9 @@ msgid ""
 "Warning! The Polldaddy plugin must be linked to your Polldaddy.com account. "
 "Please visit the <a href=\"%s\">plugin settings page</a> to login."
 msgstr ""
+"¡Atención! El plugin de Polldaddy debe estar enlazado con tu cuenta de "
+"Polldaddy.com. Por favor, visita la <a href=\"%s\">página de opciones del "
+"plugin</a> para registrarte."
 
 msgid "Feedback"
 msgstr "Sugerencias"
@@ -269,7 +276,7 @@ msgstr[0] "%s estilo eliminado."
 msgstr[1] "%s estilos personalizados eliminados."
 
 msgid "Account Linked."
-msgstr ""
+msgstr "Cuenta enlazada."
 
 msgid "Options Updated."
 msgstr "Opciones de Actualizadas."
@@ -305,6 +312,8 @@ msgstr "Encuestas Polldaddy"
 #, php-format
 msgid "Preview Poll <a href=\"%s\" class=\"add-new-h2\">All Polls</a>"
 msgstr ""
+"Previsualizar Encuesta <a href=\"%s\" class=\"button add-new-h2\">Todas las "
+"encuestas</a>"
 
 #, php-format
 msgid ""
@@ -321,25 +330,29 @@ msgstr ""
 #, php-format
 msgid "Add New Poll <a href=\"%s\" class=\"add-new-h2\">All Polls</a>"
 msgstr ""
+"Añadir Nueva Encuesta <a href=\"%s\" class=\"button add-new-h2\">Todas las "
+"encuestas</a>"
 
 #, php-format
 msgid "Custom Styles <a href=\"%s\" class=\"add-new-h2\">Add New</a>"
 msgstr ""
+"Estilos personalizados <a href=\"%s\" class=\"add-new-h2\">Añadir Nuevo</a>"
 
 msgid "Custom Styles"
 msgstr "Estilos Personalizados"
 
 #, php-format
 msgid "Edit Style <a href=\"%s\" class=\"add-new-h2\">List Styles</a>"
-msgstr ""
+msgstr "Editar estilo <a href=\"%s\" class=\"add-new-h2\">Lista de estilos</a>"
 
 #, php-format
 msgid "Create Style <a href=\"%s\" class=\"add-new-h2\">List Styles</a>"
-msgstr ""
+msgstr "Crear estilo <a href=\"%s\" class=\"add-new-h2\">Lista de estilos</a>"
 
 #, php-format
 msgid "Polldaddy Polls <a href=\"%s\" class=\"add-new-h2\">Add New</a>"
 msgstr ""
+"Encuestas Polldaddy <a href=\"%s\" class=\"add-new-h2\">Añadir Nueva</a>"
 
 msgid "Polldaddy Polls "
 msgstr "Encuestas Polldaddy"
@@ -737,7 +750,7 @@ msgid "Custom Style"
 msgstr "Estilo Personalizado"
 
 msgid "Please choose a custom style…"
-msgstr ""
+msgstr "Por favor, elija un estilo personalizado ..."
 
 msgid "Please choose a style."
 msgstr "Por favor, elija un estilo."
@@ -1170,11 +1183,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Above each blog post"
-msgstr "Encima de cada comentario"
+msgstr "Por encima de cada página del blog"
 
 #, fuzzy
 msgid "Below each blog post"
-msgstr "Debajo de cada comentario"
+msgstr "Debajo de cada página del blog"
 
 msgid "Position Post Ratings"
 msgstr ""
@@ -1183,10 +1196,10 @@ msgid "Position Page Ratings"
 msgstr ""
 
 msgid "Above each blog page"
-msgstr ""
+msgstr "Por encima de cada página del blog"
 
 msgid "Below each blog page"
-msgstr ""
+msgstr "Debajo de cada página del blog"
 
 msgid "Position Comment Ratings"
 msgstr ""
@@ -1202,10 +1215,10 @@ msgstr "Guardar cambios"
 
 #, fuzzy
 msgid "Advanced Settings"
-msgstr "Opciones generales"
+msgstr "Guardar Configuración avanzada"
 
 msgid "Save Advanced Settings"
-msgstr ""
+msgstr "Guardar Configuración avanzada"
 
 msgid "This is a demo of what your rating widget will look like"
 msgstr "Esta es una demostración de lo cómo su widget rating se verá."

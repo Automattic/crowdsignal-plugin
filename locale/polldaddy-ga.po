@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress.org Plugin\n"
 "Report-Msgid-Bugs-To: support@polldaddy.com\n"
-"POT-Creation-Date: 2014-02-18 17:25+0000\n"
-"PO-Revision-Date: 2012-01-10 18:43:59+0000\n"
+"POT-Creation-Date: 2014-03-11 14:32+0000\n"
+"PO-Revision-Date: 2014-03-11 14:30:17+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -111,11 +111,11 @@ msgid "This will synchronize your ratings Polldaddy account."
 msgstr ""
 
 msgid "Ratings Title Filter"
-msgstr ""
+msgstr "Rátálacha Teideal Scagaire"
 
 msgid ""
 "This setting allows you to specify a filter to use with your ratings title."
-msgstr ""
+msgstr "Ceadaíonn an rogha seo scagaire a úsáid le teideal do rátaíocht."
 
 msgid "A list of your top rated posts, pages or comments."
 msgstr ""
@@ -136,7 +136,7 @@ msgid "Show for comments"
 msgstr ""
 
 msgid "Filter by category"
-msgstr ""
+msgstr "Scagair de réir cineál"
 
 msgid "How many items would you like to display?"
 msgstr ""
@@ -146,6 +146,9 @@ msgid ""
 "Warning! The Polldaddy plugin must be linked to your Polldaddy.com account. "
 "Please visit the <a href=\"%s\">plugin settings page</a> to login."
 msgstr ""
+"Foláirimh! Ní mór an breiseán Polldaddy a bheith nasctha le do chuntas "
+"Polldaddy.com. Tabhair cuairt ar an <a href=\"%s\">leathanach roghanna</a> "
+"chun logáil isteach."
 
 msgid "Feedback"
 msgstr "Aiseolas"
@@ -211,10 +214,10 @@ msgid "Style could not be created"
 msgstr ""
 
 msgid "Account could not be accessed.  Is your API code correct?"
-msgstr ""
+msgstr "Níorbh fhéidir cuntas a oscailt. An bhfuil do chód API ceart?"
 
 msgid "Account could not be imported. Did you enter the correct API key?"
-msgstr ""
+msgstr "Níorbh fhéidir cuntas a allmhairiú. An bhfuil do eochair API ceart?"
 
 msgid "Poll deleted."
 msgstr ""
@@ -280,7 +283,7 @@ msgstr[3] ""
 msgstr[4] ""
 
 msgid "Account Linked."
-msgstr ""
+msgstr "Cuntas Nasctha."
 
 msgid "Options Updated."
 msgstr ""
@@ -323,12 +326,16 @@ msgid ""
 "Poll Results <a href=\"%s\" class=\"add-new-h2\">All Polls</a> <a href=\"%s"
 "\" class=\"add-new-h2\">Edit Poll</a>"
 msgstr ""
+"Torthaí an pobalbhreith <a href=\"%s\" class=\"add-new-h2\">Gach "
+"pobalbhreith</a> <a href=\"%s\" class=\"add-new-h2\">Athraigh Poll</a>"
 
 #, php-format
 msgid ""
 "Edit Poll <a href=\"%s\" class=\"add-new-h2\">All Polls</a> <a href=\"%s\" "
 "class=\"add-new-h2\">View Results</a>"
 msgstr ""
+"Athraigh Pobalbreith <a href=\"%s\" class=\"add-new-h2\">Gach pobalbhreith</"
+"a> <a href=\"%s\" class=\"add-new-h2\">Torthaí</a>"
 
 #, php-format
 msgid "Add New Poll <a href=\"%s\" class=\"add-new-h2\">All Polls</a>"
@@ -362,6 +369,10 @@ msgid ""
 "href=\"options-general.php?page=polls&action=options\">Settings</a> / <a "
 "target=\"_blank\" href=\"http://polldaddy.com/dashboard/\">Polldaddy.com</a>)"
 msgstr ""
+"Nasctha leis an gCuntas WordPress.com: <strong>%s</strong> (<a target="
+"\"_blank\" href=\"options-general.php?page=polls&action=options\">Socruithe</"
+"a> / <a target=\"_blank\" href=\"http://polldaddy.com/dashboard/\">Polldaddy."
+"com</a>)"
 
 msgid "Actions"
 msgstr "Gnéithe"
@@ -434,7 +445,7 @@ msgid "What are you doing here?  <a href=\"%s\">Go back</a>."
 msgstr ""
 
 msgid "You haven't created any polls for this blog."
-msgstr ""
+msgstr "Nil aon pobalbhreith ar an bhlag seo."
 
 msgid "Why don't you go ahead and get started on that?"
 msgstr ""
@@ -443,7 +454,7 @@ msgid "Create a Poll Now"
 msgstr ""
 
 msgid "No one has created any polls for this blog."
-msgstr ""
+msgstr "Nil aon pobalbhreith ar an bhlag seo."
 
 #, php-format
 msgid "Are you sure you want to delete the rating for \"%s\"?"
@@ -887,7 +898,7 @@ msgid "Load Style"
 msgstr ""
 
 msgid "Text Direction"
-msgstr ""
+msgstr "Treo Téacs"
 
 msgid "Force RTL"
 msgstr ""
@@ -1158,13 +1169,15 @@ msgid "Pages"
 msgstr ""
 
 msgid "Show Ratings on"
-msgstr ""
+msgstr "Taispeáin rátálacha ar"
 
 msgid "Front Page, Archive Pages, and Search Results"
-msgstr ""
+msgstr "Leathanach Tosaigh, Cartlann Leathanaigh, agus Torthaí Cuardaigh"
 
 msgid "Position Front Page, Archive Pages, and Search Results Ratings"
 msgstr ""
+"Suíomh Leathanach Tosaigh, Cartlann Leathanaigh, agus Torthaí Cuardaigh "
+"rátálacha"
 
 msgid "Above each blog post"
 msgstr ""
@@ -1173,10 +1186,10 @@ msgid "Below each blog post"
 msgstr ""
 
 msgid "Position Post Ratings"
-msgstr ""
+msgstr "Suíomh na Rátálacha Blagmhír"
 
 msgid "Position Page Ratings"
-msgstr ""
+msgstr "Suíomh na Rátálacha Leathanaigh"
 
 msgid "Above each blog page"
 msgstr ""
@@ -1185,7 +1198,7 @@ msgid "Below each blog page"
 msgstr ""
 
 msgid "Position Comment Ratings"
-msgstr ""
+msgstr "Suíomh na Rátálacha Ráiteas"
 
 msgid "Above each comment"
 msgstr ""
@@ -1196,8 +1209,9 @@ msgstr ""
 msgid "Save Changes"
 msgstr ""
 
+#, fuzzy
 msgid "Advanced Settings"
-msgstr ""
+msgstr "Socruithe Pobalbreith"
 
 msgid "Save Advanced Settings"
 msgstr ""
@@ -1351,7 +1365,7 @@ msgstr ""
 
 #, php-format
 msgid "Rating Results <a href=\"%s\" class=\"add-new-h2\">Settings</a>"
-msgstr ""
+msgstr "Torthaí Rátálacha <a href=\"%s\" class=\"add-new-h2\">Socruithe</a>"
 
 msgid "Rating Results"
 msgstr ""
@@ -1375,13 +1389,13 @@ msgid "All time"
 msgstr ""
 
 msgid "* The results are cached and are updated every hour"
-msgstr ""
+msgstr "* Tá na torthaí i dtaisce agus iad a nuashonrú gach uair an chloig"
 
 msgid "* The results are cached and are updated every day"
-msgstr ""
+msgstr "* Tá na torthaí i dtaisce agus iad a nuashonrú gach lá"
 
 msgid "* The results are cached and are updated every 3 days"
-msgstr ""
+msgstr "* Tá na torthaí i dtaisce agus iad a nuashonrú gach 3 lá"
 
 #, php-format
 msgid "No ratings have been collected for your %s yet."
@@ -1397,7 +1411,7 @@ msgid "Average Rating"
 msgstr "Rátáil Mheánach"
 
 msgid "Poll Settings"
-msgstr ""
+msgstr "Socruithe Pobalbreith"
 
 msgid "Polldaddy Account Info"
 msgstr ""
@@ -1409,25 +1423,35 @@ msgid ""
 "\"http://polldaddy.com/\">Polldaddy.com</a>. Click on the Polldaddy \"sign in"
 "\" button, authorize the connection and create your new Polldaddy account."
 msgstr ""
+"Tá <em>Polldaddy</em> agus <em>WordPress.com</em> ceangailte anois ag úsáid "
+"<a href=\"http://en.support.wordpress.com/wpcc-faq/\">WordPress.com Connect</"
+"a>. Má tá cuntas WordPress.com agat is féidir leat é a úsáid chun logáil "
+"isteach i <a href=\"http://polldaddy.com/\">Polldaddy.com</a>. Déan cliceáil "
+"ar an Polldaddy \"Sínigh Isteach\" cnaipe, údarú an nasc agus do chuntas "
+"Polldaddy nua a chruthú."
 
 msgid ""
 "Login to the Polldaddy website and scroll to the end of your <a href="
 "\"http://polldaddy.com/account/#apikey\">account page</a> to create or "
 "retrieve an API key."
 msgstr ""
+"Féach ar do <a href=\"http://polldaddy.com/account/#apikey\">leathanach "
+"áireamh</a> chun eochair API a chruthú nó a aisghabháil."
 
 #, php-format
 msgid "Your account is currently linked to this API key: <strong>%s</strong>"
 msgstr ""
+"Tá do chuntas nasctha faoi láthair leis an eochair API seo: <strong>%s</"
+"strong>"
 
 msgid "Link to a different Polldaddy account"
-msgstr ""
+msgstr "Nasc le cuntas Polldaddy eile "
 
 msgid "Link to your Polldaddy account"
-msgstr ""
+msgstr "Nasc le do cuntas Polldaddy"
 
 msgid "Polldaddy.com API Key"
-msgstr ""
+msgstr "Eochair API Polldaddy.com"
 
 msgid "Link Account"
 msgstr ""
