@@ -3761,7 +3761,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 			}//end switch
 		}
 
-		$rich_snippets    = (int) get_option( 'pd-rich-snippets' );
+		$rich_snippets    = (int) get_option( 'pd-rich-snippets', 1 );
 		$show_posts       = (int) get_option( 'pd-rating-posts' );
 		$show_pages       = (int) get_option( 'pd-rating-pages' );
 		$show_comments    = (int) get_option( 'pd-rating-comments' );

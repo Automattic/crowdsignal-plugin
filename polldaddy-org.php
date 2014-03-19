@@ -1032,7 +1032,7 @@ register_deactivation_hook( __FILE__, 'polldaddy_deactivation' );
  * On the scheduled action hook, run a function.
  */
 function polldaddy_rating_update() {
-	if ( false == get_option( 'pd-rich-snippets' ) )
+	if ( false == get_option( 'pd-rich-snippets', 1 ) )
 		return false;
 
 	global $polldaddy_object;
@@ -1070,7 +1070,7 @@ function polldaddy_update_ratings_cache( $ratings ) {
 }
 
 function polldaddy_post_rating( $content ) {
-	if ( false == get_option( 'pd-rich-snippets' ) )
+	if ( false == get_option( 'pd-rich-snippets', 1 ) )
 		return $content;
 	if ( false == is_singular() )
 		return $content;
