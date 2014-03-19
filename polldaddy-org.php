@@ -1015,7 +1015,7 @@ add_action( 'admin_notices', 'polldaddy_login_warning' );
  */
 function polldaddy_setup_schedule() {
 	if ( false == wp_next_scheduled( 'polldaddy_rating_update_job' ) ) {
-		wp_schedule_event( time(), 'daily', 'polldaddy_rating_update_job');
+		wp_schedule_event( time(), 'twicedaily', 'polldaddy_rating_update_job');
 	}
 }
 add_action( 'init', 'polldaddy_setup_schedule' );
