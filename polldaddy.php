@@ -3602,7 +3602,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 
 	function rating_settings() {
 		global $action, $rating;
-		$show_posts = $show_posts_index = $show_pages = $show_comments = $pos_posts = $pos_posts_index = $pos_pages = $pos_comments = 0;
+		$rich_snippets = $show_posts = $show_posts_index = $show_pages = $show_comments = $pos_posts = $pos_posts_index = $pos_pages = $pos_comments = 0;
 		$show_settings = $rating_updated = ( $action == 'update-rating' ? true : false );
 		$error = false;
 
@@ -3705,6 +3705,11 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 
 			switch ( $_POST[ 'pd_rating_action_type' ]  ) {
 			case 'posts' :
+				if ( isset( $_POST[ 'pd_rich_snippets' ] ) && (int) $_POST[ 'pd_rich_snippets' ] == 1 )
+					$rich_snippets = 1;
+
+				update_option( 'pd-rich-snippets', $rich_snippets );
+
 				if ( isset( $_POST[ 'pd_show_posts' ] ) && (int) $_POST[ 'pd_show_posts' ] == 1 )
 					$show_posts = get_option( 'pd-rating-posts-id' );
 
@@ -3756,6 +3761,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 			}//end switch
 		}
 
+		$rich_snippets    = (int) get_option( 'pd-rich-snippets' );
 		$show_posts       = (int) get_option( 'pd-rating-posts' );
 		$show_pages       = (int) get_option( 'pd-rating-pages' );
 		$show_comments    = (int) get_option( 'pd-rating-comments' );
@@ -3810,13 +3816,20 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 				$this_class = ' class="tabs"';  ?>
             <li <?php echo $this_class; ?>><a href="<?php echo $comments_link; ?>"><?php _e( 'Comments', 'polldaddy' );?></a></li>
           </ul>
-          <div class="tabs-panel" id="categories-all" style="background: #FFFFFF;height: auto; overflow: visible;max-height:400px;">
+          <div class="tabs-panel" id="categories-all" style="background: #FFFFFF;height: auto; overflow: visible;max-height:500px;">
             <form action="" method="post">
             <input type="hidden" name="pd_rating_action_type" value="<?php echo $report_type; ?>" />
 <?php wp_nonce_field( 'action-rating_settings_' . $report_type ); ?>
             <table class="form-table" style="width: normal;">
-              <tbody><?php
-			if ( $report_type == 'posts' ) { ?>
+              <tbody>
+			<?php if ( $report_type == 'posts' ) { ?>
+                <tr valign="top">
+					<th scope="row"><label><?php _e( 'Rich Snippets in Search Results', 'polldaddy' );?></label></th>
+					<td>
+						<label><input type="checkbox" name="pd_rich_snippets" id="pd_rich_snippets" <?php if ( $rich_snippets == 1 ) echo ' checked="checked" '; ?> value="1" /> <?php printf( __( 'Display rich snippets in search results using post and page ratings (<a href="%s">documentation</a> and <a href="">page tester</a>)', 'polldaddy' ), 'https://support.google.com/webmasters/answer/99170', 'http://www.google.com/webmasters/tools/richsnippets' );?></label>
+						<p><?php _e( 'Once activated, it may take several weeks before the snippets show up in Google search results.', 'polldaddy' );?></p>
+					</td>
+				</tr>
                 <tr valign="top">
 					<th scope="row"><label><?php _e( 'Show Ratings on', 'polldaddy' );?></label></th>
 					<td>

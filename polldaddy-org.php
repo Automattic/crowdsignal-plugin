@@ -1032,6 +1032,9 @@ register_deactivation_hook( __FILE__, 'polldaddy_deactivation' );
  * On the scheduled action hook, run a function.
  */
 function polldaddy_rating_update() {
+	if ( false == get_option( 'pd-rich-snippets' ) )
+		return false;
+
 	global $polldaddy_object;
 	$polldaddy = $polldaddy_object->get_client( WP_POLLDADDY__PARTNERGUID, get_option( 'pd-rating-usercode' ) );
 	$rating_id = get_option( 'pd-rating-posts-id' );
@@ -1067,6 +1070,8 @@ function polldaddy_update_ratings_cache( $ratings ) {
 }
 
 function polldaddy_post_rating( $content ) {
+	if ( false == get_option( 'pd-rich-snippets' ) )
+		return $content;
 	if ( false == is_singular() )
 		return $content;
 	if ( false == get_option( 'pd-rating-usercode' ) )
