@@ -4899,6 +4899,13 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
   </form>
   <br />
   <?php } ?>
+<?php 
+// if not connected to a Polldaddy account can't save defaults so don't show the form.
+if ( false == is_object( $poll ) ) {
+	echo "</div>";
+	return false;
+}
+?>
   <h3>
     <?php _e( 'General Settings', 'polldaddy' ); ?>
   </h3>
