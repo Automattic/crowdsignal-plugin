@@ -1084,7 +1084,7 @@ function polldaddy_post_rating( $content ) {
 		$average = ceil( ( $rating[0][ 'average' ] / $rating[0][ 'votes' ] ) * 5 );
 	else
 		$average = $rating[ 'average' ];
-	if ( $average < 0 )
+	if ( $average < 0 || $average == '' )
 		return $content;
 	global $post;
 	return $content . '<span class="hreview-aggregate"><span class="item"><span class="fn">"' . $post->post_title . '"</span></span>, <span class="rating"><span class="average">' . $average . '</span> out of <span class="best">5</span> based on <span class="votes">' . $rating[0][ 'votes' ] . '</span> ratings.</span></span>';
