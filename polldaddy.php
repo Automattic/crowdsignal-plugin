@@ -3679,7 +3679,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 			}
 
 			if ( empty( $pd_rating ) ) { //something's up!
-				echo '<div class="error" id="polldaddy"><p>'.sprintf( __( 'Sorry! There was an error creating your rating widget. Please contact <a href="%1$s" %2$s>Polldaddy support</a> to fix this.', 'polldaddy' ), 'http://polldaddy.com/feedback/', 'target="_blank"' ) . '</p></div>';
+				echo '<div class="error" id="polldaddy"><p>'.sprintf( __( 'Sorry! There was an error creating your rating widget. Please contact <a href="%1$s" %2$s>Polldaddy support</a> and tell them your usercode is %3$s.', 'polldaddy' ), 'http://polldaddy.com/feedback/', 'target="_blank"', $this->rating_user_code ) . '</p></div>';
 				$error = true;
 			} else {
 				$rating_id = (int) $pd_rating->_id;
