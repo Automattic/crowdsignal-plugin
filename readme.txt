@@ -2,8 +2,8 @@
 Contributors: eoigal, alternatekev, mdawaffe, donncha, johnny5
 Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 3.3
-Tested up to: 3.9
-Stable tag: 2.0.23
+Tested up to: 3.9.1
+Stable tag: 2.0.24
 
 Create and manage Polldaddy polls and ratings from within WordPress.
 
@@ -112,10 +112,13 @@ Your theme is getting the post content, without necessarily showing it. If the p
 
 
 == Upgrade Notice ==
-= 2.0.23 =
-* UI to enable/disable rich snippets, bug fixes
+= 2.0.24 =
+* Minor security fix: Properly sanitize and escape the rating title filter.
 
 == Changelog ==
+= 2.0.24 =
+* Minor security fix: Properly sanitize and escape the rating title filter.
+
 = 2.0.23 =
 * Added a UI to the ratings settings page to enable or disable the rich snippets support
 * Minor bug fixes
