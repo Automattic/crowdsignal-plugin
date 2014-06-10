@@ -3646,12 +3646,15 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 		$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->rating_user_code );
 		$polldaddy->reset();
 
+		$rating_errors = array();
 		if ( empty( $rating_id ) ) {
 			$pd_rating = $polldaddy->create_rating( $blog_name , $new_type );
 			if ( !empty( $pd_rating ) ) {
 				$rating_id = (int) $pd_rating->_id;
 				update_option ( 'pd-rating-' . $report_type . '-id', $rating_id );
 				update_option ( 'pd-rating-' . $report_type, 0 );
+			} else {
+				$rating_errors[] = $polldaddy->errors;
 			}
 		} else
 			$pd_rating = $polldaddy->get_rating( $rating_id );
@@ -3670,16 +3673,26 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 					$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->rating_user_code );
 					$polldaddy->reset();
 					$pd_rating = $polldaddy->get_rating( $rating_id ); //see it exists
+					$rating_errors[] = $polldaddy->errors;
 
 					if ( empty( $pd_rating ) || (int) $pd_rating->_id == 0 ) { //if not then create a rating for blog
 						$polldaddy->reset();
 						$pd_rating = $polldaddy->create_rating( $blog_name , $new_type );
+						$rating_errors[] = $polldaddy->errors;
 					}
 				}
 			}
 
 			if ( empty( $pd_rating ) ) { //something's up!
-				echo '<div class="error" id="polldaddy"><p>'.sprintf( __( 'Sorry! There was an error creating your rating widget. Please contact <a href="%1$s" %2$s>Polldaddy support</a> and tell them your usercode is %3$s.', 'polldaddy' ), 'http://polldaddy.com/feedback/', 'target="_blank"', $this->rating_user_code ) . '</p></div>';
+				echo '<div class="error" id="polldaddy"><p>' . sprintf( __( 'Sorry! There was an error creating your rating widget. Please contact <a href="%1$s" %2$s>Polldaddy support</a> and tell them your usercode is %3$s.', 'polldaddy' ), 'http://polldaddy.com/feedback/', 'target="_blank"', $this->rating_user_code ) . '</p>' .
+					'<p>' . __( 'Also include the following information when contacting support to help us resolve your problem as quickly as possible:', 'polldaddy' ) . '</p></div>';
+				echo "<p>*******************************</p>";
+				echo "<ul><li> API Key: " . get_option( 'polldaddy_api_key' ) . "</li>";
+				echo "<li> ID Usercode: " . get_option( 'pd-usercode-' . $current_user->ID ) . "</li>";
+				echo "<li> pd-rating-usercode: " . get_option( 'pd-rating-usercode' ) . "</li>";
+				echo "<li> pd-rating-posts: " . get_option( 'pd-rating-posts' ) . "</li>";
+				echo "<li> Errors: " . var_dump( $rating_errors ) . "</li></ul>";
+				echo "<p>*******************************</p>";
 				$error = true;
 			} else {
 				$rating_id = (int) $pd_rating->_id;
