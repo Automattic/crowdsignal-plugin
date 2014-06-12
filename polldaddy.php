@@ -347,6 +347,8 @@ class WP_Polldaddy {
 			
 			if ( !empty( $this->user_code ) ) {
 				update_option( 'pd-usercode-'.$this->id, $this->user_code );
+			} elseif ( get_option( 'polldaddy_api_key' ) ) {
+				$this->contact_support_message( 'There was a problem linking your account', $polldaddy->errors );
 			}
 		}
 	}
@@ -3687,15 +3689,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 			}
 
 			if ( empty( $pd_rating ) ) { //something's up!
-				echo '<div class="error" id="polldaddy"><p>' . sprintf( __( 'Sorry! There was an error creating your rating widget. Please contact <a href="%1$s" %2$s>Polldaddy support</a> and tell them your usercode is %3$s.', 'polldaddy' ), 'http://polldaddy.com/feedback/', 'target="_blank"', $this->rating_user_code ) . '</p>' .
-					'<p>' . __( 'Also include the following information when contacting support to help us resolve your problem as quickly as possible:', 'polldaddy' ) . '</p>';
-				echo "<p>*******************************</p>";
-				echo "<ul><li> API Key: " . get_option( 'polldaddy_api_key' ) . "</li>";
-				echo "<li> ID Usercode: " . get_option( 'pd-usercode-' . $current_user->ID ) . "</li>";
-				echo "<li> pd-rating-usercode: " . get_option( 'pd-rating-usercode' ) . "</li>";
-				echo "<li> pd-rating-posts: " . get_option( 'pd-rating-posts' ) . "</li>";
-				echo "<li> Errors: " . print_r( $rating_errors, 1 ) . "</li></ul>";
-				echo "<p>*******************************</p></div>";
+				$this->contact_support_message( __( 'There was an error creating your rating widget' ), $rating_errors );
 				$error = true;
 			} else {
 				$rating_id = (int) $pd_rating->_id;
@@ -5052,6 +5046,20 @@ if ( false == is_object( $poll ) ) {
 	}
 
 	function log( $message ) {}
+
+	function contact_support_message( $message, $errors ) {
+		global $current_user;
+		echo '<h1>' . $message . '</h1>';
+		echo '<div class="error" id="polldaddy"><p>' . sprintf( __( 'Please contact <a href="%1$s" %2$s>Polldaddy support</a> and tell them your rating usercode is %3$s.', 'polldaddy' ), 'http://polldaddy.com/feedback/', 'target="_blank"', $this->rating_user_code ) . '</p>' .
+			'<p>' . __( 'Also include the following information when contacting support to help us resolve your problem as quickly as possible:', 'polldaddy' ) . '</p>';
+		echo "<p>*******************************</p>";
+		echo "<ul><li> API Key: " . get_option( 'polldaddy_api_key' ) . "</li>";
+		echo "<li> ID Usercode: " . get_option( 'pd-usercode-' . $current_user->ID ) . "</li>";
+		echo "<li> pd-rating-usercode: " . get_option( 'pd-rating-usercode' ) . "</li>";
+		echo "<li> pd-rating-posts: " . get_option( 'pd-rating-posts' ) . "</li>";
+		echo "<li> Errors: " . print_r( $errors, 1 ) . "</li></ul>";
+		echo "<p>*******************************</p></div>";
+	}
 }
 
 require dirname( __FILE__ ).'/rating.php';
