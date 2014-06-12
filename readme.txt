@@ -117,7 +117,7 @@ Your theme is getting the post content, without necessarily showing it. If the p
 
 == Changelog ==
 = 2.0.24 =
-* Minor security fix: Properly sanitize and escape the rating title filter.
+* Minor security fix: Properly sanitize and escape the rating title filter. Props mazengamal.
 
 = 2.0.23 =
 * Added a UI to the ratings settings page to enable or disable the rich snippets support
