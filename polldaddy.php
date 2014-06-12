@@ -3643,6 +3643,9 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 
 		if ( !defined( 'WP_POLLDADDY__PARTNERGUID' ) )
 			return false;
+
+		if ( $this->rating_user_code == '' )
+			die();
 		$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->rating_user_code );
 		$polldaddy->reset();
 
@@ -3685,14 +3688,14 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 
 			if ( empty( $pd_rating ) ) { //something's up!
 				echo '<div class="error" id="polldaddy"><p>' . sprintf( __( 'Sorry! There was an error creating your rating widget. Please contact <a href="%1$s" %2$s>Polldaddy support</a> and tell them your usercode is %3$s.', 'polldaddy' ), 'http://polldaddy.com/feedback/', 'target="_blank"', $this->rating_user_code ) . '</p>' .
-					'<p>' . __( 'Also include the following information when contacting support to help us resolve your problem as quickly as possible:', 'polldaddy' ) . '</p></div>';
+					'<p>' . __( 'Also include the following information when contacting support to help us resolve your problem as quickly as possible:', 'polldaddy' ) . '</p>';
 				echo "<p>*******************************</p>";
 				echo "<ul><li> API Key: " . get_option( 'polldaddy_api_key' ) . "</li>";
 				echo "<li> ID Usercode: " . get_option( 'pd-usercode-' . $current_user->ID ) . "</li>";
 				echo "<li> pd-rating-usercode: " . get_option( 'pd-rating-usercode' ) . "</li>";
 				echo "<li> pd-rating-posts: " . get_option( 'pd-rating-posts' ) . "</li>";
-				echo "<li> Errors: " . var_dump( $rating_errors ) . "</li></ul>";
-				echo "<p>*******************************</p>";
+				echo "<li> Errors: " . print_r( $rating_errors, 1 ) . "</li></ul>";
+				echo "<p>*******************************</p></div>";
 				$error = true;
 			} else {
 				$rating_id = (int) $pd_rating->_id;
