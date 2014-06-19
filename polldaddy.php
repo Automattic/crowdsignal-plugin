@@ -491,13 +491,23 @@ class WP_Polldaddy {
 					wp_mail( $current_user->user_email, "Polldaddy Settings", $msg );
 				update_option( 'polldaddy_settings', $settings );
 				break;
-			case 'restore-account' : // reset everything
+			case 'restore-account' : // restore everything
 				global $current_user;
 				check_admin_referer( 'polldaddy-restore' . $this->id );
 				$previous_settings = get_option( 'polldaddy_settings' );
 				foreach( $previous_settings as $key => $value )
 					update_option( $key, $value );
 				delete_option( 'polldaddy_settings' );
+				break;
+			case 'restore-ratings' : // restore ratings
+				global $current_user;
+				check_admin_referer( 'polldaddy-restore-ratings' . $this->id );
+				$previous_settings = get_option( 'polldaddy_settings' );
+				$fields = array( 'pd-rating-comments', 'pd-rating-comments-id', 'pd-rating-comments-pos', 'pd-rating-exclude-post-ids', 'pd-rating-pages', 'pd-rating-pages-id', 'pd-rating-posts', 'pd-rating-posts-id', 'pd-rating-posts-index', 'pd-rating-posts-index-id', 'pd-rating-posts-index-pos', 'pd-rating-posts-pos', 'pd-rating-title-filter' );
+				foreach( $fields as $key ) {
+					if ( isset( $previous_settings[ $key ] ) )
+						update_option( $key, $previous_settings[ $key ] );
+				}
 				break;
 			case 'signup' : // sign up for first time
 			case 'account' : // reauthenticate
@@ -3953,6 +3963,12 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
               </tbody>
             </table>
           </form>
+		<?php // check for previous settings
+		$previous_settings = get_option( 'polldaddy_settings' );
+		if ( get_option( 'pd-rating-posts-id' ) && get_option( 'pd-rating-posts-id' ) != $previous_settings[ 'pd-rating-posts-id' ] ) {
+			echo "<p>" . sprintf( __( "Previous settings for ratings on this site discovered. You can restore them on the <a href='%s'>poll settings page</a> if your site is missing ratings after resetting your connection settings.", 'polldaddy' ), "options-general.php?page=polls&action=options" ) . "</p>";
+		}
+		?>
         </div>
         
           <div style="padding:20px 0px 0px 0px"><?php
@@ -5053,7 +5069,7 @@ if ( false == is_object( $poll ) ) {
 			}
 		}
 		echo "</table>";
-		echo "<p>" . __( "* The usercode is like a password.", 'polldaddy' ) . "</p>";
+		echo "<p>" . __( "* The usercode is like a password, keep it secret.", 'polldaddy' ) . "</p>";
 		?>
 		<form action="" method="post">
 			<p class="submit">
@@ -5082,7 +5098,7 @@ if ( false == is_object( $poll ) ) {
 			}
 		}
 		echo "</table>";
-		echo "<p>" . __( "* The usercode is like a password.", 'polldaddy' ) . "</p>";
+		echo "<p>" . __( "* The usercode is like a password, keep it secret.", 'polldaddy' ) . "</p>";
 		?>
 		<form action="" method="post">
 			<p class="submit">
@@ -5094,6 +5110,22 @@ if ( false == is_object( $poll ) ) {
 		</form>
 		<br />
 		<?php 
+		if ( $show_reset_form && isset( $settings[ 'pd-rating-posts-id' ] ) && $settings[ 'pd-rating-posts-id' ] != $previous_settings[ 'pd-rating-posts-id' ] ) {
+			echo "<h3>" . __( 'Restore Ratings Settings', 'polldaddy' ) . "</h3>";
+			echo "<p>" . __( 'Different rating settings detected. If you are missing ratings on your posts, pages or comments you can restore the original rating settings by clicking the button below.', 'polldaddy' ) . "</p>";
+			echo "<p>" . __( 'This tells the plugin to look for this data in a different rating in your Polldaddy account.', 'polldaddy' ) . "</p>";
+			?>
+			<form action="" method="post">
+				<p class="submit">
+					<?php wp_nonce_field( 'polldaddy-restore-ratings' . $current_user->ID ); ?>
+					<input type="hidden" name="action" value="restore-ratings" />
+					<input type="hidden" name="account" value="import" />
+					<input type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Restore Ratings Only', 'polldaddy' ) ); ?>" />
+				</p>
+			</form>
+			<br />
+			<?php 
+		}
 	}
 	}
 
