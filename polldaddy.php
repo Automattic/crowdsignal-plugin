@@ -3688,6 +3688,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 		$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->rating_user_code );
 		$polldaddy->reset();
 
+		$error = false;
 		$rating_errors = array();
 		if ( empty( $rating_id ) ) {
 			$pd_rating = $polldaddy->create_rating( $blog_name , $new_type );
@@ -3722,10 +3723,19 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 						$pd_rating = $polldaddy->create_rating( $blog_name , $new_type );
 						$rating_errors[] = $polldaddy->errors;
 					}
+				} elseif ( isset( $polldaddy->errors[ -1 ] ) && $polldaddy->errors[ -1 ] == "Can't connect" ) {
+					$this->contact_support_message( __( 'Could not connect to the Polldaddy API' ), $rating_errors );
+					$error = true;
+				} elseif ( isset( $polldaddy->errors[ -1 ] ) && $polldaddy->errors[ -1 ] == "Invalid API URL" ) {
+					$this->contact_support_message( __( 'The API URL is incorrect' ), $rating_errors );
+					$error = true;
+				} elseif ( isset( $polldaddy->errors[ -2 ] ) && $polldaddy->errors[ -2 ] == "No Data" ) {
+					$this->contact_support_message( __( 'Your API request did not return any data' ), $rating_errors );
+					$error = true;
 				}
 			}
 
-			if ( empty( $pd_rating ) ) { //something's up!
+			if ( $error == false && empty( $pd_rating ) ) { //something's up!
 				$this->contact_support_message( __( 'There was an error creating your rating widget' ), $rating_errors );
 				$error = true;
 			} else {
