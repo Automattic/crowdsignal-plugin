@@ -98,6 +98,7 @@ class api_client {
 			foreach ( $this->response->errors->error as $error )
 				$this->errors[$error->_id] = $error->___content;
 		}
+		return true;
 	}
 
 	function response_part( $pos ) {
