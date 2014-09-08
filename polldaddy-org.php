@@ -1,5 +1,8 @@
 <?php
 
+if ( function_exists( 'get_option' ) == false )
+	die( "Cheatin' eh?" );
+
 require_once dirname( __FILE__ ) . '/polldaddy-client.php';
 
 $GLOBALS[ 'wp_log_plugins' ][] = 'polldaddy';

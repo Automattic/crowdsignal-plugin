@@ -1,4 +1,8 @@
 <?php
+
+if ( function_exists( 'add_action' ) == false )
+	die( "Cheatin' eh?" );
+
 function pd_video_shortcodes_help($video_form) {
 	return '
 	<table class="describe"><tbody>

@@ -1,4 +1,8 @@
 <?php
+
+if ( function_exists( 'get_option' ) == false )
+	die( "Cheatin' eh?" );
+
 function polldaddy_show_rating_comments( $content ) {
 	if ( !is_feed() && !defined( 'DOING_AJAX' ) ) {
 		global $comment;
