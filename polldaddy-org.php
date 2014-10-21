@@ -693,7 +693,7 @@ CONTAINER;
 			if ( in_array( $type, array( 'iframe', 'button', 'banner', 'slider' ) ) ) {
 				
 				if ( empty( $title ) ) {
-					$title = 'Take Our Survey';
+					$title = __( 'Take Our Survey!', 'polldaddy' );
 					if( !empty( $link_text ) )
 						$title = $link_text;
 				}
@@ -705,7 +705,7 @@ CONTAINER;
 				if ( $no_script || $inline || $infinite_scroll )
 					return $survey_link;			
 							
-				if ( $type == 'iframe' ) {	
+				if ( $type == 'iframe' ) {
 					if ( $height != 'auto' ) {
 						if ( isset( $content_width ) && is_numeric( $width ) && $width > $content_width ) 
 							$width = $content_width;
