@@ -4520,23 +4520,26 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 			$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->rating_user_code );
 			$polldaddy->reset();
 			$rating = $polldaddy->update_rating( $rating_id, $settings_text, $rating_type );
-		}
-		elseif ( $this->is_admin && $new_rating_id > 0 ) {
-			switch ( $type ) {
-			case 'pages':
-				update_option( 'pd-rating-pages-id', $new_rating_id );
-				if ( (int) get_option( 'pd-rating-pages' ) > 0 )
-					update_option( 'pd-rating-pages', $new_rating_id );
-				break;
-			case 'comments':
-				update_option( 'pd-rating-comments-id', $new_rating_id );
-				if ( (int) get_option( 'pd-rating-comments' ) > 0 )
-					update_option( 'pd-rating-comments', $new_rating_id );
-				break;
-			case 'posts':
-				update_option( 'pd-rating-posts-id', $new_rating_id );
-				if ( (int) get_option( 'pd-rating-posts' ) > 0 )
-					update_option( 'pd-rating-posts', $new_rating_id );
+		} elseif ( $this->is_admin && $new_rating_id > 0 ) {
+			$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->rating_user_code );
+			$pd_rating = $polldaddy->get_rating( $new_rating_id );
+			if ( false !== $pd_rating ) {
+				switch ( $type ) {
+				case 'pages':
+					update_option( 'pd-rating-pages-id', $new_rating_id );
+					if ( (int) get_option( 'pd-rating-pages' ) > 0 )
+						update_option( 'pd-rating-pages', $new_rating_id );
+					break;
+				case 'comments':
+					update_option( 'pd-rating-comments-id', $new_rating_id );
+					if ( (int) get_option( 'pd-rating-comments' ) > 0 )
+						update_option( 'pd-rating-comments', $new_rating_id );
+					break;
+				case 'posts':
+					update_option( 'pd-rating-posts-id', $new_rating_id );
+					if ( (int) get_option( 'pd-rating-posts' ) > 0 )
+						update_option( 'pd-rating-posts', $new_rating_id );
+				}
 			}
 		}
 
