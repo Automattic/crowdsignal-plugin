@@ -930,7 +930,6 @@ if ( !function_exists( 'polldaddy_link' ) ) {
 	// higher priority because we need it before auto-link and autop get to it
 	add_filter( 'the_content', 'polldaddy_link', 1 );
 	add_filter( 'the_content_rss', 'polldaddy_link', 1 );
-	add_filter( 'comment_text', 'polldaddy_link', 1 );
 }
 
 }
