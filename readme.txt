@@ -112,6 +112,14 @@ Your theme is getting the post content, without necessarily showing it. If the p
 
 
 == Upgrade Notice ==
+SSL support for poll shortcode, security update of survey shortcode, resize the "Add Poll" popup.
+
+= 2.0.26 =
+* SSL support for poll and survey shortcodes
+* Security update of survey shortcode
+* Resize the "Add Poll" popup.
+* Validate the rating_id before updating it on the ratings settings page.
+
 = 2.0.25 =
 * Fixed XSS in shortcode and added reset/restore settings form
 
