@@ -1390,7 +1390,9 @@ class WP_Polldaddy {
 				'base' => add_query_arg( 'paged', '%#%' ),
 				'format' => '',
 				'total' => ceil( $total_polls / 10 ),
-				'current' => $page
+				'current' => $page,
+				'prev_text' => '&laquo;',
+				'next_text' => '&raquo;'
 			) );
 
 
@@ -4676,7 +4678,9 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 				'prev_text'  => __( '&laquo;', 'polldaddy' ),
 				'next_text'  => __( '&raquo;', 'polldaddy' ),
 				'total'      => $total_pages,
-				'current'    => $current_page
+				'current'    => $current_page,
+				'prev_text' => '&laquo;',
+				'next_text' => '&raquo;'
 			) );
 ?>
 		<div class="wrap">
