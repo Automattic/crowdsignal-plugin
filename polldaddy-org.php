@@ -944,10 +944,14 @@ add_filter( 'widget_text', 'do_shortcode' );
 if ( class_exists( 'WP_Widget' ) ) {
 	class PD_Top_Rated extends WP_Widget {
 
-		function PD_Top_Rated() {
+		function __construct() {
 
 			$widget_ops = array( 'classname' => 'top_rated', 'description' => __( 'A list of your top rated posts, pages or comments.', 'polldaddy' ) );
-			$this->WP_Widget( 'PD_Top_Rated', 'Top Rated', $widget_ops );
+			parent::__construct( 'PD_Top_Rated', 'Top Rated', $widget_ops );
+		}
+
+		function PD_Top_Rated() {
+			$this->__construct();
 		}
 
 		function widget($args, $instance) {
