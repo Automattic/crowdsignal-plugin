@@ -1,9 +1,9 @@
 === Polldaddy Polls & Ratings ===
 Contributors: eoigal, alternatekev, mdawaffe, donncha, johnny5
-Tags: polls, poll, polldaddy,  wppolls, vote, polling, surveys, rate, rating, ratings
+Tags: polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 3.3
-Tested up to: 3.9.1
-Stable tag: 2.0.26
+Tested up to: 4.3
+Stable tag: 2.0.27
 
 Create and manage Polldaddy polls and ratings from within WordPress.
 
@@ -112,7 +112,13 @@ Your theme is getting the post content, without necessarily showing it. If the p
 
 
 == Upgrade Notice ==
-SSL support for poll shortcode, security update of survey shortcode, resize the "Add Poll" popup.
+Fixed WP_Widget warning and fixed prev/next links on poll feedback page.
+
+== Changelog ==
+
+= 2.0.27 =
+* Fixed WP_Widget warning.
+* Fixed "previous" and "next" links on the poll feedback page.
 
 = 2.0.26 =
 * SSL support for poll and survey shortcodes
@@ -120,10 +126,6 @@ SSL support for poll shortcode, security update of survey shortcode, resize the 
 * Resize the "Add Poll" popup.
 * Validate the rating_id before updating it on the ratings settings page.
 
-= 2.0.25 =
-* Fixed XSS in shortcode and added reset/restore settings form
-
-== Changelog ==
 = 2.0.25 =
 * Fixed XSS in ratings shortcode. Props vortfu
 * Added forms to allow users to reset and restore their connection settings. Useful to fix rating widget problems.
