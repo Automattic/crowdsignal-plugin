@@ -1080,9 +1080,9 @@ EOD;
 }
 
 function polldaddy_login_warning() {
-	global $cache_enabled;
+	global $cache_enabled, $hook_suffix;
 	$page = isset( $_GET[ 'page' ] ) ? $_GET[ 'page' ] : '';
-	if ( false == get_option( 'polldaddy_api_key' ) && function_exists( "admin_url" ) )
+	if ( ( $hook_suffix == 'plugins.php' || $page == 'polls' ) && false == get_option( 'polldaddy_api_key' ) && function_exists( "admin_url" ) )
 		echo '<div class="updated"><p><strong>' . sprintf( __( 'Warning! The Polldaddy plugin must be linked to your Polldaddy.com account. Please visit the <a href="%s">plugin settings page</a> to login.', 'polldaddy' ), admin_url( 'options-general.php?page=polls&action=options' ) ) . '</strong></p></div>';
 }
 add_action( 'admin_notices', 'polldaddy_login_warning' );
