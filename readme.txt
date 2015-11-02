@@ -3,7 +3,7 @@ Contributors: eoigal, alternatekev, mdawaffe, donncha, johnny5
 Tags: polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 3.3
 Tested up to: 4.3
-Stable tag: 2.0.27
+Stable tag: 2.0.28
 
 Create and manage Polldaddy polls and ratings from within WordPress.
 
@@ -112,9 +112,12 @@ Your theme is getting the post content, without necessarily showing it. If the p
 
 
 == Upgrade Notice ==
-Fixed WP_Widget warning and fixed prev/next links on poll feedback page.
+Don't show "Connect to Polldaddy" notice everywhere. Only on plugins and polls pages
 
 == Changelog ==
+
+= 2.0.28 =
+Don't show "Connect to Polldaddy" notice everywhere. Only on plugins and polls pages
 
 = 2.0.27 =
 * Fixed WP_Widget warning.
