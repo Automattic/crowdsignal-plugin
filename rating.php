@@ -3,9 +3,8 @@
 if ( function_exists( 'get_option' ) == false )
 	die( "Cheatin' eh?" );
 
-function polldaddy_show_rating_comments( $content ) {
+function polldaddy_show_rating_comments( $content, $comment, $args ) {
 	if ( !is_feed() && !defined( 'DOING_AJAX' ) ) {
-		global $comment;
 		global $post;
 
 		if ( isset( $comment->comment_ID ) && $comment->comment_ID > 0 ) {
@@ -152,5 +151,5 @@ if ( (int) get_option( 'pd-rating-pages' ) > 0 || (int) get_option( 'pd-rating-p
 	add_filter( 'the_excerpt', 'polldaddy_show_rating' );
 }
 
-add_filter( 'comment_text', 'polldaddy_show_rating_comments', 50 );
+add_filter( 'comment_text', 'polldaddy_show_rating_comments', 50, 3 );
 ?>
