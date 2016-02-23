@@ -98,6 +98,10 @@ Check that footer.php in your theme calls the wp_footer action. The rating javas
 
 More info [here](http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks)
 
+= My ratings are gone after I reinstalled the plugin. How do I get them back? =
+
+Login to your Polldaddy.com account and [view the ratings](https://polldaddy.com/dashboard/?content=rating) in your dashboard. You should see ratings named "blog name - " comments/posts/pages. You need the rating ID of each of those which is visible when you edit them. It's the number in the URL of your browser that looks like https://polldaddy.com/ratings/1234567/edit/. After you connect the plugin to your Polldaddy account go to Settings->Ratings and make sure the ratings are displayed on your posts/pages/comments as desired. You'll see a link at the bottom of the page saying, "Advanced Settings" that will toggle new configuration settings. One of those settings is "rating ID" which you should replace with the number you got from your Polldaddy account. Now save the changes and the ratings on your site will be updated.
+
 = I cannot access my ratings settings, I am getting a "Sorry! There was an error creating your rating widget. Please contact Polldaddy support to fix this." message. =
 
 You need to select the synchronize ratings account in the WordPress options page at Settings->Polls & Ratings to make sure the ratings API key is valid.
