@@ -4950,7 +4950,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
       <tbody>
         <tr class="form-field form-required">
           <th valign="top" scope="row">
-            <label for="polldaddy-email">
+            <label for="polldaddy-key">
               <?php _e( 'Polldaddy.com API Key', 'polldaddy' ); ?>
             </label>
           </th>
