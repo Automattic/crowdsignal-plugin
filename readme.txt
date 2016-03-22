@@ -2,8 +2,8 @@
 Contributors: eoigal, alternatekev, mdawaffe, donncha, johnny5
 Tags: polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 3.3
-Tested up to: 4.3
-Stable tag: 2.0.28
+Tested up to: 4.4.2
+Stable tag: 2.0.29
 
 Create and manage Polldaddy polls and ratings from within WordPress.
 
@@ -116,12 +116,18 @@ Your theme is getting the post content, without necessarily showing it. If the p
 
 
 == Upgrade Notice ==
-Don't show "Connect to Polldaddy" notice everywhere. Only on plugins and polls pages
+Minor bug fixes.
 
 == Changelog ==
 
+= 2.0.29 =
+* Whitelist the polldaddy api key blog option so it can be updated by Jetpack.
+* Fix label on the poll settings page
+* Added a "How to I get my ratings back?" FAQ
+* Show ratings in edit-comments.php in WordPress 4.4
+
 = 2.0.28 =
-Don't show "Connect to Polldaddy" notice everywhere. Only on plugins and polls pages
+* Don't show "Connect to Polldaddy" notice everywhere. Only on plugins and polls pages
 
 = 2.0.27 =
 * Fixed WP_Widget warning.

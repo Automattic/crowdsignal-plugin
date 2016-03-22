@@ -6,7 +6,7 @@ Plugin URI: http://wordpress.org/extend/plugins/polldaddy/
 Description: Create and manage Polldaddy polls and ratings in WordPress
 Author: Automattic, Inc.
 Author URL: http://polldaddy.com/
-Version: 2.0.28
+Version: 2.0.29
 */
 
 // You can hardcode your Polldaddy PartnerGUID (API Key) here
