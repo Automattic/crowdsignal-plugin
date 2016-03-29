@@ -3,7 +3,7 @@ Contributors: eoigal, alternatekev, mdawaffe, donncha, johnny5
 Tags: polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 3.3
 Tested up to: 4.4.2
-Stable tag: 2.0.29
+Stable tag: 2.0.30
 
 Create and manage Polldaddy polls and ratings from within WordPress.
 
@@ -116,9 +116,13 @@ Your theme is getting the post content, without necessarily showing it. If the p
 
 
 == Upgrade Notice ==
-Minor bug fixes.
+Fixed warning when submitting comments and ratings display clobbering embed shortcuts.
 
 == Changelog ==
+
+= 2.0.30 =
+* When ratings are displayed at the top of a post separate it with a linebreak, not BR so YT URLs embed properly.
+* Fix "parameter missing" when submitting comments when comment ratings are enabled.
 
 = 2.0.29 =
 * Whitelist the polldaddy api key blog option so it can be updated by Jetpack.
