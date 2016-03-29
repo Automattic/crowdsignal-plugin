@@ -51,7 +51,7 @@ function polldaddy_show_rating( $content ) {
 					}
 	
 					if ( $rating_pos == 0 )
-						$content = $html . '<br/>' . $content;
+						$content = $html . "\n" . $content;
 					else
 						$content .= $html;
 				}
