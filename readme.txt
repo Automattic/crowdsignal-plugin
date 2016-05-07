@@ -2,7 +2,7 @@
 Contributors: eoigal, alternatekev, mdawaffe, donncha, johnny5
 Tags: polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 3.3
-Tested up to: 4.4.2
+Tested up to: 4.5.2
 Stable tag: 2.0.30
 
 Create and manage Polldaddy polls and ratings from within WordPress.
