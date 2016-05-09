@@ -1002,10 +1002,14 @@ if ( class_exists( 'WP_Widget' ) ) {
 
         	echo '</script>';
 			
+			if ( is_ssl() )
+				$rating_js_file = "https://polldaddy.com/js/rating/rating-top.js";
+			else
+				$rating_js_file = "http://i0.poll.fm/js/rating/rating-top.js";
 			$widget = <<<EOD
 {$before_title}{$title}{$after_title}
 <div id="pd_top_rated_holder" class="pd_top_rated_holder_{$widget_class}"></div>
-<script language="javascript" charset="UTF-8" src="http://i0.poll.fm/js/rating/rating-top.js"></script>
+<script language="javascript" charset="UTF-8" src="{$rating_js_file}"></script>
 <script type="text/javascript" charset="UTF-8"><!--//--><![CDATA[//><!--
 PDRTJS_TOP = new PDRTJS_RATING_TOP( {$posts_rating_id}, {$pages_rating_id}, {$comments_rating_id}, '{$rating_seq}', {$instance['item_count']} );{$filter}{$show}
 //--><!]]></script>
