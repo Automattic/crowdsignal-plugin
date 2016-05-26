@@ -924,7 +924,16 @@ new PolldaddyShortcode();
 if ( !function_exists( 'polldaddy_link' ) ) {
 	// http://polldaddy.com/poll/1562975/?view=results&msg=voted
 	function polldaddy_link( $content ) {
-		return preg_replace( '!(?:\n|\A)http://polldaddy.com/poll/([0-9]+?)/(.+)?(?:\n|\Z)!i', "\n<script type='text/javascript' charset='utf-8' src='//static.polldaddy.com/p/$1.js'></script><noscript> <a href='http://polldaddy.com/poll/$1/'>View Poll</a></noscript>\n", $content );
+		if ( false === strpos( $content, "polldaddy.com/" ) )
+			return $content;
+		$textarr = wp_html_split( $content );
+		unset( $content );
+		foreach( $textarr as &$element ) {
+			if ( '' === $element || '<' === $element{0} )
+				continue;
+			$element = preg_replace( '!(?:\n|\A)http://polldaddy.com/poll/([0-9]+?)/(.+)?(?:\n|\Z)!i', "\n<script type='text/javascript' charset='utf-8' src='//static.polldaddy.com/p/$1.js'></script><noscript> <a href='http://polldaddy.com/poll/$1/'>View Poll</a></noscript>\n", $element );
+		}
+		return join( $textarr );
 	}
 	
 	// higher priority because we need it before auto-link and autop get to it
