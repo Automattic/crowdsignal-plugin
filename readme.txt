@@ -3,7 +3,7 @@ Contributors: eoigal, mdawaffe, donncha, johnny5, panosktn
 Tags: polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 3.3
 Tested up to: 4.5.2
-Stable tag: 2.0.31
+Stable tag: 2.0.32
 
 Create and manage Polldaddy polls and ratings from within WordPress.
 
@@ -119,6 +119,9 @@ Your theme is getting the post content, without necessarily showing it. If the p
 Fixed the "top ratings" widget on secure sites
 
 == Changelog ==
+
+= 2.0.32 =
+* Fix xss vulnerability when adding Polldaddy links to post content
 
 = 2.0.31 =
 * Fixed the "top ratings" widget on secure sites
