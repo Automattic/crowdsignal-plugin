@@ -98,13 +98,13 @@ class WP_Polldaddy {
 		$capability = 'edit_posts';
 		$function   = array( &$this, 'management_page' );
 
-		$hook = add_object_page( __( 'Feedback', 'polldaddy' ), __( 'Feedback', 'polldaddy' ), $capability, 'feedback', $function, 'div' );
+		$hook = add_menu_page( __( 'Feedback', 'polldaddy' ), __( 'Feedback', 'polldaddy' ), $capability, 'feedback', $function, 'div' );
 		add_action( "load-$hook", array( &$this, 'management_page_load' ) );
 		
 		foreach( array( 'polls' => __( 'Polls', 'polldaddy' ), 'ratings' => __( 'Ratings', 'polldaddy' ) ) as $menu_slug => $page_title ) {
 			$menu_title  = $page_title;
 			
-			$hook = add_object_page( $menu_title, $menu_title, $capability, $menu_slug, $function, 'div' );
+			$hook = add_menu_page( $menu_title, $menu_title, $capability, $menu_slug, $function, 'div' );
 			add_action( "load-$hook", array( &$this, 'management_page_load' ) );
 			
 			add_submenu_page( 'feedback', $page_title, $page_title, $capability, $menu_slug, $function );			
