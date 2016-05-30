@@ -50,7 +50,11 @@ class WP_Polldaddy {
 				if ( $jetpack_active_modules && in_array( 'contact-form', $jetpack_active_modules ) )
 					$this->has_feedback_menu = true;
 			}
-			Jetpack_Sync::sync_options( __FILE__, 'polldaddy_api_key' );
+
+			if ( class_exists( 'Jetpack_Sync' ) && defined( 'JETPACK__VERSION' ) &&  version_compare( JETPACK__VERSION, '4.1', '<' ) ) {
+				Jetpack_Sync::sync_options( __FILE__, 'polldaddy_api_key' );
+			}
+
 			add_filter( 'jetpack_options_whitelist', array( $this, 'add_to_jetpack_options_whitelist' ) );
 		}
 	}
