@@ -1,7 +1,7 @@
 <?php
 
 class Ghetto_XML_Object {
-	function Ghetto_XML_Object( $args = null, $attributes = null ) {
+	function __construct( $args = null, $attributes = null ) {
 		if ( get_object_vars( $this ) )
 			$this->___restrict = true;
 		else
@@ -658,7 +658,7 @@ class Polldaddy_XML_Parser {
 
 	var $objects = array();
 
-	function Polldaddy_XML_Parser( $xml = null ) {
+	function __construct( $xml = null ) {
 		if ( is_null( $xml ) )
 			return;
 
