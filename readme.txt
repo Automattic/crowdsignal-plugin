@@ -2,8 +2,8 @@
 Contributors: eoigal, mdawaffe, donncha, johnny5, panosktn
 Tags: polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 3.3
-Tested up to: 4.7
-Stable tag: 2.0.33
+Tested up to: 4.7.1
+Stable tag: 2.0.34
 
 Create and manage Polldaddy polls and ratings from within WordPress.
 
@@ -116,9 +116,13 @@ Your theme is getting the post content, without necessarily showing it. If the p
 
 
 == Upgrade Notice ==
-Fixed the "top ratings" widget on secure sites
+Fixed a class constructor warning, and a rating comments PHP notice
 
 == Changelog ==
+
+= 2.0.34 =
+* Renamed class constructors so they don't become a problem in a future version of PHP
+* Checked the type of $comment in rating.php to avoid PHP notices
 
 = 2.0.33 =
 * Do not use Jetpack_Sync if deprecated
