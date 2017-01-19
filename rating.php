@@ -4,7 +4,7 @@ if ( function_exists( 'get_option' ) == false )
 	die( "Cheatin' eh?" );
 
 function polldaddy_show_rating_comments( $content, $comment = 0, $args = 0 ) {
-	if ( $comment == 0 )
+	if ( is_numeric( $comment ) && $comment == 0 )
 		return $content;
 
 	if ( !is_feed() && !defined( 'DOING_AJAX' ) ) {
