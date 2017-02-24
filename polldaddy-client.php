@@ -16,7 +16,7 @@ class api_client {
 	var $responses    = array();
 	var $errors       = array();
 
-	function api_client( $partnerGUID = '', $userCode = null ) {
+	function __constructor( $partnerGUID = '', $userCode = null ) {
 		$this->partnerGUID = $partnerGUID;
 		$this->userCode = $userCode;
 	}
