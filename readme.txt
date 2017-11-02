@@ -2,8 +2,8 @@
 Contributors: eoigal, mdawaffe, donncha, johnny5, panosktn
 Tags: polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 3.3
-Tested up to: 4.7.1
-Stable tag: 2.0.34
+Tested up to: 4.8
+Stable tag: 2.0.35
 
 Create and manage Polldaddy polls and ratings from within WordPress.
 
@@ -119,6 +119,10 @@ Your theme is getting the post content, without necessarily showing it. If the p
 Fixed a class constructor warning, and a rating comments PHP notice
 
 == Changelog ==
+
+= 2.0.35 =
+* Minor fix for remaining legacy class constructor with PHP 7.
+* Fixed possible PHP error in poll rating calculation.
 
 = 2.0.34 =
 * Renamed class constructors so they don't become a problem in a future version of PHP
