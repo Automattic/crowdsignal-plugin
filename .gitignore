@@ -1,0 +1,19 @@
+/nbproject/private/
+/node_modules/
+package-lock.json
+yarn.lock
+project.xml
+project.properties
+.DS_Store
+Thumbs.db
+.buildpath
+.project
+.settings*
+sftp-config.json
+/deploy/
+/vendor/
+/tmp/
+
+# Ignore all log files except for .htaccess
+/logs/*
+!/logs/.htaccess
