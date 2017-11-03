@@ -950,7 +950,7 @@ add_filter( 'widget_text', 'do_shortcode' );
  * Polldaddy Top Rated Widget
  *
  * **/
-if ( class_exists( 'WP_Widget' ) ) {
+if ( class_exists( 'WP_Widget' ) && ! class_exists( 'PD_Top_Rated' ) ) {
 	class PD_Top_Rated extends WP_Widget {
 
 		function __construct() {
@@ -1089,7 +1089,13 @@ EOD;
 	<?php
 		}
 	}
-	add_action('widgets_init', create_function('', 'return register_widget("PD_Top_Rated");'));
+}
+
+if ( class_exists( 'PD_Top_Rated' ) ) {
+	function polldaddy_register_top_rated_widget() {
+		return register_widget( 'PD_Top_Rated' );
+	}
+	add_action( 'widgets_init', 'polldaddy_register_top_rated_widget' );
 }
 
 function polldaddy_login_warning() {
