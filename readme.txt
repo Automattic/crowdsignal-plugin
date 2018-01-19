@@ -55,15 +55,14 @@ Polldaddy Polls is currently available in the following languages:
 
 Want to help translate the plugin or keep an existing translation up-to-date? Head on over to the [translation site](http://translate.wordpress.com/projects/polldaddy/plugin).
 
-Some strings are not translated when polls and surveys are embedded. You will have to translate them using a language pack on [http://polldaddy.com/](Polldaddy.com).
+Some strings are not translated when polls and surveys are embedded. You will have to translate them using a language pack on [Polldaddy.com](http://polldaddy.com/).
 
-Development of the plugin will take place in [https://github.com/Automattic/polldaddy-plugin](this Github repository).
+Development of the plugin will take place in [this Github repository](https://github.com/Automattic/polldaddy-plugin).
 
 == Installation ==
 
-Upload the plugin to your blog (or search for it and install it on your plugins page), activate it, then go to Settings->Polls to configure the plugin. You'll need a Polldaddy API key available from your [Polldaddy account 
-page](http://polldaddy.com/account/#apikey) to sync your account and pull in your existing polls and ratings.
-Polldaddy.com is now linked to WordPress.com using [WordPress.com Connect](http://en.support.wordpress.com/wpcc-faq/) which means you can use your WordPress.com username and password to login to Polldaddy.com. If you have a WordPress.com account and have never used Polldaddy.com you can login [here](https://polldaddy.com/login/) to access Polldaddy.com. 
+Upload the plugin to your blog (or search for it and install it on your plugins page), activate it, then go to Settings->Polls to configure the plugin. You'll need a Polldaddy API key available from your [Polldaddy account page](http://polldaddy.com/account/#apikey) to sync your account and pull in your existing polls and ratings.
+Polldaddy.com is now linked to WordPress.com using [WordPress.com Connect](http://en.support.wordpress.com/wpcc-faq/) which means you can use your WordPress.com username and password to login to Polldaddy.com. If you have a WordPress.com account and have never used Polldaddy.com you can login [here](https://polldaddy.com/login/) to access Polldaddy.com.
 
 You can find further help on our [support page](http://support.polldaddy.com/). If you have any problems please use the [support forum](http://wordpress.org/support/plugin/polldaddy). The plugin also logs activity to a file using the [WP Debug Logger](http://wordpress.org/extend/plugins/wp-debug-logger/) plugin which can be useful in determining the cause of a problem.
 
@@ -118,9 +117,12 @@ Your theme is getting the post content, without necessarily showing it. If the p
 
 
 == Upgrade Notice ==
-Fixed a class constructor warning, and a rating comments PHP notice
+Check if top rated class is already defined to avoid fatal errors.
 
 == Changelog ==
+
+= 2.0.36 =
+* The "top rated" widget class is defined by some hosts already so check if it exists before creating it again.
 
 = 2.0.35 =
 * Minor fix for remaining legacy class constructor with PHP 7.
