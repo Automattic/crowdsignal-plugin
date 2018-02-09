@@ -3,7 +3,7 @@
 require_once dirname( __FILE__ ) . '/polldaddy-xml.php';
 
 class api_client {
-	var $polldaddy_url = 'http://api.polldaddy.com/';
+	var $polldaddy_url = 'https://api.polldaddy.com/';
 	var $partnerGUID;
 	var $userCode;
 	var $admin        = 0;
