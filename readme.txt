@@ -2,8 +2,8 @@
 Contributors: eoigal, mdawaffe, donncha, johnny5, panosktn
 Tags: polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 3.3
-Tested up to: 4.9.2
-Stable tag: 2.0.36
+Tested up to: 4.9.4
+Stable tag: 2.0.37
 
 Create and manage Polldaddy polls and ratings from within WordPress.
 
@@ -117,9 +117,13 @@ Your theme is getting the post content, without necessarily showing it. If the p
 
 
 == Upgrade Notice ==
-Check if top rated class is already defined to avoid fatal errors.
+Don't autoload the usercode blog options
 
 == Changelog ==
+
+= 2.0.37 =
+* The usercode blog options don't need to be autoloaded.
+* Use HTTPS for the API url.
 
 = 2.0.36 =
 * The "top rated" widget class is defined by some hosts already so check if it exists before creating it again.
