@@ -272,7 +272,13 @@ class WP_Polldaddy {
 
 			if ( isset( $this->errors->errors[4] ) ) {
 				//need to get latest usercode
-				update_option( 'pd-usercode-'.$this->id, '' );
+				global $wp_version;
+				if ( version_compare( $wp_version, '4.2', '<' ) ) {
+					delete_option( 'pd-usercode-' . $this->id );
+					add_option( 'pd-usercode-' . $this->id, '', '', false );
+				} else {
+					update_option( 'pd-usercode-' . $this->id, '', false );
+				}
 				$this->set_api_user_code();
 			}
 	}
@@ -363,7 +369,13 @@ class WP_Polldaddy {
 			$this->user_code = $polldaddy->get_usercode( $this->id );
 
 			if ( !empty( $this->user_code ) ) {
-				update_option( 'pd-usercode-'.$this->id, $this->user_code );
+				global $wp_version;
+				if ( version_compare( $wp_version, '4.2', '<' ) ) {
+					delete_option( 'pd-usercode-' . $this->id );
+					add_option( 'pd-usercode-' . $this->id, $this->user_code, '', false );
+				} else {
+					update_option( 'pd-usercode-' . $this->id, $this->user_code, false );
+				}
 			} elseif ( get_option( 'polldaddy_api_key' ) ) {
 				$this->contact_support_message( 'There was a problem linking your account', $polldaddy->errors );
 			}
@@ -535,7 +547,13 @@ class WP_Polldaddy {
 				check_admin_referer( 'polldaddy-account' );
 
 				$this->user_code = '';
-				update_option( 'pd-usercode-'.$this->id, '' );
+				global $wp_version;
+				if ( version_compare( $wp_version, '4.2', '<' ) ) {
+					delete_option( 'pd-usercode-' . $this->id );
+					add_option( 'pd-usercode-' . $this->id, '', false );
+				} else {
+					update_option( 'pd-usercode-' . $this->id, '', false );
+				}
 
 				if ( $new_args = $this->management_page_load_signup() )
 					$query_args = array_merge( $query_args, $new_args );
