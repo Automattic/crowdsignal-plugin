@@ -181,7 +181,7 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 		);
 
 		if ( function_exists( 'wp_remote_post' ) ) { // WP 2.7+
-			$polldaddy_api_key = wp_remote_post( $this->scheme . '://api.polldaddy.com/key.php', array(
+			$polldaddy_api_key = wp_remote_post( 'https://api.polldaddy.com/key.php', array(
 					'body' => $details
 				) );
 			if ( is_wp_error( $polldaddy_api_key ) ) {
