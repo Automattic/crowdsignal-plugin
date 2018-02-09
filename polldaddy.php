@@ -6,7 +6,7 @@
  * Description: Create and manage Polldaddy polls and ratings in WordPress
  * Author: Automattic, Inc.
  * Author URL: http://polldaddy.com/
- * Version: 2.0.36
+ * Version: 2.0.37
  */
 
 // To hardcode your Polldaddy PartnerGUID (API Key), add the (uncommented) line below with the PartnerGUID to your `wp-config.php`
