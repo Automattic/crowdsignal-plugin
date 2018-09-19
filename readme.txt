@@ -1,19 +1,19 @@
-=== Polldaddy Polls & Ratings ===
+=== Crowdsignal Polls & Ratings ===
 Contributors: eoigal, mdawaffe, donncha, johnny5, panosktn
-Tags: polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
+Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 3.3
 Tested up to: 4.9.4
 Stable tag: 2.0.37
 
-Create and manage Polldaddy polls and ratings from within WordPress.
+Create and manage Crowdsignal polls and ratings from within WordPress.
 
 == Description ==
 
-The Polldaddy Polls and Ratings plugin allows you to create and manage polls and ratings from within your WordPress dashboard. You can create polls, choose from 20 different styles for your polls, and view all results for your polls as they come in. All Polldaddy polls are fully customizable, you can set a close date for your poll, create multiple choice polls, choose whether to display the results or keep them private. You can also create your own custom style for your poll. You can even embed the polls you create on other websites. You can collect unlimited votes and create unlimited polls. The new ratings menu allows you to embed ratings into your posts, pages or comments. The rating editor allows you to fully customize your rating. You can also avail of the 'Top Rated' widget that will allow you to place the widget in your sidebar. This widget will show you the top rated posts, pages and comments today, this week and this month.
+The Crowdsignal Polls and Ratings plugin allows you to create and manage polls and ratings from within your WordPress dashboard. You can create polls, choose from 20 different styles for your polls, and view all results for your polls as they come in. All Crowdsignal polls are fully customizable, you can set a close date for your poll, create multiple choice polls, choose whether to display the results or keep them private. You can also create your own custom style for your poll. You can even embed the polls you create on other websites. You can collect unlimited votes and create unlimited polls. The new ratings menu allows you to embed ratings into your posts, pages or comments. The rating editor allows you to fully customize your rating. You can also avail of the 'Top Rated' widget that will allow you to place the widget in your sidebar. This widget will show you the top rated posts, pages and comments today, this week and this month.
 
-The Polldaddy plugin requires PHP 5.
+The Crowdsignal plugin requires PHP 5.
 
-Polldaddy Polls is currently available in the following languages:
+Crowdsignal Polls is currently available in the following languages:
 
 * Arabic
 * Bosnian
@@ -55,16 +55,16 @@ Polldaddy Polls is currently available in the following languages:
 
 Want to help translate the plugin or keep an existing translation up-to-date? Head on over to the [translation site](http://translate.wordpress.com/projects/polldaddy/plugin).
 
-Some strings are not translated when polls and surveys are embedded. You will have to translate them using a language pack on [Polldaddy.com](http://polldaddy.com/).
+Some strings are not translated when polls and surveys are embedded. You will have to translate them using a language pack on [Crowdsignal.com](https://crowdsignal.com/).
 
 Development of the plugin will take place in [this Github repository](https://github.com/Automattic/polldaddy-plugin).
 
 == Installation ==
 
-Upload the plugin to your blog (or search for it and install it on your plugins page), activate it, then go to Settings->Polls to configure the plugin. You'll need a Polldaddy API key available from your [Polldaddy account page](http://polldaddy.com/account/#apikey) to sync your account and pull in your existing polls and ratings.
-Polldaddy.com is now linked to WordPress.com using [WordPress.com Connect](http://en.support.wordpress.com/wpcc-faq/) which means you can use your WordPress.com username and password to login to Polldaddy.com. If you have a WordPress.com account and have never used Polldaddy.com you can login [here](https://polldaddy.com/login/) to access Polldaddy.com.
+Upload the plugin to your blog (or search for it and install it on your plugins page), activate it, then go to Settings->Polls to configure the plugin. You'll need a Crowdsignal API key available from your [Crowdsignal account page](https://app.crowdsignal.com/account/#apikey) to sync your account and pull in your existing polls and ratings.
+Crowdsignal.com is now linked to WordPress.com using [WordPress.com Connect](http://en.support.wordpress.com/wpcc-faq/) which means you can use your WordPress.com username and password to login to Crowdsignal.com. If you have a WordPress.com account and have never used Crowdsignal.com you can login [here](https://app.crowdsignal.com/login/) to access Crowdsignal.com.
 
-You can find further help on our [support page](http://support.polldaddy.com/). If you have any problems please use the [support forum](http://wordpress.org/support/plugin/polldaddy). The plugin also logs activity to a file using the [WP Debug Logger](http://wordpress.org/extend/plugins/wp-debug-logger/) plugin which can be useful in determining the cause of a problem.
+You can find further help on our [support page](https://crowdsignal.com/support/). If you have any problems please use the [support forum](http://wordpress.org/support/plugin/polldaddy). The plugin also logs activity to a file using the [WP Debug Logger](http://wordpress.org/extend/plugins/wp-debug-logger/) plugin which can be useful in determining the cause of a problem.
 
 == Screenshots ==
 
@@ -83,11 +83,11 @@ The Polls & Ratings menus can now be found under the Feedbacks top level menu.
 
 = I have multiple authors on my blog?  What happens? =
 
-Each author that wants to create polls will need his or her own Polldaddy.com account.
+Each author that wants to create polls will need his or her own Crowdsignal.com account.
 
 = But, as an Administrator, can I edit my Authors' polls =
 
-Yes. You'll be able to edit the polls they create from your blog.  (You won't be able to edit any of their non-blog, personal polls they create through Polldaddy.com.)
+Yes. You'll be able to edit the polls they create from your blog.  (You won't be able to edit any of their non-blog, personal polls they create through Crowdsignal.com.)
 
 = Neat! Um... can my Authors edit MY blog polls? =
 
@@ -101,9 +101,9 @@ More info [here](http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks)
 
 = My ratings are gone after I reinstalled the plugin. How do I get them back? =
 
-Login to your Polldaddy.com account and [view the ratings](https://polldaddy.com/dashboard/?content=rating) in your dashboard. You should see ratings named "blog name - " comments/posts/pages. You need the rating ID of each of those which is visible when you edit them. It's the number in the URL of your browser that looks like https://polldaddy.com/ratings/1234567/edit/. After you connect the plugin to your Polldaddy account go to Settings->Ratings and make sure the ratings are displayed on your posts/pages/comments as desired. You'll see a link at the bottom of the page saying, "Advanced Settings" that will toggle new configuration settings. One of those settings is "rating ID" which you should replace with the number you got from your Polldaddy account. Now save the changes and the ratings on your site will be updated.
+Login to your Crowdsignal.com account and [view the ratings](https://app.crowdsignal.com/dashboard/?content=rating) in your dashboard. You should see ratings named "blog name - " comments/posts/pages. You need the rating ID of each of those which is visible when you edit them. It's the number in the URL of your browser that looks like https://app.crowdsignal.com/ratings/1234567/edit/. After you connect the plugin to your Crowdsignal account go to Settings->Ratings and make sure the ratings are displayed on your posts/pages/comments as desired. You'll see a link at the bottom of the page saying, "Advanced Settings" that will toggle new configuration settings. One of those settings is "rating ID" which you should replace with the number you got from your Crowdsignal account. Now save the changes and the ratings on your site will be updated.
 
-= I cannot access my ratings settings, I am getting a "Sorry! There was an error creating your rating widget. Please contact Polldaddy support to fix this." message. =
+= I cannot access my ratings settings, I am getting a "Sorry! There was an error creating your rating widget. Please contact Crowdsignal support to fix this." message. =
 
 You need to select the synchronize ratings account in the WordPress options page at Settings->Polls & Ratings to make sure the ratings API key is valid.
 
