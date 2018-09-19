@@ -181,7 +181,7 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 		);
 
 		if ( function_exists( 'wp_remote_post' ) ) { // WP 2.7+
-			$polldaddy_api_key = wp_remote_post( 'https://api.polldaddy.com/key.php', array(
+			$polldaddy_api_key = wp_remote_post( polldaddy_api_url( '/key' ), array(
 					'body' => $details
 				) );
 			if ( is_wp_error( $polldaddy_api_key ) ) {
@@ -197,11 +197,11 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 			$polldaddy_api_key = wp_remote_retrieve_body( $polldaddy_api_key );
 		} else {
 			$fp = fsockopen(
-				'api.polldaddy.com',
-				80,
+				polldaddy_api_url( '/', POLLDADDY_API_VERSION, 'tls' ),
+				443,
 				$err_num,
 				$err_str,
-				3
+				5
 			);
 
 			if ( !$fp ) {
@@ -217,8 +217,8 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 
 			$request_body = http_build_query( $details, null, '&' );
 
-			$request  = "POST /key.php HTTP/1.0\r\n";
-			$request .= "Host: api.polldaddy.com\r\n";
+			$request  = 'POST ' . polldaddy_api_path( '/key' ) . " HTTP/1.0\r\n";
+			$request .= 'Host: ' . POLLDADDY_API_HOST . "\r\n";
 			$request .= "User-agent: WordPress/$wp_version\r\n";
 			$request .= 'Content-Type: application/x-www-form-urlencoded; charset=' . get_option('blog_charset') . "\r\n";
 			$request .= 'Content-Length: ' . strlen( $request_body ) . "\r\n";

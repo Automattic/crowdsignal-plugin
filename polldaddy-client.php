@@ -3,7 +3,6 @@
 require_once dirname( __FILE__ ) . '/polldaddy-xml.php';
 
 class api_client {
-	var $polldaddy_url = 'https://api.polldaddy.com/';
 	var $partnerGUID;
 	var $userCode;
 	var $admin        = 0;
@@ -24,32 +23,26 @@ class api_client {
 	function send_request( $timeout = 3 ) {
 		$this->request_xml  = "<?xml version='1.0' encoding='utf-8' ?>\n";
 		$this->request_xml .= $this->request->xml( 'all' );
-		
+
 		$this->requests[] = $this->request_xml;
 
 		if ( function_exists( 'wp_remote_post' ) ) {
-			$response = wp_remote_post( $this->polldaddy_url, array(
+			$response = wp_remote_post( polldaddy_api_url( '/' ), array(
 				'headers' => array( 'Content-Type' => 'text/xml; charset=utf-8', 'Content-Length' => strlen( $this->request_xml ) ),
 				'user-agent' => 'Polldaddy PHP Client/0.1',
 				'timeout' => $timeout,
 				'body' => $this->request_xml
 			) );
+
 			if ( !$response || is_wp_error( $response ) ) {
 				$this->errors[-1] = "Can't connect";
 				return false;
 			}
 			$this->response_xml = wp_remote_retrieve_body( $response );
 		} else {
-			$parsed = parse_url( $this->polldaddy_url );
-
-			if ( !isset( $parsed['host'] ) && !isset( $parsed['scheme'] ) ) {
-				$this->errors[-1] = 'Invalid API URL';
-				return false;
-			}
-			
 			$fp = fsockopen(
-				$parsed['host'],
-				$parsed['scheme'] == 'ssl' || $parsed['scheme'] == 'https' && extension_loaded('openssl') ? 443 : 80,
+				polldaddy_api_url( '/', POLLDADDY_API_VERSION, 'tls' ),
+				443,
 				$err_num,
 				$err_str,
 				$timeout
@@ -66,8 +59,8 @@ class api_client {
 			if ( !isset( $parsed['path']) || !$path = $parsed['path'] . ( isset($parsed['query']) ? '?' . $parsed['query'] : '' ) )
 				$path = '/';
 
-			$request  = "POST $path HTTP/1.0\r\n";
-			$request .= "Host: {$parsed['host']}\r\n";
+			$request  = 'POST ' . polldaddy_api_path( $path ) . " HTTP/1.0\r\n";
+			$request .= 'Host: ' . POLLDADDY_API_HOST . "\r\n";
 			$request .= "User-agent: Polldaddy PHP Client/0.1\r\n";
 			$request .= "Content-Type: text/xml; charset=utf-8\r\n";
 			$request .= 'Content-Length: ' . strlen( $this->request_xml ) . "\r\n";
@@ -184,8 +177,9 @@ class api_client {
 			'partnerUserID' => $partnerUserID
 		) );
 		$this->send_request();
-		if ( isset( $this->response->userCode ) )
+		if ( isset( $this->response->userCode ) ) {
 			return $this->response->userCode;
+		}
 		return false;
 	}
 

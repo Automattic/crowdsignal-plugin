@@ -12,6 +12,27 @@
 // To hardcode your Polldaddy PartnerGUID (API Key), add the (uncommented) line below with the PartnerGUID to your `wp-config.php`
 // define( 'WP_POLLDADDY__PARTNERGUID', '12345…' );
 
+if ( ! defined( 'POLLDADDY_API_HOST' ) ) {
+	define( 'POLLDADDY_API_HOST', 'api.crowdsignal.com' );
+}
+
+if ( ! defined( 'POLLDADDY_API_VERSION' ) ) {
+	define( 'POLLDADDY_API_VERSION', 'v1');
+}
+
+function polldaddy_api_path( $path, $version = POLLDADDY_API_VERSION ) {
+	return sprintf( '/%s%s', $version, $path );
+}
+
+function polldaddy_api_url( $path, $version = POLLDADDY_API_VERSION, $protocol = 'https' ) {
+	return sprintf(
+		'%s://%s%s',
+		$protocol,
+		POLLDADDY_API_HOST,
+		rtrim( polldaddy_api_path( $path, $version ), '/' )
+	);
+}
+
 function polldaddy_add_oembed_provider() {
 	wp_oembed_add_provider( '#https?://(.+\.)?polldaddy\.com/.*#i', 'https://api.crowdsignal.com/oembed', true );
 	wp_oembed_add_provider( '#https?://.+\.survey\.fm/.*#i', 'https://api.crowdsignal.com/oembed', true );
@@ -210,7 +231,7 @@ class WP_Polldaddy {
 			'partner_userid' => $this->id
 		);
 		if ( function_exists( 'wp_remote_post' ) ) { // WP 2.7+
-			$polldaddy_api_key = wp_remote_post( 'https://api.polldaddy.com/key.php', array(
+			$polldaddy_api_key = wp_remote_post( polldaddy_api_url( '/key' ), array(
 					'body' => $details
 				) );
 			if ( is_wp_error( $polldaddy_api_key ) ) {
@@ -220,11 +241,11 @@ class WP_Polldaddy {
 			$polldaddy_api_key = wp_remote_retrieve_body( $polldaddy_api_key );
 		} else {
 			$fp = fsockopen(
-				'api.polldaddy.com',
-				80,
+				polldaddy_api_url( '/', POLLDADDY_API_VERSION, 'tls' ),
+				443,
 				$err_num,
 				$err_str,
-				3
+				5
 			);
 
 			if ( !$fp ) {
@@ -239,8 +260,8 @@ class WP_Polldaddy {
 
 			$request_body = http_build_query( $details, null, '&' );
 
-			$request  = "POST /key.php HTTP/1.0\r\n";
-			$request .= "Host: api.polldaddy.com\r\n";
+			$request  = 'POST ' . polldaddy_api_path( '/key' ) . " HTTP/1.0\r\n";
+			$request .= 'Host: ' . POLLDADDY_API_HOST . "\r\n";
 			$request .= "User-agent: WordPress/$wp_version\r\n";
 			$request .= 'Content-Type: application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ) . "\r\n";
 			$request .= 'Content-Length: ' . strlen( $request_body ) . "\r\n";
