@@ -18,6 +18,7 @@ class PolldaddyShortcode {
 	 */
 	function __construct() {
 		if ( defined( 'GLOBAL_TAGS' ) == false ) {
+			add_shortcode( 'crowdsignal', array( $this, 'polldaddy_shortcode' ) );
 			add_shortcode( 'polldaddy', array( $this, 'polldaddy_shortcode' ) );
 		}
 		add_action( 'wp_enqueue_scripts', array( $this, 'check_infinite' ) );
@@ -25,15 +26,12 @@ class PolldaddyShortcode {
 	}
 
 	private function get_async_code( array $settings, $survey_link ) {
-		$embed_src     = 'http://i0.poll.fm/survey.js';
-		$embed_src_ssl = 'https://polldaddy.com/survey.js';
-
 		$include = <<<CONTAINER
 ( function( d, c, j ) {
   if ( !d.getElementById( j ) ) {
     var pd = d.createElement( c ), s;
     pd.id = j;
-    pd.src = ( 'https:' == d.location.protocol ) ? '{$embed_src_ssl}' : '{$embed_src}';
+    pd.src = 'https://polldaddy.com/survey.js';
     s = d.getElementsByTagName( c )[0];
     s.parentNode.insertBefore( pd, s );
   }
@@ -65,10 +63,9 @@ CONTAINER;
 	}
 
 	/**
-	 * Shortcode for polldadddy
+	 * Shortcode for Crowdsignal
 	 * [crowdsignal poll|survey|rating="123456"]
 	 * [polldaddy poll|survey|rating="123456"]
-	 *
 	 */
 	function polldaddy_shortcode( $atts ) {
 		global $post;
@@ -97,10 +94,10 @@ CONTAINER;
 			'visit'      => 'single',
 			'domain'     => '',
 			'id'         => ''
-		), $atts, 'polldaddy' ) );
+		), $atts, 'crowdsignal' ) );
 
 		if ( ! is_array( $atts ) ) {
-			return '<!-- Polldaddy shortcode passed invalid attributes -->';
+			return '<!-- Crowdsignal shortcode passed invalid attributes -->';
 		}
 
 		$inline          = !in_the_loop();
@@ -149,10 +146,6 @@ CONTAINER;
 			) );
 
 			$item_id = esc_js( $item_id );
-			if ( is_ssl() )
-				$rating_js_file = "https://polldaddy.com/js/rating/rating.js";
-			else
-				$rating_js_file = "http://i0.poll.fm/js/rating/rating.js";
 
 			if ( $inline ) {
 				return <<<SCRIPT
@@ -160,7 +153,7 @@ CONTAINER;
 <script type="text/javascript" charset="UTF-8"><!--//--><![CDATA[//><!--
 PDRTJS_settings_{$rating}{$item_id}={$settings};
 //--><!]]></script>
-<script type="text/javascript" charset="UTF-8" src="{$rating_js_file}"></script>
+<script type="text/javascript" charset="UTF-8" src="https://polldaddy.com/js/rating/rating.js"></script>
 SCRIPT;
 			} else {
 				if ( self::$scripts === false )
@@ -186,7 +179,7 @@ CONTAINER;
 		} elseif ( intval( $poll ) > 0 ) { //poll embed
 
 			$poll      = intval( $poll );
-			$poll_url  = sprintf( 'http://polldaddy.com/poll/%d', $poll );
+			$poll_url  = sprintf( 'https://poll.fm/%d', $poll );
 			$poll_js   = sprintf( '%s.polldaddy.com/p/%d.js', '//static', $poll );
 			$poll_link = sprintf( '<a href="%s">Take Our Poll</a>', $poll_url );
 
@@ -292,7 +285,7 @@ CONTAINER;
 					$inline = false;
 
 				$survey      = preg_replace( '/[^a-f0-9]/i', '', $survey );
-				$survey_url  = esc_url( "http://polldaddy.com/s/{$survey}" );
+				$survey_url  = esc_url( "https://survey.fm/{$survey}" );
 				$survey_link = sprintf( '<a href="%s">%s</a>', $survey_url, esc_html( $title ) );
 
 				if ( $no_script || $inline || $infinite_scroll )
@@ -321,17 +314,17 @@ CONTAINER;
 						$domain = preg_replace( '/[^a-z0-9\-]/i', '', $domain );
 						$id = preg_replace( '/[\/\?&\{\}]/', '', $id );
 
-						$auto_src = esc_url( "http://{$domain}.polldaddy.com/s/{$id}" );
+						$auto_src = esc_url( "https://{$domain}.survey.fm/{$id}" );
 						$auto_src = parse_url( $auto_src );
 
 						if ( !is_array( $auto_src ) || count( $auto_src ) == 0 )
-							return '<!-- no polldaddy output -->';
+							return '<!-- no crowdsignal output -->';
 
 						if ( !isset( $auto_src['host'] ) || !isset( $auto_src['path'] ) )
-							return '<!-- no polldaddy output -->';
+							return '<!-- no crowdsignal output -->';
 
-						$domain   = $auto_src['host'].'/s/';
-						$id       = str_ireplace( '/s/', '', $auto_src['path'] );
+						$domain   = $auto_src['host'] . '/';
+						$id       = $auto_src['path'];
 
 						$settings = array(
 							'type'       => $type,
@@ -368,12 +361,12 @@ CONTAINER;
 				}
 
 				if ( empty( $settings ) )
-					return '<!-- no polldaddy output -->';
+					return '<!-- no crowdsignal output -->';
 
 				return $this->get_async_code( $settings, $survey_link );
 			}
 		} else {
-			return '<!-- no polldaddy output -->';
+			return '<!-- no crowdsignal output -->';
 		}
 	}
 
@@ -381,17 +374,12 @@ CONTAINER;
 		$script = '';
 
 		if ( is_array( self::$scripts ) ) {
-			if ( is_ssl() )
-				$rating_js_file = "https://polldaddy.com/js/rating/rating.js";
-			else
-				$rating_js_file = "http://i0.poll.fm/js/rating/rating.js";
-
 			if ( isset( self::$scripts['rating'] ) ) {
 				$script = "<script type='text/javascript' charset='UTF-8' id='polldaddyRatings'><!--//--><![CDATA[//><!--\n";
 				foreach( self::$scripts['rating'] as $rating ) {
 					$script .= "PDRTJS_settings_{$rating['id']}{$rating['item_id']}={$rating['settings']}; if ( typeof PDRTJS_RATING !== 'undefined' ){if ( typeof PDRTJS_{$rating['id']}{$rating['item_id']} == 'undefined' ){PDRTJS_{$rating['id']}{$rating['item_id']} = new PDRTJS_RATING( PDRTJS_settings_{$rating['id']}{$rating['item_id']} );}}";
 				}
-				$script .= "\n//--><!]]></script><script type='text/javascript' charset='UTF-8' src='{$rating_js_file}'></script>";
+				$script .= "\n//--><!]]></script><script type='text/javascript' charset='UTF-8' src='https://polldaddy.com/js/rating/rating.js'></script>";
 
 			}
 
@@ -462,7 +450,7 @@ if ( !function_exists( 'polldaddy_link' ) ) {
 		foreach( $textarr as &$element ) {
 			if ( '' === $element || '<' === $element{0} )
 				continue;
-			$element = preg_replace( '!(?:\n|\A)http://polldaddy.com/poll/([0-9]+?)/(.+)?(?:\n|\Z)!i', "\n<script type='text/javascript' charset='utf-8' src='//static.polldaddy.com/p/$1.js'></script><noscript> <a href='http://polldaddy.com/poll/$1/'>View Poll</a></noscript>\n", $element );
+			$element = preg_replace( '!(?:\n|\A)https?://(polldaddy.com/poll|poll.fm)/([0-9]+?)/(.+)?(?:\n|\Z)!i', "\n<script type='text/javascript' charset='utf-8' src='//static.polldaddy.com/p/$1.js'></script><noscript> <a href='https://poll.fm/$1'>View Poll</a></noscript>\n", $element );
 		}
 		return join( $textarr );
 	}
