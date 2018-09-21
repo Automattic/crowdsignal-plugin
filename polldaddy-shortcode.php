@@ -41,9 +41,9 @@ CONTAINER;
 		// Compress it a bit
 		$include = $this->compress_it( $include );
 
-		$placeholder = '<div class="pd-embed" data-settings="'.esc_attr( json_encode( $settings ) ).'"></div>';
+		$placeholder = '<div class="cs-embed pd-embed" data-settings="'.esc_attr( json_encode( $settings ) ).'"></div>';
 		if ( $type === 'button' )
-			$placeholder = '<a class="pd-embed" href="'.esc_attr( $survey_link ).'" data-settings="'.esc_attr( json_encode( $settings ) ).'">'.esc_html( $settings['title'] ).'</a>';
+			$placeholder = '<a class="cs-embed pd-embed" href="'.esc_attr( $survey_link ).'" data-settings="'.esc_attr( json_encode( $settings ) ).'">'.esc_html( $settings['title'] ).'</a>';
 
 		$js_include = $placeholder."\n";
 		$js_include .= '<script type="text/javascript"><!--//--><![CDATA[//><!--'."\n";
@@ -149,7 +149,7 @@ CONTAINER;
 
 			if ( $inline ) {
 				return <<<SCRIPT
-<div class="pd-rating" id="pd_rating_holder_{$rating}{$item_id}"></div>
+<div class="cs-rating pd-rating" id="pd_rating_holder_{$rating}{$item_id}"></div>
 <script type="text/javascript" charset="UTF-8"><!--//--><![CDATA[//><!--
 PDRTJS_settings_{$rating}{$item_id}={$settings};
 //--><!]]></script>
@@ -169,11 +169,11 @@ SCRIPT;
 
 				if ( $infinite_scroll )
 					return <<<CONTAINER
-<div class="pd-rating" id="pd_rating_holder_{$rating}{$item_id}" data-settings="{$data}"></div>
+<div class="cs-rating pd-rating" id="pd_rating_holder_{$rating}{$item_id}" data-settings="{$data}"></div>
 CONTAINER;
 				else
 					return <<<CONTAINER
-<div class="pd-rating" id="pd_rating_holder_{$rating}{$item_id}"></div>
+<div class="cs-rating pd-rating" id="pd_rating_holder_{$rating}{$item_id}"></div>
 CONTAINER;
 			}
 		} elseif ( intval( $poll ) > 0 ) { //poll embed
@@ -234,7 +234,7 @@ CONTAINER;
 
 						$str = <<<CONTAINER
 <a name="pd_a_{$poll}"></a>
-<div class="PDS_Poll" id="PDI_container{$poll}" data-settings="{$data}" style="display:inline-block;{$float}{$margins}"></div>
+<div class="CSS_Poll PDS_Poll" id="PDI_container{$poll}" data-settings="{$data}" style="display:inline-block;{$float}{$margins}"></div>
 <div id="PD_superContainer"></div>
 <noscript>{$poll_link}</noscript>
 CONTAINER;
@@ -263,7 +263,7 @@ SCRIPT;
 
 						return <<<CONTAINER
 <a name="pd_a_{$poll}"></a>
-<div class="PDS_Poll" id="PDI_container{$poll}" style="display:inline-block;{$float}{$margins}"></div>
+<div class="CSS_Poll PDS_Poll" id="PDI_container{$poll}" style="display:inline-block;{$float}{$margins}"></div>
 <div id="PD_superContainer"></div>
 <script type="text/javascript" charset="UTF-8" src="{$poll_js}{$cb}"></script>
 <noscript>{$poll_link}</noscript>
