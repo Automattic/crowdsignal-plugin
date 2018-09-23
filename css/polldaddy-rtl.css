@@ -23,19 +23,23 @@ ul#answer-options li label{
 	padding-right: 5px;
 }
 
+ul.cs-tabs li,
 ul.pd-tabs li{
 	float: right;
 }
 
+ul.cs-tabs li.selected,
 ul.pd-tabs li.selected{
 	margin-right: 0;	
 	margin-left: 5px;	
 }
 
+.cs-embed-col,
 .pd-embed-col{
 	float: right;
 }
 
+.cs-label,
 .pd-label{
 	float:right;
 }

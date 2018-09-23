@@ -44,6 +44,7 @@ h2 a.button{
 	display: block;
 }
 
+.cs-box-header,
 .pd-box-header{
 	padding-bottom: 10px;
 	margin-bottom: 10px;
@@ -126,17 +127,20 @@ ul#answer-options li:last-of-type{
 	margin-bottom: 15px;
 }
 
+ul.cs-tabs,
 ul.pd-tabs{
 	list-style: none;
 	overflow: hidden;
 	margin-bottom: 0px;
 }
 
+ul.cs-tabs li,
 ul.pd-tabs li{
 	float: left;
 	padding: 5px;
 }
 
+ul.cs-tabs li.selected,
 ul.pd-tabs li.selected{
 	background: #f1f1f1;
 	border: 1px #dfdfdf solid;
@@ -145,14 +149,17 @@ ul.pd-tabs li.selected{
 	margin-right: 5px;	
 }
 
+ul.cs-tabs li a,
 ul.pd-tabs li a{
 	text-decoration: none;
 }
 
+ul.cs-tabs li.selected a,
 ul.pd-tabs li.selected a{
 	color: #000;
 }
 
+.cs-tab-panel,
 .pd-tab-panel{
 	height: 300px;
 	border: 1px #dfdfdf solid;
@@ -160,6 +167,7 @@ ul.pd-tabs li.selected a{
 	display: none;
 }
 
+.cs-tab-panel.show,
 .pd-tab-panel.show{
 	display: block;
 }
@@ -179,6 +187,7 @@ input#shortcode-field{
 	width: 165px;
 }
 
+.cs-embed-col,
 .pd-embed-col{
 	width: 33%;
 	float: left;
@@ -189,6 +198,7 @@ input#shortcode-field{
  background:#F8F7F3;
 }
 
+.cs-label,
 .pd-label{
 	display: block;
 	float:left;
