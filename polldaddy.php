@@ -12,6 +12,13 @@
 // To hardcode your Polldaddy PartnerGUID (API Key), add the (uncommented) line below with the PartnerGUID to your `wp-config.php`
 // define( 'WP_POLLDADDY__PARTNERGUID', '12345…' );
 
+function polldaddy_add_oembed_provider() {
+	wp_oembed_add_provider( '#https?://(.+\.)?polldaddy\.com/.*#i', 'https://api.crowdsignal.com/oembed', true );
+	wp_oembed_add_provider( '#https?://.+\.survey\.fm/.*#i', 'https://api.crowdsignal.com/oembed', true );
+	wp_oembed_add_provider( '#https?://poll\.fm/.*#i', 'https://api.crowdsignal.com/oembed', true );
+}
+add_action( 'init', 'polldaddy_add_oembed_provider' );
+
 class WP_Polldaddy {
 	var $errors;
 	var $base_url;
