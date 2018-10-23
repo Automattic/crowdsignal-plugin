@@ -35,7 +35,7 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 			$this->rating_user_code = get_option( 'pd-rating-usercode' );
 
 			if ( empty( $this->rating_user_code ) ) {
-				$this->log( 'set_api_user_code: retrieve usercode from Polldaddy' );
+				$this->log( 'set_api_user_code: retrieve usercode from Crowdsignal' );
 				$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID );
 				$polldaddy->reset();
 
@@ -152,7 +152,7 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 		$polldaddy_email    = stripslashes( $_POST['polldaddy_email'] );
 		$polldaddy_password = stripslashes( $_POST['polldaddy_password'] );
 
-		$this->log( 'api_key_page_load: get Polldaddy API key for account - '.$polldaddy_email );
+		$this->log( 'api_key_page_load: get Crowdsignal API key for account - '.$polldaddy_email );
 
 		if ( !$polldaddy_email )
 			$this->errors->add( 'polldaddy_email', __( 'Email address required', 'polldaddy' ) );
@@ -190,8 +190,8 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 			}
 			$response_code = wp_remote_retrieve_response_code( $polldaddy_api_key );
 			if ( 200 != $response_code ) {
-				$this->log( 'management_page_load: could not connect to Polldaddy API key service' );
-				$this->errors->add( 'http_code', __( 'Could not connect to Polldaddy API Key service', 'polldaddy' ) );
+				$this->log( 'management_page_load: could not connect to Crowdsignal API key service' );
+				$this->errors->add( 'http_code', __( 'Could not connect to Crowdsignal API Key service', 'polldaddy' ) );
 				return false;
 			}
 			$polldaddy_api_key = wp_remote_retrieve_body( $polldaddy_api_key );
@@ -205,8 +205,8 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 			);
 
 			if ( !$fp ) {
-				$this->log( 'management_page_load: could not connect to Polldaddy API key service' );
-				$this->errors->add( 'connect', __( "Can't connect to Polldaddy.com", 'polldaddy' ) );
+				$this->log( 'management_page_load: could not connect to Crowdsignal API key service' );
+				$this->errors->add( 'connect', __( "Can't connect to Crowdsignal.com", 'polldaddy' ) );
 				return false;
 			}
 
@@ -235,11 +235,11 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 		if ( isset( $polldaddy_api_key ) && strlen( $polldaddy_api_key ) > 0 ) {
 			update_option( 'polldaddy_api_key', $polldaddy_api_key );
 		} else {
-			$this->log( 'management_page_load: login to Polldaddy failed' );
-			$this->errors->add( 'polldaddy_api_key', __( 'Login to Polldaddy failed.  Double check your email address and password.', 'polldaddy' ) );
+			$this->log( 'management_page_load: login to Crowdsignal failed' );
+			$this->errors->add( 'polldaddy_api_key', __( 'Login to Crowdsignal failed.  Double check your email address and password.', 'polldaddy' ) );
 			if ( 1 !== $this->use_ssl ) {
 				$this->errors->add( 'polldaddy_api_key', __( 'If your email address and password are correct, your host may not support secure logins.', 'polldaddy' ) );
-				$this->errors->add( 'polldaddy_api_key', __( 'In that case, you may be able to log in to Polldaddy by unchecking the "Use SSL to Log in" checkbox.', 'polldaddy' ) );
+				$this->errors->add( 'polldaddy_api_key', __( 'In that case, you may be able to log in to Crowdsignal by unchecking the "Use SSL to Log in" checkbox.', 'polldaddy' ) );
 				$this->use_ssl = 0;
 			}
 			update_option( 'polldaddy_use_ssl', $this->use_ssl );
@@ -250,7 +250,7 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 		$polldaddy->reset();
 		if ( !$polldaddy->get_usercode( $this->id ) ) {
 			$this->parse_errors( $polldaddy );
-			$this->log( 'management_page_load: get usercode from Polldaddy failed' );
+			$this->log( 'management_page_load: get usercode from Crowdsignal failed' );
 			$this->errors->add( 'GetUserCode', __( 'Account could not be accessed.  Are your email address and password correct?', 'polldaddy' ) );
 			return false;
 		}
@@ -265,16 +265,16 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 
 <div class="wrap">
 
-	<h2><?php _e( 'Polldaddy Account', 'polldaddy' ); ?></h2>
+	<h2><?php _e( 'Crowdsignal Account', 'polldaddy' ); ?></h2>
 
-	<p><?php printf( __( 'Before you can use the Polldaddy plugin, you need to enter your <a href="%s">Polldaddy.com</a> account details.', 'polldaddy' ), 'http://polldaddy.com/' ); ?></p>
+	<p><?php printf( __( 'Before you can use the Crowdsignal plugin, you need to enter your <a href="%s">Crowdsignal.com</a> account details.', 'polldaddy' ), 'https://app.crowdsignal.com/' ); ?></p>
 
 	<form action="" method="post">
 		<table class="form-table">
 			<tbody>
 				<tr class="form-field form-required">
 					<th valign="top" scope="row">
-						<label for="polldaddy-email"><?php _e( 'Polldaddy Email Address', 'polldaddy' ); ?></label>
+						<label for="polldaddy-email"><?php _e( 'Crowdsignal Email Address', 'polldaddy' ); ?></label>
 					</th>
 					<td>
 						<input type="text" name="polldaddy_email" id="polldaddy-email" aria-required="true" size="40" value="<?php if ( isset( $_POST['polldaddy_email'] ) ) echo esc_attr( $_POST['polldaddy_email'] ); ?>" />
@@ -282,7 +282,7 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 				</tr>
 				<tr class="form-field form-required">
 					<th valign="top" scope="row">
-						<label for="polldaddy-password"><?php _e( 'Polldaddy Password', 'polldaddy' ); ?></label>
+						<label for="polldaddy-password"><?php _e( 'Crowdsignal Password', 'polldaddy' ); ?></label>
 					</th>
 					<td>
 						<input type="password" name="polldaddy_password" id="polldaddy-password" aria-required="true" size="40" />
@@ -299,7 +299,7 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 					</th>
 					<td>
 						<input type="checkbox" name="polldaddy_use_ssl" id="polldaddy-use-ssl" value="1" <?php echo $checked ?> style="width: auto"/>
-						<label for="polldaddy-use-ssl"><?php _e( 'This ensures a secure login to your Polldaddy account.  Only uncheck if you are having problems logging in.', 'polldaddy' ); ?></label>
+						<label for="polldaddy-use-ssl"><?php _e( 'This ensures a secure login to your Crowdsignal account.  Only uncheck if you are having problems logging in.', 'polldaddy' ); ?></label>
 						<input type="hidden" name="polldaddy_use_ssl_checkbox" value="1" />
 					</td>
 				</tr>
@@ -341,19 +341,19 @@ class WPORG_Polldaddy extends WP_Polldaddy {
     <td>
       <input type="checkbox" name="polldaddy-load-poll-inline" id="polldaddy-load-poll-inline" value="1" <?php echo $inline ?> style="width: auto" />
         <span class="description">
-          <label for="polldaddy-load-poll-inline"><?php _e( 'This will load the Polldaddy shortcodes inline rather than in the page footer.', 'polldaddy' ); ?></label>
+          <label for="polldaddy-load-poll-inline"><?php _e( 'This will load the Crowdsignal shortcodes inline rather than in the page footer.', 'polldaddy' ); ?></label>
         </span>
     </td>
   </tr><tr class="form-field form-required">
     <th valign="top" scope="row">
       <label for="polldaddy-multiple-accounts">
-        <?php _e( 'Multiple Polldaddy Accounts', 'polldaddy' ); ?>
+        <?php _e( 'Multiple Crowdsignal Accounts', 'polldaddy' ); ?>
       </label>
     </th>
     <td>
       <input type="checkbox" name="polldaddy-multiple-accounts" id="polldaddy-multiple-accounts" value="1" <?php echo $checked ?> style="width: auto" />
         <span class="description">
-          <label for="polldaddy-multiple-accounts"><?php _e( 'This setting will allow each blog user to import a Polldaddy account.', 'polldaddy' ); ?></label>
+          <label for="polldaddy-multiple-accounts"><?php _e( 'This setting will allow each blog user to import a Crowdsignal account.', 'polldaddy' ); ?></label>
         </span>
     </td>
   </tr>
@@ -366,7 +366,7 @@ class WPORG_Polldaddy extends WP_Polldaddy {
     <td>
       <input type="checkbox" name="polldaddy-sync-account" id="polldaddy-sync-account" value="1" style="width: auto" />
         <span class="description">
-          <label for="polldaddy-sync-account"><?php _e( 'This will synchronize your ratings Polldaddy account.', 'polldaddy' ); ?></label>
+          <label for="polldaddy-sync-account"><?php _e( 'This will synchronize your ratings Crowdsignal account.', 'polldaddy' ); ?></label>
         </span>
     </td>
   </tr>
@@ -1102,7 +1102,7 @@ function polldaddy_login_warning() {
 	global $cache_enabled, $hook_suffix;
 	$page = isset( $_GET[ 'page' ] ) ? $_GET[ 'page' ] : '';
 	if ( ( $hook_suffix == 'plugins.php' || $page == 'polls' ) && false == get_option( 'polldaddy_api_key' ) && function_exists( "admin_url" ) )
-		echo '<div class="updated"><p><strong>' . sprintf( __( 'Warning! The Polldaddy plugin must be linked to your Polldaddy.com account. Please visit the <a href="%s">plugin settings page</a> to login.', 'polldaddy' ), admin_url( 'options-general.php?page=polls&action=options' ) ) . '</strong></p></div>';
+		echo '<div class="updated"><p><strong>' . sprintf( __( 'Warning! The Crowdsignal plugin must be linked to your Crowdsignal.com account. Please visit the <a href="%s">plugin settings page</a> to login.', 'polldaddy' ), admin_url( 'options-general.php?page=polls&action=options' ) ) . '</strong></p></div>';
 }
 add_action( 'admin_notices', 'polldaddy_login_warning' );
 

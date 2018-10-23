@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Plugin Name: Polldaddy Polls & Ratings
+ * Plugin Name: Crowdsignal Polls & Ratings
  * Plugin URI: http://wordpress.org/extend/plugins/polldaddy/
- * Description: Create and manage Polldaddy polls and ratings in WordPress
+ * Description: Create and manage Crowdsignal polls and ratings in WordPress
  * Author: Automattic, Inc.
- * Author URL: http://polldaddy.com/
+ * Author URL: https://crowdsignal.com/
  * Version: 2.0.37
  */
 
@@ -323,16 +323,16 @@ class WP_Polldaddy {
 ?>
 
 <div class="wrap">
-	<h2 id="polldaddy-header"><?php _e( 'Polldaddy', 'polldaddy' ); ?></h2>
+	<h2 id="polldaddy-header"><?php _e( 'Crowdsignal', 'polldaddy' ); ?></h2>
 
-	<p><?php printf( __( 'Before you can use the Polldaddy plugin, you need to enter your <a href="%s">Polldaddy.com</a> account details.', 'polldaddy' ), 'http://polldaddy.com/' ); ?></p>
+	<p><?php printf( __( 'Before you can use the Crowdsignal plugin, you need to enter your <a href="%s">Crowdsignal.com</a> account details.', 'polldaddy' ), 'https://app.crowdsignal.com/' ); ?></p>
 
 	<form action="" method="post">
 		<table class="form-table">
 			<tbody>
 				<tr class="form-field form-required">
 					<th valign="top" scope="row">
-						<label for="polldaddy-email"><?php _e( 'Polldaddy Email Address', 'polldaddy' ); ?></label>
+						<label for="polldaddy-email"><?php _e( 'Crowdsignal Email Address', 'polldaddy' ); ?></label>
 					</th>
 					<td>
 						<input type="text" name="polldaddy_email" id="polldaddy-email" aria-required="true" size="40" />
@@ -340,7 +340,7 @@ class WP_Polldaddy {
 				</tr>
 				<tr class="form-field form-required">
 					<th valign="top" scope="row">
-						<label for="polldaddy-password"><?php _e( 'Polldaddy Password', 'polldaddy' ); ?></label>
+						<label for="polldaddy-password"><?php _e( 'Crowdsignal Password', 'polldaddy' ); ?></label>
 					</th>
 					<td>
 						<input type="password" name="polldaddy_password" id="polldaddy-password" aria-required="true" size="40" />
@@ -524,7 +524,7 @@ class WP_Polldaddy {
 					}
 				}
 				if ( isset( $_POST[ 'email' ] ) )
-					wp_mail( $current_user->user_email, "Polldaddy Settings", $msg );
+					wp_mail( $current_user->user_email, "Crowdsignal Settings", $msg );
 				update_option( 'polldaddy_settings', $settings );
 				break;
 			case 'restore-account' : // restore everything
@@ -1361,16 +1361,16 @@ class WP_Polldaddy {
 
 		<h2 id="poll-list-header"><?php
 				if ( $this->is_author )
-					printf( __( 'Polldaddy Polls <a href="%s" class="add-new-h2">Add New</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'create-poll', 'poll' => false, 'message' => false ) ) ) );
+					printf( __( 'Crowdsignal Polls <a href="%s" class="add-new-h2">Add New</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'create-poll', 'poll' => false, 'message' => false ) ) ) );
 				else
-					_e( 'Polldaddy Polls ', 'polldaddy' );
+					_e( 'Crowdsignal Polls ', 'polldaddy' );
 		?></h2><?php
 				$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->user_code );
 				$account = $polldaddy->get_account();
 				if ( !empty( $account ) )
 					$account_email = esc_attr( $account->email );
 				if ( isset( $account_email ) && current_user_can( 'manage_options' ) ) {
-					echo "<p>" . sprintf( __( 'Linked to WordPress.com Account: <strong>%s</strong> (<a target="_blank" href="options-general.php?page=polls&action=options">Settings</a> / <a target="_blank" href="http://polldaddy.com/dashboard/">Polldaddy.com</a>)', 'polldaddy' ), $account_email ) . "</p>";
+					echo "<p>" . sprintf( __( 'Linked to WordPress.com Account: <strong>%s</strong> (<a target="_blank" href="options-general.php?page=polls&action=options">Settings</a> / <a target="_blank" href="https://app.crowdsignal.com/">Crowdsignal.com</a>)', 'polldaddy' ), $account_email ) . "</p>";
 				}
 
 				if ( !isset( $_GET['view'] ) )
@@ -2213,7 +2213,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 		<div class="inside">
 
 			<ul class="pd-tabs">
-				<li class="selected" id="pd-styles"><a href="#"><?php _e( 'Polldaddy Styles', 'polldaddy' ); ?></a><input type="checkbox" style="display:none;" id="regular"/></li>
+				<li class="selected" id="pd-styles"><a href="#"><?php _e( 'Crowdsignal Styles', 'polldaddy' ); ?></a><input type="checkbox" style="display:none;" id="regular"/></li>
 				<?php $hide = $show_custom == true ? ' style="display:block;"' : ' style="display:none;"'; ?>
 				<li id="pd-custom-styles" <?php echo $hide; ?>><a href="#"><?php _e( 'Custom Styles', 'polldaddy' ); ?></a><input type="checkbox" style="display:none;" id="custom"/></li>
 
@@ -2300,7 +2300,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 									<th class="cb">
 
 										<input type="radio" name="styleTypeCB" id="regular" onclick="javascript:pd_build_styles( 0 );"/>
-										<label for="skin" onclick="javascript:pd_build_styles( 0 );"><?php _e( 'Polldaddy Style', 'polldaddy' ); ?></label>
+										<label for="skin" onclick="javascript:pd_build_styles( 0 );"><?php _e( 'Crowdsignal Style', 'polldaddy' ); ?></label>
 
 										<?php $disabled = $show_custom == false ? ' disabled="true"' : ''; ?>
 
@@ -2391,7 +2391,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 					<div id="styleIDErr" class="formErr" style="display:none;"><?php _e( 'Please choose a style.', 'polldaddy' ); ?></div>
 					<?php else : ?>
 					<p><?php _e( 'You currently have no custom styles created.', 'polldaddy' ); ?> <a href="/wp-admin/edit.php?page=polls&amp;action=create-style" class="add-new-h2"><?php _e( 'New Style', 'polldaddy');?></a></p>
-					<p><?php printf( __( 'Did you know we have a new editor for building your own custom poll styles? Find out more <a href="%s" target="_blank">here</a>.', 'polldaddy' ), 'http://support.polldaddy.com/custom-poll-styles/' ); ?></p>
+					<p><?php printf( __( 'Did you know we have a new editor for building your own custom poll styles? Find out more <a href="%s" target="_blank">here</a>.', 'polldaddy' ), 'https://crowdsignal.com/support/custom-poll-styles/' ); ?></p>
 					<?php endif; ?>
 				</div>
 
@@ -2988,7 +2988,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 														</td>
 													</tr>
 													<tr>
-														<td><?php _e( 'Image URL', 'polldaddy' ); ?>: <a href="http://support.polldaddy.com/custom-poll-styles/" class="noteLink" title="<?php _e( 'Click here for more information', 'polldaddy' ); ?>">(?)</a></td>
+														<td><?php _e( 'Image URL', 'polldaddy' ); ?>: <a href="https://crowdsignal.com/support/custom-poll-styles/" class="noteLink" title="<?php _e( 'Click here for more information', 'polldaddy' ); ?>">(?)</a></td>
 														<td>
 															<input type="text" id="background-image" onblur="bind(this);"/>
 														</td>
@@ -3438,7 +3438,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 	<!-- Scale Table -->
 												<table class="CSSE_edit" id="editScale" style="display:none;">
 													<tr>
-														<td width="85"><?php _e( 'Width', 'polldaddy' ); ?> (px):  <a href="http://support.polldaddy.com/custom-poll-styles/" class="noteLink" title="<?php _e( 'Click here for more information', 'polldaddy' ); ?>">(?)</a></td>
+														<td width="85"><?php _e( 'Width', 'polldaddy' ); ?> (px):  <a href="https://crowdsignal.com/support/custom-poll-styles/" class="noteLink" title="<?php _e( 'Click here for more information', 'polldaddy' ); ?>">(?)</a></td>
 														<td>
 															<input type="text" maxlength="4" class="elmColor" id="width" onblur="bind(this);"/>
 														</td>
@@ -3768,7 +3768,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 						$rating_errors[] = $polldaddy->errors;
 					}
 				} elseif ( isset( $polldaddy->errors[ -1 ] ) && $polldaddy->errors[ -1 ] == "Can't connect" ) {
-					$this->contact_support_message( __( 'Could not connect to the Polldaddy API' ), $rating_errors );
+					$this->contact_support_message( __( 'Could not connect to the Crowdsignal API' ), $rating_errors );
 					$error = true;
 				} elseif ( isset( $polldaddy->errors[ -1 ] ) && $polldaddy->errors[ -1 ] == "Invalid API URL" ) {
 					$this->contact_support_message( __( 'The API URL is incorrect' ), $rating_errors );
@@ -4975,17 +4975,17 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
   </h2>
 	<?php if ( $this->is_admin || $this->multiple_accounts ) { ?>
 		<h3>
-			<?php _e( 'Polldaddy Account Info', 'polldaddy' ); ?>
+			<?php _e( 'Crowdsignal Account Info', 'polldaddy' ); ?>
 		</h3>
-		<p><?php _e( '<em>Polldaddy</em> and <em>WordPress.com</em> are now connected using <a href="http://en.support.wordpress.com/wpcc-faq/">WordPress.com Connect</a>. If you have a WordPress.com account you can use it to login to <a href="http://polldaddy.com/">Polldaddy.com</a>. Click on the Polldaddy "sign in" button, authorize the connection and create your new Polldaddy account.', 'polldaddy' ); ?></p>
-		<p><?php _e( 'Login to the Polldaddy website and scroll to the end of your <a href="http://polldaddy.com/account/#apikey">account page</a> to create or retrieve an API key.', 'polldaddy' ); ?></p>
+		<p><?php _e( '<em>Crowdsignal</em> and <em>WordPress.com</em> are now connected using <a href="http://en.support.wordpress.com/wpcc-faq/">WordPress.com Connect</a>. If you have a WordPress.com account you can use it to login to <a href="https://app.crowdsignal.com/">Crowdsignal.com</a>. Click on the Crowdsignal "sign in" button, authorize the connection and create your new Crowdsignal account.', 'polldaddy' ); ?></p>
+		<p><?php _e( 'Login to the Crowdsignal website and scroll to the end of your <a href="https://app.crowdsignal.com/account/#apikey">account page</a> to create or retrieve an API key.', 'polldaddy' ); ?></p>
 		<?php if ( isset( $account_email ) && $account_email != false ) { ?>
 			<p><?php printf( __( 'Your account is currently linked to this API key: <strong>%s</strong>', 'polldaddy' ), WP_POLLDADDY__PARTNERGUID ); ?></p>
 			<br />
-			<h3><?php _e( 'Link to a different Polldaddy account', 'polldaddy' ); ?></h3>
+			<h3><?php _e( 'Link to a different Crowdsignal account', 'polldaddy' ); ?></h3>
 		<?php } else { ?>
 			<br />
-			<h3><?php _e( 'Link to your Polldaddy account', 'polldaddy' ); ?></h3>
+			<h3><?php _e( 'Link to your Crowdsignal account', 'polldaddy' ); ?></h3>
 		<?php } ?>
   <form action="" method="post">
     <table class="form-table">
@@ -4993,7 +4993,7 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
         <tr class="form-field form-required">
           <th valign="top" scope="row">
             <label for="polldaddy-key">
-              <?php _e( 'Polldaddy.com API Key', 'polldaddy' ); ?>
+              <?php _e( 'Crowdsignal.com API Key', 'polldaddy' ); ?>
             </label>
           </th>
           <td>
@@ -5115,7 +5115,7 @@ if ( false == is_object( $poll ) ) {
 	}
 	if ( $show_reset_form ) {
 		echo "<h3>" . __( 'Reset Connection Settings', 'polldaddy' ) . "</h3>";
-		echo "<p>" . __( 'If you are experiencing problems connecting to the Polldaddy website resetting your connection settings may help. A backup will be made. After resetting, link your account again with the same API key.', 'polldaddy' ) . "</p>";
+		echo "<p>" . __( 'If you are experiencing problems connecting to the Crowdsignal website resetting your connection settings may help. A backup will be made. After resetting, link your account again with the same API key.', 'polldaddy' ) . "</p>";
 		echo "<p>" . __( 'The following settings will be reset:', 'polldaddy' ) . "</p>";
 		echo "<table>";
 		foreach( $settings as $key => $value ) {
@@ -5123,7 +5123,7 @@ if ( false == is_object( $poll ) ) {
 				if ( strpos( $key, 'usercode' ) )
 					$value = "***********" . substr( $value, -4 );
 				elseif ( in_array( $key, array( 'pd-rating-pages-id', 'pd-rating-comments-id', 'pd-rating-posts-id' ) ) )
-					$value = "$value (<a href='http://polldaddy.com/ratings/{$value}/edit/'>" . __( 'Edit', 'polldaddy' ) . "</a>)";
+					$value = "$value (<a href='https://app.crowdsignal.com/ratings/{$value}/edit/'>" . __( 'Edit', 'polldaddy' ) . "</a>)";
 				echo "<tr><th style='text-align: right'>$key:</th><td>$value</td></tr>\n";
 			}
 		}
@@ -5152,7 +5152,7 @@ if ( false == is_object( $poll ) ) {
 				if ( strpos( $key, 'usercode' ) )
 					$value = "***********" . substr( $value, -4 );
 				elseif ( in_array( $key, array( 'pd-rating-pages-id', 'pd-rating-comments-id', 'pd-rating-posts-id' ) ) )
-					$value = "$value (<a href='http://polldaddy.com/ratings/{$value}/edit/'>" . __( 'Edit', 'polldaddy' ) . "</a>)";
+					$value = "$value (<a href='https://app.crowdsignal.com/ratings/{$value}/edit/'>" . __( 'Edit', 'polldaddy' ) . "</a>)";
 				echo "<tr><th style='text-align: right'>$key:</th><td>$value</td></tr>\n";
 			}
 		}
@@ -5172,7 +5172,7 @@ if ( false == is_object( $poll ) ) {
 		if ( $show_reset_form && isset( $settings[ 'pd-rating-posts-id' ] ) && $settings[ 'pd-rating-posts-id' ] != $previous_settings[ 'pd-rating-posts-id' ] ) {
 			echo "<h3>" . __( 'Restore Ratings Settings', 'polldaddy' ) . "</h3>";
 			echo "<p>" . __( 'Different rating settings detected. If you are missing ratings on your posts, pages or comments you can restore the original rating settings by clicking the button below.', 'polldaddy' ) . "</p>";
-			echo "<p>" . __( 'This tells the plugin to look for this data in a different rating in your Polldaddy account.', 'polldaddy' ) . "</p>";
+			echo "<p>" . __( 'This tells the plugin to look for this data in a different rating in your Crowdsignal account.', 'polldaddy' ) . "</p>";
 			?>
 			<form action="" method="post">
 				<p class="submit">
@@ -5237,9 +5237,9 @@ if ( false == is_object( $poll ) ) {
 		echo '<div class="error" id="polldaddy">';
 		echo '<h1>' . $message . '</h1>';
 		echo '<p>' . __( "There are a few things you can do:" );
-		echo "<ul><ol>" . __( "Press reload on your browser and reload this page. There may have been a temporary problem communicating with Polldaddy.com", "polldaddy" ) . "</ol>";
+		echo "<ul><ol>" . __( "Press reload on your browser and reload this page. There may have been a temporary problem communicating with Crowdsignal.com", "polldaddy" ) . "</ol>";
 		echo "<ol>" . sprintf( __( "Go to the <a href='%s'>poll settings page</a>, scroll to the end of the page and reset your connection settings. Link your account again with the same API key.", "polldaddy" ), 'options-general.php?page=polls&action=options' ) . "</ol>";
-		echo "<ol>" . sprintf( __( 'Contact <a href="%1$s" %2$s>Polldaddy support</a> and tell them your rating usercode is %3$s', 'polldaddy' ), 'http://polldaddy.com/feedback/', 'target="_blank"', $this->rating_user_code ) . '<br />' . __( 'Also include the following information when contacting support to help us resolve your problem as quickly as possible:', 'polldaddy' ) . '';
+		echo "<ol>" . sprintf( __( 'Contact <a href="%1$s" %2$s>Crowdsignal support</a> and tell them your rating usercode is %3$s', 'polldaddy' ), 'https://crowdsignal.com/feedback/', 'target="_blank"', $this->rating_user_code ) . '<br />' . __( 'Also include the following information when contacting support to help us resolve your problem as quickly as possible:', 'polldaddy' ) . '';
 		echo "<ul><li> API Key: " . get_option( 'polldaddy_api_key' ) . "</li>";
 		echo "<li> ID Usercode: " . get_option( 'pd-usercode-' . $current_user->ID ) . "</li>";
 		echo "<li> pd-rating-usercode: " . get_option( 'pd-rating-usercode' ) . "</li>";
