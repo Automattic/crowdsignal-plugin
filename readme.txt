@@ -115,6 +115,10 @@ Your rating uses the filter 'wp_title' by default when retrieving the post title
 
 Your theme is getting the post content, without necessarily showing it. If the post has a poll, the poll javascript is loaded in the footer. To fix this, you need to enable the 'Load Shortcodes Inline' setting in the Polls & Ratings settings. This will load the poll shortcode inline and will only load the poll if the content of the post is actually displayed.
 
+= My API key is valid but I cannot get the plugin to link with Crowdsignal
+
+This is possible if your server or network is blocking outgoing calls to Crowdsignal's API.  
+Make sure to whitelist `api.crowdsignal.com` in your firewall to fix this.
 
 == Upgrade Notice ==
 Don't autoload the usercode blog options
