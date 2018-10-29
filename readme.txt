@@ -1,9 +1,9 @@
 === Crowdsignal Polls & Ratings ===
-Contributors: eoigal, mdawaffe, donncha, johnny5, panosktn
+Contributors: eoigal, mdawaffe, donncha, johnny5, panosktn, ice9js
 Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 3.3
 Tested up to: 4.9.4
-Stable tag: 2.0.37
+Stable tag: 2.1.0
 
 Create and manage Crowdsignal polls and ratings from within WordPress.
 
@@ -124,6 +124,11 @@ Make sure to whitelist `api.crowdsignal.com` in your firewall to fix this.
 Don't autoload the usercode blog options
 
 == Changelog ==
+
+= 2.1.0 =
+* Added a [crowdsignal] shortcode that mimics [polldaddy] which is now deprecated.
+* Updated the plugin to work with updated Crowdsignal URLs for polls & surveys
+* Updated the API client to use `api.crowdsignal.com/v1`
 
 = 2.0.37 =
 * The usercode blog options don't need to be autoloaded.
