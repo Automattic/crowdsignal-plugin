@@ -5274,5 +5274,6 @@ require dirname( __FILE__ ).'/rating.php';
 require dirname( __FILE__ ).'/ajax.php';
 require dirname( __FILE__ ).'/popups.php';
 require dirname( __FILE__ ).'/polldaddy-org.php';
+require dirname( __FILE__ ).'/polldaddy-shortcode.php';
 
 $GLOBALS[ 'wp_log_plugins' ][] = 'polldaddy';
