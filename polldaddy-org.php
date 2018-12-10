@@ -453,7 +453,7 @@ if ( !function_exists( 'wp_strip_all_tags' ) ) {
 		$string = strip_tags($string);
 
 		if ( $remove_breaks )
-			$string = preg_replace('/[\r\n\t ]+/', ' ', $string);
+			$string = preg_replace('/[\r\n\t\s]+/', ' ', $string);
 
 		return trim($string);
 	}
