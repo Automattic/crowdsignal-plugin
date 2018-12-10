@@ -1312,7 +1312,7 @@ class WP_Polldaddy {
 					}
 				endif;
 
-				echo do_shortcode( "[polldaddy poll=$poll cb=1]" );
+				echo do_shortcode( "[crowdsignal poll=$poll cb=1]" );
 
 				wp_print_scripts( 'polldaddy-poll-js' );
 				break;
@@ -1595,18 +1595,12 @@ class WP_Polldaddy {
 
                                     	<div class="pd-embed-col">
                                         	<h4 style="color:#666;font-weight:normal;"><?php _e( 'WordPress Shortcode', 'polldaddy' ); ?></h4>
-                                        	<input type="text" readonly="readonly" style="width: 175px;" onclick="this.select();" value="[polldaddy poll=<?php echo (int) $poll_id; ?>]"/>
+                                        	<input type="text" readonly="readonly" style="width: 175px;" onclick="this.select();" value="[crowdsignal poll=<?php echo (int) $poll_id; ?>]"/>
                                         </div>
 
                                         <div class="pd-embed-col">
-	                                        <h4 style="color:#666;font-weight:normal;"><?php _e( 'Short URL (Good for Twitter etc.)', 'polldaddy' ); ?></h4>
-											<input type="text" readonly="readonly" style="width: 175px;" onclick="this.select();" value="http://poll.fm/<?php echo base_convert( $poll_id, 10, 36 ); ?>"/>
-
-                                        </div>
-
-                                       	<div class="pd-embed-col">
-											<h4 style="color:#666;font-weight:normal;"><?php _e( 'Facebook URL', 'polldaddy' ); ?></h4>
-											<input type="text" readonly="readonly" style="width: 175px;" onclick="this.select();" value="http://poll.fm/f/<?php echo base_convert( $poll_id, 10, 36 ); ?>"/>
+	                                        <h4 style="color:#666;font-weight:normal;"><?php _e( 'Direct URL', 'polldaddy' ); ?></h4>
+											<input type="text" readonly="readonly" style="width: 175px;" onclick="this.select();" value="https://poll.fm/<?php echo (int) $poll_id; ?>"/>
                                         </div>
 
                                         <br class="clearing" />
@@ -1614,10 +1608,10 @@ class WP_Polldaddy {
 
                                         <h4 style="padding-top:10px;color:#666;font-weight:normal;"><?php _e( 'JavaScript', 'polldaddy' ); ?></h4>
                                         <pre class="hardbreak" style="max-width:542px;text-wrap:word-wrap;margin-bottom:20px;">&lt;script type="text/javascript" language="javascript"
-src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/script&gt;
+src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/script&gt;
 &lt;noscript&gt;
-&lt;a href="http://polldaddy.com/poll/<?php echo (int) $poll_id; ?>/"&gt;<?php echo trim( strip_tags( $poll->___content ) ); ?>&lt;/a&gt;&lt;br/&gt;
-&lt;span style="font:9px;"&gt;(&lt;a href="http://www.polldaddy.com"&gt;polls&lt;/a&gt;)&lt;/span&gt;
+&lt;a href="https://poll.fm/<?php echo (int) $poll_id; ?>/"&gt;<?php echo trim( strip_tags( $poll->___content ) ); ?>&lt;/a&gt;&lt;br/&gt;
+&lt;span style="font:9px;"&gt;(&lt;a href="https://crowdsignal.com"&gt;polls&lt;/a&gt;)&lt;/span&gt;
 &lt;/noscript&gt;</pre>
 						<p class="submit" style="clear:both;padding:0px;">
 							<a href="#" class="button pd-embed-done"><?php _e( 'Done', 'polldaddy' ); ?></a>
@@ -2015,8 +2009,8 @@ src="http://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/scr
 				<div class="inside">
 					<div id="edit-slug-box" style="margin-bottom:30px;">
 						<strong><?php _e( 'WordPress Shortcode:', 'polldaddy' ); ?></strong>
-						<input type="text" style="color:#999;" value="[polldaddy poll=<?php echo $poll->_id; ?>]" id="shortcode-field" readonly="readonly" />
-						<span><a href="post-new.php?content=[polldaddy poll=<?php echo $poll->_id; ?>]" class="button"><?php _e( 'Embed Poll in New Post' ); ?></a></span>
+						<input type="text" style="color:#999;" value="[crowdsignal poll=<?php echo $poll->_id; ?>]" id="shortcode-field" readonly="readonly" />
+						<span><a href="post-new.php?content=[crowdsignal poll=<?php echo $poll->_id; ?>]" class="button"><?php _e( 'Embed Poll in New Post' ); ?></a></span>
 					</div>
 				</div>
 			<?php endif; ?>
