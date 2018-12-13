@@ -42,15 +42,15 @@ CONTAINER;
 		$include = $this->compress_it( $include );
 
 		$placeholder = '<div class="cs-embed pd-embed" data-settings="'.esc_attr( json_encode( $settings ) ).'"></div>';
-		if ( $type === 'button' )
-			$placeholder = '<a class="cs-embed pd-embed" href="'.esc_attr( $survey_link ).'" data-settings="'.esc_attr( json_encode( $settings ) ).'">'.esc_html( $settings['title'] ).'</a>';
+		if ( $settings['type'] === 'button' )
+			$placeholder = '<a class="cs-embed pd-embed" href="https://survey.fm/'.esc_attr( $settings['id'] ).'" data-settings="'.esc_attr( json_encode( $settings ) ).'">'.esc_html( $settings['title'] ).'</a>';
 
 		$js_include = $placeholder."\n";
 		$js_include .= '<script type="text/javascript"><!--//--><![CDATA[//><!--'."\n";
 		$js_include .= $include."\n";
 		$js_include .= "//--><!]]></script>\n";
 
-		if ( $type !== 'button' )
+		if ( $settings['type'] !== 'button' )
 			$js_include .= '<noscript>'.$survey_link."</noscript>\n";
 
 		return $js_include;
