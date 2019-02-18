@@ -11,6 +11,15 @@
 					var poll = $( this ).data( 'settings' );
 
 					if ( poll ) {
+						var poll_url = document.createElement("a");
+						poll_url.href = poll['url'];
+						if ( poll_url.hostname != 'secure.polldaddy.com' && poll_url.hostname != 'static.polldaddy.com' ) {
+							return false;
+						}
+						var pathname = poll_url.pathname;
+						if ( ! /\/?p\/\d+\.js/.test( pathname ) ) {
+							return false;
+						}
 						var wp_pd_js = document.createElement('script');
 						wp_pd_js.type = 'text/javascript';
 						wp_pd_js.src = poll['url'];
