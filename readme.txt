@@ -2,8 +2,8 @@
 Contributors: eoigal, mdawaffe, donncha, johnny5, panosktn, ice9js
 Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 3.3
-Tested up to: 5.0
-Stable tag: 2.1.1
+Tested up to: 5.0.3
+Stable tag: 2.1.2
 
 Create and manage Crowdsignal polls and ratings from within WordPress.
 
@@ -121,9 +121,13 @@ This is possible if your server or network is blocking outgoing calls to Crowdsi
 Make sure to whitelist `api.crowdsignal.com` in your firewall to fix this.
 
 == Upgrade Notice ==
-Don't autoload the usercode blog options
+Security update: make sure the Javascript embed comes from Crowdsignal servers.
 
 == Changelog ==
+
+= 2.1.2 =
+* Make sure that the poll Javascript code comes from Crowdsignal servers.
+* Show decimal numbers on poll results page.
 
 = 2.1.1 =
 * Updated regular expressions within the plugin for PHP 7.3 compatibility.
