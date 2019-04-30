@@ -1,8 +1,9 @@
 === Crowdsignal Polls & Ratings ===
 Contributors: eoigal, mdawaffe, donncha, johnny5, panosktn, ice9js
 Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
-Requires at least: 3.3
-Tested up to: 5.0.3
+Requires at least: 4.6
+Requires PHP: 5.6
+Tested up to: 5.1.1
 Stable tag: 2.1.2
 
 Create and manage Crowdsignal polls and ratings from within WordPress.
@@ -57,7 +58,7 @@ Want to help translate the plugin or keep an existing translation up-to-date? He
 
 Some strings are not translated when polls and surveys are embedded. You will have to translate them using a language pack on [Crowdsignal.com](https://crowdsignal.com/).
 
-Development of the plugin will take place in [this Github repository](https://github.com/Automattic/polldaddy-plugin).
+Development of the plugin will take place in [this Github repository](https://github.com/Automattic/crowdsignal-plugin).
 
 == Installation ==
 
