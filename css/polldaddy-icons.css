@@ -9,3 +9,14 @@
   font-style: normal;
 
 }
+
+@font-face {
+  font-family: "crowdsignal";
+  src:url("fonts/crowdsignal.eot");
+  src:url("fonts/crowdsignal.eot?#iefix") format("embedded-opentype"),
+    url("fonts/crowdsignal.ttf") format("truetype"),
+    url("fonts/crowdsignal.woff") format("woff"),
+    url("fonts/crowdsignal.svg#crowdsignal") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
