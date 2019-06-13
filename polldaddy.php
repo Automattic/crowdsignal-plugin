@@ -167,8 +167,8 @@ class WP_Polldaddy {
 			wp_enqueue_style( 'polldaddy-icons' );
 			$css = "
 				#toplevel_page_feedback .wp-menu-image:before {
-					font-family: 'polldaddy' !important;
-					content: '\\0061';
+					font-family: 'crowdsignal' !important;
+					content: '\\e900';
 				}
 				#toplevel_page_feedback .wp-menu-image {
 					background-repeat: no-repeat;
