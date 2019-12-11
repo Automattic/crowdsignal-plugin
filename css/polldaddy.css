@@ -23,7 +23,7 @@ h2 a.button{
 	font-family: Lucida Grande, Arial, Sans;
 }
 
-.postbox h2.postbox-title {
+#manage-polls .postbox h2.postbox-title {
 	border-bottom: 1px solid #ccd0d4;
 }
 
