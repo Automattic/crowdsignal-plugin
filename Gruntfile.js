@@ -154,7 +154,6 @@ module.exports = function( grunt ){
     grunt.loadNpmTasks( 'grunt-contrib-copy' );
     grunt.loadNpmTasks( 'grunt-contrib-clean' );
     grunt.loadNpmTasks( 'grunt-gitinfo' );
-    grunt.loadNpmTasks( 'grunt-phpunit' );
     grunt.loadNpmTasks( 'grunt-checkbranch' );
     grunt.loadNpmTasks( 'grunt-wp-deploy' );
     grunt.loadNpmTasks( 'grunt-shell' );

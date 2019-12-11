@@ -7,20 +7,20 @@
   "repository": "automattic/polldaddy-plugin",
   "main": "Gruntfile.js",
   "devDependencies": {
-    "grunt": "~1.0.1",
+    "grunt": "~1.0.4",
     "grunt-checkbranch": "^1.0.4",
     "grunt-checkrepo": "^0.1.0",
-    "grunt-checktextdomain": "~1.0.0",
-    "grunt-contrib-clean": "^1.1.0",
+    "grunt-checktextdomain": "~1.0.1",
+    "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-concat": "1.0.1",
     "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-watch": "~1.0.0",
-    "grunt-gitinfo": "^0.1.8",
-    "grunt-shell": "^2.1.0",
-    "grunt-wp-deploy": "^1.2.1",
-    "grunt-wp-i18n": "~0.5.4",
-    "grunt-wp-readme-to-markdown": "^2.0.0",
-    "grunt-zip": "^0.17.1"
+    "grunt-contrib-watch": "~1.1.0",
+    "grunt-gitinfo": "^0.1.9",
+    "grunt-shell": "^3.0.1",
+    "grunt-wp-deploy": "^2.0.0",
+    "grunt-wp-i18n": "~1.0.3",
+    "grunt-wp-readme-to-markdown": "^2.0.1",
+    "grunt-zip": "^0.18.2"
   },
   "engines": {
     "node": ">=6.10.2"
