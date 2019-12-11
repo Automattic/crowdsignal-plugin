@@ -130,7 +130,7 @@ class WP_Polldaddy {
 		$capability = 'edit_posts';
 		$function   = array( &$this, 'management_page' );
 
-		$hook = add_menu_page( __( 'Feedback', 'polldaddy' ), __( 'Feedback', 'polldaddy' ), $capability, 'feedback', $function, 'div' );
+		$hook = add_menu_page( __( 'Crowdsignal', 'polldaddy' ), __( 'Crowdsignal', 'polldaddy' ), $capability, 'feedback', $function, 'div' );
 		add_action( "load-$hook", array( &$this, 'management_page_load' ) );
 
 		foreach( array( 'polls' => __( 'Polls', 'polldaddy' ), 'ratings' => __( 'Ratings', 'polldaddy' ) ) as $menu_slug => $page_title ) {
