@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Plugin Name: Crowdsignal Polls & Ratings
  * Plugin URI: http://wordpress.org/extend/plugins/polldaddy/
@@ -1303,10 +1302,7 @@ class WP_Polldaddy {
 			switch ( $action ) {
 			case 'preview' :
 				if ( isset( $_GET['iframe'] ) ):
-					if ( !isset( $_GET['popup'] ) ) { ?>
-				<h2 id="poll-list-header"><?php _e( 'Polldaddy Polls', 'polldaddy' ); ?></h2>
-<?php
-					} else { ?>
+					if ( isset( $_GET['popup'] ) ) { ?>
 				<h2 id="poll-list-header"><?php printf( __( 'Preview Poll <a href="%s" class="add-new-h2">All Polls</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ) ); ?></h2>
 <?php
 					}
