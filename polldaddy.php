@@ -1800,7 +1800,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 
 <div class="inner-sidebar" id="side-info-column">
 	<div id="submitdiv" class="postbox">
-		<h3><?php _e( 'Save', 'polldaddy' ); ?></h3>
+		<h2 class="postbox-title"><?php _e( 'Save', 'polldaddy' ); ?></h2>
 		<div class="inside">
 		<div class="minor-publishing">
 
@@ -1847,21 +1847,8 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 			</p>
 		</div>
 	</div>
-
-
-
 			<div id="major-publishing-actions">
-
-
-
-
-
-
-
-				<p id="publishing-action">
-
-
-
+				<div id="publishing-action">
 					<?php wp_nonce_field( $poll_id ? "edit-poll_$poll_id" : 'create-poll' ); ?>
 					<input type="hidden" name="action" value="<?php echo $poll_id ? 'edit-poll' : 'create-poll'; ?>" />
 					<input type="hidden" class="polldaddy-poll-id" name="poll" value="<?php echo $poll_id; ?>" />
@@ -1873,14 +1860,14 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 					</div>
 <?php endif; ?>
 
-				</p>
+				</div>
 				<br class="clear" />
 			</div>
 		</div>
 	</div>
 
 	<div class="postbox">
-		<h3><?php _e( 'Results Display', 'polldaddy' ); ?></h3>
+		<h2 class="postbox-title"><?php _e( 'Results Display', 'polldaddy' ); ?></h2>
 		<div class="inside">
 			<ul class="poll-options">
 
@@ -1903,7 +1890,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 	</div>
 
 	<div class="postbox">
-		<h3><?php _e( 'Repeat Voting', 'polldaddy' ); ?></h3>
+		<h2 class="postbox-title"><?php _e( 'Repeat Voting', 'polldaddy' ); ?></h2>
 		<div class="inside">
 			<ul class="poll-options">
 
@@ -1941,7 +1928,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 	</div>
 
 	<div class="postbox">
-		<h3><?php _e( 'Comments', 'polldaddy' ); ?></h3>
+		<h2 class="postbox-title"><?php _e( 'Comments', 'polldaddy' ); ?></h2>
 		<div class="inside">
 			<ul class="poll-options">
 
@@ -2019,7 +2006,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 	</div>
 
 	<div id="answersdiv" class="postbox">
-		<h3><?php _e( 'Answers', 'polldaddy' ); ?></h3>
+		<h2 class="postbox-title"><?php _e( 'Answers', 'polldaddy' ); ?></h2>
 
 		<div id="answerswrap" class="inside">
 		<ul id="answers">
@@ -2029,10 +2016,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 			$a++;
 		$delete_link = esc_url( wp_nonce_url( add_query_arg( array( 'action' => 'delete-answer', 'poll' => $poll_id, 'answer' => $answer_id, 'message' => false ) ), "delete-answer_$answer_id" ) );
 ?>
-
 			<li>
-
-
 				<table class="answer">
 
 						<tr>
@@ -2072,8 +2056,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 							</td>
 						</tr>
 					</table>
-
-
+				
 								</li>
 
 <?php
@@ -2223,7 +2206,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 			$custom_style_ID = 0;
 		}
 ?>
-		<h3><?php _e( 'Poll Style', 'polldaddy' ); ?></h3>
+		<h2 class="postbox-title"><?php _e( 'Poll Style', 'polldaddy' ); ?></h2>
 		<input type="hidden" name="styleID" id="styleID" value="<?php echo $style_ID ?>">
 		<div class="inside">
 
@@ -4061,7 +4044,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
         <div  class="has-sidebar has-right-sidebar">
           <div class="inner-sidebar-ratings">
            <div id="submitdiv" class="postbox ">
-			    <h3 class="hndle"><span><?php _e( 'Save Advanced Settings', 'polldaddy' );?></span></h3>
+			    <h2 class="postbox-title"><span><?php _e( 'Save Advanced Settings', 'polldaddy' );?></span></h2>
 
 			    <div class="inside">
 			        <div class="submitbox" id="submitpost">
@@ -4075,7 +4058,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 			    </div>
 			</div>
             <div class="postbox">
-              <h3><?php _e( 'Preview', 'polldaddy' );?></h3>
+              <h2 class="postbox-title"><?php _e( 'Preview', 'polldaddy' );?></h2>
               <div class="inside">
                 <p><?php _e( 'This is a demo of what your rating widget will look like', 'polldaddy' ); ?>.</p>
                 <p>
@@ -4084,7 +4067,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
               </div>
             </div>
             <div class="postbox">
-              <h3><?php _e( 'Customize Labels', 'polldaddy' );?></h3>
+              <h2 class="postbox-title"><?php _e( 'Customize Labels', 'polldaddy' );?></h2>
               <div class="inside">
                 <table width="99.5%">
                   <tr>
@@ -4207,7 +4190,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
           </div>
           <div id="post-body-content" class="has-sidebar-content">
             <div class="postbox">
-              <h3><?php _e( 'Rating Type', 'polldaddy' );?></h3>
+              <h2 class="postbox-title"><?php _e( 'Rating Type', 'polldaddy' );?></h2>
               <div class="inside">
                 <p><?php _e( 'Here you can choose how you want your rating to display. The 5 star rating is the most commonly used. The Nero rating is useful for keeping it simple.', 'polldaddy' ); ?></p>
                   <ul>
@@ -4233,7 +4216,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
                 </div>
             </div>
           <div class="postbox">
-            <h3><?php _e( 'Rating Style', 'polldaddy' );?></h3>
+            <h2 class="postbox-title"><?php _e( 'Rating Style', 'polldaddy' );?></h2>
             <div class="inside">
               <table>
                 <tr>
@@ -4281,7 +4264,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
             </div>
           </div>
           <div class="postbox">
-            <h3><?php _e( 'Text Layout & Font', 'polldaddy' );?></h3>
+            <h2 class="postbox-title"><?php _e( 'Text Layout & Font', 'polldaddy' );?></h2>
             <div class="inside">
               <table>
                 <tr>
@@ -4381,7 +4364,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
           <?php
 				if ( $this->is_admin ) { ?>
             <div class="postbox">
-              <h3><?php _e( 'Extra Settings', 'polldaddy' );?></h3>
+              <h2 class="postbox-title"><?php _e( 'Extra Settings', 'polldaddy' );?></h2>
               <div class="inside">
                 <table>
                   <tr>
