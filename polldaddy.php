@@ -4477,7 +4477,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 		$rating_id = 0;
 		$new_rating_id = 0;
 		$type = 'post';
-		$set = null;
+		$set = new stdClass;
 
 		if ( isset( $_REQUEST['rating_id'] ) )
 			$rating_id = (int) $_REQUEST['rating_id'];
