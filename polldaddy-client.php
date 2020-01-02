@@ -1064,7 +1064,7 @@ function polldaddy_email( $args = null, $id = null, $_require_data = true ) {
 		if ( is_null( $id ) )
 			return $args;
 		if ( !$id = (int) $id )
-			return $false;
+			return false;
 		$args->_id = $id;
 		return $args;
 	}
