@@ -782,34 +782,40 @@ class WP_Polldaddy {
 					$this->errors->add( 'answer', __( 'Invalid answers', 'polldaddy' ) );
 
 				$answers = array();
-				foreach ( $_POST['answer'] as $answer_id => $answer ) {
-					$answer = stripslashes( trim( $answer ) );
+				if ( ! empty( $_POST['answer'] ) ) {
+					foreach ( $_POST['answer'] as $answer_id => $answer ) {
+						$answer = stripslashes( trim( $answer ) );
 
-					if ( strlen( $answer ) > 0 ) {
-						$answer = wp_kses( $answer, $allowedtags );
+						if ( strlen( $answer ) > 0 ) {
+							$answer = wp_kses( $answer, $allowedtags );
 
-						$args['text'] = (string) $answer;
+							$args['text'] = (string) $answer;
 
-						$answer_id = str_replace('new', '', $answer_id );
-						$mc = '';
-						$mt = 0;
+							$answer_id = str_replace( 'new', '', $answer_id );
+							$mc        = '';
+							$mt        = 0;
 
-						if ( isset( $media[$answer_id] ) )
-							$mc = esc_html( $media[$answer_id] );
+							if ( isset( $media[ $answer_id ] ) ) {
+								$mc = esc_html( $media[ $answer_id ] );
+							}
 
-						if ( isset( $mediaType[$answer_id] ) )
-							$mt = intval( $mediaType[$answer_id] );
+							if ( isset( $mediaType[ $answer_id ] ) ) {
+								$mt = intval( $mediaType[ $answer_id ] );
+							}
 
-						$args['mediaType'] = $mt;
-						$args['mediaCode'] = $mc;
+							$args['mediaType'] = $mt;
+							$args['mediaCode'] = $mc;
 
-						if ( $answer_id > 1000 )
-							$answer = polldaddy_poll_answer( $args, $answer_id );
-						else
-							$answer = polldaddy_poll_answer( $args );
+							if ( $answer_id > 1000 ) {
+								$answer = polldaddy_poll_answer( $args, $answer_id );
+							} else {
+								$answer = polldaddy_poll_answer( $args );
+							}
 
-						if ( isset( $answer ) && is_a( $answer, 'Polldaddy_Poll_Answer' ) )
-							$answers[] = $answer;
+							if ( isset( $answer ) && is_a( $answer, 'Polldaddy_Poll_Answer' ) ) {
+								$answers[] = $answer;
+							}
+						}
 					}
 				}
 
@@ -1199,63 +1205,71 @@ class WP_Polldaddy {
 
 	function management_page_notices( $message = false ) {
 
-		switch ( (string) @$_GET['message'] ) {
-		case 'deleted' :
-			$deleted = (int) $_GET['deleted'];
-			if ( 1 == $deleted )
-				$message = __( 'Poll deleted.', 'polldaddy' );
-			else
-				$message = sprintf( _n( '%s Poll Deleted.', '%s Polls Deleted.', $deleted, 'polldaddy' ), number_format_i18n( $deleted ) );
-			break;
-		case 'opened' :
-			$opened = (int) $_GET['opened'];
-			if ( 1 == $opened )
-				$message = __( 'Poll opened.', 'polldaddy' );
-			else
-				$message = sprintf( _n( '%s Poll Opened.', '%s Polls Opened.', $opened, 'polldaddy' ), number_format_i18n( $opened ) );
-			break;
-		case 'closed' :
-			$closed = (int) $_GET['closed'];
-			if ( 1 == $closed )
-				$message = __( 'Poll closed.', 'polldaddy' );
-			else
-				$message = sprintf( _n( '%s Poll Closed.', '%s Polls Closed.', $closed, 'polldaddy' ), number_format_i18n( $closed ) );
-			break;
-		case 'updated' :
-			$message = __( 'Poll updated.', 'polldaddy' );
-			break;
-		case 'created' :
-			$message = __( 'Poll created.', 'polldaddy' );
-			if ( isset( $_GET['iframe'] ) )
-				$message .= ' <input type="button" class="button polldaddy-send-to-editor" value="' . esc_attr( __( 'Embed in Post', 'polldaddy' ) ) . '" />';
-			break;
-		case 'updated-style' :
-			$message = __( 'Custom Style updated.', 'polldaddy' );
-			break;
-		case 'created-style' :
-			$message = __( 'Custom Style created.', 'polldaddy' );
-			break;
-		case 'deleted-style' :
-			$deleted = (int) $_GET['deleted'];
-			if ( 1 == $deleted )
-				$message = __( 'Custom Style deleted.', 'polldaddy' );
-			else
-				$message = sprintf( _n( '%s Style Deleted.', '%s Custom Styles Deleted.', $deleted, 'polldaddy' ), number_format_i18n( $deleted ) );
-			break;
-		case 'imported-account' :
-			$message = __( 'Account Linked.', 'polldaddy' );
-			break;
-		case 'updated-options' :
-			$message = __( 'Options Updated.', 'polldaddy' );
-			break;
-		case 'deleted-rating' :
-			$deleted = (int) $_GET['deleted'];
-			if ( 1 == $deleted )
-				$message = __( 'Rating deleted.', 'polldaddy' );
-			else
-				$message = sprintf( _n( '%s Rating Deleted.', '%s Ratings Deleted.', $deleted, 'polldaddy' ), number_format_i18n( $deleted ) );
-			break;
-		}//end switch
+		if ( isset( $_GET['message'] ) ) {
+			switch ( (string) $_GET['message'] ) {
+				case 'deleted' :
+					$deleted = (int) $_GET['deleted'];
+					if ( 1 == $deleted ) {
+						$message = __( 'Poll deleted.', 'polldaddy' );
+					} else {
+						$message = sprintf( _n( '%s Poll Deleted.', '%s Polls Deleted.', $deleted, 'polldaddy' ), number_format_i18n( $deleted ) );
+					}
+					break;
+				case 'opened' :
+					$opened = (int) $_GET['opened'];
+					if ( 1 == $opened ) {
+						$message = __( 'Poll opened.', 'polldaddy' );
+					} else {
+						$message = sprintf( _n( '%s Poll Opened.', '%s Polls Opened.', $opened, 'polldaddy' ), number_format_i18n( $opened ) );
+					}
+					break;
+				case 'closed' :
+					$closed = (int) $_GET['closed'];
+					if ( 1 == $closed ) {
+						$message = __( 'Poll closed.', 'polldaddy' );
+					} else {
+						$message = sprintf( _n( '%s Poll Closed.', '%s Polls Closed.', $closed, 'polldaddy' ), number_format_i18n( $closed ) );
+					}
+					break;
+				case 'updated' :
+					$message = __( 'Poll updated.', 'polldaddy' );
+					break;
+				case 'created' :
+					$message = __( 'Poll created.', 'polldaddy' );
+					if ( isset( $_GET['iframe'] ) ) {
+						$message .= ' <input type="button" class="button polldaddy-send-to-editor" value="' . esc_attr( __( 'Embed in Post', 'polldaddy' ) ) . '" />';
+					}
+					break;
+				case 'updated-style' :
+					$message = __( 'Custom Style updated.', 'polldaddy' );
+					break;
+				case 'created-style' :
+					$message = __( 'Custom Style created.', 'polldaddy' );
+					break;
+				case 'deleted-style' :
+					$deleted = (int) $_GET['deleted'];
+					if ( 1 == $deleted ) {
+						$message = __( 'Custom Style deleted.', 'polldaddy' );
+					} else {
+						$message = sprintf( _n( '%s Style Deleted.', '%s Custom Styles Deleted.', $deleted, 'polldaddy' ), number_format_i18n( $deleted ) );
+					}
+					break;
+				case 'imported-account' :
+					$message = __( 'Account Linked.', 'polldaddy' );
+					break;
+				case 'updated-options' :
+					$message = __( 'Options Updated.', 'polldaddy' );
+					break;
+				case 'deleted-rating' :
+					$deleted = (int) $_GET['deleted'];
+					if ( 1 == $deleted ) {
+						$message = __( 'Rating deleted.', 'polldaddy' );
+					} else {
+						$message = sprintf( _n( '%s Rating Deleted.', '%s Ratings Deleted.', $deleted, 'polldaddy' ), number_format_i18n( $deleted ) );
+					}
+					break;
+			}//end switch
+		}
 
 		$is_POST = 'post' == strtolower( $_SERVER['REQUEST_METHOD'] );
 
@@ -1805,7 +1819,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 <?php
 		foreach ( array(  'randomiseAnswers' => __( 'Randomize answer order', 'polldaddy' ), 'otherAnswer' => __( 'Allow other answers', 'polldaddy' ), 'multipleChoice' => __( 'Multiple choice', 'polldaddy' ), 'sharing' => __( 'Sharing', 'polldaddy' ) ) as $option => $label ) :
 			if ( $is_POST )
-				$checked = 'yes' === $_POST[$option] ? ' checked="checked"' : '';
+				$checked = isset( $_POST[$option] ) && 'yes' === $_POST[$option] ? ' checked="checked"' : '';
 			else
 				$checked = 'yes' === $poll->$option ? ' checked="checked"' : '';
 ?>
@@ -1819,14 +1833,14 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 		</ul>
 		<?php
 		if ( $is_POST )
-			$style = 'yes' === $_POST['multipleChoice'] ? 'display:block;' : 'display:none;';
+			$style = 'yes' === isset( $_POST[$option] ) && $_POST['multipleChoice'] ? 'display:block;' : 'display:none;';
 		else
 			$style = 'yes' === $poll->multipleChoice ? 'display:block;' : 'display:none;';
 ?>
 		<div id="numberChoices" name="numberChoices" style="padding-left:15px;<?php echo $style; ?>">
 			<p><?php _e( 'Number of choices', 'polldaddy' ) ?>: <select name="choices" id="choices"><option value="0"><?php _e( 'No Limit', 'polldaddy' ) ?></option>
 				<?php
-		if ( $is_POST )
+		if ( $is_POST && isset( $_POST['choices'] ) )
 			$choices = (int) $_POST['choices'];
 		else
 			$choices = (int) $poll->choices;
