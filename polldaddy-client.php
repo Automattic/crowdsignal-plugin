@@ -1170,7 +1170,7 @@ function &polldaddy_poll( $args = null, $id = null, $_require_data = true ) {
 
 		foreach ( array( 'styleID', 'packID', 'folderID', 'languageID', 'choices', 'blockExpiration' ) as $int )
 			if ( !is_numeric( $args[$int] ) )
-				$args[$bool] = $defaults[$int];
+				$args[$int] = $defaults[$int];
 
 		if ( !in_array( $args['resultsType'], array( 'show', 'percent', 'hide' ) ) )
 			$args['resultsType'] = $defaults['resultsType'];
