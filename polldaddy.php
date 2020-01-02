@@ -4013,7 +4013,8 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
           </form>
 		<?php // check for previous settings
 		$previous_settings = get_option( 'polldaddy_settings' );
-		if ( get_option( 'pd-rating-posts-id' ) && get_option( 'pd-rating-posts-id' ) != $previous_settings[ 'pd-rating-posts-id' ] ) {
+		$current_setting   = get_option( 'pd-rating-posts-id' );
+		if ( $current_setting && isset( $previous_settings[ 'pd-rating-posts-id' ] ) && $current_setting != $previous_settings[ 'pd-rating-posts-id' ] ) {
 			echo "<p>" . sprintf( __( "Previous settings for ratings on this site discovered. You can restore them on the <a href='%s'>poll settings page</a> if your site is missing ratings after resetting your connection settings.", 'polldaddy' ), "options-general.php?page=polls&action=options" ) . "</p>";
 		}
 		?>
