@@ -4818,7 +4818,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 							<?php echo esc_html( $rating->uid ); ?>
 						</td>
 						<td class="date column-date">
-							<abbr title="<?php echo date( __( 'Y/m/d g:i:s A', 'polldaddy' ), $rating->date ); ?>"><?php echo str_replace( '-', '/', substr( esc_html( $rating->date ), 0, 10 ) ); ?></abbr>
+							<abbr title="<?php echo date( __( 'Y/m/d g:i:s A', 'polldaddy' ), strtotime( $rating->date ) ); ?>"><?php echo str_replace( '-', '/', substr( esc_html( $rating->date ), 0, 10 ) ); ?></abbr>
 						</td>
 						<td class="column-vote num"><?php echo number_format( $rating->_votes ); ?></td>
 						<td class="column-rating num"><table width="100%"><tr align="center"><td style="border:none;"><?php
