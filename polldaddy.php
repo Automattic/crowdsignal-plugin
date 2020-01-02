@@ -2052,7 +2052,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 							</td>
 						</tr>
 					</table>
-				
+
 								</li>
 
 <?php
