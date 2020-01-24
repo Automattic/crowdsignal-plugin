@@ -3,8 +3,8 @@ Contributors: eoigal, mdawaffe, donncha, johnny5, panosktn, ice9js
 Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 4.6
 Requires PHP: 5.6
-Tested up to: 5.1.1
-Stable tag: 2.1.2
+Tested up to: 5.3
+Stable tag: 2.1.3
 
 Create and manage Crowdsignal polls and ratings from within WordPress.
 
@@ -125,6 +125,15 @@ Make sure to whitelist `api.crowdsignal.com` in your firewall to fix this.
 Security update: make sure the Javascript embed comes from Crowdsignal servers.
 
 == Changelog ==
+
+= 2.2.0 =
+* Changed menu name from Feedback to Crowdsignal.
+* Moved Poll and Rating settings under the Crowdsignal menu item.
+* Updated menu icon to Crowdsignal logo.
+* Updated some visual elements in the poll editor.
+* Fixed issue that caused prevented the `Multiple choice` setting from saving.
+* Fixed some minor issues causing PHP errors.
+* Remove a few old references to Polldaddy.
 
 = 2.1.2 =
 * Make sure that the poll Javascript code comes from Crowdsignal servers.
