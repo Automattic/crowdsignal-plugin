@@ -925,8 +925,13 @@ class WP_Polldaddy {
 					}
 				}
 
-				if ( !$answers )
+				if ( 2 > count( $answers ) ) {
+					$this->errors->add( 'answer', __( 'You must include at least 2 answers', 'polldaddy' ) );
+				}
+
+				if ( $this->errors->get_error_codes() ) {
 					return false;
+				}
 
 				$poll_data = _polldaddy_poll_defaults();
 
