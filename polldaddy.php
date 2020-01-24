@@ -891,31 +891,37 @@ class WP_Polldaddy {
 				}
 
 				$answers = array();
-				foreach ( $_POST['answer'] as $answer_id => $answer ) {
-					$answer = stripslashes( trim( $answer ) );
 
-					if ( strlen( $answer ) > 0 ) {
-						$answer = wp_kses( $answer, $allowedtags );
+				if ( ! empty( $_POST['answer'] ) ) {
+					foreach ( $_POST['answer'] as $answer_id => $answer ) {
+						$answer = stripslashes( trim( $answer ) );
 
-						$args['text'] = (string) $answer;
+						if ( strlen( $answer ) > 0 ) {
+							$answer = wp_kses( $answer, $allowedtags );
 
-						$answer_id = (int) str_replace('new', '', $answer_id );
-						$mc = '';
-						$mt = 0;
+							$args['text'] = (string) $answer;
 
-						if ( isset( $media[$answer_id] ) )
-							$mc = esc_html( $media[$answer_id] );
+							$answer_id = (int) str_replace( 'new', '', $answer_id );
+							$mc        = '';
+							$mt        = 0;
 
-						if ( isset( $mediaType[$answer_id] ) )
-							$mt = intval( $mediaType[$answer_id] );
+							if ( isset( $media[ $answer_id ] ) ) {
+								$mc = esc_html( $media[ $answer_id ] );
+							}
 
-						$args['mediaType'] = $mt;
-						$args['mediaCode'] = $mc;
+							if ( isset( $mediaType[ $answer_id ] ) ) {
+								$mt = intval( $mediaType[ $answer_id ] );
+							}
 
-						$answer = polldaddy_poll_answer( $args );
+							$args['mediaType'] = $mt;
+							$args['mediaCode'] = $mc;
 
-						if ( isset( $answer ) && is_a( $answer, 'Polldaddy_Poll_Answer' ) )
-							$answers[] = $answer;
+							$answer = polldaddy_poll_answer( $args );
+
+							if ( isset( $answer ) && is_a( $answer, 'Polldaddy_Poll_Answer' ) ) {
+								$answers[] = $answer;
+							}
+						}
 					}
 				}
 
