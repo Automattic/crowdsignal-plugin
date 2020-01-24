@@ -139,7 +139,13 @@ class WP_Polldaddy {
 			add_action( "load-$hook", array( &$this, 'management_page_load' ) );
 
 			add_submenu_page( 'feedback', $page_title, $page_title, $capability, $menu_slug, $function );
-			add_options_page( $page_title, $page_title, $menu_slug == 'ratings' ? 'manage_options' : $capability, $menu_slug.'&action=options', $function );
+		}
+
+		// Add settings pages.
+		foreach( array( 'polls' => __( 'Poll', 'polldaddy' ), 'ratings' => __( 'Rating', 'polldaddy' ) ) as $menu_slug => $page_title ) {
+			// translators: %s placeholder is the setting page type (Poll or Rating).
+			$settings_page_title = sprintf( esc_html__( '%s Settings', 'polldaddy' ), $page_title );
+			add_submenu_page( 'feedback', $settings_page_title, $settings_page_title, $menu_slug == 'ratings' ? 'manage_options' : $capability, $menu_slug.'&action=options', $function );
 		}
 
 		remove_submenu_page( 'feedback', 'feedback' );
@@ -2052,7 +2058,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 							</td>
 						</tr>
 					</table>
-				
+
 								</li>
 
 <?php
