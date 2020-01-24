@@ -1096,6 +1096,10 @@ class WP_Polldaddy {
 						$user_defaults[$option] = 'no';
 				}
 
+				if ( ! empty( $_POST['multipleChoice'] ) ) {
+					$user_defaults['choices'] = 1;
+				}
+
 				$results = array( 'show', 'percent', 'hide' );
 				if ( isset( $_POST['resultsType'] ) && in_array( $_POST['resultsType'], $results ) )
 					$user_defaults['resultsType'] = $_POST['resultsType'];
@@ -1830,7 +1834,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 			$style = 'yes' === $poll->multipleChoice ? 'display:block;' : 'display:none;';
 ?>
 		<div id="numberChoices" name="numberChoices" style="padding-left:15px;<?php echo $style; ?>">
-			<p><?php _e( 'Number of choices', 'polldaddy' ) ?>: <select name="choices" id="choices"><option value="0"><?php _e( 'No Limit', 'polldaddy' ) ?></option>
+			<p><?php _e( 'Number of choices', 'polldaddy' ) ?>: <select name="choices" id="choices"><option value="1"><?php _e( 'No Limit', 'polldaddy' ) ?></option>
 				<?php
 		if ( $is_POST )
 			$choices = (int) $_POST['choices'];
