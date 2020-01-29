@@ -514,6 +514,9 @@ if ( class_exists( 'WP_Widget' ) && ! class_exists( 'PD_Top_Rated' ) ) {
 						$current_category = get_the_category( $posts[0]->ID );
 				}
 
+				if ( ! isset( $current_category ) ) {
+					$current_category = null;
+				}
 				if ( is_array( $current_category ) && (int) $current_category[0]->cat_ID > 0 ) {
 					$args = array( 'category' => $current_category[0]->cat_ID );
 					$post_ids = '';

@@ -79,11 +79,11 @@ class api_client {
 
 			list($headers, $this->response_xml) = explode( "\r\n\r\n", $response, 2 );
 		}
-		
+
 		$this->responses[] = $this->response_xml;
 
 		$parser = new Polldaddy_XML_Parser( $this->response_xml );
-		
+
 		$this->response = $parser->objects[0];
 		if ( isset( $this->response->errors->error ) ) {
 			if ( !is_array( $this->response->errors->error ) )
@@ -213,17 +213,17 @@ class api_client {
 
 function sync_rating( ){
           $pos = $this->add_request( 'syncrating', new Polldaddy_Rating( null , null ) );
-  
+
           $this->send_request();
-  
+
           $demand = $this->response_part( $pos );
-  
+
           if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->rating ) ){
                   return $demand->rating;
           }
-  
+
           return false;
-  
+
   }
 
 /* pdRequest: Request API Objects */
@@ -360,7 +360,7 @@ function sync_rating( ){
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @param int $id Polldaddy Poll ID
 	 * @return bool success
@@ -390,7 +390,7 @@ function sync_rating( ){
 
 		return empty( $this->errors );
 	}
-	
+
 	/**
 	 * @param int $id Polldaddy Poll ID
 	 * @return bool success
@@ -446,7 +446,7 @@ function sync_rating( ){
 		if ( !isset( $demand->poll ) )
 			return false;
 		return $demand->poll;
-	} 
+	}
 
 	/**
 	 * @see polldaddy_poll()
@@ -456,7 +456,7 @@ function sync_rating( ){
 	 */
 	function update_poll_defaults( $folderID,  $args = null ) {
 		$folderID = (int) $folderID;
-       
+
 		if ( !$poll = new Polldaddy_Poll( $args, compact( 'folderID' ) ) )
 			return false;
 
@@ -474,18 +474,18 @@ function sync_rating( ){
 	function get_poll_results( $id ) {
 		if ( !$id = (int) $id )
 			return false;
-			
+
 			$start = 0;
 			$end = 2;
 
 //		$pos = $this->add_request( __FUNCTION__, new Polldaddy_Poll_Result( null, compact( 'id' ) ) );
 		$pos = $this->add_request( 'getpollresults', new Polldaddy_Poll( null, compact( 'id' ) ) );
-		//Optionally if you want to list other answers... 
+		//Optionally if you want to list other answers...
 		//$pos = $this->add_request( 'getpollresults', new Polldaddy_List( null, compact( 'id', 'start', 'end' ) ) );
 		$this->send_request();
 
 		$demand = $this->response_part( $pos );
-		
+
 		if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->result ) ) {
 			$answers = $others = array();
 			if ( isset( $demand->result->answers ) ) {
@@ -538,7 +538,7 @@ function sync_rating( ){
 		$this->send_request();
 
 		$demand = $this->response_part( $pos );
-		
+
 		if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->comments ) ) {
 			if ( isset( $demand->comments->comment ) && !is_array( $demand->comments->comment ) ) {
 				if ( $demand->comments->comment )
@@ -559,15 +559,15 @@ function sync_rating( ){
 	function moderate_comment( $id, $args = null ) {
 		if ( !$id = (int) $id )
 			return false;
-			
+
 		if ( !$comment = polldaddy_comment( $args, $id ) )
 			return false;
 
 //		$this->add_request( __FUNCTION__, new Polldaddy_Comments( $comments ) );
 		$this->add_request( 'moderatecomment', $comment);
 		$this->send_request();
-		
-		return empty( $this->errors );	
+
+		return empty( $this->errors );
 	}
 
 	/* Languages */
@@ -581,7 +581,7 @@ function sync_rating( ){
 		$this->send_request();
 
 		$demand = $this->response_part( $pos );
-		
+
 		if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->languages ) ) {
 			if ( isset( $demand->languages->language ) && !is_array( $demand->languages->language ) ) {
 				if ( $demand->languages->language )
@@ -614,7 +614,7 @@ function sync_rating( ){
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @param int $id Polldaddy Pack ID
 	 * @return array|false Polldaddy Pack or false on failure
@@ -628,7 +628,7 @@ function sync_rating( ){
 		$this->send_request();
 
 		$demand = $this->response_part( $pos );
-		
+
 		if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->pack ) ) {
 			return $demand->pack;
 		}
@@ -787,7 +787,7 @@ function sync_rating( ){
 	function get_rating( $id ){
 		if ( !$id = (int) $id )
 			return false;
-		
+
 		$pos = $this->add_request( 'getrating', new Polldaddy_Rating( null , compact( 'id' ) ) );
 
 		if ( false == $this->send_request() )
@@ -798,11 +798,11 @@ function sync_rating( ){
 		if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->rating ) ){
 			return $demand->rating;
 		}
-			
+
 		return false;
-		
+
 	}
-	
+
 	function update_rating( $id, $settings, $type ){
 
 	    if ( !$id = (int) $id )
@@ -822,7 +822,7 @@ function sync_rating( ){
 
 	}
 
-    /* Create Rating 
+    /* Create Rating
 	 * @param string $name Polldaddy rating name
 	 * @param string $type Polldaddy rating type
 	 * @return array|false Polldaddy Result or false on failure
@@ -843,8 +843,8 @@ function sync_rating( ){
 	    return false;
 
     }
-	
-	
+
+
 	/* Rating Results */
 	/**
 	 * @param int $id Polldaddy Poll ID
@@ -874,11 +874,11 @@ function sync_rating( ){
 		}
 		return false;
 	}
-	
+
 	function delete_rating_result( $id, $uid = '' ){
 		if ( !$id = (int) $id )
 			return false;
-		
+
 		$pos = $this->add_request( 'deleteratingresult', new Polldaddy_Rating( compact( 'uid' ) , compact( 'id' ) ) );
 
 		$this->send_request();
@@ -888,12 +888,12 @@ function sync_rating( ){
 		if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->rating ) ){
 			return $demand->rating;
 		}
-			
+
 		return false;
-		
+
 	}
-	
-	/* Add Media 
+
+	/* Add Media
 	 * @param string $name Polldaddy media name
 	 * @param string $type Polldaddy media type
 	 * @param string $size Polldaddy media size
@@ -918,11 +918,11 @@ function sync_rating( ){
 
 	    return false;
     }
-    
+
     function get_media( $id ){
 		if ( !$id = (int) $id )
 			return false;
-			
+
 	    $pos = $this->add_request( 'getmedia', new Polldaddy_Media( null, compact( 'id' ) ) );
 
 	    $this->send_request();
@@ -935,7 +935,7 @@ function sync_rating( ){
 
 	    return false;
     }
-	
+
 	function get_xml(){
 		return array( 'REQUEST' => $this->request_xml, 'RESPONSE' => $this->response_xml );
 	}
@@ -946,8 +946,8 @@ function &polldaddy_activity( $act ) {
 		return false;
 
 	$obj = new Polldaddy_Activity( $act );
-	
-	return $obj; 
+
+	return $obj;
 }
 
 /**
@@ -968,22 +968,22 @@ function &polldaddy_style( $args = null, $id = null, $_require_data = true ) {
 
 	$defaults = _polldaddy_style_defaults();
 	$retro = 0;
-	
+
 	if ( !is_null( $args ) ) {
 		$args = wp_parse_args( $args, $defaults );
 
 		//if ( $_require_data ) {}
-		
+
 		$retro = (int) $args['retro'];
-			
+
 		if ( is_null( $id ) )
 			$id = $args['id'];
 		unset( $args['id'] );
 	}
 
 	$obj = new Polldaddy_Style( $args, compact( 'id', 'retro' ) );
-	
-	return $obj; 
+
+	return $obj;
 }
 
 function _polldaddy_style_defaults() {
@@ -1013,24 +1013,24 @@ function &polldaddy_pack( $args = null, $id = null, $_require_data = true ) {
 
 	$defaults = _polldaddy_pack_defaults();
 	$retro = 0;
-	
+
 	if ( !is_null( $args ) ) {
 		$args = wp_parse_args( $args, $defaults );
 
 		//if ( $_require_data ) {}
-		
+
 		$retro = (int) $args['retro'];
 
 		$args['pack'] = new Custom_Pack( $args['pack'] );
-			
+
 		if ( is_null( $id ) )
 			$id = $args['id'];
 		unset( $args['id'] );
 	}
 
 	$obj = new Polldaddy_Pack( $args, compact( 'id', 'retro' ) );
-	
-	return $obj; 
+
+	return $obj;
 }
 
 function _polldaddy_pack_defaults() {
@@ -1055,7 +1055,7 @@ function &polldaddy_custom_phrase( $phrase, $phraseID = null ) {
 		return false;
 
 	$obj = new Custom_Pack_Phrase( $phrase, compact( 'phraseID' ) );
-	
+
 	return $obj;
 }
 
@@ -1064,7 +1064,7 @@ function polldaddy_email( $args = null, $id = null, $_require_data = true ) {
 		if ( is_null( $id ) )
 			return $args;
 		if ( !$id = (int) $id )
-			return $false;
+			return false;
 		$args->_id = $id;
 		return $args;
 	}
@@ -1115,7 +1115,7 @@ function &polldaddy_account( $args = null ) {
 			return $false;
 
 	$obj = new Polldaddy_Account( $args );
-	
+
 	return $obj;
 }
 
@@ -1164,13 +1164,13 @@ function &polldaddy_poll( $args = null, $id = null, $_require_data = true ) {
 			if ( 'no' !== $args[$bool] && 'yes' !== $args[$bool] )
 				$args[$bool] = $defaults[$bool];
 		}
-		
+
 		if ( '0' == get_option( 'blog_public' ) )
 			$args['makePublic'] = 'no';
 
 		foreach ( array( 'styleID', 'packID', 'folderID', 'languageID', 'choices', 'blockExpiration' ) as $int )
 			if ( !is_numeric( $args[$int] ) )
-				$args[$bool] = $defaults[$int];
+				$args[$int] = $defaults[$int];
 
 		if ( !in_array( $args['resultsType'], array( 'show', 'percent', 'hide' ) ) )
 			$args['resultsType'] = $defaults['resultsType'];
@@ -1192,7 +1192,7 @@ function &polldaddy_poll( $args = null, $id = null, $_require_data = true ) {
 			$id = $args['id'];
 		unset( $args['id'] );
 	}
-	
+
 	$obj = new Polldaddy_Poll( $args, compact( 'id' ) );
 
 	return $obj;
@@ -1234,10 +1234,10 @@ function &polldaddy_comment( $args = null, $id = null ) {
 	$defaults = _polldaddy_comment_defaults();
 
 	$atts = wp_parse_args( $args, $defaults );
-	
+
 	$obj = new Polldaddy_Comment( null, $atts );
-	
-	return $obj; 
+
+	return $obj;
 }
 
 function _polldaddy_comment_defaults() {
@@ -1263,10 +1263,10 @@ function &polldaddy_comments( $args = null, $id = null ) {
 	if ( is_null( $id ) )
 		$id = $args['id'];
 	unset( $args['id'] );
-	
+
 	$obj = new Polldaddy_Comments( $args, compact( 'id' ) );
-	
-	return $obj; 
+
+	return $obj;
 }
 
 function _polldaddy_comments_defaults() {
@@ -1284,7 +1284,7 @@ endif;
 
 function &polldaddy_poll_answer( $args, $id = null ) {
 	$answer = false;
-	
+
 	if ( is_string( $args['text'] ) && strlen($args['text'] ) > 0 ){
 		$answer = new Polldaddy_Poll_Answer( $args, compact( 'id' ) );
 	}
