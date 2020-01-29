@@ -131,7 +131,7 @@ Security update: make sure the Javascript embed comes from Crowdsignal servers.
 * Moved Poll and Rating settings under the Crowdsignal menu item.
 * Updated menu icon to Crowdsignal logo.
 * Updated some visual elements in the poll editor.
-* Fixed issue that caused prevented the `Multiple choice` setting from saving.
+* Fixed issue that prevented the `Multiple choice` setting from saving.
 * Fixed some minor issues causing PHP errors.
 * Remove a few old references to Polldaddy.
 
