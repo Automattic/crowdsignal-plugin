@@ -642,7 +642,7 @@ function polldaddy_login_warning() {
 		return;
 	}
 
-	// We want the options page to load.
+	// We want the main poll options page to never show this message.
 	if ( 'polls' === $page && 'options' === $action ) {
 		return;
 	}
