@@ -5200,7 +5200,12 @@ if ( false == is_object( $poll ) ) {
 		</form>
 		<br />
 		<?php
-		if ( $show_reset_form && isset( $settings[ 'pd-rating-posts-id' ] ) && $settings[ 'pd-rating-posts-id' ] != $previous_settings[ 'pd-rating-posts-id' ] ) {
+		if (
+			$show_reset_form
+			&& isset( $settings[ 'pd-rating-posts-id' ] )
+			&& isset( $previous_settings[ 'pd-rating-posts-id' ] )
+			&& $settings[ 'pd-rating-posts-id' ] != $previous_settings[ 'pd-rating-posts-id' ]
+		) {
 			echo "<h3>" . __( 'Restore Ratings Settings', 'polldaddy' ) . "</h3>";
 			echo "<p>" . __( 'Different rating settings detected. If you are missing ratings on your posts, pages or comments you can restore the original rating settings by clicking the button below.', 'polldaddy' ) . "</p>";
 			echo "<p>" . __( 'This tells the plugin to look for this data in a different rating in your Crowdsignal account.', 'polldaddy' ) . "</p>";
