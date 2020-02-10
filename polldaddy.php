@@ -1473,10 +1473,12 @@ class WP_Polldaddy {
             return false;
 		$this->print_errors();
 		$polls = & $polls_object->poll;
-		if ( isset( $polls_object->_total ) )
+		$total_polls = 0;
+		if ( isset( $polls_object->_total ) ) {
 			$total_polls = $polls_object->_total;
-		else
+		} elseif ( ! empty( $polls ) ) {
 			$total_polls = count( $polls );
+		}
 		$class = '';
 
 		$page_links = paginate_links( array(
