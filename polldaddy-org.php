@@ -133,7 +133,7 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 
 		//need to set this to make sure that menus behave properly
 		if ( in_array( $action, array( 'options', 'update-rating' ) ) ) {
-			$parent_file  = 'options-general.php';
+			$parent_file  = 'admin.php';
 			$submenu_file = $page.'&action=options';
 		} else {
 			add_filter( 'admin_title', array( &$this, 'admin_title' ) );
@@ -629,10 +629,22 @@ if ( class_exists( 'PD_Top_Rated' ) ) {
 }
 
 function polldaddy_login_warning() {
-	global $cache_enabled, $hook_suffix;
-	$page = isset( $_GET[ 'page' ] ) ? $_GET[ 'page' ] : '';
-	if ( ( $hook_suffix == 'plugins.php' || $page == 'polls' ) && false == get_option( 'polldaddy_api_key' ) && function_exists( "admin_url" ) )
-		echo '<div class="updated"><p><strong>' . sprintf( __( 'Warning! The Crowdsignal plugin must be linked to your Crowdsignal.com account. Please visit the <a href="%s">plugin settings page</a> to login.', 'polldaddy' ), admin_url( 'options-general.php?page=polls&action=options' ) ) . '</strong></p></div>';
+	global $hook_suffix;
+
+	if (  false != get_option( 'polldaddy_api_key' ) || ! function_exists( "admin_url" ) ) {
+		return;
+	}
+
+	$page   = isset( $_GET['page'] ) ? $_GET['page'] : '';
+	$action = isset( $_GET['action'] ) ? $_GET['action'] : '';
+
+	if ( 'plugins.php' !== $hook_suffix && ! in_array( $page, [ 'polls', 'ratings' ], true ) ) {
+		return;
+	}
+
+	if ( 'options' !== $action ) {
+		echo '<div class="updated"><p><strong>' . sprintf( __( 'Warning! The Crowdsignal plugin must be linked to your Crowdsignal.com account. Please visit the <a href="%s">plugin settings page</a> to login.', 'polldaddy' ), admin_url( 'admin.php?page=polls&action=options' ) ) . '</strong></p></div>';
+	}
 }
 add_action( 'admin_notices', 'polldaddy_login_warning' );
 

@@ -416,13 +416,12 @@ class WP_Polldaddy {
 	}
 
 	function management_page_load() {
-
 		wp_reset_vars( array( 'page', 'action', 'poll', 'style', 'rating', 'id' ) );
 		global $plugin_page, $page, $action, $poll, $style, $rating, $id, $wp_locale;
 
 		$this->set_api_user_code();
 
-		if ( empty( $this->user_code ) && $page == 'polls' ) {
+		if ( empty( $this->user_code ) && $page == 'polls' && $action !== 'options' ) {
 			// one last try to get the user code automatically if possible
 			$this->user_code = apply_filters_ref_array( 'polldaddy_get_user_code', array( $this->user_code, &$this ) );
 			if ( false == $this->user_code && $action != 'restore-account' )
@@ -1412,7 +1411,7 @@ class WP_Polldaddy {
 ?>
 
 		<h2 id="poll-list-header"><?php
-				if ( $this->is_author )
+				if ( $this->is_author && defined( 'WP_POLLDADDY__PARTNERGUID' ) && WP_POLLDADDY__PARTNERGUID )
 					printf( __( 'Crowdsignal Polls <a href="%s" class="add-new-h2">Add New</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'create-poll', 'poll' => false, 'message' => false ) ) ) );
 				else
 					_e( 'Crowdsignal Polls ', 'polldaddy' );
@@ -1422,7 +1421,7 @@ class WP_Polldaddy {
 				if ( !empty( $account ) )
 					$account_email = esc_attr( $account->email );
 				if ( isset( $account_email ) && current_user_can( 'manage_options' ) ) {
-					echo "<p>" . sprintf( __( 'Linked to WordPress.com Account: <strong>%s</strong> (<a target="_blank" href="options-general.php?page=polls&action=options">Settings</a> / <a target="_blank" href="https://app.crowdsignal.com/">Crowdsignal.com</a>)', 'polldaddy' ), $account_email ) . "</p>";
+					echo "<p>" . sprintf( __( 'Linked to WordPress.com Account: <strong>%s</strong> (<a target="_blank" href="admin.php?page=polls&action=options">Settings</a> / <a target="_blank" href="https://app.crowdsignal.com/">Crowdsignal.com</a>)', 'polldaddy' ), $account_email ) . "</p>";
 				}
 
 				if ( !isset( $_GET['view'] ) )
@@ -4050,7 +4049,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 		$previous_settings = get_option( 'polldaddy_settings' );
 		$current_setting   = get_option( 'pd-rating-posts-id' );
 		if ( $current_setting && isset( $previous_settings[ 'pd-rating-posts-id' ] ) && $current_setting != $previous_settings[ 'pd-rating-posts-id' ] ) {
-			echo "<p>" . sprintf( __( "Previous settings for ratings on this site discovered. You can restore them on the <a href='%s'>poll settings page</a> if your site is missing ratings after resetting your connection settings.", 'polldaddy' ), "options-general.php?page=polls&action=options" ) . "</p>";
+			echo "<p>" . sprintf( __( "Previous settings for ratings on this site discovered. You can restore them on the <a href='%s'>poll settings page</a> if your site is missing ratings after resetting your connection settings.", 'polldaddy' ), "admin.php?page=polls&action=options" ) . "</p>";
 		}
 		?>
         </div>
@@ -4757,7 +4756,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 ?>
 		<div class="wrap">
 			<?php if ( $this->is_admin ) : ?>
-			<h2 id="polldaddy-header"><?php printf( __( 'Rating Results <a href="%s" class="add-new-h2">Settings</a>', 'polldaddy' ), esc_url( 'options-general.php?page=ratings&action=options' ) ); ?></h2>
+			<h2 id="polldaddy-header"><?php printf( __( 'Rating Results <a href="%s" class="add-new-h2">Settings</a>', 'polldaddy' ), esc_url( 'admin.php?page=ratings&action=options' ) ); ?></h2>
 			<?php else : ?>
 			<h2 id="polldaddy-header"><?php _e( 'Rating Results', 'polldaddy' ); ?></h2>
 			<?php endif; ?>
@@ -5268,7 +5267,7 @@ if ( false == is_object( $poll ) ) {
 		echo '<h1>' . $message . '</h1>';
 		echo '<p>' . __( "There are a few things you can do:" );
 		echo "<ul><ol>" . __( "Press reload on your browser and reload this page. There may have been a temporary problem communicating with Crowdsignal.com", "polldaddy" ) . "</ol>";
-		echo "<ol>" . sprintf( __( "Go to the <a href='%s'>poll settings page</a>, scroll to the end of the page and reset your connection settings. Link your account again with the same API key.", "polldaddy" ), 'options-general.php?page=polls&action=options' ) . "</ol>";
+		echo "<ol>" . sprintf( __( "Go to the <a href='%s'>poll settings page</a>, scroll to the end of the page and reset your connection settings. Link your account again with the same API key.", "polldaddy" ), 'admin.php?page=polls&action=options' ) . "</ol>";
 		echo "<ol>" . sprintf( __( 'Contact <a href="%1$s" %2$s>Crowdsignal support</a> and tell them your rating usercode is %3$s', 'polldaddy' ), 'https://crowdsignal.com/feedback/', 'target="_blank"', $this->rating_user_code ) . '<br />' . __( 'Also include the following information when contacting support to help us resolve your problem as quickly as possible:', 'polldaddy' ) . '';
 		echo "<ul><li> API Key: " . get_option( 'polldaddy_api_key' ) . "</li>";
 		echo "<li> ID Usercode: " . get_option( 'pd-usercode-' . $current_user->ID ) . "</li>";
