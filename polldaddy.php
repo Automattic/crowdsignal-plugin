@@ -115,7 +115,6 @@ class WP_Polldaddy {
 
 	function admin_menu() {
 		add_action( 'wp_enqueue_scripts', array( &$this, 'register_polldaddy_styles' ) );
-		add_action( 'admin_head', array( &$this, 'do_admin_css' ) );
 		add_action( 'admin_enqueue_scripts', array( &$this, 'menu_alter' ) );
 
 		if ( !defined( 'WP_POLLDADDY__PARTNERGUID' ) ) {
@@ -129,7 +128,16 @@ class WP_Polldaddy {
 		$capability = 'edit_posts';
 		$function   = array( &$this, 'management_page' );
 
-		$hook = add_menu_page( __( 'Crowdsignal', 'polldaddy' ), __( 'Crowdsignal', 'polldaddy' ), $capability, 'feedback', $function, 'div' );
+		$icon_encoded = 'PHN2ZyBpZD0iY29udGVudCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMjg4IDIyMCI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiNGRkZGRkY7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5pY29uLWJsdWU8L3RpdGxlPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTI2Mi40MSw4MC4xYy04LjQ3LTIyLjU1LTE5LjA1LTQyLjgzLTI5Ljc5LTU3LjFDMjIwLjc0LDcuMjQsMjEwLC41NywyMDEuNDcsMy43OWExMi4zMiwxMi4zMiwwLDAsMC0zLjcyLDIuM2wtLjA1LS4xNUwxNiwxNzMuOTRsOC4yLDE5LjEyLDMwLjU2LTEuOTJ2MTMuMDVhMTIuNTcsMTIuNTcsMCwwLDAsMTIuNTgsMTIuNTZjLjMzLDAsLjY3LDAsMSwwbDU4Ljg1LTQuNzdhMTIuNjUsMTIuNjUsMCwwLDAsMTEuNTYtMTIuNTNWMTg1Ljg2bDEyMS40NS03LjY0YTEzLjg4LDEzLjg4LDAsMCwwLDIuMDkuMjYsMTIuMywxMi4zLDAsMCwwLDQuNDEtLjhDMjg1LjMzLDE3MC43LDI3OC42MywxMjMuMzEsMjYyLjQxLDgwLjFabS0yLjI2LDg5Ljc3Yy0xMC40OC0zLjI1LTMwLjQ0LTI4LjE1LTQ2LjY4LTcxLjM5LTE1LjcyLTQxLjktMTcuNS03My4yMS0xMi4zNC04My41NGE2LjUyLDYuNTIsMCwwLDEsMy4yMi0zLjQ4LDMuODIsMy44MiwwLDAsMSwxLjQxLS4yNGMzLjg1LDAsMTAuOTQsNC4yNiwyMC4zMSwxNi43MUMyMzYuMzYsNDEuNTksMjQ2LjU0LDYxLjE1LDI1NC43NCw4M2MxOC40NCw0OS4xMiwxNy43NCw4My43OSw5LjEzLDg3QTUuOTMsNS45MywwLDAsMSwyNjAuMTUsMTY5Ljg3Wk0xMzAuNiwxOTkuNDFhNC40LDQuNCwwLDAsMS00LDQuMzdsLTU4Ljg1LDQuNzdBNC4zOSw0LjM5LDAsMCwxLDYzLDIwNC4xOVYxOTAuNjJsNjcuNjEtNC4yNVoiLz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik02LDE4NS4yNmExMC4yNSwxMC4yNSwwLDAsMCwxMC4yNSwxMC4yNSwxMC4wNSwxMC4wNSwwLDAsMCw0LjM0LTFsLTcuOTQtMTguNzNBMTAuMiwxMC4yLDAsMCwwLDYsMTg1LjI2WiIvPjwvc3ZnPgo=';
+
+		$hook = add_menu_page(
+			__( 'Crowdsignal', 'polldaddy' ),
+			__( 'Crowdsignal', 'polldaddy' ),
+			$capability,
+			'feedback',
+			$function,
+			'data:image/svg+xml;base64,' . $icon_encoded
+		);
 		add_action( "load-$hook", array( &$this, 'management_page_load' ) );
 
 		foreach( array( 'polls' => __( 'Polls', 'polldaddy' ), 'ratings' => __( 'Ratings', 'polldaddy' ) ) as $menu_slug => $page_title ) {
@@ -160,33 +168,10 @@ class WP_Polldaddy {
 		add_action( 'media_buttons', array( &$this, 'media_buttons' ) );
 	}
 
-	function do_admin_css() {
-		wp_register_style( 'polldaddy-icons', plugins_url( 'css/polldaddy-icons.css', __FILE__ ) );
-		wp_enqueue_style( 'polldaddy-icons' );
-	}
-
 	function menu_alter() {
 		// Make sure we're working off a clean version.
 		include( ABSPATH . WPINC . '/version.php' );
-		if ( version_compare( $wp_version, '3.8', '>=' ) ) {
-			wp_enqueue_style( 'polldaddy-icons' );
-			$css = "
-				#toplevel_page_feedback .wp-menu-image:before {
-					font-family: 'crowdsignal' !important;
-					content: '\\e900';
-				}
-				#toplevel_page_feedback .wp-menu-image {
-					background-repeat: no-repeat;
-				}
-				#menu-posts-feedback .wp-menu-image:before {
-					font-family: dashicons !important;
-					content: '\\f175';
-				}
-				#adminmenu #menu-posts-feedback div.wp-menu-image {
-					background: none !important;
-					background-repeat: no-repeat;
-				}";
-		} else {
+		if ( version_compare( $wp_version, '3.8', '<' ) ) {
 			$css = "
 				#toplevel_page_polldaddy .wp-menu-image {
 					background: url( " . plugins_url( 'img/polldaddy.png', __FILE__ ) . " ) 0 90% no-repeat;
