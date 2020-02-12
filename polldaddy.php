@@ -171,6 +171,7 @@ class WP_Polldaddy {
 	function menu_alter() {
 		// Make sure we're working off a clean version.
 		include( ABSPATH . WPINC . '/version.php' );
+
 		if ( version_compare( $wp_version, '3.8', '<' ) ) {
 			$css = "
 				#toplevel_page_polldaddy .wp-menu-image {
@@ -191,8 +192,8 @@ class WP_Polldaddy {
 				#toplevel_page_polldaddy:hover .wp-menu-image {
 					background-position: top left;
 				}";
+			wp_add_inline_style( 'wp-admin', $css );
 		}
-		wp_add_inline_style( 'wp-admin', $css );
 	}
 
 	function api_key_page_load() {
