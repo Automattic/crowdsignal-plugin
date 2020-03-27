@@ -448,7 +448,7 @@ if ( !function_exists( 'polldaddy_link' ) ) {
 		$textarr = wp_html_split( $content );
 		unset( $content );
 		foreach( $textarr as &$element ) {
-			if ( '' === $element || '<' === $element{0} )
+			if ( '' === $element || '<' === $element[0] )
 				continue;
 			$element = preg_replace( '!(?:\n|\A)https?://(polldaddy\.com/poll|poll\.fm)/([0-9]+?)(/.*)?(?:\n|\Z)!i', "\n<script type='text/javascript' charset='utf-8' src='//static.polldaddy.com/p/$2.js'></script><noscript> <a href='https://poll.fm/$2'>View Poll</a></noscript>\n", $element );
 		}
