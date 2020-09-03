@@ -443,6 +443,10 @@ new PolldaddyShortcode();
 if ( !function_exists( 'polldaddy_link' ) ) {
 	// http://polldaddy.com/poll/1562975/?view=results&msg=voted
 	function polldaddy_link( $content ) {
+		if ( function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() ) {
+			return $content;
+		}
+
 		if ( false === strpos( $content, "polldaddy.com/" ) )
 			return $content;
 		$textarr = wp_html_split( $content );
