@@ -118,8 +118,6 @@ CONTAINER;
 
 		self::$add_script = $infinite_scroll;
 
-		$is_amp = function_exists( 'is_amp_endpoint' ) && is_amp_endpoint();
-
 		if ( intval( $rating ) > 0 && !$no_script ) { //rating embed
 
 			if ( empty( $unique_id ) )
@@ -180,7 +178,7 @@ CONTAINER;
 			}
 		} elseif ( intval( $poll ) > 0 ) { //poll embed
 
-			if ( $is_amp ) {
+			if ( cs_is_amp_page() ) {
 				return sprintf( '<amp-iframe src="https://poll.fm/%d/embed" frameborder="0" height="400" layout="fixed-height" width="auto" sandbox="allow-scripts allow-same-origin" style="height: 400px; --loader-delay-offset:406ms !important;" i-amphtml-layout="fixed-height"></amp-iframe>', $poll );
 			}
 
@@ -446,10 +444,27 @@ SCRIPT;
 // kick it all off
 new PolldaddyShortcode();
 
+if ( !function_exists( 'cs_is_amp_page' ) ) {
+
+	// Check for existance of top 2 AMP plugin endpoints
+	function cs_is_amp_page() {
+
+		if ( function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() ) {
+			return true;
+		}
+
+		if ( function_exists( 'ampforwp_is_amp_endpoint' ) && ampforwp_is_amp_endpoint() ) {
+			return true;
+		}
+
+		return false;
+	}
+}
+
 if ( !function_exists( 'polldaddy_link' ) ) {
 	// http://polldaddy.com/poll/1562975/?view=results&msg=voted
 	function polldaddy_link( $content ) {
-		if ( function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() ) {
+		if ( cs_is_amp_page() ) {
 			return $content;
 		}
 
