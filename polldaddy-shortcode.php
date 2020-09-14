@@ -179,7 +179,7 @@ CONTAINER;
 		} elseif ( intval( $poll ) > 0 ) { //poll embed
 
 			if ( cs_is_amp_page() ) {
-				return sprintf( '<amp-iframe src="https://poll.fm/%d/embed" frameborder="0" height="400" layout="fixed-height" width="auto" sandbox="allow-scripts allow-same-origin" style="height: 400px; --loader-delay-offset:406ms !important;" i-amphtml-layout="fixed-height"></amp-iframe>', $poll );
+				return cs_render_poll_amp_iframe( $poll );
 			}
 
 			$poll      = intval( $poll );
@@ -459,23 +459,33 @@ if ( !function_exists( 'cs_is_amp_page' ) ) {
 
 		return false;
 	}
+
+	function cs_render_poll_amp_iframe( $poll_id ) {
+		return sprintf( "<amp-iframe resizable class='cs-iframe-embed' src='https://poll.fm/%s/embed' frameborder='0' height='400' layout='fixed-height' width='auto' sandbox='allow-scripts allow-same-origin' style='height: 400px; --loader-delay-offset:406ms !important;' i-amphtml-layout='fixed-height'><span overflow placeholder='' class='amp-wp-iframe-placeholder'></span><noscript><iframe src='https://poll.fm/%s/embed' frameborder='0' class='cs-iframe-embed'></iframe></noscript></amp-iframe>", $poll_id, $poll_id );
+	}
 }
 
 if ( !function_exists( 'polldaddy_link' ) ) {
 	// http://polldaddy.com/poll/1562975/?view=results&msg=voted
 	function polldaddy_link( $content ) {
-		if ( cs_is_amp_page() ) {
+		if ( false === strpos( $content, "polldaddy.com/" ) ) {
 			return $content;
 		}
 
-		if ( false === strpos( $content, "polldaddy.com/" ) )
-			return $content;
 		$textarr = wp_html_split( $content );
 		unset( $content );
 		foreach( $textarr as &$element ) {
-			if ( '' === $element || '<' === $element[0] )
+			if ( '' === $element || '<' === $element[0] ) {
 				continue;
-			$element = preg_replace( '!(?:\n|\A)https?://(polldaddy\.com/poll|poll\.fm)/([0-9]+?)(/.*)?(?:\n|\Z)!i', "\n<script type='text/javascript' charset='utf-8' src='//static.polldaddy.com/p/$2.js'></script><noscript> <a href='https://poll.fm/$2'>View Poll</a></noscript>\n", $element );
+			}
+
+			$embed_markup = "\n<script type='text/javascript' charset='utf-8' src='//static.polldaddy.com/p/$2.js'></script><noscript> <a href='https://poll.fm/$2'>View Poll</a></noscript>\n";
+
+			if ( cs_is_amp_page() ) {
+				$embed_markup = cs_render_poll_amp_iframe( "$2" );
+			}
+
+			$element = preg_replace( '!(?:\n|\A)https?://(polldaddy\.com/poll|poll\.fm)/([0-9]+?)(/.*)?(?:\n|\Z)!i', $embed_markup, $element );
 		}
 		return join( $textarr );
 	}
