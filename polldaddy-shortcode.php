@@ -475,7 +475,7 @@ if ( !function_exists( 'cs_is_amp_page' ) ) {
 
 	function cs_render_survey_amp_iframe( $survey_url ) {
 		$iframe_survey_url = $survey_url . '?iframe=1';
-		return sprintf( "<amp-iframe resizable class='cs-iframe-embed' src='%s' frameborder='0' height='400' layout='fixed-height' width='auto' sandbox='allow-scripts allow-same-origin' style='height: 400px; --loader-delay-offset:406ms !important;' i-amphtml-layout='fixed-height'><span overflow placeholder='' class='amp-wp-iframe-placeholder'></span><noscript><iframe src='%s' frameborder='0' class='cs-iframe-embed'></iframe></noscript></amp-iframe>", $iframe_survey_url, $iframe_survey_url );
+		return sprintf( "<amp-iframe resizable class='cs-iframe-embed' src='%s' frameborder='0' height='400' layout='fixed-height' width='auto' sandbox='allow-scripts allow-same-origin allow-forms' style='height: 400px; --loader-delay-offset:406ms !important;' i-amphtml-layout='fixed-height'><span overflow placeholder='' class='amp-wp-iframe-placeholder'></span><noscript><iframe src='%s' frameborder='0' class='cs-iframe-embed'></iframe></noscript></amp-iframe>", $iframe_survey_url, $iframe_survey_url );
 	}
 }
 
