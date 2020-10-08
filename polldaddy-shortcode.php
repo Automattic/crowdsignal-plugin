@@ -499,7 +499,7 @@ if ( !function_exists( 'polldaddy_link' ) ) {
 				$poll_embed_markup = cs_render_poll_amp_iframe( "$2" );
 
 				// if survey link is found, replace it with amp.
-				$element = preg_replace( '!(?:\n|\A)https?://([0-9a-zA-Z\-]+)\.survey\.fm/([0-9a-zA-Z\-]+?)(/.*)?(?:\n|\Z)!i', cs_render_survey_amp_iframe_from_user_slug( "$1", "$2"), $element );
+				$element = preg_replace( '!(?:\n|\A)https?://([0-9a-zA-Z\-_]+)\.survey\.fm/([0-9a-zA-Z\-]+?)(/.*)?(?:\n|\Z)!i', cs_render_survey_amp_iframe_from_user_slug( "$1", "$2"), $element );
 			}
 
 			// if poll link is found, replace it with poll embed
