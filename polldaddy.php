@@ -2792,7 +2792,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 					<td>
 						<div id="titlediv" style="margin:0px;">
 							<div id="titlewrap">
-								<input type="text" autocomplete="off" value="<?php echo $style_id > 1000 ? $style->title : ''; ?>" tabindex="1" style="width:25em;" name="style-title" />
+								<input type="text" autocomplete="off" value="<?php echo $style_id > 1000 ? esc_html( $style->title ) : ''; ?>" tabindex="1" style="width:25em;" name="style-title" />
 							</div>
 						</div>
 					</td>
