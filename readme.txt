@@ -4,7 +4,7 @@ Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate
 Requires at least: 4.6
 Requires PHP: 5.6
 Tested up to: 5.6
-Stable tag: 2.2.1
+Stable tag: 2.2.2
 
 Create and manage Crowdsignal polls and ratings from within WordPress.
 
@@ -120,9 +120,14 @@ This is possible if your server or network is blocking outgoing calls to Crowdsi
 Make sure to whitelist `api.crowdsignal.com` in your firewall to fix this.
 
 == Upgrade Notice ==
-Minor bugfix
+Security and bug fix release.
 
 == Changelog ==
+
+= 2.2.2 =
+* Fixed XSS in the style title. #46
+* Fixed wp_parse_str #40
+* Remove PHP 5 mention from readme.txt #44
 
 = 2.2.1 =
 * Fix a minor PHP warning.
