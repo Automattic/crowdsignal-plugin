@@ -1323,21 +1323,14 @@ if ( !function_exists( 'wp_parse_str' ) ) :
 /**
  * Parses a string into variables to be stored in an array.
  *
- * Uses {@link http://www.php.net/parse_str parse_str()} and stripslashes if
- * {@link http://www.php.net/magic_quotes magic_quotes_gpc} is on.
- *
  * @since 2.2.1
  * @uses apply_filters() for the 'wp_parse_str' filter.
  *
  * @param string $string The string to be parsed.
- * @param array $array Variables will be stored in this array.
+ * @param array  $array Variables will be stored in this array.
  */
 function wp_parse_str( $string, &$array ) {
 	parse_str( $string, $array );
-	if ( get_magic_quotes_gpc() )
-		$array = stripslashes_deep( $array );
-	return $array;
-
 	$array = apply_filters( 'wp_parse_str', $array );
 }
 endif;
