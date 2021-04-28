@@ -449,7 +449,7 @@ class WP_Polldaddy {
 			}
 			$plugin_page = 'ratings&action=reports';
 		} elseif ( $page == 'ratingsettings' ) {
-			$plugin_page = 'ratings&action=options';
+			$plugin_page = 'ratingsettings';
 			wp_enqueue_script( 'rating-text-color', "{$this->base_url}js/jscolor.js", array(), $this->version );
 			wp_enqueue_script( 'ratings', "{$this->base_url}js/rating.js", array(), $this->version );
 			wp_localize_script( 'polls-common', 'adminRatingsL10n', array(
@@ -1414,7 +1414,7 @@ class WP_Polldaddy {
 				if ( !empty( $account ) )
 					$account_email = esc_attr( $account->email );
 				if ( isset( $account_email ) && current_user_can( 'manage_options' ) ) {
-					echo "<p>" . sprintf( __( 'Linked to WordPress.com Account: <strong>%s</strong> (<a target="_blank" href="admin.php?page=polls&action=options">Settings</a> / <a target="_blank" href="https://app.crowdsignal.com/">Crowdsignal.com</a>)', 'polldaddy' ), $account_email ) . "</p>";
+					echo "<p>" . sprintf( __( 'Linked to WordPress.com Account: <strong>%1$s</strong> (<a target="_blank" href="%2$s">Settings</a> / <a target="_blank" href="%3$s">Crowdsignal.com</a>)', 'polldaddy' ), $account_email, admin_url( 'options-general.php?page=pollsettings' ), 'https://app.crowdsignal.com/' ) . "</p>";
 				}
 
 				if ( !isset( $_GET['view'] ) )
@@ -4038,7 +4038,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 		$previous_settings = get_option( 'polldaddy_settings' );
 		$current_setting   = get_option( 'pd-rating-posts-id' );
 		if ( $current_setting && isset( $previous_settings[ 'pd-rating-posts-id' ] ) && $current_setting != $previous_settings[ 'pd-rating-posts-id' ] ) {
-			echo "<p>" . sprintf( __( "Previous settings for ratings on this site discovered. You can restore them on the <a href='%s'>poll settings page</a> if your site is missing ratings after resetting your connection settings.", 'polldaddy' ), "admin.php?page=polls&action=options" ) . "</p>";
+			echo "<p>" . sprintf( __( "Previous settings for ratings on this site discovered. You can restore them on the <a href='%s'>poll settings page</a> if your site is missing ratings after resetting your connection settings.", 'polldaddy' ), "options-general.php?page=pollsettings" ) . "</p>";
 		}
 		?>
         </div>
@@ -4745,7 +4745,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 ?>
 		<div class="wrap">
 			<?php if ( $this->is_admin ) : ?>
-			<h2 id="polldaddy-header"><?php printf( __( 'Rating Results <a href="%s" class="add-new-h2">Settings</a>', 'polldaddy' ), esc_url( 'admin.php?page=ratings&action=options' ) ); ?></h2>
+			<h2 id="polldaddy-header"><?php printf( __( 'Rating Results <a href="%s" class="add-new-h2">Settings</a>', 'polldaddy' ), esc_url( 'options-general.php?page=ratingsettings' ) ); ?></h2>
 			<?php else : ?>
 			<h2 id="polldaddy-header"><?php _e( 'Rating Results', 'polldaddy' ); ?></h2>
 			<?php endif; ?>
@@ -5261,7 +5261,7 @@ if ( false == is_object( $poll ) ) {
 		echo '<h1>' . $message . '</h1>';
 		echo '<p>' . __( "There are a few things you can do:" );
 		echo "<ul><ol>" . __( "Press reload on your browser and reload this page. There may have been a temporary problem communicating with Crowdsignal.com", "polldaddy" ) . "</ol>";
-		echo "<ol>" . sprintf( __( "Go to the <a href='%s'>poll settings page</a>, scroll to the end of the page and reset your connection settings. Link your account again with the same API key.", "polldaddy" ), 'admin.php?page=polls&action=options' ) . "</ol>";
+		echo "<ol>" . sprintf( __( "Go to the <a href='%s'>poll settings page</a>, scroll to the end of the page and reset your connection settings. Link your account again with the same API key.", "polldaddy" ), 'options-general.php?page=pollsettings' ) . "</ol>";
 		echo "<ol>" . sprintf( __( 'Contact <a href="%1$s" %2$s>Crowdsignal support</a> and tell them your rating usercode is %3$s', 'polldaddy' ), 'https://crowdsignal.com/feedback/', 'target="_blank"', $this->rating_user_code ) . '<br />' . __( 'Also include the following information when contacting support to help us resolve your problem as quickly as possible:', 'polldaddy' ) . '';
 		echo "<ul><li> API Key: " . get_option( 'polldaddy_api_key' ) . "</li>";
 		echo "<li> ID Usercode: " . get_option( 'pd-usercode-' . $current_user->ID ) . "</li>";
