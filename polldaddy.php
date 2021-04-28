@@ -4795,7 +4795,6 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 					</tr>
 				</tbody><?php
 		} else {
-			polldaddy_update_ratings_cache( $ratings );
 			?>
 				<thead>
 					<tr>
