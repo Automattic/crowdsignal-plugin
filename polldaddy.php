@@ -130,39 +130,33 @@ class WP_Polldaddy {
 
 		$icon_encoded = 'PHN2ZyBpZD0iY29udGVudCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMjg4IDIyMCI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiNGRkZGRkY7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5pY29uLWJsdWU8L3RpdGxlPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTI2Mi40MSw4MC4xYy04LjQ3LTIyLjU1LTE5LjA1LTQyLjgzLTI5Ljc5LTU3LjFDMjIwLjc0LDcuMjQsMjEwLC41NywyMDEuNDcsMy43OWExMi4zMiwxMi4zMiwwLDAsMC0zLjcyLDIuM2wtLjA1LS4xNUwxNiwxNzMuOTRsOC4yLDE5LjEyLDMwLjU2LTEuOTJ2MTMuMDVhMTIuNTcsMTIuNTcsMCwwLDAsMTIuNTgsMTIuNTZjLjMzLDAsLjY3LDAsMSwwbDU4Ljg1LTQuNzdhMTIuNjUsMTIuNjUsMCwwLDAsMTEuNTYtMTIuNTNWMTg1Ljg2bDEyMS40NS03LjY0YTEzLjg4LDEzLjg4LDAsMCwwLDIuMDkuMjYsMTIuMywxMi4zLDAsMCwwLDQuNDEtLjhDMjg1LjMzLDE3MC43LDI3OC42MywxMjMuMzEsMjYyLjQxLDgwLjFabS0yLjI2LDg5Ljc3Yy0xMC40OC0zLjI1LTMwLjQ0LTI4LjE1LTQ2LjY4LTcxLjM5LTE1LjcyLTQxLjktMTcuNS03My4yMS0xMi4zNC04My41NGE2LjUyLDYuNTIsMCwwLDEsMy4yMi0zLjQ4LDMuODIsMy44MiwwLDAsMSwxLjQxLS4yNGMzLjg1LDAsMTAuOTQsNC4yNiwyMC4zMSwxNi43MUMyMzYuMzYsNDEuNTksMjQ2LjU0LDYxLjE1LDI1NC43NCw4M2MxOC40NCw0OS4xMiwxNy43NCw4My43OSw5LjEzLDg3QTUuOTMsNS45MywwLDAsMSwyNjAuMTUsMTY5Ljg3Wk0xMzAuNiwxOTkuNDFhNC40LDQuNCwwLDAsMS00LDQuMzdsLTU4Ljg1LDQuNzdBNC4zOSw0LjM5LDAsMCwxLDYzLDIwNC4xOVYxOTAuNjJsNjcuNjEtNC4yNVoiLz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik02LDE4NS4yNmExMC4yNSwxMC4yNSwwLDAsMCwxMC4yNSwxMC4yNSwxMC4wNSwxMC4wNSwwLDAsMCw0LjM0LTFsLTcuOTQtMTguNzNBMTAuMiwxMC4yLDAsMCwwLDYsMTg1LjI2WiIvPjwvc3ZnPgo=';
 
-		$hook = add_menu_page(
-			__( 'Crowdsignal', 'polldaddy' ),
-			__( 'Crowdsignal', 'polldaddy' ),
-			$capability,
-			'feedback',
-			$function,
-			'data:image/svg+xml;base64,' . $icon_encoded
-		);
-		add_action( "load-$hook", array( &$this, 'management_page_load' ) );
+		$slug = 'edit.php?post_type=feedback';
+
+		if ( ! $this->has_feedback_menu ) {
+			$hook = add_menu_page(
+				__( 'Feedback', 'polldaddy' ),
+				__( 'Feedback', 'polldaddy' ),
+				$capability,
+				$slug,
+				$function,
+				'data:image/svg+xml;base64,' . $icon_encoded
+			);
+			add_action( "load-$hook", array( &$this, 'management_page_load' ) );
+		}
 
 		foreach( array( 'polls' => __( 'Polls', 'polldaddy' ), 'ratings' => __( 'Ratings', 'polldaddy' ) ) as $menu_slug => $page_title ) {
 			$menu_title  = $page_title;
 
-			$hook = add_menu_page( $menu_title, $menu_title, $capability, $menu_slug, $function, 'div' );
+			$hook = add_submenu_page( $slug, $menu_title, $menu_title, $capability, $menu_slug, $function, 'div' );
 			add_action( "load-$hook", array( &$this, 'management_page_load' ) );
-
-			add_submenu_page( 'feedback', $page_title, $page_title, $capability, $menu_slug, $function );
 		}
 
 		// Add settings pages.
-		foreach( array( 'polls' => __( 'Poll', 'polldaddy' ), 'ratings' => __( 'Rating', 'polldaddy' ) ) as $menu_slug => $page_title ) {
+		foreach( array( 'pollsettings' => __( 'Poll', 'polldaddy' ), 'ratingsettings' => __( 'Rating', 'polldaddy' ) ) as $menu_slug => $page_title ) {
 			// translators: %s placeholder is the setting page type (Poll or Rating).
 			$settings_page_title = sprintf( esc_html__( '%s Settings', 'polldaddy' ), $page_title );
-			add_submenu_page( 'feedback', $settings_page_title, $settings_page_title, $menu_slug == 'ratings' ? 'manage_options' : $capability, $menu_slug.'&action=options', $function );
-		}
-
-		remove_submenu_page( 'feedback', 'feedback' );
-		remove_menu_page( 'polls' );
-		remove_menu_page( 'ratings' );
-
-		if ( $this->has_feedback_menu ) {
-			add_submenu_page( 'feedback', __( 'Feedback', 'polldaddy' ), __( 'Feedback', 'polldaddy' ), 'edit_posts', 'edit.php?post_type=feedback' );
-			remove_menu_page( 'edit.php?post_type=feedback' );
+			$hook = add_options_page( $settings_page_title, $settings_page_title, $menu_slug == 'ratings' ? 'manage_options' : $capability, $menu_slug, array( $this, 'settings_page' ) );
+			add_action( "load-$hook", array( $this, 'management_page_load' ) );
 		}
 
 		add_action( 'media_buttons', array( &$this, 'media_buttons' ) );
@@ -407,7 +401,7 @@ class WP_Polldaddy {
 
 		$this->set_api_user_code();
 
-		if ( empty( $this->user_code ) && $page == 'polls' && $action !== 'options' ) {
+		if ( empty( $this->user_code ) && 'pollsettings' === $page && 'options' !== $action ) {
 			// one last try to get the user code automatically if possible
 			$this->user_code = apply_filters_ref_array( 'polldaddy_get_user_code', array( $this->user_code, &$this ) );
 			if ( false == $this->user_code && $action != 'restore-account' )
@@ -446,30 +440,21 @@ class WP_Polldaddy {
 			case 'list-styles' :
 				$plugin_page = 'polls&action=list-styles';
 				break;
-			case 'options' :
-			case 'update-options' :
-			case 'import-account' :
-			case 'reset-account' :
-			case 'restore-account' :
-				$plugin_page = 'polls&action=options';
-				break;
 			}//end switch
+		} elseif ( $page == 'pollsettings' ) {
+			$plugin_page = 'pollsettings';
 		} elseif ( $page == 'ratings' ) {
-			switch ( $action ) {
-			case 'update-rating' :
-			case 'options':
-				$plugin_page = 'ratings&action=options';
-				wp_enqueue_script( 'rating-text-color', "{$this->base_url}js/jscolor.js", array(), $this->version );
-				wp_enqueue_script( 'ratings', "{$this->base_url}js/rating.js", array(), $this->version );
-				wp_localize_script( 'polls-common', 'adminRatingsL10n', array(
-						'star_colors' => __( 'Star Colors', 'polldaddy' ), 'star_size' =>  __( 'Star Size', 'polldaddy' ),
-						'nero_type' => __( 'Nero Type', 'polldaddy' ), 'nero_size' => __( 'Nero Size', 'polldaddy' ), ) );
-				break;
-			default :
-				if ( empty( $action ) )
-					$action = 'reports';
-				$plugin_page = 'ratings&action=reports';
-			}//end switch
+			if ( empty( $action ) ) {
+				$action = 'reports';
+			}
+			$plugin_page = 'ratings&action=reports';
+		} elseif ( $page == 'ratingsettings' ) {
+			$plugin_page = 'ratings&action=options';
+			wp_enqueue_script( 'rating-text-color', "{$this->base_url}js/jscolor.js", array(), $this->version );
+			wp_enqueue_script( 'ratings', "{$this->base_url}js/rating.js", array(), $this->version );
+			wp_localize_script( 'polls-common', 'adminRatingsL10n', array(
+				'star_colors' => __( 'Star Colors', 'polldaddy' ), 'star_size' =>  __( 'Star Size', 'polldaddy' ),
+				'nero_type' => __( 'Nero Type', 'polldaddy' ), 'nero_size' => __( 'Nero Size', 'polldaddy' ), ) );
 		}
 
 		wp_enqueue_style( 'polldaddy', "{$this->base_url}css/polldaddy.css", array(), $this->version );
@@ -519,7 +504,7 @@ class WP_Polldaddy {
 
 		$is_POST = 'post' == strtolower( $_SERVER['REQUEST_METHOD'] );
 
-		if ( $page == 'polls' ) {
+		if ( 'polls' === $page || 'pollsettings' === $page ) {
 			switch ( $action ) {
 			case 'reset-account' : // reset everything
 				global $current_user;
@@ -1128,7 +1113,7 @@ class WP_Polldaddy {
 			default :
 				return;
 			}//end switch
-		} elseif ( $page == 'ratings' ) {
+		} elseif ( 'ratings' === $page || 'ratingsettings' === $page ) {
 
 			switch ( $action ) {
 			case 'delete' :
@@ -1304,6 +1289,33 @@ class WP_Polldaddy {
 		$this->print_errors();
 	}
 
+	function settings_page() {
+		global $page, $action;
+?>
+	<div class="wrap" id="manage-polls">
+<?php
+		$this->set_api_user_code();
+
+		if ( isset( $_GET['page'] ) ) {
+			$page = $_GET['page'];
+		}
+		if ( 'pollsettings' === $page ) {
+			if ( ! $this->is_author ) { //check user privileges has access to action
+				return;
+			}
+			$this->plugin_options();
+		} elseif ( 'ratingsettings' === $page ) {
+			if ( 'update-rating' === $action ) {
+				$this->update_rating();
+			}
+
+			$this->rating_settings();
+		}
+?>
+	</div>
+<?php
+	}
+
 	function management_page() {
 
 		global $page, $action, $poll, $style, $rating;
@@ -1316,7 +1328,7 @@ class WP_Polldaddy {
 
 <?php
 		if ( $page == 'polls' ) {
-			if ( !$this->is_author && in_array( $action, array( 'edit', 'edit-poll', 'create-poll', 'edit-style', 'create-style', 'list-styles', 'options', 'update-options', 'import-account' ) ) ) {//check user privileges has access to action
+			if ( ! $this->is_author && in_array( $action, array( 'edit', 'edit-poll', 'create-poll', 'edit-style', 'create-style', 'list-styles' ) ) ) {//check user privileges has access to action
 				$action = '';
 			}
 			switch ( $action ) {
@@ -1387,11 +1399,6 @@ class WP_Polldaddy {
 <?php
 				$this->style_edit_form();
 				break;
-			case 'options' :
-			case 'import-account' :
-			case 'update-options' :
-				$this->plugin_options();
-				break;
 			default :
 
 ?>
@@ -1426,12 +1433,6 @@ class WP_Polldaddy {
 			case 'reports' :
 				$this->rating_reports();
 				break;
-			case 'update-rating' :
-				$this->update_rating();
-				$this->rating_settings();
-				break;
-			default :
-				$this->rating_settings();
 			}//end switch
 		}
 ?>
@@ -4068,7 +4069,7 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 			    <div class="inside">
 			        <div class="submitbox" id="submitpost">
 			            <div id="minor-publishing" style="padding:10px;">
-			                <input type="submit" name="save_menu" id="save_menu_header" class="button button-primary menu-save" value="<?php echo esc_attr( __( 'Save Changes', 'polldaddy' ) );?>">
+			                <input type="submit" name="save_menu" class="button button-primary menu-save" value="<?php echo esc_attr( __( 'Save Changes', 'polldaddy' ) );?>">
 			                <input type="hidden" name="type" value="<?php echo $report_type; ?>" />
 							<input type="hidden" name="rating_id" value="<?php echo $rating_id; ?>" />
 							<input type="hidden" name="action" value="update-rating" />
