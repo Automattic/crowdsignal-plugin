@@ -120,7 +120,7 @@ class WP_Polldaddy {
 	}
 
    /**
-	* Remove the feedback submenu if not needed.
+	* Remove the feedback "All Posts" submenu if not needed.
 	*/
 	public function remove_feedback_menu() {
 		remove_submenu_page( 'edit.php?post_type=feedback', 'edit.php?post_type=feedback' );
