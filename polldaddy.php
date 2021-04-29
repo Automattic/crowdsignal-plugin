@@ -84,6 +84,46 @@ class WP_Polldaddy {
 
 			add_filter( 'jetpack_options_whitelist', array( $this, 'add_to_jetpack_options_whitelist' ) );
 		}
+
+		if ( ! post_type_exists( 'feedback' ) ) {
+			register_post_type(
+				'feedback', array(
+					'labels'                => array(
+					),
+					'menu_icon'             => 'dashicons-feedback',
+					'show_ui'               => true,
+					'show_in_menu'          => 'edit.php?post_type=feedback',
+					'show_in_admin_bar'     => false,
+					'public'                => false,
+					'rewrite'               => false,
+					'query_var'             => false,
+					'capability_type'       => 'page',
+					'show_in_rest'          => true,
+					'rest_controller_class' => 'Grunion_Contact_Form_Endpoint',
+					'capabilities'          => array(
+						'create_posts'        => 'do_not_allow',
+						'publish_posts'       => 'publish_pages',
+						'edit_posts'          => 'edit_pages',
+						'edit_others_posts'   => 'edit_others_pages',
+						'delete_posts'        => 'delete_pages',
+						'delete_others_posts' => 'delete_others_pages',
+						'read_private_posts'  => 'read_private_pages',
+						'edit_post'           => 'edit_page',
+						'delete_post'         => 'delete_page',
+						'read_post'           => 'read_page',
+					),
+					'map_meta_cap'          => true,
+				)
+			);
+			add_action( 'admin_menu', array( $this, 'remove_feedback_menu' ) );
+		}
+	}
+
+   /**
+	* Remove the feedback submenu if not needed.
+	*/
+	public function remove_feedback_menu() {
+		remove_submenu_page( 'edit.php?post_type=feedback', 'edit.php?post_type=feedback' );
 	}
 
    /**
