@@ -3822,10 +3822,10 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 
 			switch ( $_POST[ 'pd_rating_action_type' ]  ) {
 			case 'posts' :
-				if ( isset( $_POST[ 'pd_rich_snippets' ] ) && (int) $_POST[ 'pd_rich_snippets' ] == 1 )
-					$rich_snippets = 1;
-
-				update_option( 'pd-rich-snippets', $rich_snippets );
+				delete_option( 'pd-rich-snippets' );
+				if ( wp_next_scheduled( 'polldaddy_rating_update_job' ) ) {
+					wp_clear_scheduled_hook( 'polldaddy_rating_update_job' );
+				}
 
 				if ( isset( $_POST[ 'pd_show_posts' ] ) && (int) $_POST[ 'pd_show_posts' ] == 1 )
 					$show_posts = get_option( 'pd-rating-posts-id' );
@@ -3878,7 +3878,6 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 			}//end switch
 		}
 
-		$rich_snippets    = (int) get_option( 'pd-rich-snippets', 1 );
 		$show_posts       = (int) get_option( 'pd-rating-posts' );
 		$show_pages       = (int) get_option( 'pd-rating-pages' );
 		$show_comments    = (int) get_option( 'pd-rating-comments' );
@@ -3940,13 +3939,6 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
             <table class="form-table" style="width: normal;">
               <tbody>
 			<?php if ( $report_type == 'posts' ) { ?>
-                <tr valign="top">
-					<th scope="row"><label><?php _e( 'Rich Snippets in Search Results', 'polldaddy' );?></label></th>
-					<td>
-						<label><input type="checkbox" name="pd_rich_snippets" id="pd_rich_snippets" <?php if ( $rich_snippets == 1 ) echo ' checked="checked" '; ?> value="1" /> <?php printf( __( 'Display rich snippets in search results using post and page ratings (<a href="%s">documentation</a> and <a href="">page tester</a>)', 'polldaddy' ), 'https://support.google.com/webmasters/answer/99170', 'http://www.google.com/webmasters/tools/richsnippets' );?></label>
-						<p><?php _e( 'Once activated, it may take several weeks before the snippets show up in Google search results.', 'polldaddy' );?></p>
-					</td>
-				</tr>
                 <tr valign="top">
 					<th scope="row"><label><?php _e( 'Show Ratings on', 'polldaddy' );?></label></th>
 					<td>
@@ -4803,7 +4795,6 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 					</tr>
 				</tbody><?php
 		} else {
-			polldaddy_update_ratings_cache( $ratings );
 			?>
 				<thead>
 					<tr>

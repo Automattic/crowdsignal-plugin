@@ -652,16 +652,6 @@ function polldaddy_login_warning() {
 add_action( 'admin_notices', 'polldaddy_login_warning' );
 
 /**
- * check if the hook is scheduled - if not, schedule it.
- */
-function polldaddy_setup_schedule() {
-	if ( false == wp_next_scheduled( 'polldaddy_rating_update_job' ) ) {
-		wp_schedule_event( time(), 'twicedaily', 'polldaddy_rating_update_job');
-	}
-}
-add_action( 'init', 'polldaddy_setup_schedule' );
-
-/**
  * On deactivation, remove all functions from the scheduled action hook.
  */
 function polldaddy_deactivation() {
@@ -669,69 +659,4 @@ function polldaddy_deactivation() {
 }
 register_deactivation_hook( __FILE__, 'polldaddy_deactivation' );
 
-/**
- * On the scheduled action hook, run a function.
- */
-function polldaddy_rating_update() {
-	if ( false == get_option( 'pd-rich-snippets', 1 ) )
-		return false;
-
-	global $polldaddy_object;
-	$polldaddy = $polldaddy_object->get_client( WP_POLLDADDY__PARTNERGUID, get_option( 'pd-rating-usercode' ) );
-	$rating_id = get_option( 'pd-rating-posts-id' );
-	$finished = false;
-	$c = 0;
-	while ( !$finished ) {
-		$response = $polldaddy->get_rating_results( $rating_id, 2, $c, 50 );
-		$ratings = $response->rating;
-		if ( false == is_array( $ratings ) )
-			$finished = true;
-		else
-			polldaddy_update_ratings_cache( $ratings );
-		$c += 50;
-		if ( $c > 1000 ) // gotta stop somewhere
-			$finished = true;
-	}
-	return true;
-}
-
-add_action( 'polldaddy_rating_update_job', 'polldaddy_rating_update' );
-
-function polldaddy_update_ratings_cache( $ratings ) {
-	foreach( $ratings as $rating ) {
-		$post_id = str_replace( 'wp-post-', '', $rating->uid );
-		update_post_meta( $post_id, 'pd_rating', array( 'type' => $rating->_type, 'votes' => $rating->_votes,
-			'total1' => $rating->total1,
-			'total2' => $rating->total2,
-			'total3' => $rating->total3,
-			'total4' => $rating->total4,
-			'total5' => $rating->total5,
-			'average' => $rating->average_rating ) );
-	}
-}
-
-function polldaddy_post_rating( $content ) {
-	if ( false == get_option( 'pd-rich-snippets', 1 ) )
-		return $content;
-	if ( false == is_singular() )
-		return $content;
-	if ( false == get_option( 'pd-rating-usercode' ) )
-		return $content;
-	$rating = get_post_meta( $GLOBALS[ 'post' ]->ID, 'pd_rating' );
-	if ( false == $rating )
-		return $content;
-	// convert to 5 star rating
-	if ( $rating[0][ 'type' ] == 1 ) {
-		$average = ceil( ( $rating[0][ 'average' ] / $rating[0][ 'votes' ] ) * 5 );
-	} elseif ( isset( $rating[ 'average' ] ) ) {
-		$average = $rating[ 'average' ];
-	} else {
-		$average = 0;
-	}
-	if ( $average < 0 || $average == '' )
-		return $content;
-	global $post;
-	return $content . '<span class="hreview-aggregate"><span class="item"><span class="fn">"' . $post->post_title . '"</span></span>, <span class="rating"><span class="average">' . $average . '</span> out of <span class="best">5</span> based on <span class="votes">' . $rating[0][ 'votes' ] . '</span> ratings.</span></span>';
-}
-add_filter( 'the_content', 'polldaddy_post_rating' );
 ?>
