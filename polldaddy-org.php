@@ -82,7 +82,7 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 
 		$this->set_api_user_code();
 
-		if ( $page == 'polls' ) {
+		if ( 'polls' === $page || 'pollsettings' === $page ) {
 			switch ( $action ) {
 			case 'update-options' :
 				if ( !$is_POST )
