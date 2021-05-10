@@ -1457,6 +1457,19 @@ class WP_Polldaddy {
 					echo "<p>" . sprintf( __( 'Linked to WordPress.com Account: <strong>%1$s</strong> (<a target="_blank" href="%2$s">Settings</a> / <a target="_blank" href="%3$s">Crowdsignal.com</a>)', 'polldaddy' ), $account_email, admin_url( 'options-general.php?page=pollsettings' ), 'https://app.crowdsignal.com/' ) . "</p>";
 				}
 
+				if ( ! is_plugin_active( 'crowdsignal-forms/crowdsignal-forms.php' ) ) {
+					echo "<p>" . sprintf(
+						esc_html__(
+							'Did you know we have another plugin with new blocks? Poll, Applause, NPS and more. Look for the Crowdsignal Forms plugin or download it %s.',
+							'polldaddy'
+						),
+						sprintf( '<a href="%s">%s</a>',
+							'https://wordpress.org/plugins/crowdsignal-forms/',
+							esc_html__( 'here', 'polldaddy' )
+						)
+					) . "</p>";
+				}
+
 				if ( !isset( $_GET['view'] ) )
 					$this->polls_table( 'user' );
 				else
