@@ -5237,15 +5237,6 @@ if ( false == is_object( $poll ) ) {
 			return true;
 		}
 
-		//check to see if poll owner is a member of this blog
-		if ( function_exists( 'get_users' ) ) {
-			$user = get_users( array( 'include' => $poll->_owner ) );
-			if ( empty( $user ) ) {
-				$this->log( 'can_edit: poll owner is not a member of this blog.' );
-				return false;
-			}
-		}
-
 		if ( false == (bool) current_user_can( 'edit_others_posts' ) )
 			$this->log( 'can_edit: current user cannot edit_others_posts.' );
 
