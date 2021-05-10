@@ -128,6 +128,8 @@ Bugfix release.
 * Remove the "is poll owner part of blog" check on poll listings page as it caused problems for those with multiple sites. #50
 * Add a message to the poll listing page linking to the Crowdsignal Forms plugin. #51
 * Update grunt version dependency #52
+* Remove rich snippet support. It hasn't worked in years.
+* Rearrange the menus. Polls and ratings go in Feedback, Settings go Settings.
 
 = 2.2.2 =
 * Fixed XSS in the style title. #46
