@@ -3,8 +3,8 @@ Contributors: eoigal, mdawaffe, donncha, johnny5, panosktn, ice9js
 Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 4.6
 Requires PHP: 5.6
-Tested up to: 5.6
-Stable tag: 2.2.2
+Tested up to: 5.7.1
+Stable tag: 2.2.3
 
 Create and manage Crowdsignal polls and ratings from within WordPress.
 
@@ -120,9 +120,14 @@ This is possible if your server or network is blocking outgoing calls to Crowdsi
 Make sure to whitelist `api.crowdsignal.com` in your firewall to fix this.
 
 == Upgrade Notice ==
-Security and bug fix release.
+Bugfix release.
 
 == Changelog ==
+
+= 2.2.3 =
+* Remove the "is poll owner part of blog" check on poll listings page as it caused problems for those with multiple sites. #50
+* Add a message to the poll listing page linking to the Crowdsignal Forms plugin. #51
+* Update grunt version dependency #52
 
 = 2.2.2 =
 * Fixed XSS in the style title. #46
