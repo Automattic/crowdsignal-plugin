@@ -12,6 +12,9 @@ Create and manage Crowdsignal polls and ratings from within WordPress.
 
 The Crowdsignal Polls and Ratings plugin allows you to create and manage polls and ratings from within your WordPress dashboard. You can create polls, choose from 20 different styles for your polls, and view all results for your polls as they come in. All Crowdsignal polls are fully customizable, you can set a close date for your poll, create multiple choice polls, choose whether to display the results or keep them private. You can also create your own custom style for your poll. You can even embed the polls you create on other websites. You can collect unlimited votes and create unlimited polls. The new ratings menu allows you to embed ratings into your posts, pages or comments. The rating editor allows you to fully customize your rating. You can also avail of the 'Top Rated' widget that will allow you to place the widget in your sidebar. This widget will show you the top rated posts, pages and comments today, this week and this month.
 
+=== And there's another plugin! ===
+Are you a fan of the new block editor for WordPress? Our other plugin, [Crowdsignal Forms](https://wordpress.org/plugins/crowdsignal-forms/) provides a number of good looking blocks for your site. Of course there is a poll block and it's even easier to use than the poll embed here. Collect the positive vibes of a round of applause through our applause block, or see who will give your blog post a thumbs up with the vote block. There are even some blocks like the NPS block that are only available in this plugin. To get the most out of Crowdsignal you should install the Crowdsignal Forms plugin and this plugin because they do different jobs.
+
 Crowdsignal Polls is currently available in the following languages:
 
 * Arabic
