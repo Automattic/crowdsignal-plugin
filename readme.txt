@@ -127,6 +127,9 @@ Bugfix release.
 
 == Changelog ==
 
+= 2.2.4 =
+* Fix wrong argument provided to get_submenu_page
+
 = 2.2.3 =
 * Remove the "is poll owner part of blog" check on poll listings page as it caused problems for those with multiple sites. #50
 * Add a message to the poll listing page linking to the Crowdsignal Forms plugin. #51
