@@ -5,7 +5,7 @@
  * Description: Create and manage Crowdsignal polls and ratings in WordPress
  * Author: Automattic, Inc.
  * Author URL: https://crowdsignal.com/
- * Version: 2.2.4
+ * Version: 2.2.5
  */
 
 // To hardcode your Polldaddy PartnerGUID (API Key), add the (uncommented) line below with the PartnerGUID to your `wp-config.php`
@@ -1509,8 +1509,8 @@ class WP_Polldaddy {
 			$polls_object = $polldaddy->get_polls_by_parent_id( ( $page - 1 ) * 10 + 1, $page * 10 );
 
 		$this->parse_errors( $polldaddy );
-        if ( in_array( 'API Key Not Found, 890', $polldaddy->errors ) )
-            return false;
+		if ( in_array( 'API Key Not Found, 890', $polldaddy->errors ) )
+			return false;
 		$this->print_errors();
 		$polls = & $polls_object->poll;
 		$total_polls = 0;
