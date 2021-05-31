@@ -1,7 +1,7 @@
 {
   "name": "polldaddy",
   "title": "Polldaddy Plugin",
-  "version": "2.2.0",
+  "version": "2.2.5",
   "homepage": "http://wordpress.org/plugins/polldaddy/",
   "license": "GPL-2.0+",
   "repository": "automattic/polldaddy-plugin",
