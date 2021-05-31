@@ -1,10 +1,10 @@
 === Crowdsignal Polls & Ratings ===
-Contributors: eoigal, mdawaffe, donncha, johnny5, panosktn, ice9js
+Contributors: eoigal, mdawaffe, donncha, johnny5, panosktn, ice9js, cgastrell
 Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 4.6
 Requires PHP: 5.6
 Tested up to: 5.7.1
-Stable tag: 2.2.3
+Stable tag: 2.2.4
 
 Create and manage Crowdsignal polls and ratings from within WordPress.
 
