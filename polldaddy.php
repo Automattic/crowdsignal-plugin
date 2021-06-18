@@ -187,7 +187,7 @@ class WP_Polldaddy {
 		foreach( array( 'polls' => __( 'Polls', 'polldaddy' ), 'ratings' => __( 'Ratings', 'polldaddy' ) ) as $menu_slug => $page_title ) {
 			$menu_title  = $page_title;
 
-			$hook = add_submenu_page( $slug, $menu_title, $menu_title, $capability, $menu_slug, $function, 99 );
+			$hook = add_submenu_page( $this->has_feedback_menu ? 'feedback' : $slug, $menu_title, $menu_title, $capability, $menu_slug, $function, 99 );
 			add_action( "load-$hook", array( &$this, 'management_page_load' ) );
 		}
 
