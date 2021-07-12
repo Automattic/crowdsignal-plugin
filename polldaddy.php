@@ -5305,6 +5305,35 @@ if ( false == is_object( $poll ) ) {
 		echo "<li> Errors: " . print_r( $errors, 1 ) . "</li></ul>";
 		echo "</ol></ul></div>";
 	}
+
+	/**
+	 * Renders a partial/template.
+	 *
+	 * The global $current_user is made available for any rendered template.
+	 *
+	 * @param string $partial  - Filename under ./partials directory, with or without .php (appended if absent).
+	 * @param array  $page_vars - Variables made available for the template.
+	 */
+	public function render_partial( $partial, array $page_vars = array() ) {
+		if ( substr( $partial, -4 ) !== '.php' ) {
+			$partial .= '.php';
+		}
+
+		if ( strpos( $partial, 'partials/' ) !== 0 ) {
+			$partial = 'partials/' . $partial;
+		}
+
+		$path = __DIR__ . '/' . $partial;
+		if ( ! file_exists( $path ) ) {
+			return;
+		}
+
+		foreach ( $page_vars as $key => $val ) {
+			$$key = $val;
+		}
+		global $current_user;
+		include $path;
+	}
 }
 
 require dirname( __FILE__ ).'/rating.php';
