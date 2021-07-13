@@ -320,69 +320,81 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 	function plugin_options_add() {
 		if ( $this->is_admin ) {
 			$inline = '';
-			if ( $this->inline )
+			if ( $this->inline ) {
 				$inline = 'checked="checked"';
+			}
 
 			$checked = '';
-			if ( $this->multiple_accounts )
+			if ( $this->multiple_accounts ) {
 				$checked = 'checked="checked"';
+			}
 
 			$rating_title_filter = get_option( 'pd-rating-title-filter' );
 
-			if ( $rating_title_filter === false )
+			if ( $rating_title_filter === false ) {
 				$rating_title_filter = 'wp_title';
+			}
 
-			?><tr class="form-field form-required">
-    <th valign="top" scope="row">
-      <label for="polldaddy-load-poll-inline">
-        <?php _e( 'Load Shortcodes Inline', 'polldaddy' ); ?>
-      </label>
-    </th>
-    <td>
-      <input type="checkbox" name="polldaddy-load-poll-inline" id="polldaddy-load-poll-inline" value="1" <?php echo $inline ?> style="width: auto" />
-        <span class="description">
-          <label for="polldaddy-load-poll-inline"><?php _e( 'This will load the Crowdsignal shortcodes inline rather than in the page footer.', 'polldaddy' ); ?></label>
-        </span>
-    </td>
-  </tr><tr class="form-field form-required">
-    <th valign="top" scope="row">
-      <label for="polldaddy-multiple-accounts">
-        <?php _e( 'Multiple Crowdsignal Accounts', 'polldaddy' ); ?>
-      </label>
-    </th>
-    <td>
-      <input type="checkbox" name="polldaddy-multiple-accounts" id="polldaddy-multiple-accounts" value="1" <?php echo $checked ?> style="width: auto" />
-        <span class="description">
-          <label for="polldaddy-multiple-accounts"><?php _e( 'This setting will allow each blog user to import a Crowdsignal account.', 'polldaddy' ); ?></label>
-        </span>
-    </td>
-  </tr>
-  <tr class="form-field form-required">
-    <th valign="top" scope="row">
-      <label for="polldaddy-sync-account">
-        <?php _e( 'Sync Ratings Account', 'polldaddy' ); ?>
-      </label>
-    </th>
-    <td>
-      <input type="checkbox" name="polldaddy-sync-account" id="polldaddy-sync-account" value="1" style="width: auto" />
-        <span class="description">
-          <label for="polldaddy-sync-account"><?php _e( 'This will synchronize your ratings Crowdsignal account.', 'polldaddy' ); ?></label>
-        </span>
-    </td>
-  </tr>
-  <tr class="form-field form-required">
-    <th valign="top" scope="row">
-      <label for="polldaddy-ratings-title-filter">
-        <?php _e( 'Ratings Title Filter', 'polldaddy' ); ?>
-      </label>
-    </th>
-    <td>
-      <input type="text" name="polldaddy-ratings-title-filter" id="polldaddy-ratings-title-filter" value="<?php echo esc_attr( $rating_title_filter ); ?>" style="width: auto" />
-        <span class="description">
-          <label for="polldaddy-ratings-title-filter"><?php _e( 'This setting allows you to specify a filter to use with your ratings title.', 'polldaddy' ); ?></label>
-        </span>
-    </td>
-  </tr><?php }
+			?>
+			<tr class="form-field form-required">
+				<th valign="top" scope="row">
+					<label for="polldaddy-load-poll-inline"><?php esc_html_e( 'Load Shortcodes Inline', 'polldaddy' ); ?></label>
+				</th>
+				<td>
+					<input type="checkbox" name="polldaddy-load-poll-inline" id="polldaddy-load-poll-inline" value="1" <?php echo $inline ?> style="width: auto" />
+					<span class="description">
+						<label for="polldaddy-load-poll-inline"><?php esc_html_e( 'This will load the Crowdsignal shortcodes inline rather than in the page footer.', 'polldaddy' ); ?></label>
+					</span>
+				</td>
+			</tr>
+			<?php
+			if ( $this->multiple_accounts ) {
+				?>
+				<tr class="form-field form-required">
+					<th valign="top" scope="row">
+						<label for="polldaddy-multiple-accounts"><?php esc_html_e( 'Multiple Crowdsignal Accounts', 'polldaddy' ); ?></label>
+					</th>
+					<td>
+						<input type="checkbox" name="polldaddy-multiple-accounts" id="polldaddy-multiple-accounts" value="1" <?php echo $checked ?> style="width: auto" />
+						<span class="description">
+							<label for="polldaddy-multiple-accounts">
+								<?php esc_html_e( 'This setting will allow each blog user to import a Crowdsignal account.', 'polldaddy' ); ?>
+								<br />
+								<strong>
+									<?php esc_html_e( 'Warning', 'polldaddy' ); ?>
+									<?php esc_html_e( 'This is a deprecated feature and is not supported anymore. If you disable this Multi User Access you won\'t be able to activate it again.', 'polldaddy' ); ?>
+								</strong>
+
+							</label>
+						</span>
+					</td>
+				</tr>
+				<?php
+			}
+			?>
+			<tr class="form-field form-required">
+				<th valign="top" scope="row">
+					<label for="polldaddy-sync-account"><?php esc_html_e( 'Sync Ratings Account', 'polldaddy' ); ?></label>
+				</th>
+				<td>
+					<input type="checkbox" name="polldaddy-sync-account" id="polldaddy-sync-account" value="1" style="width: auto" />
+					<span class="description">
+						<label for="polldaddy-sync-account"><?php esc_html_e( 'This will synchronize your ratings Crowdsignal account.', 'polldaddy' ); ?></label>
+					</span>
+				</td>
+			</tr>
+			<tr class="form-field form-required">
+				<th valign="top" scope="row">
+					<label for="polldaddy-ratings-title-filter"><?php esc_html_e( 'Ratings Title Filter', 'polldaddy' ); ?></label>
+				</th>
+				<td>
+					<input type="text" name="polldaddy-ratings-title-filter" id="polldaddy-ratings-title-filter" value="<?php echo esc_attr( $rating_title_filter ); ?>" style="width: auto" />
+					<span class="description">
+						<label for="polldaddy-ratings-title-filter"><?php esc_html_e( 'This setting allows you to specify a filter to use with your ratings title.', 'polldaddy' ); ?></label>
+					</span>
+				</td>
+			</tr>
+		<?php }
 		return parent::plugin_options_add();
 	}
 }
