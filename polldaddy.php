@@ -59,8 +59,8 @@ class WP_Polldaddy {
 		$this->log( 'Created WP_Polldaddy Object: constructor' );
 		$this->errors                 = new WP_Error;
 		$this->scheme                 = 'https';
-		$this->version                = '2.2.0';
-		$this->multiple_accounts      = true;
+		$this->version                = '2.2.6';
+		$this->multiple_accounts      = ! empty( get_option( 'polldaddy_usercode_user' ) );
 		$this->polldaddy_client_class = 'api_client';
 		$this->polldaddy_clients      = array();
 		$this->is_admin               = (bool) current_user_can( 'manage_options' );
@@ -70,6 +70,7 @@ class WP_Polldaddy {
 		$this->rating_user_code       = null;
 		$this->id                     = ($current_user instanceof WP_User) ? intval( $current_user->ID ): 0;
 		$this->has_feedback_menu      = false;
+		$this->has_crowdsignal_blocks = ! empty( get_option( 'crowdsignal_user_code' ) );
 
 		if ( class_exists( 'Jetpack' ) ) {
 			if ( method_exists( 'Jetpack', 'is_active' ) && Jetpack::is_active() ) {
