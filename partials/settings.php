@@ -2,18 +2,18 @@
 /**
  * Crowdsignal legacy plugin
  *
- * @package crowdsignal
+ * @package polldaddy
  */
 
 ?>
 <?php // phpcs:ignoreFile -- too many legacy warnings, needs full linter ?>
-<div id="options-page" class="wrap">
-	<div class="icon32" id="icon-options-general"><br/></div>
+<div id="options-page">
+	<div class="icon32" id="icon-options-general"></div>
 	<h2>
-		<?php _e( 'Poll Settings', 'polldaddy' ); ?>
+		<?php _e( 'Crowdsignal Settings', 'polldaddy' ); ?>
 	</h2>
-	<?php if ( $this->is_admin || $this->multiple_accounts ) { ?>
-		<h3><?php _e( 'Crowdsignal Account Info', 'polldaddy' ); ?></h3>
+	<?php if ( $controller->is_admin || $controller->multiple_accounts ) { ?>
+		<h3><?php _e( 'Account Info', 'polldaddy' ); ?></h3>
 		<p><?php _e( '<em>Crowdsignal</em> and <em>WordPress.com</em> are now connected using <a href="http://en.support.wordpress.com/wpcc-faq/">WordPress.com Connect</a>. If you have a WordPress.com account you can use it to login to <a href="https://app.crowdsignal.com/">Crowdsignal.com</a>. Click on the Crowdsignal "sign in" button, authorize the connection and create your new Crowdsignal account.', 'polldaddy' ); ?></p>
 		<p><?php _e( 'Login to the Crowdsignal website and scroll to the end of your <a href="https://app.crowdsignal.com/account/#apikey">account page</a> to create or retrieve an API key.', 'polldaddy' ); ?></p>
 		<?php if ( isset( $account_email ) && $account_email != false ) { ?>
