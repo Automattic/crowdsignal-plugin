@@ -12,6 +12,6 @@
     <!-- Include the WordPress ruleset, with exclusions. -->
 
     <rule ref="WordPress">
-        <exclude name="WordPress.VIP" />
+        <!-- <exclude name="WordPress.VIP" /> -->
     </rule>
 </ruleset>
