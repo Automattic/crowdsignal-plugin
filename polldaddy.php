@@ -1532,9 +1532,10 @@ class WP_Polldaddy {
 		return $total_polls > 0;
 	}
 
+
 	function polls_table( $view = 'me' ) {
 		$page = 1;
-		if ( isset( $_GET['paged'] ) ) {
+		if ( isset( $_GET['paged'] ) ) { // phpcs:ignore
 			$page = absint( $_GET['paged'] ); // phpcs:ignore
 		}
 
@@ -1566,8 +1567,6 @@ class WP_Polldaddy {
 
 		$this->print_errors();
 
-		$class = '';
-
 		$page_links = paginate_links(
 			array(
 				'base'      => add_query_arg( 'paged', '%#%' ),
@@ -1579,11 +1578,42 @@ class WP_Polldaddy {
 			)
 		);
 
+		global $current_user;
+
+		$user_name = ( $current_user instanceof WP_User ) && $current_user->first_name && $current_user->last_name
+			? "{$current_user->first_name} {$current_user->last_name}"
+			: $current_user->user_login;
+
+		$global_user_id   = (int) get_option( 'polldaddy_usercode_user' );
+		$global_user_name = '';
+		if ( $global_user_id ) {
+			$global_user_account = new WP_User( $global_user_id );
+			$global_user_name    = $global_user_account && $global_user_account->first_name && $global_user_account->last_name
+				? "{$global_user_account->first_name} {$global_user_account->last_name}"
+				: ( $global_user_account ? $global_user_account->user_login : __( 'Disconnected user', 'polldaddy' ) );
+		}
+
+		$cs_forms_account = $this->get_crowdsignal_connected_account();
+
 		$this->render_partial(
 			'polls-table',
 			array(
-				'items'         => $items,
-				'resource_path' => $this->base_url,
+				'page_links'                   => $page_links,
+				'items'                        => $items,
+				'can_manage_options'           => current_user_can( 'manage_options' ),
+				'account_email'                => ! empty( $account ) ? $account->email : '',
+				'is_author'                    => $this->is_author,
+				'is_admin'                     => $this->is_admin,
+				'user_name'                    => $user_name,
+				'resource_path'                => $this->base_url,
+				'multiple_accounts'            => $this->multiple_accounts && $this->has_items_for_view( 'blog' ),
+				'global_user_id'               => $global_user_id,
+				'global_user_name'             => $global_user_name,
+				'current_user_owns_connection' => ! empty( $account ) && $account->email === $current_user->user_email,
+				'user_id'                      => (int) $this->id,
+				'view'                         => $view,
+				'has_crowdsignal_blocks'       => $this->has_crowdsignal_blocks && $this->has_items_for_view( 'csforms' ),
+				'cs_forms_account_email'       => $this->has_crowdsignal_blocks && $cs_forms_account ? $cs_forms_account->email : '',
 			)
 		);
 	}
