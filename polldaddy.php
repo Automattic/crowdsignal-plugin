@@ -1350,7 +1350,8 @@ class WP_Polldaddy {
 ?>
 
 	<div class="wrap" id="manage-polls">
-
+		<div class="cs-pre-wrap"></div>
+		<div class="cs-wrapper">
 <?php
 		if ( $page == 'polls' ) {
 			if ( ! $this->is_author && in_array( $action, array( 'edit', 'edit-poll', 'create-poll', 'edit-style', 'create-style', 'list-styles' ) ) ) {//check user privileges has access to action
@@ -1460,10 +1461,16 @@ class WP_Polldaddy {
 				// 	) . "</p>";
 				// }
 
+				// cascaded attempt to "show something".
+				if ( ! $this->has_items_for_view( $view_type ) ) {
+					$this->render_landing_page();
+					break;
+				}
+
 				$this->polls_table( $view_type );
 			}//end switch
 		} elseif ( $page == 'ratings' ) {
-			if ( !$this->is_admin && !in_array( $action, array( 'delete', 'reports' ) ) ) {//check user privileges has access to action
+			if ( !$this->is_admin && !in_array( $action, array( 'delete', 'reports' ) ) ) { // check user privileges has access to action.
 				$action = 'reports';
 			}
 
@@ -1476,6 +1483,7 @@ class WP_Polldaddy {
 		}
 ?>
 
+		</div>
 	</div>
 
 <?php
