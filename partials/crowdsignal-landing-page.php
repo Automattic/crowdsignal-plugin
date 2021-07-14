@@ -11,7 +11,7 @@
 	<div class="cs-dashboard__crowdsignal-header">
 		<a href="https://crowdsignal.com" target="_blank" rel="noopener" class="cs-dashboard__crowdsignal-header-link">
 			<h2 class="cs-dashboard__crowdsignal-header-brand">
-				<img class="cs-dashboard__crowdsignal-header-logo" src="/wp-content/admin-plugins/post-flair/polldaddy/img/svg/cs-logo2.svg" title="Crowdsignal" loading="lazy" width="40" alt="Crowdsignal Logo">
+				<img class="cs-dashboard__crowdsignal-header-logo" src="<?php echo esc_html( $resource_path ); ?>/img/svg/cs-logo2.svg" title="Crowdsignal" loading="lazy" width="40" alt="Crowdsignal Logo">
 				<?php esc_html_e( 'Crowdsignal', 'polldaddy' ); ?>
 			</h2>
 		</a>
@@ -31,7 +31,7 @@
 			</div>
 			<div class="crowdsignal-landing__hero-right">
 				<div class="crowdsignal-landing__herogif">
-					<img src="/wp-content/admin-plugins/post-flair/polldaddy/img/gif/poll-block-v1.1.gif" loading="lazy" alt="Crowdsignal Poll Block" class="crowdsignal-landing__image">
+					<img src="<?php echo esc_html( $resource_path ); ?>/img/gif/poll-block-v1.1.gif" loading="lazy" alt="Crowdsignal Poll Block" class="crowdsignal-landing__image">
 				</div>
 			</div>
 		</div>
@@ -52,7 +52,7 @@
 	<div class="crowdsignal-landing__card-container">
 		<div class="crowdsignal-landing__card cs-background-fill">
 			<div class="crowdsignal-landing__card-icon">
-				<img src="/wp-content/admin-plugins/post-flair/polldaddy/img/item-icons/icon-block-poll.png"
+				<img src="<?php echo esc_html( $resource_path ); ?>/img/item-icons/icon-block-poll.png"
 					title="<?php esc_html_e( 'Poll block', 'polldaddy' ); ?>"
 					alt="<?php esc_html_e( 'Poll block icon', 'polldaddy' ); ?>" />
 			</div>
@@ -63,7 +63,7 @@
 
 		<div class="crowdsignal-landing__card cs-background-fill">
 			<div class="crowdsignal-landing__card-icon">
-				<img src="/wp-content/admin-plugins/post-flair/polldaddy/img/item-icons/icon-block-survey-embed.png"
+				<img src="<?php echo esc_html( $resource_path ); ?>/img/item-icons/icon-block-survey-embed.png"
 					title="<?php esc_html_e( 'Survey embed block', 'polldaddy' ); ?>"
 					alt="<?php esc_html_e( 'Survey embed block icon', 'polldaddy' ); ?>" />
 			</div>
@@ -74,7 +74,7 @@
 
 		<div class="crowdsignal-landing__card cs-background-fill">
 			<div class="crowdsignal-landing__card-icon">
-				<img src="/wp-content/admin-plugins/post-flair/polldaddy/img/item-icons/icon-block-feedback.png"
+				<img src="<?php echo esc_html( $resource_path ); ?>/img/item-icons/icon-block-feedback.png"
 					title="<?php esc_html_e( 'Feedback Button block', 'polldaddy' ); ?>"
 					alt="<?php esc_html_e( 'Feedback Button block icon', 'polldaddy' ); ?>" />
 			</div>
@@ -84,7 +84,7 @@
 		</div>
 		<div class="crowdsignal-landing__card cs-background-fill">
 			<div class="crowdsignal-landing__card-icon">
-				<img src="/wp-content/admin-plugins/post-flair/polldaddy/img/item-icons/icon-block-nps.png"
+				<img src="<?php echo esc_html( $resource_path ); ?>/img/item-icons/icon-block-nps.png"
 					title="<?php esc_html_e( 'Measure NPS block', 'polldaddy' ); ?>"
 					alt="<?php esc_html_e( 'Measure NPS block icon', 'polldaddy' ); ?>" />
 			</div>
@@ -95,7 +95,7 @@
 
 		<div class="crowdsignal-landing__card cs-background-fill">
 			<div class="crowdsignal-landing__card-icon">
-				<img src="/wp-content/admin-plugins/post-flair/polldaddy/img/item-icons/icon-block-voting.png"
+				<img src="<?php echo esc_html( $resource_path ); ?>/img/item-icons/icon-block-voting.png"
 					title="<?php esc_html_e( 'Voting block', 'polldaddy' ); ?>"
 					alt="<?php esc_html_e( 'Voting block icon', 'polldaddy' ); ?>" />
 			</div>
@@ -106,7 +106,7 @@
 
 		<div class="crowdsignal-landing__card cs-background-fill">
 			<div class="crowdsignal-landing__card-icon">
-				<img src="/wp-content/admin-plugins/post-flair/polldaddy/img/item-icons/icon-block-applause.png"
+				<img src="<?php echo esc_html( $resource_path ); ?>/img/item-icons/icon-block-applause.png"
 					title="<?php esc_html_e( 'Applause block', 'polldaddy' ); ?>"
 					alt="<?php esc_html_e( 'Applause block icon', 'polldaddy' ); ?>" />
 			</div>
@@ -127,7 +127,7 @@
 
 <div class="cs-wrapper-row cs-centered">
 	<div class="crowdsignal-landing__blocks-cta crowdsignal-landing__blocks-export-showcase">
-		<img src="/wp-content/admin-plugins/post-flair/polldaddy/img/export-everywhere.png"
+		<img src="<?php echo esc_html( $resource_path ); ?>/img/export-everywhere.png"
 			alt="<?php esc_html_e( 'Export showcase image', 'polldady' ); ?>"
 			title="<?php esc_html_e( 'Export showcase', 'polldady' ); ?>" width="583px" />
 	</div>
@@ -137,7 +137,7 @@
 	<div class="cs-dashboard__footer">
 		<div class="cs-dashboard__footer-left">
 			<a href="https://crowdsignal.com" target="_blank" rel="noopener">
-				<img class="cs-dashboard__crowdsignal-header-logo" src="/wp-content/admin-plugins/post-flair/polldaddy/img/svg/cs-logo2.svg" title="Crowdsignal" loading="lazy" width="40" alt="Crowdsignal Logo" />
+				<img class="cs-dashboard__crowdsignal-header-logo" src="<?php echo esc_html( $resource_path ); ?>/img/svg/cs-logo2.svg" title="Crowdsignal" loading="lazy" width="40" alt="Crowdsignal Logo" />
 			</a>
 			<br />
 			What is Crowdsignal? <a href="https://crowdsignal.com" target="_blank" rel="noopener">Learn more here.</a>
