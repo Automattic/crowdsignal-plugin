@@ -431,7 +431,8 @@ class WP_Polldaddy {
 
 		require_once WP_POLLDADDY__POLLDADDY_CLIENT_PATH;
 
-		wp_enqueue_script( 'polls', "{$this->base_url}js/polldaddy.js", array( 'jquery', 'jquery-ui-sortable', 'jquery-form' ), $this->version );
+		wp_enqueue_style( 'wp-components' );
+		wp_enqueue_script( 'polls', "{$this->base_url}js/polldaddy.js", array( 'jquery', 'jquery-ui-sortable', 'jquery-form', 'wp-components' ), $this->version );
 		wp_enqueue_script( 'polls-common', "{$this->base_url}js/common.js", array(), $this->version );
 
 		if ( $page == 'polls' ) {
