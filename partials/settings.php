@@ -7,7 +7,7 @@
 
 ?>
 <?php // phpcs:ignoreFile -- too many legacy warnings, needs full linter ?>
-<div id="options-page">
+<div id="options-page" class="cs-wrapper-row cs-background-fill">
 	<div class="icon32" id="icon-options-general"></div>
 	<h2>
 		<?php _e( 'Crowdsignal Settings', 'polldaddy' ); ?>
