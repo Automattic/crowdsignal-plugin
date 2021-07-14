@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 /**
  * Plugin Name: Crowdsignal Polls & Ratings
  * Plugin URI: http://wordpress.org/extend/plugins/polldaddy/
@@ -16,7 +16,7 @@ if ( ! defined( 'POLLDADDY_API_HOST' ) ) {
 }
 
 if ( ! defined( 'POLLDADDY_API_VERSION' ) ) {
-	define( 'POLLDADDY_API_VERSION', 'v1');
+	define( 'POLLDADDY_API_VERSION', 'v1' );
 }
 
 function polldaddy_api_path( $path, $version = POLLDADDY_API_VERSION ) {
@@ -120,19 +120,19 @@ class WP_Polldaddy {
 		}
 	}
 
-   /**
-	* Remove the feedback "All Posts" submenu if not needed.
-	*/
+	/**
+	 * Remove the feedback "All Posts" submenu if not needed.
+	 */
 	public function remove_feedback_menu() {
 		remove_submenu_page( 'edit.php?post_type=feedback', 'edit.php?post_type=feedback' );
 	}
 
-   /**
-	* Add the polldaddy option to the Jetpack options management whitelist.
-	*
-	* @param array $options The list of whitelisted option names.
-	* @return array The updated whitelist
-	*/
+	/**
+	 * Add the polldaddy option to the Jetpack options management whitelist.
+	 *
+	 * @param array $options The list of whitelisted option names.
+	 * @return array The updated whitelist
+	 */
 	public static function add_to_jetpack_options_whitelist( $options ) {
 		$options[] = 'polldaddy_api_key';
 		return $options;
