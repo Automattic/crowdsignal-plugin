@@ -5,7 +5,6 @@
  * @package crowdsignal
  */
 
-tracks_record_event( wp_get_current_user(), 'crowdsignal_poll_landing_page_view' );
 ?>
 
 <div class="cs-wrapper-row cs-background-fill cs-centered">
