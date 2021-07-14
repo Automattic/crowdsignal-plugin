@@ -3,6 +3,7 @@
 require_once dirname( __FILE__ ) . '/polldaddy-xml.php';
 
 class api_client {
+	var $polldaddy_url = 'http://api.polldaddy.com/';
 	var $partnerGUID;
 	var $userCode;
 	var $admin        = 0;
@@ -27,29 +28,35 @@ class api_client {
 		$this->requests[] = $this->request_xml;
 
 		if ( function_exists( 'wp_remote_post' ) ) {
-			$response = wp_remote_post( polldaddy_api_url( '/' ), array(
+			$response = wp_remote_post( $this->polldaddy_url, array(
 				'headers' => array( 'Content-Type' => 'text/xml; charset=utf-8', 'Content-Length' => strlen( $this->request_xml ) ),
 				'user-agent' => 'Polldaddy PHP Client/0.1',
 				'timeout' => $timeout,
 				'body' => $this->request_xml
 			) );
-
 			if ( !$response || is_wp_error( $response ) ) {
-				$this->errors[-1] = "Can't connect";
+				$errors[-1] = "Can't connect";
 				return false;
 			}
 			$this->response_xml = wp_remote_retrieve_body( $response );
 		} else {
+			$parsed = parse_url( $this->polldaddy_url );
+
+			if ( !isset( $parsed['host'] ) && !isset( $parsed['scheme'] ) ) {
+				$errors[-1] = 'Invalid API URL';
+				return false;
+			}
+
 			$fp = fsockopen(
-				polldaddy_api_url( '/', POLLDADDY_API_VERSION, 'tls' ),
-				443,
+				$parsed['host'],
+				$parsed['scheme'] == 'ssl' || $parsed['scheme'] == 'https' && extension_loaded('openssl') ? 443 : 80,
 				$err_num,
 				$err_str,
 				$timeout
 			);
 
 			if ( !$fp ) {
-				$this->errors[-1] = "Can't connect";
+				$errors[-1] = "Can't connect";
 				return false;
 			}
 
@@ -59,8 +66,8 @@ class api_client {
 			if ( !isset( $parsed['path']) || !$path = $parsed['path'] . ( isset($parsed['query']) ? '?' . $parsed['query'] : '' ) )
 				$path = '/';
 
-			$request  = 'POST ' . polldaddy_api_path( $path ) . " HTTP/1.0\r\n";
-			$request .= 'Host: ' . POLLDADDY_API_HOST . "\r\n";
+			$request  = "POST $path HTTP/1.0\r\n";
+			$request .= "Host: {$parsed['host']}\r\n";
 			$request .= "User-agent: Polldaddy PHP Client/0.1\r\n";
 			$request .= "Content-Type: text/xml; charset=utf-8\r\n";
 			$request .= 'Content-Length: ' . strlen( $this->request_xml ) . "\r\n";
@@ -74,7 +81,7 @@ class api_client {
 
 
 			if ( !$response ) {
-				$this->errors[-2] = 'No Data';
+				$errors[-2] = 'No Data';
 			}
 
 			list($headers, $this->response_xml) = explode( "\r\n\r\n", $response, 2 );
@@ -91,7 +98,6 @@ class api_client {
 			foreach ( $this->response->errors->error as $error )
 				$this->errors[$error->_id] = $error->___content;
 		}
-		return true;
 	}
 
 	function response_part( $pos ) {
@@ -283,6 +289,41 @@ function sync_rating( ){
 		}
 		return false;
 	}
+
+	/**
+	 * Get dashboard items from Crowdsignal platform.
+	 *
+	 * @param int    $start  Collection: start offset.
+	 * @param int    $end    Collection: amount of items to get from $start.
+	 * @param int    $folder_id    Folder ID to retrieve contents from.
+	 * @param string $source_link_match    If provided, retrieve only items that match the source_link.
+	 * @return array|false Array of Polldaddy items or false on failure
+	 */
+	public function get_items( $start = 0, $end = 0, $folder_id = 0, $source_link_match = '' ) {
+		$start             = (int) $start;
+		$end               = (int) $end;
+		$folder_id         = (int) $folder_id;
+		$source_link_match = (string) $source_link_match;
+
+		if ( ! $start && ! $end && ! $folder_id && ! $source_link_match ) {
+			$pos = $this->add_request( 'getitems' );
+		} else {
+			$pos = $this->add_request( 'getitems', new Polldaddy_List( null, compact( 'start', 'end', 'source_link_match' ) ) );
+		}
+		$this->send_request();
+		$r = $this->response_part( $pos );
+
+		if ( isset( $r->items ) ) {
+			if ( isset( $r->items->item ) ) {
+				if ( ! is_array( $r->items->item ) ) {
+					$r->items->item = array( $r->items->item );
+				}
+			}
+			return $r->items;
+		}
+		return false;
+	}
+
 
 	/**
 	 * @return array|false Array of Polldaddy Polls or false on failure
