@@ -1479,6 +1479,48 @@ class WP_Polldaddy {
 
 	}
 
+	private function render_landing_page() {
+		$this->render_partial(
+			'crowdsignal-landing-page',
+			array(
+				'resource_path' => $this->base_url,
+			)
+		);
+	}
+
+
+	private function has_items_for_view( $view = 'me' ) {
+		// re-write the user_code based on the intended view.
+		switch ( $view ) {
+			case 'csforms':
+				$this->user_code = get_option( 'crowdsignal_user_code' );
+				break;
+			case 'blog':
+				$this->user_code = $this->get_usercode();
+				break;
+			default:
+				$this->user_code = get_option( 'pd-usercode-' . $this->id );
+		}
+
+		$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->user_code );
+		$polldaddy->reset();
+
+		$polls_object = $polldaddy->get_items( 1, 1, 0, 'csforms' === $view ? get_site_url() : '' );
+
+		if ( ! $polls_object ) {
+			return false;
+		}
+		$polls = & $polls_object->item;
+
+		if ( isset( $polls_object->_total ) ) {
+			$total_polls = $polls_object->_total;
+		} else {
+			$total_polls = count( $polls );
+		}
+
+		return $total_polls > 0;
+	}
+
 	function polls_table( $view = 'me' ) {
 		$page = 1;
 		if ( isset( $_GET['paged'] ) ) {
