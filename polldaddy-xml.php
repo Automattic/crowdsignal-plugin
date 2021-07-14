@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 
 class Ghetto_XML_Object {
 	function __construct( $args = null, $attributes = null ) {
@@ -36,12 +36,12 @@ class Ghetto_XML_Object {
 		// added this to remove the Warning ( PHP Notice:  Undefined index ) in following condition
 		if ( !isset( $atts['___cdata'] ) )
 			$atts['___cdata'] = '';
-		
+
 		if ( !$cdata = $atts['___cdata'] )
 			$cdata = array();
 
 		$x = "<$name";
-		
+
 		if ( isset( $atts['___content'] ) ) {
 			$inner = in_array( '___content', $cdata ) ? '<![CDATA[' . $atts['___content'] . ']]>' : $atts['___content'];
 			$empty = false;
@@ -54,7 +54,7 @@ class Ghetto_XML_Object {
 
 		$_pad = str_repeat( "\t", $pad + 1 );
 
-		foreach ( $atts as $key => $value ) {			
+		foreach ( $atts as $key => $value ) {
 			if ( is_null( $value ) )
 				continue;
 			if ( '_' == $key[0] ) {
@@ -70,16 +70,14 @@ class Ghetto_XML_Object {
 			$empty = false;
 			if ( false === $value ) {
 				$inner .= "$_pad<$key />\n";
-			}  
-			elseif ( is_array( $value ) ) {
+			} elseif ( is_array( $value ) ) {
 				foreach ( $value as $array_value ) {
 					if ( is_a( $array_value, 'Ghetto_XML_Object' ) )
 						$inner .= $_pad . $array_value->xml( $_prepend_ns, $pad + 1 ) . "\n";
 					else
 						$inner .= in_array( $_key, $cdata ) ? "$_pad<$key>" . '<![CDATA[' . $array_value . ']]>' . "</$key>\n" : "$_pad<$key>$array_value</$key>\n";
 				}
-			} 
-			else {
+			} else {
 				if ( is_a( $value, 'Ghetto_XML_Object' ) )
 					$inner .= $_pad . $value->xml( $_prepend_ns, $pad + 1 ) . "\n";
 				else{
@@ -105,7 +103,7 @@ class Ghetto_XML_Object {
 		foreach ( $array as $key => $value ) {
 			if ( 0 === strpos( $key, $this->___ns_full ) )
 				$key = substr( $key, strlen( $this->___ns_full ) + 1 );
-			if ( is_null( $value ) || ( $this->___restrict && ! array_key_exists( $key, $atts ) ) )
+			if ( is_null( $value ) || ( $this->___restrict && !array_key_exists( $key, $atts ) ) )
 				continue;
 
 			$this->$key = $value;
@@ -114,15 +112,8 @@ class Ghetto_XML_Object {
 }
 
 class Polldaddy_XML_Object extends Ghetto_XML_Object {
-	var $___ns;
-	var $___ns_full;
-
-	function __construct( $args = null, $attributes = null ) {
-		$this->___ns = 'pd';
-		$this->___ns_full = polldaddy_api_url( '/pdapi.xsd' );
-
-		parent::__construct( $args, $attributes );
-	}
+	var $___ns = 'pd';
+	var $___ns_full = 'http://api.polldaddy.com/pdapi.xsd';
 }
 
 class Polldaddy_XML_Root extends Polldaddy_XML_Object {
@@ -153,7 +144,7 @@ class Polldaddy_Initiate extends Polldaddy_XML_Root {
 	var $_partnerUserID;
 
 	var $Email;
-	var $Password;	
+	public $Password; // phpcs:ignore -- legacy code
 }
 
 class Polldaddy_Request extends Polldaddy_XML_Root {
@@ -205,7 +196,7 @@ class Polldaddy_Query extends Polldaddy_XML_Object {
 	var $___name = 'query';
 
 	var $_id;
-	
+
 	var $time;
 	var $text;
 	var $caller;
@@ -230,7 +221,7 @@ class Polldaddy_Demand extends Polldaddy_XML_Object {
 	var $list;
 	var $search;
 	var $result;
-	var $comments; //need to add an request object for each new type 
+	public $comments; //need to add an request object for each new type
 	var $comment;
 	var $extensions;
 	var $folders;
@@ -245,6 +236,10 @@ class Polldaddy_Demand extends Polldaddy_XML_Object {
 	var $nonce;
 	var $partner;
 	var $media;
+	public $survey;
+	public $surveys;
+	public $item;
+	public $items;
 }
 
 class Polldaddy_Partner extends Polldaddy_XML_Object {
@@ -253,7 +248,7 @@ class Polldaddy_Partner extends Polldaddy_XML_Object {
 
 	var $_role;
 	var $_users;
-	
+
 	var $name;
 }
 
@@ -281,7 +276,8 @@ class Polldaddy_List extends Polldaddy_XML_Object {
 	var $_start;
 	var $_end;
 	var $_id;
-	
+	public $_source_link_match;
+
 	var $period;
 }
 
@@ -291,6 +287,70 @@ class Polldaddy_Polls extends Polldaddy_XML_Object {
 	var $_total;
 
 	var $poll;
+}
+
+class Polldaddy_Item extends PollDaddy_XML_Object {
+	public $___cdata = array( 'name', 'type' );
+	public $___name = 'item';
+
+	public $_id;
+	public $_created;
+	public $_responses;
+	public $_folder_id;
+	public $_owner;
+	public $_closed;
+	public $_source;
+	public $_source_link;
+
+	public $name;
+	public $type;
+	public $subtype;
+}
+
+class PollDaddy_Items extends PollDaddy_XML_Object {
+	public $___name = 'items';
+
+	public $_total;
+
+	public $item;
+}
+
+class Polldaddy_Survey extends PollDaddy_XML_Object {
+	public $___cdata = array( 'name', 'title', 'custom_end_url', 'start_page_html', 'end_page_html', 'survey_xml', 'rule_xml' );
+	public $___name = 'survey';
+
+	public $_id;
+	public $_created;
+	public $_responses;
+	public $_folder_id;
+	public $_owner;
+	public $_closed;
+
+	public $name;
+	public $title;
+	public $multiple_responses;
+	public $custom_end_url;
+	public $style_id;
+	public $pack_id;
+	public $start_page;
+	public $start_page_html;
+	public $end_page;
+	public $end_page_html;
+	public $close_on_date;
+	public $close_date;
+	public $close_on_quota;
+	public $quota_amount;
+
+	public $survey_xml;
+	public $rule_xml;
+}
+
+class Polldaddy_Surveys extends Polldaddy_XML_Object {
+	public $___name = 'surveys';
+
+	public $_total;
+
+	public $survey;
 }
 
 class Polldaddy_Search extends Polldaddy_XML_Object {
@@ -314,13 +374,15 @@ class Polldaddy_Poll extends Polldaddy_XML_Object {
 	var $_folderID;
 	var $_owner;
 	var $_closed;
+	public $_source; // phpcs:ignore -- underscore for Crowdsignal legacy model
+	public $_source_link; // phpcs:ignore -- underscore for Crowdsignal legacy model
 
 	var $question;
 	var $multipleChoice;
 	var $randomiseAnswers;
 	var $otherAnswer;
 	var $resultsType;
-	var $blockRepeatVotersType;  
+	public $blockRepeatVotersType; // phpcs:ignore -- legacy code
 	var $blockExpiration;
 	var $comments;
 	var $makePublic;
@@ -364,9 +426,9 @@ class Polldaddy_Poll_Answer extends Polldaddy_XML_Object {
 	var $_id;
 	var $_total;
 	var $_percent;
-	
+
 	var $___content;
-	
+
 	var $text;	//removed ___content and replaced it with text node
 	var $mediaType; // new
 	var $mediaCode; // new
@@ -388,7 +450,7 @@ class Polldaddy_Other_Answer extends Polldaddy_XML_Object {
 class Polldaddy_Comments extends Polldaddy_XML_Object {
 	var $___cdata = array( '___content' );
 	var $___name = 'comments';
-	
+
 	var $___content;
 
 	var $_id;
@@ -415,7 +477,7 @@ class Polldaddy_Comment extends Polldaddy_XML_Object {
 
 class Polldaddy_Extensions extends Polldaddy_XML_Object {
 	var $___name = 'extensions';
-	
+
 	var $folders;
 	var $styles;
 	var $packs;
@@ -424,63 +486,63 @@ class Polldaddy_Extensions extends Polldaddy_XML_Object {
 
 class Polldaddy_Folders extends Polldaddy_XML_Object {
 	var $___name = 'folders';
-	
+
 	var $folder;
 }
 
 class Polldaddy_Folder extends Polldaddy_XML_Object {
 	var $___cdata = array( '___content' );
 	var $___name = 'folder';
-	
+
 	var $___content;
-	
+
 	var $_id;
 }
 
 class Polldaddy_Styles extends Polldaddy_XML_Object {
 	var $___name = 'styles';
-	
+
 	var $style;
 }
 
 class Polldaddy_Style extends Polldaddy_XML_Object {
 	var $___cdata = array( 'title', 'css' );
 	var $___name = 'style';
-	
+
 	var $_id;
 	var $_type;
 	var $_retro;
 	var $_direction;
-	
+
 	var $title;
-	var $date;	
+	public $date;
 	var $css;
 }
 
 class Polldaddy_Packs extends Polldaddy_XML_Object {
 	var $___name = 'packs';
-	
+
 	var $pack;
 }
 
 class Polldaddy_Pack extends Polldaddy_XML_Object {
 	var $___name = 'pack';
-	
+
 	var $_id;
 	var $_date;
 	var $_retro;
-	
+
 	var $pack;
 }
 
 class Custom_Pack extends Polldaddy_XML_Object {
 	var $___name = 'pack';
-	
+
 	var $_type = 'user'; //type attribute is constant (for now)
-	
+
 	var $title;
 	var $phrase;
-	
+
 	function xml( $prepend_ns = true, $pad = 0 ) {
 		$xml = parent::xml( false, $pad );
 		return $xml;
@@ -490,11 +552,11 @@ class Custom_Pack extends Polldaddy_XML_Object {
 class Custom_Pack_Phrase extends Polldaddy_XML_Object {
 	var $___cdata = array( '___content' );
 	var $___name = 'phrase';
-	
+
 	var $___content;
-	
+
 	var $_phraseID;
-	
+
 	function xml( $prepend_ns = true, $pad = 0 ) {
 		$xml = parent::xml( false, $pad );
 		return $xml;
@@ -503,30 +565,30 @@ class Custom_Pack_Phrase extends Polldaddy_XML_Object {
 
 class Polldaddy_Languages extends Polldaddy_XML_Object {
 	var $___name = 'languages';
-	
+
 	var $language;
 }
 
 class Polldaddy_Language extends Polldaddy_XML_Object {
 	var $___cdata = array( '___content' );
 	var $___name = 'language';
-	
+
 	var $___content;
-	
+
 	var $_id;
 }
 
 class Polldaddy_Activity extends Polldaddy_XML_Object {
 	var $___cdata = array( '___content' );
 	var $___name = 'activity';
-	
+
 	var $___content;
 }
 
 class Polldaddy_Nonce extends Polldaddy_XML_Object {
 	var $___cdata = array( 'text', 'action' );
 	var $___name = 'nonce';
-	
+
 	var $text;
 	var $action;
 	var $userCode;
@@ -536,7 +598,7 @@ class Polldaddy_Rating_Result extends Polldaddy_XML_Object {
 	var $___name = 'rating_result';
 
 	var $_id;
-	
+
 	var $ratings;
 }
 
@@ -552,7 +614,7 @@ class Polldaddy_Rating extends Polldaddy_XML_Object {
     	var $___cdata = array( 'settings', 'name', 'title', 'permalink' );
 
 	var $_id;
-	
+
 	var $_type;
 	var $_votes;
 	var $uid;
@@ -565,7 +627,7 @@ class Polldaddy_Rating extends Polldaddy_XML_Object {
 	var $date;
 	var $title;
 	var $permalink;
-	
+
 	var $name;
 	var $folder_id;
 	var $settings;
@@ -603,7 +665,7 @@ class Polldaddy_Media extends Polldaddy_XML_Object {
 
 	var $_size;
 	var $_id;
-	
+
 	var $name;
 	var $type;
 	var $ext;
@@ -617,66 +679,52 @@ class Polldaddy_Media extends Polldaddy_XML_Object {
 class Polldaddy_XML_Parser {
 	var $parser;
 	var $polldaddy_objects = array(
-		'pdapi.xsd:pdAccess'      => 'Polldaddy_Access',
-		'pdapi.xsd:pdInitiate'    => 'Polldaddy_Initiate',
-		'pdapi.xsd:pdRequest'     => 'Polldaddy_Request',
-		'pdapi.xsd:pdResponse'    => 'Polldaddy_Response',
-		'pdapi.xsd:errors'        => 'Polldaddy_Errors',
-		'pdapi.xsd:error'         => 'Polldaddy_Error',
-		'pdapi.xsd:demands'       => 'Polldaddy_Demands',
-		'pdapi.xsd:demand'        => 'Polldaddy_Demand',
-		'pdapi.xsd:queries'       => 'Polldaddy_Queries',
-		'pdapi.xsd:query'         => 'Polldaddy_Query',
-		'pdapi.xsd:account'       => 'Polldaddy_Account',
-		'pdapi.xsd:list'          => 'Polldaddy_List',
-		'pdapi.xsd:polls'         => 'Polldaddy_Polls',
-		'pdapi.xsd:search'        => 'Polldaddy_Search',
-		'pdapi.xsd:poll'          => 'Polldaddy_Poll',
-		'pdapi.xsd:emailAddress'  => 'Polldaddy_Email',
-		'pdapi.xsd:message'       => 'Polldaddy_Email_Message',
-		'pdapi.xsd:answers'       => 'Polldaddy_Poll_Answers',
-		'pdapi.xsd:answer'        => 'Polldaddy_Poll_Answer',
-		'pdapi.xsd:otherAnswers'  => 'Polldaddy_Other_Answers',
-		'pdapi.xsd:result'        => 'Polldaddy_Poll_Result',
-		'pdapi.xsd:comments'      => 'Polldaddy_Comments',
-		'pdapi.xsd:comment'       => 'Polldaddy_Comment',
-		'pdapi.xsd:extensions'    => 'Polldaddy_Extensions',
-		'pdapi.xsd:folders'       => 'Polldaddy_Folders',
-		'pdapi.xsd:folder'        => 'Polldaddy_Folder',
-		'pdapi.xsd:styles'        => 'Polldaddy_Styles',
-		'pdapi.xsd:style'         => 'Polldaddy_Style',
-		'pdapi.xsd:packs'         => 'Polldaddy_Packs',
-		'pdapi.xsd:pack'          => 'Polldaddy_Pack',
-		'pdapi.xsd:languages'     => 'Polldaddy_Languages',
-		'pdapi.xsd:language'      => 'Polldaddy_Language',
-		'pdapi.xsd:activity'      => 'Polldaddy_Activity',
-		'pdapi.xsd:rating_result' => 'Polldaddy_Rating_Result',
-		'pdapi.xsd:ratings'       => 'Polldaddy_Ratings',
-		'pdapi.xsd:rating'        => 'Polldaddy_Rating',
-		'pdapi.xsd:nonce'         => 'Polldaddy_Nonce',
-		'pdapi.xsd:partner'       => 'Polldaddy_Partner',
-		'pdapi.xsd:media'         => 'Polldaddy_Media',
-		'pack'                    => 'Custom_Pack',
-		'phrase'                  => 'Custom_Pack_Phrase'
+		'http://api.polldaddy.com/pdapi.xsd:pdAccess'      => 'Polldaddy_Access',
+		'http://api.polldaddy.com/pdapi.xsd:pdInitiate'    => 'Polldaddy_Initiate',
+		'http://api.polldaddy.com/pdapi.xsd:pdRequest'     => 'Polldaddy_Request',
+		'http://api.polldaddy.com/pdapi.xsd:pdResponse'    => 'Polldaddy_Response',
+		'http://api.polldaddy.com/pdapi.xsd:errors'        => 'Polldaddy_Errors',
+		'http://api.polldaddy.com/pdapi.xsd:error'         => 'Polldaddy_Error',
+		'http://api.polldaddy.com/pdapi.xsd:demands'       => 'Polldaddy_Demands',
+		'http://api.polldaddy.com/pdapi.xsd:demand'        => 'Polldaddy_Demand',
+		'http://api.polldaddy.com/pdapi.xsd:queries'       => 'Polldaddy_Queries',
+		'http://api.polldaddy.com/pdapi.xsd:query'         => 'Polldaddy_Query',
+		'http://api.polldaddy.com/pdapi.xsd:account'       => 'Polldaddy_Account',
+		'http://api.polldaddy.com/pdapi.xsd:list'          => 'Polldaddy_List',
+		'http://api.polldaddy.com/pdapi.xsd:polls'         => 'Polldaddy_Polls',
+		'http://api.polldaddy.com/pdapi.xsd:search'        => 'Polldaddy_Search',
+		'http://api.polldaddy.com/pdapi.xsd:poll'          => 'Polldaddy_Poll',
+		'http://api.polldaddy.com/pdapi.xsd:survey'        => 'Polldaddy_Survey',
+		'http://api.polldaddy.com/pdapi.xsd:surveys'       => 'Polldaddy_Surveys',
+		'http://api.polldaddy.com/pdapi.xsd:item'          => 'Polldaddy_Item',
+		'http://api.polldaddy.com/pdapi.xsd:items'         => 'Polldaddy_Items',
+		'http://api.polldaddy.com/pdapi.xsd:emailAddress'  => 'Polldaddy_Email',
+		'http://api.polldaddy.com/pdapi.xsd:message'       => 'Polldaddy_Email_Message',
+		'http://api.polldaddy.com/pdapi.xsd:answers'       => 'Polldaddy_Poll_Answers',
+		'http://api.polldaddy.com/pdapi.xsd:answer'        => 'Polldaddy_Poll_Answer',
+		'http://api.polldaddy.com/pdapi.xsd:otherAnswers'  => 'Polldaddy_Other_Answers',
+		'http://api.polldaddy.com/pdapi.xsd:result'        => 'Polldaddy_Poll_Result',
+		'http://api.polldaddy.com/pdapi.xsd:comments'      => 'Polldaddy_Comments',
+		'http://api.polldaddy.com/pdapi.xsd:comment'       => 'Polldaddy_Comment',
+		'http://api.polldaddy.com/pdapi.xsd:extensions'    => 'Polldaddy_Extensions',
+		'http://api.polldaddy.com/pdapi.xsd:folders'       => 'Polldaddy_Folders',
+		'http://api.polldaddy.com/pdapi.xsd:folder'        => 'Polldaddy_Folder',
+		'http://api.polldaddy.com/pdapi.xsd:styles'        => 'Polldaddy_Styles',
+		'http://api.polldaddy.com/pdapi.xsd:style'         => 'Polldaddy_Style',
+		'http://api.polldaddy.com/pdapi.xsd:packs'         => 'Polldaddy_Packs',
+		'http://api.polldaddy.com/pdapi.xsd:pack'          => 'Polldaddy_Pack',
+		'http://api.polldaddy.com/pdapi.xsd:languages'     => 'Polldaddy_Languages',
+		'http://api.polldaddy.com/pdapi.xsd:language'      => 'Polldaddy_Language',
+		'http://api.polldaddy.com/pdapi.xsd:activity'      => 'Polldaddy_Activity',
+		'http://api.polldaddy.com/pdapi.xsd:rating_result' => 'Polldaddy_Rating_Result',
+		'http://api.polldaddy.com/pdapi.xsd:ratings'       => 'Polldaddy_Ratings',
+		'http://api.polldaddy.com/pdapi.xsd:rating'        => 'Polldaddy_Rating',
+		'http://api.polldaddy.com/pdapi.xsd:nonce'         => 'Polldaddy_Nonce',
+		'http://api.polldaddy.com/pdapi.xsd:partner'       => 'Polldaddy_Partner',
+		'http://api.polldaddy.com/pdapi.xsd:media'         => 'Polldaddy_Media',
+		'pack'                                             => 'Custom_Pack',
+		'phrase'                                           => 'Custom_Pack_Phrase'
 	);// the parser matches the tag names to the class name and creates an object defined by that class
-
-	function get_polldaddy_object( $tag ) {
-		preg_match(
-			sprintf( '#%s/(.*)#', polldaddy_api_url( '/' ) ),
-			$tag,
-			$matches
-		);
-
-		if ( ! empty( $matches ) && array_key_exists( $matches[ 1 ], $this->polldaddy_objects ) ) {
-			return $this->polldaddy_objects[ $matches[ 1 ] ];
-		}
-
-		if ( array_key_exists( $tag, $this->polldaddy_objects ) ) {
-			return $this->polldaddy_objects[ $tag ];
-		}
-
-		return null;
-	}
 
 	var $object_stack = array();
 	var $object_pos = null;
@@ -697,6 +745,7 @@ class Polldaddy_XML_Parser {
 		xml_set_character_data_handler( $this->parser, 'text' );
 		xml_parser_set_option( $this->parser, XML_OPTION_CASE_FOLDING, 0 );
 		xml_parser_set_option( $this->parser, XML_OPTION_SKIP_WHITE, 1 );
+
 		xml_parse( $this->parser, $xml );
 		xml_parser_free( $this->parser );
 		return $this->objects;
@@ -719,7 +768,7 @@ class Polldaddy_XML_Parser {
 			$this->object_stack[$object_pos]['args_tag'] = $tag;
 		}
 
-		if ( $this->get_polldaddy_object( $tag ) ) {
+		if ( isset( $this->polldaddy_objects[$tag] ) ) {
 			$this->object_stack[] = array(
 				'tag' => $tag,
 				'atts' => $attributes,
@@ -752,21 +801,22 @@ class Polldaddy_XML_Parser {
 			else
 				$this->object_stack[$this->object_pos]['args'][$this->object_stack[$this->object_pos]['args_tag']] = $text;
 		} else {
-			if ( isset($this->object_stack[$this->object_pos]['args']['___content']) )
-				$this->object_stack[$this->object_pos]['args']['___content'] .= $text;
-			else	
-				$this->object_stack[$this->object_pos]['args']['___content'] = $text;
+			if ( isset( $this->object_stack[ $this->object_pos ]['args']['___content'] ) ) {
+				$this->object_stack[ $this->object_pos ]['args']['___content'] .= $text;
+			} else {
+				$this->object_stack[ $this->object_pos ]['args']['___content'] = $text;
+			}
 		}
 	}
 
 	function tag_close( &$parser, $tag ) {
-		if ( $this->get_polldaddy_object( $tag ) ) {
+		if ( isset( $this->polldaddy_objects[$tag] ) ) {
 			if ( $tag !== $this->object_stack[$this->object_pos]['tag'] )
 				die( 'damn' );
 
-			$new = $this->get_polldaddy_object( $tag );
+			$new = $this->polldaddy_objects[$tag];
 			$new_object = new $new( $this->object_stack[$this->object_pos]['args'], $this->object_stack[$this->object_pos]['atts'] );
-                                                                                                                                
+
 			if ( is_numeric( $this->object_stack[$this->object_pos]['parent'] ) ) {
 				$this->object_pos = $this->object_stack[$this->object_pos]['parent'];
 				if ( $this->object_stack[$this->object_pos]['args_tag_pos'] ) {
