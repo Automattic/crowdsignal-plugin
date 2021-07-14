@@ -5,25 +5,12 @@
  * @package crowdsignal
  */
 
-$track_event = 'crowdsignal_wp_admin';
-switch ( $view ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- output from page renderer
-	case 'me':
-		$track_event .= '_me_view';
-		break;
-	case 'blog':
-		$track_event .= '_blog_view';
-		break;
-	case 'csforms':
-		$track_event .= '_csforms_view';
-		break;
-}
-tracks_record_event( wp_get_current_user(), $track_event );
 ?>
 <div class="cs-wrapper-row cs-background-fill">
 	<div class="cs-dashboard__crowdsignal-header">
 		<a href="https://crowdsignal.com" target="_blank" rel="noopener" class="cs-dashboard__crowdsignal-header-link">
 			<h2 class="cs-dashboard__crowdsignal-header-brand">
-				<img class="cs-dashboard__crowdsignal-header-logo" src="/wp-content/admin-plugins/post-flair/polldaddy/img/svg/cs-logo2.svg" title="Crowdsignal" loading="lazy" width="40" alt="Crowdsignal Logo">
+				<img class="cs-dashboard__crowdsignal-header-logo" src="<?php echo esc_html( $resource_path ); ?>/img/svg/cs-logo2.svg" title="Crowdsignal" loading="lazy" width="40" alt="Crowdsignal Logo">
 				<?php esc_html_e( 'Crowdsignal', 'polldaddy' ); ?>
 			</h2>
 		</a>
@@ -245,7 +232,7 @@ tracks_record_event( wp_get_current_user(), $track_event );
 	<div class="cs-dashboard__footer">
 		<div class="cs-dashboard__footer-left">
 			<a href="https://crowdsignal.com" target="_blank" rel="noopener">
-				<img class="cs-dashboard__crowdsignal-header-logo" src="/wp-content/admin-plugins/post-flair/polldaddy/img/svg/cs-logo2.svg" title="Crowdsignal" loading="lazy" width="40" alt="Crowdsignal Logo" />
+				<img class="cs-dashboard__crowdsignal-header-logo" src="<?php echo esc_html( $resource_path ); ?>/img/svg/cs-logo2.svg" title="Crowdsignal" loading="lazy" width="40" alt="Crowdsignal Logo" />
 			</a>
 			<br />
 			What is Crowdsignal? <a href="https://crowdsignal.com" target="_blank" rel="noopener">Learn more here.</a>
@@ -328,11 +315,11 @@ jQuery( document ).ready(function(){
 	}
 
 	// jQuery( '#filter-polls' ).click( function(){
-	// 	if( jQuery( '#filter-options' ).val() == 'blog' ){
-	// 		window.location = '<?php // echo add_query_arg( array( 'page' => 'polls', 'view' => 'blog' ), admin_url( 'admin.php' ) ); // phpcs:ignore -- controlled plain text ?>';
-	// 	} else {
-	// 		window.location = '<?php // echo add_query_arg( array( 'page' => 'polls' ), admin_url( 'admin.php' ) ); // phpcs:ignore -- controlled plain text ?>';
-	// 	}
+	//	if( jQuery( '#filter-options' ).val() == 'blog' ){
+	//		window.location = '<?php // echo add_query_arg( array( 'page' => 'polls', 'view' => 'blog' ), admin_url( 'admin.php' ) ); // phpcs:ignore -- controlled plain text ?>';
+	//	} else {
+	//		window.location = '<?php // echo add_query_arg( array( 'page' => 'polls' ), admin_url( 'admin.php' ) ); // phpcs:ignore -- controlled plain text ?>';
+	//	}
 	// } );
 
 	render(
