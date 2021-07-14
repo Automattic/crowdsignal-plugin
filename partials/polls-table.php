@@ -6,6 +6,7 @@
  */
 
 ?>
+
 <div class="cs-wrapper-row cs-background-fill">
 	<div class="cs-dashboard__crowdsignal-header">
 		<a href="https://crowdsignal.com" target="_blank" rel="noopener" class="cs-dashboard__crowdsignal-header-link">
@@ -58,13 +59,16 @@
 					$edit_link    = false;
 
 					$item_post_link = isset( $item->_source_link ) ? $item->_source_link : '';
+
 					$item_post_id = url_to_postid( $item_post_link );
 
-					$display_link   = wp_parse_url( $item_post_link );
+					$display_link = wp_parse_url( $item_post_link );
 					if ( isset( $display_link['query'] ) && '' !== $display_link['query'] ) {
 						$display_link = $display_link['path'] . '?' . $display_link['query'];
-					} else {
+					} elseif ( isset( $display_link['path'] ) && '' !== $display_link['path'] ) {
 						$display_link = $display_link['path'];
+					} else {
+						$display_link = $item_post_link;
 					}
 
 					if ( 'poll' === $item->type ) {
@@ -453,7 +457,7 @@ jQuery( document ).ready(function(){
 		const meButton = el(
 			wp.components.Button,
 			{
-				href: '?page=polls&view=me',
+				href: '?post_type=feedback&page=polls&view=me',
 				isSecondary: true,
 				className: 'me' === currentView && 'is-current',
 			},
@@ -463,7 +467,7 @@ jQuery( document ).ready(function(){
 			? el(
 				wp.components.Button,
 				{
-					href: '?page=polls&view=blog',
+					href: '?post_type=feedback&page=polls&view=blog',
 					isSecondary: true,
 					className: 'blog' === currentView && 'is-current',
 				},
@@ -477,13 +481,13 @@ jQuery( document ).ready(function(){
 					el(
 						wp.components.Button,
 						{
-							href: '?page=polls&view=csforms',
+							href: '?post_type=feedback&page=polls&view=csforms',
 							isSecondary: true,
 							className: 'csforms' === currentView && 'is-current',
 							onMouseOver: showPopover,
 							onMouseOut: hidePopover,
 						},
-						el( 'span', { className: 'cs-dashboard-switch__text' }, 'On This Site' ),
+						'On This Site'
 					),
 					isVisible && el(
 						wp.components.Popover,
