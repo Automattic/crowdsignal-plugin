@@ -1313,29 +1313,32 @@ class WP_Polldaddy {
 
 	function settings_page() {
 		global $page, $action;
-?>
-	<div class="wrap" id="manage-polls">
-<?php
-		$this->set_api_user_code();
+		?>
+		<div class="wrap" id="manage-polls">
+			<div class="cs-pre-wrap"></div>
+			<div class="cs-wrapper">
+				<?php
+				$this->set_api_user_code();
 
-		if ( isset( $_GET['page'] ) ) {
-			$page = $_GET['page'];
-		}
-		if ( 'pollsettings' === $page ) {
-			if ( ! $this->is_author ) { //check user privileges has access to action
-				return;
-			}
-			$this->plugin_options();
-		} elseif ( 'ratingsettings' === $page ) {
-			if ( 'update-rating' === $action ) {
-				$this->update_rating();
-			}
+				if ( isset( $_GET['page'] ) ) { // phpcs:ignore
+					$page = $_GET['page']; // phpcs:ignore
+				}
+				if ( 'pollsettings' === $page ) {
+					if ( ! $this->is_author ) { // check user privileges has access to action.
+						return;
+					}
+					$this->plugin_options();
+				} elseif ( 'ratingsettings' === $page ) {
+					if ( 'update-rating' === $action ) {
+						$this->update_rating();
+					}
 
-			$this->rating_settings();
-		}
-?>
-	</div>
-<?php
+					$this->rating_settings();
+				}
+				?>
+			</div>
+		</div>
+		<?php
 	}
 
 	function management_page() {
