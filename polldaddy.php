@@ -1501,10 +1501,12 @@ class WP_Polldaddy {
 
 
 	private function has_items_for_view( $view = 'me' ) {
+		$guid = WP_POLLDADDY__PARTNERGUID;
 		// re-write the user_code based on the intended view.
 		switch ( $view ) {
 			case 'csforms':
 				$this->user_code = get_option( 'crowdsignal_user_code' );
+				$guid            = get_option( 'crowdsignal_api_key' );
 				break;
 			case 'blog':
 				$this->user_code = $this->get_usercode();
@@ -1513,7 +1515,7 @@ class WP_Polldaddy {
 				$this->user_code = get_option( 'pd-usercode-' . $this->id );
 		}
 
-		$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->user_code );
+		$polldaddy = $this->get_client( $guid, $this->user_code );
 		$polldaddy->reset();
 
 		$polls_object = $polldaddy->get_items( 1, 1, 0, 'csforms' === $view ? get_site_url() : '' );
@@ -1539,10 +1541,12 @@ class WP_Polldaddy {
 			$page = absint( $_GET['paged'] ); // phpcs:ignore
 		}
 
+		$guid = WP_POLLDADDY__PARTNERGUID;
 		// re-write the user_code based on the intended view.
 		switch ( $view ) {
 			case 'csforms':
 				$this->user_code = get_option( 'crowdsignal_user_code' );
+				$guid            = get_option( 'crowdsignal_api_key' );
 				break;
 			case 'blog':
 				$this->user_code = $this->get_usercode();
@@ -1551,7 +1555,7 @@ class WP_Polldaddy {
 				$this->user_code = get_option( 'pd-usercode-' . $this->id );
 		}
 
-		$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->user_code );
+		$polldaddy = $this->get_client( $guid, $this->user_code );
 		$polldaddy->reset();
 
 		$items = $polldaddy->get_items( $page, 20, 0, 'csforms' === $view ? get_site_url() : '' );
