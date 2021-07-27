@@ -1620,7 +1620,7 @@ class WP_Polldaddy {
 
 	private function get_crowdsignal_connected_account() {
 		if ( $this->has_crowdsignal_blocks ) {
-			$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, get_option( 'crowdsignal_user_code' ) );
+			$polldaddy = $this->get_client( get_option( 'crowdsignal_api_key' ), get_option( 'crowdsignal_user_code' ) );
 			$polldaddy->reset();
 			return $polldaddy->get_account();
 		}
