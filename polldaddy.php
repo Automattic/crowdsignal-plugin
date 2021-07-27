@@ -1442,7 +1442,7 @@ class WP_Polldaddy {
 				// default view based on site features
 				if ( ! $view_type && $this->multiple_accounts ) {
 					$view_type = 'blog';
-				} else if ( ! $view_type && $this->has_crowdsignal_blocks ) {
+				} else if ( ! $view_type && $this->has_crowdsignal_blocks && $this->has_items_for_view( 'csforms' ) ) {
 					$view_type = 'csforms';
 				} else if ( ! $view_type ) {
 					$view_type = 'me';
