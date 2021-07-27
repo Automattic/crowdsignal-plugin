@@ -4808,13 +4808,14 @@ class WP_Polldaddy {
 		if ( isset( $_POST['polldaddy_email'] ) ) {
 			$account_email = false;
 		} else {
-			$connected = false;
-			$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->user_code );
-			$account   = $polldaddy->get_account();
+			$connected     = false;
+			$account_email = '';
+			$polldaddy     = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->user_code );
+			$account       = $polldaddy->get_account();
 
 			if ( ! empty( $account ) ) {
-				$connected = true;
-				$account_email = esc_attr( $account->email );
+				$connected     = true;
+				$account_email = $account->email;
 			}
 
 			$polldaddy->reset();
@@ -4889,14 +4890,17 @@ class WP_Polldaddy {
 				}
 			}
 		}
+
 		$this->print_errors();
+
 		$this->render_partial(
 			'settings',
 			array(
-				'is_connected' => $connected,
-				'poll'         => $poll,
-				'options'      => $options,
-				'controller'   => $this,
+				'is_connected'  => $connected,
+				'poll'          => $poll,
+				'options'       => $options,
+				'controller'    => $this,
+				'account_email' => $account_email,
 			)
 		);
 	}
