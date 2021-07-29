@@ -341,7 +341,7 @@ jQuery( document ).ready(function(){
 				icon: 'arrow-down',
 				controls: [
 					{ title: 'My Account', onClick: () => window.open( 'https://app.crowdsignal.com/account', '_blank' ) },
-					{ title: 'Settings', onClick: () => window.open( '?page=polls&action=options', '_self' ) },
+					{ title: 'Settings', onClick: () => window.open( 'options-general.php?page=pollsettings', '_self' ) },
 					{ title: 'Crowdsignal Blog', onClick: () => window.open( 'https://crowdsignal.com/blog', '_blank' ) },
 					{ title: 'Help', onClick: () => window.open( 'https://crowdsignal.com/support', '_blank' ) },
 					{ title: 'crowdsignal.com', onClick: () => window.open( 'https://crowdsignal.com/', '_blank' ) },
