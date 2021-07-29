@@ -252,18 +252,18 @@
 <script type="text/javascript">
 
 jQuery( document ).ready(function(){
-	const userName = '<?php echo esc_js( $user_name ); // phpcs:ignore -- output from main handler file ?>';
+	const currentUserName = '<?php echo esc_js( $current_user_name ); // phpcs:ignore -- output from main handler file ?>';
 	const currentView = '<?php echo esc_js( $view ); // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- output from page renderer ?>';
 	const el = wp.element.createElement;
 	const render = wp.element.render;
 	const useState = wp.element.useState;
 	const Fragment = wp.element.Fragment;
-	const email = '<?php echo esc_js( $account_email ); // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- output from page renderer ?>';
+	const connectedAccountEmail = '<?php echo esc_js( $connected_account_email ); // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- output from page renderer ?>';
 	const csFormsAccountEmail = '<?php echo esc_js( $cs_forms_account_email ); // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- output from page renderer ?>';
 	const currentUserOwnsConnection = <?php echo ( $current_user_owns_connection ) ? 'true' : 'false'; // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- output from page renderer ?>;
 	const imgPath = '<?php echo esc_url( $resource_path . 'img' ); // phpcs:ignore -- variable comes from controller ?>';
 	const hasCrowdsignalBlocks = <?php echo $has_crowdsignal_blocks ? 'true' : 'false'; // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- output from page renderer ?>;
-	const multipleAccounts = <?php echo $multiple_accounts ? 'true' : 'false'; // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- output from page renderer ?>;
+	const hasMultipleAccounts = <?php echo $has_multiple_accounts ? 'true' : 'false'; // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- output from page renderer ?>;
 	const globalAccountName = '<?php echo esc_js( $global_user_name ); // phpcs:ignore -- variable comes from controller ?>';
 	const globalAccountId = '<?php echo esc_js( $global_user_id ); // phpcs:ignore -- variable comes from controller ?>';
 
@@ -293,7 +293,7 @@ jQuery( document ).ready(function(){
 			const shallNotPass = el( 'img', { src: `${imgPath}/svg/lock.svg` } );
 			const modalContentHeadline = el( 'div', { className: 'cs-dashboard__modal-request-headline' }, 'You need access to this Crowdsignal page.' );
 			const modalContentCta = el( 'div', { className: 'cs-dashboard__modal-request-text' }, 'Please ask the project owner' );
-			const modalContentCtaEmail = el( 'div', { className: 'cs-dashboard__modal-request-text is-email' }, email );
+			const modalContentCtaEmail = el( 'div', { className: 'cs-dashboard__modal-request-text is-email' }, connectedAccountEmail );
 			const modalContentCtaEnd = el( 'div', { className: 'cs-dashboard__modal-request-text' }, 'for access to a Team account.' );
 			const modalContent = el(
 				'div',
@@ -329,8 +329,8 @@ jQuery( document ).ready(function(){
 	render(
 		wp.components.DropdownMenu(
 			{
-				label: userName || 'Account',
-				text: userName || 'Account',
+				label: currentUserName || 'Account',
+				text: currentUserName || 'Account',
 				toggleProps: {
 					iconPosition: 'right',
 					className: 'cs-account__dropdown-menu-toggle',
@@ -450,7 +450,7 @@ jQuery( document ).ready(function(){
 		const showPopover = () => setVisible( true );
 		let otherAvatarUrl = null;
 		let otherGravatar = null;
-		if ( multipleAccounts && globalAccountId ) {
+		if ( hasMultipleAccounts && globalAccountId ) {
 			otherAvatarUrl = '<?php echo esc_js( get_avatar_url( $global_user_id, array( 'size' => 16 ) ) ); // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- output from page renderer ?>';
 			otherGravatar = el( 'img', { width: 16, src: otherAvatarUrl, alt: globalAccountName, title: globalAccountName, className: 'cs-dashboard-switch__avatar' } );
 		}
@@ -463,7 +463,7 @@ jQuery( document ).ready(function(){
 			},
 			el( 'span', { className: 'cs-dashboard-switch__text' }, 'Me', meGravatar )
 		);
-		const otherButton = multipleAccounts
+		const otherButton = hasMultipleAccounts
 			? el(
 				wp.components.Button,
 				{
@@ -500,7 +500,7 @@ jQuery( document ).ready(function(){
 					)
 				)
 			: null;
-		return ( multipleAccounts || hasCrowdsignalBlocks ) && el( wp.components.ButtonGroup, { className: 'cs-dashboard-switch' }, meButton, otherButton, csformsButton );
+		return ( hasMultipleAccounts || hasCrowdsignalBlocks ) && el( wp.components.ButtonGroup, { className: 'cs-dashboard-switch' }, meButton, otherButton, csformsButton );
 	}
 	const buttonGroupContainer = document.getElementById( 'cs-dashboard-switch' );
 	if ( buttonGroupContainer ) {

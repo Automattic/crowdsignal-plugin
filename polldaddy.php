@@ -1573,9 +1573,9 @@ class WP_Polldaddy {
 			return false;
 		}
 
-		$total   = $items->_total;
-		$items   = $items->item;
-		$account = $polldaddy->get_account();
+		$total             = $items->_total;
+		$items             = $items->item;
+		$connected_account = $polldaddy->get_account();
 
 		$this->print_errors();
 
@@ -1592,7 +1592,7 @@ class WP_Polldaddy {
 
 		global $current_user;
 
-		$user_name = ( $current_user instanceof WP_User ) && $current_user->first_name && $current_user->last_name
+		$current_user_name = ( $current_user instanceof WP_User ) && $current_user->first_name && $current_user->last_name
 			? "{$current_user->first_name} {$current_user->last_name}"
 			: $current_user->user_login;
 
@@ -1607,21 +1607,29 @@ class WP_Polldaddy {
 
 		$cs_forms_account = $this->get_crowdsignal_connected_account();
 
+		switch ( $view ) {
+			case 'csforms':
+				$current_user_owns_connection = ! empty( $cs_forms_account ) && $cs_forms_account->email === $current_user->user_email;
+				break;
+			default: // me and blog case.
+				$current_user_owns_connection = ! empty( $connected_account ) && $connected_account->email === $current_user->user_email;
+		}
+
 		$this->render_partial(
 			'polls-table',
 			array(
 				'page_links'                   => $page_links,
 				'items'                        => $items,
 				'can_manage_options'           => current_user_can( 'manage_options' ),
-				'account_email'                => ! empty( $account ) ? $account->email : '',
+				'connected_account_email'      => ! empty( $connected_account ) ? $connected_account->email : '',
 				'is_author'                    => $this->is_author,
 				'is_admin'                     => $this->is_admin,
-				'user_name'                    => $user_name,
+				'current_user_name'            => $current_user_name,
 				'resource_path'                => $this->base_url,
-				'multiple_accounts'            => $this->multiple_accounts && $this->has_items_for_view( 'blog' ),
+				'has_multiple_accounts'        => $this->multiple_accounts && $this->has_items_for_view( 'blog' ),
 				'global_user_id'               => $global_user_id,
 				'global_user_name'             => $global_user_name,
-				'current_user_owns_connection' => ! empty( $account ) && $account->email === $current_user->user_email,
+				'current_user_owns_connection' => $current_user_owns_connection,
 				'user_id'                      => (int) $this->id,
 				'view'                         => $view,
 				'has_crowdsignal_blocks'       => $this->has_crowdsignal_blocks && $this->has_items_for_view( 'csforms' ),
