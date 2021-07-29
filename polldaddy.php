@@ -54,6 +54,8 @@ class WP_Polldaddy {
 	var $rating_user_code;
 	var $has_feedback_menu;
 
+	public $has_items = array();
+
 	function __construct() {
 		global $current_user;
 		$this->log( 'Created WP_Polldaddy Object: constructor' );
@@ -1501,6 +1503,10 @@ class WP_Polldaddy {
 
 
 	private function has_items_for_view( $view = 'me' ) {
+		if ( isset( $this->has_items[ $view ] ) ) {
+			return $this->has_items[ $view ];
+		}
+
 		$guid = WP_POLLDADDY__PARTNERGUID;
 		// re-write the user_code based on the intended view.
 		switch ( $view ) {
@@ -1531,7 +1537,9 @@ class WP_Polldaddy {
 			$total_polls = count( $polls );
 		}
 
-		return $total_polls > 0;
+		$this->has_items[ $view ] = $total_polls > 0;
+
+		return $this->has_items[ $view ];
 	}
 
 
