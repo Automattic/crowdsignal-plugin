@@ -394,6 +394,15 @@ class WP_Polldaddy {
 		echo " <a href='admin.php?page=polls&iframe&TB_iframe=true' onclick='return false;' id='add_poll' class='button thickbox' title='" . esc_attr( $title ) . "'><img src='{$this->base_url}img/polldaddy@2x.png' width='15' height='15' alt='" . esc_attr( $title ) . "' style='margin: -2px 0 0 -1px; padding: 0 2px 0 0; vertical-align: middle;' /> " . esc_html( $title ) . "</a>";
 	}
 
+	function get_usercode( $for_current_user = false ) {
+		// sitewide access to Crowdsignal account
+		if ( ! $for_current_user && $user_id = get_option( 'polldaddy_usercode_user' ) ) {
+			return get_option( 'pd-usercode-' . $user_id );
+		} else {
+			return get_option( 'pd-usercode-' . $this->id );
+		}
+	}
+
 	function set_api_user_code() {
 
 		$this->user_code = get_option( 'pd-usercode-'.$this->id );
