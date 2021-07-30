@@ -1437,27 +1437,7 @@ class WP_Polldaddy {
 				$this->style_edit_form();
 				break;
 			default :
-				$view_type = null;
-				$available_views = array( 'me' );
-
-				if ( $this->multiple_accounts ) {
-					$available_views[] = 'blog';
-				}
-				if ( $this->has_crowdsignal_blocks ) {
-					$available_views[] = 'csforms';
-				}
-				if ( isset( $_GET['view'] ) && in_array( $_GET['view'], $available_views ) ) {
-					$view_type = $_GET['view'];
-				}
-
-				// default view based on site features
-				if ( ! $view_type && $this->multiple_accounts ) {
-					$view_type = 'blog';
-				} else if ( ! $view_type && $this->has_crowdsignal_blocks && $this->has_items_for_view( 'csforms' ) ) {
-					$view_type = 'csforms';
-				} else if ( ! $view_type ) {
-					$view_type = 'me';
-				}
+				$view_type = 'me'; // default (and only) config for self-hosted
 
 				// if ( ! is_plugin_active( 'crowdsignal-forms/crowdsignal-forms.php' ) ) {
 				// 	echo "<p>" . sprintf(
@@ -1613,6 +1593,10 @@ class WP_Polldaddy {
 				? "{$global_user_account->first_name} {$global_user_account->last_name}"
 				: ( $global_user_account ? $global_user_account->user_login : __( 'Disconnected user', 'polldaddy' ) );
 		}
+
+		// reset $this vars at this point so we show a consistent list with less "tabbed" options.
+		$this->has_crowdsignal_blocks = false;
+		$this->multiple_accounts      = false;
 
 		$cs_forms_account = $this->get_crowdsignal_connected_account();
 
