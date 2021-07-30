@@ -329,8 +329,8 @@ jQuery( document ).ready(function(){
 	render(
 		wp.components.DropdownMenu(
 			{
-				label: currentUserName || 'Account',
-				text: currentUserName || 'Account',
+				label: connectedAccountEmail || 'Account',
+				text: connectedAccountEmail || 'Account',
 				toggleProps: {
 					iconPosition: 'right',
 					className: 'cs-account__dropdown-menu-toggle',
