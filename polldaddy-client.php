@@ -35,7 +35,7 @@ class api_client {
 				'body' => $this->request_xml
 			) );
 			if ( !$response || is_wp_error( $response ) ) {
-				$errors[-1] = "Can't connect";
+				$this->errors[-1] = "Can't connect";
 				return false;
 			}
 			$this->response_xml = wp_remote_retrieve_body( $response );
@@ -43,7 +43,7 @@ class api_client {
 			$parsed = parse_url( $this->polldaddy_url );
 
 			if ( !isset( $parsed['host'] ) && !isset( $parsed['scheme'] ) ) {
-				$errors[-1] = 'Invalid API URL';
+				$this->errors[-1] = 'Invalid API URL';
 				return false;
 			}
 
@@ -56,7 +56,7 @@ class api_client {
 			);
 
 			if ( !$fp ) {
-				$errors[-1] = "Can't connect";
+				$this->errors[-1] = "Can't connect";
 				return false;
 			}
 
@@ -81,7 +81,7 @@ class api_client {
 
 
 			if ( !$response ) {
-				$errors[-2] = 'No Data';
+				$this->errors[-2] = 'No Data';
 			}
 
 			list($headers, $this->response_xml) = explode( "\r\n\r\n", $response, 2 );
@@ -98,6 +98,8 @@ class api_client {
 			foreach ( $this->response->errors->error as $error )
 				$this->errors[$error->_id] = $error->___content;
 		}
+
+		return true;
 	}
 
 	function response_part( $pos ) {
