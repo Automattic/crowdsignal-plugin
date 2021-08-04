@@ -421,6 +421,9 @@ class WP_Polldaddy {
 				} else {
 					update_option( 'pd-usercode-' . $this->id, $this->user_code, false );
 				}
+			} elseif ( get_option( 'crowdsignal_api_key' ) === get_option( 'polldaddy_api_key' ) ) {
+				// attempt to get credentials from Crowdsignal Forms.
+				$this->user_code = get_option( 'crowdsignal_user_code' );
 			} elseif ( get_option( 'polldaddy_api_key' ) ) {
 				$this->contact_support_message( 'There was a problem linking your account', $polldaddy->errors );
 			}
@@ -1510,6 +1513,11 @@ class WP_Polldaddy {
 				$this->user_code = get_option( 'pd-usercode-' . $this->id );
 		}
 
+		if ( empty( $this->user_code ) ) {
+			// use set_api_user_code last attempt.
+			$this->set_api_user_code();
+		}
+
 		$polldaddy = $this->get_client( $guid, $this->user_code );
 		$polldaddy->reset();
 
@@ -1550,6 +1558,11 @@ class WP_Polldaddy {
 				break;
 			default:
 				$this->user_code = get_option( 'pd-usercode-' . $this->id );
+		}
+
+		if ( empty( $this->user_code ) ) {
+			// use set_api_user_code last attempt.
+			$this->set_api_user_code();
 		}
 
 		$polldaddy = $this->get_client( $guid, $this->user_code );
@@ -4951,7 +4964,9 @@ class WP_Polldaddy {
 		return (bool) current_user_can( 'edit_others_posts' );
 	}
 
-	function log( $message ) {}
+	function log( $message ) {
+		// error_log( print_r( $message, true ) );
+	}
 
 	function contact_support_message( $message, $errors ) {
 		global $current_user;
