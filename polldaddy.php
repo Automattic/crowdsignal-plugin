@@ -1356,132 +1356,115 @@ class WP_Polldaddy {
 	}
 
 	function management_page() {
-
 		global $page, $action, $poll, $style, $rating;
-		$poll = (int) $poll;
-		$style = (int) $style;
+		$poll   = (int) $poll;
+		$style  = (int) $style;
 		$rating = esc_html( $rating );
-?>
+		?>
 
-	<div class="wrap" id="manage-polls">
-		<div class="cs-pre-wrap"></div>
-		<div class="cs-wrapper">
-<?php
-		if ( $page == 'polls' ) {
-			if ( ! $this->is_author && in_array( $action, array( 'edit', 'edit-poll', 'create-poll', 'edit-style', 'create-style', 'list-styles' ) ) ) {//check user privileges has access to action
-				$action = '';
-			}
-			switch ( $action ) {
-			case 'preview' :
-				if ( isset( $_GET['iframe'] ) ):
-					if ( isset( $_GET['popup'] ) ) { ?>
-				<h2 id="poll-list-header"><?php printf( __( 'Preview Poll <a href="%s" class="add-new-h2">All Polls</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ) ); ?></h2>
-<?php
+		<div class="wrap" id="manage-polls">
+			<div class="cs-pre-wrap"></div>
+			<div class="cs-wrapper">
+				<?php
+				if ( 'polls' === $page ) {
+					if ( ! $this->is_author && in_array( $action, array( 'edit', 'edit-poll', 'create-poll', 'edit-style', 'create-style', 'list-styles' ), true ) ) { // check user privileges has access to action.
+						$action = '';
 					}
-				endif;
+					switch ( $action ) {
+						case 'preview':
+							if ( isset( $_GET['iframe'] ) ) {
+								if ( isset( $_GET['popup'] ) ) {
+									?>
+									<h2 id="poll-list-header"><?php printf( __( 'Preview Poll <a href="%s" class="add-new-h2">All Polls</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ) ); ?></h2>
+									<?php
+								}
+							}
 
-				echo do_shortcode( "[crowdsignal poll=$poll cb=1]" );
+							echo do_shortcode( "[crowdsignal poll=$poll cb=1]" );
 
-				wp_print_scripts( 'polldaddy-poll-js' );
-				break;
-			case 'results' :
-?>
+							wp_print_scripts( 'polldaddy-poll-js' );
+							break;
+						case 'results':
+							?>
+							<h2 id="poll-list-header">
+								<?php printf( __( 'Poll Results <a href="%s" class="add-new-h2">All Polls</a> <a href="%s" class="add-new-h2">Edit Poll</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ), esc_url( add_query_arg( array( 'action' => 'edit-poll', 'poll' => $poll, 'message' => false ) ) ) ); ?>
+							</h2>
+							<?php
+							$this->poll_results_page( $poll );
+							break;
+						case 'edit':
+						case 'edit-poll':
+							?>
+							<h2 id="poll-list-header">
+								<?php printf( __( 'Edit Poll <a href="%s" class="add-new-h2">All Polls</a> <a href="%s" class="add-new-h2">View Results</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ), esc_url( add_query_arg( array( 'action' => 'results', 'poll' => $poll, 'message' => false ) ) ) ); ?>
+							</h2>
+							<?php
 
-				<h2 id="poll-list-header"><?php printf( __( 'Poll Results <a href="%s" class="add-new-h2">All Polls</a> <a href="%s" class="add-new-h2">Edit Poll</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ), esc_url( add_query_arg( array( 'action' => 'edit-poll', 'poll' => $poll, 'message' => false ) ) ) ); ?></h2>
+							$this->poll_edit_form( $poll );
+							break;
+						case 'create-poll':
+							?>
+							<h2 id="poll-list-header"><?php printf( __( 'Add New Poll <a href="%s" class="add-new-h2">All Polls</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ) ); ?></h2>
+							<?php
+							$this->poll_edit_form();
+							break;
+						case 'list-styles':
+							?>
+							<h2 id="polldaddy-header">
+								<?php
+								if ( $this->is_author )
+									printf( __( 'Custom Styles <a href="%s" class="add-new-h2">Add New</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'create-style', 'poll' => false, 'message' => false ) ) ) );
+								else
+									_e( 'Custom Styles', 'polldaddy' );
+								?>
+							</h2>
+							<?php
+							$this->styles_table();
+							break;
+						case 'edit-style':
+							?>
+							<h2 id="polldaddy-header">
+								<?php printf( __( 'Edit Style <a href="%s" class="add-new-h2">List Styles</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'list-styles', 'style' => false, 'message' => false, 'preload' => false ) ) ) ); ?>
+							</h2>
+							<?php
 
-<?php
-				$this->poll_results_page( $poll );
-				break;
-			case 'edit' :
-			case 'edit-poll' :
-?>
+							$this->style_edit_form( $style );
+							break;
+						case 'create-style':
+							?>
+							<h2 id="polldaddy-header">
+								<?php printf( __( 'Create Style <a href="%s" class="add-new-h2">List Styles</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'list-styles', 'style' => false, 'message' => false, 'preload' => false ) ) ) ); ?>
+							</h2>
+							<?php
+							$this->style_edit_form();
+							break;
+						default:
+							$view_type = 'me'; // default (and only) config for self-hosted.
 
-		<h2 id="poll-list-header"><?php printf( __( 'Edit Poll <a href="%s" class="add-new-h2">All Polls</a> <a href="%s" class="add-new-h2">View Results</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ), esc_url( add_query_arg( array( 'action' => 'results', 'poll' => $poll, 'message' => false ) ) ) ); ?></h2>
+							// cascaded attempt to "show something".
+							if ( ! $this->has_items_for_view( $view_type ) ) {
+								$this->render_landing_page();
+								break;
+							}
 
-<?php
+							$this->polls_table( $view_type );
+					} //end switch.
+				} elseif ( 'ratings' === $page ) {
+					if ( ! $this->is_admin && ! in_array( $action, array( 'delete', 'reports' ), true ) ) { // check user privileges has access to action.
+						$action = 'reports';
+					}
 
-				$this->poll_edit_form( $poll );
-				break;
-			case 'create-poll' :
-?>
-
-		<h2 id="poll-list-header"><?php printf( __( 'Add New Poll <a href="%s" class="add-new-h2">All Polls</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ) ); ?></h2>
-
-<?php
-				$this->poll_edit_form();
-				break;
-			case 'list-styles' :
-?>
-
-		<h2 id="polldaddy-header"><?php
-				if ( $this->is_author )
-					printf( __( 'Custom Styles <a href="%s" class="add-new-h2">Add New</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'create-style', 'poll' => false, 'message' => false ) ) ) );
-				else
-					_e( 'Custom Styles', 'polldaddy' ); ?></h2>
-
-<?php
-				$this->styles_table();
-				break;
-			case 'edit-style' :
-?>
-
-		<h2 id="polldaddy-header"><?php printf( __( 'Edit Style <a href="%s" class="add-new-h2">List Styles</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'list-styles', 'style' => false, 'message' => false, 'preload' => false ) ) ) ); ?></h2>
-
-<?php
-
-				$this->style_edit_form( $style );
-				break;
-			case 'create-style' :
-?>
-
-		<h2 id="polldaddy-header"><?php printf( __( 'Create Style <a href="%s" class="add-new-h2">List Styles</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'list-styles', 'style' => false, 'message' => false, 'preload' => false ) ) ) ); ?></h2>
-
-<?php
-				$this->style_edit_form();
-				break;
-			default :
-				$view_type = 'me'; // default (and only) config for self-hosted
-
-				// if ( ! is_plugin_active( 'crowdsignal-forms/crowdsignal-forms.php' ) ) {
-				// 	echo "<p>" . sprintf(
-				// 		esc_html__(
-				// 			'Did you know we have another plugin with new blocks? Poll, Applause, NPS and more. Look for the Crowdsignal Forms plugin or download it %s.',
-				// 			'polldaddy'
-				// 		),
-				// 		sprintf( '<a href="%s">%s</a>',
-				// 			'https://wordpress.org/plugins/crowdsignal-forms/',
-				// 			esc_html__( 'here', 'polldaddy' )
-				// 		)
-				// 	) . "</p>";
-				// }
-
-				// cascaded attempt to "show something".
-				if ( ! $this->has_items_for_view( $view_type ) ) {
-					$this->render_landing_page();
-					break;
+					switch ( $action ) {
+						case 'delete':
+						case 'reports':
+							$this->rating_reports();
+							break;
+					}//end switch
 				}
-
-				$this->polls_table( $view_type );
-			}//end switch
-		} elseif ( $page == 'ratings' ) {
-			if ( !$this->is_admin && !in_array( $action, array( 'delete', 'reports' ) ) ) { // check user privileges has access to action.
-				$action = 'reports';
-			}
-
-			switch ( $action ) {
-			case 'delete' :
-			case 'reports' :
-				$this->rating_reports();
-				break;
-			}//end switch
-		}
-?>
-
-		</div>
-	</div>
-
-<?php
-
+				?>
+				</div>
+			</div>
+			<?php
 	}
 
 	private function render_landing_page() {
