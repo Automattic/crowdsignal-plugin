@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 /**
  * Plugin Name: Crowdsignal Polls & Ratings
  * Plugin URI: http://wordpress.org/extend/plugins/polldaddy/
@@ -16,7 +16,7 @@ if ( ! defined( 'POLLDADDY_API_HOST' ) ) {
 }
 
 if ( ! defined( 'POLLDADDY_API_VERSION' ) ) {
-	define( 'POLLDADDY_API_VERSION', 'v1');
+	define( 'POLLDADDY_API_VERSION', 'v1' );
 }
 
 function polldaddy_api_path( $path, $version = POLLDADDY_API_VERSION ) {
@@ -54,13 +54,15 @@ class WP_Polldaddy {
 	var $rating_user_code;
 	var $has_feedback_menu;
 
+	public $has_items = array();
+
 	function __construct() {
 		global $current_user;
 		$this->log( 'Created WP_Polldaddy Object: constructor' );
 		$this->errors                 = new WP_Error;
 		$this->scheme                 = 'https';
-		$this->version                = '2.2.0';
-		$this->multiple_accounts      = true;
+		$this->version                = '2.2.6';
+		$this->multiple_accounts      = ! empty( get_option( 'polldaddy_usercode_user' ) );
 		$this->polldaddy_client_class = 'api_client';
 		$this->polldaddy_clients      = array();
 		$this->is_admin               = (bool) current_user_can( 'manage_options' );
@@ -70,6 +72,7 @@ class WP_Polldaddy {
 		$this->rating_user_code       = null;
 		$this->id                     = ($current_user instanceof WP_User) ? intval( $current_user->ID ): 0;
 		$this->has_feedback_menu      = false;
+		$this->has_crowdsignal_blocks = ! empty( get_option( 'crowdsignal_user_code' ) );
 
 		if ( class_exists( 'Jetpack' ) ) {
 			if ( method_exists( 'Jetpack', 'is_active' ) && Jetpack::is_active() ) {
@@ -119,19 +122,19 @@ class WP_Polldaddy {
 		}
 	}
 
-   /**
-	* Remove the feedback "All Posts" submenu if not needed.
-	*/
+	/**
+	 * Remove the feedback "All Posts" submenu if not needed.
+	 */
 	public function remove_feedback_menu() {
 		remove_submenu_page( 'edit.php?post_type=feedback', 'edit.php?post_type=feedback' );
 	}
 
-   /**
-	* Add the polldaddy option to the Jetpack options management whitelist.
-	*
-	* @param array $options The list of whitelisted option names.
-	* @return array The updated whitelist
-	*/
+	/**
+	 * Add the polldaddy option to the Jetpack options management whitelist.
+	 *
+	 * @param array $options The list of whitelisted option names.
+	 * @return array The updated whitelist
+	 */
 	public static function add_to_jetpack_options_whitelist( $options ) {
 		$options[] = 'polldaddy_api_key';
 		return $options;
@@ -184,7 +187,7 @@ class WP_Polldaddy {
 			add_action( "load-$hook", array( &$this, 'management_page_load' ) );
 		}
 
-		foreach( array( 'polls' => __( 'Polls', 'polldaddy' ), 'ratings' => __( 'Ratings', 'polldaddy' ) ) as $menu_slug => $page_title ) {
+		foreach( array( 'polls' => __( 'Dashboard', 'polldaddy' ), 'ratings' => __( 'Ratings', 'polldaddy' ) ) as $menu_slug => $page_title ) {
 			$menu_title  = $page_title;
 
 			$hook = add_submenu_page( $this->has_feedback_menu ? 'feedback' : $slug, $menu_title, $menu_title, $capability, $menu_slug, $function, 99 );
@@ -192,7 +195,7 @@ class WP_Polldaddy {
 		}
 
 		// Add settings pages.
-		foreach( array( 'pollsettings' => __( 'Poll', 'polldaddy' ), 'ratingsettings' => __( 'Rating', 'polldaddy' ) ) as $menu_slug => $page_title ) {
+		foreach( array( 'pollsettings' => __( 'Crowdsignal', 'polldaddy' ), 'ratingsettings' => __( 'Rating', 'polldaddy' ) ) as $menu_slug => $page_title ) {
 			// translators: %s placeholder is the setting page type (Poll or Rating).
 			$settings_page_title = sprintf( esc_html__( '%s Settings', 'polldaddy' ), $page_title );
 			$hook = add_options_page( $settings_page_title, $settings_page_title, $menu_slug == 'ratings' ? 'manage_options' : $capability, $menu_slug, array( $this, 'settings_page' ) );
@@ -339,76 +342,65 @@ class WP_Polldaddy {
 	function print_errors() {
 		if ( !$error_codes = $this->errors->get_error_codes() )
 			return;
-?>
 
-<div class="error" id="polldaddy-error">
-
-<?php
-
-		foreach ( $error_codes as $error_code ) :
-			foreach ( $this->errors->get_error_messages( $error_code ) as $error_message ) :
-?>
-
-	<p><?php echo $this->errors->get_error_data( $error_code ) ? $error_message : esc_html( $error_message ); ?></p>
-
-<?php
-			endforeach;
-		endforeach;
-
+		$this->render_partial( 'errors', array( 'error_codes' => $error_codes, 'errors' => $this->errors ) );
 		$this->errors = new WP_Error;
-?>
-
-</div>
-<br class="clear" />
-
-<?php
 	}
 
 	function api_key_page() {
 		$this->print_errors();
-?>
+		?>
 
-<div class="wrap">
-	<h2 id="polldaddy-header"><?php _e( 'Crowdsignal', 'polldaddy' ); ?></h2>
+		<div class="wrap">
+			<h2 id="polldaddy-header"><?php _e( 'Crowdsignal', 'polldaddy' ); ?></h2>
 
-	<p><?php printf( __( 'Before you can use the Crowdsignal plugin, you need to enter your <a href="%s">Crowdsignal.com</a> account details.', 'polldaddy' ), 'https://app.crowdsignal.com/' ); ?></p>
+			<p><?php printf( __( 'Before you can use the Crowdsignal plugin, you need to enter your <a href="%s">Crowdsignal.com</a> account details.', 'polldaddy' ), 'https://app.crowdsignal.com/' ); ?></p>
 
-	<form action="" method="post">
-		<table class="form-table">
-			<tbody>
-				<tr class="form-field form-required">
-					<th valign="top" scope="row">
-						<label for="polldaddy-email"><?php _e( 'Crowdsignal Email Address', 'polldaddy' ); ?></label>
-					</th>
-					<td>
-						<input type="text" name="polldaddy_email" id="polldaddy-email" aria-required="true" size="40" />
-					</td>
-				</tr>
-				<tr class="form-field form-required">
-					<th valign="top" scope="row">
-						<label for="polldaddy-password"><?php _e( 'Crowdsignal Password', 'polldaddy' ); ?></label>
-					</th>
-					<td>
-						<input type="password" name="polldaddy_password" id="polldaddy-password" aria-required="true" size="40" />
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<p class="submit">
-			<?php wp_nonce_field( 'polldaddy-account' ); ?>
-			<input type="hidden" name="action" value="account" />
-			<input type="hidden" name="account" value="import" />
-			<input class="button-secondary" type="submit" value="<?php echo esc_attr( __( 'Submit', 'polldaddy' ) ); ?>" />
-		</p>
-	</form>
-</div>
+			<form action="" method="post">
+				<table class="form-table">
+					<tbody>
+						<tr class="form-field form-required">
+							<th valign="top" scope="row">
+								<label for="polldaddy-email"><?php _e( 'Crowdsignal Email Address', 'polldaddy' ); ?></label>
+							</th>
+							<td>
+								<input type="text" name="polldaddy_email" id="polldaddy-email" aria-required="true" size="40" />
+							</td>
+						</tr>
+						<tr class="form-field form-required">
+							<th valign="top" scope="row">
+								<label for="polldaddy-password"><?php _e( 'Crowdsignal Password', 'polldaddy' ); ?></label>
+							</th>
+							<td>
+								<input type="password" name="polldaddy_password" id="polldaddy-password" aria-required="true" size="40" />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<p class="submit">
+					<?php wp_nonce_field( 'polldaddy-account' ); ?>
+					<input type="hidden" name="action" value="account" />
+					<input type="hidden" name="account" value="import" />
+					<input class="button-secondary" type="submit" value="<?php echo esc_attr( __( 'Submit', 'polldaddy' ) ); ?>" />
+				</p>
+			</form>
+		</div>
 
-<?php
+		<?php
 	}
 
 	function media_buttons() {
 		$title = __( 'Add Poll', 'polldaddy' );
 		echo " <a href='admin.php?page=polls&iframe&TB_iframe=true' onclick='return false;' id='add_poll' class='button thickbox' title='" . esc_attr( $title ) . "'><img src='{$this->base_url}img/polldaddy@2x.png' width='15' height='15' alt='" . esc_attr( $title ) . "' style='margin: -2px 0 0 -1px; padding: 0 2px 0 0; vertical-align: middle;' /> " . esc_html( $title ) . "</a>";
+	}
+
+	function get_usercode( $for_current_user = false ) {
+		// sitewide access to Crowdsignal account
+		if ( ! $for_current_user && $user_id = get_option( 'polldaddy_usercode_user' ) ) {
+			return get_option( 'pd-usercode-' . $user_id );
+		} else {
+			return get_option( 'pd-usercode-' . $this->id );
+		}
 	}
 
 	function set_api_user_code() {
@@ -429,6 +421,9 @@ class WP_Polldaddy {
 				} else {
 					update_option( 'pd-usercode-' . $this->id, $this->user_code, false );
 				}
+			} elseif ( get_option( 'crowdsignal_api_key' ) === get_option( 'polldaddy_api_key' ) ) {
+				// attempt to get credentials from Crowdsignal Forms.
+				$this->user_code = get_option( 'crowdsignal_user_code' );
 			} elseif ( get_option( 'polldaddy_api_key' ) ) {
 				$this->contact_support_message( 'There was a problem linking your account', $polldaddy->errors );
 			}
@@ -450,7 +445,8 @@ class WP_Polldaddy {
 
 		require_once WP_POLLDADDY__POLLDADDY_CLIENT_PATH;
 
-		wp_enqueue_script( 'polls', "{$this->base_url}js/polldaddy.js", array( 'jquery', 'jquery-ui-sortable', 'jquery-form' ), $this->version );
+		wp_enqueue_style( 'wp-components' );
+		wp_enqueue_script( 'polls', "{$this->base_url}js/polldaddy.js", array( 'jquery', 'jquery-ui-sortable', 'jquery-form', 'wp-components' ), $this->version );
 		wp_enqueue_script( 'polls-common', "{$this->base_url}js/common.js", array(), $this->version );
 
 		if ( $page == 'polls' ) {
@@ -1331,445 +1327,316 @@ class WP_Polldaddy {
 
 	function settings_page() {
 		global $page, $action;
-?>
-	<div class="wrap" id="manage-polls">
-<?php
-		$this->set_api_user_code();
+		?>
+		<div class="wrap" id="manage-polls">
+			<div class="cs-pre-wrap"></div>
+			<div class="cs-wrapper">
+				<?php
+				$this->set_api_user_code();
 
-		if ( isset( $_GET['page'] ) ) {
-			$page = $_GET['page'];
-		}
-		if ( 'pollsettings' === $page ) {
-			if ( ! $this->is_author ) { //check user privileges has access to action
-				return;
-			}
-			$this->plugin_options();
-		} elseif ( 'ratingsettings' === $page ) {
-			if ( 'update-rating' === $action ) {
-				$this->update_rating();
-			}
+				if ( isset( $_GET['page'] ) ) { // phpcs:ignore
+					$page = $_GET['page']; // phpcs:ignore
+				}
+				if ( 'pollsettings' === $page ) {
+					if ( ! $this->is_author ) { // check user privileges has access to action.
+						return;
+					}
+					$this->plugin_options();
+				} elseif ( 'ratingsettings' === $page ) {
+					if ( 'update-rating' === $action ) {
+						$this->update_rating();
+					}
 
-			$this->rating_settings();
-		}
-?>
-	</div>
-<?php
+					$this->rating_settings();
+				}
+				?>
+			</div>
+		</div>
+		<?php
 	}
 
 	function management_page() {
-
 		global $page, $action, $poll, $style, $rating;
-		$poll = (int) $poll;
-		$style = (int) $style;
+		$poll   = (int) $poll;
+		$style  = (int) $style;
 		$rating = esc_html( $rating );
-?>
+		?>
 
-	<div class="wrap" id="manage-polls">
-
-<?php
-		if ( $page == 'polls' ) {
-			if ( ! $this->is_author && in_array( $action, array( 'edit', 'edit-poll', 'create-poll', 'edit-style', 'create-style', 'list-styles' ) ) ) {//check user privileges has access to action
-				$action = '';
-			}
-			switch ( $action ) {
-			case 'preview' :
-				if ( isset( $_GET['iframe'] ) ):
-					if ( isset( $_GET['popup'] ) ) { ?>
-				<h2 id="poll-list-header"><?php printf( __( 'Preview Poll <a href="%s" class="add-new-h2">All Polls</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ) ); ?></h2>
-<?php
+		<div class="wrap" id="manage-polls">
+			<div class="cs-pre-wrap"></div>
+			<div class="cs-wrapper">
+				<?php
+				if ( 'polls' === $page ) {
+					if ( ! $this->is_author && in_array( $action, array( 'edit', 'edit-poll', 'create-poll', 'edit-style', 'create-style', 'list-styles' ), true ) ) { // check user privileges has access to action.
+						$action = '';
 					}
-				endif;
+					switch ( $action ) {
+						case 'preview':
+							if ( isset( $_GET['iframe'] ) ) {
+								if ( isset( $_GET['popup'] ) ) {
+									?>
+									<h2 id="poll-list-header"><?php printf( __( 'Preview Poll <a href="%s" class="add-new-h2">All Polls</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ) ); ?></h2>
+									<?php
+								}
+							}
 
-				echo do_shortcode( "[crowdsignal poll=$poll cb=1]" );
+							echo do_shortcode( "[crowdsignal poll=$poll cb=1]" );
 
-				wp_print_scripts( 'polldaddy-poll-js' );
-				break;
-			case 'results' :
-?>
+							wp_print_scripts( 'polldaddy-poll-js' );
+							break;
+						case 'results':
+							?>
+							<h2 id="poll-list-header">
+								<?php printf( __( 'Poll Results <a href="%s" class="add-new-h2">All Polls</a> <a href="%s" class="add-new-h2">Edit Poll</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ), esc_url( add_query_arg( array( 'action' => 'edit-poll', 'poll' => $poll, 'message' => false ) ) ) ); ?>
+							</h2>
+							<?php
+							$this->poll_results_page( $poll );
+							break;
+						case 'edit':
+						case 'edit-poll':
+							?>
+							<h2 id="poll-list-header">
+								<?php printf( __( 'Edit Poll <a href="%s" class="add-new-h2">All Polls</a> <a href="%s" class="add-new-h2">View Results</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ), esc_url( add_query_arg( array( 'action' => 'results', 'poll' => $poll, 'message' => false ) ) ) ); ?>
+							</h2>
+							<?php
 
-				<h2 id="poll-list-header"><?php printf( __( 'Poll Results <a href="%s" class="add-new-h2">All Polls</a> <a href="%s" class="add-new-h2">Edit Poll</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ), esc_url( add_query_arg( array( 'action' => 'edit-poll', 'poll' => $poll, 'message' => false ) ) ) ); ?></h2>
+							$this->poll_edit_form( $poll );
+							break;
+						case 'create-poll':
+							?>
+							<h2 id="poll-list-header"><?php printf( __( 'Add New Poll <a href="%s" class="add-new-h2">All Polls</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ) ); ?></h2>
+							<?php
+							$this->poll_edit_form();
+							break;
+						case 'list-styles':
+							?>
+							<h2 id="polldaddy-header">
+								<?php
+								if ( $this->is_author )
+									printf( __( 'Custom Styles <a href="%s" class="add-new-h2">Add New</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'create-style', 'poll' => false, 'message' => false ) ) ) );
+								else
+									_e( 'Custom Styles', 'polldaddy' );
+								?>
+							</h2>
+							<?php
+							$this->styles_table();
+							break;
+						case 'edit-style':
+							?>
+							<h2 id="polldaddy-header">
+								<?php printf( __( 'Edit Style <a href="%s" class="add-new-h2">List Styles</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'list-styles', 'style' => false, 'message' => false, 'preload' => false ) ) ) ); ?>
+							</h2>
+							<?php
 
-<?php
-				$this->poll_results_page( $poll );
-				break;
-			case 'edit' :
-			case 'edit-poll' :
-?>
+							$this->style_edit_form( $style );
+							break;
+						case 'create-style':
+							?>
+							<h2 id="polldaddy-header">
+								<?php printf( __( 'Create Style <a href="%s" class="add-new-h2">List Styles</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'list-styles', 'style' => false, 'message' => false, 'preload' => false ) ) ) ); ?>
+							</h2>
+							<?php
+							$this->style_edit_form();
+							break;
+						default:
+							$view_type = 'me'; // default (and only) config for self-hosted.
 
-		<h2 id="poll-list-header"><?php printf( __( 'Edit Poll <a href="%s" class="add-new-h2">All Polls</a> <a href="%s" class="add-new-h2">View Results</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ), esc_url( add_query_arg( array( 'action' => 'results', 'poll' => $poll, 'message' => false ) ) ) ); ?></h2>
+							// cascaded attempt to "show something".
+							if ( ! $this->has_items_for_view( $view_type ) ) {
+								$this->render_landing_page();
+								break;
+							}
 
-<?php
+							$this->polls_table( $view_type );
+					} //end switch.
+				} elseif ( 'ratings' === $page ) {
+					if ( ! $this->is_admin && ! in_array( $action, array( 'delete', 'reports' ), true ) ) { // check user privileges has access to action.
+						$action = 'reports';
+					}
 
-				$this->poll_edit_form( $poll );
-				break;
-			case 'create-poll' :
-?>
-
-		<h2 id="poll-list-header"><?php printf( __( 'Add New Poll <a href="%s" class="add-new-h2">All Polls</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ) ); ?></h2>
-
-<?php
-				$this->poll_edit_form();
-				break;
-			case 'list-styles' :
-?>
-
-		<h2 id="polldaddy-header"><?php
-				if ( $this->is_author )
-					printf( __( 'Custom Styles <a href="%s" class="add-new-h2">Add New</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'create-style', 'poll' => false, 'message' => false ) ) ) );
-				else
-					_e( 'Custom Styles', 'polldaddy' ); ?></h2>
-
-<?php
-				$this->styles_table();
-				break;
-			case 'edit-style' :
-?>
-
-		<h2 id="polldaddy-header"><?php printf( __( 'Edit Style <a href="%s" class="add-new-h2">List Styles</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'list-styles', 'style' => false, 'message' => false, 'preload' => false ) ) ) ); ?></h2>
-
-<?php
-
-				$this->style_edit_form( $style );
-				break;
-			case 'create-style' :
-?>
-
-		<h2 id="polldaddy-header"><?php printf( __( 'Create Style <a href="%s" class="add-new-h2">List Styles</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'list-styles', 'style' => false, 'message' => false, 'preload' => false ) ) ) ); ?></h2>
-
-<?php
-				$this->style_edit_form();
-				break;
-			default :
-
-?>
-
-		<h2 id="poll-list-header"><?php
-				if ( $this->is_author && defined( 'WP_POLLDADDY__PARTNERGUID' ) && WP_POLLDADDY__PARTNERGUID )
-					printf( __( 'Crowdsignal Polls <a href="%s" class="add-new-h2">Add New</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'create-poll', 'poll' => false, 'message' => false ) ) ) );
-				else
-					_e( 'Crowdsignal Polls ', 'polldaddy' );
-		?></h2><?php
-				$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->user_code );
-				$account = $polldaddy->get_account();
-				if ( !empty( $account ) )
-					$account_email = esc_attr( $account->email );
-				if ( isset( $account_email ) && current_user_can( 'manage_options' ) ) {
-					echo "<p>" . sprintf( __( 'Linked to WordPress.com Account: <strong>%1$s</strong> (<a target="_blank" href="%2$s">Settings</a> / <a target="_blank" href="%3$s">Crowdsignal.com</a>)', 'polldaddy' ), $account_email, admin_url( 'options-general.php?page=pollsettings' ), 'https://app.crowdsignal.com/' ) . "</p>";
+					switch ( $action ) {
+						case 'delete':
+						case 'reports':
+							$this->rating_reports();
+							break;
+					}//end switch
 				}
-
-				if ( ! is_plugin_active( 'crowdsignal-forms/crowdsignal-forms.php' ) ) {
-					echo "<p>" . sprintf(
-						esc_html__(
-							'Did you know we have another plugin with new blocks? Poll, Applause, NPS and more. Look for the Crowdsignal Forms plugin or download it %s.',
-							'polldaddy'
-						),
-						sprintf( '<a href="%s">%s</a>',
-							'https://wordpress.org/plugins/crowdsignal-forms/',
-							esc_html__( 'here', 'polldaddy' )
-						)
-					) . "</p>";
-				}
-
-				if ( !isset( $_GET['view'] ) )
-					$this->polls_table( 'user' );
-				else
-					$this->polls_table( 'blog' );
-
-			}//end switch
-		} elseif ( $page == 'ratings' ) {
-			if ( !$this->is_admin && !in_array( $action, array( 'delete', 'reports' ) ) ) {//check user privileges has access to action
-				$action = 'reports';
-			}
-
-			switch ( $action ) {
-			case 'delete' :
-			case 'reports' :
-				$this->rating_reports();
-				break;
-			}//end switch
-		}
-?>
-
-	</div>
-
-<?php
-
+				?>
+				</div>
+			</div>
+			<?php
 	}
 
-	function polls_table( $view = 'user' ) {
-		$page = 1;
-		if ( isset( $_GET['paged'] ) )
-			$page = absint( $_GET['paged'] );
-		$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->user_code );
+	private function render_landing_page() {
+		$this->render_partial(
+			'crowdsignal-landing-page',
+			array(
+				'resource_path' => $this->base_url,
+			)
+		);
+	}
+
+
+	private function has_items_for_view( $view = 'me' ) {
+		if ( isset( $this->has_items[ $view ] ) ) {
+			return $this->has_items[ $view ];
+		}
+
+		$guid = WP_POLLDADDY__PARTNERGUID;
+		// re-write the user_code based on the intended view.
+		switch ( $view ) {
+			case 'csforms':
+				$this->user_code = get_option( 'crowdsignal_user_code' );
+				$guid            = get_option( 'crowdsignal_api_key' );
+				break;
+			case 'blog':
+				$this->user_code = $this->get_usercode();
+				break;
+			default:
+				$this->user_code = get_option( 'pd-usercode-' . $this->id );
+		}
+
+		if ( empty( $this->user_code ) ) {
+			// use set_api_user_code last attempt.
+			$this->set_api_user_code();
+		}
+
+		$polldaddy = $this->get_client( $guid, $this->user_code );
 		$polldaddy->reset();
 
-		if ( 'user' == $view )
-			$polls_object = $polldaddy->get_polls( ( $page - 1 ) * 10 + 1, $page * 10 );
-		else
-			$polls_object = $polldaddy->get_polls_by_parent_id( ( $page - 1 ) * 10 + 1, $page * 10 );
+		$polls_object = $polldaddy->get_items( 1, 1, 0, 'csforms' === $view ? get_site_url() : '' );
 
-		$this->parse_errors( $polldaddy );
-		if ( in_array( 'API Key Not Found, 890', $polldaddy->errors ) )
+		if ( ! $polls_object ) {
 			return false;
-		$this->print_errors();
-		$polls = & $polls_object->poll;
-		$total_polls = 0;
+		}
+		$polls = & $polls_object->item;
+
 		if ( isset( $polls_object->_total ) ) {
 			$total_polls = $polls_object->_total;
-		} elseif ( ! empty( $polls ) ) {
+		} else {
 			$total_polls = count( $polls );
 		}
-		$class = '';
 
-		$page_links = paginate_links( array(
-				'base' => add_query_arg( 'paged', '%#%' ),
-				'format' => '',
-				'total' => ceil( $total_polls / 10 ),
-				'current' => $page,
-				'prev_text' => '&laquo;',
-				'next_text' => '&raquo;'
-			) );
+		$this->has_items[ $view ] = $total_polls > 0;
 
-
-?>
-		<form method="post" action="">
-		<input type="hidden" name="iframe" id="iframe1" value="<?php echo isset( $_GET['iframe'] ) ? 1: 0;?>">
-		<div class="tablenav">
-
-<?php if ( $this->is_author ) { ?>
-			<div class="alignleft actions">
-				<select name="action">
-					<option selected="selected" value=""><?php _e( 'Actions', 'polldaddy' ); ?></option>
-					<option value="delete"><?php _e( 'Delete', 'polldaddy' ); ?></option>
-					<option value="close"><?php _e( 'Close', 'polldaddy' ); ?></option>
-					<option value="open"><?php _e( 'Open', 'polldaddy' ); ?></option>
-				</select>
-
-				<input class="button-secondary action" type="submit" name="doaction" value="<?php _e( 'Apply', 'polldaddy' ); ?>" />
-				<?php wp_nonce_field( 'action-poll_bulk' ); ?>
-			</div>
-			<div class="alignleft actions">
-				<select name="filter" id="filter-options" style="margin-left:15px;">
-					<option <?php if ( ! isset( $_GET['view'] ) || $_GET['view'] !== 'blog' ): ?> selected="selected" <?php endif; ?> value=""><?php _e( 'View All Polls', 'polldaddy' ); ?></option>
-					<option <?php if ( isset( $_GET['view'] ) && $_GET['view'] === 'blog' ): ?> selected="selected" <?php endif; ?> value="blog"><?php _e( 'This Blog\'s Polls', 'polldaddy' ); ?></option>
-				</select>
-				<input class="button-secondary action" type="button" id="filter-polls" name="dofilter" value="<?php _e( 'Filter', 'polldaddy' ); ?>" />
-
-
-			</div>
-
-
-			<div class="tablenav-pages"><?php echo $page_links; ?></div>
-		</div>
-
-<?php } ?>
-		<table class="widefat">
-			<thead>
-				<tr>
-					<th id="cb" class="manage-column column-cb check-column" scope="col"><?php if ( $this->is_author ) { ?><input type="checkbox" /><?php } ?></th>
-					<th id="title" class="manage-column column-title" scope="col"><?php _e( 'Poll', 'polldaddy' ); ?></th>
-					<th id="votes" class="manage-column column-vote num" scope="col">&nbsp;</th>
-				</tr>
-			</thead>
-			<tbody>
-
-<?php
-		if ( $polls ) :
-			foreach ( $polls as $poll ) :
-				$poll_id = (int) $poll->_id;
-
-			$poll->___content = trim( strip_tags( $poll->___content ) );
-		if ( strlen( $poll->___content ) == 0 ) {
-			$poll->___content = '-- empty HTML tag --';
-		}
-
-		$poll_closed = (int) $poll->_closed;
-
-		if ( $this->is_author and $this->can_edit( $poll ) ) {
-			$edit_link = esc_url( add_query_arg( array( 'action' => 'edit', 'poll' => $poll_id, 'message' => false ) ) );
-			$delete_link = esc_url( wp_nonce_url( add_query_arg( array( 'action' => 'delete', 'poll' => $poll_id, 'message' => false ) ), "delete-poll_$poll_id" ) );
-			$open_link = esc_url( wp_nonce_url( add_query_arg( array( 'action' => 'open', 'poll' => $poll_id, 'message' => false ) ), "open-poll_$poll_id" ) );
-			$close_link = esc_url( wp_nonce_url( add_query_arg( array( 'action' => 'close', 'poll' => $poll_id, 'message' => false ) ), "close-poll_$poll_id" ) );
-		}
-		else {
-			$edit_link = false;
-			$delete_link = false;
-			$open_link = false;
-			$close_link = false;
-		}
-
-		$class = $class ? '' : ' class="alternate"';
-		$results_link = esc_url( add_query_arg( array( 'action' => 'results', 'poll' => $poll_id, 'message' => false ) ) );
-		$preview = array( 'action' => 'preview', 'poll' => $poll_id, 'message' => false );
-
-		if ( isset( $_GET['iframe'] ) ) {
-			$preview[ 'popup' ] = 1;
-		}
-
-		$preview_link = esc_url( add_query_arg( $preview ) );
-
-		list( $poll_time ) = explode( '.', $poll->_created );
-		$poll_time = strtotime( $poll_time );
-?>
-				<tr<?php echo $class; ?>>
-					<th class="check-column" scope="row"><?php if ( $this->is_author and $this->can_edit( $poll ) ) { ?><input type="checkbox" value="<?php echo (int) $poll_id; ?>" name="poll[]" /><?php } ?></th>
-					<td class="post-title column-title" style="padding-top:7px;">
-<?php if ( $edit_link ) { ?>
-						<a class="row-title" style="display:block;" href="<?php echo $edit_link; ?>"><strong><?php echo esc_html( $poll->___content ); ?></strong></a>
-
-						<abbr title="<?php echo date( __( 'Y/m/d g:i:s A', 'polldaddy' ), $poll_time ); ?>"> <?php _e( 'created', 'polldaddy' ); ?> <?php echo date( __( 'M d, Y', 'polldaddy' ), $poll_time ); ?></abbr>
-
-						<div class="row-actions">
-						<span class="edit"><a href="<?php echo $edit_link; ?>"><?php _e( 'Edit', 'polldaddy' ); ?></a></span><span> | </span>
-<?php } else { ?>
-						<strong><?php echo esc_html( $poll->___content ); ?></strong>
-						<div class="row-actions">
-
-<?php } ?>
-
-<?php if ( !isset( $_GET['iframe'] ) ):?>
-						<span class="shortcode"><a href="javascript:void(0);" class="polldaddy-show-shortcode"><?php _e( 'Embed &amp; Link', 'polldaddy' ); ?></a></span>
-<?php else: ?>
-						<input type="hidden" class="polldaddy-poll-id" value="<?php echo $poll_id; ?>" />
-						<span><a href="javascript:void(0);" class="polldaddy-send-to-editor"><?php _e( 'Embed in Post', 'polldaddy' ); ?></a></span>
-<?php endif; ?>
-
-
-<?php
-		if ( $poll_closed == 2 ) {
-			if ( $open_link ) { ?>
-						<span> | </span><span class="open"><a class="open-poll" href="<?php echo $open_link; ?>"><?php _e( 'Open', 'polldaddy' ); ?></a></span>
-<?php } } else {
-			if ( $close_link ) { ?>
-						<span> | </span><span class="close"><a class="close-poll" href="<?php echo $close_link; ?>"><?php _e( 'Close', 'polldaddy' ); ?></a></span>
-<?php } }
-		if ( !isset( $_GET['iframe'] ) ): ?>
-						<span> | </span><span class="view"><a class="thickbox" href="<?php echo $preview_link; ?>"><?php _e( 'Preview', 'polldaddy' ); ?></a></span>
-<?php   else: ?>
-						<span> | </span><span class="view"><a href="<?php echo $preview_link; ?>"><?php _e( 'Preview', 'polldaddy' ); ?></a></span>
-<?php   endif;
-		if ( $delete_link ) { ?>
-						<span> | </span><span class="delete"><a class="delete-poll delete" href="<?php echo $delete_link; ?>"><?php _e( 'Delete', 'polldaddy' ); ?></a></span>
-<?php	}
-		if ( $poll->_responses > 0 ):?>
-						<span> | </span><span class="results"><a href="<?php echo $results_link; ?>"><?php _e( 'Results', 'polldaddy' ); ?></a></span>
-<?php   endif; ?>
-
-<?php $this->poll_table_add_option( $poll_id ); ?>
-          	</div>
-          </td>
-                                        <td class="poll-votes column-vote num"><?php echo number_format_i18n( $poll->_responses ); ?><span class="votes-label"><?php _e( 'votes', 'polldaddy' ); ?></span></td>
-                                </tr>
-                                <tr class="polldaddy-shortcode-row <?php if ( $class ): ?> alternate <?php endif; ?>" style="display: none;">
-                                    <td colspan="4" style="padding:10px 0px 10px 20px;">
-
-										<a style="display:block;font-size:12px;font-weight:bold;"  href="<?php echo $edit_link; ?>"><?php echo esc_html( $poll->___content ); ?></a>
-
-                                    	<div class="pd-embed-col">
-                                        	<h4 style="color:#666;font-weight:normal;"><?php _e( 'WordPress Shortcode', 'polldaddy' ); ?></h4>
-                                        	<input type="text" readonly="readonly" style="width: 175px;" onclick="this.select();" value="[crowdsignal poll=<?php echo (int) $poll_id; ?>]"/>
-                                        </div>
-
-                                        <div class="pd-embed-col">
-	                                        <h4 style="color:#666;font-weight:normal;"><?php _e( 'Direct URL', 'polldaddy' ); ?></h4>
-											<input type="text" readonly="readonly" style="width: 175px;" onclick="this.select();" value="https://poll.fm/<?php echo (int) $poll_id; ?>"/>
-                                        </div>
-
-                                        <br class="clearing" />
-
-
-                                        <h4 style="padding-top:10px;color:#666;font-weight:normal;"><?php _e( 'JavaScript', 'polldaddy' ); ?></h4>
-                                        <pre class="hardbreak" style="max-width:542px;text-wrap:word-wrap;margin-bottom:20px;">&lt;script type="text/javascript" language="javascript"
-src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/script&gt;
-&lt;noscript&gt;
-&lt;a href="https://poll.fm/<?php echo (int) $poll_id; ?>/"&gt;<?php echo trim( strip_tags( $poll->___content ) ); ?>&lt;/a&gt;&lt;br/&gt;
-&lt;span style="font:9px;"&gt;(&lt;a href="https://crowdsignal.com"&gt;polls&lt;/a&gt;)&lt;/span&gt;
-&lt;/noscript&gt;</pre>
-						<p class="submit" style="clear:both;padding:0px;">
-							<a href="#" class="button pd-embed-done"><?php _e( 'Done', 'polldaddy' ); ?></a>
-						</p>
-
-					</td>
-				</tr>
-
-<?php
-		endforeach;
-		elseif ( $total_polls ) : // $polls
-?>
-
-				<tr>
-					<td colspan="4"><?php printf( __( 'What are you doing here?  <a href="%s">Go back</a>.', 'polldaddy' ), esc_url( add_query_arg( 'paged', false ) ) ); ?></td>
-				</tr>
-
-<?php
-		else : // $polls
-?>
-
-				<tr>
-					<td colspan="4" id="empty-set"><?php
-			if ( $this->is_author ) { ?>
-
-				<h3 style="margin-bottom:0px;"><?php _e( 'You haven\'t created any polls for this blog.', 'polldaddy');?> </h3>
-				<p style="margin-bottom:20px;"><?php _e( 'Why don\'t you go ahead and get started on that?', 'polldaddy' ); ?></p>
-				<a href="<?php echo esc_url( add_query_arg( array( 'action' => 'create-poll' ) ) ); ?>" class="button-primary"><?php _e( 'Create a Poll Now', 'polldaddy' ); ?></a>
-
-			<?php
-			} else { ?>
-
-				<p id="no-polls"><?php _e( 'No one has created any polls for this blog.', 'polldaddy' ); ?></p>
-
-			<?php }
-		?></td>
-				</tr>
-<?php  endif; // $polls ?>
-
-			</tbody>
-		</table>
-
-
-
-
-
-
-		<?php $this->poll_table_extra(); ?>
-		</form>
-		<div class="tablenav" <?php if ( $page_links == '' ) { ?> style="display:none;" <?php }  ?> >
-			<div class="tablenav-pages"><?php echo $page_links; ?></div>
-		</div>
-
-
-
-
-		<script type="text/javascript">
-		jQuery( document ).ready(function(){
-			plugin = new Plugin( {
-				delete_rating: '<?php echo esc_js( __( 'Are you sure you want to delete the rating for "%s"?', 'polldaddy' ) ); ?>',
-				delete_poll: '<?php echo esc_js( __( 'Are you sure you want to delete the poll %s?', 'polldaddy' ) ); ?>',
-				delete_answer: '<?php echo esc_js( __( 'Are you sure you want to delete this answer?', 'polldaddy' ) ); ?>',
-				delete_answer_title: '<?php echo esc_js( __( 'delete this answer', 'polldaddy' ) ); ?>',
-				standard_styles: '<?php echo esc_js( __( 'Standard Styles', 'polldaddy' ) ); ?>',
-				custom_styles: '<?php echo esc_js( __( 'Custom Styles', 'polldaddy' ) ); ?>'
-			} );
-
-			jQuery( '#filter-polls' ).click( function(){
-
-
-					if( jQuery( '#filter-options' ).val() == 'blog' ){
-						window.location = '<?php echo add_query_arg( array( 'page' => 'polls', 'view' => 'blog' ), admin_url( 'admin.php' ) ); ?>';
-					} else {
-						window.location = '<?php echo add_query_arg( array( 'page' => 'polls' ), admin_url( 'admin.php' ) ); ?>';
-					}
-
-
-
-				} );
-
-
-		});
-		</script>
-
-<?php
+		return $this->has_items[ $view ];
 	}
+
+
+	function polls_table( $view = 'me' ) {
+		$page = 1;
+		if ( isset( $_GET['paged'] ) ) { // phpcs:ignore
+			$page = absint( $_GET['paged'] ); // phpcs:ignore
+		}
+
+		$guid = WP_POLLDADDY__PARTNERGUID;
+		// re-write the user_code based on the intended view.
+		switch ( $view ) {
+			case 'csforms':
+				$this->user_code = get_option( 'crowdsignal_user_code' );
+				$guid            = get_option( 'crowdsignal_api_key' );
+				break;
+			case 'blog':
+				$this->user_code = $this->get_usercode();
+				break;
+			default:
+				$this->user_code = get_option( 'pd-usercode-' . $this->id );
+		}
+
+		if ( empty( $this->user_code ) ) {
+			// use set_api_user_code last attempt.
+			$this->set_api_user_code();
+		}
+
+		$polldaddy = $this->get_client( $guid, $this->user_code );
+		$polldaddy->reset();
+
+		$items = $polldaddy->get_items( $page, 20, 0, 'csforms' === $view ? get_site_url() : '' );
+
+		$this->parse_errors( $polldaddy );
+		if ( in_array( 'API Key Not Found, 890', $polldaddy->errors, true ) ) {
+			return false;
+		}
+
+		$total             = $items->_total;
+		$items             = $items->item;
+		$connected_account = $polldaddy->get_account();
+
+		$this->print_errors();
+
+		$page_links = paginate_links(
+			array(
+				'base'      => add_query_arg( 'paged', '%#%' ),
+				'format'    => '',
+				'total'     => ceil( $total / 10 ),
+				'current'   => $page,
+				'prev_text' => '&laquo;',
+				'next_text' => '&raquo;',
+			)
+		);
+
+		global $current_user;
+
+		$current_user_name = ( $current_user instanceof WP_User ) && $current_user->first_name && $current_user->last_name
+			? "{$current_user->first_name} {$current_user->last_name}"
+			: $current_user->user_login;
+
+		$global_user_id   = (int) get_option( 'polldaddy_usercode_user' );
+		$global_user_name = '';
+		if ( $global_user_id ) {
+			$global_user_account = new WP_User( $global_user_id );
+			$global_user_name    = $global_user_account && $global_user_account->first_name && $global_user_account->last_name
+				? "{$global_user_account->first_name} {$global_user_account->last_name}"
+				: ( $global_user_account ? $global_user_account->user_login : __( 'Disconnected user', 'polldaddy' ) );
+		}
+
+		// reset $this vars at this point so we show a consistent list with less "tabbed" options.
+		$this->has_crowdsignal_blocks = false;
+		$this->multiple_accounts      = false;
+
+		$cs_forms_account = $this->get_crowdsignal_connected_account();
+
+		switch ( $view ) {
+			case 'csforms':
+				$current_user_owns_connection = ! empty( $cs_forms_account ) && $cs_forms_account->email === $current_user->user_email;
+				break;
+			default: // me and blog case.
+				$current_user_owns_connection = ! empty( $connected_account ) && $connected_account->email === $current_user->user_email;
+		}
+
+		$this->render_partial(
+			'polls-table',
+			array(
+				'page_links'                   => $page_links,
+				'items'                        => $items,
+				'can_manage_options'           => current_user_can( 'manage_options' ),
+				'connected_account_email'      => ! empty( $connected_account ) ? $connected_account->email : '',
+				'is_author'                    => $this->is_author,
+				'is_admin'                     => $this->is_admin,
+				'current_user_name'            => $current_user_name,
+				'resource_path'                => $this->base_url,
+				'has_multiple_accounts'        => $this->multiple_accounts && $this->has_items_for_view( 'blog' ),
+				'global_user_id'               => $global_user_id,
+				'global_user_name'             => $global_user_name,
+				'current_user_owns_connection' => $current_user_owns_connection,
+				'user_id'                      => (int) $this->id,
+				'view'                         => $view,
+				'has_crowdsignal_blocks'       => $this->has_crowdsignal_blocks && $this->has_items_for_view( 'csforms' ),
+				'cs_forms_account_email'       => $this->has_crowdsignal_blocks && $cs_forms_account ? $cs_forms_account->email : '',
+			)
+		);
+	}
+
+	private function get_crowdsignal_connected_account() {
+		if ( $this->has_crowdsignal_blocks ) {
+			$polldaddy = $this->get_client( get_option( 'crowdsignal_api_key' ), get_option( 'crowdsignal_user_code' ) );
+			$polldaddy->reset();
+			return $polldaddy->get_account();
+		}
+
+		return false;
+	}
+
 
 	function poll_table_add_option() {}
 
@@ -4950,11 +4817,15 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 		if ( isset( $_POST['polldaddy_email'] ) ) {
 			$account_email = false;
 		} else {
-			$polldaddy = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->user_code );
-			$account = $polldaddy->get_account();
+			$connected     = false;
+			$account_email = '';
+			$polldaddy     = $this->get_client( WP_POLLDADDY__PARTNERGUID, $this->user_code );
+			$account       = $polldaddy->get_account();
 
-			if ( !empty( $account ) )
-				$account_email = esc_attr( $account->email );
+			if ( ! empty( $account ) ) {
+				$connected     = true;
+				$account_email = $account->email;
+			}
 
 			$polldaddy->reset();
 			$poll = $polldaddy->get_poll( 1 );
@@ -5016,243 +4887,31 @@ src="https://static.polldaddy.com/p/<?php echo (int) $poll_id; ?>.js"&gt;&lt;/sc
 				153 => __( 'Sunset Medium', 'polldaddy' ),
 				154 => __( 'Sunset Wide', 'polldaddy' ),
 				155 => __( 'Music Medium', 'polldaddy' ),
-				156 => __( 'Music Wide', 'polldaddy' )
+				156 => __( 'Music Wide', 'polldaddy' ),
 			);
 
 			$polldaddy->reset();
 			$styles = $polldaddy->get_styles();
 
-			if ( !empty( $styles ) && !empty( $styles->style ) && count( $styles->style ) > 0 ) {
+			if ( ! empty( $styles ) && ! empty( $styles->style ) && count( $styles->style ) > 0 ) {
 				foreach ( (array) $styles->style as $style ) {
 					$options[ (int) $style->_id ] = $style->title;
 				}
 			}
 		}
+
 		$this->print_errors();
-?>
-<div id="options-page" class="wrap">
-  <div class="icon32" id="icon-options-general"><br/></div>
-  <h2>
-    <?php _e( 'Poll Settings', 'polldaddy' ); ?>
-  </h2>
-	<?php if ( $this->is_admin || $this->multiple_accounts ) { ?>
-		<h3>
-			<?php _e( 'Crowdsignal Account Info', 'polldaddy' ); ?>
-		</h3>
-		<p><?php _e( '<em>Crowdsignal</em> and <em>WordPress.com</em> are now connected using <a href="http://en.support.wordpress.com/wpcc-faq/">WordPress.com Connect</a>. If you have a WordPress.com account you can use it to login to <a href="https://app.crowdsignal.com/">Crowdsignal.com</a>. Click on the Crowdsignal "sign in" button, authorize the connection and create your new Crowdsignal account.', 'polldaddy' ); ?></p>
-		<p><?php _e( 'Login to the Crowdsignal website and scroll to the end of your <a href="https://app.crowdsignal.com/account/#apikey">account page</a> to create or retrieve an API key.', 'polldaddy' ); ?></p>
-		<?php if ( isset( $account_email ) && $account_email != false ) { ?>
-			<p><?php printf( __( 'Your account is currently linked to this API key: <strong>%s</strong>', 'polldaddy' ), WP_POLLDADDY__PARTNERGUID ); ?></p>
-			<br />
-			<h3><?php _e( 'Link to a different Crowdsignal account', 'polldaddy' ); ?></h3>
-		<?php } else { ?>
-			<br />
-			<h3><?php _e( 'Link to your Crowdsignal account', 'polldaddy' ); ?></h3>
-		<?php } ?>
-  <form action="" method="post">
-    <table class="form-table">
-      <tbody>
-        <tr class="form-field form-required">
-          <th valign="top" scope="row">
-            <label for="polldaddy-key">
-              <?php _e( 'Crowdsignal.com API Key', 'polldaddy' ); ?>
-            </label>
-          </th>
-          <td>
-		  <input type="text" name="polldaddy_key" id="polldaddy-key" aria-required="true" size="20" value="<?php if ( isset( $_POST[ 'polldaddy_key' ] ) ) echo esc_attr( $_POST[ 'polldaddy_key' ] ); ?>" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <p class="submit">
-      <?php wp_nonce_field( 'polldaddy-account' ); ?>
-      <input type="hidden" name="action" value="import-account" />
-      <input type="hidden" name="account" value="import" />
-      <input type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Link Account', 'polldaddy' ) ); ?>" />
-    </p>
-  </form>
 
-	<?php
-	} ?>
-<?php
-// if not connected to a Polldaddy account can't save defaults so don't show the form.
-if ( false == is_object( $poll ) ) {
-	echo "</div>";
-} else {
-?>
-  <h3>
-    <?php _e( 'General Settings', 'polldaddy' ); ?>
-  </h3>
-  <form action="" method="post">
-    <table class="form-table">
-      <tbody>
-        <tr valign="top">
-          <th valign="top" scope="row">
-            <label>
-              <?php _e( 'Default poll settings', 'polldaddy' ); ?>
-            </label>
-          </th>
-          <td>
-            <fieldset>
-              <legend class="screen-reader-text"><span>poll-defaults</span></legend><?php
-		foreach ( array(  'randomiseAnswers' => __( 'Randomize answer order', 'polldaddy' ), 'otherAnswer' => __( 'Allow other answers', 'polldaddy' ), 'multipleChoice' => __( 'Multiple choice', 'polldaddy' ), 'sharing' => __( 'Sharing', 'polldaddy' ) ) as $option => $label ) :
-			$checked = 'yes' === $poll->$option ? ' checked="checked"' : '';
-?>
-			<label for="<?php echo $option; ?>"><input type="checkbox"<?php echo $checked; ?> value="1" id="<?php echo $option; ?>" name="<?php echo $option; ?>" /> <?php echo esc_html( $label ); ?></label><br />
-
-<?php  endforeach; ?>
-              <br class="clear" />
-              <br class="clear" />
-              <div class="field">
-              <label for="resultsType" class="pd-label">
-              	<?php _e( 'Results Display', 'polldaddy' ); ?></label>
-                <select id="resultsType" name="resultsType">
-                  <option <?php echo $poll->resultsType == 'show' ? 'selected="selected"':''; ?> value="show"><?php _e( 'Show', 'polldaddy' ); ?></option>
-                  <option <?php echo $poll->resultsType == 'hide' ? 'selected="selected"':''; ?> value="hide"><?php _e( 'Hide', 'polldaddy' ); ?></option>
-                  <option <?php echo $poll->resultsType == 'percent' ? 'selected="selected"':''; ?> value="percent"><?php _e( 'Percentages', 'polldaddy' ); ?></option>
-                </select>
-              </div>
-              <br class="clear" />
-              <div class="field">
-              <label for="styleID" class="pd-label">
-               <?php _e( 'Poll style', 'polldaddy' ); ?></label>
-                <select id="styleID" name="styleID"><?php
-		foreach ( (array) $options as $styleID => $label ) :
-			$selected = $styleID == $poll->styleID ? ' selected="selected"' : ''; ?>
-        						<option value="<?php echo (int) $styleID; ?>"<?php echo $selected; ?>><?php echo esc_html( $label ); ?></option><?php
-		endforeach;?>
-                </select>
-                </div>
-                </div>
-              <br class="clear" />
-              <div class="field">
-              <label for="blockRepeatVotersType" class="pd-label">
-              <?php _e( 'Repeat Voting', 'polldaddy' ); ?></label>
-                <select id="poll-block-repeat" name="blockRepeatVotersType">
-                  <option <?php echo $poll->blockRepeatVotersType == 'off' ? 'selected="selected"':''; ?> value="off"><?php _e( 'Off', 'polldaddy' ); ?></option>
-                  <option <?php echo $poll->blockRepeatVotersType == 'cookie' ? 'selected="selected"':''; ?> value="cookie"><?php _e( 'Cookie', 'polldaddy' ); ?></option>
-                  <option <?php echo $poll->blockRepeatVotersType == 'cookieip' ? 'selected="selected"':''; ?> value="cookieip"><?php _e( 'Cookie & IP address', 'polldaddy' ); ?></option>
-                </select>
-               </div>
-              <br  class="clear" />
-              <div class="field">
-
-               <label for="blockExpiration" class="pd-label"><?php _e( 'Block expiration limit', 'polldaddy' ); ?></label>
-
-
-                <select id="blockExpiration" name="blockExpiration">
-                  <option value="3600" <?php echo $poll->blockExpiration == 3600 ? 'selected="selected"':''; ?>><?php printf( __( '%d hour', 'polldaddy' ), 1 ); ?></option>
-                  <option value="10800" <?php echo (int) $poll->blockExpiration == 10800 ? 'selected="selected"' : ''; ?>><?php printf( __( '%d hours', 'polldaddy' ), 3 ); ?></option>
-	  				<option value="21600" <?php echo (int) $poll->blockExpiration == 21600 ? 'selected="selected"' : ''; ?>><?php printf( __( '%d hours', 'polldaddy' ), 6 ); ?></option>
-	  				<option value="43200" <?php echo (int) $poll->blockExpiration == 43200 ? 'selected="selected"' : ''; ?>><?php printf( __( '%d hours', 'polldaddy' ), 12 ); ?></option>
-	  				<option value="86400" <?php echo (int) $poll->blockExpiration == 86400 ? 'selected="selected"' : ''; ?>><?php printf( __( '%d day', 'polldaddy' ), 1 ); ?></option>
-	  				<option value="604800" <?php echo (int) $poll->blockExpiration == 604800 ? 'selected="selected"' : ''; ?>><?php printf( __( '%d week', 'polldaddy' ), 1 ); ?></option>
-	        	</select>
-             </div>
-             </div>
-              <br class="clear" />
-            </fieldset>
-          </td>
-        </tr>
-        <?php $this->plugin_options_add(); ?>
-      </tbody>
-    </table>
-    <p class="submit">
-      <?php wp_nonce_field( 'polldaddy-account' ); ?>
-      <input type="hidden" name="action" value="update-options" />
-      <input type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Save Options', 'polldaddy' ) ); ?>" />
-    </p>
-  </form>
-</div>
-  <?php
-	} // is_object( $poll )
-	global $current_user;
-	$fields = array( 'polldaddy_api_key', 'pd-rating-comments', 'pd-rating-comments-id', 'pd-rating-comments-pos', 'pd-rating-exclude-post-ids', 'pd-rating-pages', 'pd-rating-pages-id', 'pd-rating-posts', 'pd-rating-posts-id', 'pd-rating-posts-index', 'pd-rating-posts-index-id', 'pd-rating-posts-index-pos', 'pd-rating-posts-pos', 'pd-rating-title-filter', 'pd-rating-usercode', 'pd-rich-snippets', 'pd-usercode-' . $current_user->ID );
-	$show_reset_form = false;
-	foreach( $fields as $field ) {
-		$value = get_option( $field );
-		if ( $value != false )
-			$show_reset_form = true;
-		$settings[ $field ] = $value;
-	}
-	if ( $show_reset_form ) {
-		echo "<h3>" . __( 'Reset Connection Settings', 'polldaddy' ) . "</h3>";
-		echo "<p>" . __( 'If you are experiencing problems connecting to the Crowdsignal website resetting your connection settings may help. A backup will be made. After resetting, link your account again with the same API key.', 'polldaddy' ) . "</p>";
-		echo "<p>" . __( 'The following settings will be reset:', 'polldaddy' ) . "</p>";
-		echo "<table>";
-		foreach( $settings as $key => $value ) {
-			if ( $value != '' ) {
-				if ( strpos( $key, 'usercode' ) )
-					$value = "***********" . substr( $value, -4 );
-				elseif ( in_array( $key, array( 'pd-rating-pages-id', 'pd-rating-comments-id', 'pd-rating-posts-id' ) ) )
-					$value = "$value (<a href='https://app.crowdsignal.com/ratings/{$value}/edit/'>" . __( 'Edit', 'polldaddy' ) . "</a>)";
-				echo "<tr><th style='text-align: right'>$key:</th><td>$value</td></tr>\n";
-			}
-		}
-		echo "</table>";
-		echo "<p>" . __( "* The usercode is like a password, keep it secret.", 'polldaddy' ) . "</p>";
-		?>
-		<form action="" method="post">
-			<p class="submit">
-				<?php wp_nonce_field( 'polldaddy-reset' . $current_user->ID ); ?>
-				<input type="hidden" name="action" value="reset-account" />
-				<input type="hidden" name="account" value="import" />
-				<p><input type="checkbox" name="email" value="1" /> <?php _e( 'Send me an email with the connection settings for future reference' ); ?></p>
-				<input type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Reset', 'polldaddy' ) ); ?>" />
-			</p>
-		</form>
-		<br />
-		<?php
-	}
-	$previous_settings = get_option( 'polldaddy_settings' );
-	if ( is_array( $previous_settings ) && !empty( $previous_settings ) ) {
-		echo "<h3>" . __( 'Restore Previous Settings', 'polldaddy' ) . "</h3>";
-		echo "<p>" . __( 'The connection settings for this site were reset but a backup was made. The following settings can be restored:', 'polldaddy' ) . "</p>";
-		echo "<table>";
-		foreach( $previous_settings as $key => $value ) {
-			if ( $value != '' ) {
-				if ( strpos( $key, 'usercode' ) )
-					$value = "***********" . substr( $value, -4 );
-				elseif ( in_array( $key, array( 'pd-rating-pages-id', 'pd-rating-comments-id', 'pd-rating-posts-id' ) ) )
-					$value = "$value (<a href='https://app.crowdsignal.com/ratings/{$value}/edit/'>" . __( 'Edit', 'polldaddy' ) . "</a>)";
-				echo "<tr><th style='text-align: right'>$key:</th><td>$value</td></tr>\n";
-			}
-		}
-		echo "</table>";
-		echo "<p>" . __( "* The usercode is like a password, keep it secret.", 'polldaddy' ) . "</p>";
-		?>
-		<form action="" method="post">
-			<p class="submit">
-				<?php wp_nonce_field( 'polldaddy-restore' . $current_user->ID ); ?>
-				<input type="hidden" name="action" value="restore-account" />
-				<input type="hidden" name="account" value="import" />
-				<input type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Restore', 'polldaddy' ) ); ?>" />
-			</p>
-		</form>
-		<br />
-		<?php
-		if (
-			$show_reset_form
-			&& isset( $settings[ 'pd-rating-posts-id' ] )
-			&& isset( $previous_settings[ 'pd-rating-posts-id' ] )
-			&& $settings[ 'pd-rating-posts-id' ] != $previous_settings[ 'pd-rating-posts-id' ]
-		) {
-			echo "<h3>" . __( 'Restore Ratings Settings', 'polldaddy' ) . "</h3>";
-			echo "<p>" . __( 'Different rating settings detected. If you are missing ratings on your posts, pages or comments you can restore the original rating settings by clicking the button below.', 'polldaddy' ) . "</p>";
-			echo "<p>" . __( 'This tells the plugin to look for this data in a different rating in your Crowdsignal account.', 'polldaddy' ) . "</p>";
-			?>
-			<form action="" method="post">
-				<p class="submit">
-					<?php wp_nonce_field( 'polldaddy-restore-ratings' . $current_user->ID ); ?>
-					<input type="hidden" name="action" value="restore-ratings" />
-					<input type="hidden" name="account" value="import" />
-					<input type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Restore Ratings Only', 'polldaddy' ) ); ?>" />
-				</p>
-			</form>
-			<br />
-			<?php
-		}
-	}
+		$this->render_partial(
+			'settings',
+			array(
+				'is_connected'  => $connected,
+				'poll'          => $poll,
+				'options'       => $options,
+				'controller'    => $this,
+				'account_email' => $account_email,
+			)
+		);
 	}
 
 	function plugin_options_add() {}
@@ -5288,7 +4947,9 @@ if ( false == is_object( $poll ) ) {
 		return (bool) current_user_can( 'edit_others_posts' );
 	}
 
-	function log( $message ) {}
+	function log( $message ) {
+		// error_log( print_r( $message, true ) );
+	}
 
 	function contact_support_message( $message, $errors ) {
 		global $current_user;
@@ -5304,6 +4965,35 @@ if ( false == is_object( $poll ) ) {
 		echo "<li> pd-rating-posts-id: " . get_option( 'pd-rating-posts-id' ) . "</li>";
 		echo "<li> Errors: " . print_r( $errors, 1 ) . "</li></ul>";
 		echo "</ol></ul></div>";
+	}
+
+	/**
+	 * Renders a partial/template.
+	 *
+	 * The global $current_user is made available for any rendered template.
+	 *
+	 * @param string $partial  - Filename under ./partials directory, with or without .php (appended if absent).
+	 * @param array  $page_vars - Variables made available for the template.
+	 */
+	public function render_partial( $partial, array $page_vars = array() ) {
+		if ( substr( $partial, -4 ) !== '.php' ) {
+			$partial .= '.php';
+		}
+
+		if ( strpos( $partial, 'partials/' ) !== 0 ) {
+			$partial = 'partials/' . $partial;
+		}
+
+		$path = __DIR__ . '/' . $partial;
+		if ( ! file_exists( $path ) ) {
+			return;
+		}
+
+		foreach ( $page_vars as $key => $val ) {
+			$$key = $val;
+		}
+		global $current_user;
+		include $path;
 	}
 }
 
