@@ -19,9 +19,8 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 		$this->polldaddy_client_class = 'WPORG_Polldaddy_Client';
 		$this->use_ssl                = (int) get_option( 'polldaddy_use_ssl' );
 		$this->multiple_accounts      = (bool) get_option( 'polldaddy_multiple_accounts' );
-		$this->inline			      = (bool) get_option( 'polldaddy_load_poll_inline' );
-		$this->is_author              = ( ( (bool) current_user_can('edit_others_posts')) or ( $this->multiple_accounts ) );
-		return;
+		$this->inline                 = (bool) get_option( 'polldaddy_load_poll_inline' );
+		$this->is_author              = ( ( (bool) current_user_can( 'edit_others_posts' ) ) || ( $this->multiple_accounts ) );
 	}
 
 	function log( $message ) {

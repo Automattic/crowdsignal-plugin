@@ -1,7 +1,7 @@
 === Crowdsignal Polls & Ratings ===
 Contributors: eoigal, mdawaffe, donncha, johnny5, panosktn, ice9js, cgastrell
 Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
-Requires at least: 5.0
+Requires at least: 5.5
 Requires PHP: 5.6
 Tested up to: 5.7.1
 Stable tag: 3.0.0
@@ -123,9 +123,14 @@ This is possible if your server or network is blocking outgoing calls to Crowdsi
 Make sure to whitelist `api.crowdsignal.com` in your firewall to fix this.
 
 == Upgrade Notice ==
-Bugfix release.
+Revamp wp-admin styles: Crowdsignal dashboard
 
 == Changelog ==
+
+= 3.0.0 =
+* New dashboard menu
+* Show landing page when there are no items available
+* Multiple accounts feature is now deprecated, will continue to work until disabled
 
 = 2.2.6 =
 * Address an issue with Jetpack + Grunion Contact form fighting for the same submenu slugs (#60)
