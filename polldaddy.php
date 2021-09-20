@@ -187,7 +187,7 @@ class WP_Polldaddy {
 			add_action( "load-$hook", array( &$this, 'management_page_load' ) );
 		}
 
-		foreach( array( 'polls' => __( 'Dashboard', 'polldaddy' ), 'ratings' => __( 'Ratings', 'polldaddy' ) ) as $menu_slug => $page_title ) {
+		foreach( array( 'polls' => __( 'Crowdsignal', 'polldaddy' ), 'ratings' => __( 'Ratings', 'polldaddy' ) ) as $menu_slug => $page_title ) {
 			$menu_title  = $page_title;
 
 			$hook = add_submenu_page( $this->has_feedback_menu ? 'feedback' : $slug, $menu_title, $menu_title, $capability, $menu_slug, $function, 99 );
@@ -195,9 +195,9 @@ class WP_Polldaddy {
 		}
 
 		// Add settings pages.
-		foreach( array( 'pollsettings' => __( 'Crowdsignal', 'polldaddy' ), 'ratingsettings' => __( 'Rating', 'polldaddy' ) ) as $menu_slug => $page_title ) {
+		foreach( array( 'pollsettings' => __( 'Crowdsignal', 'polldaddy' ), 'ratingsettings' => __( 'Ratings', 'polldaddy' ) ) as $menu_slug => $page_title ) {
 			// translators: %s placeholder is the setting page type (Poll or Rating).
-			$settings_page_title = sprintf( esc_html__( '%s Settings', 'polldaddy' ), $page_title );
+			$settings_page_title = sprintf( esc_html__( '%s', 'polldaddy' ), $page_title );
 			$hook = add_options_page( $settings_page_title, $settings_page_title, $menu_slug == 'ratings' ? 'manage_options' : $capability, $menu_slug, array( $this, 'settings_page' ) );
 			add_action( "load-$hook", array( $this, 'management_page_load' ) );
 		}
