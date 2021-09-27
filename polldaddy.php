@@ -1438,6 +1438,9 @@ class WP_Polldaddy {
 							<?php
 							$this->style_edit_form();
 							break;
+						case 'landing-page':
+							$this->render_landing_page();
+							break;
 						default:
 							$view_type = 'me'; // default (and only) config for self-hosted.
 
