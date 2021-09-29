@@ -4,7 +4,7 @@ Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate
 Requires at least: 5.5
 Requires PHP: 5.6
 Tested up to: 5.7.1
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 
 Create and manage Crowdsignal polls and ratings from within WordPress.
 
@@ -126,6 +126,9 @@ Make sure to whitelist `api.crowdsignal.com` in your firewall to fix this.
 Revamp wp-admin styles: Crowdsignal dashboard
 
 == Changelog ==
+
+= 3.0.1
+* Allow landing page to be rendered on demand
 
 = 3.0.0 =
 * New dashboard menu
