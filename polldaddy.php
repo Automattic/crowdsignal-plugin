@@ -1319,9 +1319,9 @@ class WP_Polldaddy {
 
 		if ( !$message )
 			return;
-?>
+		?>
 		<div class='updated'><p><?php echo $message; ?></p></div>
-<?php
+		<?php
 		$this->print_errors();
 	}
 
@@ -1367,7 +1367,7 @@ class WP_Polldaddy {
 			<div class="cs-wrapper">
 				<?php
 				if ( 'polls' === $page ) {
-					if ( ! $this->is_author && in_array( $action, array( 'edit', 'edit-poll', 'create-poll', 'edit-style', 'create-style', 'list-styles' ), true ) ) { // check user privileges has access to action.
+					if ( ! $this->is_author && in_array( $action, array( 'edit', 'edit-poll', 'create-poll', 'edit-style', 'create-style', 'list-styles', 'create-block-poll' ), true ) ) { // check user privileges has access to action.
 						$action = '';
 					}
 					switch ( $action ) {
@@ -1408,6 +1408,319 @@ class WP_Polldaddy {
 							<?php
 							$this->poll_edit_form();
 							break;
+						case 'create-block-poll':
+							$post_id = wp_insert_post(
+								array(
+									'post_title'   => esc_html__( 'Crowdsignal blocks in WordPress' ),
+
+									'post_content' => '
+										<!-- wp:paragraph -->
+										<p>Welcome to this little demo page! We would love to introduce you to our set of Crowdsignal blocks and created this post for you, so that you can test and play with all of them right inside of your editor. </p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p><a href="https://wordpress.org/support/article/how-to-use-the-preview-function/">Preview this post</a> if you would like to test the Crowdsignal blocks from your visitors perspective. <em>Oh and please feel free to delete this draft post anytime</em>, it was only created for demo purposes.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:spacer {"height":60} -->
+										<div style="height:60px" aria-hidden="true" class="wp-block-spacer"></div>
+										<!-- /wp:spacer -->
+
+										<!-- wp:heading -->
+										<h2>Overview</h2>
+										<!-- /wp:heading -->
+
+										<!-- wp:paragraph -->
+										<p>Let\'s start with a quick overview of all our current blocks available in your WordPress editor. You can <a href="https://wordpress.com/support/wordpress-editor/">find all these blocks inside your block library via searching</a> for their name or simply by searching "Crowdsignal".</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:image {"align":"wide","id":241,"sizeSlug":"full","linkDestination":"none"} -->
+										<figure class="wp-block-image alignwide size-full"><img src="https://atomicsitecrowdsignal.blog/wp-content/uploads/2021/10/CrowdsignalCards.png" alt="" class="wp-image-241"/></figure>
+										<!-- /wp:image -->
+
+										<!-- wp:paragraph -->
+										<p>If you want to learn more about Crowdsignal please go to <a href="https://crowdsignal.com" data-type="URL" data-id="https://crowdsignal.com">crowdsignal.com</a> and join our little <a href="https://crowdsignalfeedback.wordpress.com/">community</a> all about feedback here.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:spacer {"height":60} -->
+										<div style="height:60px" aria-hidden="true" class="wp-block-spacer"></div>
+										<!-- /wp:spacer -->
+
+										<!-- wp:heading -->
+										<h2>Polls</h2>
+										<!-- /wp:heading -->
+
+										<!-- wp:paragraph -->
+										<p>We all have opinions! Curious about the opinion of your audience? Start asking with our poll block. It makes creating a poll as fast and simple as listing bullet points.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>&nbsp;You can choose between a button or a list style for your answer options, and you can fully customize the styling of the block. &nbsp;By default the poll block will support your theme styling, but it’s up to you if you want to keep it. You can customize the style how you want, from font-family to border colours.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>Just click in the poll below and start editing. </p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:crowdsignal-forms/poll {"pollId":"","title":"Demo Poll block","question":"What do you think about this demo page","answers":[{"text":"Super useful","answerId":""},{"text":"Not sure yet","answerId":""},{"text":"I don\'t like it","answerId":""}],"borderWidth":5,"borderRadius":5,"hasBoxShadow":true,"fontFamily":"Open+Sans","className":"is-style-buttons"} /-->
+
+										<!-- wp:paragraph -->
+										<p>And everything else you expect from a Crowdsignal poll is also available — such as setting “single answer” or “multiple answer” choices, a customised confirmation message, poll timeframe, and avoidance of double voting.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>Here is a short demo video for how to set up this block, not that you would need it ;) </p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:video {"guid":"5rdlgDPp","id":167,"src":"https://atomicsitecrowdsignal.blog/add-poll-tutorial-720-1-mp4/","videoPressClassNames":"wp-block-embed is-type-video is-provider-videopress","align":"center"} -->
+										<figure class="wp-block-video aligncenter wp-block-embed is-type-video is-provider-videopress"><div class="wp-block-embed__wrapper">
+										https://videopress.com/v/5rdlgDPp?resizeToParent=true&amp;cover=true&amp;preloadContent=metadata
+										</div></figure>
+										<!-- /wp:video -->
+
+										<!-- wp:spacer {"height":60} -->
+										<div style="height:60px" aria-hidden="true" class="wp-block-spacer"></div>
+										<!-- /wp:spacer -->
+
+										<!-- wp:heading -->
+										<h2>Feedback Button</h2>
+										<!-- /wp:heading -->
+
+										<!-- wp:paragraph -->
+										<p>You might have spotted it already, in the bottom left corner of this page: Our Feedback button.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>This is a floating button that lives above your site\'s content. Always visible this button makes giving feedback easy! User can send you a message and provide their email address so you could can get back to them. Needless to say that you can fully customize the design and text, including the label of the button itself. Feel free to make it a "Contact me" or "Say hello" button or anything you like.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>And yes, you can change its placement! You can put the button in any corner of your site. Just try it! Click in the feedback and start editing.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>Don\'t miss out on your customers\' feedback. Keep your door open anytime and place a feedback button on all your pages. </p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:video {"guid":"PHVqRMia","id":199,"src":"https://videos.files.wordpress.com/c6tUZ9pn/add-feedback-button-tutorial-1.mp4","videoPressClassNames":"wp-block-embed is-type-video is-provider-videopress","align":"center"} -->
+										<figure class="wp-block-video aligncenter wp-block-embed is-type-video is-provider-videopress"><div class="wp-block-embed__wrapper">
+										https://videopress.com/v/PHVqRMia?resizeToParent=true&amp;cover=true&amp;preloadContent=metadata
+										</div></figure>
+										<!-- /wp:video -->
+
+										<!-- wp:spacer {"height":60} -->
+										<div style="height:60px" aria-hidden="true" class="wp-block-spacer"></div>
+										<!-- /wp:spacer -->
+
+										<!-- wp:heading -->
+										<h2>Voting</h2>
+										<!-- /wp:heading -->
+
+										<!-- wp:paragraph -->
+										<p>Sometimes we need just quick and fast feedback from our audience. A quick voting button might be all you need. Fully customizable of course.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>There is already a “like” button at the end of a WordPress post that you can click to express satisfaction or agreement. But what if you want to ask readers their opinion on a subject in the middle of a post? Or what if you want to present several ideas and find out which one is the most popular? Wouldn’t it be great to ask readers what they think without having to leave the editor or switch to another service or plugin?</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>That’s what we thought! Say hello to our Voting Block:</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:crowdsignal-forms/vote {"pollId":"","title":"Demo Vote block"} -->
+										<!-- wp:crowdsignal-forms/vote-item {"answerId":"","type":"up","textColor":"#066127","borderColor":"#066127"} /-->
+
+										<!-- wp:crowdsignal-forms/vote-item {"answerId":"","type":"down","textColor":"#c6302e","borderColor":"#c6302e"} /-->
+										<!-- /wp:crowdsignal-forms/vote -->
+
+										<!-- wp:paragraph -->
+										<p>It’s a simple block that adds two voting buttons—thumbs up, thumbs down—to your post wherever you want to place them. Customize the block in different sizes and colors, with or without a border, and with or without a visible vote counter. Put several in a single post, next to different ideas, to see how they stack up for readers. Make the block your own!</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:video {"guid":"YlmEagPI","id":173,"src":"https://atomicsitecrowdsignal.blog/add-vote-tutorial-1-mp4/","videoPressClassNames":"wp-block-embed is-type-video is-provider-videopress","align":"center"} -->
+										<figure class="wp-block-video aligncenter wp-block-embed is-type-video is-provider-videopress"><div class="wp-block-embed__wrapper">
+										https://videopress.com/v/YlmEagPI?resizeToParent=true&amp;cover=true&amp;preloadContent=metadata
+										</div></figure>
+										<!-- /wp:video -->
+
+										<!-- wp:spacer {"height":60} -->
+										<div style="height:60px" aria-hidden="true" class="wp-block-spacer"></div>
+										<!-- /wp:spacer -->
+
+										<!-- wp:heading -->
+										<h2>Applause</h2>
+										<!-- /wp:heading -->
+
+										<!-- wp:paragraph -->
+										<p><img width="624" height="408" src="https://lh6.googleusercontent.com/YTuEAtQ73nXnUy1YNqZWyKzjC0zuQIhCTraR4FLBvMws5XBHTcM8h5wuCd_cD9AiOWXvGVm1v9vK29XD1xWKyc8g3GjOFx2pzCdpxH-5TrzkOhDV4J5R51OBjIZd07FphGrGr9k"></p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>The Applause block is a simpler and more playful version of our Voting block. The main differences are users only being able to give positive feedback and encouraging users to “make as much noise as they want”. Meaning this block does not only allow repeated voting, but even encourages it.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>Let your audience make some noise with a big round of applause.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:crowdsignal-forms/applause {"pollId":"","title":"Demo Applause block","answerId":"","size":"large","borderWidth":1,"borderRadius":5} /-->
+
+										<!-- wp:paragraph -->
+										<p><a href="https://wordpress.org/support/article/how-to-use-the-preview-function/">Preview this post</a> and try clapping yourself! It\'s fun.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>The block currently comes in three different sizes, and can be customised with a button-like styling, including a border, border radius and some colour customisation options.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:video {"guid":"xAfQgmRS","id":178,"src":"https://atomicsitecrowdsignal.blog/add-applause-block-tutorial-1-mp4/","videoPressClassNames":"wp-block-embed is-type-video is-provider-videopress","align":"center"} -->
+										<figure class="wp-block-video aligncenter wp-block-embed is-type-video is-provider-videopress"><div class="wp-block-embed__wrapper">
+										https://videopress.com/v/xAfQgmRS?resizeToParent=true&amp;cover=true&amp;preloadContent=metadata
+										</div></figure>
+										<!-- /wp:video -->
+
+										<!-- wp:spacer {"height":60} -->
+										<div style="height:60px" aria-hidden="true" class="wp-block-spacer"></div>
+										<!-- /wp:spacer -->
+
+										<!-- wp:heading -->
+										<h2>Embed Surveys &amp; Forms</h2>
+										<!-- /wp:heading -->
+
+										<!-- wp:paragraph -->
+										<p>So far we only talked about quick and fast ways to collect feedback or opinions from your audience. But what if you have many questions or want to create simple forms? You can do this with Crowdsignal, too! Create a survey or form on app.crowdsignal.com and embed it into your WordPress post or site. Similar like here:</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:embed {"url":"https://crowdsignal.survey.fm/product-market-fit-score","type":"rich","providerNameSlug":"crowdsignal","responsive":true,"align":"wide"} -->
+										<figure class="wp-block-embed alignwide is-type-rich is-provider-crowdsignal wp-block-embed-crowdsignal"><div class="wp-block-embed__wrapper">
+										https://crowdsignal.survey.fm/product-market-fit-score
+										</div></figure>
+										<!-- /wp:embed -->
+
+										<!-- wp:paragraph -->
+										<p>The Crowdsignal survey above was embedded using our  "Single question per page mode."&nbsp;It’s exactly what it sounds like: In this mode, no matter how many questions your survey has, your respondents will always see one question at a time. Single Mode shines when you embed a survey into your website or blog post. Surveys with multiple questions can take up a lot of space, overwhelming your site. If you’re not sure whether your readers will take the survey at all, it disrupts the reading experience. With Single Mode, a survey&nbsp; uses the same amount of space as an image, even a really long survey.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>Once they provide an answer (or skip the question),&nbsp; the next question loads. It has a playful&nbsp; feel, like flipping through a slide show. Every answered question feels like progress.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>You can choose between several transition options, and decide whether the questions should move from top to bottom, or from left to right.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p><strong>Ready to create one? Here’s how:</strong></p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>- Go to <a href="https://app.crowdsignal.com/dashboard">app.crowdsignal.com</a> (we will log you in with your WordPress.com account - magic ;)) .</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>- Create a new survey.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>- In the Editor, choose “Single Mode” at the top left.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>- Then create as many questions as you like and style your theme.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>- When you are ready click on Sharing and copy the URL of your survey.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>- Go back to your WordPress editor and paste the URL of your survey into your post</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>- Done! Your survey will appear in your post.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>Here is a short demo video for you that shows you how it works in less than a minute:</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:video {"guid":"xOj2GIJk","id":187,"src":"https://atomicsitecrowdsignal.blog/add-survey-tutorial-1-mp4/","videoPressClassNames":"wp-block-embed is-type-video is-provider-videopress","align":"center"} -->
+										<figure class="wp-block-video aligncenter wp-block-embed is-type-video is-provider-videopress"><div class="wp-block-embed__wrapper">
+										https://videopress.com/v/xOj2GIJk?resizeToParent=true&amp;cover=true&amp;preloadContent=metadata
+										</div></figure>
+										<!-- /wp:video -->
+
+										<!-- wp:spacer {"height":60} -->
+										<div style="height:60px" aria-hidden="true" class="wp-block-spacer"></div>
+										<!-- /wp:spacer -->
+
+										<!-- wp:heading -->
+										<h2>Measure NPS</h2>
+										<!-- /wp:heading -->
+
+										<!-- wp:paragraph -->
+										<p>While we are driving our projects, working hard on our products, we all wonder: How are we doing? Are people satisfied with our service? Are we doing better since last month?&nbsp;</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>Sometimes you want to measure your progress over time. <a href="https://crowdsignal.com/2021/03/16/measure-nps/">Measure and monitor the customer satisfaction and growth potential of your product with a Net Promoter Score</a>. </p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>We have built a Gutenberg block for you that makes it easier than ever before to track your Net Promoter Score on WordPress. If you have <a href="https://wordpress.org/support/article/how-to-use-the-preview-function/">previewed this post</a> before, you might have seen the NPS question already in a modal window. </p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:crowdsignal-forms/nps {"surveyId":"","title":"Demo NPS block","viewThreshold":"2"} /-->
+
+										<!-- wp:paragraph -->
+										<p>The moment you add the block, you are basically done. The design of the block is based on your site’s theme. You can still customize the styling of the block, or edit the questions, but that might not even be necessary.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>To get the most out of your NPS data, it is important to show the question only to users that are already familiar with your service or product. You can configure the block to only show to repeat visitors. It’s more likely you will get feedback from someone who knows what they are talking about, and you can make sure new users are not interrupted during their first visit to your site.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>After you publish the block go to the results page of the block and monitor your results. We have built a special results page for you to track your NPS score and to analyse any additional feedback. </p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:image {"align":"wide","animation":"slideInBottom","ampLightbox":true} -->
+										<figure class="wp-block-image alignwide coblocks-animate" data-coblocks-animation="slideInBottom"><img src="https://s0.wp.com/wp-content/themes/a8c/crowd-signal/assets/images/AnalyseResults.png" alt=""/></figure>
+										<!-- /wp:image -->
+
+										<!-- wp:paragraph -->
+										<p>We provide an analytics dashboard with our block that automatically calculates the Net Promoter Score for you in real-time and allows you to monitor your score over time. Are the differences geographic? Filter your results based on countries.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>By the way, did you know you also can get email notifications or a ping in your Slack channel any time you get an NPS rating? Just click on the little “connect” button on your results page.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:paragraph -->
+										<p>Here is a quick tutorial video on how it works.</p>
+										<!-- /wp:paragraph -->
+
+										<!-- wp:video {"guid":"LavKaUZc","id":205,"src":"https://videos.files.wordpress.com/jIdl0psB/add-nps-tutorial-long-3-1.mp4","videoPressClassNames":"wp-block-embed is-type-video is-provider-videopress","align":"center"} -->
+										<figure class="wp-block-video aligncenter wp-block-embed is-type-video is-provider-videopress"><div class="wp-block-embed__wrapper">
+										https://videopress.com/v/LavKaUZc?resizeToParent=true&amp;cover=true&amp;preloadContent=metadata
+										</div></figure>
+										<!-- /wp:video -->
+
+										<!-- wp:crowdsignal-forms/feedback {"surveyId":"","title":"Demo Feedback block"} /-->
+
+										<!-- wp:paragraph -->
+										<p></p>
+										<!-- /wp:paragraph -->
+									',
+								)
+							);
+							if ( ! is_wp_error( $post_id ) ) {
+								wp_safe_redirect( admin_url( 'post.php?post=' . intval( $post_id ) . '&action=edit' ) );
+							}
+							break;
+
 						case 'list-styles':
 							?>
 							<h2 id="polldaddy-header">
