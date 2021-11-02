@@ -593,9 +593,9 @@ class WP_Polldaddy {
 								<h2>Applause</h2>
 								<!-- /wp:heading -->
 
-								<!-- wp:paragraph -->
-								<p><img width="624" height="408" src="https://lh6.googleusercontent.com/YTuEAtQ73nXnUy1YNqZWyKzjC0zuQIhCTraR4FLBvMws5XBHTcM8h5wuCd_cD9AiOWXvGVm1v9vK29XD1xWKyc8g3GjOFx2pzCdpxH-5TrzkOhDV4J5R51OBjIZd07FphGrGr9k"></p>
-								<!-- /wp:paragraph -->
+								<!-- wp:image {"sizeSlug":"large"} -->
+								<figure class="wp-block-image size-large"><img src="https://crowdsignal.files.wordpress.com/2021/11/17claps-small.gif" alt=""/></figure>
+								<!-- /wp:image -->
 
 								<!-- wp:paragraph -->
 								<p>The Applause block is a simpler and more playful version of our Voting block. The main differences are users only being able to give positive feedback and encouraging users to “make as much noise as they want”. Meaning this block does not only allow repeated voting, but even encourages it.</p>
