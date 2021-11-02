@@ -686,7 +686,7 @@ class WP_Polldaddy {
 								<!-- /wp:paragraph -->
 
 								<!-- wp:video {"align":"center","className":"wp-block-embed is-type-video is-provider-videopress"} -->
-								<figure class="wp-block-video aligncenter wp-block-embed is-type-video is-provider-videopress"><video src="https://crowdsignal.files.wordpress.com/2021/11/add-survey-tutorial.mp4"></video></figure>
+								<figure class="wp-block-video aligncenter wp-block-embed is-type-video is-provider-videopress"><video src="https://crowdsignal.files.wordpress.com/2021/11/add-survey-tutorial-yt.mp4"></video></figure>
 								<!-- /wp:video -->
 
 								<!-- wp:spacer {"height":60} -->
