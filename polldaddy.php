@@ -482,7 +482,7 @@ class WP_Polldaddy {
 								<!-- /wp:paragraph -->
 
 								<!-- wp:image {"align":"wide","id":241,"sizeSlug":"full","linkDestination":"none"} -->
-								<figure class="wp-block-image alignwide size-full"><img src="https://atomicsitecrowdsignal.blog/wp-content/uploads/2021/10/CrowdsignalCards.png" alt="" class="wp-image-241"/></figure>
+								<figure class="wp-block-image alignwide size-full"><img src="https://crowdsignal.files.wordpress.com/2021/11/crowdsignalcards.png" alt="" class="wp-image-241"/></figure>
 								<!-- /wp:image -->
 
 								<!-- wp:paragraph -->
@@ -723,8 +723,8 @@ class WP_Polldaddy {
 								<p>After you publish the block go to the results page of the block and monitor your results. We have built a special results page for you to track your NPS score and to analyse any additional feedback. </p>
 								<!-- /wp:paragraph -->
 
-								<!-- wp:image {"align":"wide","animation":"slideInBottom","ampLightbox":true} -->
-								<figure class="wp-block-image alignwide coblocks-animate" data-coblocks-animation="slideInBottom"><img src="https://s0.wp.com/wp-content/themes/a8c/crowd-signal/assets/images/AnalyseResults.png" alt=""/></figure>
+								<!-- wp:image {"sizeSlug":"large"} -->
+								<figure class="wp-block-image size-large"><img src="https://s0.wp.com/wp-content/themes/a8c/crowd-signal/assets/images/AnalyseResults.png" alt=""/></figure>
 								<!-- /wp:image -->
 
 								<!-- wp:paragraph -->
