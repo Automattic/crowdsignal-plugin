@@ -5,7 +5,7 @@
  * Description: Create and manage Crowdsignal polls and ratings in WordPress
  * Author: Automattic, Inc.
  * Author URL: https://crowdsignal.com/
- * Version: 3.0.1
+ * Version: 3.0.2
  */
 
 // To hardcode your Polldaddy PartnerGUID (API Key), add the (uncommented) line below with the PartnerGUID to your `wp-config.php`
@@ -749,10 +749,8 @@ class WP_Polldaddy {
 								<p>Here is a quick tutorial video on how it works.</p>
 								<!-- /wp:paragraph -->
 
-								<!-- wp:video {"guid":"LavKaUZc","id":205,"src":"https://videos.files.wordpress.com/jIdl0psB/add-nps-tutorial-long-3-1.mp4","videoPressClassNames":"wp-block-embed is-type-video is-provider-videopress","align":"center"} -->
-								<figure class="wp-block-video aligncenter wp-block-embed is-type-video is-provider-videopress"><div class="wp-block-embed__wrapper">
-								https://videopress.com/v/LavKaUZc?resizeToParent=true&amp;cover=true&amp;preloadContent=metadata
-								</div></figure>
+								<!-- wp:video {"align":"center","className":"wp-block-embed is-type-video is-provider-videopress"} -->
+								<figure class="wp-block-video aligncenter wp-block-embed is-type-video is-provider-videopress"><video src="https://crowdsignal.files.wordpress.com/2021/11/add-nps-tutorial-long-3.mp4"></video></figure>
 								<!-- /wp:video -->
 
 								<!-- wp:crowdsignal-forms/feedback {"surveyId":"","title":"Demo Feedback block"} /-->
@@ -765,6 +763,9 @@ class WP_Polldaddy {
 					);
 					if ( ! is_wp_error( $post_id ) ) {
 						wp_safe_redirect( admin_url( 'post.php?post=' . intval( $post_id ) . '&action=edit' ) );
+					} else {
+						// admin.php?page=polls
+						// wp_safe_redirect( admin_url( 'admin.php?page=polls' ) );
 					}
 					break;
 
