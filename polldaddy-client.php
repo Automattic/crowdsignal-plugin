@@ -178,7 +178,7 @@ class api_client {
 	 */
 	function get_usercode( $partnerUserID ) {
 		$this->request = new Polldaddy_Access( array(
-//			'demands' => new Polldaddy_Demands( array( 'demand' => new Polldaddy_Demand( null, array( 'id' => __FUNCTION__ ) ) ) )
+			// 'demands' => new Polldaddy_Demands( array( 'demand' => new Polldaddy_Demand( null, array( 'id' => __FUNCTION__ ) ) ) )
 			'demands' => new Polldaddy_Demands( array( 'demand' => new Polldaddy_Demand( null, array( 'id' => 'getusercode' ) ) ) )
 		), array(
 			'partnerGUID' => $this->partnerGUID,
@@ -207,7 +207,7 @@ class api_client {
 			return false;
 
 		$this->request = new Polldaddy_Access( array(
-//			'demands' => new Polldaddy_Demands( array( 'demand' => new Polldaddy_Demand( compact( 'account' ), array( 'id' => __FUNCTION__ ) ) ) )
+			// 'demands' => new Polldaddy_Demands( array( 'demand' => new Polldaddy_Demand( compact( 'account' ), array( 'id' => __FUNCTION__ ) ) ) )
 			'demands' => new Polldaddy_Demands( array( 'demand' => new Polldaddy_Demand( compact( 'account' ), array( 'id' => 'createaccount' ) ) ) )
 		), array(
 			'partnerGUID' => $this->partnerGUID,
@@ -219,20 +219,19 @@ class api_client {
 		return false;
 	}
 
-function sync_rating( ){
-          $pos = $this->add_request( 'syncrating', new Polldaddy_Rating( null , null ) );
+	function sync_rating( ){
+		$pos = $this->add_request( 'syncrating', new Polldaddy_Rating( null , null ) );
 
-          $this->send_request();
+		$this->send_request();
 
-          $demand = $this->response_part( $pos );
+		$demand = $this->response_part( $pos );
 
-          if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->rating ) ){
-                  return $demand->rating;
-          }
+		if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->rating ) ){
+			return $demand->rating;
+		}
 
-          return false;
-
-  }
+		return false;
+	}
 
 /* pdRequest: Request API Objects */
 
@@ -241,7 +240,7 @@ function sync_rating( ){
 	 * @return object|false Polldaddy Account or false on failure
 	 */
 	function get_account() {
-//		$pos = $this->add_request( __FUNCTION__ );
+		// $pos = $this->add_request( __FUNCTION__ );
 		$pos = $this->add_request( 'getaccount' );
 		$this->send_request();
 		$r = $this->response_part( $pos );
@@ -259,7 +258,7 @@ function sync_rating( ){
 		if ( !$account = polldaddy_account( $args ) )
 			return false;
 
-//		$this->add_request( __FUNCTION__, $account );
+		// $this->add_request( __FUNCTION__, $account );
 		$this->add_request( 'updateaccount', $account );
 		$this->send_request();
 		if ( isset( $this->response->userCode ) )
@@ -275,10 +274,10 @@ function sync_rating( ){
 		$start = (int) $start;
 		$end = (int) $end;
 		if ( !$start && !$end )
-//			$pos = $this->add_request( __FUNCTION__ );
+			// $pos = $this->add_request( __FUNCTION__ );
 			$pos = $this->add_request( 'getpolls' );
 		else
-//			$pos = $this->add_request( __FUNCTION__, new Polldaddy_List( null, compact( 'start', 'end' ) ) );
+			// $pos = $this->add_request( __FUNCTION__, new Polldaddy_List( null, compact( 'start', 'end' ) ) );
 			$pos = $this->add_request( 'getpolls', new Polldaddy_List( null, compact( 'start', 'end' ) ) );
 		$this->send_request();
 		$r = $this->response_part( $pos );
@@ -314,7 +313,6 @@ function sync_rating( ){
 		}
 		$this->send_request();
 		$r = $this->response_part( $pos );
-
 		if ( isset( $r->items ) ) {
 			if ( isset( $r->items->item ) ) {
 				if ( ! is_array( $r->items->item ) ) {
