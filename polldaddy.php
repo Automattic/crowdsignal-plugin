@@ -1618,8 +1618,12 @@ class WP_Polldaddy {
 						$message = sprintf( _n( '%s Style Deleted.', '%s Custom Styles Deleted.', $deleted, 'polldaddy' ), number_format_i18n( $deleted ) );
 					}
 					break;
+				case 'connected' :
 				case 'imported-account' :
 					$message = __( 'Account Linked.', 'polldaddy' );
+					break;
+				case 'api-key-not-added' :
+					$message = __( 'There was a problem linking your account.', 'polldaddy' );
 					break;
 				case 'updated-options' :
 					$message = __( 'Options Updated.', 'polldaddy' );
