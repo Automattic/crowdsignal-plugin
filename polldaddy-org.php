@@ -81,7 +81,7 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 
 		$this->set_api_user_code();
 
-		if ( 'polls' === $page || 'pollsettings' === $page ) {
+		if ( 'polls' === $page || 'crowdsignal-settings' === $page ) {
 			switch ( $action ) {
 			case 'update-options' :
 				if ( !$is_POST )
@@ -658,7 +658,7 @@ function polldaddy_login_warning() {
 		return;
 	}
 
-	echo '<div class="updated"><p><strong>' . sprintf( __( 'Warning! The Crowdsignal plugin must be linked to your Crowdsignal.com account. Please visit the <a href="%s">plugin settings page</a> to login.', 'polldaddy' ), admin_url( 'options-general.php?page=pollsettings' ) ) . '</strong></p></div>';
+	echo '<div class="updated"><p><strong>' . sprintf( __( 'Warning! The Crowdsignal plugin must be linked to your Crowdsignal.com account. Please visit the <a href="%s">plugin settings page</a> to login.', 'polldaddy' ), admin_url( 'options-general.php?page=crowdsignal-settings' ) ) . '</strong></p></div>';
 }
 add_action( 'admin_notices', 'polldaddy_login_warning' );
 
