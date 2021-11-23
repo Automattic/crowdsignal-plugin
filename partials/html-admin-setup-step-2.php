@@ -8,7 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-if ( $connected ) {
+if ( $is_connected ) {
 	$crowdsignal_forms_msg = 'connected';
 } else {
 	$crowdsignal_forms_msg = 'api-key-not-added';
@@ -18,7 +18,7 @@ if ( $connected ) {
 window.close();
 if (window.opener && !window.opener.closed) {
 	var querystring = window.opener.location.search;
-	querystring += ( querystring ? '&' : '?' ) + 'msg=<?php echo esc_js( $crowdsignal_forms_msg ); ?>';
+	querystring += ( querystring ? '&' : '?' ) + 'message=<?php echo esc_js( $crowdsignal_forms_msg ); ?>';
 	window.opener.location.search = querystring;
 }
 </script>
