@@ -1,0 +1,406 @@
+@font-face {
+	font-family: Recoleta;
+	src: url( "https://s1.wp.com/i/fonts/recoleta/400.woff2" );
+}
+
+@font-face {
+	font-family: Recoleta;
+	src: url( "https://s1.wp.com/i/fonts/recoleta/500.woff2" );
+	font-weight: 500;
+}
+
+@font-face {
+	font-family: Recoleta;
+	src: url( "https://s1.wp.com/i/fonts/recoleta/700.woff2" );
+	font-weight: 700;
+}
+
+#jp-plugin-container .wrap {
+	margin: 0 auto;
+	max-width:45rem;
+	padding: 0 1.5rem;
+}
+#jp-plugin-container.is-wide .wrap {
+	max-width: 1040px;
+}
+#jp-plugin-container .wrap .jetpack-wrap-container {
+	margin-top: 1em;
+}
+
+.wp-admin #dolly {
+	float: none;
+	position: relative;
+	right: 0;
+	left: 0;
+	top: 0;
+	padding: .625rem;
+	text-align: right;
+	background: #fff;
+	font-size: .75rem;
+	font-style: italic;
+	color: #87a6bc;
+	border-bottom: 1px #e9eff3 solid;
+}
+
+.crowdsignal-setup__header {
+	background-color: #fff;
+	text-align: center;
+	box-shadow: 0 1px 0 #ccd0d4,0 1px 1px 1px rgba(0,0,0,0.04);
+	margin-left: -20px;
+	margin-right: -20px;
+	margin-bottom: 8px;
+}
+
+.crowdsignal-setup__header-container {
+	display: flex;
+	flex-wrap: wrap;
+	padding-bottom: .375rem;
+	padding-left: 16px;
+}
+
+.crowdsignal-settings-wrap {
+	max-width: 960px;
+	margin: 0 auto;
+}
+
+.crowdsignal-setup__logo-container {
+	flex-grow: 0;
+	flex-shrink: 0;
+	padding: .6875rem 0 0;
+	display: inline-block;
+}
+
+.crowdsignal-setup__email-activation {
+	font-size: 16px !important;
+	font-style: italic;
+}
+
+.crowdsignal-setup__footer {
+	text-align: center;
+	margin: 100px -20px 2rem;
+}
+
+.crowdsignal-setup__footer-container {
+	margin-bottom: .5rem;
+}
+
+.crowdsignal-setup__footer-attr {
+	width: 11.25rem;
+}
+
+.crowdsignal-setup__footer-links {
+	border-top: 1px #e1e1e1 solid;
+	border-bottom: 1px #e1e1e1 solid;
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
+
+.crowdsignal-setup__footer-item {
+	display: inline-block;
+	margin-bottom: 0;
+}
+
+.crowdsignal-setup__footer-link {
+	padding: 1rem .5rem;
+	color: #888;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.crowdsignal-setup__main {
+	background-color: #fff;
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	margin: 24px auto 0;
+	border: 1px solid rgba(213, 213, 213, 0.5);
+	max-width: 960px;
+}
+
+.crowdsignal-setup__main img {
+	width: 100%;
+	height: auto;
+	max-height: 150px;
+}
+
+.crowdsignal-setup__content {
+	padding: 0 20px 20px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	min-height: 400px;
+	margin: 40px 0;
+}
+
+.crowdsignal-setup__content p {
+	font-size: 18px;
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.dops-card h3,
+.dops-card h4 {
+	font-family: Recoleta, sans-serif;
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 150%;
+	margin: 0;
+	margin: 0 0 10px 0;
+}
+
+.crowdsignal-setup__content h4 {
+	font-size: 34px;
+	line-height: 140%;
+}
+
+.crowdsignal-setup__button {
+	margin: 0 auto;
+	background-color: #c9356e;
+	border-color: #8c1749;
+	color: #ffffff;
+	font-weight: 500;
+	align-items: center;
+	border-radius: 5px;
+	border-style: solid;
+	border-width: 1px 1px 2px;
+	box-sizing: border-box;
+	cursor: pointer;
+	display: inline-flex;
+	font-size: 14px;
+	height: 32px;
+	justify-content: center;
+	line-height: 24px;
+	outline: 0;
+	padding: 3px 15px 2px;
+	text-align: center;
+	transition: background-color .1s ease-out, border-color .1s ease-out;
+	white-space: nowrap;
+	width: fit-content;
+	min-width: 200px;
+}
+
+.crowdsignal-setup__button:hover {
+	background-color: #eb6594;
+}
+
+.crowdsignal-setup__support {
+	font-size: 14px;
+}
+
+.crowdsignal-setup__top {
+	margin-top: 32px;
+}
+
+.crowdsignal-setup__middle {
+	min-height: 100px;
+	margin-right: auto;
+	margin-left: auto;
+	padding-left: 0px;
+	border: 1px none #000;
+	border-radius: 0px;
+	margin-top: 40px;
+}
+
+.crowdsignal-setup__middle p {
+	color: #838383;
+}
+
+.crowdsignal-setup__middle a {
+
+}
+
+.crowdsignal-setup__video-container {
+	display: block;
+	overflow: hidden;
+	position: relative;
+	margin-top: 64px;
+	margin-bottom: 120px;
+	padding-top: 56.25%;
+	width: 100%;
+}
+
+.crowdsignal-setup__video {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #e2e2e2;
+}
+
+.crowdsignal-setup__video iframe {
+	width: 100%;
+	height: 100%;
+}
+
+
+div.crowdsignal-message {
+	margin: 24px auto 8px auto;
+	border: 0;
+	padding: 16px;
+	padding-left: 24px;
+	max-width: 1040px;
+	box-sizing: border-box;
+}
+
+div.updated.crowdsignal-message {
+	background-color: #eff9f1;
+}
+div.error.crowdsignal-message {
+	background-color: #fbcfd2;
+}
+div.updated.crowdsignal-message p,
+div.error.crowdsignal-message p {
+	padding: 0;
+	color: black;
+	font-size: 14px;
+	line-height: 22px;
+	margin: 4px 0px;
+}
+
+.crowdsignal-message .crowdsignal-notification-icon {
+	display: inline-block;
+	vertical-align: text-bottom;
+	margin-right: 16px;
+	line-height: 0;
+	height: 22px;
+}
+
+.crowdsignal-settings__main-content {
+}
+
+.dops-card {
+	display: block;
+	position: relative;
+	margin: 0 auto 10px;
+	padding: 16px;
+	box-sizing: border-box;
+	background: #fff;
+	box-shadow: 0 0 0 1px #ccd0d4,0 1px 1px 1px rgba(0,0,0,.04);
+}
+
+.dops-card.is-compact {
+	margin-bottom: 1px;
+	padding: 16px 24px;
+}
+
+.dops-section-header.dops-card {
+	display: flex;
+	flex-wrap: wrap;
+	padding-top: .6875rem;
+	padding-bottom: .6875rem;
+	position: relative;
+}
+
+.dops-section-header__label {
+	line-height: 1.75rem;
+	color: #414141;
+	font-size: .875rem;
+}
+
+.dops-section-header__label-text {
+	position: relative;
+	margin-right: .5rem;
+	white-space: nowrap;
+	overflow: hidden;
+	width: 100%;
+	padding-right: .5rem;
+	min-width: 0;
+	font-weight: 400;
+	color: #3C434A;
+}
+
+.crowdsignal-settings__middle {
+	min-height: 100px;
+	padding-left: 0px;
+	border: 1px none #000;
+	border-radius: 0px;
+}
+
+.crowdsignal-settings__text {
+	margin-top: 40px;
+	line-height: 150%;
+	font-size: 14px;
+	line-height: 30px;
+	color: #444444;
+}
+
+.crowdsignal-settings__bottom {
+	margin-top: 80px;
+}
+
+.crowdsignal-settings__submit {
+	margin-top: 10px;
+}
+
+@media screen and (min-width: 782px) {
+	.crowdsignal-settings__submit {
+		margin-top: -45px;
+		display: block;
+		margin-left: 585px;
+	}
+}
+
+@media screen and (max-width: 782px) {
+	.crowdsignal-setup__header {
+		margin-left: -12px;
+		margin-right: -12px;
+	}
+
+	.crowdsignal-setup__footer {
+		margin-left: -12px;
+		margin-right: -12px;
+	}
+}
+
+.jp-form-settings-group p {
+	color: #838383;
+	font-style: italic;
+	font-size: .875rem;
+	font-weight: 400;
+}
+
+.jp-form-settings-group a {
+}
+
+.jp-form-settings-group h2 {
+	font-size: .875rem;
+	font-weight: 700;
+}
+
+#crowdsignal__teaser_img {
+	max-width:100%;
+	max-height:100%;
+	padding-bottom: 20px;
+}
+
+#crowdsignal__logo {
+	font-size: 1.5rem;
+	font-weight: 400;
+	margin: .67em 0;
+	color: #1d2327;
+	font-family: Recoleta, "Noto Serif", Georgia, Times New Roman, Times, serif;
+	font-style: normal;
+	line-height: 1.2em;
+}
+
+#crowdsignal__install_cta {
+	margin: 0;
+	max-width: 100%;
+}
+
+.crowdsignal__advanced_desc {
+	color: #838383;
+	font-style: italic;
+	font-size: .875rem;
+	font-weight: 400;
+	padding-top: 5px;
+}
+
+.crowdsignal__advanced_text {
+	font-style: normal;
+}
+

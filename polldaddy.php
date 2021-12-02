@@ -478,6 +478,10 @@ class WP_Polldaddy {
 
 		require_once WP_POLLDADDY__POLLDADDY_CLIENT_PATH;
 
+		wp_enqueue_style( 'jetpack-styles1', 'https://c0.wp.com/p/jetpack/10.0/_inc/build/style.min.css', array(), '1.5.7' );
+		wp_enqueue_style( 'jetpack-styles2', 'https://c0.wp.com/c/5.8.1/wp-admin/css/common.min.css', array(), '1.5.7' );
+		wp_enqueue_style( 'jetpack-styles3', 'https://c0.wp.com/p/jetpack/10.0/_inc/build/admin.css', array(), '1.5.7' );
+		wp_enqueue_style( 'admin-styles', plugin_dir_url( __FILE__ ) . '/admin-styles.css', array(), '1.5.12' );
 		wp_enqueue_style( 'wp-components' );
 		wp_enqueue_script( 'polls', "{$this->base_url}js/polldaddy.js", array( 'jquery', 'jquery-ui-sortable', 'jquery-form', 'wp-components' ), $this->version );
 		wp_enqueue_script( 'polls-common', "{$this->base_url}js/common.js", array(), $this->version );
@@ -879,6 +883,11 @@ class WP_Polldaddy {
 
 		if ( 'polls' === $page || 'crowdsignal-settings' === $page ) {
 			switch ( $action ) {
+			case 'multi-account':
+				if ( ! isset( $_POST['crowdsignal_multiuser'] ) ) {
+					delete_option( 'polldaddy_usercode_user' );
+				}
+				break;
 			case 'reset-account' : // reset everything
 				global $current_user;
 				check_admin_referer( 'polldaddy-reset' . $this->id );
@@ -1670,7 +1679,6 @@ class WP_Polldaddy {
 		global $page, $action;
 		?>
 		<div class="wrap" id="manage-polls">
-			<div class="cs-pre-wrap"></div>
 			<div class="cs-wrapper">
 				<?php
 				$this->set_api_user_code();
@@ -5246,6 +5254,7 @@ class WP_Polldaddy {
 
 		$this->print_errors();
 
+		$this->render_partial( 'html-admin-setup-header' );
 		if ( ! $connected ) {
 			update_option( 'crowdsignal_api_key_secret', md5( time() . wp_rand() ) );
 			$this->render_partial( 'html-admin-setup-step-1' );
@@ -5254,6 +5263,21 @@ class WP_Polldaddy {
 				'settings',
 				array(
 					'is_connected'  => $connected,
+					'api_key'       => get_option( 'polldaddy_api_key' ),
+				)
+			);
+
+			if ( ! is_plugin_active( 'crowdsignal-forms/crowdsignal-forms.php' ) ) {
+				$this->render_partial( 'html-admin-teaser' );
+			} else {
+				$this->render_partial( 'html-admin-setup-step-3' );
+			}
+
+			$this->render_partial(
+				'settings-2',
+				array(
+					'is_connected'  => $connected,
+					'api_key'       => get_option( 'polldaddy_api_key' ),
 					'poll'          => $poll,
 					'options'       => $options,
 					'controller'    => $this,
@@ -5261,6 +5285,7 @@ class WP_Polldaddy {
 				)
 			);
 		}
+		$this->render_partial( 'html-admin-setup-footer' );
 	}
 
 	function plugin_options_add() {}

@@ -9,19 +9,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<div class="crowdsignal-setup__main">
-	<div class="crowdsignal-setup__content">
-		<h3><?php esc_html_e( 'Welcome to Crowdsignal', 'polldaddy' ); ?></h3>
+<br />
+<div class='jp-settings-container'>
+	<div class="dops-card dops-section-header is-compact">
+		<div class="dops-section-header__label">
+			<span class="dops-section-header__label-text"><?php esc_html_e( 'Getting Started', 'crowdsignal-forms' ); ?></span>
+		</div>
+	</div>
 
+	<div class="dops-card dops-section-header is-compact">
+
+		<div class="jp-form-settings-group crowdsignal-forms" style='text-align: center; width: 100%'>
+	<div class="crowdsignal-setup__content">
 		<div class="crowdsignal-setup__description">
-			<p><?php echo wp_kses_post( 'To collect and manage respones you need to connect the plugin to <a href="https://crowdsignal.com">Crowdsignal</a>. <br />It will take less than a minute and it’s free.', 'polldaddy' ); ?></p>
+				<h1><?php esc_html_e( 'Welcome to Crowdsignal', 'crowdsignal-forms' ); ?></h1>
+				<p><?php echo wp_kses_post( 'To collect and manage respones you need to connect the plugin to <a href="https://crowdsignal.com">Crowdsignal</a>. <br />It will take less than a minute and it’s free.', 'polldaddy' ); ?></p>
 		</div>
 
 		<div class="wrap crowdsignal-settings-wrap">
 			<form id="cs-connect-form" class="crowdsignal-options" method="post" action="https://app.crowdsignal.com/get-api-key/" target="CSCONNECT">
-			<input type="hidden" name="get_api_key" value="<?php echo esc_attr( get_option( 'crowdsignal_api_key_secret' ) ); ?>" />
-			<input type="hidden" name="ref" value="<?php echo esc_attr( admin_url( 'options-general.php?page=crowdsignal-settings' ) ); ?>" />
-			<input type="submit" value="<?php esc_html_e( 'Let’s get started', 'polldaddy' ); ?>" class="crowdsignal-setup__button" />
+				<input type="hidden" name="get_api_key" value="<?php echo esc_attr( get_option( 'crowdsignal_api_key_secret' ) ); ?>" />
+				<input type="hidden" name="ref" value="<?php echo esc_attr( admin_url( 'options-general.php?page=crowdsignal-settings' ) ); ?>" />
+				<input type="submit" value="<?php esc_html_e( 'Let’s get started', 'polldaddy' ); ?>" class="dops-button is-primary" />
 			</form>
 		</div>
 	</div>
