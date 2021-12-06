@@ -90,6 +90,7 @@
 	</div>
 </div>
 
+<?php if ( ! $api_key ) { ?>
 <script>
 let CSCONNECT = null;
 const showConnect = ( title ) => {
@@ -140,3 +141,4 @@ const showConnect = ( title ) => {
 	}
 } )( document.getElementById( 'cs-connect-form' ) );
 </script>
+<?php } ?>
