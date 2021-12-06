@@ -41,6 +41,7 @@ jQuery(document).ready( function() {
 	</div>
 </div>
 <br />
+<?php } ?>
 
 <?php
 global $current_user;
@@ -158,6 +159,5 @@ if ( ! $show_reset_form && empty( $previous_settings ) ) {
 		</div>
 	</div>
 </div>
-<?php } ?>
 </div>
 
