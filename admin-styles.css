@@ -406,4 +406,10 @@ div.error.crowdsignal-message p {
 
 #crowdsignal_advanced_link a {
 	text-decoration: none;
+	color: #8c8f94;
+}
+
+#crowdsignal_advanced_link a::after {
+	color: #8c8f94;
+	content: "\f078";
 }
