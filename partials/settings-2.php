@@ -21,7 +21,7 @@ jQuery(document).ready( function() {
 
 <div style='display:none' id="crowdsignal__advanced_page">
 
-<?php if ( $controller->multiple_accounts ) { ?>
+<?php if ( true || $controller->multiple_accounts ) { ?>
 <div class='jp-settings-container'>
 	<div class="dops-card dops-section-header is-compact">
 		<div class="jp-form-settings-group" style='width: 100%'>

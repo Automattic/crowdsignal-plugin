@@ -7,17 +7,17 @@
 
 ?>
 <?php // phpcs:ignoreFile -- too many legacy warnings, needs full linter ?>
-<div class='jp-settings-container'>
-	<div class="dops-card dops-section-header is-compact">
-		<div class="dops-section-header__label">
-			<span class="dops-section-header__label-text"><?php esc_html_e( 'Account Settings', 'crowdsignal-forms' ); ?></span>
-		</div>
-	</div>
+			<div class='jp-settings-container'>
+				<div class="dops-card dops-section-header is-compact">
+					<div class="dops-section-header__label">
+						<span class="dops-section-header__label-text"><?php esc_html_e( 'Account Settings', 'crowdsignal-forms' ); ?></span>
+					</div>
+				</div>
 
-	<div class="dops-card dops-section-header is-compact">
-		<div class="jp-form-settings-group">
-			<h2><?php esc_html_e( 'API Key', 'crowdsignal-forms' ); ?></h2>
-			<p>
+				<div class="dops-card dops-section-header is-compact">
+					<div class="jp-form-settings-group">
+						<h2><?php esc_html_e( 'API Key', 'crowdsignal-forms' ); ?></h2>
+						<p>
 			<?php
 			printf(
 				/* translators: Placeholder is the text "Crowdsignal". */
@@ -34,16 +34,18 @@
 				)
 			);
 			?>
-			</p>
+					</p>
 			<?php if ( ! $api_key ) { ?>
-				<p><?php esc_html_e( 'If you have a Crowdsignal account, click the "Get API Key" button to connect. This will open a new window.', 'crowdsignal-forms' ); ?>
-				<form id="cs-connect-form" class="crowdsignal-options" method="post" action="https://app.crowdsignal.com/get-api-key/" target="CSCONNECT">
-				<input type="hidden" name="get_api_key" value="<?php echo esc_attr( get_option( 'crowdsignal_api_key_secret' ) ); ?>" />
-				<input type="hidden" name="ref" value="<?php echo esc_attr( admin_url( 'options-general.php?page=crowdsignal-settings' ) ); ?>" />
-				<input type="submit" value="<?php esc_html_e( 'Get API Key', 'crowdsignal-forms' ); ?>" class="dops-button is-primary" />
-				</form></p>
+					<p>
+						<?php esc_html_e( 'If you have a Crowdsignal account, click the "Get API Key" button to connect. This will open a new window.', 'crowdsignal-forms' ); ?>
+						<form id="cs-connect-form" class="crowdsignal-options" method="post" action="https://app.crowdsignal.com/get-api-key/" target="CSCONNECT">
+						<input type="hidden" name="get_api_key" value="<?php echo esc_attr( get_option( 'crowdsignal_api_key_secret' ) ); ?>" />
+						<input type="hidden" name="ref" value="<?php echo esc_attr( admin_url( 'options-general.php?page=crowdsignal-settings' ) ); ?>" />
+						<input type="submit" value="<?php esc_html_e( 'Get API Key', 'crowdsignal-forms' ); ?>" class="dops-button is-primary" />
+						</form>
+					</p>
 			<?php } ?>
-			<form class="crowdsignal-options" method="post" action="<?php echo esc_url( admin_url( 'options-general.php?page=crowdsignal-settings' ) ); ?>">
+					<form class="crowdsignal-options" method="post" action="<?php echo esc_url( admin_url( 'options-general.php?page=crowdsignal-settings' ) ); ?>">
 			<?php
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Used for basic flow.
 			if ( ! empty( $_GET['settings-updated'] ) ) {
@@ -51,24 +53,24 @@
 			}
 
 			?>
-			<div id="settings-general" class="settings_panel">
-				<table class="form-table settings parent-settings">
-					<tr valign="top" class="">
-						<th scope="row"><label for="setting-crowdsignal_api_key"><?php esc_html_e( 'Your Crowdsignal API Key', 'crowdsignal-forms' ); ?></a></th>
-						<td><input
-							<?php echo $api_key ? 'readonly' : ''; ?>
-							id="setting-crowdsignal_api_key"
-							class="regular-text"
-							type="text"
-							name="crowdsignal_api_key"
-							value="<?php echo esc_attr( $api_key ); ?>"
-							/>
-						</td>
-					</tr>
-				</table>
-			</div>
+					<div id="settings-general" class="settings_panel">
+						<table class="form-table settings parent-settings">
+							<tr valign="top" class="">
+								<th scope="row"><label for="setting-crowdsignal_api_key"><?php esc_html_e( 'Your Crowdsignal API Key', 'crowdsignal-forms' ); ?></a></th>
+								<td><input
+									<?php echo $api_key ? 'readonly' : ''; ?>
+									id="setting-crowdsignal_api_key"
+									class="regular-text"
+									type="text"
+									name="crowdsignal_api_key"
+									value="<?php echo esc_attr( $api_key ); ?>"
+									/>
+								</td>
+							</tr>
+						</table>
+					</div>
 
-			<div class="crowdsignal-settings__submit">
+					<div class="crowdsignal-settings__submit">
 			<?php
 			if ( $api_key ) {
 				wp_nonce_field( 'disconnect-api-key' );
@@ -84,11 +86,11 @@
 				<?php
 			}
 			?>
+					</div>
+					</form>
+					</div>
+				</div>
 			</div>
-		</form></p>
-		</div>
-	</div>
-</div>
 
 <?php if ( ! $api_key ) { ?>
 <script>
