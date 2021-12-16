@@ -7,7 +7,7 @@
 
 ?>
 			<br />
-			<div id='crowdsignal_advanced_link'><a href="#" id='toggle_advanced_setting_link'><?php _e( 'Advanced Settings &#8628;' ); ?></a></div>
+			<div id='crowdsignal_advanced_link'><a href="#" id='toggle_advanced_setting_link'><?php _e( 'Advanced Settings ' ); ?></a></div>
 			<br />
 
 <script>
