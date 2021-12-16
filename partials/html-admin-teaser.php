@@ -9,19 +9,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<br />
-<div class='jp-settings-container'>
-	<div class="dops-card dops-section-header is-compact">
-		<div class="dops-section-header__label">
-			<span class="dops-section-header__label-text"><?php esc_html_e( 'Crowdsignal Blocks', 'polldaddy' ); ?></span>
-		</div>
-	</div>
+		<br />
+		<div class='jp-settings-container'>
+			<div class="dops-card dops-section-header is-compact">
+				<div class="dops-section-header__label">
+					<span class="dops-section-header__label-text"><?php esc_html_e( 'Crowdsignal Blocks', 'polldaddy' ); ?></span>
+				</div>
+			</div>
 
-	<div class="dops-card dops-section-header is-compact">
-		<div class="jp-form-settings-group" style='width: 100%'>
-			<h2><?php echo wp_kses_post( __( 'First time using Crowdsignal?', 'polldaddy' ) ); ?></h2>
-		<div class="crowdsignal-setup__middle">
-			<p>
+			<div class="dops-card dops-section-header is-compact">
+				<div class="jp-form-settings-group" style='width: 100%'>
+					<h2><?php echo wp_kses_post( __( 'First time using Crowdsignal?', 'polldaddy' ) ); ?></h2>
+					<div class="crowdsignal-setup__middle">
+						<p>
 			<?php
 			printf(
 				/* translators: Placeholder is the text "second plugin" and "Install the plugin". */
@@ -36,18 +36,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 				)
 			);
 			?>
-			</p>
-			<p><?php _e( 'Here is a short video to get you started:', 'polldaddy' ); ?></p>
+						</p>
+						<p><?php _e( 'Here is a short video to get you started:', 'polldaddy' ); ?></p>
 
 
-			<div class="crowdsignal-setup__video-container">
-				<div class="crowdsignal-setup__video">
-					<iframe src="https://videopress.com/v/jWTs90Dg?autoplay=0&hd=1" frameborder="0" allowfullscreen></iframe>
-				</div>
-			</div>
+						<div class="crowdsignal-setup__video-container">
+							<div class="crowdsignal-setup__video">
+								<iframe src="https://videopress.com/v/jWTs90Dg?autoplay=0&hd=1" frameborder="0" allowfullscreen></iframe>
+							</div>
+						</div>
 
 
-			<p>
+						<p>
 				<?php
 					echo wp_kses_post(
 						sprintf(
@@ -59,8 +59,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 						)
 					);
 					?>
-			</p>
-			<p>
+						</p>
+						<p>
 				<?php
 				printf(
 					/* translators: Placeholder is the text "website plugins page". */
@@ -71,7 +71,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					)
 				);
 				?>
-			</p>
-		</div>
-	</div>
-</div>
+						</p>
+					</div>
+				</div>
+			</div>
