@@ -404,3 +404,6 @@ div.error.crowdsignal-message p {
 	font-style: normal;
 }
 
+#crowdsignal_advanced_link a {
+	text-decoration: none;
+}
