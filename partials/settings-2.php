@@ -79,7 +79,7 @@ foreach( $settings as $key => $value ) {
 		}
 ?>
 									<tr>
-										<th style="text-align: right"><?php echo esc_html( $key ); ?>:</th>
+										<th style="text-align: left"><?php echo esc_html( $key ); ?>:</th>
 										<td><?php echo $value; ?></td>
 									</tr>
 <?php
@@ -94,7 +94,7 @@ foreach( $settings as $key => $value ) {
 									<input type="hidden" name="action" value="reset-account" />
 									<input type="hidden" name="account" value="import" />
 									<p><input type="checkbox" name="email" value="1" /> <?php _e( 'Send me an email with the connection settings for future reference' ); ?></p>
-									<input type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Reset', 'polldaddy' ) ); ?>" />
+									<input type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Reset API Connection', 'polldaddy' ) ); ?>" />
 									</p>
 								</form>
 								<br />
@@ -115,7 +115,7 @@ if ( is_array( $previous_settings ) && !empty( $previous_settings ) ) {
 			}
 ?>
 									<tr>
-										<th style="text-align: right"><?php echo esc_html( $key ); ?>:</th>
+										<th style="text-align: left"><?php echo esc_html( $key ); ?>:</th>
 										<td><?php echo $value; ?></td>
 									</tr>
 <?php
@@ -129,7 +129,7 @@ if ( is_array( $previous_settings ) && !empty( $previous_settings ) ) {
 									<?php wp_nonce_field( 'polldaddy-restore' . $current_user->ID ); ?>
 									<input type="hidden" name="action" value="restore-account" />
 									<input type="hidden" name="account" value="import" />
-									<input type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Restore', 'polldaddy' ) ); ?>" />
+									<input type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Restore API Settings', 'polldaddy' ) ); ?>" />
 									</p>
 								</form>
 								<br />
