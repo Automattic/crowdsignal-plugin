@@ -36,12 +36,8 @@ You can find further help on our [support page](https://crowdsignal.com/support/
 
 == Screenshots ==
 
-1. Manage polls
-2. Edit poll
-3. View poll on page or in a widget
-4. Add ratings
-5. Ratings on a post
-6. Ratings on comments
+1. The Crowdsignal Dashboard
+2. Analyse and export your results
 
 == Frequently Asked Questions ==
 
