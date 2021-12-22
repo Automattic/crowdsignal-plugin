@@ -93,6 +93,9 @@ Revamp wp-admin styles: Crowdsignal dashboard
 
 == Changelog ==
 
+= 3.0.3
+* Move settings page and update style of the settings page to match the Crowdsignal Forms plugin
+
 = 3.0.1
 * Allow landing page to be rendered on demand
 
