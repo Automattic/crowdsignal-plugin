@@ -41,9 +41,13 @@ You can find further help on our [support page](https://crowdsignal.com/support/
 
 == Frequently Asked Questions ==
 
-= Where do I find my Polls & Ratings menus? =
+= Where do I find my Crowdsignal Dashboard? =
 
-The Polls & Ratings menus can now be found under the Feedback top level menu as Crowdsignal & Ratings.
+You can find your dashboard under the Feedback top level menu. You will find Crowdsignal and Ratings menu items there. The Crowdsignal menu item leads to the dashboard. If you have ratings enabled you will see a Ratings menu item that links to a summary of your ratings.
+
+= Where do I find my Crowdsignal Settings? =
+
+You will find the settings area for this plugin under the Settings top level menu, and look for the Crowdsignal menu item.
 
 = I have multiple authors on my blog? What happens? =
 
