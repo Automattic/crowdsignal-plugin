@@ -11,7 +11,7 @@ Stable tag: 3.0.3
 The Crowdsignal Dashboard plugin allows you to create and manage polls, surveys, quizzes, and ratings from within your WordPress admin. See all your projects in one place, be they surveys, quizzes and polls made on Crowdsignal.com or any of our poll and survey blocks using our Crowdsignal Forms plugin. With just one click view all results for your responses as they come in to analyze responses in real time and export your results everywhere!
 
 === The Block Editor ===
-Are you using the new block editor for WordPress? Our other plugin, Crowdsignal Forms provides a number of blocks for your post editor that allow you to gather actionable feedback from your audience:
+Are you using the new block editor for WordPress? Our other plugin, [Crowdsignal Forms](https://wordpress.org/plugins/crowdsignal-forms/) provides a number of blocks for your post editor that allow you to gather actionable feedback from your audience:
 * Poll: Create polls and get your audience’s opinion.
 * Survey Embed: Create surveys in minutes with 14 question types and embed them into your page.
 * Feedback Button: A floating and always visible button that allows your audience to share feedback anytime.
@@ -47,7 +47,7 @@ You can find further help on our [support page](https://crowdsignal.com/support/
 
 = Where do I find my Polls & Ratings menus? =
 
-The Polls & Ratings menus can now be found under the Feedbacks top level menu.
+The Polls & Ratings menus can now be found under the Feedback top level menu as Crowdsignal & Ratings.
 
 = I have multiple authors on my blog? What happens? =
 
