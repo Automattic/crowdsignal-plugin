@@ -1,59 +1,25 @@
-=== Crowdsignal Polls & Ratings ===
-Contributors: eoigal, mdawaffe, donncha, johnny5, panosktn, ice9js, cgastrell
+=== Crowdsignal Dashboard - Polls, Surveys & more ===
+Contributors: donncha, ice9js, cgastrell, digitalwaveride, jcheringer
 Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 5.5
 Requires PHP: 5.6
 Tested up to: 5.7.1
-Stable tag: 3.0.2
-
-Create and manage Crowdsignal polls and ratings from within WordPress.
+Stable tag: 3.0.3
 
 == Description ==
 
-The Crowdsignal Polls and Ratings plugin allows you to create and manage polls and ratings from within your WordPress dashboard. You can create polls, choose from 20 different styles for your polls, and view all results for your polls as they come in. All Crowdsignal polls are fully customizable, you can set a close date for your poll, create multiple choice polls, choose whether to display the results or keep them private. You can also create your own custom style for your poll. You can even embed the polls you create on other websites. You can collect unlimited votes and create unlimited polls. The new ratings menu allows you to embed ratings into your posts, pages or comments. The rating editor allows you to fully customize your rating. You can also avail of the 'Top Rated' widget that will allow you to place the widget in your sidebar. This widget will show you the top rated posts, pages and comments today, this week and this month.
+The Crowdsignal Dashboard plugin allows you to create and manage polls, surveys, quizzes, and ratings from within your WordPress admin. See all your projects in one place, be they surveys, quizzes and polls made on Crowdsignal.com or any of our poll and survey blocks using our Crowdsignal Forms plugin. With just one click view all results for your responses as they come in to analyze responses in real time and export your results everywhere!
 
-=== And there's another plugin! ===
-Are you a fan of the new block editor for WordPress? Our other plugin, [Crowdsignal Forms](https://wordpress.org/plugins/crowdsignal-forms/) provides a number of good looking blocks for your site. Of course there is a poll block and it's even easier to use than the poll embed here. Collect the positive vibes of a round of applause through our applause block, or see who will give your blog post a thumbs up with the vote block. There are even some blocks like the NPS block that are only available in this plugin. To get the most out of Crowdsignal you should install the Crowdsignal Forms plugin and this plugin because they do different jobs.
+=== The Block Editor ===
+Are you using the new block editor for WordPress? Our other plugin, Crowdsignal Forms provides a number of blocks for your post editor that allow you to gather actionable feedback from your audience:
+* Poll: Create polls and get your audience’s opinion.
+* Survey Embed: Create surveys in minutes with 14 question types and embed them into your page.
+* Feedback Button: A floating and always visible button that allows your audience to share feedback anytime.
+* Measure NPS: Calculate your Net Promoter Score! Collect feedback and track customer satisfaction over time.
+* Voting: Allow your audience to rate your work or express their opinion.
+* Applause: Let your audience cheer with a big round of applause.
 
-Crowdsignal Polls is currently available in the following languages:
-
-* Arabic
-* Bosnian
-* Bulgarian
-* Chinese (Taiwan)
-* Croatian
-* Czech
-* Danish
-* Dutch
-* Finnish
-* French (Canada)
-* French (France)
-* French (Switzerland)
-* Galician
-* German
-* Greek (Polytonic)
-* Hebrew
-* Hungarian
-* Indonesian
-* Irish
-* Italian
-* Korean
-* Lithuanian
-* Malay
-* Norwegian
-* Norwegian (Nynorsk)
-* Persian
-* Polish
-* Portuguese (Brazil)
-* Portuguese (Portugal)
-* Romanian
-* Russian
-* Serbian
-* Slovak
-* Spanish (Puerto Rico)
-* Spanish (Spain)
-* Swedish
-* Uighur
+Learn more about the Crowdsignal Forms plugin [here](https://wordpress.org/plugins/crowdsignal-forms/), and on [crowdsignal.com](https://crowdsignal.com/).
 
 Want to help translate the plugin or keep an existing translation up-to-date? Head on over to the [translation site](http://translate.wordpress.com/projects/polldaddy/plugin).
 
@@ -63,7 +29,7 @@ Development of the plugin will take place in [this Github repository](https://gi
 
 == Installation ==
 
-Upload the plugin to your blog (or search for it and install it on your plugins page), activate it, then go to Settings->Polls to configure the plugin. You'll need a Crowdsignal API key available from your [Crowdsignal account page](https://app.crowdsignal.com/account/#apikey) to sync your account and pull in your existing polls and ratings.
+Upload the plugin to your blog (or search for it and install it on your plugins page), activate it, then go to Settings->Crowdsignal to configure the plugin. You'll need a Crowdsignal API key available from your [Crowdsignal account page](https://app.crowdsignal.com/account/#apikey) to sync your account and pull in your existing polls and ratings.
 Crowdsignal.com is now linked to WordPress.com using [WordPress.com Connect](http://en.support.wordpress.com/wpcc-faq/) which means you can use your WordPress.com username and password to login to Crowdsignal.com. If you have a WordPress.com account and have never used Crowdsignal.com you can login [here](https://app.crowdsignal.com/login/) to access Crowdsignal.com.
 
 You can find further help on our [support page](https://crowdsignal.com/support/). If you have any problems please use the [support forum](http://wordpress.org/support/plugin/polldaddy). The plugin also logs activity to a file using the [WP Debug Logger](http://wordpress.org/extend/plugins/wp-debug-logger/) plugin which can be useful in determining the cause of a problem.
@@ -83,17 +49,17 @@ You can find further help on our [support page](https://crowdsignal.com/support/
 
 The Polls & Ratings menus can now be found under the Feedbacks top level menu.
 
-= I have multiple authors on my blog?  What happens? =
+= I have multiple authors on my blog? What happens? =
 
 Each author that wants to create polls will need his or her own Crowdsignal.com account.
 
 = But, as an Administrator, can I edit my Authors' polls =
 
-Yes. You'll be able to edit the polls they create from your blog.  (You won't be able to edit any of their non-blog, personal polls they create through Crowdsignal.com.)
+Yes. You'll be able to edit the polls they create from your blog. (You won't be able to edit any of their non-blog, personal polls they create through Crowdsignal.com.)
 
 = Neat! Um... can my Authors edit MY blog polls? =
 
-Nope.  The permissions are the same as for posts.  So Editors and Administrators can edit anyone's polls for that blog.  Authors can only edit their own.
+Nope. The permissions are the same as for posts. So Editors and Administrators can edit anyone's polls for that blog. Authors can only edit their own.
 
 = Where are my ratings? =
 
@@ -119,7 +85,7 @@ Your theme is getting the post content, without necessarily showing it. If the p
 
 = My API key is valid but I cannot get the plugin to link with Crowdsignal
 
-This is possible if your server or network is blocking outgoing calls to Crowdsignal's API.  
+This is possible if your server or network is blocking outgoing calls to Crowdsignal's API.
 Make sure to whitelist `api.crowdsignal.com` in your firewall to fix this.
 
 == Upgrade Notice ==
@@ -381,7 +347,7 @@ Revamp wp-admin styles: Crowdsignal dashboard
 = 1.8.8 =
 * Updated style editor to catch some missing strings so they can be now be localised
 * Added string maps to javascript files to allow them to be localised
-* Added extra label to ratings settings, vote, so now the label votes has a singular expression for localisation.                              
+* Added extra label to ratings settings, vote, so now the label votes has a singular expression for localisation.
 * Added option to style editor to update all polls that use this style, so any update to style will automatically be reflected in the poll.
 * Bug Fix: Embed options are now in readonly text inputs, resolves issue of pre tags being pasted along with embed code/URL in the HTML editor.
 
@@ -489,7 +455,7 @@ Revamp wp-admin styles: Crowdsignal dashboard
 = 1.0 =
 * New Polldaddy API
 * Do not store UserCode, retrieve from API
-* Bug Fix: Fix API key retrieval.  Improper use of wp_remote_post()
+* Bug Fix: Fix API key retrieval. Improper use of wp_remote_post()
 
 = 0.9 =
 * Compatiblity with WordPress 2.7
@@ -503,7 +469,7 @@ Revamp wp-admin styles: Crowdsignal dashboard
 * Potential bug fix: Maybe get rid of 'Invalid Poll Author' error... again.
 
 = 0.6 =
-* Bug fix: Allow reauthentication with Polldaddy email address and Polldaddy password.  This is necessary because the stored Polldaddy User API key is invalidated if the user's details change on Polldaddy.com.
+* Bug fix: Allow reauthentication with Polldaddy email address and Polldaddy password. This is necessary because the stored Polldaddy User API key is invalidated if the user's details change on Polldaddy.com.
 * Buf fix: Speed up CSS and JS.
 * Feature: Link to view Shortcode and JavaScript code for each poll.
 
@@ -518,7 +484,7 @@ Revamp wp-admin styles: Crowdsignal dashboard
 
 = 0.3 =
 * Bug fix: Send text data escaped in CDATA to prevent XML errors.
-* Bug fix: Append to text value, don't overwrite it.  XML parser can call text handler many times per node.
+* Bug fix: Append to text value, don't overwrite it. XML parser can call text handler many times per node.
 * Bug fix: No more slashes when a poll reloads in the edit form after an error.
 
 = 0.2 =
