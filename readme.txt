@@ -111,7 +111,7 @@ You need to select the synchronize ratings account in the WordPress options page
 
 = When I try to use a rating on a page, I get a PHP warning about the post title. =
 
-Your rating uses the filter 'wp_title' by default when retrieving the post title, you may need to remove this in the Polls & Ratings settings to allow ratings to work with your theme.
+Your rating uses the filter 'wp_title' by default when retrieving the post title, you may need to remove this by defining the constant "CS_RATING_TITLE_FILTER" to a new filter to use, or just set it to "1" to allow ratings to work with your theme. Define the constant in wp-config.php or an mu-plugin.
 
 = Why is a poll loading in the footer of my main page? =
 

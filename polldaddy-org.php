@@ -117,12 +117,6 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 					$polldaddy->update_partner_account( $partner );
 					update_option( 'polldaddy_multiple_accounts', $polldaddy_multiple_accounts );
 					update_option( 'polldaddy_load_poll_inline', $polldaddy_load_poll_inline );
-
-					$rating_title_filter = '';
-					if ( isset( $_POST['polldaddy-ratings-title-filter'] ) )
-						$rating_title_filter = sanitize_text_field( $_POST['polldaddy-ratings-title-filter'] );
-
-					update_option( 'pd-rating-title-filter', $rating_title_filter );
 				}
 				break;
 			} //end switch
