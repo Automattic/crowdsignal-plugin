@@ -112,15 +112,16 @@ function polldaddy_get_rating_html( $condition = '' ) {
 		}
 
 		if ( $rating_id > 0 ) {
-			$rating_title_filter = get_option( 'pd-rating-title-filter' );
-			
-			if ( $rating_title_filter === false )
+			if ( defined( 'CS_RATING_TITLE_FILTER' ) ) {
+				if ( strlen( constant( 'CS_RATING_TITLE_FILTER' ) ) > 0 ) {
+					$title = apply_filters( constant( 'CS_RATING_TITLE_FILTER' ), $post->post_title, $post->ID, '' );
+				} else {
+					$title = $post->post_title;
+				}
+			} else {
 				$title = apply_filters( 'the_title', $post->post_title, $post->ID, '' );
-			elseif ( strlen( $rating_title_filter ) > 0 )
-				$title = apply_filters( $rating_title_filter, $post->post_title, $post->ID, '' );
-			else
-				$title = $post->post_title;
-				
+			}
+
 			$permalink = get_permalink( $post->ID );
 			$html = polldaddy_get_rating_code( $rating_id, $unique_id, $title, $permalink, $item_id );
 		}
