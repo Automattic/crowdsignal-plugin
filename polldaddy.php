@@ -1718,7 +1718,6 @@ class WP_Polldaddy {
 		?>
 
 		<div class="wrap" id="manage-polls">
-			<div class="cs-pre-wrap"></div>
 			<div class="cs-wrapper">
 				<?php
 				if ( 'polls' === $page ) {

@@ -53,10 +53,6 @@ h2#polldaddy-header, h2#poll-list-header {
 	display: inline-block;
 }
 
-.cs-pre-wrap {
-	background: white;
-	height: 30px;
-}
 .cs-wrapper {
 	clear: both;
 	display: flex;
@@ -66,10 +62,6 @@ h2#polldaddy-header, h2#poll-list-header {
 }
 
 @media screen and (max-width: 782px) {
-	.cs-pre-wrap {
-		height: 60px;
-	}
-
 	.cs-wrapper {
 		min-height: calc(100% - 60px);
 	}
