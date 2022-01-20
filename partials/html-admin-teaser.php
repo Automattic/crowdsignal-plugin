@@ -10,15 +10,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 		<br />
-		<div class='jp-settings-container'>
-			<div class="dops-card dops-section-header is-compact">
-				<div class="dops-section-header__label">
-					<span class="dops-section-header__label-text"><?php esc_html_e( 'Crowdsignal Blocks', 'polldaddy' ); ?></span>
+		<div class='cs-settings-container'>
+			<div class="cs-card cs-section-header is-compact">
+				<div class="cs-section-header__label">
+					<span class="cs-section-header__label-text"><?php esc_html_e( 'Crowdsignal Blocks', 'polldaddy' ); ?></span>
 				</div>
 			</div>
 
-			<div class="dops-card dops-section-header is-compact">
-				<div class="jp-form-settings-group" style='width: 100%'>
+			<div class="cs-card cs-section-header is-compact">
+				<div class="cs-form-settings-group" style='width: 100%'>
 					<h2><?php echo wp_kses_post( __( 'First time using Crowdsignal?', 'polldaddy' ) ); ?></h2>
 					<div class="crowdsignal-setup__middle">
 						<p>

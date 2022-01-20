@@ -22,9 +22,9 @@ jQuery(document).ready( function() {
 			<div style='display:none' id="crowdsignal__advanced_page">
 
 				<?php if ( $controller->multiple_accounts ) { ?>
-				<div class='jp-settings-container'>
-					<div class="dops-card dops-section-header is-compact">
-						<div class="jp-form-settings-group" style='width: 100%'>
+				<div class='cs-settings-container'>
+					<div class="cs-card cs-section-header is-compact">
+						<div class="cs-form-settings-group" style='width: 100%'>
 							<h2><?php echo wp_kses_post( __( 'Multiuser Account', 'polldaddy' ) ); ?></h2>
 							<div class="crowdsignal-setup__middle">
 								<form action="" method="post">
@@ -60,8 +60,8 @@ if ( ! $show_reset_form && empty( $previous_settings ) ) {
 }
 ?>
 
-				<div class='jp-settings-container'>
-					<div class="dops-card dops-section-header is-compact">
+				<div class='cs-settings-container'>
+					<div class="cs-card cs-section-header is-compact">
 						<div class="" style='width: 100%'>
 							<h2><?php echo wp_kses_post( __( 'Reset Connection Settings', 'polldaddy' ) ); ?></h2>
 							<div class="crowdsignal-setup__middle">

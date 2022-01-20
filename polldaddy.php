@@ -5,7 +5,7 @@
  * Description: Create and manage Crowdsignal polls and ratings in WordPress
  * Author: Automattic, Inc.
  * Author URL: https://crowdsignal.com/
- * Version: 3.0.4
+ * Version: 3.0.5
  */
 
 // To hardcode your Polldaddy PartnerGUID (API Key), add the (uncommented) line below with the PartnerGUID to your `wp-config.php`
@@ -467,6 +467,15 @@ class WP_Polldaddy {
 			die();
 		}
 
+		if ( isset( $_POST['action'] ) && $_POST['action'] === 'disconnect' ) {
+			check_admin_referer( 'disconnect-api-key' );
+			delete_option( 'polldaddy_api_key' );
+			delete_option( 'crowdsignal_api_key' );
+			delete_option( 'crowdsignal_user_code' );
+			delete_option( 'pd-usercode-' . $this->id );
+			wp_safe_redirect( admin_url( 'options-general.php?page=crowdsignal-settings&msg=disconnected' ) );
+		}
+
 		$this->set_api_user_code();
 
 		if ( empty( $this->user_code ) && 'crowdsignal-settings' === $page && 'options' !== $action ) {
@@ -478,9 +487,6 @@ class WP_Polldaddy {
 
 		require_once WP_POLLDADDY__POLLDADDY_CLIENT_PATH;
 
-		wp_enqueue_style( 'jetpack-styles1', 'https://c0.wp.com/p/jetpack/10.0/_inc/build/style.min.css', array(), '1.5.7' );
-		wp_enqueue_style( 'jetpack-styles2', 'https://c0.wp.com/c/5.8.1/wp-admin/css/common.min.css', array(), '1.5.7' );
-		wp_enqueue_style( 'jetpack-styles3', 'https://c0.wp.com/p/jetpack/10.0/_inc/build/admin.css', array(), '1.5.7' );
 		wp_enqueue_style( 'admin-styles', plugin_dir_url( __FILE__ ) . '/admin-styles.css', array(), '1.5.12' );
 		wp_enqueue_style( 'wp-components' );
 		wp_enqueue_script( 'polls', "{$this->base_url}js/polldaddy.js", array( 'jquery', 'jquery-ui-sortable', 'jquery-form', 'wp-components' ), $this->version );
@@ -1712,7 +1718,6 @@ class WP_Polldaddy {
 		?>
 
 		<div class="wrap" id="manage-polls">
-			<div class="cs-pre-wrap"></div>
 			<div class="cs-wrapper">
 				<?php
 				if ( 'polls' === $page ) {
