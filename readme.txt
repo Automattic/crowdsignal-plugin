@@ -3,8 +3,8 @@ Contributors: donncha, ice9js, cgastrell, digitalwaveride, jcheringer
 Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 5.5
 Requires PHP: 5.6
-Tested up to: 5.8.2
-Stable tag: 3.0.5
+Tested up to: 5.8.3
+Stable tag: 3.0.6
 
 == Description ==
 
@@ -92,6 +92,13 @@ Make sure to whitelist `api.crowdsignal.com` in your firewall to fix this.
 Revamp wp-admin styles: Crowdsignal dashboard
 
 == Changelog ==
+
+= 3.0.6
+* Fix CSS so it doesn't conflict with Jetpack. Fix disconnect form. (75)
+* Fix typo (76)
+
+= 3.0.5
+* Revert 3.0.3 due to conflict with Jetpack
 
 = 3.0.3
 * Move settings page and update style of the settings page to match the Crowdsignal Forms plugin
