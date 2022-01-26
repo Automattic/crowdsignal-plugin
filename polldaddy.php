@@ -1715,12 +1715,14 @@ class WP_Polldaddy {
 		$poll   = (int) $poll;
 		$style  = (int) $style;
 		$rating = esc_html( $rating );
+		$wrap_style = $page === 'polls' ? 'polls' : 'ratings';
 		?>
 
-		<div class="wrap" id="manage-polls">
+		<div class="wrap <?php echo $wrap_style . '-wrap'; ?>" id="manage-polls">
 			<div class="cs-wrapper">
 				<?php
 				if ( 'polls' === $page ) {
+					?><div class="cs-pre-wrap"></div><?php
 					if ( ! $this->is_author && in_array( $action, array( 'edit', 'edit-poll', 'create-poll', 'edit-style', 'create-style', 'list-styles' ), true ) ) { // check user privileges has access to action.
 						$action = '';
 					}
