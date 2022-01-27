@@ -60,7 +60,6 @@ h2#polldaddy-header, h2#poll-list-header {
 }
 
 .cs-pre-wrap {
-	background: white;
 	height: 30px;
 }
 
@@ -94,7 +93,6 @@ h2#polldaddy-header, h2#poll-list-header {
 }
 
 .cs-background-fill {
-	background-color: white;
 }
 
 .cs-wrapper-row > * {
@@ -388,7 +386,6 @@ h2#polldaddy-header, h2#poll-list-header {
 	flex-direction: column;
 	grid-column: 2 / span 2;
 	grid-row: 2;
-	background: white;
 	padding: 8px 0;
 	flex-grow: 1;
 }
