@@ -63,7 +63,7 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 		if ( $page == 'ratings' )
 			return (stripos( $admin_title, $page ) === false ? __( "Ratings", "polldaddy" ) : '' ).$admin_title;
 		elseif ( $page == 'polls' )
-			return (stripos( $admin_title, $page ) === false ? __( "Polls", "polldaddy" ) : '' ).$admin_title;
+			return (stripos( $admin_title, $page ) === false ? __( "Dashboard", "polldaddy" ) : '' ) . ' | ' . $admin_title;
 
 		return $admin_title;
 	}
