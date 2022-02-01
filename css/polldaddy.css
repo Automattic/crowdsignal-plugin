@@ -31,12 +31,8 @@
 	margin-top: 0;
 }
 
-.polls-wrap {
+#manage-polls:not(.cs-dashboard__crowdsignal_ratings_wrap) {
 	margin-left: -20px;
-}
-
-.ratings-wrap {
-	margin-left: 0px;
 }
 
 @media screen and (max-width: 782px) {

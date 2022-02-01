@@ -1718,7 +1718,7 @@ class WP_Polldaddy {
 		$wrap_style = $page === 'polls' ? 'polls' : 'ratings';
 		?>
 
-		<div class="wrap <?php echo $wrap_style . '-wrap'; ?>" id="manage-polls">
+		<div class="wrap cs-dashboard__crowdsignal_<?php echo $wrap_style ; ?>_wrap" id="manage-polls">
 			<div class="cs-wrapper">
 				<?php
 				if ( 'polls' === $page ) {
