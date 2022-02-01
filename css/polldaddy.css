@@ -27,9 +27,12 @@
 }
 
 #manage-polls {
-	margin-left: -20px;
 	margin-right: 0;
 	margin-top: 0;
+}
+
+#manage-polls:not(.cs-dashboard__crowdsignal_ratings_wrap) {
+	margin-left: -20px;
 }
 
 @media screen and (max-width: 782px) {
@@ -52,6 +55,11 @@ h2#polldaddy-header, h2#poll-list-header {
 	display: inline-block;
 }
 
+.cs-pre-wrap {
+	background-color: white;
+	height: 30px;
+}
+
 .cs-wrapper {
 	clear: both;
 	display: flex;
@@ -61,6 +69,11 @@ h2#polldaddy-header, h2#poll-list-header {
 }
 
 @media screen and (max-width: 782px) {
+	.cs-pre-wrap {
+		background-color: white;
+		height: 60px;
+	}
+
 	.cs-wrapper {
 		min-height: calc(100% - 60px);
 	}
@@ -372,7 +385,7 @@ h2#polldaddy-header, h2#poll-list-header {
 	flex-direction: column;
 	grid-column: 2 / span 2;
 	grid-row: 2;
-	background: white;
+	background-color: white;
 	padding: 8px 0;
 	flex-grow: 1;
 }
