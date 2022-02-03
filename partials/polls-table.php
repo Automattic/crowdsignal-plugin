@@ -162,12 +162,24 @@
 						$results_link   = 'https://app.crowdsignal.com/quizzes/' . $item->_id . '/report/overview';
 						$edit_link      = 'https://app.crowdsignal.com/quizzes/' . $item->_id . '/question';
 						$icon_url       = 'img/svg/icon-block-quiz-round.svg';
-					} else {
+					} elseif ( 'rating' === $item->type ) {
 						$edit_post      = false;
 						$item_post_link = false;
 						$results_link   = 'https://app.crowdsignal.com/ratings/' . $item->_id . '/results/';
 						$edit_link      = 'https://app.crowdsignal.com/ratings/' . $item->_id . '/edit/';
 						$icon_url       = 'img/svg/icon-block-rating-round.svg';
+					}   elseif ( 'project' === $item->type ) {
+						$edit_post      = false;
+						$item_post_link = false;
+						$results_link   = 'https://app.crowdsignal.com/project/' . $item->_id . '/results/';
+						$edit_link      = 'https://app.crowdsignal.com/project/' . $item->_id;
+						$icon_url       = 'img/svg/icon-block-project-round.svg';
+					} else { // show a generic icon and generic links to app.crowdsignal.com for unhandled item types
+						$edit_post      = false;
+						$item_post_link = false;
+						$results_link   = false;
+						$edit_link      = 'https://app.crowdsignal.com/dashboard/';
+						$icon_url       = 'img/svg/cs-logo2.svg';
 					}
 
 					$icon_url = $resource_path . $icon_url; // phpcs:ignore -- variable comes from controller
