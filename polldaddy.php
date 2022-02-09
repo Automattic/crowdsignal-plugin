@@ -1957,10 +1957,10 @@ class WP_Polldaddy {
 
 		switch ( $view ) {
 			case 'csforms':
-				$current_user_owns_connection = ! empty( $cs_forms_account ) && $cs_forms_account->email === $current_user->user_email;
+				$current_user_owns_connection = ! empty( $cs_forms_account ) && (int) $cs_forms_account->partnerUserID === (int) $current_user->ID;
 				break;
 			default: // me and blog case.
-				$current_user_owns_connection = ! empty( $connected_account ) && $connected_account->email === $current_user->user_email;
+				$current_user_owns_connection = ! empty( $connected_account ) && (int) $connected_account->partnerUserID === (int) $current_user->ID;
 		}
 
 		$this->render_partial(
