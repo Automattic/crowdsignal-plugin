@@ -268,6 +268,8 @@ class Polldaddy_Account extends Polldaddy_XML_Object {
 	var $avatarURL;
 	var $bio;
 	var $src;
+	// phpcs:ignore WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase -- legacy code demands it
+	public $partnerUserID;
 }
 
 class Polldaddy_List extends Polldaddy_XML_Object {
