@@ -334,12 +334,11 @@ class api_client {
 		if ( !is_numeric( $id ) )
 			$id = $GLOBALS['blog_id'];
 
-		if ( !$start && !$end )
-//			$pos = $this->add_request( __FUNCTION__ );
+		if ( ! $start && ! $end ) {
 			$pos = $this->add_request( 'getpolls', compact( 'id' ) );
-		else
-//			$pos = $this->add_request( __FUNCTION__, new Polldaddy_List( null, compact( 'start', 'end', 'id' ) ) );
+		} else {
 			$pos = $this->add_request( 'getpolls', new Polldaddy_List( null, compact( 'start', 'end', 'id' ) ) );
+		}
 		$this->send_request();
 		$r = $this->response_part( $pos );
 		if ( isset( $r->polls ) ) {
@@ -360,7 +359,6 @@ class api_client {
 		if ( !$id = (int) $id )
 			return false;
 
-//		$pos = $this->add_request( __FUNCTION__, new Polldaddy_Poll( null, compact( 'id' ) ) );
 		$pos = $this->add_request( 'getpoll', new Polldaddy_Poll( null, compact( 'id' ) ) );
 		$this->send_request();
 
@@ -385,7 +383,6 @@ class api_client {
 		if ( !$id = (int) $id )
 			return false;
 
-//		$pos = $this->add_request( __FUNCTION__, new Polldaddy_Poll( null, compact( 'id' ) ) );
 		$pos = $this->add_request( 'buildpoll', new Polldaddy_Poll( null, compact( 'id' ) ) );
 		$this->send_request();
 
@@ -410,7 +407,6 @@ class api_client {
 		if ( !$id = (int) $id )
 			return false;
 
-//		$pos = $this->add_request( __FUNCTION__, new Polldaddy_Poll( null, compact( 'id' ) ) );
 		$pos = $this->add_request( 'deletepoll', new Polldaddy_Poll( null, compact( 'id' ) ) );
 		$this->send_request();
 
@@ -425,7 +421,6 @@ class api_client {
 		if ( !$id = (int) $id )
 			return false;
 
-//		$pos = $this->add_request( __FUNCTION__, new Polldaddy_Poll( null, compact( 'id' ) ) );
 		$pos = $this->add_request( 'openpoll', new Polldaddy_Poll( null, compact( 'id' ) ) );
 		$this->send_request();
 
@@ -440,7 +435,6 @@ class api_client {
 		if ( !$id = (int) $id )
 			return false;
 
-//		$pos = $this->add_request( __FUNCTION__, new Polldaddy_Poll( null, compact( 'id' ) ) );
 		$pos = $this->add_request( 'closepoll', new Polldaddy_Poll( null, compact( 'id' ) ) );
 		$this->send_request();
 
@@ -455,7 +449,7 @@ class api_client {
 	function create_poll( $args = null ) {
 		if ( !$poll = polldaddy_poll( $args ) )
 			return false;
-//		$pos = $this->add_request( __FUNCTION__, $poll );
+
 		$pos = $this->add_request( 'createpoll', $poll );
 		$this->send_request();
 		if ( !$demand = $this->response_part( $pos ) )
@@ -479,7 +473,6 @@ class api_client {
 		if ( !$poll = polldaddy_poll( $args, $id ) )
 			return false;
 
-//		$pos = $this->add_request( __FUNCTION__, $poll );
 		$pos = $this->add_request( 'updatepoll', $poll );
 		$this->send_request();
 		if ( !$demand = $this->response_part( $pos ) )
@@ -501,7 +494,6 @@ class api_client {
 		if ( !$poll = new Polldaddy_Poll( $args, compact( 'folderID' ) ) )
 			return false;
 
-//		$pos = $this->add_request( __FUNCTION__, $poll );
 		$pos = $this->add_request( 'updatepolldefaults', $poll );
 		$this->send_request();
 		return empty( $this->errors );
@@ -516,10 +508,9 @@ class api_client {
 		if ( !$id = (int) $id )
 			return false;
 
-			$start = 0;
-			$end = 2;
+		$start = 0;
+		$end = 2;
 
-//		$pos = $this->add_request( __FUNCTION__, new Polldaddy_Poll_Result( null, compact( 'id' ) ) );
 		$pos = $this->add_request( 'getpollresults', new Polldaddy_Poll( null, compact( 'id' ) ) );
 		//Optionally if you want to list other answers...
 		//$pos = $this->add_request( 'getpollresults', new Polldaddy_List( null, compact( 'id', 'start', 'end' ) ) );
@@ -558,7 +549,6 @@ class api_client {
 		if ( !$id = (int) $id )
 			return false;
 
-//		$pos = $this->add_request( __FUNCTION__, new Polldaddy_Poll_Result( null, compact( 'id' ) ) );
 		$pos = $this->add_request( 'resetpollresults', new Polldaddy_Poll( null, compact( 'id' ) ) );
 		$this->send_request();
 
@@ -574,7 +564,6 @@ class api_client {
 		if ( !$id = (int) $id )
 			return false;
 
-//		$pos = $this->add_request( __FUNCTION__, new Polldaddy_Comments( null, compact( 'id' ) ) );
 		$pos = $this->add_request( 'getpollcomments', new Polldaddy_Poll( null, compact( 'id' ) ) );
 		$this->send_request();
 
@@ -604,7 +593,6 @@ class api_client {
 		if ( !$comment = polldaddy_comment( $args, $id ) )
 			return false;
 
-//		$this->add_request( __FUNCTION__, new Polldaddy_Comments( $comments ) );
 		$this->add_request( 'moderatecomment', $comment);
 		$this->send_request();
 
@@ -617,7 +605,6 @@ class api_client {
 		 */
 	function get_languages() {
 
-//		$pos = $this->add_request( __FUNCTION__, null );
 		$pos = $this->add_request( 'getlanguages', null );
 		$this->send_request();
 
@@ -641,7 +628,6 @@ class api_client {
 	 */
 	function get_packs() {
 
-//		$pos = $this->add_request( __FUNCTION__, null );
 		$pos = $this->add_request( 'getpacks', null );
 		$this->send_request();
 
@@ -664,7 +650,6 @@ class api_client {
 		if ( !$id = (int) $id )
 			return false;
 
-//		$pos = $this->add_request( __FUNCTION__, new Polldaddy_Pack( null, compact( 'id' ) ) );
 		$pos = $this->add_request( 'getpack', new Polldaddy_Pack( null, compact( 'id' ) ) );
 		$this->send_request();
 
@@ -684,7 +669,6 @@ class api_client {
 		if ( !$id = (int) $id )
 			return false;
 
-//		$pos = $this->add_request( __FUNCTION__, new Polldaddy_Pack( null, compact( 'id' ) ) );
 		$pos = $this->add_request( 'deletepack', new Polldaddy_Pack( null, compact( 'id' ) ) );
 		$this->send_request();
 
@@ -699,7 +683,7 @@ class api_client {
 	function create_pack( $args = null ) {
 		if ( !$pack = polldaddy_pack( $args ) )
 			return false;
-//		$pos = $this->add_request( __FUNCTION__, $pack );
+
 		$pos = $this->add_request( 'createpack', $pack );
 		$this->send_request();
 		if ( !$demand = $this->response_part( $pos ) )
@@ -722,7 +706,6 @@ class api_client {
 		if ( !$pack = polldaddy_pack( $args, $id ) )
 			return false;
 
-//		$pos = $this->add_request( __FUNCTION__, $pack );
 		$pos = $this->add_request( 'updatepack', $pack );
 		$this->send_request();
 		return $this->response_part( $pos );
@@ -734,7 +717,6 @@ class api_client {
 	 */
 	function get_styles() {
 
-//		$pos = $this->add_request( __FUNCTION__, null );
 		$pos = $this->add_request( 'getstyles', null );
 		$this->send_request();
 
@@ -757,7 +739,6 @@ class api_client {
 		if ( !$id = (int) $id )
 			return false;
 
-	//	$pos = $this->add_request( __FUNCTION__, new Polldaddy_Style( null, compact( 'id' ) ) );
 		$pos = $this->add_request( 'getstyle', new Polldaddy_Style( null, compact( 'id' ) ) );
 		$this->send_request();
 
@@ -777,7 +758,6 @@ class api_client {
 		if ( !$id = (int) $id )
 			return false;
 
-//		$pos = $this->add_request( __FUNCTION__, new Polldaddy_Style( null, compact( 'id' ) ) );
 		$pos = $this->add_request( 'deletestyle', new Polldaddy_Style( null, compact( 'id' ) ) );
 		$this->send_request();
 
@@ -792,7 +772,7 @@ class api_client {
 	function create_style( $args = null ) {
 		if ( !$style = polldaddy_style( $args ) )
 			return false;
-//		$pos = $this->add_request( __FUNCTION__, $style );
+
 		$pos = $this->add_request( 'createstyle', $style );
 		$this->send_request();
 		if ( !$demand = $this->response_part( $pos ) )
@@ -815,7 +795,6 @@ class api_client {
 		if ( !$style = polldaddy_style( $args, $id ) )
 			return false;
 
-//		$pos = $this->add_request( __FUNCTION__, $style );
 		$pos = $this->add_request( 'updatestyle', $style );
 		$this->send_request(30);
 		if ( !$demand = $this->response_part( $pos ) )
@@ -863,27 +842,27 @@ class api_client {
 
 	}
 
-    /* Create Rating
+	/* Create Rating
 	 * @param string $name Polldaddy rating name
 	 * @param string $type Polldaddy rating type
 	 * @return array|false Polldaddy Result or false on failure
 	 */
 
-    function create_rating( $name, $type ){
+	function create_rating( $name, $type ){
 
-	    $pos = $this->add_request( 'createrating', new Polldaddy_Rating( compact( 'name'  ) , compact( 'type' ) ) );
+		$pos = $this->add_request( 'createrating', new Polldaddy_Rating( compact( 'name'  ) , compact( 'type' ) ) );
 
-	    $this->send_request();
+		$this->send_request();
 
-	    $demand = $this->response_part( $pos );
+		$demand = $this->response_part( $pos );
 
-	    if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->rating ) ){
-	        return $demand->rating;
-	    }
+		if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->rating ) ) {
+			return $demand->rating;
+		}
 
-	    return false;
+		return false;
 
-    }
+	}
 
 
 	/* Rating Results */
@@ -942,40 +921,40 @@ class api_client {
 	 * @return array|false Polldaddy Media or false on failure
 	 */
 
-    function upload_image( $name, $url, $type, $id = 0, $data = '' ){
+	function upload_image( $name, $url, $type, $id = 0, $data = '' ){
 
 		if ( !empty( $data ) )
 			$pos = $this->add_request( 'uploadimagebinary', new Polldaddy_Media( compact( 'name', 'type', 'data'  ) , compact( 'id' ) ) );
 		else
-	    	$pos = $this->add_request( 'uploadimageurl', new Polldaddy_Media( compact( 'name', 'type', 'url' ) , compact( 'id' ) ) );
+			$pos = $this->add_request( 'uploadimageurl', new Polldaddy_Media( compact( 'name', 'type', 'url' ) , compact( 'id' ) ) );
 
-	    $this->send_request(30);
+		$this->send_request(30);
 
-	    $demand = $this->response_part( $pos );
+		$demand = $this->response_part( $pos );
 
-	    if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->media ) ){
-	        return $demand->media;
-	    }
+		if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->media ) ){
+			return $demand->media;
+		}
 
-	    return false;
-    }
+		return false;
+	}
 
-    function get_media( $id ){
+	function get_media( $id ){
 		if ( !$id = (int) $id )
 			return false;
 
-	    $pos = $this->add_request( 'getmedia', new Polldaddy_Media( null, compact( 'id' ) ) );
+		$pos = $this->add_request( 'getmedia', new Polldaddy_Media( null, compact( 'id' ) ) );
 
-	    $this->send_request();
+		$this->send_request();
 
-	    $demand = $this->response_part( $pos );
+		$demand = $this->response_part( $pos );
 
-	    if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->media ) ){
-	        return $demand->media;
-	    }
+		if ( is_a( $demand, 'Ghetto_XML_Object' ) && isset( $demand->media ) ){
+			return $demand->media;
+		}
 
-	    return false;
-    }
+		return false;
+	}
 
 	function get_xml(){
 		return array( 'REQUEST' => $this->request_xml, 'RESPONSE' => $this->response_xml );
@@ -1318,9 +1297,9 @@ function _polldaddy_comments_defaults() {
 }
 
 if ( !function_exists( '_polldaddy_poll_default_language_id' ) ) :
-function _polldaddy_poll_default_language_id() {
-	return 1;
-}
+	function _polldaddy_poll_default_language_id() {
+		return 1;
+	}
 endif;
 
 function &polldaddy_poll_answer( $args, $id = null ) {
@@ -1334,19 +1313,19 @@ function &polldaddy_poll_answer( $args, $id = null ) {
 }
 
 if ( !function_exists( 'wp_parse_args' ) ) :
-/**
- * Merge user defined arguments into defaults array.
- *
- * This function is used throughout WordPress to allow for both string or array
- * to be merged into another array.
- *
- * @since 2.2.0
- *
- * @param string|array $args Value to merge with $defaults
- * @param array $defaults Array that serves as the defaults.
- * @return array Merged user defined values with defaults.
- */
-function wp_parse_args( $args, $defaults = '' ) {
+	/**
+	 * Merge user defined arguments into defaults array.
+	 *
+	 * This function is used throughout WordPress to allow for both string or array
+	 * to be merged into another array.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param string|array $args Value to merge with $defaults
+	 * @param array $defaults Array that serves as the defaults.
+	 * @return array Merged user defined values with defaults.
+	 */
+	function wp_parse_args( $args, $defaults = '' ) {
 	if ( is_object( $args ) )
 		$r = get_object_vars( $args );
 	elseif ( is_array( $args ) )
@@ -1361,36 +1340,36 @@ function wp_parse_args( $args, $defaults = '' ) {
 endif;
 
 if ( !function_exists( 'wp_parse_str' ) ) :
-/**
- * Parses a string into variables to be stored in an array.
- *
- * @since 2.2.1
- * @uses apply_filters() for the 'wp_parse_str' filter.
- *
- * @param string $string The string to be parsed.
- * @param array  $array Variables will be stored in this array.
- */
-function wp_parse_str( $string, &$array ) {
-	parse_str( $string, $array );
-	$array = apply_filters( 'wp_parse_str', $array );
-}
+	/**
+	 * Parses a string into variables to be stored in an array.
+	 *
+	 * @since 2.2.1
+	 * @uses apply_filters() for the 'wp_parse_str' filter.
+	 *
+	 * @param string $string The string to be parsed.
+	 * @param array  $array Variables will be stored in this array.
+	 */
+	function wp_parse_str( $string, &$array ) {
+		parse_str( $string, $array );
+		$array = apply_filters( 'wp_parse_str', $array );
+	}
 endif;
 
 if ( !function_exists( 'stripslashes_deep' ) ) :
-/**
- * Navigates through an array and removes slashes from the values.
- *
- * If an array is passed, the array_map() function causes a callback to pass the
- * value back to the function. The slashes from this value will removed.
- *
- * @since 2.0.0
- *
- * @param array|string $value The array or string to be striped.
- * @return array|string Stripped array (or string in the callback).
- */
-function stripslashes_deep($value) {
-	$value = is_array($value) ? array_map('stripslashes_deep', $value) : stripslashes($value);
-	return $value;
-}
+	/**
+	 * Navigates through an array and removes slashes from the values.
+	 *
+	 * If an array is passed, the array_map() function causes a callback to pass the
+	 * value back to the function. The slashes from this value will removed.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param array|string $value The array or string to be striped.
+	 * @return array|string Stripped array (or string in the callback).
+	 */
+	function stripslashes_deep($value) {
+		$value = is_array($value) ? array_map('stripslashes_deep', $value) : stripslashes($value);
+		return $value;
+	}
 endif;
 ?>
