@@ -1,10 +1,10 @@
 === Crowdsignal Dashboard - Polls, Surveys & more ===
-Contributors: donncha, ice9js, cgastrell, digitalwaveride, jcheringer
+Contributors: donncha, ice9js, cgastrell, digitalwaveride, jcheringer, thestevek
 Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 5.5
 Requires PHP: 5.6
-Tested up to: 5.8.3
-Stable tag: 3.0.6
+Tested up to: 5.9
+Stable tag: 3.0.7
 
 == Description ==
 
@@ -89,9 +89,14 @@ This is possible if your server or network is blocking outgoing calls to Crowdsi
 Make sure to whitelist `api.crowdsignal.com` in your firewall to fix this.
 
 == Upgrade Notice ==
-Revamp wp-admin styles: Crowdsignal dashboard
+Minor bugfix release
 
 == Changelog ==
+
+= 3.0.7
+* Small fixes to setting page styles. (78)
+* Fix the title of the Dashboard page. (79)
+* Add icon and links for projects to the Dashboard. (80)
 
 = 3.0.6
 * Fix CSS so it doesn't conflict with Jetpack. Fix disconnect form. (75)
