@@ -1,5 +1,5 @@
 === Crowdsignal Dashboard - Polls, Surveys & more ===
-Contributors: donncha, ice9js, cgastrell, digitalwaveride, jcheringer
+Contributors: donncha, ice9js, cgastrell, digitalwaveride, jcheringer, thestevek
 Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 5.5
 Requires PHP: 5.6
