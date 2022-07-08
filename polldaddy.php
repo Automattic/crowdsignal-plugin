@@ -1752,7 +1752,13 @@ class WP_Polldaddy {
 						case 'edit-poll':
 							?>
 							<h2 id="poll-list-header">
-								<?php printf( __( 'Edit Poll <a href="%s" class="add-new-h2">All Polls</a> <a href="%s" class="add-new-h2">View Results</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ), esc_url( add_query_arg( array( 'action' => 'results', 'poll' => $poll, 'message' => false ) ) ) ); ?>
+								<?php
+								printf(
+									__( 'Edit Poll <a href="%s" class="add-new-h2">All Polls</a> <a href="%s" class="add-new-h2">View Results</a>', 'polldaddy' ),
+									esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ),
+									esc_url( add_query_arg( array( 'action' => 'results', 'poll' => $poll, 'message' => false ) ) )
+								);
+								?>
 							</h2>
 							<?php
 
@@ -2249,7 +2255,6 @@ class WP_Polldaddy {
 	</div>
 </div>
 
-
 <div id="post-body-content" class="has-sidebar-content">
 
 	<div id="titlediv" style="margin-top:0px;">
@@ -2284,7 +2289,7 @@ class WP_Polldaddy {
 			</ul>
 
 				<input type="hidden" value="<?php echo isset( $media[999999999] ) ? $media[999999999]->_id : ''; ?>" id="hMC999999999" name="media[999999999]">
-				<input type="hidden" value="<?php echo isset( $mediaType[999999999] ) ? $mediaType[999999999] : ''; ?>" id="hMT999999999" name="mediaType[999999999]">
+				<input type="hidden" value="<?php echo isset( $mediaType[999999999] ) ? intval( $mediaType[999999999] ) : ''; ?>" id="hMT999999999" name="mediaType[999999999]">
 
 					</td>
 				</tr>
