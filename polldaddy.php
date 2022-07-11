@@ -562,8 +562,8 @@ class WP_Polldaddy {
 								<p>Here is a short demo video for how to set up this block, not that you would need it ;) </p>
 								<!-- /wp:paragraph -->
 
-								<!-- wp:video {"align":"center","className":"wp-block-embed is-type-video is-provider-videopress"} -->
-								<figure class="wp-block-video aligncenter wp-block-embed is-type-video is-provider-videopress"><video controls src="https://crowdsignal.files.wordpress.com/2021/11/add-poll-tutorial-720.mp4"></video></figure>
+								<!-- wp:video {"src":"https://crowdsignal.files.wordpress.com/2021/11/add-poll-tutorial-720.mp4"} -->
+								<figure class="wp-block-video"><video controls src="https://crowdsignal.files.wordpress.com/2021/11/add-poll-tutorial-720.mp4"></video></figure>
 								<!-- /wp:video -->
 
 								<!-- wp:spacer {"height":60} -->
@@ -590,8 +590,8 @@ class WP_Polldaddy {
 								<p>Don\'t miss out on your customers\' feedback. Keep your door open anytime and place a feedback button on all your pages. </p>
 								<!-- /wp:paragraph -->
 
-								<!-- wp:video {"align":"center","className":"wp-block-embed is-type-video is-provider-videopress"} -->
-								<figure class="wp-block-video aligncenter wp-block-embed is-type-video is-provider-videopress"><video controls src="https://crowdsignal.files.wordpress.com/2021/11/add-feedback-button-tutorial.mp4"></video></figure>
+								<!-- wp:video {"src":"https://crowdsignal.files.wordpress.com/2021/11/add-feedback-button-tutorial.mp4"} -->
+								<figure class="wp-block-video"><video controls src="https://crowdsignal.files.wordpress.com/2021/11/add-feedback-button-tutorial.mp4"></video></figure>
 								<!-- /wp:video -->
 
 								<!-- wp:spacer {"height":60} -->
@@ -624,8 +624,8 @@ class WP_Polldaddy {
 								<p>It’s a simple block that adds two voting buttons—thumbs up, thumbs down—to your post wherever you want to place them. Customize the block in different sizes and colors, with or without a border, and with or without a visible vote counter. Put several in a single post, next to different ideas, to see how they stack up for readers. Make the block your own!</p>
 								<!-- /wp:paragraph -->
 
-								<!-- wp:video {"align":"center","className":"wp-block-embed is-type-video is-provider-videopress"} -->
-								<figure class="wp-block-video aligncenter wp-block-embed is-type-video is-provider-videopress"><video controls src="https://crowdsignal.files.wordpress.com/2021/11/add-vote-tutorial.mp4"></video></figure>
+								<!-- wp:video {"src":"https://crowdsignal.files.wordpress.com/2021/11/add-vote-tutorial.mp4"} -->
+								<figure class="wp-block-video"><video controls src="https://crowdsignal.files.wordpress.com/2021/11/add-vote-tutorial.mp4"></video></figure>
 								<!-- /wp:video -->
 
 								<!-- wp:spacer {"height":60} -->
@@ -658,8 +658,8 @@ class WP_Polldaddy {
 								<p>The block currently comes in three different sizes, and can be customised with a button-like styling, including a border, border radius and some colour customisation options.</p>
 								<!-- /wp:paragraph -->
 
-								<!-- wp:video {"align":"center","className":"wp-block-embed is-type-video is-provider-videopress"} -->
-								<figure class="wp-block-video aligncenter wp-block-embed is-type-video is-provider-videopress"><video controls src="https://crowdsignal.files.wordpress.com/2021/11/add-applause-block-tutorial.mp4"></video></figure>
+								<!-- wp:video {"src": "https://crowdsignal.files.wordpress.com/2021/11/add-applause-block-tutorial.mp4"} -->
+								<figure class="wp-block-video"><video controls src="https://crowdsignal.files.wordpress.com/2021/11/add-applause-block-tutorial.mp4"></video></figure>
 								<!-- /wp:video -->
 
 								<!-- wp:spacer {"height":60} -->
@@ -728,8 +728,8 @@ class WP_Polldaddy {
 								<p>Here is a short demo video for you that shows you how it works in less than a minute:</p>
 								<!-- /wp:paragraph -->
 
-								<!-- wp:video {"align":"center","className":"wp-block-embed is-type-video is-provider-videopress"} -->
-								<figure class="wp-block-video aligncenter wp-block-embed is-type-video is-provider-videopress"><video controls src="https://crowdsignal.files.wordpress.com/2021/11/add-survey-tutorial-yt.mp4"></video></figure>
+								<!-- wp:video {"src": "https://crowdsignal.files.wordpress.com/2021/11/add-survey-tutorial-yt.mp4"} -->
+								<figure class="wp-block-video"><video controls src="https://crowdsignal.files.wordpress.com/2021/11/add-survey-tutorial-yt.mp4"></video></figure>
 								<!-- /wp:video -->
 
 								<!-- wp:spacer {"height":60} -->
@@ -782,8 +782,8 @@ class WP_Polldaddy {
 								<p>Here is a quick tutorial video on how it works.</p>
 								<!-- /wp:paragraph -->
 
-								<!-- wp:video {"align":"center","className":"wp-block-embed is-type-video is-provider-videopress"} -->
-								<figure class="wp-block-video aligncenter wp-block-embed is-type-video is-provider-videopress"><video controls src="https://crowdsignal.files.wordpress.com/2021/11/add-nps-tutorial-long-3.mp4"></video></figure>
+								<!-- wp:video {"src": "https://crowdsignal.files.wordpress.com/2021/11/add-nps-tutorial-long-3.mp4"} -->
+								<figure class="wp-block-video"><video controls src="https://crowdsignal.files.wordpress.com/2021/11/add-nps-tutorial-long-3.mp4"></video></figure>
 								<!-- /wp:video -->
 
 								<!-- wp:crowdsignal-forms/feedback {"surveyId":"","title":"Demo Feedback block"} /-->
