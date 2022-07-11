@@ -4,7 +4,7 @@ Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate
 Requires at least: 5.5
 Requires PHP: 5.6
 Tested up to: 5.9
-Stable tag: 3.0.7
+Stable tag: 3.0.8
 
 == Description ==
 
@@ -92,6 +92,10 @@ Make sure to whitelist `api.crowdsignal.com` in your firewall to fix this.
 Minor bugfix release
 
 == Changelog ==
+
+= 3.0.8
+* Bug and security fixes
+* Improve code readability
 
 = 3.0.7
 * Small fixes to setting page styles. (78)
