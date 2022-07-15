@@ -652,7 +652,7 @@ function polldaddy_login_warning() {
 		return;
 	}
 
-	echo '<div class="updated"><p><strong>' . sprintf( __( 'Warning! The Crowdsignal plugin must be linked to your Crowdsignal.com account. Please visit the <a href="%s">plugin settings page</a> to login.', 'polldaddy' ), admin_url( 'options-general.php?page=crowdsignal-settings' ) ) . '</strong></p></div>';
+	echo '<div class="updated"><p><strong>' . sprintf( __( 'Crowdsignal features will be unavailable until you link your Crowdsignal.com account. Please visit the <a href="%s">plugin settings page</a> to login.', 'polldaddy' ), admin_url( 'options-general.php?page=crowdsignal-settings' ) ) . '</strong></p></div>';
 }
 add_action( 'admin_notices', 'polldaddy_login_warning' );
 
