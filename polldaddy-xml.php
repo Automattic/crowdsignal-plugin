@@ -751,7 +751,7 @@ class Polldaddy_XML_Parser {
 		return $this->objects;
 	}
 
-	function tag_open( &$parser, $tag, $attributes ) {
+	function tag_open( $parser, $tag, $attributes ) {
 		$object_pos = $this->object_pos;
 		if ( $this->object_stack ) {
 			if ( isset( $this->object_stack[$object_pos]['args'][$tag] ) ) {
@@ -782,7 +782,7 @@ class Polldaddy_XML_Parser {
 		}
 	}
 
-	function text( &$parser, $text ) {
+	function text( $parser, $text ) {
 		if ( !$this->object_stack )
 			return;
 
@@ -809,7 +809,7 @@ class Polldaddy_XML_Parser {
 		}
 	}
 
-	function tag_close( &$parser, $tag ) {
+	function tag_close( $parser, $tag ) {
 		if ( isset( $this->polldaddy_objects[$tag] ) ) {
 			if ( $tag !== $this->object_stack[$this->object_pos]['tag'] )
 				die( 'damn' );

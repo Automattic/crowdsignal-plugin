@@ -74,11 +74,11 @@ const showConnect = ( title ) => {
 		`
 		location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no,
 		width=${ parseInt( popupWidth, 10 ) },
-		height=${ parseInt( popupHeight, 10 )  },
+		height=${ parseInt( popupHeight, 10 ) },
 		top=${ parseInt( top, 10 ) },
 		left=${ parseInt( left, 10 ) }
 		`
-	)
+	);
 
 	if ( window.focus ) CSCONNECT.focus();
 }
