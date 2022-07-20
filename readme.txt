@@ -3,8 +3,8 @@ Contributors: donncha, ice9js, cgastrell, digitalwaveride, jcheringer, thestevek
 Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 5.5
 Requires PHP: 5.6
-Tested up to: 5.9
-Stable tag: 3.0.8
+Tested up to: 6.0
+Stable tag: 3.0.9
 
 == Description ==
 
@@ -89,9 +89,13 @@ This is possible if your server or network is blocking outgoing calls to Crowdsi
 Make sure to whitelist `api.crowdsignal.com` in your firewall to fix this.
 
 == Upgrade Notice ==
-Minor bugfix release
+Bug and security fixes
 
 == Changelog ==
+
+= 3.0.9
+* Prevent warnings due to by-ref arguments
+* Improve renderer syntax 
 
 = 3.0.8
 * Bug and security fixes
