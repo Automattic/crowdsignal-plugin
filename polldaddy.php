@@ -467,7 +467,11 @@ class WP_Polldaddy {
 			die();
 		}
 
-		if ( isset( $_POST['action'] ) && $_POST['action'] === 'disconnect' ) {
+		if (
+			isset( $_POST['action'] )
+			&& $_POST['action'] === 'disconnect'
+			&& current_user_can( 'edit_posts' )
+		) {
 			check_admin_referer( 'disconnect-api-key' );
 			delete_option( 'polldaddy_api_key' );
 			delete_option( 'crowdsignal_api_key' );
@@ -1693,7 +1697,7 @@ class WP_Polldaddy {
 					$page = $_GET['page']; // phpcs:ignore
 				}
 				if ( 'crowdsignal-settings' === $page ) {
-					if ( ! $this->is_author ) { // check user privileges has access to action.
+					if ( ! current_user_can( 'edit_posts' ) ) { // check user privileges has access to action.
 						return;
 					}
 					$this->plugin_options();
