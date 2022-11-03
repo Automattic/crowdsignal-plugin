@@ -470,7 +470,7 @@ class WP_Polldaddy {
 		if (
 			isset( $_POST['action'] )
 			&& $_POST['action'] === 'disconnect'
-			&& current_user_can( 'edit_posts' )
+			&& current_user_can( 'edit_others_posts' )
 		) {
 			check_admin_referer( 'disconnect-api-key' );
 			delete_option( 'polldaddy_api_key' );
@@ -1697,7 +1697,7 @@ class WP_Polldaddy {
 					$page = $_GET['page']; // phpcs:ignore
 				}
 				if ( 'crowdsignal-settings' === $page ) {
-					if ( ! current_user_can( 'edit_posts' ) ) { // check user privileges has access to action.
+					if ( ! current_user_can( 'edit_others_posts' ) ) { // check user privileges has access to action.
 						return;
 					}
 					$this->plugin_options();
