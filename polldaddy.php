@@ -202,7 +202,7 @@ class WP_Polldaddy {
 		foreach( array( 'crowdsignal-settings' => __( 'Crowdsignal', 'polldaddy' ), 'ratingsettings' => __( 'Ratings', 'polldaddy' ) ) as $menu_slug => $page_title ) {
 			// translators: %s placeholder is the setting page type (Poll or Rating).
 			$settings_page_title = sprintf( esc_html__( '%s', 'polldaddy' ), $page_title );
-			$hook = add_options_page( $settings_page_title, $settings_page_title, $menu_slug == 'ratingsettings' ? 'manage_options' : $capability, $menu_slug, array( $this, 'settings_page' ) );
+			$hook = add_options_page( $settings_page_title, $settings_page_title, $menu_slug == 'ratingsettings' ? 'manage_options' : 'edit_others_posts', $menu_slug, array( $this, 'settings_page' ) );
 			add_action( "load-$hook", array( $this, 'management_page_load' ) );
 		}
 
@@ -467,7 +467,11 @@ class WP_Polldaddy {
 			die();
 		}
 
-		if ( isset( $_POST['action'] ) && $_POST['action'] === 'disconnect' ) {
+		if (
+			isset( $_POST['action'] )
+			&& $_POST['action'] === 'disconnect'
+			&& current_user_can( 'edit_others_posts' )
+		) {
 			check_admin_referer( 'disconnect-api-key' );
 			delete_option( 'polldaddy_api_key' );
 			delete_option( 'crowdsignal_api_key' );
@@ -1693,7 +1697,7 @@ class WP_Polldaddy {
 					$page = $_GET['page']; // phpcs:ignore
 				}
 				if ( 'crowdsignal-settings' === $page ) {
-					if ( ! $this->is_author ) { // check user privileges has access to action.
+					if ( ! current_user_can( 'edit_others_posts' ) ) { // check user privileges has access to action.
 						return;
 					}
 					$this->plugin_options();
