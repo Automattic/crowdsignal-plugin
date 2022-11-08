@@ -1,10 +1,10 @@
 === Crowdsignal Dashboard - Polls, Surveys & more ===
-Contributors: donncha, ice9js, cgastrell, digitalwaveride, jcheringer, thestevek
+Contributors: donncha, ice9js, cgastrell, digitalwaveride, jcheringer
 Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 5.5
 Requires PHP: 5.6
-Tested up to: 6.0
-Stable tag: 3.0.9
+Tested up to: 6.1
+Stable tag: 3.0.10
 
 == Description ==
 
@@ -92,9 +92,13 @@ This is possible if your server or network is blocking outgoing calls to Crowdsi
 Make sure to whitelist `api.crowdsignal.com` in your firewall to fix this.
 
 == Upgrade Notice ==
-Bug and security fixes
+Bugfix and security release
 
 == Changelog ==
+= 3.0.10
+* Fix the permissions required on the settings page. Authors couldn't use it, so avoid showing them a blank page.
+* Only allow admin users to load the rating settings page as it's a global setting that affects the entire site.
+* Remove the "Add Poll" button from the classic post editor as it was broken. Add section to readme.txt with a link to bookmark if the wp-admin editor is still needed.
 
 = 3.0.9
 * Prevent warnings due to by-ref arguments
