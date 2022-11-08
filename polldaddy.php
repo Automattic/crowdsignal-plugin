@@ -206,7 +206,6 @@ class WP_Polldaddy {
 			add_action( "load-$hook", array( $this, 'management_page_load' ) );
 		}
 
-		add_action( 'media_buttons', array( &$this, 'media_buttons' ) );
 	}
 
 	function menu_alter() {
@@ -391,11 +390,6 @@ class WP_Polldaddy {
 		</div>
 
 		<?php
-	}
-
-	function media_buttons() {
-		$title = __( 'Add Poll', 'polldaddy' );
-		echo " <a href='admin.php?page=polls&iframe&TB_iframe=true' onclick='return false;' id='add_poll' class='button thickbox' title='" . esc_attr( $title ) . "'><img src='{$this->base_url}img/polldaddy@2x.png' width='15' height='15' alt='" . esc_attr( $title ) . "' style='margin: -2px 0 0 -1px; padding: 0 2px 0 0; vertical-align: middle;' /> " . esc_html( $title ) . "</a>";
 	}
 
 	function get_usercode( $for_current_user = false ) {
