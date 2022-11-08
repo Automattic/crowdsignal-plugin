@@ -27,6 +27,9 @@ Some strings are not translated when polls and surveys are embedded. You will ha
 
 Development of the plugin will take place in [this Github repository](https://github.com/Automattic/crowdsignal-plugin).
 
+=== The Classic Editor ===
+If you are a long time user of this plugin and you still use the classic post editor, the best way to create polls is through your [Crowdsignal account](https://app.crowdsignal.com/dashboard/) where you have a number of different ways to share polls (and surveys). However, up to version 2.2.6, this plugin had an "Add Poll" button above the post editor that opened a very basic poll editor. That "Add Poll" button has since been removed but if you would still like to use it, open up the wp-admin dashboard on your WordPress site. Add "admin.php?page=polls&action=create-poll" to the end of the URL, after "wp-admin/" so it looks like https://example.com/wp-admin/admin.php?page=polls&action=create-poll and you will see the old poll editor. Bookmark that URL if you still want to use that poll editor. We do not recommend using version 2.2.6 of the plugin as you will miss out on many bug fixes and new features added since then.
+
 == Installation ==
 
 Upload the plugin to your blog (or search for it and install it on your plugins page), activate it, then go to Settings->Crowdsignal to configure the plugin. You'll need a Crowdsignal API key available from your [Crowdsignal account page](https://app.crowdsignal.com/account/#apikey) to sync your account and pull in your existing polls and ratings.
