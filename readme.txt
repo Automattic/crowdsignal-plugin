@@ -3,7 +3,7 @@ Contributors: donncha, ice9js, cgastrell, digitalwaveride, jcheringer
 Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 5.5
 Requires PHP: 5.6
-Tested up to: 6.1
+Tested up to: 6.2
 Stable tag: 3.0.10
 
 == Description ==
