@@ -1839,7 +1839,6 @@ class WP_Polldaddy {
 		);
 	}
 
-
 	private function has_items_for_view( $view = 'me' ) {
 		if ( isset( $this->has_items[ $view ] ) ) {
 			return $this->has_items[ $view ];
