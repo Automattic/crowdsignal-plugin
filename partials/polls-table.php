@@ -525,5 +525,54 @@ jQuery( document ).ready(function(){
 			buttonGroupContainer
 		);
 	}
+
+	// Links dropdown (mobile view)
+	const linksDropdownToggle = ( { isOpen, onToggle } ) => el(
+		wp.components.Button,
+		{
+			isPrimary: false,
+			className: isOpen ? 'cs-links-menu__dropdown-toggle is-active' : 'cs-links-menu__dropdown-toggle',
+			onClick: onToggle,
+			'aria-expanded': isOpen
+		},
+		el( wp.components.Icon, { icon: 'ellipsis' }, null )
+	);
+
+	const linkToggles = document.body.querySelectorAll( 'span.cs-dashboard__links-dropdown-toggle' );
+	linkToggles.forEach( linkToggle => {
+		const {
+			postUrl,
+			linkId,
+			resultsUrl,
+			openUrl,
+			closeUrl,
+			status
+		} = linkToggle.dataset;
+		const links = [];
+		postUrl && links.push( el( 'a', { rel: 'noopener noreferer', key: Math.random(), href: postUrl }, 'View Post' ) );
+		resultsUrl && links.push( el( 'a', { rel: 'noopener noreferer', key: Math.random(), href: resultsUrl }, 'Results' ) );
+		status === 'closed' && openUrl && links.push( el( 'a', { rel: 'noopener noreferer', key: Math.random(), href: openUrl }, 'Open' ) );
+		status === 'open' && closeUrl && links.push( el( 'a', { rel: 'noopener noreferer', key: Math.random(), href: closeUrl }, 'Close' ) );
+		
+		const sublist = () => el(
+			'div',
+			{ className: 'cs-links-menu__dropdown-list' },
+			links.map( link => link )
+		);
+		const linkDropdown = document.getElementById( 'cs-dashboard__links-dropdown-menu-' + linkId );
+		if ( linkDropdown ) {
+			render(
+				el( wp.components.Dropdown, {
+					className: 'cs-dashboard__links-dropdown',
+					contentClassName: 'cs-dashboard__links-drowpdown-container',
+					position: 'bottom left',
+					renderToggle: linksDropdownToggle,
+					renderContent: sublist,
+					popoverProps: { noArrow: false },
+				} ),
+				linkDropdown
+			);
+		}
+	} );
 });
 </script>

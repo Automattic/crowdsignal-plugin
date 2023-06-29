@@ -210,17 +210,6 @@ h2#polldaddy-header, h2#poll-list-header {
 	min-height: calc(100% - 30px);
 }
 
-@media screen and (max-width: 782px) {
-	.cs-pre-wrap {
-		background-color: white;
-		height: 60px;
-	}
-
-	.cs-wrapper {
-		min-height: calc(100% - 60px);
-	}
-}
-
 .cs-wrapper-row {
 	width: 100%;
 	display: flex;
@@ -236,13 +225,9 @@ h2#polldaddy-header, h2#poll-list-header {
 	background-color: white;
 }
 
-.cs-wrapper-row > * {
-	max-width: 960px;
-	width: 100%;
-}
-
 .cs-wrapper-row:not(.cs-centered) > * {
 	padding-left: 48px !important;
+	padding-right: 48px !important;
 }
 
 @media (max-width: 1280px) {
@@ -259,8 +244,25 @@ h2#polldaddy-header, h2#poll-list-header {
 
 	.cs-wrapper-row:not(.cs-centered) > * {
 		padding-left: 0 !important;
+		padding-right: 0 !important;
 	}
 }
+
+@media screen and (max-width: 782px) {
+	.cs-pre-wrap {
+		background-color: white;
+		height: 60px;
+	}
+
+	.cs-wrapper {
+		min-height: calc(100% - 60px);
+	}
+
+	.cs-wrapper-row {
+		padding-left: 26px; /* 16 + -10 margin compensation on .cs-dashboard__crowdsignal_polls_wrap */
+	}
+}
+
 
 /* landing page */
 .crowdsignal-landing__hero {
@@ -444,6 +446,7 @@ h2#polldaddy-header, h2#poll-list-header {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	flex-wrap: wrap;
 }
 
 .cs-dashboard__crowdsignal-header-link {
@@ -469,6 +472,15 @@ h2#polldaddy-header, h2#poll-list-header {
 	justify-content: flex-end;
 }
 
+@media (max-width: 782px) {
+	.cs-dashboard__crowdsignal-header .cs-dashboard__crowdsignal-header-brand {
+		font-size: 20px;
+	}
+	.cs-dashboard__crowdsignal-header-logo {
+		margin-right: 12px;
+	}
+}
+
 .cs-dashboard__footer {
 	margin: 0 0 32px;
 	display: flex;
@@ -478,6 +490,19 @@ h2#polldaddy-header, h2#poll-list-header {
 
 .cs-dashboard__footer .cs-dashboard__crowdsignal-header-logo{
 	margin-bottom: 16px;
+}
+
+@media (max-width: 782px) {
+	.cs-dashboard__footer {
+		flex-direction: column;
+		align-items: center;
+		gap: 16px;
+		margin-bottom: 16px;
+	}
+
+	.cs-dashboard__footer > * {
+		text-align: center;
+	}
 }
 
 .cs-dashboard__a8c-link {
