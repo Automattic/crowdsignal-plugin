@@ -168,7 +168,7 @@
 						$results_link   = 'https://app.crowdsignal.com/ratings/' . $item->_id . '/results/';
 						$edit_link      = 'https://app.crowdsignal.com/ratings/' . $item->_id . '/edit/';
 						$icon_url       = 'img/svg/icon-block-rating-round.svg';
-					}   elseif ( 'project' === $item->type ) {
+							} elseif ( 'project' === $item->type ) {
 						$edit_post      = false;
 						$item_post_link = false;
 						$results_link   = 'https://app.crowdsignal.com/project/' . $item->_id . '/results/';
@@ -187,11 +187,6 @@
 						? $item->subtype
 						: $item->type;
 
-					if ( strlen( $item->name ) > 25 ) {
-						$display_name = substr( $item->name, 0, 25 ) . '...';
-					} else {
-						$display_name = $item->name;
-					}
 					?>
 					<li class="cs-dashboard__content-item">
 						<div class="cs-dashboard__content-item-attribute is-checkbox"></div>
@@ -330,14 +325,6 @@ jQuery( document ).ready(function(){
 		);
 	}
 
-	// jQuery( '#filter-polls' ).click( function(){
-	//	if( jQuery( '#filter-options' ).val() == 'blog' ){
-	//		window.location = '<?php // echo add_query_arg( array( 'page' => 'polls', 'view' => 'blog' ), admin_url( 'admin.php' ) ); // phpcs:ignore -- controlled plain text ?>';
-	//	} else {
-	//		window.location = '<?php // echo add_query_arg( array( 'page' => 'polls' ), admin_url( 'admin.php' ) ); // phpcs:ignore -- controlled plain text ?>';
-	//	}
-	// } );
-
 	render(
 		wp.components.DropdownMenu(
 			{
@@ -349,6 +336,7 @@ jQuery( document ).ready(function(){
 				},
 				popoverProps: {
 					position: 'bottom center',
+					noArrow: false,
 				},
 				icon: 'arrow-down',
 				controls: [
@@ -447,10 +435,14 @@ jQuery( document ).ready(function(){
 
 	const hasClosedNotice = window.localStorage.getItem( 'makingChangesNoticeClosed' );
 
+	if ( ! hasClosedNotice ) {
 	render(
-		! hasClosedNotice && el( Notification ),
+			el( Notification ),
 		document.getElementById( 'cs-dashboard-notice' )
 	);
+	} else {
+		document.getElementById( 'cs-dashboard-notice' ) && document.getElementById( 'cs-dashboard-notice' ).remove();
+	}
 
 
 	// switch buttons
