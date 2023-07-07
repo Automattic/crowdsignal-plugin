@@ -553,7 +553,7 @@ jQuery( document ).ready(function(){
 		resultsUrl && links.push( el( 'a', { rel: 'noopener noreferer', key: Math.random(), href: resultsUrl }, 'Results' ) );
 		status === 'closed' && openUrl && links.push( el( 'a', { rel: 'noopener noreferer', key: Math.random(), href: openUrl }, 'Open' ) );
 		status === 'open' && closeUrl && links.push( el( 'a', { rel: 'noopener noreferer', key: Math.random(), href: closeUrl }, 'Close' ) );
-		
+
 		const sublist = () => el(
 			'div',
 			{ className: 'cs-links-menu__dropdown-list' },
