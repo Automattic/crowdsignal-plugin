@@ -95,6 +95,10 @@ Make sure to whitelist `api.crowdsignal.com` in your firewall to fix this.
 Bugfix and security release
 
 == Changelog ==
+= 3.0.11
+* Bump tested version to 6.2 by @donnchawp in #94
+* Fix table layout by @CGastrell in #96
+
 = 3.0.10
 * Fix the permissions required on the settings page. Authors couldn't use it, so avoid showing them a blank page.
 * Only allow admin users to load the rating settings page as it's a global setting that affects the entire site.
