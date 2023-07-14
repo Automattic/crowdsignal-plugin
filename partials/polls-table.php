@@ -43,206 +43,206 @@
 					</tr>
 				</thead>
 				<tbody>
-				<?php
-				if ( ! is_array( $items ) ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- output from page renderer
-					$items = array();
-				}
-				foreach ( $items as $item ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
-					$item->_id = intval( $item->_id );
-
-					$delete_link  = false;
-					$preview_link = false;
-					$close_link   = false;
-					$open_link    = false;
-					$edit_link    = false;
-
-					$item_post_link = isset( $item->_source_link ) ? $item->_source_link : '';
-
-					$item_post_id = url_to_postid( $item_post_link );
-
-					$display_link = wp_parse_url( $item_post_link );
-					if ( isset( $display_link['query'] ) && '' !== $display_link['query'] ) {
-						$display_link = $display_link['path'] . '?' . $display_link['query'];
-					} elseif ( isset( $display_link['path'] ) && '' !== $display_link['path'] ) {
-						$display_link = $display_link['path'];
-					} else {
-						$display_link = $item_post_link;
+					<?php
+					if ( ! is_array( $items ) ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- output from page renderer
+						$items = array();
 					}
+					foreach ( $items as $item ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
+						$item->_id = intval( $item->_id );
 
-					if ( 'poll' === $item->type ) {
-						$item->name = trim( wp_strip_all_tags( $item->name ) );
-						if ( 0 === strlen( $item->name ) ) {
-							$item->name = __( 'Unknown' );
-						}
+						$delete_link  = false;
+						$preview_link = false;
+						$close_link   = false;
+						$open_link    = false;
+						$edit_link    = false;
 
-						$results_link = 'https://app.crowdsignal.com/polls/' . $item->_id . '/results';
-						if ( $item_post_link ) {
-							$edit_link = get_edit_post_link( $item_post_id );
+						$item_post_link = isset( $item->_source_link ) ? $item->_source_link : '';
+
+						$item_post_id = url_to_postid( $item_post_link );
+
+						$display_link = wp_parse_url( $item_post_link );
+						if ( isset( $display_link['query'] ) && '' !== $display_link['query'] ) {
+							$display_link = $display_link['path'] . '?' . $display_link['query'];
+						} elseif ( isset( $display_link['path'] ) && '' !== $display_link['path'] ) {
+							$display_link = $display_link['path'];
 						} else {
-							$edit_link   = add_query_arg(
-								array(
-									'action'  => 'edit',
-									'poll'    => $item->_id,
-									'message' => false,
-								)
-							);
-							$delete_link = wp_nonce_url(
-								add_query_arg(
-									array(
-										'action'  => 'delete',
-										'poll'    => $item->_id,
-										'message' => false,
-									)
-								),
-								'delete-poll_' . $item->_id
-							);
-							$preview     = array( // phpcs:ignore -- for preview of polls
-								'action'    => 'preview',
-								'poll'      => $item->_id,
-								'message'   => false,
-								'iframe'    => 1,
-								'TB_iframe' => 'true',
-							);
+							$display_link = $item_post_link;
+						}
 
-							if ( isset( $_GET['iframe'] ) ) { // phpcs:ignore -- not actually processing a form
-								$preview['popup'] = 1; // phpcs:ignore -- for preview of polls
+						if ( 'poll' === $item->type ) {
+							$item->name = trim( wp_strip_all_tags( $item->name ) );
+							if ( 0 === strlen( $item->name ) ) {
+								$item->name = __( 'Unknown' );
 							}
-							$preview_link = add_query_arg( $preview );
 
-							$close_link = wp_nonce_url(
-								add_query_arg(
+							$results_link = 'https://app.crowdsignal.com/polls/' . $item->_id . '/results';
+							if ( $item_post_link ) {
+								$edit_link = get_edit_post_link( $item_post_id );
+							} else {
+								$edit_link   = add_query_arg(
 									array(
-										'action'  => 'close',
+										'action'  => 'edit',
 										'poll'    => $item->_id,
 										'message' => false,
 									)
-								),
-								'close-poll_' . $item->_id
-							);
+								);
+								$delete_link = wp_nonce_url(
+									add_query_arg(
+										array(
+											'action'  => 'delete',
+											'poll'    => $item->_id,
+											'message' => false,
+										)
+									),
+									'delete-poll_' . $item->_id
+								);
+								$preview     = array( // phpcs:ignore -- for preview of polls
+									'action'    => 'preview',
+									'poll'      => $item->_id,
+									'message'   => false,
+									'iframe'    => 1,
+									'TB_iframe' => 'true',
+								);
 
-							$open_link = wp_nonce_url(
-								add_query_arg(
-									array(
-										'action'  => 'open',
-										'poll'    => $item->_id,
-										'message' => false,
-									)
-								),
-								'open-poll_' . $item->_id
-							);
-						}
-						$icon_url = 'img/svg/icon-block-poll-round.svg';
-						switch ( $item->subtype ) {
-							case 'applause':
-								$icon_url = 'img/svg/icon-block-applause-round.svg';
-								break;
-							case 'vote':
-								$icon_url = 'img/svg/icon-block-voting-round.svg';
-								break;
-						}
-					} elseif ( 'survey' === $item->type ) {
-						$results_link   = 'https://app.crowdsignal.com/surveys/' . $item->_id . '/report/overview';
-						$icon_url       = 'img/svg/icon-block-survey-round.svg';
-						$edit_post      = false;
-						switch ( $item->subtype ) {
-							case 'nps':
-								$edit_link = $item_post_id ? get_edit_post_link( $item_post_id ) : false;
-								$icon_url  = 'img/svg/icon-block-nps-round.svg';
-								break;
-							case 'feedback':
-								$edit_link = $item_post_id ? get_edit_post_link( $item_post_id ) : false;
-								$icon_url  = 'img/svg/icon-block-feedbackButton-round.svg';
-								break;
-						}
-					} elseif ( 'quiz' === $item->type ) {
-						$edit_post      = false;
-						$item_post_link = false;
-						$results_link   = 'https://app.crowdsignal.com/quizzes/' . $item->_id . '/report/overview';
-						$edit_link      = 'https://app.crowdsignal.com/quizzes/' . $item->_id . '/question';
-						$icon_url       = 'img/svg/icon-block-quiz-round.svg';
-					} elseif ( 'rating' === $item->type ) {
-						$edit_post      = false;
-						$item_post_link = false;
-						$results_link   = 'https://app.crowdsignal.com/ratings/' . $item->_id . '/results/';
-						$edit_link      = 'https://app.crowdsignal.com/ratings/' . $item->_id . '/edit/';
-						$icon_url       = 'img/svg/icon-block-rating-round.svg';
-							} elseif ( 'project' === $item->type ) {
-						$edit_post      = false;
-						$item_post_link = false;
-						$results_link   = 'https://app.crowdsignal.com/project/' . $item->_id . '/results/';
-						$edit_link      = 'https://app.crowdsignal.com/project/' . $item->_id;
-						$icon_url       = 'img/svg/icon-block-project-round.svg';
-					} else { // show a generic icon and generic links to app.crowdsignal.com for unhandled item types
-						$edit_post      = false;
-						$item_post_link = false;
-						$results_link   = false;
-						$edit_link      = 'https://app.crowdsignal.com/dashboard/';
-						$icon_url       = 'img/svg/cs-logo2.svg';
-					}
+								if ( isset( $_GET['iframe'] ) ) { // phpcs:ignore -- not actually processing a form
+									$preview['popup'] = 1; // phpcs:ignore -- for preview of polls
+								}
+								$preview_link = add_query_arg( $preview );
 
-					$icon_url = $resource_path . $icon_url; // phpcs:ignore -- variable comes from controller
-					$type_descriptor = $item->subtype
-						? $item->subtype
-						: $item->type;
+								$close_link = wp_nonce_url(
+									add_query_arg(
+										array(
+											'action'  => 'close',
+											'poll'    => $item->_id,
+											'message' => false,
+										)
+									),
+									'close-poll_' . $item->_id
+								);
 
-					?>
-					<tr>
-						<td class="cs-dashboard__grid is-name">
-							<a target="_blank" rel="noopener" title="<?php echo esc_attr( $item->name ); ?>" href="<?php echo esc_url( $results_link ); ?>"><?php echo esc_html( $item->name ); ?></a>
-						</td>
-						<td class="cs-dashboard__grid is-type">
-							<img class="cs-dashboard__mq-desktop-only" src="<?php echo esc_url( $icon_url ); ?>" title="<?php echo esc_attr( $type_descriptor ); ?>" alt="<?php echo esc_attr( $type_descriptor ); ?> icon" />
-						</td>
-						<td class="cs-dashboard__grid is-created">
-							<span class="cs-dashboard__mq-desktop-only"><?php echo esc_html( gmdate( 'M j', $item->_created ) ); ?></span>
-						</td>
-						<td class="cs-dashboard__grid is-status" data-open="<?php echo $item->_closed ? 0 : 1; ?>">
-						<?php echo ! $item->_closed ? esc_html__( 'Open' ) : esc_html__( 'Closed' ); ?>
-						</td>
-						<td class="cs-dashboard__grid is-responses-total">
-						<strong><?php echo esc_html( number_format_i18n( $item->_responses ) ); ?></strong>
-						</td>
-						<td class="cs-dashboard__grid is-source">
-							<?php if ( $item_post_link ) : ?>
+								$open_link = wp_nonce_url(
+									add_query_arg(
+										array(
+											'action'  => 'open',
+											'poll'    => $item->_id,
+											'message' => false,
+										)
+									),
+									'open-poll_' . $item->_id
+								);
+							}
+							$icon_url = 'img/svg/icon-block-poll-round.svg';
+							switch ( $item->subtype ) {
+								case 'applause':
+									$icon_url = 'img/svg/icon-block-applause-round.svg';
+									break;
+								case 'vote':
+									$icon_url = 'img/svg/icon-block-voting-round.svg';
+									break;
+							}
+						} elseif ( 'survey' === $item->type ) {
+							$results_link   = 'https://app.crowdsignal.com/surveys/' . $item->_id . '/report/overview';
+							$icon_url       = 'img/svg/icon-block-survey-round.svg';
+							$edit_post      = false;
+							switch ( $item->subtype ) {
+								case 'nps':
+									$edit_link = $item_post_id ? get_edit_post_link( $item_post_id ) : false;
+									$icon_url  = 'img/svg/icon-block-nps-round.svg';
+									break;
+								case 'feedback':
+									$edit_link = $item_post_id ? get_edit_post_link( $item_post_id ) : false;
+									$icon_url  = 'img/svg/icon-block-feedbackButton-round.svg';
+									break;
+							}
+						} elseif ( 'quiz' === $item->type ) {
+							$edit_post      = false;
+							$item_post_link = false;
+							$results_link   = 'https://app.crowdsignal.com/quizzes/' . $item->_id . '/report/overview';
+							$edit_link      = 'https://app.crowdsignal.com/quizzes/' . $item->_id . '/question';
+							$icon_url       = 'img/svg/icon-block-quiz-round.svg';
+						} elseif ( 'rating' === $item->type ) {
+							$edit_post      = false;
+							$item_post_link = false;
+							$results_link   = 'https://app.crowdsignal.com/ratings/' . $item->_id . '/results/';
+							$edit_link      = 'https://app.crowdsignal.com/ratings/' . $item->_id . '/edit/';
+							$icon_url       = 'img/svg/icon-block-rating-round.svg';
+								} elseif ( 'project' === $item->type ) {
+							$edit_post      = false;
+							$item_post_link = false;
+							$results_link   = 'https://app.crowdsignal.com/project/' . $item->_id . '/results/';
+							$edit_link      = 'https://app.crowdsignal.com/project/' . $item->_id;
+							$icon_url       = 'img/svg/icon-block-project-round.svg';
+						} else { // show a generic icon and generic links to app.crowdsignal.com for unhandled item types
+							$edit_post      = false;
+							$item_post_link = false;
+							$results_link   = false;
+							$edit_link      = 'https://app.crowdsignal.com/dashboard/';
+							$icon_url       = 'img/svg/cs-logo2.svg';
+						}
+
+						$icon_url = $resource_path . $icon_url; // phpcs:ignore -- variable comes from controller
+						$type_descriptor = $item->subtype
+							? $item->subtype
+							: $item->type;
+
+						?>
+						<tr>
+							<td class="cs-dashboard__grid is-name">
+								<a target="_blank" rel="noopener" title="<?php echo esc_attr( $item->name ); ?>" href="<?php echo esc_url( $results_link ); ?>"><?php echo esc_html( $item->name ); ?></a>
+							</td>
+							<td class="cs-dashboard__grid is-type">
+								<img class="cs-dashboard__mq-desktop-only" src="<?php echo esc_url( $icon_url ); ?>" title="<?php echo esc_attr( $type_descriptor ); ?>" alt="<?php echo esc_attr( $type_descriptor ); ?> icon" />
+							</td>
+							<td class="cs-dashboard__grid is-created">
+								<span class="cs-dashboard__mq-desktop-only"><?php echo esc_html( gmdate( 'M j', $item->_created ) ); ?></span>
+							</td>
+							<td class="cs-dashboard__grid is-status" data-open="<?php echo $item->_closed ? 0 : 1; ?>">
+							<?php echo ! $item->_closed ? esc_html__( 'Open' ) : esc_html__( 'Closed' ); ?>
+							</td>
+							<td class="cs-dashboard__grid is-responses-total">
+							<strong><?php echo esc_html( number_format_i18n( $item->_responses ) ); ?></strong>
+							</td>
+							<td class="cs-dashboard__grid is-source">
+								<?php if ( $item_post_link ) : ?>
+									<span class="cs-dashboard__mq-desktop-only">
+										<a rel="noopener" href="<?php echo esc_url( $item_post_link ); ?>"><?php echo esc_url( $display_link ); ?></a>
+									</span>
+								<?php endif; ?>
+							</td>
+							<td class="cs-dashboard__grid is-links">
 								<span class="cs-dashboard__mq-desktop-only">
-									<a rel="noopener" href="<?php echo esc_url( $item_post_link ); ?>"><?php echo esc_url( $display_link ); ?></a>
+									<a target="_blank" rel="noopener" href="<?php echo esc_url( $results_link ); ?>"><?php esc_html_e( 'Results' ); ?></a>
+									<?php if ( $edit_link ) { ?>
+										<a target="<?php echo $item_post_id ? '' : '_blank'; ?>" rel="noopener" href="<?php echo esc_url( $edit_link ); ?>"><?php esc_html_e( 'Edit' ); ?></a>
+									<?php } ?>
+									<?php if ( $open_link || $close_link ) { ?>
+										<a target="_blank" rel="noopener" href="<?php echo $item->_closed ? esc_url( $open_link ) : esc_url( $close_link ); ?>"><?php $item->_closed ? esc_html_e( 'Open' ) : esc_html_e( 'Close' ); ?></a>
+									<?php } ?>
+
+									<?php if ( $delete_link ) { ?>
+										<a target="_blank" rel="noopener" class="delete-poll delete" href="<?php esc_url( $delete_link ); ?>"><?php esc_html_e( 'Delete' ); ?></a>
+									<?php } ?>
+
+									<?php if ( $preview_link ) { ?>
+										<a class='thickbox' href="<?php echo esc_url( $preview_link ); ?>"><?php esc_html_e( 'Preview' ); ?></a>
+									<?php } ?>
 								</span>
-							<?php endif; ?>
-						</td>
-						<td class="cs-dashboard__grid is-links">
-							<span class="cs-dashboard__mq-desktop-only">
-						<a target="_blank" rel="noopener" href="<?php echo esc_url( $results_link ); ?>"><?php esc_html_e( 'Results' ); ?></a>
-					<?php if ( $edit_link ) { ?>
-						<a target="<?php echo $item_post_id ? '' : '_blank'; ?>" rel="noopener" href="<?php echo esc_url( $edit_link ); ?>"><?php esc_html_e( 'Edit' ); ?></a>
-					<?php } ?>
-						<?php if ( $open_link || $close_link ) { ?>
-						<a target="_blank" rel="noopener" href="<?php echo $item->_closed ? esc_url( $open_link ) : esc_url( $close_link ); ?>"><?php $item->_closed ? esc_html_e( 'Open' ) : esc_html_e( 'Close' ); ?></a>
-						<?php } ?>
-
-						<?php if ( $delete_link ) { ?>
-						<a target="_blank" rel="noopener" class="delete-poll delete" href="<?php esc_url( $delete_link ); ?>"><?php esc_html_e( 'Delete' ); ?></a>
-						<?php } ?>
-
-						<?php if ( $preview_link ) { ?>
-						<a class='thickbox' href="<?php echo esc_url( $preview_link ); ?>"><?php esc_html_e( 'Preview' ); ?></a>
-						<?php } ?>
-							</span>
-							<span
-								class="cs-dashboard__mq-mobile-only cs-dashboard__links-dropdown-toggle"
-								data-link-id="<?php echo $item->_id; ?>"
-								data-status="<?php echo $item->_closed ? 'closed' : 'open'; ?>"
-								data-results-url="<?php echo esc_attr( $results_link ); ?>"
-								data-edit-url="<?php echo $edit_link ? esc_attr( $edit_link ) : ''; ?>"
-								data-open-url="<?php echo $open_link ? esc_attr( $open_link ) : ''; ?>"
-								data-close-url="<?php echo $close_link ? esc_attr( $close_link ) : ''; ?>"
-								data-delete-url="<?php echo $delete_link ? esc_attr( $delete_link ) : ''; ?>"
-								data-preview-url="<?php echo $preview_link ? esc_attr( $preview_link ) : ''; ?>"
-								data-post-url="<?php echo $item_post_link ? esc_attr( $item_post_link ) : ''; ?>"
-								>
-							</span>
-							<div id="cs-dashboard__links-dropdown-menu-<?php echo $item->_id; ?>"></div>
-						</td>
-					</tr>
+								<span
+									class="cs-dashboard__mq-mobile-only cs-dashboard__links-dropdown-toggle"
+									data-link-id="<?php echo $item->_id; ?>"
+									data-status="<?php echo $item->_closed ? 'closed' : 'open'; ?>"
+									data-results-url="<?php echo esc_attr( $results_link ); ?>"
+									data-edit-url="<?php echo $edit_link ? esc_attr( $edit_link ) : ''; ?>"
+									data-open-url="<?php echo $open_link ? esc_attr( $open_link ) : ''; ?>"
+									data-close-url="<?php echo $close_link ? esc_attr( $close_link ) : ''; ?>"
+									data-delete-url="<?php echo $delete_link ? esc_attr( $delete_link ) : ''; ?>"
+									data-preview-url="<?php echo $preview_link ? esc_attr( $preview_link ) : ''; ?>"
+									data-post-url="<?php echo $item_post_link ? esc_attr( $item_post_link ) : ''; ?>"
+									>
+								</span>
+								<div id="cs-dashboard__links-dropdown-menu-<?php echo $item->_id; ?>"></div>
+							</td>
+						</tr>
 					<?php } ?>
 				</tbody>
 			</table>
