@@ -229,7 +229,7 @@
 								</span>
 								<span
 									class="cs-dashboard__mq-mobile-only cs-dashboard__links-dropdown-toggle"
-									data-link-id="<?php echo $item->_id; ?>"
+									data-link-id="<?php echo esc_attr( $item->_id ); ?>"
 									data-status="<?php echo $item->_closed ? 'closed' : 'open'; ?>"
 									data-results-url="<?php echo esc_attr( $results_link ); ?>"
 									data-edit-url="<?php echo $edit_link ? esc_attr( $edit_link ) : ''; ?>"
@@ -240,7 +240,7 @@
 									data-post-url="<?php echo $item_post_link ? esc_attr( $item_post_link ) : ''; ?>"
 									>
 								</span>
-								<div id="cs-dashboard__links-dropdown-menu-<?php echo $item->_id; ?>"></div>
+								<div id="cs-dashboard__links-dropdown-menu-<?php echo esc_attr( $item->_id ); ?>"></div>
 							</td>
 						</tr>
 					<?php } ?>
