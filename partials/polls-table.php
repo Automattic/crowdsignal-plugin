@@ -30,215 +30,222 @@
 		</div>
 
 		<div class="item-container" id="dashboard-items">
-			<ol class="cs-dashboard__content">
-				<li class="cs-dashboard__content-item is-header">
-					<div class="cs-dashboard__content-item-attribute is-checkbox"></div>
-					<div class="cs-dashboard__content-item-attribute is-name">Name</div>
-					<div class="cs-dashboard__content-item-attribute is-type">Type</div>
-					<div class="cs-dashboard__content-item-attribute is-created">Created</div>
-					<div class="cs-dashboard__content-item-attribute is-status">Status</div>
-					<div class="cs-dashboard__content-item-attribute is-responses-total">Responses</div>
-					<div class="cs-dashboard__content-item-attribute is-source">Source</div>
-					<div class="cs-dashboard__content-item-attribute is-results-action"></div>
-					<div class="cs-dashboard__content-item-attribute is-edit-action"></div>
-					<div class="cs-dashboard__content-item-attribute is-edit-action"></div>
-					<div class="cs-dashboard__content-item-attribute is-edit-action"></div>
-					<div class="cs-dashboard__content-item-attribute is-edit-action"></div>
-				</li>
-				<?php
-				if ( ! is_array( $items ) ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- output from page renderer
-					$items = array();
-				}
-				foreach ( $items as $item ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
-					$item->_id = intval( $item->_id );
-
-					$delete_link  = false;
-					$preview_link = false;
-					$close_link   = false;
-					$open_link    = false;
-					$edit_link    = false;
-
-					$item_post_link = isset( $item->_source_link ) ? $item->_source_link : '';
-
-					$item_post_id = url_to_postid( $item_post_link );
-
-					$display_link = wp_parse_url( $item_post_link );
-					if ( isset( $display_link['query'] ) && '' !== $display_link['query'] ) {
-						$display_link = $display_link['path'] . '?' . $display_link['query'];
-					} elseif ( isset( $display_link['path'] ) && '' !== $display_link['path'] ) {
-						$display_link = $display_link['path'];
-					} else {
-						$display_link = $item_post_link;
+			<table class="cs-dashboard__grid">
+				<thead>
+					<tr>
+						<th class="cs-dashboard__grid is-name"><?php esc_html_e( 'Name' ); ?></th>
+						<th class="cs-dashboard__grid is-type"><span class="cs-dashboard__mq-desktop-only"><?php esc_html_e( 'Type' ); ?></span></th>
+						<th class="cs-dashboard__grid is-created"><span class="cs-dashboard__mq-desktop-only"><?php esc_html_e( 'Created' ); ?></span></th>
+						<th class="cs-dashboard__grid is-status"><?php esc_html_e( 'Status' ); ?></th>
+						<th class="cs-dashboard__grid is-responses-total"><?php esc_html_e( 'Responses' ); ?></th>
+						<th class="cs-dashboard__grid is-source"><span class="cs-dashboard__mq-desktop-only"><?php esc_html_e( 'Source' ); ?></span></th>
+						<th class="cs-dashboard__grid is-links"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					if ( ! is_array( $items ) ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- output from page renderer
+						$items = array();
 					}
+					foreach ( $items as $item ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
+						$item->_id = intval( $item->_id );
 
-					if ( 'poll' === $item->type ) {
-						$item->name = trim( wp_strip_all_tags( $item->name ) );
-						if ( 0 === strlen( $item->name ) ) {
-							$item->name = __( 'Unknown' );
-						}
+						$delete_link  = false;
+						$preview_link = false;
+						$close_link   = false;
+						$open_link    = false;
+						$edit_link    = false;
 
-						$results_link = 'https://app.crowdsignal.com/polls/' . $item->_id . '/results';
-						if ( $item_post_link ) {
-							$edit_link = get_edit_post_link( $item_post_id );
+						$item_post_link = isset( $item->_source_link ) ? $item->_source_link : '';
+
+						$item_post_id = url_to_postid( $item_post_link );
+
+						$display_link = wp_parse_url( $item_post_link );
+						if ( isset( $display_link['query'] ) && '' !== $display_link['query'] ) {
+							$display_link = $display_link['path'] . '?' . $display_link['query'];
+						} elseif ( isset( $display_link['path'] ) && '' !== $display_link['path'] ) {
+							$display_link = $display_link['path'];
 						} else {
-							$edit_link   = add_query_arg(
-								array(
-									'action'  => 'edit',
-									'poll'    => $item->_id,
-									'message' => false,
-								)
-							);
-							$delete_link = wp_nonce_url(
-								add_query_arg(
-									array(
-										'action'  => 'delete',
-										'poll'    => $item->_id,
-										'message' => false,
-									)
-								),
-								'delete-poll_' . $item->_id
-							);
-							$preview     = array( // phpcs:ignore -- for preview of polls
-								'action'    => 'preview',
-								'poll'      => $item->_id,
-								'message'   => false,
-								'iframe'    => 1,
-								'TB_iframe' => 'true',
-							);
+							$display_link = $item_post_link;
+						}
 
-							if ( isset( $_GET['iframe'] ) ) { // phpcs:ignore -- not actually processing a form
-								$preview['popup'] = 1; // phpcs:ignore -- for preview of polls
+						if ( 'poll' === $item->type ) {
+							$item->name = trim( wp_strip_all_tags( $item->name ) );
+							if ( 0 === strlen( $item->name ) ) {
+								$item->name = __( 'Unknown' );
 							}
-							$preview_link = add_query_arg( $preview );
 
-							$close_link = wp_nonce_url(
-								add_query_arg(
+							$results_link = 'https://app.crowdsignal.com/polls/' . $item->_id . '/results';
+							if ( $item_post_link ) {
+								$edit_link = get_edit_post_link( $item_post_id );
+							} else {
+								$edit_link   = add_query_arg(
 									array(
-										'action'  => 'close',
+										'action'  => 'edit',
 										'poll'    => $item->_id,
 										'message' => false,
 									)
-								),
-								'close-poll_' . $item->_id
-							);
+								);
+								$delete_link = wp_nonce_url(
+									add_query_arg(
+										array(
+											'action'  => 'delete',
+											'poll'    => $item->_id,
+											'message' => false,
+										)
+									),
+									'delete-poll_' . $item->_id
+								);
+								$preview     = array( // phpcs:ignore -- for preview of polls
+									'action'    => 'preview',
+									'poll'      => $item->_id,
+									'message'   => false,
+									'iframe'    => 1,
+									'TB_iframe' => 'true',
+								);
 
-							$open_link = wp_nonce_url(
-								add_query_arg(
-									array(
-										'action'  => 'open',
-										'poll'    => $item->_id,
-										'message' => false,
-									)
-								),
-								'open-poll_' . $item->_id
-							);
-						}
-						$icon_url = 'img/svg/icon-block-poll-round.svg';
-						switch ( $item->subtype ) {
-							case 'applause':
-								$icon_url = 'img/svg/icon-block-applause-round.svg';
-								break;
-							case 'vote':
-								$icon_url = 'img/svg/icon-block-voting-round.svg';
-								break;
-						}
-					} elseif ( 'survey' === $item->type ) {
-						$results_link   = 'https://app.crowdsignal.com/surveys/' . $item->_id . '/report/overview';
-						$icon_url       = 'img/svg/icon-block-survey-round.svg';
-						$edit_post      = false;
-						switch ( $item->subtype ) {
-							case 'nps':
-								$edit_link = $item_post_id ? get_edit_post_link( $item_post_id ) : false;
-								$icon_url  = 'img/svg/icon-block-nps-round.svg';
-								break;
-							case 'feedback':
-								$edit_link = $item_post_id ? get_edit_post_link( $item_post_id ) : false;
-								$icon_url  = 'img/svg/icon-block-feedbackButton-round.svg';
-								break;
-						}
-					} elseif ( 'quiz' === $item->type ) {
-						$edit_post      = false;
-						$item_post_link = false;
-						$results_link   = 'https://app.crowdsignal.com/quizzes/' . $item->_id . '/report/overview';
-						$edit_link      = 'https://app.crowdsignal.com/quizzes/' . $item->_id . '/question';
-						$icon_url       = 'img/svg/icon-block-quiz-round.svg';
-					} elseif ( 'rating' === $item->type ) {
-						$edit_post      = false;
-						$item_post_link = false;
-						$results_link   = 'https://app.crowdsignal.com/ratings/' . $item->_id . '/results/';
-						$edit_link      = 'https://app.crowdsignal.com/ratings/' . $item->_id . '/edit/';
-						$icon_url       = 'img/svg/icon-block-rating-round.svg';
-					}   elseif ( 'project' === $item->type ) {
-						$edit_post      = false;
-						$item_post_link = false;
-						$results_link   = 'https://app.crowdsignal.com/project/' . $item->_id . '/results/';
-						$edit_link      = 'https://app.crowdsignal.com/project/' . $item->_id;
-						$icon_url       = 'img/svg/icon-block-project-round.svg';
-					} else { // show a generic icon and generic links to app.crowdsignal.com for unhandled item types
-						$edit_post      = false;
-						$item_post_link = false;
-						$results_link   = false;
-						$edit_link      = 'https://app.crowdsignal.com/dashboard/';
-						$icon_url       = 'img/svg/cs-logo2.svg';
-					}
+								if ( isset( $_GET['iframe'] ) ) { // phpcs:ignore -- not actually processing a form
+									$preview['popup'] = 1; // phpcs:ignore -- for preview of polls
+								}
+								$preview_link = add_query_arg( $preview );
 
-					$icon_url = $resource_path . $icon_url; // phpcs:ignore -- variable comes from controller
-					$type_descriptor = $item->subtype
-						? $item->subtype
-						: $item->type;
+								$close_link = wp_nonce_url(
+									add_query_arg(
+										array(
+											'action'  => 'close',
+											'poll'    => $item->_id,
+											'message' => false,
+										)
+									),
+									'close-poll_' . $item->_id
+								);
 
-					if ( strlen( $item->name ) > 25 ) {
-						$display_name = substr( $item->name, 0, 25 ) . '...';
-					} else {
-						$display_name = $item->name;
-					}
-					?>
-					<li class="cs-dashboard__content-item">
-						<div class="cs-dashboard__content-item-attribute is-checkbox"></div>
-						<div class="cs-dashboard__content-item-attribute is-name">
-							<strong><a target="_blank" rel="noopener" href="<?php echo esc_url( $results_link ); ?>"><?php echo esc_html( $display_name ); ?></a></strong>
-						</div>
-						<div class="cs-dashboard__content-item-attribute is-type">
-							<img class="cs-dashboard__content-item-type-img" src="<?php echo esc_url( $icon_url ); ?>" title="<?php echo esc_attr( $type_descriptor ); ?>" alt="<?php echo esc_attr( $type_descriptor ); ?> icon" />
-						</div>
-						<div class="cs-dashboard__content-item-attribute is-created">
-							<?php echo esc_html( gmdate( 'M j', $item->_created ) ); ?>
-						</div>
-						<div class="cs-dashboard__content-item-attribute is-status" data-open="<?php echo $item->_closed ? 0 : 1; ?>">
+								$open_link = wp_nonce_url(
+									add_query_arg(
+										array(
+											'action'  => 'open',
+											'poll'    => $item->_id,
+											'message' => false,
+										)
+									),
+									'open-poll_' . $item->_id
+								);
+							}
+							$icon_url = 'img/svg/icon-block-poll-round.svg';
+							switch ( $item->subtype ) {
+								case 'applause':
+									$icon_url = 'img/svg/icon-block-applause-round.svg';
+									break;
+								case 'vote':
+									$icon_url = 'img/svg/icon-block-voting-round.svg';
+									break;
+							}
+						} elseif ( 'survey' === $item->type ) {
+							$results_link   = 'https://app.crowdsignal.com/surveys/' . $item->_id . '/report/overview';
+							$icon_url       = 'img/svg/icon-block-survey-round.svg';
+							$edit_post      = false;
+							switch ( $item->subtype ) {
+								case 'nps':
+									$edit_link = $item_post_id ? get_edit_post_link( $item_post_id ) : false;
+									$icon_url  = 'img/svg/icon-block-nps-round.svg';
+									break;
+								case 'feedback':
+									$edit_link = $item_post_id ? get_edit_post_link( $item_post_id ) : false;
+									$icon_url  = 'img/svg/icon-block-feedbackButton-round.svg';
+									break;
+							}
+						} elseif ( 'quiz' === $item->type ) {
+							$edit_post      = false;
+							$item_post_link = false;
+							$results_link   = 'https://app.crowdsignal.com/quizzes/' . $item->_id . '/report/overview';
+							$edit_link      = 'https://app.crowdsignal.com/quizzes/' . $item->_id . '/question';
+							$icon_url       = 'img/svg/icon-block-quiz-round.svg';
+						} elseif ( 'rating' === $item->type ) {
+							$edit_post      = false;
+							$item_post_link = false;
+							$results_link   = 'https://app.crowdsignal.com/ratings/' . $item->_id . '/results/';
+							$edit_link      = 'https://app.crowdsignal.com/ratings/' . $item->_id . '/edit/';
+							$icon_url       = 'img/svg/icon-block-rating-round.svg';
+								} elseif ( 'project' === $item->type ) {
+							$edit_post      = false;
+							$item_post_link = false;
+							$results_link   = 'https://app.crowdsignal.com/project/' . $item->_id . '/results/';
+							$edit_link      = 'https://app.crowdsignal.com/project/' . $item->_id;
+							$icon_url       = 'img/svg/icon-block-project-round.svg';
+						} else { // show a generic icon and generic links to app.crowdsignal.com for unhandled item types
+							$edit_post      = false;
+							$item_post_link = false;
+							$results_link   = false;
+							$edit_link      = 'https://app.crowdsignal.com/dashboard/';
+							$icon_url       = 'img/svg/cs-logo2.svg';
+						}
+
+						$icon_url = $resource_path . $icon_url; // phpcs:ignore -- variable comes from controller
+						$type_descriptor = $item->subtype
+							? $item->subtype
+							: $item->type;
+
+						?>
+						<tr>
+							<td class="cs-dashboard__grid is-name">
+								<a target="_blank" rel="noopener" title="<?php echo esc_attr( $item->name ); ?>" href="<?php echo esc_url( $results_link ); ?>"><?php echo esc_html( $item->name ); ?></a>
+							</td>
+							<td class="cs-dashboard__grid is-type">
+								<img class="cs-dashboard__mq-desktop-only" src="<?php echo esc_url( $icon_url ); ?>" title="<?php echo esc_attr( $type_descriptor ); ?>" alt="<?php echo esc_attr( $type_descriptor ); ?> icon" />
+							</td>
+							<td class="cs-dashboard__grid is-created">
+								<span class="cs-dashboard__mq-desktop-only"><?php echo esc_html( gmdate( 'M j', $item->_created ) ); ?></span>
+							</td>
+							<td class="cs-dashboard__grid is-status" data-open="<?php echo $item->_closed ? 0 : 1; ?>">
 							<?php echo ! $item->_closed ? esc_html__( 'Open' ) : esc_html__( 'Closed' ); ?>
-						</div>
-						<div class="cs-dashboard__content-item-attribute is-responses-total">
+							</td>
+							<td class="cs-dashboard__grid is-responses-total">
 							<strong><?php echo esc_html( number_format_i18n( $item->_responses ) ); ?></strong>
-						</div>
-						<div class="cs-dashboard__content-item-attribute is-source">
-							<?php echo $item_post_link ? '<a href="' . esc_url( $item_post_link ) . '">' . esc_url( $display_link ) . '</a>' : ''; ?>
-						</div>
-						<div class="cs-dashboard__content-item-attribute is-results-action">
-							<a target="_blank" rel="noopener" href="<?php echo esc_url( $results_link ); ?>"><?php esc_html_e( 'Results' ); ?></a>
-						</div>
-						<div class="cs-dashboard__content-item-attribute is-edit-action">
-						<?php if ( $edit_link ) { ?>
-							<a target="<?php echo $item_post_id ? '' : '_blank'; ?>" rel="noopener" href="<?php echo esc_url( $edit_link ); ?>"><?php esc_html_e( 'Edit' ); ?></a>
-						<?php } ?>
-						</div>
-						<div class="cs-dashboard__content-item-attribute is-edit-action">
-							<?php if ( $open_link || $close_link ) { ?>
-							<a target="_blank" rel="noopener" href="<?php echo $item->_closed ? esc_url( $open_link ) : esc_url( $close_link ); ?>"><?php $item->_closed ? esc_html_e( 'Open' ) : esc_html_e( 'Close' ); ?></a>
-							<?php } ?>
-						</div>
-						<div class="cs-dashboard__content-item-attribute is-edit-action">
-							<?php if ( $delete_link ) { ?>
-							<a target="_blank" rel="noopener" class="delete-poll delete" href="<?php esc_url( $delete_link ); ?>"><?php esc_html_e( 'Delete' ); ?></a>
-							<?php } ?>
-						</div>
-						<div class="cs-dashboard__content-item-attribute is-edit-action">
-							<?php if ( $preview_link ) { ?>
-							<a class='thickbox' href="<?php echo esc_url( $preview_link ); ?>"><?php esc_html_e( 'Preview' ); ?></a>
-							<?php } ?>
-						</div>
-					</li>
-				<?php } ?>
-			</ol>
+							</td>
+							<td class="cs-dashboard__grid is-source">
+								<?php if ( $item_post_link ) : ?>
+									<span class="cs-dashboard__mq-desktop-only">
+										<a rel="noopener" href="<?php echo esc_url( $item_post_link ); ?>"><?php echo esc_url( $display_link ); ?></a>
+									</span>
+								<?php endif; ?>
+							</td>
+							<td class="cs-dashboard__grid is-links">
+								<span class="cs-dashboard__mq-desktop-only">
+									<a target="_blank" rel="noopener" href="<?php echo esc_url( $results_link ); ?>"><?php esc_html_e( 'Results' ); ?></a>
+									<?php if ( $edit_link ) { ?>
+										<a target="<?php echo $item_post_id ? '' : '_blank'; ?>" rel="noopener" href="<?php echo esc_url( $edit_link ); ?>"><?php esc_html_e( 'Edit' ); ?></a>
+									<?php } ?>
+									<?php if ( $open_link || $close_link ) { ?>
+										<a target="_blank" rel="noopener" href="<?php echo $item->_closed ? esc_url( $open_link ) : esc_url( $close_link ); ?>"><?php $item->_closed ? esc_html_e( 'Open' ) : esc_html_e( 'Close' ); ?></a>
+									<?php } ?>
+
+									<?php if ( $delete_link ) { ?>
+										<a target="_blank" rel="noopener" class="delete-poll delete" href="<?php esc_url( $delete_link ); ?>"><?php esc_html_e( 'Delete' ); ?></a>
+									<?php } ?>
+
+									<?php if ( $preview_link ) { ?>
+										<a class='thickbox' href="<?php echo esc_url( $preview_link ); ?>"><?php esc_html_e( 'Preview' ); ?></a>
+									<?php } ?>
+								</span>
+								<span
+									class="cs-dashboard__mq-mobile-only cs-dashboard__links-dropdown-toggle"
+									data-link-id="<?php echo esc_attr( $item->_id ); ?>"
+									data-status="<?php echo $item->_closed ? 'closed' : 'open'; ?>"
+									data-results-url="<?php echo esc_attr( $results_link ); ?>"
+									data-edit-url="<?php echo $edit_link ? esc_attr( $edit_link ) : ''; ?>"
+									data-open-url="<?php echo $open_link ? esc_attr( $open_link ) : ''; ?>"
+									data-close-url="<?php echo $close_link ? esc_attr( $close_link ) : ''; ?>"
+									data-delete-url="<?php echo $delete_link ? esc_attr( $delete_link ) : ''; ?>"
+									data-preview-url="<?php echo $preview_link ? esc_attr( $preview_link ) : ''; ?>"
+									data-post-url="<?php echo $item_post_link ? esc_attr( $item_post_link ) : ''; ?>"
+									>
+								</span>
+								<div id="cs-dashboard__links-dropdown-menu-<?php echo esc_attr( $item->_id ); ?>"></div>
+							</td>
+						</tr>
+					<?php } ?>
+				</tbody>
+			</table>
 		</div>
 		<div class="tablenav" <?php echo ( '' === $page_links ) ? 'style="display:none;"' : ''; // phpcs:ignore -- output from paginate_links ?>>
 			<div class="tablenav-pages"><?php echo $page_links; ?></div> <?php // phpcs:ignore -- output from paginate_links ?>
@@ -330,38 +337,48 @@ jQuery( document ).ready(function(){
 		);
 	}
 
-	// jQuery( '#filter-polls' ).click( function(){
-	//	if( jQuery( '#filter-options' ).val() == 'blog' ){
-	//		window.location = '<?php // echo add_query_arg( array( 'page' => 'polls', 'view' => 'blog' ), admin_url( 'admin.php' ) ); // phpcs:ignore -- controlled plain text ?>';
-	//	} else {
-	//		window.location = '<?php // echo add_query_arg( array( 'page' => 'polls' ), admin_url( 'admin.php' ) ); // phpcs:ignore -- controlled plain text ?>';
-	//	}
-	// } );
-
-	render(
-		wp.components.DropdownMenu(
+	const CreateAccountDropdown = () => {
+		const toggle = ( { isOpen, onToggle } ) => el(
+			wp.components.Button,
 			{
-				label: connectedAccountEmail || 'Account',
-				text: connectedAccountEmail || 'Account',
-				toggleProps: {
-					iconPosition: 'right',
-					className: 'cs-account__dropdown-menu-toggle',
-				},
-				popoverProps: {
-					position: 'bottom center',
-				},
-				icon: 'arrow-down',
-				controls: [
-					{ title: 'My Account', onClick: () => window.open( 'https://app.crowdsignal.com/account', '_blank' ) },
-					{ title: 'Settings', onClick: () => window.open( 'options-general.php?page=crowdsignal-settings', '_self' ) },
-					{ title: 'Crowdsignal Blog', onClick: () => window.open( 'https://crowdsignal.com/blog', '_blank' ) },
-					{ title: 'Help', onClick: () => window.open( 'https://crowdsignal.com/support', '_blank' ) },
-					{ title: 'crowdsignal.com', onClick: () => window.open( 'https://crowdsignal.com/', '_blank' ) },
-				]
+				className: 'cs-account__dropdown-menu-toggle',
+				onClick: onToggle,
+				'aria-expanded': isOpen,
+			},
+			connectedAccountEmail || '<?php echo esc_js( __( 'Account', 'polldaddy' ) ); ?>',
+			el( wp.components.Icon, { icon: 'arrow-down' }, null )
+		);
+
+		const openCsAccount = () => window.open( 'https://app.crowdsignal.com/account', '_blank' );
+		const openCsSettings = () => window.open( '?page=polls&action=options', '_self' );
+		const openCsBlog = () => window.open( 'https://crowdsignal.com/blog', '_blank' );
+		const openCsSupport = () => window.open( 'https://crowdsignal.com/support', '_blank' );
+		const openCsSite = () => window.open( 'https://crowdsignal.com/', '_blank' );
+		const renderList = () => el(
+			'div',
+			{
+				className: 'cs-account-menu__dropdown-list'
+			},
+			el( wp.components.Button, { isSecondary: true, onClick: openCsAccount }, '<?php echo esc_js( __( 'My Account', 'polldaddy' ) ); ?>' ),
+			el( wp.components.Button, { isSecondary: true, onClick: openCsSettings }, '<?php echo esc_js( __( 'Settings', 'polldaddy' ) ); ?>' ),
+			el( wp.components.Button, { isSecondary: true, onClick: openCsBlog }, '<?php echo esc_js( __( 'Crowdsignal Blog', 'polldaddy' ) ); ?>' ),
+			el( wp.components.Button, { isSecondary: true, onClick: openCsSupport }, '<?php echo esc_js( __( 'Help', 'polldaddy' ) ); ?>' ),
+			el( wp.components.Button, { isSecondary: true, onClick: openCsSite }, 'crowdsignal.com' ),
+		);
+		return el(
+			wp.components.Dropdown,
+			{
+				className: 'cs-account-menu__dropdown',
+				contentClassName: 'cs-account-menu__drowpdown-list-container',
+				placement: 'bottom center',
+				renderToggle: toggle,
+				renderContent: renderList ,
+				popoverProps: { noArrow: false },
 			}
-		),
-		document.getElementById( 'dashboard-crowdsignal-header-actions' )
-	);
+		);
+	}
+
+	render( el( CreateAccountDropdown, {} ), document.getElementById( 'dashboard-crowdsignal-header-actions' ) );
 
 	// create new dropdown with modals:
 	const ModalButton = ( { label, iconUrl, videoSrc, headline, footer } ) => {
@@ -447,10 +464,14 @@ jQuery( document ).ready(function(){
 
 	const hasClosedNotice = window.localStorage.getItem( 'makingChangesNoticeClosed' );
 
-	render(
-		! hasClosedNotice && el( Notification ),
-		document.getElementById( 'cs-dashboard-notice' )
-	);
+	if ( ! hasClosedNotice ) {
+		render(
+			el( Notification ),
+			document.getElementById( 'cs-dashboard-notice' )
+		);
+	} else {
+		document.getElementById( 'cs-dashboard-notice' ) && document.getElementById( 'cs-dashboard-notice' ).remove();
+	}
 
 
 	// switch buttons
@@ -521,5 +542,54 @@ jQuery( document ).ready(function(){
 			buttonGroupContainer
 		);
 	}
+
+	// Links dropdown (mobile view)
+	const linksDropdownToggle = ( { isOpen, onToggle } ) => el(
+		wp.components.Button,
+		{
+			isPrimary: false,
+			className: isOpen ? 'cs-links-menu__dropdown-toggle is-active' : 'cs-links-menu__dropdown-toggle',
+			onClick: onToggle,
+			'aria-expanded': isOpen
+		},
+		el( wp.components.Icon, { icon: 'ellipsis' }, null )
+	);
+
+	const linkToggles = document.body.querySelectorAll( 'span.cs-dashboard__links-dropdown-toggle' );
+	linkToggles.forEach( linkToggle => {
+		const {
+			postUrl,
+			linkId,
+			resultsUrl,
+			openUrl,
+			closeUrl,
+			status
+		} = linkToggle.dataset;
+		const links = [];
+		postUrl && links.push( el( 'a', { rel: 'noopener noreferer', key: Math.random(), href: postUrl }, 'View Post' ) );
+		resultsUrl && links.push( el( 'a', { rel: 'noopener noreferer', key: Math.random(), href: resultsUrl }, 'Results' ) );
+		status === 'closed' && openUrl && links.push( el( 'a', { rel: 'noopener noreferer', key: Math.random(), href: openUrl }, 'Open' ) );
+		status === 'open' && closeUrl && links.push( el( 'a', { rel: 'noopener noreferer', key: Math.random(), href: closeUrl }, 'Close' ) );
+
+		const sublist = () => el(
+			'div',
+			{ className: 'cs-links-menu__dropdown-list' },
+			links.map( link => link )
+		);
+		const linkDropdown = document.getElementById( 'cs-dashboard__links-dropdown-menu-' + linkId );
+		if ( linkDropdown ) {
+			render(
+				el( wp.components.Dropdown, {
+					className: 'cs-dashboard__links-dropdown',
+					contentClassName: 'cs-dashboard__links-drowpdown-container',
+					position: 'bottom left',
+					renderToggle: linksDropdownToggle,
+					renderContent: sublist,
+					popoverProps: { noArrow: false },
+				} ),
+				linkDropdown
+			);
+		}
+	} );
 });
 </script>
