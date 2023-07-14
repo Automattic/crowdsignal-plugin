@@ -576,6 +576,8 @@ h2#polldaddy-header, h2#poll-list-header {
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
+	gap: 8px;
+	flex-wrap: wrap;
 }
 
 .cs-dashboard__header-notice {
@@ -596,6 +598,7 @@ h2#polldaddy-header, h2#poll-list-header {
 	height: 16px;
 }
 
+.cs-account-menu__dropdown .components-popover,
 .cs-create-menu__dropdown .components-popover {
 	z-index: 99999;
 }
@@ -605,7 +608,8 @@ h2#polldaddy-header, h2#poll-list-header {
 	width: 136px;
 }
 
-.cs-create-menu__dropdown .components-dropdown__content .components-popover__content>div {
+.cs-account-menu__dropdown .components-dropdown__content .components-popover__content > div,
+.cs-create-menu__dropdown .components-dropdown__content .components-popover__content > div {
 	padding: 8px 0;
 }
 
@@ -642,6 +646,7 @@ h2#polldaddy-header, h2#poll-list-header {
 	transform: rotate(180deg);
 }
 
+.cs-account-menu__dropdown-list .is-secondary,
 .cs-create-menu__item.components-button.is-secondary {
 	display: flex;
 	width: 100%;

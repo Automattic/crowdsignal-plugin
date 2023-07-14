@@ -337,31 +337,48 @@ jQuery( document ).ready(function(){
 		);
 	}
 
-	render(
-		wp.components.DropdownMenu(
+	const CreateAccountDropdown = () => {
+		const toggle = ( { isOpen, onToggle } ) => el(
+			wp.components.Button,
 			{
-				label: connectedAccountEmail || 'Account',
-				text: connectedAccountEmail || 'Account',
-				toggleProps: {
-					iconPosition: 'right',
-					className: 'cs-account__dropdown-menu-toggle',
-				},
-				popoverProps: {
-					position: 'bottom center',
-					noArrow: false,
-				},
-				icon: 'arrow-down',
-				controls: [
-					{ title: 'My Account', onClick: () => window.open( 'https://app.crowdsignal.com/account', '_blank' ) },
-					{ title: 'Settings', onClick: () => window.open( 'options-general.php?page=crowdsignal-settings', '_self' ) },
-					{ title: 'Crowdsignal Blog', onClick: () => window.open( 'https://crowdsignal.com/blog', '_blank' ) },
-					{ title: 'Help', onClick: () => window.open( 'https://crowdsignal.com/support', '_blank' ) },
-					{ title: 'crowdsignal.com', onClick: () => window.open( 'https://crowdsignal.com/', '_blank' ) },
-				]
+				className: 'cs-account__dropdown-menu-toggle',
+				onClick: onToggle,
+				'aria-expanded': isOpen,
+			},
+			connectedAccountEmail || '<?php echo esc_js( __( 'Account', 'polldaddy' ) ); ?>',
+			el( wp.components.Icon, { icon: 'arrow-down' }, null )
+		);
+
+		const openCsAccount = () => window.open( 'https://app.crowdsignal.com/account', '_blank' );
+		const openCsSettings = () => window.open( '?page=polls&action=options', '_self' );
+		const openCsBlog = () => window.open( 'https://crowdsignal.com/blog', '_blank' );
+		const openCsSupport = () => window.open( 'https://crowdsignal.com/support', '_blank' );
+		const openCsSite = () => window.open( 'https://crowdsignal.com/', '_blank' );
+		const renderList = () => el(
+			'div',
+			{
+				className: 'cs-account-menu__dropdown-list'
+			},
+			el( wp.components.Button, { isSecondary: true, onClick: openCsAccount }, '<?php echo esc_js( __( 'My Account', 'polldaddy' ) ); ?>' ),
+			el( wp.components.Button, { isSecondary: true, onClick: openCsSettings }, '<?php echo esc_js( __( 'Settings', 'polldaddy' ) ); ?>' ),
+			el( wp.components.Button, { isSecondary: true, onClick: openCsBlog }, '<?php echo esc_js( __( 'Crowdsignal Blog', 'polldaddy' ) ); ?>' ),
+			el( wp.components.Button, { isSecondary: true, onClick: openCsSupport }, '<?php echo esc_js( __( 'Help', 'polldaddy' ) ); ?>' ),
+			el( wp.components.Button, { isSecondary: true, onClick: openCsSite }, 'crowdsignal.com' ),
+		);
+		return el(
+			wp.components.Dropdown,
+			{
+				className: 'cs-account-menu__dropdown',
+				contentClassName: 'cs-account-menu__drowpdown-list-container',
+				placement: 'bottom center',
+				renderToggle: toggle,
+				renderContent: renderList ,
+				popoverProps: { noArrow: false },
 			}
-		),
-		document.getElementById( 'dashboard-crowdsignal-header-actions' )
-	);
+		);
+	}
+
+	render( el( CreateAccountDropdown, {} ), document.getElementById( 'dashboard-crowdsignal-header-actions' ) );
 
 	// create new dropdown with modals:
 	const ModalButton = ( { label, iconUrl, videoSrc, headline, footer } ) => {
@@ -448,10 +465,10 @@ jQuery( document ).ready(function(){
 	const hasClosedNotice = window.localStorage.getItem( 'makingChangesNoticeClosed' );
 
 	if ( ! hasClosedNotice ) {
-	render(
+		render(
 			el( Notification ),
-		document.getElementById( 'cs-dashboard-notice' )
-	);
+			document.getElementById( 'cs-dashboard-notice' )
+		);
 	} else {
 		document.getElementById( 'cs-dashboard-notice' ) && document.getElementById( 'cs-dashboard-notice' ).remove();
 	}
