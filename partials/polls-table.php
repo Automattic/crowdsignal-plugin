@@ -186,64 +186,64 @@
 						: $item->type;
 
 					?>
-						<tr>
-							<td class="cs-dashboard__grid is-name">
-								<a target="_blank" rel="noopener" title="<?php echo esc_attr( $item->name ); ?>" href="<?php echo esc_url( $results_link ); ?>"><?php echo esc_html( $item->name ); ?></a>
-							</td>
-							<td class="cs-dashboard__grid is-type">
-								<img class="cs-dashboard__mq-desktop-only" src="<?php echo esc_url( $icon_url ); ?>" title="<?php echo esc_attr( $type_descriptor ); ?>" alt="<?php echo esc_attr( $type_descriptor ); ?> icon" />
-							</td>
-							<td class="cs-dashboard__grid is-created">
-								<span class="cs-dashboard__mq-desktop-only"><?php echo esc_html( gmdate( 'M j', $item->_created ) ); ?></span>
-							</td>
-							<td class="cs-dashboard__grid is-status" data-open="<?php echo $item->_closed ? 0 : 1; ?>">
-							<?php echo ! $item->_closed ? esc_html__( 'Open' ) : esc_html__( 'Closed' ); ?>
-							</td>
-							<td class="cs-dashboard__grid is-responses-total">
-							<strong><?php echo esc_html( number_format_i18n( $item->_responses ) ); ?></strong>
-							</td>
-							<td class="cs-dashboard__grid is-source">
-								<?php if ( $item_post_link ) : ?>
-									<span class="cs-dashboard__mq-desktop-only">
-										<a rel="noopener" href="<?php echo esc_url( $item_post_link ); ?>"><?php echo esc_url( $display_link ); ?></a>
-									</span>
-								<?php endif; ?>
-							</td>
-							<td class="cs-dashboard__grid is-links">
+					<tr>
+						<td class="cs-dashboard__grid is-name">
+							<a target="_blank" rel="noopener" title="<?php echo esc_attr( $item->name ); ?>" href="<?php echo esc_url( $results_link ); ?>"><?php echo esc_html( $item->name ); ?></a>
+						</td>
+						<td class="cs-dashboard__grid is-type">
+							<img class="cs-dashboard__mq-desktop-only" src="<?php echo esc_url( $icon_url ); ?>" title="<?php echo esc_attr( $type_descriptor ); ?>" alt="<?php echo esc_attr( $type_descriptor ); ?> icon" />
+						</td>
+						<td class="cs-dashboard__grid is-created">
+							<span class="cs-dashboard__mq-desktop-only"><?php echo esc_html( gmdate( 'M j', $item->_created ) ); ?></span>
+						</td>
+						<td class="cs-dashboard__grid is-status" data-open="<?php echo $item->_closed ? 0 : 1; ?>">
+						<?php echo ! $item->_closed ? esc_html__( 'Open' ) : esc_html__( 'Closed' ); ?>
+						</td>
+						<td class="cs-dashboard__grid is-responses-total">
+						<strong><?php echo esc_html( number_format_i18n( $item->_responses ) ); ?></strong>
+						</td>
+						<td class="cs-dashboard__grid is-source">
+							<?php if ( $item_post_link ) : ?>
 								<span class="cs-dashboard__mq-desktop-only">
-							<a target="_blank" rel="noopener" href="<?php echo esc_url( $results_link ); ?>"><?php esc_html_e( 'Results' ); ?></a>
-						<?php if ( $edit_link ) { ?>
-							<a target="<?php echo $item_post_id ? '' : '_blank'; ?>" rel="noopener" href="<?php echo esc_url( $edit_link ); ?>"><?php esc_html_e( 'Edit' ); ?></a>
+									<a rel="noopener" href="<?php echo esc_url( $item_post_link ); ?>"><?php echo esc_url( $display_link ); ?></a>
+								</span>
+							<?php endif; ?>
+						</td>
+						<td class="cs-dashboard__grid is-links">
+							<span class="cs-dashboard__mq-desktop-only">
+						<a target="_blank" rel="noopener" href="<?php echo esc_url( $results_link ); ?>"><?php esc_html_e( 'Results' ); ?></a>
+					<?php if ( $edit_link ) { ?>
+						<a target="<?php echo $item_post_id ? '' : '_blank'; ?>" rel="noopener" href="<?php echo esc_url( $edit_link ); ?>"><?php esc_html_e( 'Edit' ); ?></a>
+					<?php } ?>
+						<?php if ( $open_link || $close_link ) { ?>
+						<a target="_blank" rel="noopener" href="<?php echo $item->_closed ? esc_url( $open_link ) : esc_url( $close_link ); ?>"><?php $item->_closed ? esc_html_e( 'Open' ) : esc_html_e( 'Close' ); ?></a>
 						<?php } ?>
-							<?php if ( $open_link || $close_link ) { ?>
-							<a target="_blank" rel="noopener" href="<?php echo $item->_closed ? esc_url( $open_link ) : esc_url( $close_link ); ?>"><?php $item->_closed ? esc_html_e( 'Open' ) : esc_html_e( 'Close' ); ?></a>
-							<?php } ?>
 
-							<?php if ( $delete_link ) { ?>
-							<a target="_blank" rel="noopener" class="delete-poll delete" href="<?php esc_url( $delete_link ); ?>"><?php esc_html_e( 'Delete' ); ?></a>
-							<?php } ?>
+						<?php if ( $delete_link ) { ?>
+						<a target="_blank" rel="noopener" class="delete-poll delete" href="<?php esc_url( $delete_link ); ?>"><?php esc_html_e( 'Delete' ); ?></a>
+						<?php } ?>
 
-							<?php if ( $preview_link ) { ?>
-							<a class='thickbox' href="<?php echo esc_url( $preview_link ); ?>"><?php esc_html_e( 'Preview' ); ?></a>
-							<?php } ?>
-								</span>
-								<span
-									class="cs-dashboard__mq-mobile-only cs-dashboard__links-dropdown-toggle"
-									data-link-id="<?php echo $item->_id; ?>"
-									data-status="<?php echo $item->_closed ? 'closed' : 'open'; ?>"
-									data-results-url="<?php echo esc_attr( $results_link ); ?>"
-									data-edit-url="<?php echo $edit_link ? esc_attr( $edit_link ) : ''; ?>"
-									data-open-url="<?php echo $open_link ? esc_attr( $open_link ) : ''; ?>"
-									data-close-url="<?php echo $close_link ? esc_attr( $close_link ) : ''; ?>"
-									data-delete-url="<?php echo $delete_link ? esc_attr( $delete_link ) : ''; ?>"
-									data-preview-url="<?php echo $preview_link ? esc_attr( $preview_link ) : ''; ?>"
-									data-post-url="<?php echo $item_post_link ? esc_attr( $item_post_link ) : ''; ?>"
-									>
-								</span>
-								<div id="cs-dashboard__links-dropdown-menu-<?php echo $item->_id; ?>"></div>
-							</td>
-						</tr>
-				<?php } ?>
+						<?php if ( $preview_link ) { ?>
+						<a class='thickbox' href="<?php echo esc_url( $preview_link ); ?>"><?php esc_html_e( 'Preview' ); ?></a>
+						<?php } ?>
+							</span>
+							<span
+								class="cs-dashboard__mq-mobile-only cs-dashboard__links-dropdown-toggle"
+								data-link-id="<?php echo $item->_id; ?>"
+								data-status="<?php echo $item->_closed ? 'closed' : 'open'; ?>"
+								data-results-url="<?php echo esc_attr( $results_link ); ?>"
+								data-edit-url="<?php echo $edit_link ? esc_attr( $edit_link ) : ''; ?>"
+								data-open-url="<?php echo $open_link ? esc_attr( $open_link ) : ''; ?>"
+								data-close-url="<?php echo $close_link ? esc_attr( $close_link ) : ''; ?>"
+								data-delete-url="<?php echo $delete_link ? esc_attr( $delete_link ) : ''; ?>"
+								data-preview-url="<?php echo $preview_link ? esc_attr( $preview_link ) : ''; ?>"
+								data-post-url="<?php echo $item_post_link ? esc_attr( $item_post_link ) : ''; ?>"
+								>
+							</span>
+							<div id="cs-dashboard__links-dropdown-menu-<?php echo $item->_id; ?>"></div>
+						</td>
+					</tr>
+					<?php } ?>
 				</tbody>
 			</table>
 		</div>
