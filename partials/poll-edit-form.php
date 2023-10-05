@@ -17,7 +17,7 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 <form enctype="multipart/form-data" name="send-media" action="admin-ajax.php" method="post">
 	<?php wp_nonce_field( 'send-media' ); ?>
 	<input type="hidden" value="" name="action">
-	<input type="hidden" value="<?php echo $controller->user_code; ?>" name="uc">
+	<input type="hidden" value="<?php echo esc_attr( $controller->user_code ); ?>" name="uc">
 	<input type="hidden" value="" name="attach-id">
 	<input type="hidden" value="" name="media-id">
 	<input type="hidden" value="" name="url">
@@ -58,8 +58,8 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 								?>
 
 								<li>
-									<label for="<?php echo $option; ?>">
-										<input type="checkbox"<?php echo $checked; ?> value="yes" id="<?php echo $option; ?>" name="<?php echo $option; ?>" /> <?php echo esc_html( $label ); ?>
+									<label for="<?php echo esc_attr( $option ); ?>">
+										<input type="checkbox"<?php echo esc_attr( $checked ); ?> value="yes" id="<?php echo esc_attr( $option ); ?>" name="<?php echo esc_attr( $option ); ?>" /> <?php echo esc_html( $label ); ?>
 									</label>
 								</li>
 
@@ -72,7 +72,7 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 							$style = 'yes' === $poll->multipleChoice ? 'display:block;' : 'display:none;';
 						}
 						?>
-						<div id="numberChoices" name="numberChoices" style="padding-left:15px;<?php echo $style; ?>">
+						<div id="numberChoices" name="numberChoices" style="padding-left:15px;<?php echo esc_attr( $style ); ?>">
 							<p>
 								<?php _e( 'Number of choices', 'polldaddy' ); ?>:
 								<select name="choices" id="choices">
@@ -101,7 +101,7 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 						<div id="publishing-action">
 							<?php wp_nonce_field( $poll_id ? "edit-poll_$poll_id" : 'create-poll' ); ?>
 							<input type="hidden" name="action" value="<?php echo $poll_id ? 'edit-poll' : 'create-poll'; ?>" />
-							<input type="hidden" class="polldaddy-poll-id" name="poll" value="<?php echo $poll_id; ?>" />
+							<input type="hidden" class="polldaddy-poll-id" name="poll" value="<?php echo esc_attr( $poll_id ); ?>" />
 							<input type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Save Poll', 'polldaddy' ) ); ?>" />
 
 							<?php if ( isset( $_GET['iframe'] ) && $poll_id ) : ?>
@@ -136,8 +136,8 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 							?>
 
 							<li>
-								<label for="resultsType-<?php echo $value; ?>">
-									<input type="radio"<?php echo $checked; ?> value="<?php echo $value; ?>" name="resultsType" id="resultsType-<?php echo $value; ?>" /> <?php echo esc_html( $label ); ?>
+								<label for="resultsType-<?php echo esc_attr( $value ); ?>">
+									<input type="radio"<?php echo esc_attr( $checked ); ?> value="<?php echo esc_attr( $value ); ?>" name="resultsType" id="resultsType-<?php echo esc_attr( $value ); ?>" /> <?php echo esc_html( $label ); ?>
 								</label>
 							</li>
 
@@ -167,8 +167,8 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 							?>
 
 							<li>
-								<label for="blockRepeatVotersType-<?php echo $value; ?>">
-									<input class="block-repeat" type="radio"<?php echo $checked; ?> value="<?php echo $value; ?>" name="blockRepeatVotersType" id="blockRepeatVotersType-<?php echo $value; ?>" /> <?php echo esc_html( $label ); ?>
+								<label for="blockRepeatVotersType-<?php echo esc_attr( $value ); ?>">
+									<input class="block-repeat" type="radio"<?php echo esc_attr( $checked ); ?> value="<?php echo esc_attr( $value ); ?>" name="blockRepeatVotersType" id="blockRepeatVotersType-<?php echo esc_attr( $value ); ?>" /> <?php echo esc_html( $label ); ?>
 								</label>
 							</li>
 
@@ -214,8 +214,8 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 							?>
 
 							<li>
-								<label for="comments-<?php echo $value; ?>">
-									<input type="radio"<?php echo $checked; ?> value="<?php echo $value; ?>" name="comments" id="comments-<?php echo $value; ?>" /> <?php echo esc_html( $label ); ?>
+								<label for="comments-<?php echo esc_attr( $value ); ?>">
+									<input type="radio"<?php echo esc_attr( $checked ); ?> value="<?php echo esc_attr( $value ); ?>" name="comments" id="comments-<?php echo esc_attr( $value ); ?>" /> <?php echo esc_html( $label ); ?>
 								</label>
 							</li>
 
@@ -235,12 +235,12 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 
 						<tr>
 							<td class="question-input">
-								<input type="text" autocomplete="off" id="title" placeholder="<?php _e( 'Enter Question Here', 'polldaddy' ); ?>" value="<?php echo $question; ?>" tabindex="1" size="30" name="question" />
+								<input type="text" autocomplete="off" id="title" placeholder="<?php _e( 'Enter Question Here', 'polldaddy' ); ?>" value="<?php echo esc_attr( $question ); ?>" tabindex="1" size="30" name="question" />
 							</td>
 							<td class="answer-media-icons" <?php echo isset( $_GET['iframe'] ) ? 'style="width: 55px !important;"' : ''; ?>>
 								<ul class="answer-media" <?php echo isset( $_GET['iframe'] ) ? 'style="min-width: 30px;"' : ''; ?>>
 									<?php if ( isset( $media_type[999999999] ) && (int) $media_type[999999999] === 2 ) { ?>
-										<li class="media-preview image-added" style="width: 20px; height: 16px; padding-left: 5px;"><img height="16" width="16" src="<?php echo $base_url; ?>img/icon-report-ip-analysis.png" alt="Video Embed"><?php echo $delete_media_link; ?></li>
+										<li class="media-preview image-added" style="width: 20px; height: 16px; padding-left: 5px;"><img height="16" width="16" src="<?php echo esc_html( $base_url ); ?>img/icon-report-ip-analysis.png" alt="Video Embed"><?php echo $delete_media_link; ?></li>
 										<?php
 									} else {
 										$url = '';
@@ -266,7 +266,7 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 									<?php endif; ?>
 								</ul>
 
-								<input type="hidden" value="<?php echo isset( $media[999999999] ) ? $media[999999999]->_id : ''; ?>" id="hMC999999999" name="media[999999999]">
+								<input type="hidden" value="<?php echo isset( $media[999999999] ) ? esc_attr( $media[999999999]->_id ) : ''; ?>" id="hMC999999999" name="media[999999999]">
 								<input type="hidden" value="<?php echo isset( $media_type[999999999] ) ? intval( $media_type[999999999] ) : ''; ?>" id="hMT999999999" name="mediaType[999999999]">
 
 							</td>
@@ -307,16 +307,16 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 							<table class="answer">
 								<tr>
 									<th>
-										<span class="handle" title="<?php echo esc_attr( __( 'click and drag to reorder' ) ); ?>"><img src="<?php echo $base_url; ?>img/icon-reorder.png" alt="click and drag to reorder" width="6" height="9" /></span>
+										<span class="handle" title="<?php echo esc_attr( __( 'click and drag to reorder' ) ); ?>"><img src="<?php echo esc_html( $base_url ); ?>img/icon-reorder.png" alt="click and drag to reorder" width="6" height="9" /></span>
 									</th>
 									<td class="answer-input">
-										<input type="text" autocomplete="off" placeholder="<?php echo esc_attr( __( 'Enter an answer here', 'polldaddy' ) ); ?>" id="answer-<?php echo $answer_id; ?>" value="<?php echo $answer; ?>" tabindex="2" size="30" name="answer[<?php echo $answer_id; ?>]" />
+										<input type="text" autocomplete="off" placeholder="<?php echo esc_attr( __( 'Enter an answer here', 'polldaddy' ) ); ?>" id="answer-<?php echo esc_attr( $answer_id ); ?>" value="<?php echo esc_attr( $answer ); ?>" tabindex="2" size="30" name="answer[<?php echo esc_attr( $answer_id ); ?>]" />
 									</td>
 									<td class="answer-media-icons" <?php echo isset( $_GET['iframe'] ) ? 'style="width: 55px !important;"' : ''; ?>>
 										<ul class="answer-media" <?php echo isset( $_GET['iframe'] ) ? 'style="min-width: 30px;"' : ''; ?>>
 											<?php if ( isset( $media_type[ $answer_id ] ) && intval( $media_type[ $answer_id ] ) === 2 ) { ?>
 												<li class="media-preview image-added" style="width: 20px; height: 16px; padding-left: 5px;">
-													<img height="16" width="16" src="<?php echo $base_url; ?>img/icon-report-ip-analysis.png" alt="Video Embed" />
+													<img height="16" width="16" src="<?php echo esc_html( $base_url ); ?>img/icon-report-ip-analysis.png" alt="Video Embed" />
 													<?php echo $delete_media_link; ?>
 												</li>
 												<?php
@@ -338,20 +338,20 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 
 											if ( ! isset( $_GET['iframe'] ) ) :
 												?>
-												<li><a title="<?php echo esc_attr( __( 'Add an Image', 'polldaddy' ) ); ?>" class="thickbox media image" id="add_poll_image<?php echo $answer_id; ?>" href="#"><img style="vertical-align:middle;" alt="<?php echo esc_attr( __( 'Add an Image', 'polldaddy' ) ); ?>" src="images/media-button-image.gif"></a></li>
-												<li><a title="<?php echo esc_attr( __( 'Add Audio', 'polldaddy' ) ); ?>" class="thickbox media video" id="add_poll_video<?php echo $answer_id; ?>" href="#"><img style="vertical-align:middle;" alt="<?php echo esc_attr( __( 'Add Audio', 'polldaddy' ) ); ?>" src="images/media-button-video.gif"></a></li>
-												<li><a title="<?php echo esc_attr( __( 'Add Video', 'polldaddy' ) ); ?>" class="thickbox media audio" id="add_poll_audio<?php echo $answer_id; ?>" href="#"><img style="vertical-align:middle;" alt="<?php echo esc_attr( __( 'Add Video', 'polldaddy' ) ); ?>" src="images/media-button-music.gif"></a></li>
+												<li><a title="<?php echo esc_attr( __( 'Add an Image', 'polldaddy' ) ); ?>" class="thickbox media image" id="add_poll_image<?php echo esc_attr( $answer_id ); ?>" href="#"><img style="vertical-align:middle;" alt="<?php echo esc_attr( __( 'Add an Image', 'polldaddy' ) ); ?>" src="images/media-button-image.gif"></a></li>
+												<li><a title="<?php echo esc_attr( __( 'Add Audio', 'polldaddy' ) ); ?>" class="thickbox media video" id="add_poll_video<?php echo esc_attr( $answer_id ); ?>" href="#"><img style="vertical-align:middle;" alt="<?php echo esc_attr( __( 'Add Audio', 'polldaddy' ) ); ?>" src="images/media-button-video.gif"></a></li>
+												<li><a title="<?php echo esc_attr( __( 'Add Video', 'polldaddy' ) ); ?>" class="thickbox media audio" id="add_poll_audio<?php echo esc_attr( $answer_id ); ?>" href="#"><img style="vertical-align:middle;" alt="<?php echo esc_attr( __( 'Add Video', 'polldaddy' ) ); ?>" src="images/media-button-music.gif"></a></li>
 											<?php endif; ?>
 											<li>
-												<a href="<?php echo $delete_link; ?>" class="delete-answer delete" title="<?php echo esc_attr( __( 'delete this answer', 'polldaddy' ) ); ?>">
-													<img src="<?php echo $base_url; ?>img/icon-clear-search.png" width="16" height="16" />
+												<a href="<?php echo esc_url( $delete_link ); ?>" class="delete-answer delete" title="<?php echo esc_attr( __( 'delete this answer', 'polldaddy' ) ); ?>">
+													<img src="<?php echo esc_html( $base_url ); ?>img/icon-clear-search.png" width="16" height="16" />
 												</a>
 											</li>
 
 										</ul>
 
-										<input type="hidden" value="<?php echo isset( $media[ $answer_id ] ) ? $media[ $answer_id ]->_id : ''; ?>" id="hMC<?php echo $answer_id; ?>" name="media[<?php echo $answer_id; ?>]">
-										<input type="hidden" value="<?php echo isset( $media_type[ $answer_id ] ) ? $media_type[ $answer_id ] : ''; ?>" id="hMT<?php echo $answer_id; ?>" name="mediaType[<?php echo $answer_id; ?>]">
+										<input type="hidden" value="<?php echo isset( $media[ $answer_id ] ) ? esc_attr( $media[ $answer_id ]->_id ) : ''; ?>" id="hMC<?php echo esc_attr( $answer_id ); ?>" name="media[<?php echo esc_attr( $answer_id ); ?>]">
+										<input type="hidden" value="<?php echo isset( $media_type[ $answer_id ] ) ? esc_attr( $media_type[ $answer_id ] ) : ''; ?>" id="hMT<?php echo esc_attr( $answer_id ); ?>" name="mediaType[<?php echo esc_attr( $answer_id ); ?>]">
 
 									</td>
 								</tr>
@@ -370,24 +370,24 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 							<table class="answer">
 									<tr>
 										<th>
-											<span class="handle" title="<?php echo esc_attr( __( 'click and drag to reorder' ) ); ?>"><img src="<?php echo $base_url; ?>img/icon-reorder.png" alt="click and drag to reorder" width="6" height="9" /></span>
+											<span class="handle" title="<?php echo esc_attr( __( 'click and drag to reorder' ) ); ?>"><img src="<?php echo esc_html( $base_url ); ?>img/icon-reorder.png" alt="click and drag to reorder" width="6" height="9" /></span>
 										</th>
 										<td class="answer-input">
-											<input type="text" autocomplete="off" placeholder="<?php echo esc_attr( __( 'Enter an answer here', 'polldaddy' ) ); ?>" value="" tabindex="2" size="30" name="answer[new<?php echo $a; ?>]" />
+											<input type="text" autocomplete="off" placeholder="<?php echo esc_attr( __( 'Enter an answer here', 'polldaddy' ) ); ?>" value="" tabindex="2" size="30" name="answer[new<?php echo esc_attr( $a ); ?>]" />
 										</td>
 										<td class="answer-media-icons" <?php echo isset( $_GET['iframe'] ) ? 'style="width:55px !important;"' : ''; ?>>
 											<ul class="answer-media" <?php echo isset( $_GET['iframe'] ) ? 'style="min-width: 30px;"' : ''; ?>>
 												<li class="media-preview" style="width: 20px; height: 16px; padding-left: 5px;"></li>
 												<?php if ( ! isset( $_GET['iframe'] ) ) : ?>
-													<li><a title="<?php echo esc_attr( __( 'Add an Image', 'polldaddy' ) ); ?>" class="thickbox media image" id="add_poll_image<?php echo $a; ?>" href="#"><img style="vertical-align:middle;" alt="<?php echo esc_attr( __( 'Add an Image', 'polldaddy' ) ); ?>" src="images/media-button-image.gif"></a></a></li>
-													<li><a title="<?php echo esc_attr( __( 'Add Audio', 'polldaddy' ) ); ?>" class="thickbox media video" id="add_poll_video<?php echo $a; ?>" href="#"><img style="vertical-align:middle;" alt="<?php echo esc_attr( __( 'Add Audio', 'polldaddy' ) ); ?>" src="images/media-button-video.gif"></a></a></li>
-													<li><a title="<?php echo esc_attr( __( 'Add Video', 'polldaddy' ) ); ?>" class="thickbox media audio" id="add_poll_audio<?php echo $a; ?>" href="#"><img style="vertical-align:middle;" alt="<?php echo esc_attr( __( 'Add Video', 'polldaddy' ) ); ?>" src="images/media-button-music.gif"></a></li>
+													<li><a title="<?php echo esc_attr( __( 'Add an Image', 'polldaddy' ) ); ?>" class="thickbox media image" id="add_poll_image<?php echo esc_attr( $a ); ?>" href="#"><img style="vertical-align:middle;" alt="<?php echo esc_attr( __( 'Add an Image', 'polldaddy' ) ); ?>" src="images/media-button-image.gif"></a></a></li>
+													<li><a title="<?php echo esc_attr( __( 'Add Audio', 'polldaddy' ) ); ?>" class="thickbox media video" id="add_poll_video<?php echo esc_attr( $a ); ?>" href="#"><img style="vertical-align:middle;" alt="<?php echo esc_attr( __( 'Add Audio', 'polldaddy' ) ); ?>" src="images/media-button-video.gif"></a></a></li>
+													<li><a title="<?php echo esc_attr( __( 'Add Video', 'polldaddy' ) ); ?>" class="thickbox media audio" id="add_poll_audio<?php echo esc_attr( $a ); ?>" href="#"><img style="vertical-align:middle;" alt="<?php echo esc_attr( __( 'Add Video', 'polldaddy' ) ); ?>" src="images/media-button-music.gif"></a></li>
 												<?php endif; ?>
-												<li><a href="#" class="delete-answer delete" title="<?php echo esc_attr( __( 'delete this answer', 'polldaddy' ) ); ?>"><img src="<?php echo $base_url; ?>img/icon-clear-search.png" width="16" height="16" /></a></li>
+												<li><a href="#" class="delete-answer delete" title="<?php echo esc_attr( __( 'delete this answer', 'polldaddy' ) ); ?>"><img src="<?php echo esc_html( $base_url ); ?>img/icon-clear-search.png" width="16" height="16" /></a></li>
 											</ul>
 
-											<input type="hidden" value="" id="hMC<?php echo $a; ?>" name="media[<?php echo $a; ?>]">
-											<input type="hidden" value="" id="hMT<?php echo $a; ?>" name="mediaType[<?php echo $a; ?>]">
+											<input type="hidden" value="" id="hMC<?php echo esc_attr( $a ); ?>" name="media[<?php echo esc_attr( $a ); ?>]">
+											<input type="hidden" value="" id="hMT<?php echo esc_attr( $a ); ?>" name="mediaType[<?php echo esc_attr( $a ); ?>]">
 
 										</td>
 									</tr>
@@ -400,7 +400,7 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 
 				</ul>
 
-				<p id="add-answer-holder" class="<?php echo $base_url; ?>">
+				<p id="add-answer-holder" class="<?php echo esc_attr( $base_url ); ?>">
 					<button class="button"><?php echo esc_html( __( 'Add New Answer', 'polldaddy' ) ); ?></button>
 				</p>
 
@@ -501,7 +501,7 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 				}
 				?>
 				<h2 class="postbox-title"><?php _e( 'Poll Style', 'polldaddy' ); ?></h2>
-				<input type="hidden" name="styleID" id="styleID" value="<?php echo $style_id; ?>">
+				<input type="hidden" name="styleID" id="styleID" value="<?php echo esc_attr( $style_id ); ?>">
 				<div class="inside">
 
 					<ul class="pd-tabs">
@@ -576,7 +576,7 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 								foreach ( $preset_styles as $s_id => $label ) :
 									$selected = $s_id === $style_id ? ' selected="selected"' : '';
 									?>
-									<option value="<?php echo (int) $s_id; ?>"<?php echo $selected; ?>><?php echo esc_html( $label ); ?></option>
+									<option value="<?php echo (int) $s_id; ?>"<?php echo esc_attr( $selected ); ?>><?php echo esc_html( $label ); ?></option>
 								<?php endforeach; ?>
 
 									</select>
@@ -656,7 +656,7 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 									foreach ( $preset_styles as $s_id => $label ) :
 										$selected = $s_id === $style_id ? ' selected="selected"' : '';
 										?>
-										<option value="<?php echo (int) $s_id; ?>"<?php echo $selected; ?>><?php echo esc_html( $label ); ?></option>
+										<option value="<?php echo (int) $s_id; ?>"<?php echo esc_attr( $selected ); ?>><?php echo esc_html( $label ); ?></option>
 									<?php endforeach; ?>
 
 									</select>
@@ -676,12 +676,12 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 								</p>
 								<select id="customSelect" name="customSelect" onchange="javascript:pd_change_style(this.value);">
 									<?php $selected = (int) $custom_style_id === 0 ? ' selected="selected"' : ''; ?>
-									<option value="x"<?php echo $selected; ?>><?php _e( 'Please choose a custom style…', 'polldaddy' ); ?></option>
+									<option value="x"<?php echo esc_attr( $selected ); ?>><?php _e( 'Please choose a custom style…', 'polldaddy' ); ?></option>
 									<?php
 									foreach ( (array) $styles->style as $style ) :
 										$selected = (int) $style->_id === (int) $custom_style_id ? ' selected="selected"' : '';
 										?>
-											<option value="<?php echo (int) $style->_id; ?>"<?php echo $selected; ?>><?php echo esc_html( $style->title ); ?></option>
+											<option value="<?php echo (int) $style->_id; ?>"<?php echo esc_attr( $selected ); ?>><?php echo esc_html( $style->title ); ?></option>
 									<?php endforeach; ?>
 								</select>
 								<div id="styleIDErr" class="formErr" style="display:none;">

@@ -586,34 +586,34 @@ EOD;
 			$item_count    = (int) $instance['item_count'];
 ?>
 				<p>
-					<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e( 'Title', 'polldaddy' ); ?>: <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></label></p>
+					<label for="<?php echo esc_attr( $this->get_field_id('title') ); ?>"><?php _e( 'Title', 'polldaddy' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id('title') ); ?>" name="<?php echo esc_attr( $this->get_field_name('title') ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></label></p>
 				<p>
-					<label for="<?php echo $this->get_field_id( 'show_posts' ); ?>">
-						<input type="checkbox" class="checkbox"  id="<?php echo $this->get_field_id( 'show_posts' ); ?>" name="<?php echo $this->get_field_name( 'show_posts' ); ?>" value="1" <?php echo $show_posts == 1 ? 'checked="checked"' : ''; ?> />
+					<label for="<?php echo esc_attr( $this->get_field_id( 'show_posts' ) ); ?>">
+						<input type="checkbox" class="checkbox"  id="<?php echo esc_attr( $this->get_field_id( 'show_posts' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_posts' ) ); ?>" value="1" <?php echo $show_posts == 1 ? 'checked="checked"' : ''; ?> />
 						 <?php _e( 'Show for posts', 'polldaddy' ); ?>
 					</label>
 				</p>
 				<p>
-					<label for="<?php echo $this->get_field_id( 'show_pages' ); ?>">
-						<input type="checkbox" class="checkbox"  id="<?php echo $this->get_field_id( 'show_pages' ); ?>" name="<?php echo $this->get_field_name( 'show_pages' ); ?>" value="1" <?php echo $show_pages == 1 ? 'checked="checked"' : ''; ?> />
+					<label for="<?php echo esc_attr( $this->get_field_id( 'show_pages' ) ); ?>">
+						<input type="checkbox" class="checkbox"  id="<?php echo esc_attr( $this->get_field_id( 'show_pages' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_pages' ) ); ?>" value="1" <?php echo $show_pages == 1 ? 'checked="checked"' : ''; ?> />
 						 <?php _e( 'Show for pages', 'polldaddy' ); ?>
 					</label>
 				</p>
 				<p>
-					<label for="<?php echo $this->get_field_id( 'show_comments' ); ?>">
-						<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'show_comments' ); ?>" name="<?php echo $this->get_field_name( 'show_comments' ); ?>" value="1" <?php echo $show_comments == 1 ? 'checked="checked"' : ''; ?> />
+					<label for="<?php echo esc_attr( $this->get_field_id( 'show_comments' ) ); ?>">
+						<input type="checkbox" class="checkbox" id="<?php echo esc_attr( $this->get_field_id( 'show_comments' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_comments' ) ); ?>" value="1" <?php echo $show_comments == 1 ? 'checked="checked"' : ''; ?> />
 						 <?php _e( 'Show for comments', 'polldaddy' ); ?>
 					</label>
 				</p>
         		<p>
-            		<label for="<?php echo $this->get_field_id( 'filter_by_category' ); ?>">
-                    	<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'filter_by_category' ); ?>" name="<?php echo $this->get_field_name( 'filter_by_category' ); ?>" value="1" <?php echo $filter_by_category == 1 ? 'checked="checked"':''; ?>/>
+            		<label for="<?php echo esc_attr( $this->get_field_id( 'filter_by_category' ) ); ?>">
+                    	<input type="checkbox" class="checkbox" id="<?php echo esc_attr( $this->get_field_id( 'filter_by_category' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'filter_by_category' ) ); ?>" value="1" <?php echo $filter_by_category == 1 ? 'checked="checked"':''; ?>/>
                  		<?php _e('Filter by category'); ?>
         			</label>
     			</p>
 				<p>
-					<label for="rss-items-<?php echo $number; ?>"><?php _e( 'How many items would you like to display?', 'polldaddy' ); ?>
-							<select id="<?php echo $this->get_field_id( 'item_count' ); ?>" name="<?php echo $this->get_field_name( 'item_count' ); ?>">
+					<label for="rss-items-<?php echo esc_attr( $number ); ?>"><?php _e( 'How many items would you like to display?', 'polldaddy' ); ?>
+							<select id="<?php echo esc_attr( $this->get_field_id( 'item_count' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'item_count' ) ); ?>">
 						<?php
 	for ( $i = 1; $i <= 20; ++$i )
 		echo "<option value='$i' " . ( $item_count == $i ? "selected='selected'" : '' ) . ">$i</option>";
