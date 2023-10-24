@@ -240,7 +240,7 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 							<td class="answer-media-icons" <?php echo isset( $_GET['iframe'] ) ? 'style="width: 55px !important;"' : ''; ?>>
 								<ul class="answer-media" <?php echo isset( $_GET['iframe'] ) ? 'style="min-width: 30px;"' : ''; ?>>
 									<?php if ( isset( $media_type[999999999] ) && (int) $media_type[999999999] === 2 ) { ?>
-										<li class="media-preview image-added" style="width: 20px; height: 16px; padding-left: 5px;"><img height="16" width="16" src="<?php echo esc_html( $base_url ); ?>img/icon-report-ip-analysis.png" alt="Video Embed"><?php echo $delete_media_link; ?></li>
+										<li class="media-preview image-added" style="width: 20px; height: 16px; padding-left: 5px;"><img height="16" width="16" src="<?php echo esc_url( $base_url ); ?>img/icon-report-ip-analysis.png" alt="Video Embed"><?php echo $delete_media_link; ?></li>
 										<?php
 									} else {
 										$url = '';
@@ -307,7 +307,7 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 							<table class="answer">
 								<tr>
 									<th>
-										<span class="handle" title="<?php echo esc_attr( __( 'click and drag to reorder' ) ); ?>"><img src="<?php echo esc_html( $base_url ); ?>img/icon-reorder.png" alt="click and drag to reorder" width="6" height="9" /></span>
+										<span class="handle" title="<?php echo esc_attr( __( 'click and drag to reorder' ) ); ?>"><img src="<?php echo esc_url( $base_url ); ?>img/icon-reorder.png" alt="click and drag to reorder" width="6" height="9" /></span>
 									</th>
 									<td class="answer-input">
 										<input type="text" autocomplete="off" placeholder="<?php echo esc_attr( __( 'Enter an answer here', 'polldaddy' ) ); ?>" id="answer-<?php echo esc_attr( $answer_id ); ?>" value="<?php echo esc_attr( $answer ); ?>" tabindex="2" size="30" name="answer[<?php echo esc_attr( $answer_id ); ?>]" />
@@ -316,7 +316,7 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 										<ul class="answer-media" <?php echo isset( $_GET['iframe'] ) ? 'style="min-width: 30px;"' : ''; ?>>
 											<?php if ( isset( $media_type[ $answer_id ] ) && intval( $media_type[ $answer_id ] ) === 2 ) { ?>
 												<li class="media-preview image-added" style="width: 20px; height: 16px; padding-left: 5px;">
-													<img height="16" width="16" src="<?php echo esc_html( $base_url ); ?>img/icon-report-ip-analysis.png" alt="Video Embed" />
+													<img height="16" width="16" src="<?php echo esc_url( $base_url ); ?>img/icon-report-ip-analysis.png" alt="Video Embed" />
 													<?php echo $delete_media_link; ?>
 												</li>
 												<?php
@@ -344,7 +344,7 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 											<?php endif; ?>
 											<li>
 												<a href="<?php echo esc_url( $delete_link ); ?>" class="delete-answer delete" title="<?php echo esc_attr( __( 'delete this answer', 'polldaddy' ) ); ?>">
-													<img src="<?php echo esc_html( $base_url ); ?>img/icon-clear-search.png" width="16" height="16" />
+													<img src="<?php echo esc_url( $base_url ); ?>img/icon-clear-search.png" width="16" height="16" />
 												</a>
 											</li>
 
@@ -370,7 +370,7 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 							<table class="answer">
 									<tr>
 										<th>
-											<span class="handle" title="<?php echo esc_attr( __( 'click and drag to reorder' ) ); ?>"><img src="<?php echo esc_html( $base_url ); ?>img/icon-reorder.png" alt="click and drag to reorder" width="6" height="9" /></span>
+											<span class="handle" title="<?php echo esc_attr( __( 'click and drag to reorder' ) ); ?>"><img src="<?php echo esc_url( $base_url ); ?>img/icon-reorder.png" alt="click and drag to reorder" width="6" height="9" /></span>
 										</th>
 										<td class="answer-input">
 											<input type="text" autocomplete="off" placeholder="<?php echo esc_attr( __( 'Enter an answer here', 'polldaddy' ) ); ?>" value="" tabindex="2" size="30" name="answer[new<?php echo esc_attr( $a ); ?>]" />
@@ -383,7 +383,7 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 													<li><a title="<?php echo esc_attr( __( 'Add Audio', 'polldaddy' ) ); ?>" class="thickbox media video" id="add_poll_video<?php echo esc_attr( $a ); ?>" href="#"><img style="vertical-align:middle;" alt="<?php echo esc_attr( __( 'Add Audio', 'polldaddy' ) ); ?>" src="images/media-button-video.gif"></a></a></li>
 													<li><a title="<?php echo esc_attr( __( 'Add Video', 'polldaddy' ) ); ?>" class="thickbox media audio" id="add_poll_audio<?php echo esc_attr( $a ); ?>" href="#"><img style="vertical-align:middle;" alt="<?php echo esc_attr( __( 'Add Video', 'polldaddy' ) ); ?>" src="images/media-button-music.gif"></a></li>
 												<?php endif; ?>
-												<li><a href="#" class="delete-answer delete" title="<?php echo esc_attr( __( 'delete this answer', 'polldaddy' ) ); ?>"><img src="<?php echo esc_html( $base_url ); ?>img/icon-clear-search.png" width="16" height="16" /></a></li>
+												<li><a href="#" class="delete-answer delete" title="<?php echo esc_attr( __( 'delete this answer', 'polldaddy' ) ); ?>"><img src="<?php echo esc_url( $base_url ); ?>img/icon-clear-search.png" width="16" height="16" /></a></li>
 											</ul>
 
 											<input type="hidden" value="" id="hMC<?php echo esc_attr( $a ); ?>" name="media[<?php echo esc_attr( $a ); ?>]">
