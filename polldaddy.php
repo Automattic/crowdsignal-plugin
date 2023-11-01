@@ -44,6 +44,7 @@ class WP_Polldaddy {
 	var $base_url;
 	var $is_admin;
 	var $is_author;
+	var $is_editor;
 	var $scheme;
 	var $version;
 	var $polldaddy_client_class;
@@ -53,6 +54,7 @@ class WP_Polldaddy {
 	var $user_code;
 	var $rating_user_code;
 	var $has_feedback_menu;
+	var $has_crowdsignal_blocks;
 
 	public $has_items = array();
 
