@@ -253,7 +253,7 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 										}
 										?>
 										<li class="media-preview <?php echo ! empty( $url ) ? 'image-added' : ''; ?>" style="width: 20px; height: 16px; padding-left: 5px;">
-											<?php echo $url; ?><?php echo $delete_media_link; ?>
+											<?php echo esc_html( $url ); ?><?php echo esc_html( $delete_media_link ); ?>
 										</li>
 										<?php
 									}
@@ -277,8 +277,8 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 						<div class="inside">
 							<div id="edit-slug-box" style="margin-bottom:30px;">
 								<strong><?php _e( 'WordPress Shortcode:', 'polldaddy' ); ?></strong>
-								<input type="text" style="color:#999;" value="[crowdsignal poll=<?php echo $poll->_id; ?>]" id="shortcode-field" readonly="readonly" />
-								<span><a href="post-new.php?content=[crowdsignal poll=<?php echo $poll->_id; ?>]" class="button"><?php _e( 'Embed Poll in New Post' ); ?></a></span>
+								<input type="text" style="color:#999;" value="[crowdsignal poll=<?php echo esc_attr( $poll->_id ); ?>]" id="shortcode-field" readonly="readonly" />
+								<span><a href="post-new.php?content=[crowdsignal poll=<?php echo esc_attr( $poll->_id ); ?>]" class="button"><?php _e( 'Embed Poll in New Post' ); ?></a></span>
 							</div>
 						</div>
 					<?php endif; ?>
@@ -331,7 +331,7 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 												}
 												?>
 												<li class="media-preview <?php echo ! empty( $url ) ? 'image-added' : ''; ?>" style="width: 20px; height: 16px; padding-left: 5px;">
-													<?php echo $url; ?><?php echo $delete_media_link; ?>
+													<?php echo esc_html( $url ); ?><?php echo esc_html( $delete_media_link ); ?>
 												</li>
 												<?php
 											}
