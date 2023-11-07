@@ -12,7 +12,7 @@
 // phpcs:disable NeutronStandard.Arrays.DisallowLongformArray.LongformArray -- TODO
 // phpcs:disable WordPress.WP.I18n.MissingTranslatorsComment -- TODO
 
-$delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . esc_attr( __( 'delete this image' ) ) . '"><img src="' . $base_url . 'img/icon-clear-search.png" width="16" height="16" /></a>';
+$delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . esc_attr( __( 'delete this image' ) ) . '"><img src="' . esc_url( $base_url ) . 'img/icon-clear-search.png" width="16" height="16" /></a>';
 ?>
 <form enctype="multipart/form-data" name="send-media" action="admin-ajax.php" method="post">
 	<?php wp_nonce_field( 'send-media' ); ?>
@@ -253,7 +253,7 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 										}
 										?>
 										<li class="media-preview <?php echo ! empty( $url ) ? 'image-added' : ''; ?>" style="width: 20px; height: 16px; padding-left: 5px;">
-											<?php echo esc_html( $url ); ?><?php echo esc_html( $delete_media_link ); ?>
+											<?php echo esc_html( $url ); ?><?php echo $delete_media_link; ?>
 										</li>
 										<?php
 									}
@@ -331,7 +331,7 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 												}
 												?>
 												<li class="media-preview <?php echo ! empty( $url ) ? 'image-added' : ''; ?>" style="width: 20px; height: 16px; padding-left: 5px;">
-													<?php echo esc_html( $url ); ?><?php echo esc_html( $delete_media_link ); ?>
+													<?php echo esc_html( $url ); ?><?php echo $delete_media_link; ?>
 												</li>
 												<?php
 											}
