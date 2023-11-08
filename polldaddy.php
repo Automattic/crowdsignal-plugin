@@ -2243,14 +2243,14 @@ class WP_Polldaddy {
 						<th class="check-column" scope="row"><input type="checkbox" value="<?php echo (int) $style_id; ?>" name="style[]" /></th>
 						<td class="post-title column-title">
 	<?php     if ( $edit_link ) : ?>
-							<strong><a class="row-title" href="<?php echo $edit_link; ?>"><?php echo esc_html( $style->title ); ?></a></strong>
+							<strong><a class="row-title" href="<?php echo esc_url( $edit_link ); ?>"><?php echo esc_html( $style->title ); ?></a></strong>
 							<div class="row-actions">
-							<span class="edit"><a href="<?php echo $edit_link; ?>"><?php _e( 'Edit', 'polldaddy' ); ?></a> | </span>
+							<span class="edit"><a href="<?php echo esc_url( $edit_link ); ?>"><?php _e( 'Edit', 'polldaddy' ); ?></a> | </span>
 	<?php     else : ?>
 							<strong><?php echo esc_html( $style->title ); ?></strong>
 	<?php     endif; ?>
 
-							<span class="delete"><a class="delete-poll delete" href="<?php echo $delete_link; ?>"><?php _e( 'Delete', 'polldaddy' ); ?></a></span>
+							<span class="delete"><a class="delete-poll delete" href="<?php echo esc_url( $delete_link ); ?>"><?php _e( 'Delete', 'polldaddy' ); ?></a></span>
 							</div>
 						</td>
 						<td class="date column-date"><abbr title="<?php echo date( __( 'Y/m/d g:i:s A', 'polldaddy' ), $style_time ); ?>"><?php echo date( __( 'Y/m/d', 'polldaddy' ), $style_time ); ?></abbr></td>
@@ -3220,7 +3220,7 @@ class WP_Polldaddy {
 			<p>
 				<?php wp_nonce_field( $style_id > 1000 ? "edit-style$style_id" : 'create-style' ); ?>
 				<input type="hidden" name="action" value="<?php echo $style_id > 1000 ? 'edit-style' : 'create-style'; ?>" />
-				<input type="hidden" class="polldaddy-style-id" name="style" value="<?php echo $style_id; ?>" />
+				<input type="hidden" class="polldaddy-style-id" name="style" value="<?php echo esc_attr( $style_id ); ?>" />
 				<input type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Save Style', 'polldaddy' ) ); ?>" />
 				<?php if ( $style_id > 1000 ) { ?>
 				<input name="updatePollCheck" id="updatePollCheck" type="checkbox"> <label for="updatePollCheck"><?php _e( 'Check this box if you wish to update the polls that use this style.', 'polldaddy' ); ?></label>
@@ -3480,19 +3480,19 @@ class WP_Polldaddy {
 			$comments_link = esc_url( add_query_arg( array( 'rating' => 'comments', 'message' => false ) ) );
 			if ( $report_type == 'posts' )
 				$this_class = ' class="tabs"';?>
-            <li <?php echo $this_class; ?>><a tabindex="3" href="<?php echo $posts_link; ?>"><?php _e( 'Posts', 'polldaddy' );?></a></li><?php
+            <li <?php echo $this_class; ?>><a tabindex="3" href="<?php echo esc_url( $posts_link ); ?>"><?php _e( 'Posts', 'polldaddy' );?></a></li><?php
 			$this_class = '';
 			if ( $report_type == 'pages' )
 				$this_class = ' class="tabs"';  ?>
-            <li <?php echo $this_class; ?>><a tabindex="3" href="<?php echo $pages_link; ?>"><?php _e( 'Pages', 'polldaddy' );?></a></li><?php
+            <li <?php echo $this_class; ?>><a tabindex="3" href="<?php echo esc_url( $pages_link ); ?>"><?php _e( 'Pages', 'polldaddy' );?></a></li><?php
 			$this_class = '';
 			if ( $report_type == 'comments' )
 				$this_class = ' class="tabs"';  ?>
-            <li <?php echo $this_class; ?>><a href="<?php echo $comments_link; ?>"><?php _e( 'Comments', 'polldaddy' );?></a></li>
+            <li <?php echo $this_class; ?>><a href="<?php echo esc_url( $comments_link ); ?>"><?php _e( 'Comments', 'polldaddy' );?></a></li>
           </ul>
           <div class="tabs-panel" id="categories-all" style="background: #FFFFFF;height: auto; overflow: visible;max-height:500px;">
             <form action="" method="post">
-            <input type="hidden" name="pd_rating_action_type" value="<?php echo $report_type; ?>" />
+            <input type="hidden" name="pd_rating_action_type" value="<?php echo esc_attr( $report_type ); ?>" />
 <?php wp_nonce_field( 'action-rating_settings_' . $report_type ); ?>
             <table class="form-table" style="width: normal;">
               <tbody>
@@ -3609,7 +3609,7 @@ class WP_Polldaddy {
     <?php if ( $show_settings == true ) { ?>
     <br />
     <form method="post" action="">
-      <div id="poststuff" style="<?php echo $settings_style; ?>">
+      <div id="poststuff" style="<?php echo esc_attr( $settings_style ); ?>">
         <div  class="has-sidebar has-right-sidebar">
           <div class="inner-sidebar-ratings">
            <div id="submitdiv" class="postbox ">
@@ -3619,8 +3619,8 @@ class WP_Polldaddy {
 			        <div class="submitbox" id="submitpost">
 			            <div id="minor-publishing" style="padding:10px;">
 			                <input type="submit" name="save_menu" class="button button-primary menu-save" value="<?php echo esc_attr( __( 'Save Changes', 'polldaddy' ) );?>">
-			                <input type="hidden" name="type" value="<?php echo $report_type; ?>" />
-							<input type="hidden" name="rating_id" value="<?php echo $rating_id; ?>" />
+			                <input type="hidden" name="type" value="<?php echo esc_attr( $report_type ); ?>" />
+							<input type="hidden" name="rating_id" value="<?php echo esc_attr( $rating_id ); ?>" />
 							<input type="hidden" name="action" value="update-rating" />
 							<?php wp_nonce_field( 'action-update-rating_' . $report_type ); ?>
 			            </div>
@@ -3953,7 +3953,7 @@ class WP_Polldaddy {
                   <tr>
                     <td width="100" height="30"><?php _e( 'Rating ID', 'polldaddy' );?></td>
                     <td>
-                      <input type="text" name="polldaddy-post-rating-id" id="polldaddy-post-rating-id" value="<?php echo $rating_id; ?>" />
+                      <input type="text" name="polldaddy-post-rating-id" id="polldaddy-post-rating-id" value="<?php echo esc_attr( $rating_id ); ?>" />
                     </td>
                     <td>
                       <span class="description">
@@ -3964,7 +3964,7 @@ class WP_Polldaddy {
                   <tr>
                     <td width="100" height="30"><?php _e( 'Exclude Posts', 'polldaddy' );?></td>
                     <td>
-                      <input type="text" name="exclude-post-ids" id="exclude-post-ids" value="<?php echo $exclude_post_ids; ?>" />
+                      <input type="text" name="exclude-post-ids" id="exclude-post-ids" value="<?php echo esc_attr( $exclude_post_ids ); ?>" />
                     </td>
                     <td>
                       <span class="description">
@@ -3977,7 +3977,7 @@ class WP_Polldaddy {
                   <tr>
                     <td width="100" height="30"><?php _e( 'Rating ID', 'polldaddy' );?></td>
                     <td>
-                      <input type="text" name="polldaddy-page-rating-id" id="polldaddy-page-rating-id" value="<?php echo $rating_id; ?>" />
+                      <input type="text" name="polldaddy-page-rating-id" id="polldaddy-page-rating-id" value="<?php echo esc_attr( $rating_id ); ?>" />
                     </td>
                     <td>
                       <span class="description">
@@ -3988,7 +3988,7 @@ class WP_Polldaddy {
                   <tr>
                     <td width="100" height="30"><?php _e( 'Exclude Pages', 'polldaddy' );?></td>
                     <td>
-                      <input type="text" name="exclude-page-ids" id="exclude-page-ids" value="<?php echo $exclude_page_ids; ?>" />
+                      <input type="text" name="exclude-page-ids" id="exclude-page-ids" value="<?php echo esc_attr( $exclude_page_ids ); ?>" />
                     </td>
                     <td>
                       <span class="description">
@@ -4000,7 +4000,7 @@ class WP_Polldaddy {
                   <tr>
                     <td width="100" height="30"><?php _e( 'Rating ID', 'polldaddy' );?></td>
                     <td>
-                      <input type="text" name="polldaddy-comment-rating-id" id="polldaddy-comment-rating-id" value="<?php echo $rating_id; ?>" />
+                      <input type="text" name="polldaddy-comment-rating-id" id="polldaddy-comment-rating-id" value="<?php echo esc_attr( $rating_id ); ?>" />
                     </td>
                     <td>
                       <span class="description">
@@ -4320,7 +4320,7 @@ class WP_Polldaddy {
 			$selected = '';
 		if ( $value == $report_type )
 			$selected = ' selected="selected"';?>
-        <option value="<?php echo $value; ?>" <?php echo $selected; ?>><?php echo $option; ?></option>
+        <option value="<?php echo esc_attr( $value ); ?>" <?php echo $selected; ?>><?php echo $option; ?></option>
     <?php endforeach;  ?>
 						</select>
             			<select name="filter"><?php
@@ -4329,7 +4329,7 @@ class WP_Polldaddy {
 			$selected = '';
 		if ( $value == $period )
 			$selected = ' selected="selected"';?>
-        					<option value="<?php echo $value; ?>" <?php echo $selected; ?>><?php echo $option; ?></option>
+        					<option value="<?php echo esc_attr( $value ); ?>" <?php echo $selected; ?>><?php echo $option; ?></option>
     <?php endforeach; ?>
           				</select>
           				<input class="button-secondary action" type="submit" value="<?php _e( 'Filter', 'polldaddy' );?>" />
@@ -4384,7 +4384,7 @@ class WP_Polldaddy {
 							<strong><a href="<?php echo esc_url( $rating->permalink ); ?>"><?php echo strlen( esc_html( $rating->title ) ) > 75 ? substr( esc_html( $rating->title ), 0, 72 ) . '&hellip' : esc_html( $rating->title ); ?></a></strong>
 							<div class="row-actions">
 							<?php if ( $this->is_editor && $delete_link ) { ?>
-								<span class="delete"><a class="delete-rating delete" href="<?php echo $delete_link; ?>"><?php _e( 'Delete', 'polldaddy' ); ?></a></span>
+								<span class="delete"><a class="delete-rating delete" href="<?php echo esc_url( $delete_link ); ?>"><?php _e( 'Delete', 'polldaddy' ); ?></a></span>
 							<?php } ?>
 							</div>
 						</td>
