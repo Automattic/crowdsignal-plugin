@@ -643,7 +643,7 @@ function polldaddy_login_warning() {
 	$page   = isset( $_GET['page'] ) ? $_GET['page'] : '';
 	$action = isset( $_GET['action'] ) ? $_GET['action'] : '';
 
-	if ( 'plugins.php' !== $hook_suffix && ! in_array( $page, [ 'polls', 'ratings' ], true ) ) {
+	if ( 'plugins.php' !== $hook_suffix && ! in_array( $page, [ 'polls', 'ratings', 'ratingsettings' ], true ) ) {
 		return;
 	}
 
