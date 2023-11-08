@@ -157,7 +157,6 @@ module.exports = function( grunt ){
     grunt.loadNpmTasks( 'grunt-checkbranch' );
     grunt.loadNpmTasks( 'grunt-wp-deploy' );
     grunt.loadNpmTasks( 'grunt-shell' );
-    grunt.loadNpmTasks( 'grunt-checkrepo' );
     grunt.loadNpmTasks( 'grunt-wp-i18n' );
     grunt.loadNpmTasks( 'grunt-wp-readme-to-markdown');
     grunt.loadNpmTasks( 'grunt-zip' );
@@ -167,7 +166,7 @@ module.exports = function( grunt ){
 
     grunt.registerTask( 'build', [ 'gitinfo', 'clean', 'copy' ] );
 
-    grunt.registerTask( 'deploy', [ 'checkbranch:master', 'checkrepo', 'build', 'wp_deploy' ] );
+    grunt.registerTask( 'deploy', [ 'checkbranch:master', 'build', 'wp_deploy' ] );
     grunt.registerTask( 'deploy-unsafe', [ 'build', 'wp_deploy' ] );
 
     grunt.registerTask( 'package', [ 'build', 'zip' ] );
