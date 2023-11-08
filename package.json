@@ -8,6 +8,7 @@
   "main": "Gruntfile.js",
   "scripts": {
     "build": "grunt build",
+    "build:i18n": "grunt pot",
     "package": "grunt package",
     "deploy": "grunt deploy"
   },
