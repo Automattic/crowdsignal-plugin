@@ -26,7 +26,10 @@ module.exports = function( grunt ){
                     '!CONTRIBUTING.md',
                     '!readme.md',
                     '!phpcs.ruleset.xml',
-                    '!tools/**'
+                    '!tools/**',
+                    '!screenshot-1.png',
+                    '!screenshot-2.png',
+                    '!banner-1544x500.png',
                 ],
                 dest: '<%= dirs.build %>/'
             }
