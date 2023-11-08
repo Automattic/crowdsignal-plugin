@@ -3622,6 +3622,7 @@ class WP_Polldaddy {
 			                <input type="hidden" name="type" value="<?php echo $report_type; ?>" />
 							<input type="hidden" name="rating_id" value="<?php echo $rating_id; ?>" />
 							<input type="hidden" name="action" value="update-rating" />
+							<?php wp_nonce_field( 'action-update-rating_' . $report_type ); ?>
 			            </div>
 			        </div>
 			    </div>
@@ -4050,6 +4051,8 @@ class WP_Polldaddy {
 		$new_rating_id = 0;
 		$type = 'post';
 		$set = new stdClass;
+
+		check_admin_referer( 'action-update-rating_' . $_POST[ 'type' ] );
 
 		if ( isset( $_REQUEST['rating_id'] ) )
 			$rating_id = (int) $_REQUEST['rating_id'];
