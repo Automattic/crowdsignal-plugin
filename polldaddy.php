@@ -53,6 +53,8 @@ class WP_Polldaddy {
 	var $user_code;
 	var $rating_user_code;
 	var $has_feedback_menu;
+	var $is_editor;
+	var $has_crowdsignal_blocks;
 
 	public $has_items = array();
 
