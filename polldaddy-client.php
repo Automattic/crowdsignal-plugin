@@ -144,12 +144,8 @@ class api_client {
 	function reset() {
 		$this->request       = null;
 		$this->response      = null;
-		$this->request_data  = '';
-		$this->response_data = '';
 		$this->request_xml   = '';
 		$this->response_xml  = '';
-		$this->request_json  = '';
-		$this->response_json = '';
 		$this->errors        = array();
 	}
 
