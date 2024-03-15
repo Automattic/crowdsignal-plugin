@@ -127,7 +127,7 @@ CONTAINER;
 				$item_id = is_page() ? '_page_' . $post->ID : '_post_' . $post->ID;
 			}
 
-			if ( empty( $title ) & $post ) {
+			if ( empty( $title ) && $post ) {
 				$title = apply_filters( 'the_title', $post->post_title );
 			}
 
