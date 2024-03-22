@@ -178,6 +178,10 @@ CONTAINER;
 			}
 		} elseif ( intval( $poll ) > 0 ) { //poll embed
 
+			if ( cs_is_amp_page() ) {
+				return cs_render_poll_amp_iframe( $poll );
+			}
+
 			$poll      = intval( $poll );
 			$poll_url  = sprintf( 'https://poll.fm/%d', $poll );
 			$poll_js   = sprintf( '%s.polldaddy.com/p/%d.js', '//static', $poll );
@@ -284,8 +288,13 @@ CONTAINER;
 				if ( $type == 'banner' || $type == 'slider' )
 					$inline = false;
 
-				$survey      = preg_replace( '/[^a-f0-9]/i', '', $survey );
-				$survey_url  = esc_url( "https://survey.fm/{$survey}" );
+				$survey     = preg_replace( '/[^a-f0-9]/i', '', $survey );
+				$survey_url = esc_url( "https://survey.fm/{$survey}" );
+
+				if ( 'iframe' === $type && cs_is_amp_page() ) {
+					return cs_render_survey_amp_iframe( $survey_url );
+				}
+
 				$survey_link = sprintf( '<a href="%s">%s</a>', $survey_url, esc_html( $title ) );
 
 				if ( $no_script || $inline || $infinite_scroll )
@@ -440,17 +449,61 @@ SCRIPT;
 // kick it all off
 new PolldaddyShortcode();
 
+if ( !function_exists( 'cs_is_amp_page' ) ) {
+
+	// Check for existance of top 2 AMP plugin endpoints
+	function cs_is_amp_page() {
+
+		if ( function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() ) {
+			return true;
+		}
+
+		if ( function_exists( 'ampforwp_is_amp_endpoint' ) && ampforwp_is_amp_endpoint() ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	function cs_render_poll_amp_iframe( $poll_id ) {
+		return sprintf( "<amp-iframe resizable class='cs-iframe-embed' src='https://poll.fm/%s/embed' frameborder='0' height='400' layout='fixed-height' width='auto' sandbox='allow-scripts allow-same-origin' style='height: 400px; --loader-delay-offset:406ms !important;' i-amphtml-layout='fixed-height'><span overflow placeholder='' class='amp-wp-iframe-placeholder'></span><noscript><iframe src='https://poll.fm/%s/embed' frameborder='0' class='cs-iframe-embed'></iframe></noscript></amp-iframe>", $poll_id, $poll_id );
+	}
+
+	function cs_render_survey_amp_iframe_from_user_slug( $user, $slug ) {
+		return cs_render_survey_amp_iframe( sprintf( 'https://%s.survey.fm/%s', $user, $slug ) );
+	}
+
+	function cs_render_survey_amp_iframe( $survey_url ) {
+		$iframe_survey_url = $survey_url . '?iframe=1';
+		return sprintf( "<amp-iframe resizable class='cs-iframe-embed' src='%s' frameborder='0' height='400' layout='fixed-height' width='auto' sandbox='allow-scripts allow-same-origin allow-forms' style='height: 400px; --loader-delay-offset:406ms !important;' i-amphtml-layout='fixed-height'><span overflow placeholder='' class='amp-wp-iframe-placeholder'></span><noscript><iframe src='%s' frameborder='0' class='cs-iframe-embed'></iframe></noscript></amp-iframe>", $iframe_survey_url, $iframe_survey_url );
+	}
+}
+
 if ( !function_exists( 'polldaddy_link' ) ) {
 	// http://polldaddy.com/poll/1562975/?view=results&msg=voted
 	function polldaddy_link( $content ) {
-		if ( false === strpos( $content, "polldaddy.com/" ) )
+		if ( false === strpos( $content, "polldaddy.com/" ) ) {
 			return $content;
+		}
+
 		$textarr = wp_html_split( $content );
 		unset( $content );
 		foreach( $textarr as &$element ) {
-			if ( '' === $element || '<' === $element[0] )
+			if ( '' === $element || '<' === $element[0] ) {
 				continue;
-			$element = preg_replace( '!(?:\n|\A)https?://(polldaddy\.com/poll|poll\.fm)/([0-9]+?)(/.*)?(?:\n|\Z)!i', "\n<script type='text/javascript' charset='utf-8' src='//static.polldaddy.com/p/$2.js'></script><noscript> <a href='https://poll.fm/$2'>View Poll</a></noscript>\n", $element );
+			}
+
+			$poll_embed_markup = "\n<script type='text/javascript' charset='utf-8' src='//static.polldaddy.com/p/$2.js'></script><noscript> <a href='https://poll.fm/$2'>View Poll</a></noscript>\n";
+
+			if ( cs_is_amp_page() ) {
+				$poll_embed_markup = cs_render_poll_amp_iframe( "$2" );
+
+				// if survey link is found, replace it with amp.
+				$element = preg_replace( '!(?:\n|\A)https?://([0-9a-zA-Z\-_]+)\.survey\.fm/([0-9a-zA-Z\-]+?)(/.*)?(?:\n|\Z)!i', cs_render_survey_amp_iframe_from_user_slug( "$1", "$2"), $element );
+			}
+
+			// if poll link is found, replace it with poll embed
+			$element = preg_replace( '!(?:\n|\A)https?://(polldaddy\.com/poll|poll\.fm)/([0-9]+?)(/.*)?(?:\n|\Z)!i', $poll_embed_markup, $element );
 		}
 		return join( $textarr );
 	}
