@@ -1,5 +1,6 @@
 <?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 
+#[AllowDynamicProperties]
 class Ghetto_XML_Object {
 	function __construct( $args = null, $attributes = null ) {
 		if ( get_object_vars( $this ) )
