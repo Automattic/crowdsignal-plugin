@@ -119,18 +119,21 @@ CONTAINER;
 		self::$add_script = $infinite_scroll;
 
 		if ( intval( $rating ) > 0 && !$no_script ) { //rating embed
+			if ( empty( $unique_id ) && $post ) {
+				$unique_id = is_page() ? 'wp-page-' . $post->ID : 'wp-post-' . $post->ID;
+			}
 
-			if ( empty( $unique_id ) )
-				$unique_id = is_page() ? 'wp-page-'.$post->ID : 'wp-post-'.$post->ID;
+			if ( empty( $item_id ) && $post ) {
+				$item_id = is_page() ? '_page_' . $post->ID : '_post_' . $post->ID;
+			}
 
-			if ( empty( $item_id ) )
-				$item_id = is_page() ? '_page_'.$post->ID : '_post_'.$post->ID;
-
-			if ( empty( $title ) )
+			if ( empty( $title ) && $post ) {
 				$title = apply_filters( 'the_title', $post->post_title );
+			}
 
-			if ( empty( $permalink ) )
+			if ( empty( $permalink ) && $post ) {
 				$permalink = get_permalink( $post->ID );
+			}
 
 			$rating    = intval( $rating );
 			$unique_id = preg_replace( '/[^\-_a-z0-9]/i', '', wp_strip_all_tags( $unique_id ) );
