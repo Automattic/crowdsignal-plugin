@@ -3,8 +3,8 @@ Contributors: donncha, ice9js, cgastrell, digitalwaveride, jcheringer
 Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 5.5
 Requires PHP: 5.6
-Tested up to: 6.4.3
-Stable tag: 3.1.1
+Tested up to: 6.6.1
+Stable tag: 3.1.2
 
 == Description ==
 
@@ -95,46 +95,49 @@ Make sure to whitelist `api.crowdsignal.com` in your firewall to fix this.
 Bugfix and security release
 
 == Changelog ==
-= 3.1.1
+= 3.1.2 =
+* Add referer check on deprecated multi-account user action.
+
+= 3.1.1 =
 * Fix deprecation warnings for dynamic property usage
 
-= 3.1.0
+= 3.1.0 =
 * Sanitize echoed variables
 * Add/check nonce when changing ratings settings
 
-= 3.0.11
+= 3.0.11 =
 * Bump tested version to 6.2 by @donnchawp in #94
 * Fix table layout by @CGastrell in #96
 
-= 3.0.10
+= 3.0.10 =
 * Fix the permissions required on the settings page. Authors couldn't use it, so avoid showing them a blank page.
 * Only allow admin users to load the rating settings page as it's a global setting that affects the entire site.
 * Remove the "Add Poll" button from the classic post editor as it was broken. Add section to readme.txt with a link to bookmark if the wp-admin editor is still needed.
 
-= 3.0.9
+= 3.0.9 =
 * Prevent warnings due to by-ref arguments
 * Improve renderer syntax 
 
-= 3.0.8
+= 3.0.8 =
 * Bug and security fixes
 * Improve code readability
 
-= 3.0.7
+= 3.0.7 =
 * Small fixes to setting page styles. (78)
 * Fix the title of the Dashboard page. (79)
 * Add icon and links for projects to the Dashboard. (80)
 
-= 3.0.6
+= 3.0.6 =
 * Fix CSS so it doesn't conflict with Jetpack. Fix disconnect form. (75)
 * Fix typo (76)
 
-= 3.0.5
+= 3.0.5 =
 * Revert 3.0.3 due to conflict with Jetpack
 
-= 3.0.3
+= 3.0.3 =
 * Move settings page and update style of the settings page to match the Crowdsignal Forms plugin
 
-= 3.0.1
+= 3.0.1 =
 * Allow landing page to be rendered on demand
 
 = 3.0.0 =
