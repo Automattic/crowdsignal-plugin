@@ -95,7 +95,7 @@ table.cs-dashboard__grid .is-links a {
 	font-weight: bold;
 	padding-left: 4px;
 	padding-right: 4px;
-	visibility: hidden;
+
 }
 
 table.cs-dashboard__grid .is-type img {
@@ -104,9 +104,6 @@ table.cs-dashboard__grid .is-type img {
 
 table.cs-dashboard__grid tr:hover td {
 	background-color: #f6f6f6;
-}
-table.cs-dashboard__grid tr:hover .is-links a {
-	visibility: visible;
 }
 
 .cs-dashboard__mq-desktop-only {
