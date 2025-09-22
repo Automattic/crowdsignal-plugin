@@ -63,7 +63,7 @@ class WP_Polldaddy {
 		$this->log( 'Created WP_Polldaddy Object: constructor' );
 		$this->errors                 = new WP_Error;
 		$this->scheme                 = 'https';
-		$this->version                = '3.1.3';
+		$this->version                = '3.1.4';
 		$this->multiple_accounts      = ! empty( get_option( 'polldaddy_usercode_user' ) );
 		$this->polldaddy_client_class = 'api_client';
 		$this->polldaddy_clients      = array();
