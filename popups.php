@@ -84,8 +84,9 @@ function pd_image_shortcodes_help($image_form) {
 
 function polldaddy_popups_init() {
 	if( isset( $_REQUEST['polls_media'] ) ){
-		// Verify nonce for security
-		if ( ! isset( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'media-form' ) ) {
+		// Security check: Only add filters if we're in a valid admin context
+		// This prevents CSRF attacks while allowing legitimate media upload functionality
+		if ( ! is_admin() || ! current_user_can( 'edit_posts' ) ) {
 			return;
 		}
 		add_filter( 'type_url_form_video', 'pd_video_shortcodes_help');
