@@ -68,8 +68,8 @@ php tests/csrf-vulnerability-cve-2024-43338/csrf-behavior-test.php
 # Frontend functionality tests
 php tests/test-frontend-functionality.php
 
-# Interactive CSRF demo
-open tests/csrf-vulnerability-cve-2024-43338/csrf-attack-demo.html
+# Manual CSRF testing (login to WordPress admin first)
+# Visit: http://localhost:8888/wp-admin/media-upload.php?polls_media=1&csrf_test=attack
 ```
 
 ### Code Quality
