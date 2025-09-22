@@ -62,8 +62,6 @@ The project uses PHP_CodeSniffer for code standards. If available, you can run:
 phpcs --version
 ```
 
-
-
 ## Stopping the Environment
 
 ```bash
