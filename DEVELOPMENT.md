@@ -6,7 +6,7 @@ This document describes the local development environment setup for the Crowdsig
 
 - Docker and Docker Compose
 - Node.js and npm
-- PHP 7.4+ (for testing)
+- PHP 5.6+ (minimum requirement for plugin)
 
 ## Quick Start
 
@@ -16,7 +16,7 @@ This document describes the local development environment setup for the Crowdsig
    ```
 
 2. **Access the local WordPress site:**
-   - WordPress frontend: http://localhost:8888
+   - WordPress front end: http://localhost:8888
    - WordPress admin: http://localhost:8888/wp-admin
    - Username: `admin`
    - Password: `password`
@@ -55,19 +55,11 @@ Configuration is stored in `.wp-env.json`:
    npm run build
    ```
 
-### Testing
-
-For security testing, see the security fix PR which includes comprehensive CSRF vulnerability tests.
-
 ### Code Quality
 
-The project uses PHP_CodeSniffer for code standards:
+The project uses PHP_CodeSniffer for code standards. If available, you can run:
 ```bash
-# Check if phpcs is available
 phpcs --version
-
-# Run code standards check
-phpcs --standard=phpcs.ruleset.xml .
 ```
 
 
