@@ -57,9 +57,19 @@ Configuration is stored in `.wp-env.json`:
 
 ### Testing
 
-Run the CSRF vulnerability fix test:
+Run the CSRF vulnerability fix tests:
 ```bash
-php tests/test-csrf-fix.php
+# Unit tests for CSRF fix
+php tests/csrf-vulnerability-cve-2024-43338/test-csrf-fix.php
+
+# Behavior analysis (compare vulnerable vs fixed)
+php tests/csrf-vulnerability-cve-2024-43338/csrf-behavior-test.php
+
+# Frontend functionality tests
+php tests/test-frontend-functionality.php
+
+# Interactive CSRF demo
+open tests/csrf-vulnerability-cve-2024-43338/csrf-attack-demo.html
 ```
 
 ### Code Quality
