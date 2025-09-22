@@ -57,20 +57,7 @@ Configuration is stored in `.wp-env.json`:
 
 ### Testing
 
-Run the CSRF vulnerability fix tests:
-```bash
-# Unit tests for CSRF fix
-php tests/csrf-vulnerability-cve-2024-43338/test-csrf-fix.php
-
-# Behavior analysis (compare vulnerable vs fixed)
-php tests/csrf-vulnerability-cve-2024-43338/csrf-behavior-test.php
-
-# Frontend functionality tests
-php tests/test-frontend-functionality.php
-
-# Manual CSRF testing (login to WordPress admin first)
-# Visit: http://localhost:8888/wp-admin/media-upload.php?polls_media=1&csrf_test=attack
-```
+For security testing, see the security fix PR which includes comprehensive CSRF vulnerability tests.
 
 ### Code Quality
 
@@ -83,39 +70,6 @@ phpcs --version
 phpcs --standard=phpcs.ruleset.xml .
 ```
 
-## Security Fix: CVE-2024-43338
-
-### Vulnerability Description
-The plugin was vulnerable to Cross-Site Request Forgery (CSRF) in the `polldaddy_popups_init()` function in `popups.php`. The function processed `$_REQUEST['polls_media']` without proper nonce verification.
-
-### Fix Implementation
-Added proper access control to prevent CSRF while preserving legitimate functionality:
-```php
-function polldaddy_popups_init() {
-    if( isset( $_REQUEST['polls_media'] ) ){
-        // Security check: Only add filters if we're in a valid admin context
-        // This prevents CSRF attacks while allowing legitimate media upload functionality
-        if ( ! is_admin() || ! current_user_can( 'edit_posts' ) ) {
-            return;
-        }
-        // ... rest of function
-    }
-}
-```
-
-### Testing the Fix
-The fix has been verified with comprehensive tests:
-
-**Security Tests** (`tests/test-csrf-fix.php`):
-- Non-admin contexts are blocked
-- Users without edit_posts capability are blocked
-- Valid admin users with proper capabilities can access functionality
-- Requests without polls_media parameter work normally
-
-**Frontend Tests** (`tests/test-frontend-functionality.php`):
-- Admin media upload functionality is preserved
-- CSRF attacks from frontend are prevented
-- Proper WordPress capability checking is enforced
 
 
 ## Stopping the Environment
