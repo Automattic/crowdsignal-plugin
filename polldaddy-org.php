@@ -612,7 +612,7 @@ EOD;
         			</label>
     			</p>
 				<p>
-					<label for="rss-items-<?php echo esc_attr( $number ); ?>"><?php _e( 'How many items would you like to display?', 'polldaddy' ); ?>
+					<label for="<?php echo esc_attr( $this->get_field_id( 'item_count' ) ); ?>"><?php _e( 'How many items would you like to display?', 'polldaddy' ); ?>
 							<select id="<?php echo esc_attr( $this->get_field_id( 'item_count' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'item_count' ) ); ?>">
 						<?php
 	for ( $i = 1; $i <= 20; ++$i )
