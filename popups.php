@@ -89,21 +89,6 @@ function polldaddy_popups_init() {
 		if ( ! is_admin() || ! current_user_can( 'edit_posts' ) ) {
 			return;
 		}
-
-		// Additional nonce verification for enhanced security
-		// Allow requests from media-upload.php or with valid nonce
-		$is_media_upload = isset( $_REQUEST['type'] ) &&
-		                   isset( $_SERVER['SCRIPT_NAME'] ) &&
-		                   (strpos( $_SERVER['SCRIPT_NAME'], 'media-upload.php' ) !== false ||
-		                    strpos( $_SERVER['SCRIPT_NAME'], 'async-upload.php' ) !== false);
-
-		if ( ! $is_media_upload ) {
-			// For non-media-upload contexts, require a valid nonce
-			$nonce = $_REQUEST['_wpnonce'] ?? '';
-			if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'polls_media_' . get_current_user_id() ) ) {
-				return;
-			}
-		}
 		add_filter( 'type_url_form_video', 'pd_video_shortcodes_help');
 		add_filter( 'type_url_form_audio', 'pd_audio_shortcodes_help');
 		add_filter( 'type_url_form_image', 'pd_image_shortcodes_help');
