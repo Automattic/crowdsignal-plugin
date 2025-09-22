@@ -4,7 +4,7 @@ Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate
 Requires at least: 5.5
 Requires PHP: 5.6
 Tested up to: 6.6.1
-Stable tag: 3.1.2
+Stable tag: 3.1.4
 
 == Description ==
 
@@ -95,6 +95,11 @@ Make sure to whitelist `api.crowdsignal.com` in your firewall to fix this.
 Bugfix and security release
 
 == Changelog ==
+= 3.1.4 =
+* Fix poll shortcode embeds: Replace broken static.polldaddy.com with working secure.polldaddy.com
+* Fix URL-based poll conversion for both polldaddy.com/poll/ and poll.fm/ links
+* Improve regex pattern to capture complete poll IDs in URL conversion
+
 = 3.1.2 =
 * Add referer check on deprecated multi-account user action.
 
