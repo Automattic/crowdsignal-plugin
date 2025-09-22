@@ -84,6 +84,10 @@ function pd_image_shortcodes_help($image_form) {
 
 function polldaddy_popups_init() {
 	if( isset( $_REQUEST['polls_media'] ) ){
+		// Verify nonce for security
+		if ( ! isset( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'media-form' ) ) {
+			return;
+		}
 		add_filter( 'type_url_form_video', 'pd_video_shortcodes_help');
 		add_filter( 'type_url_form_audio', 'pd_audio_shortcodes_help');
 		add_filter( 'type_url_form_image', 'pd_image_shortcodes_help');
