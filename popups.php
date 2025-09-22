@@ -89,6 +89,12 @@ function polldaddy_popups_init() {
 		if ( ! is_admin() || ! current_user_can( 'edit_posts' ) ) {
 			return;
 		}
+
+		// Verify nonce for additional security
+		$nonce = $_REQUEST['_wpnonce'] ?? '';
+		if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'polls_media_' . get_current_user_id() ) ) {
+			return;
+		}
 		add_filter( 'type_url_form_video', 'pd_video_shortcodes_help');
 		add_filter( 'type_url_form_audio', 'pd_audio_shortcodes_help');
 		add_filter( 'type_url_form_image', 'pd_image_shortcodes_help');

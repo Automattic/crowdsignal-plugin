@@ -718,7 +718,8 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 								add_video_title: '<?php echo esc_attr( __( 'Add Video', 'polldaddy' ) ); ?>',
 								standard_styles: '<?php echo esc_attr( __( 'Standard Styles', 'polldaddy' ) ); ?>',
 								custom_styles: '<?php echo esc_attr( __( 'Custom Styles', 'polldaddy' ) ); ?>',
-								base_url: '<?php echo esc_attr( $base_url ); ?>'
+								base_url: '<?php echo esc_attr( $base_url ); ?>',
+								polls_media_nonce: '<?php echo wp_create_nonce( "polls_media_" . get_current_user_id() ); ?>'
 							} );
 						});
 					</script>
