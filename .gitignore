@@ -31,3 +31,7 @@ phpstan-baseline.neon
 
 # Composer
 composer.lock
+
+# Development and AI assistant directories
+.claude/
+.specify/

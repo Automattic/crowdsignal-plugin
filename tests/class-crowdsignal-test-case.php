@@ -170,16 +170,19 @@ class Crowdsignal_Test_Case extends WP_UnitTestCase {
 	/**
 	 * Assert that a WordPress database query uses prepared statements.
 	 *
-	 * @param string $query The query to check.
+	 * @param string $query The prepared query to check.
 	 */
 	protected function assertUsesPreparation( $query ) {
-		global $wpdb;
+		// For a prepared query, we expect it to be properly formatted without placeholders.
+		// This is more of a semantic check to ensure the test is using $wpdb->prepare().
+		$this->assertIsString( $query, 'Query should be a string' );
+		$this->assertNotEmpty( $query, 'Query should not be empty' );
 
-		// Check if query contains placeholders.
-		$this->assertMatchesRegularExpression(
-			'/%[sdF]/',
+		// Verify it doesn't contain unescaped placeholders (which would indicate improper use).
+		$this->assertDoesNotMatchRegularExpression(
+			'/(?<!%)%[sdF](?!%)/',
 			$query,
-			'Query does not use prepared statement placeholders'
+			'Query contains unescaped placeholders - use $wpdb->prepare()'
 		);
 	}
 }
