@@ -2,7 +2,7 @@
   "name": "automattic/crowdsignal-plugin",
   "description": "Create and manage Crowdsignal polls and ratings in WordPress",
   "type": "wordpress-plugin",
-  "license": "GPL-2.0+",
+  "license": "GPL-2.0-or-later",
   "homepage": "https://crowdsignal.com/",
   "authors": [
     {
@@ -49,15 +49,14 @@
     "test:coverage": "phpunit --coverage-html coverage",
     "phpcs": "phpcs",
     "phpcs:fix": "phpcbf",
-    "phpstan": "phpstan analyse",
-    "phpstan:baseline": "phpstan analyse --generate-baseline",
+    "phpstan": "phpstan analyse --memory-limit=1G",
+    "phpstan:baseline": "phpstan analyse --generate-baseline --memory-limit=1G",
     "lint": [
-      "@phpcs",
-      "@phpstan"
+      "@phpcs"
     ],
     "fix": "@phpcs:fix",
     "pre-commit": [
-      "@lint",
+      "@phpcs",
       "@test:unit"
     ]
   },

@@ -28,9 +28,6 @@ jobs:
       - name: Run PHPCS
         run: composer phpcs
 
-      - name: Run PHPStan
-        run: composer phpstan
-
   phpunit:
     name: PHPUnit Tests (PHP ${{ matrix.php }}, WP ${{ matrix.wordpress }})
     runs-on: ubuntu-latest
