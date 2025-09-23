@@ -83,11 +83,33 @@ function pd_image_shortcodes_help($image_form) {
 }
 
 function polldaddy_popups_init() {
-	if( isset( $_REQUEST['polls_media'] ) ){
-		add_filter( 'type_url_form_video', 'pd_video_shortcodes_help');
-		add_filter( 'type_url_form_audio', 'pd_audio_shortcodes_help');
-		add_filter( 'type_url_form_image', 'pd_image_shortcodes_help');
+	// Security check: Only proceed if this is an admin request with proper authorization
+	if ( ! isset( $_REQUEST['polls_media'] ) ) {
+		return;
 	}
+
+	// Verify we're in admin context
+	if ( ! is_admin() ) {
+		return;
+	}
+
+	// Check user capabilities
+	if ( ! current_user_can( 'edit_posts' ) ) {
+		return;
+	}
+
+	// Verify nonce for CSRF protection
+	$user_id = get_current_user_id();
+	$nonce_action = 'polls_media_' . $user_id;
+
+	if ( ! isset( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], $nonce_action ) ) {
+		return;
+	}
+
+	// All security checks passed, add the filters
+	add_filter( 'type_url_form_video', 'pd_video_shortcodes_help' );
+	add_filter( 'type_url_form_audio', 'pd_audio_shortcodes_help' );
+	add_filter( 'type_url_form_image', 'pd_image_shortcodes_help' );
 }
 
 add_action( 'admin_init', 'polldaddy_popups_init' );
