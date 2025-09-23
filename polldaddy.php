@@ -492,6 +492,16 @@ class WP_Polldaddy {
 		wp_enqueue_script( 'polls', "{$this->base_url}js/polldaddy.js", array( 'jquery', 'jquery-ui-sortable', 'jquery-form', 'wp-components' ), $this->version );
 		wp_enqueue_script( 'polls-common', "{$this->base_url}js/common.js", array(), $this->version );
 
+		// Localize script with nonce data for secure media uploads
+		if ( $page === 'polls' && in_array( $action, array( 'edit', 'edit-poll', 'create-poll' ) ) ) {
+			$user_id = get_current_user_id();
+			$nonce_action = 'polls_media_' . $user_id;
+			wp_localize_script( 'polls', 'pollsMediaSecurity', array(
+				'nonce' => wp_create_nonce( $nonce_action ),
+				'user_id' => $user_id,
+			) );
+		}
+
 		if ( $page == 'polls' ) {
 			if ( !$this->is_author && in_array( $action, array( 'edit', 'edit-poll', 'create-poll', 'edit-style', 'create-style', 'list-styles', 'options', 'update-options', 'import-account', 'create-block-poll' ) ) ) {//check user privileges has access to action
 				$action = '';
