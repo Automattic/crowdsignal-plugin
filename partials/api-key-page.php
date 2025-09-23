@@ -9,7 +9,7 @@
 <h2 id="polldaddy-header"><?php esc_html_e( 'Crowdsignal', 'polldaddy' ); ?></h2>
 <p>
 	<?php
-	/* translators: name of the rating being deleted */
+	/* translators: %s is the URL to the Crowdsignal.com account details */
 	printf( __( 'Before you can use the Crowdsignal plugin, you need to enter your <a href="%s">Crowdsignal.com</a> account details.', 'polldaddy' ), 'https://crowdsignal.com/' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- fixed input
 	?>
 </p>
