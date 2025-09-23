@@ -1,20 +1,13 @@
 Fixes #
 
-#### Changes proposed in this Pull Request:
+## Changes proposed in this Pull Request
 
-*
 
-#### Testing instructions:
+## Testing instructions
 
-*
 
-<!--
-Helpful tips for screenshots:
-https://en.support.wordpress.com/make-a-screenshot/
--->
-#### Screenshot / Video
-
+## Screenshot or video
 
 
 <!-- Add the following only if this is meant to be in changelog -->
-#### Proposed changelog entry for your changes:
+## Proposed changelog entry for your changes
