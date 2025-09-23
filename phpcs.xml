@@ -9,6 +9,8 @@
 	<exclude-pattern>/vendor/*</exclude-pattern>
 	<exclude-pattern>/node_modules/*</exclude-pattern>
 	<exclude-pattern>/tests/fixtures/*</exclude-pattern>
+	<exclude-pattern>/tests/simple-test.php</exclude-pattern>
+	<exclude-pattern>/tests/wp-simple-test.php</exclude-pattern>
 	<exclude-pattern>/build/*</exclude-pattern>
 	<exclude-pattern>/js/min/*</exclude-pattern>
 	<exclude-pattern>*.min.js</exclude-pattern>
