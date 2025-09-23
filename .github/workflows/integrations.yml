@@ -59,8 +59,16 @@ jobs:
         env:
           COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.GITHUB_TOKEN }}"}}'
 
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y subversion
+
       - name: Start MySQL Service
-        run: sudo systemctl start mysql.service
+        run: |
+          sudo systemctl start mysql.service
+          # Wait for MySQL to be ready
+          sudo mysqladmin ping -h localhost --silent
 
       - name: Prepare environment for integration tests
         run: |
@@ -69,6 +77,8 @@ jobs:
       - name: Setup WordPress test environment
         run: |
           export WP_TESTS_DIR=/tmp/wordpress-tests-lib
+          export WP_CORE_DIR=/tmp/wordpress
+          chmod +x tests/bin/install-wp-tests.sh
           bash tests/bin/install-wp-tests.sh wordpress_test root root localhost ${{ matrix.wordpress }}
 
       - name: Run PHPUnit tests

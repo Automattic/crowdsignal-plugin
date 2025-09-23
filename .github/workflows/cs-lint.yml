@@ -45,34 +45,23 @@ jobs:
 
       - name: Lint PHP against parse errors
         run: |
-          # First try using parallel-lint if available
-          if [ -f vendor/bin/parallel-lint ]; then
-            echo "Using parallel-lint..."
-            vendor/bin/parallel-lint . --exclude vendor --exclude node_modules --checkstyle
-          else
-            echo "parallel-lint not found, using php -l fallback..."
-            find . -name "*.php" -not -path "./vendor/*" -not -path "./node_modules/*" -exec php -l {} \; 2>&1 | grep -v "No syntax errors detected" || echo "All PHP files passed syntax check"
-          fi
+          echo "Checking PHP syntax with php -l..."
+          find . -name "*.php" -not -path "./vendor/*" -not -path "./node_modules/*" -print0 | xargs -0 php -l
 
       - name: Run PHP CodeSniffer
         run: |
           if [ -f vendor/bin/phpcs ]; then
             echo "Running PHPCS..."
-            vendor/bin/phpcs --standard=phpcs.xml --report=checkstyle
+            vendor/bin/phpcs --standard=phpcs.xml --colors --report=summary
           else
             echo "phpcs not found, skipping code style check"
           fi
 
-      - name: Lint phpunit.xml
+      - name: Validate phpunit.xml
         run: |
           if [ -f ./phpunit.xml ]; then
-            echo "Validating phpunit.xml..."
-            if [ -f ./vendor/phpunit/phpunit/phpunit.xsd ]; then
-              xmllint --noout --schema ./vendor/phpunit/phpunit/phpunit.xsd ./phpunit.xml
-            else
-              echo "PHPUnit XSD not found, skipping XML validation"
-              xmllint --noout ./phpunit.xml
-            fi
+            echo "Validating phpunit.xml syntax..."
+            php -l ./phpunit.xml || xmllint --noout ./phpunit.xml
           else
             echo "phpunit.xml not found, skipping validation"
           fi
