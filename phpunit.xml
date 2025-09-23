@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<phpunit
+	bootstrap="tests/bootstrap.php"
+	backupGlobals="false"
+	colors="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	stopOnFailure="false"
+	testdox="true"
+	verbose="true"
+	beStrictAboutTestsThatDoNotTestAnything="true"
+	beStrictAboutOutputDuringTests="true"
+	beStrictAboutChangesToGlobalState="true"
+	executionOrder="random"
+	resolveDependencies="true"
+>
+	<testsuites>
+		<testsuite name="unit">
+			<directory>./tests/unit/</directory>
+		</testsuite>
+		<testsuite name="integration">
+			<directory>./tests/integration/</directory>
+		</testsuite>
+		<testsuite name="all">
+			<directory>./tests/</directory>
+			<exclude>./tests/fixtures/</exclude>
+		</testsuite>
+	</testsuites>
+
+	<coverage processUncoveredFiles="true">
+		<include>
+			<directory suffix=".php">./</directory>
+		</include>
+		<exclude>
+			<directory>./vendor/</directory>
+			<directory>./node_modules/</directory>
+			<directory>./tests/</directory>
+			<directory>./build/</directory>
+			<directory>./js/</directory>
+			<directory>./css/</directory>
+			<directory>./img/</directory>
+			<directory>./locale/</directory>
+			<directory>./.git/</directory>
+			<directory>./.github/</directory>
+			<directory>./.claude/</directory>
+			<directory>./.specify/</directory>
+			<file>./Gruntfile.js</file>
+			<file>./package.json</file>
+			<file>./package-lock.json</file>
+		</exclude>
+		<report>
+			<html outputDirectory="coverage"/>
+			<text outputFile="coverage.txt"/>
+			<clover outputFile="coverage.xml"/>
+		</report>
+	</coverage>
+
+	<php>
+		<ini name="display_errors" value="1" />
+		<ini name="error_reporting" value="-1" />
+		<env name="WP_TESTS_DOMAIN" value="example.org" />
+		<env name="WP_TESTS_EMAIL" value="admin@example.org" />
+		<env name="WP_TESTS_TITLE" value="Test Blog" />
+		<env name="WP_PHP_BINARY" value="php" />
+		<env name="WP_TESTS_FORCE_KNOWN_BUGS" value="0" />
+		<env name="WP_TESTS_MULTISITE" value="0" />
+		<const name="WP_TESTS_PHPUNIT_POLYFILLS_PATH" value="./vendor/yoast/phpunit-polyfills" />
+	</php>
+
+	<groups>
+		<exclude>
+			<group>external-http</group>
+			<group>ms-files</group>
+			<group>ms-excluded</group>
+		</exclude>
+	</groups>
+
+	<logging>
+		<testdoxHtml outputFile="tests/logs/testdox.html"/>
+		<testdoxText outputFile="tests/logs/testdox.txt"/>
+		<junit outputFile="tests/logs/junit.xml"/>
+	</logging>
+</phpunit>

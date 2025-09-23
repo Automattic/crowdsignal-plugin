@@ -1,0 +1,60 @@
+parameters:
+	level: 8
+	paths:
+		- .
+	excludePaths:
+		- vendor/
+		- node_modules/
+		- tests/
+		- build/
+		- js/
+		- css/
+		- img/
+		- locale/
+		- .git/
+		- .github/
+		- .claude/
+		- .specify/
+		- crowdsignal-plugin/
+	bootstrapFiles:
+		- polldaddy.php
+	scanDirectories:
+		- .
+	scanFiles:
+		- polldaddy.php
+		- polldaddy-client.php
+		- polldaddy-org.php
+		- polldaddy-shortcode.php
+		- polldaddy-xml.php
+		- ajax.php
+		- popups.php
+		- rating.php
+	ignoreErrors:
+		# WordPress globals and functions
+		- '#Variable \$wpdb might not be defined\.#'
+		- '#Variable \$wp_query might not be defined\.#'
+		- '#Variable \$post might not be defined\.#'
+		- '#Function wp_[a-zA-Z_]+ not found\.#'
+		- '#Function get_[a-zA-Z_]+ not found\.#'
+		- '#Function is_[a-zA-Z_]+ not found\.#'
+		- '#Function add_[a-zA-Z_]+ not found\.#'
+		- '#Function do_[a-zA-Z_]+ not found\.#'
+		- '#Function apply_[a-zA-Z_]+ not found\.#'
+		- '#Function has_[a-zA-Z_]+ not found\.#'
+		- '#Function current_user_can not found\.#'
+		- '#Function esc_[a-zA-Z_]+ not found\.#'
+		- '#Function sanitize_[a-zA-Z_]+ not found\.#'
+		- '#Class WP_[a-zA-Z_]+ not found\.#'
+		# Legacy code patterns
+		- '#Access to an undefined property#'
+		- '#Call to an undefined method#'
+		# Allow WordPress coding patterns
+		- '#Undefined variable: \$[a-zA-Z_]+#'
+	tmpDir: /tmp/phpstan
+	treatPhpDocTypesAsCertain: false
+	checkMissingIterableValueType: false
+	checkGenericClassInNonGenericObjectType: false
+	reportUnmatchedIgnoredErrors: false
+
+includes:
+	- vendor/szepeviktor/phpstan-wordpress/extension.neon

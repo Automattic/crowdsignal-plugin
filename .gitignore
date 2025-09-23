@@ -15,6 +15,19 @@ sftp-config.json
 /tmp/
 .vscode
 
+# Test and development files
+/tests/logs/*
+!/tests/logs/.gitkeep
+/coverage/
+coverage.xml
+coverage.txt
+phpunit.xml.dist
+phpstan-baseline.neon
+.phpunit.result.cache
+
 # Ignore all log files except for .htaccess
 /logs/*
 !/logs/.htaccess
+
+# Composer
+composer.lock

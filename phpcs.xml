@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<ruleset name="Crowdsignal Plugin Coding Standards">
+	<description>WordPress coding standards for Crowdsignal Plugin</description>
+
+	<!-- What to scan -->
+	<file>.</file>
+
+	<!-- Exclude paths -->
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<exclude-pattern>/tests/fixtures/*</exclude-pattern>
+	<exclude-pattern>/build/*</exclude-pattern>
+	<exclude-pattern>/js/min/*</exclude-pattern>
+	<exclude-pattern>*.min.js</exclude-pattern>
+	<exclude-pattern>*.min.css</exclude-pattern>
+	<exclude-pattern>/.specify/*</exclude-pattern>
+	<exclude-pattern>/.claude/*</exclude-pattern>
+
+	<!-- How to scan -->
+	<arg value="sp"/> <!-- Show sniff codes in all reports, show progress -->
+	<arg name="basepath" value="."/> <!-- Strip the file paths down to being relative -->
+	<arg name="colors"/>
+	<arg name="extensions" value="php"/>
+	<arg name="parallel" value="8"/> <!-- Enables parallel processing for faster results -->
+
+	<!-- Rules: WordPress Coding Standards -->
+	<config name="minimum_supported_wp_version" value="5.6"/>
+
+	<!-- WordPress-Core Standards -->
+	<rule ref="WordPress-Core">
+		<!-- Allow short array syntax -->
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax.Found"/>
+	</rule>
+
+	<!-- WordPress-Docs Standards -->
+	<rule ref="WordPress-Docs"/>
+
+	<!-- WordPress-Extra Standards (includes WordPress-Core) -->
+	<rule ref="WordPress-Extra">
+		<!-- We want to allow namespacing -->
+		<exclude name="WordPress.PHP.DisallowShortTernary.Found"/>
+	</rule>
+
+	<!-- WordPress.com VIP Standards (Security focused) -->
+	<rule ref="WordPress.Security"/>
+	<rule ref="WordPress.PHP.IniSet"/>
+	<rule ref="WordPress.WP.EnqueuedResources"/>
+
+	<!-- Enforce WordPress DB best practices -->
+	<rule ref="WordPress.DB.DirectDatabaseQuery"/>
+	<rule ref="WordPress.DB.PreparedSQL"/>
+	<rule ref="WordPress.DB.SlowDBQuery"/>
+
+	<!-- Security Rules -->
+	<rule ref="WordPress.Security.EscapeOutput"/>
+	<rule ref="WordPress.Security.NonceVerification"/>
+	<rule ref="WordPress.Security.ValidatedSanitizedInput"/>
+	<rule ref="WordPress.Security.PluginMenuSlug"/>
+
+	<!-- Best Practices -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="crowdsignal-forms"/>
+				<element value="polldaddy"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- PHP Compatibility -->
+	<config name="testVersion" value="5.6-"/>
+	<rule ref="PHPCompatibilityWP"/>
+
+	<!-- Code Quality -->
+	<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+	<rule ref="Generic.Commenting.Todo"/>
+	<rule ref="Generic.PHP.ForbiddenFunctions"/>
+
+	<!-- File naming conventions -->
+	<rule ref="WordPress.Files.FileName">
+		<properties>
+			<property name="strict_class_file_names" value="false"/>
+		</properties>
+		<!-- Allow the main plugin file name -->
+		<exclude-pattern>polldaddy.php</exclude-pattern>
+	</rule>
+
+	<!-- Allow some flexibility for legacy code -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="polldaddy"/>
+				<element value="pd"/>
+				<element value="crowdsignal"/>
+				<element value="cs"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Encourage modern PHP -->
+	<rule ref="Modernize.FunctionCalls.Dirname">
+		<severity>5</severity>
+		<type>warning</type>
+	</rule>
+</ruleset>
