@@ -65,11 +65,10 @@ jobs:
       - name: Prepare environment for integration tests
         run: |
           mysql -e 'CREATE DATABASE IF NOT EXISTS wordpress_test;' -uroot -proot
-          mysql -e 'GRANT ALL PRIVILEGES ON wordpress_test.* TO "root"@"localhost" IDENTIFIED BY "root";' -uroot -proot
 
       - name: Setup WordPress test environment
         run: |
-          export WP_TESTS_DIR=/tmp/wordpress-tests/
+          export WP_TESTS_DIR=/tmp/wordpress-tests-lib
           bash tests/bin/install-wp-tests.sh wordpress_test root root localhost ${{ matrix.wordpress }}
 
       - name: Run PHPUnit tests
