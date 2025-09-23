@@ -16,21 +16,23 @@
 	resolveDependencies="true"
 >
 	<testsuites>
+		<testsuite name="WP_Tests">
+			<directory>./tests/</directory>
+			<exclude>./tests/fixtures/</exclude>
+		</testsuite>
 		<testsuite name="unit">
 			<directory>./tests/unit/</directory>
 		</testsuite>
 		<testsuite name="integration">
 			<directory>./tests/integration/</directory>
 		</testsuite>
-		<testsuite name="all">
-			<directory>./tests/</directory>
-			<exclude>./tests/fixtures/</exclude>
-		</testsuite>
 	</testsuites>
 
-	<coverage processUncoveredFiles="true">
+	<coverage cacheDirectory=".phpunit.cache/code-coverage" processUncoveredFiles="true">
 		<include>
-			<directory suffix=".php">./</directory>
+			<file>./polldaddy.php</file>
+			<directory suffix=".php">./includes/</directory>
+			<directory suffix=".php">./templates/</directory>
 		</include>
 		<exclude>
 			<directory>./vendor/</directory>

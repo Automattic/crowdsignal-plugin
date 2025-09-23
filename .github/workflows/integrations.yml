@@ -1,0 +1,82 @@
+name: Run PHPUnit
+
+on:
+  # Run on all pushes and pull requests
+  push:
+    paths-ignore:
+      - "**.md"
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: WP ${{ matrix.wordpress }} on PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.allowed_failure }}
+
+    env:
+      WP_VERSION: ${{ matrix.wordpress }}
+
+    strategy:
+      matrix:
+        wordpress: ['5.9', '6.8']
+        php: ['7.4', '8.3']
+        allowed_failure: [false]
+        include:
+          # Check upcoming WP
+          - php: '8.3'
+            wordpress: 'trunk'
+            allowed_failure: true
+
+          - php: '8.2'
+            extensions: pcov
+            ini-values: pcov.directory=., "pcov.exclude=\"~(vendor|tests)~\""
+            coverage: pcov
+            wordpress: '6.8'
+            allowed_failure: false
+      fail-fast: false
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP ${{ matrix.php }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: ${{ matrix.extensions }}
+          ini-values: ${{ matrix.ini-values }}
+          coverage: ${{ matrix.coverage }}
+
+      - name: Setup problem matchers for PHP
+        run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+
+      - name: Setup Problem Matchers for PHPUnit
+        run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+      - name: Install Composer dependencies
+        uses: ramsey/composer-install@v2
+
+      - name: Start MySQL Service
+        run: sudo systemctl start mysql.service
+
+      - name: Prepare environment for integration tests
+        run: |
+          mysql -e 'CREATE DATABASE IF NOT EXISTS wordpress_test;' -uroot -proot
+          mysql -e 'GRANT ALL PRIVILEGES ON wordpress_test.* TO "root"@"localhost" IDENTIFIED BY "root";' -uroot -proot
+
+      - name: Setup WordPress test environment
+        run: |
+          export WP_TESTS_DIR=/tmp/wordpress-tests/
+          bash tests/bin/install-wp-tests.sh wordpress_test root root localhost ${{ matrix.wordpress }}
+
+      - name: Run PHPUnit tests
+        run: composer test
+
+      - name: Upload coverage to Codecov (if coverage enabled)
+        if: matrix.coverage == 'pcov'
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella

@@ -24,21 +24,15 @@
 	<arg name="colors"/>
 	<arg name="extensions" value="php"/>
 	<arg name="parallel" value="8"/> <!-- Enables parallel processing for faster results -->
+	<arg name="cache" value=".phpcs.cache"/> <!-- Enable caching for faster subsequent runs -->
 
 	<!-- Rules: WordPress Coding Standards -->
-	<config name="minimum_supported_wp_version" value="5.6"/>
-
-	<!-- WordPress-Core Standards -->
-	<rule ref="WordPress-Core">
-		<!-- Allow short array syntax -->
-		<exclude name="Generic.Arrays.DisallowShortArraySyntax.Found"/>
-	</rule>
-
-	<!-- WordPress-Docs Standards -->
-	<rule ref="WordPress-Docs"/>
+	<config name="minimum_supported_wp_version" value="5.9"/>
 
 	<!-- WordPress-Extra Standards (includes WordPress-Core) -->
 	<rule ref="WordPress-Extra">
+		<!-- Allow short array syntax -->
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax.Found"/>
 		<!-- We want to allow namespacing -->
 		<exclude name="WordPress.PHP.DisallowShortTernary.Found"/>
 	</rule>
@@ -70,7 +64,7 @@
 	</rule>
 
 	<!-- PHP Compatibility -->
-	<config name="testVersion" value="5.6-"/>
+	<config name="testVersion" value="7.4-"/>
 	<rule ref="PHPCompatibilityWP"/>
 
 	<!-- Code Quality -->
@@ -95,6 +89,7 @@
 				<element value="pd"/>
 				<element value="crowdsignal"/>
 				<element value="cs"/>
+				<element value="Automattic\Crowdsignal"/>
 			</property>
 		</properties>
 	</rule>

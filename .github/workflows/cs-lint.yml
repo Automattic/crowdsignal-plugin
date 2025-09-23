@@ -1,0 +1,52 @@
+name: CS & Lint
+
+on:
+  # Run on all pushes and pull requests
+  push:
+    paths-ignore:
+      - "**.md"
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  checkcs:
+    name: "Basic CS and QA checks"
+    runs-on: ubuntu-latest
+
+    env:
+      XMLLINT_INDENT: "\t"
+
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          coverage: none
+          tools: cs2pr
+
+      - name: Register PHP lint violations
+        uses: korelstar/phplint-problem-matcher@v1
+
+      - name: Register XML violations
+        uses: korelstar/xmllint-problem-matcher@v1
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate Composer installation
+        run: composer validate --no-check-all
+
+      - name: Install PHP Dependencies with Composer
+        uses: ramsey/composer-install@2.2.0
+
+      - name: Lint PHP against parse errors
+        run: composer lint-ci | cs2pr
+
+      - name: Run PHP CodeSniffer
+        run: composer cs | cs2pr
+
+      - name: Lint phpunit.xml.dist
+        uses: ChristophWurst/xmllint-action@v1
+        with:
+          xml-file: ./phpunit.xml
+          xml-schema-file: ./vendor/phpunit/phpunit/phpunit.xsd
