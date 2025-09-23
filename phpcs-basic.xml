@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ruleset name="Crowdsignal Plugin Basic Standards">
+	<description>Basic coding standards for Crowdsignal Plugin</description>
+
+	<!-- What to scan -->
+	<file>.</file>
+
+	<!-- Exclude paths -->
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<exclude-pattern>/tests/fixtures/*</exclude-pattern>
+	<exclude-pattern>/tests/simple-test.php</exclude-pattern>
+	<exclude-pattern>/tests/wp-simple-test.php</exclude-pattern>
+	<exclude-pattern>/build/*</exclude-pattern>
+	<exclude-pattern>/js/min/*</exclude-pattern>
+	<exclude-pattern>*.min.js</exclude-pattern>
+	<exclude-pattern>*.min.css</exclude-pattern>
+	<exclude-pattern>/.specify/*</exclude-pattern>
+	<exclude-pattern>/.claude/*</exclude-pattern>
+
+	<!-- How to scan -->
+	<arg value="sp"/> <!-- Show sniff codes in all reports, show progress -->
+	<arg name="basepath" value="."/> <!-- Strip the file paths down to being relative -->
+	<arg name="colors"/>
+	<arg name="extensions" value="php"/>
+	<arg name="parallel" value="8"/> <!-- Enables parallel processing for faster results -->
+
+	<!-- Use basic PSR standards that should be available -->
+	<rule ref="PSR2"/>
+
+	<!-- Basic PHP checks -->
+	<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+	<rule ref="Generic.PHP.ForbiddenFunctions"/>
+
+	<!-- PHP Compatibility (if available) -->
+	<config name="testVersion" value="7.4-"/>
+</ruleset>
