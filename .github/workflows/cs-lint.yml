@@ -38,6 +38,10 @@ jobs:
 
       - name: Install PHP Dependencies with Composer
         uses: ramsey/composer-install@2.2.0
+        with:
+          composer-options: "--optimize-autoloader"
+        env:
+          COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.GITHUB_TOKEN }}"}}'
 
       - name: Lint PHP against parse errors
         run: |
