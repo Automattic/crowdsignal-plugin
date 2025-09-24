@@ -7,7 +7,7 @@
 
 ?>
 			<br />
-			<div id='crowdsignal_advanced_link'><a href="#" id='toggle_advanced_setting_link'><?php _e( 'Advanced Settings' ); ?></a></div>
+			<div id='crowdsignal_advanced_link'><a href="#" id='toggle_advanced_setting_link'><?php _e( 'Advanced Settings', 'polldaddy' ); ?></a></div>
 			<br />
 
 <script>
@@ -93,7 +93,7 @@ foreach( $settings as $key => $value ) {
 									<?php wp_nonce_field( 'polldaddy-reset' . $current_user->ID ); ?>
 									<input type="hidden" name="action" value="reset-account" />
 									<input type="hidden" name="account" value="import" />
-									<p><input type="checkbox" name="email" value="1" /> <?php _e( 'Send me an email with the connection settings for future reference' ); ?></p>
+									<p><input type="checkbox" name="email" value="1" /> <?php _e( 'Send me an email with the connection settings for future reference', 'polldaddy' ); ?></p>
 									<input type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Reset API Connection', 'polldaddy' ) ); ?>" />
 									</p>
 								</form>

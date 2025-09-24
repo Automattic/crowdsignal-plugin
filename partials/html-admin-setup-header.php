@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div>
 	<div id="cs-plugin-container">
 		<div class='cs-lower'>
-			<h1 id='crowdsignal__logo'><?php esc_html_e( 'Crowdsignal Settings', 'crowdsignal-forms' ); ?></h1>
+			<h1 id='crowdsignal__logo'><?php esc_html_e( 'Crowdsignal Settings', 'polldaddy' ); ?></h1>
 			<?php
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if ( isset( $_GET['msg'] ) ) {
@@ -21,31 +21,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 					case 'disconnect-fail':
 						echo '<div class="error fade crowdsignal-message"><p>' .
 						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Content is svg from internal lib
-						esc_html__( 'Could not disconnect. Please try again.', 'crowdsignal-forms' ) .
+						esc_html__( 'Could not disconnect. Please try again.', 'polldaddy' ) .
 						'</p></div>';
 						break;
 					case 'disconnected':
 						echo '<div class="updated fade crowdsignal-message"><p>' .
 						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Content is svg from internal lib
-						esc_html__( 'Successfully disconnected from Crowdsignal.', 'crowdsignal-forms' ) .
+						esc_html__( 'Successfully disconnected from Crowdsignal.', 'polldaddy' ) .
 						'</p></div>';
 						break;
 					case 'connected':
 						echo '<div class="updated crowdsignal-message"><p>' .
 						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Content is svg from internal lib
-						esc_html__( 'Success! Your Crowdsignal account is successfully connected! You are ready!', 'crowdsignal-forms' ) .
+						esc_html__( 'Success! Your Crowdsignal account is successfully connected! You are ready!', 'polldaddy' ) .
 						'</p></div>';
 						break;
 					case 'api-key-added':
 						echo '<div class="updated crowdsignal-message"><p>' .
 						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Content is svg from internal lib
-						esc_html__( 'You have been connected to Crowdsignal.', 'crowdsignal-forms' ) .
+						esc_html__( 'You have been connected to Crowdsignal.', 'polldaddy' ) .
 						'</p></div>';
 						break;
 					case 'api-key-not-added':
 						echo '<div class="error fade crowdsignal-message"><p>' .
 						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Content is svg from internal lib
-						esc_html__( 'Your API key has not been updated, please try again.', 'crowdsignal-forms' ) .
+						esc_html__( 'Your API key has not been updated, please try again.', 'polldaddy' ) .
 						'</p></div>';
 						break;
 				}
