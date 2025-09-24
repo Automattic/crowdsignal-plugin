@@ -17,9 +17,24 @@ function pd_video_shortcodes_help($video_form) {
 			<td colspan="2">
 				<p>' . __('Paste your YouTube or Google Video URL above, or use the examples below.', 'polldaddy') . '</p>
 				<ul class="short-code-list">
-					<li>' . sprintf( __('<a href="%s" target="_blank">YouTube instructions</a> %s', 'polldaddy'), 'http://support.wordpress.com/videos/youtube/', '<code>[youtube=http://www.youtube.com/watch?v=cXXm696UbKY]</code>' )  .'</li>
-					<li>' . sprintf( __('<a href="%s" target="_blank">Google instructions</a> %s', 'polldaddy') , 'http://support.wordpress.com/videos/google-video/', '<code>[googlevideo=http://video.google.com/googleplayer.swf?docId=-8459301055248673864]</code>' ) . '</li>
-					<li>' . sprintf( __('<a href="%s" target="_blank">DailyMotion instructions</a> %s', 'polldaddy'), 'http://support.wordpress.com/videos/dailymotion/', '<code>[dailymotion id=5zYRy1JLhuGlP3BGw]</code>' ) . '</li>
+					<li>' . sprintf( 
+						/* translators: %1$s is the URL to YouTube instructions, %2$s is the example shortcode */
+						__('<a href="%1$s" target="_blank">YouTube instructions</a> %2$s', 'polldaddy'), 
+						'http://support.wordpress.com/videos/youtube/', 
+						'<code>[youtube=http://www.youtube.com/watch?v=cXXm696UbKY]</code>' 
+					) . '</li>
+					<li>' . sprintf( 
+						/* translators: %1$s is the URL to Google Video instructions, %2$s is the example shortcode */
+						__('<a href="%1$s" target="_blank">Google instructions</a> %2$s', 'polldaddy'), 
+						'http://support.wordpress.com/videos/google-video/', 
+						'<code>[googlevideo=http://video.google.com/googleplayer.swf?docId=-8459301055248673864]</code>' 
+					) . '</li>
+					<li>' . sprintf( 
+						/* translators: %1$s is the URL to DailyMotion instructions, %2$s is the example shortcode */
+						__('<a href="%1$s" target="_blank">DailyMotion instructions</a> %2$s', 'polldaddy'), 
+						'http://support.wordpress.com/videos/dailymotion/', 
+						'<code>[dailymotion id=5zYRy1JLhuGlP3BGw]</code>' 
+					) . '</li>
 				</ul>
 			</td>
 		</tr>

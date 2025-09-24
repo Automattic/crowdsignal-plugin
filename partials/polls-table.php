@@ -287,9 +287,9 @@ jQuery( document ).ready(function(){
 	const globalAccountId = '<?php echo esc_js( $global_user_id ); // phpcs:ignore -- variable comes from controller ?>';
 
 	plugin = new Plugin( {
-		<?php /* translators: name of the rating being deleted */ ?>
+		<?php /* translators: %s is the name of the rating being deleted */ ?>
 		delete_rating: '<?php echo esc_js( __( 'Are you sure you want to delete the rating for "%s"?', 'polldaddy' ) ); ?>',
-		<?php /* translators: name of the poll being deleted */ ?>
+		<?php /* translators: %s is the name of the poll being deleted */ ?>
 		delete_poll: '<?php echo esc_js( __( 'Are you sure you want to delete the poll %s?', 'polldaddy' ) ); ?>',
 		delete_answer: '<?php echo esc_js( __( 'Are you sure you want to delete this answer?', 'polldaddy' ) ); ?>',
 		delete_answer_title: '<?php echo esc_js( __( 'delete this answer', 'polldaddy' ) ); ?>',

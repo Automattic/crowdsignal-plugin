@@ -183,12 +183,22 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 					?>
 					<span style="margin:6px 6px 8px;<?php echo $poll->blockRepeatVotersType === 'off' ? 'display:none;' : ''; ?>" id="cookieip_expiration_label"><label><?php _e( 'Expires: ', 'polldaddy' ); ?></label></span>
 					<select id="cookieip_expiration" name="cookieip_expiration" style="width: auto;<?php echo $poll->blockRepeatVotersType === 'off' ? 'display:none;' : ''; ?>">
-						<option value="3600" <?php echo (int) $poll->blockExpiration === 3600 ? 'selected' : ''; ?>><?php printf( __( '%d hour', 'polldaddy' ), 1 ); ?></option>
-						<option value="10800" <?php echo (int) $poll->blockExpiration === 10800 ? 'selected' : ''; ?>><?php printf( __( '%d hours', 'polldaddy' ), 3 ); ?></option>
-						<option value="21600" <?php echo (int) $poll->blockExpiration === 21600 ? 'selected' : ''; ?>><?php printf( __( '%d hours', 'polldaddy' ), 6 ); ?></option>
+						<option value="3600" <?php echo (int) $poll->blockExpiration === 3600 ? 'selected' : ''; ?>><?php
+						/* translators: %d is the number of hours */
+						printf( __( '%d hour', 'polldaddy' ), 1 ); ?></option>
+						<option value="10800" <?php echo (int) $poll->blockExpiration === 10800 ? 'selected' : ''; ?>><?php
+						/* translators: %d is the number of hours */
+						printf( __( '%d hours', 'polldaddy' ), 3 ); ?></option>
+						<option value="21600" <?php echo (int) $poll->blockExpiration === 21600 ? 'selected' : ''; ?>><?php
+						/* translators: %d is the number of hours */
+						printf( __( '%d hours', 'polldaddy' ), 6 ); ?></option>
 						<option value="43200" <?php echo (int) $poll->blockExpiration === 43200 ? 'selected' : ''; ?>><?php printf( __( '%d hours', 'polldaddy' ), 12 ); ?></option>
-						<option value="86400" <?php echo (int) $poll->blockExpiration === 86400 ? 'selected' : ''; ?>><?php printf( __( '%d day', 'polldaddy' ), 1 ); ?></option>
-						<option value="604800" <?php echo (int) $poll->blockExpiration === 604800 ? 'selected' : ''; ?>><?php printf( __( '%d week', 'polldaddy' ), 1 ); ?></option>
+						<option value="86400" <?php echo (int) $poll->blockExpiration === 86400 ? 'selected' : ''; ?>><?php
+						/* translators: %d is the number of days */
+						printf( __( '%d day', 'polldaddy' ), 1 ); ?></option>
+						<option value="604800" <?php echo (int) $poll->blockExpiration === 604800 ? 'selected' : ''; ?>><?php
+						/* translators: %d is the number of weeks */
+						printf( __( '%d week', 'polldaddy' ), 1 ); ?></option>
 					</select>
 					<p><?php _e( 'Note: Blocking by cookie and IP address can be problematic for some voters.', 'polldaddy' ); ?></p>
 				</div>
@@ -707,8 +717,12 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 					<script language="javascript">
 						jQuery( document ).ready(function(){
 							plugin = new Plugin( {
-								delete_rating: '<?php echo esc_attr( __( 'Are you sure you want to delete the rating for "%s"?', 'polldaddy' ) ); ?>',
-								delete_poll: '<?php echo esc_attr( __( 'Are you sure you want to delete "%s"?', 'polldaddy' ) ); ?>',
+								delete_rating: '<?php echo esc_attr(
+									/* translators: %s is the name of the rating being deleted */
+									__( 'Are you sure you want to delete the rating for "%s"?', 'polldaddy' ) ); ?>',
+								delete_poll: '<?php echo esc_attr(
+									/* translators: %s is the name of the poll being deleted */
+									__( 'Are you sure you want to delete "%s"?', 'polldaddy' ) ); ?>',
 								delete_answer: '<?php echo esc_attr( __( 'Are you sure you want to delete this answer?', 'polldaddy' ) ); ?>',
 								new_answer_test: '<?php echo esc_attr( __( 'Enter an answer here', 'polldaddy' ) ); ?>',
 								delete_answer_title: '<?php echo esc_attr( __( 'delete this answer', 'polldaddy' ) ); ?>',
