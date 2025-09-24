@@ -8,7 +8,7 @@
   "main": "Gruntfile.js",
   "scripts": {
     "build": "grunt build",
-    "build:i18n": "wp i18n make-pot . locale/polldaddy.pot",
+    "build:i18n": "wp i18n make-pot . languages/polldaddy.pot",
     "package": "grunt package",
     "deploy": "grunt deploy"
   },
