@@ -7,7 +7,7 @@
  * Author URL: https://crowdsignal.com/
  * Version: 3.1.2
  * Text Domain: polldaddy
- * Domain Path: /locale
+ * Domain Path: /languages
  */
 
 // To hardcode your Polldaddy PartnerGUID (API Key), add the (uncommented) line below with the PartnerGUID to your `wp-config.php`

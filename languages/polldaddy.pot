@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-09-24T10:44:44+00:00\n"
+"POT-Creation-Date: 2025-09-24T10:56:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: polldaddy\n"
@@ -1300,41 +1300,41 @@ msgstr ""
 msgid "This setting allows you to specify a filter to use with your ratings title."
 msgstr ""
 
-#: polldaddy-org.php:490
+#: polldaddy-org.php:489
 msgid "A list of your top rated posts, pages or comments."
 msgstr ""
 
-#: polldaddy-org.php:502
+#: polldaddy-org.php:501
 msgid "Top Rated"
 msgstr ""
 
-#: polldaddy-org.php:589
+#: polldaddy-org.php:588
 #: polldaddy.php:4411
 msgid "Title"
 msgstr ""
 
-#: polldaddy-org.php:593
+#: polldaddy-org.php:592
 msgid "Show for posts"
 msgstr ""
 
-#: polldaddy-org.php:599
+#: polldaddy-org.php:598
 msgid "Show for pages"
 msgstr ""
 
-#: polldaddy-org.php:605
+#: polldaddy-org.php:604
 msgid "Show for comments"
 msgstr ""
 
-#: polldaddy-org.php:611
+#: polldaddy-org.php:610
 msgid "Filter by category"
 msgstr ""
 
-#: polldaddy-org.php:615
+#: polldaddy-org.php:614
 msgid "How many items would you like to display?"
 msgstr ""
 
 #. translators: %s is the URL to the plugin settings page
-#: polldaddy-org.php:657
+#: polldaddy-org.php:656
 #, php-format
 msgid "Crowdsignal features will be unavailable until you link your Crowdsignal.com account. Please visit the <a href=\"%s\">plugin settings page</a> to login."
 msgstr ""
