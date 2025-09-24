@@ -608,7 +608,7 @@ EOD;
         		<p>
             		<label for="<?php echo esc_attr( $this->get_field_id( 'filter_by_category' ) ); ?>">
                     	<input type="checkbox" class="checkbox" id="<?php echo esc_attr( $this->get_field_id( 'filter_by_category' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'filter_by_category' ) ); ?>" value="1" <?php echo $filter_by_category == 1 ? 'checked="checked"':''; ?>/>
-                 		<?php _e('Filter by category'); ?>
+                 		<?php _e('Filter by category', 'polldaddy'); ?>
         			</label>
     			</p>
 				<p>

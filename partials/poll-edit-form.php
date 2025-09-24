@@ -12,7 +12,7 @@
 // phpcs:disable NeutronStandard.Arrays.DisallowLongformArray.LongformArray -- TODO
 // phpcs:disable WordPress.WP.I18n.MissingTranslatorsComment -- TODO
 
-$delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . esc_attr( __( 'delete this image' ) ) . '"><img src="' . esc_url( $base_url ) . 'img/icon-clear-search.png" width="16" height="16" /></a>';
+$delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . esc_attr( __( 'delete this image', 'polldaddy' ) ) . '"><img src="' . esc_url( $base_url ) . 'img/icon-clear-search.png" width="16" height="16" /></a>';
 ?>
 <form enctype="multipart/form-data" name="send-media" action="admin-ajax.php" method="post">
 	<?php wp_nonce_field( 'send-media' ); ?>
@@ -288,7 +288,7 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 							<div id="edit-slug-box" style="margin-bottom:30px;">
 								<strong><?php _e( 'WordPress Shortcode:', 'polldaddy' ); ?></strong>
 								<input type="text" style="color:#999;" value="[crowdsignal poll=<?php echo esc_attr( $poll->_id ); ?>]" id="shortcode-field" readonly="readonly" />
-								<span><a href="post-new.php?content=[crowdsignal poll=<?php echo esc_attr( $poll->_id ); ?>]" class="button"><?php _e( 'Embed Poll in New Post' ); ?></a></span>
+								<span><a href="post-new.php?content=[crowdsignal poll=<?php echo esc_attr( $poll->_id ); ?>]" class="button"><?php _e( 'Embed Poll in New Post', 'polldaddy' ); ?></a></span>
 							</div>
 						</div>
 					<?php endif; ?>
@@ -317,7 +317,7 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 							<table class="answer">
 								<tr>
 									<th>
-										<span class="handle" title="<?php echo esc_attr( __( 'click and drag to reorder' ) ); ?>"><img src="<?php echo esc_url( $base_url ); ?>img/icon-reorder.png" alt="click and drag to reorder" width="6" height="9" /></span>
+										<span class="handle" title="<?php echo esc_attr( __( 'click and drag to reorder', 'polldaddy' ) ); ?>"><img src="<?php echo esc_url( $base_url ); ?>img/icon-reorder.png" alt="click and drag to reorder" width="6" height="9" /></span>
 									</th>
 									<td class="answer-input">
 										<input type="text" autocomplete="off" placeholder="<?php echo esc_attr( __( 'Enter an answer here', 'polldaddy' ) ); ?>" id="answer-<?php echo esc_attr( $answer_id ); ?>" value="<?php echo esc_attr( $answer ); ?>" tabindex="2" size="30" name="answer[<?php echo esc_attr( $answer_id ); ?>]" />
@@ -380,7 +380,7 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 							<table class="answer">
 									<tr>
 										<th>
-											<span class="handle" title="<?php echo esc_attr( __( 'click and drag to reorder' ) ); ?>"><img src="<?php echo esc_url( $base_url ); ?>img/icon-reorder.png" alt="click and drag to reorder" width="6" height="9" /></span>
+											<span class="handle" title="<?php echo esc_attr( __( 'click and drag to reorder', 'polldaddy' ) ); ?>"><img src="<?php echo esc_url( $base_url ); ?>img/icon-reorder.png" alt="click and drag to reorder" width="6" height="9" /></span>
 										</th>
 										<td class="answer-input">
 											<input type="text" autocomplete="off" placeholder="<?php echo esc_attr( __( 'Enter an answer here', 'polldaddy' ) ); ?>" value="" tabindex="2" size="30" name="answer[new<?php echo esc_attr( $a ); ?>]" />

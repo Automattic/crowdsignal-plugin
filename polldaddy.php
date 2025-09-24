@@ -500,7 +500,7 @@ class WP_Polldaddy {
 				case 'create-block-poll':
 					$post_id = wp_insert_post(
 						array(
-							'post_title'   => esc_html__( 'Crowdsignal blocks in WordPress' ),
+							'post_title'   => esc_html__( 'Crowdsignal blocks in WordPress', 'polldaddy' ),
 
 							'post_content' => '
 								<!-- wp:paragraph -->
@@ -898,7 +898,7 @@ class WP_Polldaddy {
 				global $current_user;
 				check_admin_referer( 'polldaddy-reset' . $this->id );
 				$fields = array( 'polldaddy_api_key', 'pd-rating-comments', 'pd-rating-comments-id', 'pd-rating-comments-pos', 'pd-rating-exclude-post-ids', 'pd-rating-pages', 'pd-rating-pages-id', 'pd-rating-posts', 'pd-rating-posts-id', 'pd-rating-posts-index', 'pd-rating-posts-index-id', 'pd-rating-posts-index-pos', 'pd-rating-posts-pos', 'pd-rating-title-filter', 'pd-rating-usercode', 'pd-rich-snippets', 'pd-usercode-' . $current_user->ID );
-				$msg = __( "You have just reset your Polldaddy connection settings." ) . "\n\n";
+				$msg = __( "You have just reset your Polldaddy connection settings.", 'polldaddy' ) . "\n\n";
 				foreach( $fields as $field ) {
 					$value = get_option( $field );
 					if ( $value != false ) {
@@ -2418,7 +2418,7 @@ class WP_Polldaddy {
 
 			<table>
 				<tr>
-					<td class="pd-editor-label"><label for="styleName"><?php _e( 'Select a template part to edit:' ); ?></label></td>
+					<td class="pd-editor-label"><label for="styleName"><?php _e( 'Select a template part to edit:', 'polldaddy' ); ?></label></td>
 					<td>
 						<select id="styleName" onchange="renderStyleEdit(this.value);">
 							<option value="pds-box" selected="selected"><?php _e( 'Poll Box', 'polldaddy' ); ?></option>
@@ -3370,19 +3370,19 @@ class WP_Polldaddy {
 						$rating_errors[] = $polldaddy->errors;
 					}
 				} elseif ( isset( $polldaddy->errors[ -1 ] ) && $polldaddy->errors[ -1 ] == "Can't connect" ) {
-					$this->contact_support_message( __( 'Could not connect to the Crowdsignal API' ), $rating_errors );
+					$this->contact_support_message( __( 'Could not connect to the Crowdsignal API', 'polldaddy' ), $rating_errors );
 					$error = true;
 				} elseif ( isset( $polldaddy->errors[ -1 ] ) && $polldaddy->errors[ -1 ] == "Invalid API URL" ) {
-					$this->contact_support_message( __( 'The API URL is incorrect' ), $rating_errors );
+					$this->contact_support_message( __( 'The API URL is incorrect', 'polldaddy' ), $rating_errors );
 					$error = true;
 				} elseif ( isset( $polldaddy->errors[ -2 ] ) && $polldaddy->errors[ -2 ] == "No Data" ) {
-					$this->contact_support_message( __( 'Your API request did not return any data' ), $rating_errors );
+					$this->contact_support_message( __( 'Your API request did not return any data', 'polldaddy' ), $rating_errors );
 					$error = true;
 				}
 			}
 
 			if ( $error == false && empty( $pd_rating ) ) { //something's up!
-				$this->contact_support_message( __( 'There was an error creating your rating widget' ), $rating_errors );
+				$this->contact_support_message( __( 'There was an error creating your rating widget', 'polldaddy' ), $rating_errors );
 				$error = true;
 			} else {
 				$rating_id = (int) $pd_rating->_id;
@@ -4374,11 +4374,11 @@ class WP_Polldaddy {
           				</select>
           				<input class="button-secondary action" type="submit" value="<?php _e( 'Filter', 'polldaddy' );?>" />
           				<?php if ( in_array( $period, array( 1, 7 ) ) ) : ?>
-          				<label><?php _e( '* The results are cached and are updated every hour' ); ?></label>
+          				<label><?php _e( '* The results are cached and are updated every hour', 'polldaddy' ); ?></label>
           				<?php elseif ( $period == 31 ) : ?>
-          				<label><?php _e( '* The results are cached and are updated every day' ); ?></label>
+          				<label><?php _e( '* The results are cached and are updated every day', 'polldaddy' ); ?></label>
           				<?php else : ?>
-          				<label><?php _e( '* The results are cached and are updated every 3 days' ); ?></label>
+          				<label><?php _e( '* The results are cached and are updated every 3 days', 'polldaddy' ); ?></label>
           				<?php endif; ?>
 					</div>
 					<div class="alignright">
@@ -4659,7 +4659,7 @@ class WP_Polldaddy {
 		global $current_user;
 		echo '<div class="error" id="polldaddy">';
 		echo '<h1>' . $message . '</h1>';
-		echo '<p>' . __( "There are a few things you can do:" );
+		echo '<p>' . __( "There are a few things you can do:", 'polldaddy' );
 		echo "<ul><ol>" . __( "Press reload on your browser and reload this page. There may have been a temporary problem communicating with Crowdsignal.com", "polldaddy" ) . "</ol>";
 		/* translators: %1$s is the URL to Crowdsignal settings page */
 		echo "<ol>" . sprintf( __( "Go to the <a href='%s'>poll settings page</a>, scroll to the end of the page and reset your connection settings. Link your account again with the same API key.", "polldaddy" ), 'options-general.php?page=crowdsignal-settings' ) . "</ol>";
