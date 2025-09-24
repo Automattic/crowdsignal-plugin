@@ -1,11 +1,13 @@
 <?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 /**
  * Plugin Name: Crowdsignal Polls & Ratings
- * Plugin URI: http://wordpress.org/extend/plugins/polldaddy/
+ * Plugin URI: https://wordpress.org/plugins/polldaddy/
  * Description: Create and manage Crowdsignal polls and ratings in WordPress
  * Author: Automattic, Inc.
  * Author URL: https://crowdsignal.com/
  * Version: 3.1.2
+ * Text Domain: polldaddy
+ * Domain Path: /locale
  */
 
 // To hardcode your Polldaddy PartnerGUID (API Key), add the (uncommented) line below with the PartnerGUID to your `wp-config.php`
