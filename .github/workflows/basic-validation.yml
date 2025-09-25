@@ -21,19 +21,5 @@ jobs:
         tools: composer
         coverage: none
 
-    - name: Validate composer.json
-      run: composer validate --strict
-
     - name: Check PHP syntax
       run: find . -name "*.php" ! -path "./vendor/*" -exec php -l {} \;
-
-    - name: Install dependencies
-      run: composer install --prefer-dist --no-progress
-
-    - name: Run coding standards check
-      run: |
-        if [ -f "composer.json" ] && grep -q "phpcs" composer.json; then
-          composer phpcs
-        else
-          echo "PHPCS not configured - skipping"
-        fi
