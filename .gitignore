@@ -15,6 +15,9 @@ sftp-config.json
 /tmp/
 .vscode
 
+# PHPCS cache
+.phpcs.cache
+
 # Ignore all log files except for .htaccess
 /logs/*
 !/logs/.htaccess
