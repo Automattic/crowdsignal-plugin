@@ -13,7 +13,7 @@
 					if ( poll ) {
 						var poll_url = document.createElement("a");
 						poll_url.href = poll['url'];
-						if ( poll_url.hostname != 'secure.polldaddy.com' && poll_url.hostname != 'static.polldaddy.com' ) {
+						if ( poll_url.hostname != 'secure.polldaddy.com' ) {
 							return false;
 						}
 						var pathname = poll_url.pathname;
