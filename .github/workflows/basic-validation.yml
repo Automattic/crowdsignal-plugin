@@ -1,0 +1,39 @@
+name: Basic Validation
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  validate:
+    name: Validate Plugin
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+        tools: composer
+        coverage: none
+
+    - name: Validate composer.json
+      run: composer validate --strict
+
+    - name: Check PHP syntax
+      run: find . -name "*.php" ! -path "./vendor/*" -exec php -l {} \;
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress
+
+    - name: Run coding standards check
+      run: |
+        if [ -f "composer.json" ] && grep -q "phpcs" composer.json; then
+          composer phpcs
+        else
+          echo "PHPCS not configured - skipping"
+        fi
