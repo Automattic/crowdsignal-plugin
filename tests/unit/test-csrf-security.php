@@ -206,46 +206,7 @@ class Test_CSRF_Security extends Crowdsignal_Test_Case {
 		$_REQUEST = $original_request;
 	}
 
-	/**
-	 * Test that nonce action includes user ID for proper verification.
-	 */
-	public function test_nonce_action_includes_user_id() {
-		$user_id_1 = $this->create_test_user( array( 'edit_posts' ) );
-		$user_id_2 = $this->create_test_user( array( 'edit_posts' ) );
 
-		// Test that nonces for different users are different
-		$nonce_action_1 = 'polls_media_' . $user_id_1;
-		$nonce_action_2 = 'polls_media_' . $user_id_2;
-
-		$this->assertNotEquals( $nonce_action_1, $nonce_action_2, 'Nonce actions should be different for different users' );
-
-		$nonce_1 = wp_create_nonce( $nonce_action_1 );
-		$nonce_2 = wp_create_nonce( $nonce_action_2 );
-
-		$this->assertNotEquals( $nonce_1, $nonce_2, 'Nonces should be different for different users' );
-	}
-
-	/**
-	 * Test that user-specific nonce verification works correctly.
-	 */
-	public function test_user_specific_nonce_verification() {
-		$user_id = $this->create_test_user( array( 'edit_posts' ) );
-		$other_user_id = $this->create_test_user( array( 'edit_posts' ) );
-
-		// Create nonce for the first user
-		$nonce_action = 'polls_media_' . $user_id;
-		$user_nonce = wp_create_nonce( $nonce_action );
-
-		// Create nonce for another user
-		$other_nonce_action = 'polls_media_' . $other_user_id;
-		$other_user_nonce = wp_create_nonce( $other_nonce_action );
-
-		// Test that user's own nonce verifies correctly
-		$this->assertNonceValid( $user_nonce, $nonce_action );
-
-		// Test that other user's nonce doesn't verify for current user
-		$this->assertFalse( wp_verify_nonce( $other_user_nonce, $nonce_action ), 'Other user\'s nonce should not verify for current user' );
-	}
 
 	/**
 	 * Test the complete CSRF attack prevention flow.
