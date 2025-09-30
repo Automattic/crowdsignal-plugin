@@ -16,7 +16,7 @@ sftp-config.json
 .vscode
 
 # Testing
-/tests/coverage/
+/.phpunit.cache/
 phpunit.xml
 .phpunit.result.cache
 
