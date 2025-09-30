@@ -38,7 +38,7 @@
 		<report>
 			<text outputFile="php://stdout"/>
 			<clover outputFile=".phpunit.cache/clover.xml"/>
-			<html outputDirectory="tests/coverage/html"/>
+			<html outputDirectory=".phpunit.cache/coverage-html"/>
 			<text outputFile="tests/coverage/coverage.txt"/>
 		</report>
 	</coverage>
