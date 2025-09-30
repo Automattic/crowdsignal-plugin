@@ -25,7 +25,7 @@
 		</testsuite>
 	</testsuites>
 
-	<coverage processUncoveredFiles="false">
+	<coverage cacheDirectory=".phpunit.cache/code-coverage" processUncoveredFiles="true">
 		<include>
 			<directory suffix=".php">.</directory>
 		</include>
