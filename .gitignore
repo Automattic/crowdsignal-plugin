@@ -17,7 +17,7 @@ sftp-config.json
 
 # Testing
 /tests/coverage/
-phpunit.xml.dist
+phpunit.xml
 .phpunit.result.cache
 
 # PHPCS cache

@@ -31,7 +31,6 @@
     "test": "phpunit",
     "test:unit": "phpunit --testsuite=unit",
     "test:integration": "phpunit --testsuite=integration",
-    "test:standalone": "phpunit --configuration=phpunit-unit.xml --no-coverage",
     "phpcs": "@php ./vendor/bin/phpcs",
     "phpcbf": "@php ./vendor/bin/phpcbf"
   },
@@ -39,7 +38,6 @@
     "test": "Run PHPUnit tests",
     "test:unit": "Run unit tests only",
     "test:integration": "Run integration tests only",
-    "test:standalone": "Run standalone unit tests without WordPress",
     "phpcs": "Run PHP_Codesniffer.",
     "phpcbf": "Fix autofixable coding standards issues."
   },
