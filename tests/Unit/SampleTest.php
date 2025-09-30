@@ -4,6 +4,7 @@
  *
  * @package Automattic\Crowdsignal\Tests\Unit
  */
+declare( strict_types = 1 );
 
 namespace Automattic\Crowdsignal\Tests\Unit;
 
