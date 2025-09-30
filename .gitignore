@@ -20,6 +20,9 @@ sftp-config.json
 phpunit.xml.dist
 .phpunit.result.cache
 
+# PHPCS cache
+.phpcs.cache
+
 # Ignore all log files except for .htaccess
 /logs/*
 !/logs/.htaccess
