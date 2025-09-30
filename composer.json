@@ -1,0 +1,39 @@
+{
+  "name": "automattic/crowdsignal-plugin",
+  "description": "Create and manage Crowdsignal polls and ratings in WordPress",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://crowdsignal.com/",
+  "authors": [
+    {
+      "name": "Automattic, Inc.",
+      "homepage": "https://automattic.com/"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/Automattic/crowdsignal-plugin/issues",
+    "source": "https://github.com/Automattic/crowdsignal-plugin"
+  },
+  "require": {
+    "php": ">=5.6",
+    "composer/installers": "^2"
+  },
+  "require-dev": {
+    "wp-coding-standards/wpcs": "^3.0"
+  },
+  "scripts": {
+    "phpcs": "@php ./vendor/bin/phpcs",
+    "phpcbf": "@php ./vendor/bin/phpcbf"
+  },
+  "scripts-descriptions": {
+    "phpcs": "Run PHP_Codesniffer.",
+    "phpcbf": "Fix autofixable coding standards issues."
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "composer/installers": true
+    },
+    "lock": false
+  }
+}
