@@ -36,7 +36,8 @@
 			<file>Gruntfile.js</file>
 		</exclude>
 		<report>
-			<clover outputFile="tests/coverage/clover.xml"/>
+			<text outputFile="php://stdout"/>
+			<clover outputFile=".phpunit.cache/clover.xml"/>
 			<html outputDirectory="tests/coverage/html"/>
 			<text outputFile="tests/coverage/coverage.txt"/>
 		</report>
