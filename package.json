@@ -1,10 +1,10 @@
 {
-  "name": "polldaddy",
-  "title": "Polldaddy Plugin",
-  "version": "2.2.6",
-  "homepage": "http://wordpress.org/plugins/polldaddy/",
+  "name": "crowdsignal-plugin",
+  "title": "Crowdsignal Plugin",
+  "version": "3.1.2",
+  "homepage": "https://wordpress.org/plugins/polldaddy/",
   "license": "GPL-2.0+",
-  "repository": "automattic/polldaddy-plugin",
+  "repository": "automattic/crowdsignal-plugin",
   "main": "Gruntfile.js",
   "scripts": {
     "build": "grunt build",
