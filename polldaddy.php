@@ -41,6 +41,15 @@ function polldaddy_add_oembed_provider() {
 }
 add_action( 'init', 'polldaddy_add_oembed_provider' );
 
+/**
+ * Get the nonce action string for polls media functionality.
+ *
+ * @return string Nonce action string specific to current user
+ */
+function get_polls_media_nonce() {
+	return 'polls_media_' . get_current_user_id();
+}
+
 class WP_Polldaddy {
 	var $errors;
 	var $base_url;
@@ -496,7 +505,7 @@ class WP_Polldaddy {
 		// Localize script with nonce data for secure media uploads
 		if ( $page === 'polls' && in_array( $action, array( 'edit', 'edit-poll', 'create-poll' ) ) ) {
 			$user_id = get_current_user_id();
-			$nonce_action = 'polls_media_' . $user_id;
+			$nonce_action = get_polls_media_nonce();
 			wp_localize_script( 'polls', 'pollsMediaSecurity', array(
 				'nonce' => wp_create_nonce( $nonce_action ),
 				'user_id' => $user_id,

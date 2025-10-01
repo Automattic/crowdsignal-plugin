@@ -114,8 +114,7 @@ function polldaddy_popups_init() {
 	}
 
 	// Verify nonce for CSRF protection
-	$user_id = get_current_user_id();
-	$nonce_action = 'polls_media_' . $user_id;
+	$nonce_action = get_polls_media_nonce();
 
 	if ( ! isset( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], $nonce_action ) ) {
 		return;

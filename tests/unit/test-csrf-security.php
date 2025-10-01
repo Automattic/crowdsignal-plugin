@@ -245,4 +245,45 @@ class Test_CSRF_Security extends Crowdsignal_Test_Case {
 		// Restore original request
 		$_REQUEST = $original_request;
 	}
+
+	/**
+	 * Test that get_polls_media_nonce() returns different values for different users.
+	 */
+	public function test_get_polls_media_nonce_user_specific() {
+		// Get nonce for current user
+		$user1_id = get_current_user_id();
+		$user1_nonce = get_polls_media_nonce();
+
+		// Create a new test user
+		$user2_id = wp_insert_user( array(
+			'user_login' => 'testuser_' . time(),
+			'user_email' => 'test' . time() . '@example.com',
+			'user_pass'  => 'testpass123'
+		) );
+
+		// Switch to the new user
+		wp_set_current_user( $user2_id );
+		$user2_nonce = get_polls_media_nonce();
+
+		// Switch back to original user
+		wp_set_current_user( $user1_id );
+
+		// Verify nonces are different
+		$this->assertNotEquals( $user1_nonce, $user2_nonce, 'Different users should have different nonce actions' );
+		$this->assertEquals( 'polls_media_' . $user1_id, $user1_nonce, 'User 1 nonce should match expected format' );
+		$this->assertEquals( 'polls_media_' . $user2_id, $user2_nonce, 'User 2 nonce should match expected format' );
+
+		// Clean up test user
+		wp_delete_user( $user2_id );
+	}
+
+	/**
+	 * Test that get_polls_media_nonce() returns consistent values for the same user.
+	 */
+	public function test_get_polls_media_nonce_consistency() {
+		$nonce1 = get_polls_media_nonce();
+		$nonce2 = get_polls_media_nonce();
+
+		$this->assertEquals( $nonce1, $nonce2, 'get_polls_media_nonce should return consistent values for same user' );
+	}
 }
