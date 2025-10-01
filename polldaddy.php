@@ -41,6 +41,15 @@ function polldaddy_add_oembed_provider() {
 }
 add_action( 'init', 'polldaddy_add_oembed_provider' );
 
+/**
+ * Get the nonce action string for polls media functionality.
+ *
+ * @return string Nonce action string specific to current user
+ */
+function get_polls_media_nonce() {
+	return 'polls_media_' . get_current_user_id();
+}
+
 class WP_Polldaddy {
 	var $errors;
 	var $base_url;
@@ -492,6 +501,16 @@ class WP_Polldaddy {
 		wp_enqueue_style( 'wp-components' );
 		wp_enqueue_script( 'polls', "{$this->base_url}js/polldaddy.js", array( 'jquery', 'jquery-ui-sortable', 'jquery-form', 'wp-components' ), $this->version );
 		wp_enqueue_script( 'polls-common', "{$this->base_url}js/common.js", array(), $this->version );
+
+		// Localize script with nonce data for secure media uploads
+		if ( $page === 'polls' && in_array( $action, array( 'edit', 'edit-poll', 'create-poll' ) ) ) {
+			$user_id = get_current_user_id();
+			$nonce_action = get_polls_media_nonce();
+			wp_localize_script( 'polls', 'pollsMediaSecurity', array(
+				'nonce' => wp_create_nonce( $nonce_action ),
+				'user_id' => $user_id,
+			) );
+		}
 
 		if ( $page == 'polls' ) {
 			if ( !$this->is_author && in_array( $action, array( 'edit', 'edit-poll', 'create-poll', 'edit-style', 'create-style', 'list-styles', 'options', 'update-options', 'import-account', 'create-block-poll' ) ) ) {//check user privileges has access to action
