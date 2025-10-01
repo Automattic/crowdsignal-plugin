@@ -15,6 +15,11 @@ sftp-config.json
 /tmp/
 .vscode
 
+# Testing
+/.phpunit.cache/
+phpunit.xml
+.phpunit.result.cache
+
 # PHPCS cache
 .phpcs.cache
 
