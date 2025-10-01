@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class='cs-settings-container'>
 				<div class="cs-card cs-section-header is-compact">
 					<div class="cs-section-header__label">
-						<span class="cs-section-header__label-text"><?php esc_html_e( 'Getting Started', 'crowdsignal-forms' ); ?></span>
+						<span class="cs-section-header__label-text"><?php esc_html_e( 'Getting Started', 'polldaddy' ); ?></span>
 					</div>
 				</div>
 
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<div class="cs-form-settings-group crowdsignal-forms" style='text-align: center; width: 100%'>
 						<div class="crowdsignal-setup__content">
 							<div class="crowdsignal-setup__description">
-								<h1><?php esc_html_e( 'Welcome to Crowdsignal', 'crowdsignal-forms' ); ?></h1>
+								<h1><?php esc_html_e( 'Welcome to Crowdsignal', 'polldaddy' ); ?></h1>
 								<p><?php echo wp_kses_post( 'To collect and manage responses you need to connect the plugin to <a href="https://crowdsignal.com">Crowdsignal</a>. <br />It will take less than a minute and it’s free.', 'polldaddy' ); ?></p>
 							</div>
 

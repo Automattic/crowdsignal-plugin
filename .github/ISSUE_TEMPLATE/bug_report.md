@@ -2,44 +2,31 @@
 name: Bug report
 about: Create a report to help us improve
 title: ''
-labels: "bug"
+labels: ""
 assignees: ''
 
 ---
 
-<!-- Thanks for contributing to Crowdsignal! Pick a clear title ("Polls: Allow multiple choice as default setting") and proceed. -->
-
-#### Steps to Reproduce
+## Steps to Reproduce
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
 
-#### What I Expected
+## What I expected
 
 
-#### What Happened Instead
+## What happened instead
 
 
-#### PHP / WordPress / Crowdsignal version
+## PHP, WordPress, Crowdsignal versions
 
 
-#### Browser / OS version
+## Browser and OS versions
 
 
-#### Screenshot / Video
+## Screenshot or video
 
 
-#### Context / Source
+## Additional context
 <!-- Optional: share your unique context to help us understand your perspective. -->
-
-
-
-<!--
-PLEASE NOTE
-- These comments won't show up when you submit the issue.
-- Everything is optional, but try to add as many details as possible.
-
-Helpful tips for screenshots:
-https://en.support.wordpress.com/make-a-screenshot/
--->

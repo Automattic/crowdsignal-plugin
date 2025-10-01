@@ -21,9 +21,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 		<ul class="cs-footer__links">
 			<li class="cs-footer__link-item"><a href="https://crowdsignal.com" target="_blank" rel="noopener noreferrer" class="cs-footer__link" title="Crowdsignal">Crowdsignal.com</a></li>
-			<li class="cs-footer__link-item"><a href="https://crowdsignal.com/support" target="_blank" rel="noopener noreferrer" class="cs-footer__link" title="<?php esc_html_e( 'Crowdsignal Support', 'crowdsignal-forms' ); ?>"><?php esc_html_e( 'Support', 'crowdsignal-forms' ); ?></a></li>
-			<li class="cs-footer__link-item"><a href="https://crowdsignal.com/terms/" target="_blank" rel="noopener noreferrer" title="<?php esc_attr_e( 'Terms of Service', 'crowdsignal-forms' ); ?>" class="cs-footer__link"><?php esc_html_e( 'Terms', 'crowdsignal-forms' ); ?></a></li>
-			<li class="cs-footer__link-item"><a href="https://automattic.com/privacy/" target="_blank" rel="noopener noreferrer" title="<?php esc_attr_e( 'Privacy Policy', 'crowdsignal-forms' ); ?>" class="cs-footer__link"><?php esc_html_e( 'Privacy', 'crowdsignal-forms' ); ?></a></li>
+			<li class="cs-footer__link-item"><a href="https://crowdsignal.com/support" target="_blank" rel="noopener noreferrer" class="cs-footer__link" title="<?php esc_html_e( 'Crowdsignal Support', 'polldaddy' ); ?>"><?php esc_html_e( 'Support', 'polldaddy' ); ?></a></li>
+			<li class="cs-footer__link-item"><a href="https://crowdsignal.com/terms/" target="_blank" rel="noopener noreferrer" title="<?php esc_attr_e( 'Terms of Service', 'polldaddy' ); ?>" class="cs-footer__link"><?php esc_html_e( 'Terms', 'polldaddy' ); ?></a></li>
+			<li class="cs-footer__link-item"><a href="https://automattic.com/privacy/" target="_blank" rel="noopener noreferrer" title="<?php esc_attr_e( 'Privacy Policy', 'polldaddy' ); ?>" class="cs-footer__link"><?php esc_html_e( 'Privacy', 'polldaddy' ); ?></a></li>
 		</ul>
 	</div>
 </div> <!--.wrap-->
