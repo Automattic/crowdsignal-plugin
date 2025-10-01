@@ -5,14 +5,16 @@
  * @package Automattic\Crowdsignal\Tests
  */
 
-namespace Automattic\Crowdsignal\Tests;
+declare( strict_types = 1 );
 
-use WP_UnitTestCase;
+namespace Automattic\Crowdsignal\Tests\Integration;
+
+use Yoast\WPTestUtils\WPIntegration\TestCase as WPTestCase;
 
 /**
  * Base test case class with common functionality
  */
-class TestCase extends WP_UnitTestCase {
+class TestCase extends WPTestCase {
 
     /**
      * Create a test user with specified capabilities

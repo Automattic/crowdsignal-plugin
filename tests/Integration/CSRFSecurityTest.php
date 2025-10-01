@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace Automattic\Crowdsignal\Tests\Integration;
 
-use Automattic\Crowdsignal\Tests\TestCase;
-
 /**
  * Test class for CSRF security fix.
  *
