@@ -5,7 +5,9 @@
  * @package Crowdsignal_Forms
  */
 
-namespace Automattic\Crowdsignal\Tests\Unit;
+declare(strict_types=1);
+
+namespace Automattic\Crowdsignal\Tests\Integration;
 
 use Automattic\Crowdsignal\Tests\TestCase;
 
@@ -14,14 +16,14 @@ use Automattic\Crowdsignal\Tests\TestCase;
  *
  * @group security
  * @group csrf
- * @group unit
+ * @group integration
  */
 class CSRFSecurityTest extends TestCase {
 
 	/**
 	 * Test that get_polls_media_nonce() returns different values for different users.
 	 */
-	public function test_get_polls_media_nonce_user_specific() {
+	public function test_get_polls_media_nonce_user_specific(): void {
 		// Get nonce for current user
 		$user1_id = get_current_user_id();
 		$user1_nonce = get_polls_media_nonce();
@@ -30,7 +32,7 @@ class CSRFSecurityTest extends TestCase {
 		$user2_id = wp_insert_user( array(
 			'user_login' => 'testuser_' . time(),
 			'user_email' => 'test' . time() . '@example.com',
-			'user_pass'  => 'testpass123'
+			'user_pass'  => 'testpass123',
 		) );
 
 		// Switch to the new user
@@ -52,7 +54,7 @@ class CSRFSecurityTest extends TestCase {
 	/**
 	 * Test that get_polls_media_nonce() returns consistent values for the same user.
 	 */
-	public function test_get_polls_media_nonce_consistency() {
+	public function test_get_polls_media_nonce_consistency(): void {
 		$nonce1 = get_polls_media_nonce();
 		$nonce2 = get_polls_media_nonce();
 
@@ -62,14 +64,14 @@ class CSRFSecurityTest extends TestCase {
 	/**
 	 * Test that polldaddy_popups_init() function exists.
 	 */
-	public function test_popups_init_function_exists() {
+	public function test_popups_init_function_exists(): void {
 		$this->assertTrue( function_exists( 'polldaddy_popups_init' ), 'polldaddy_popups_init function should exist' );
 	}
 
 	/**
 	 * Test that the popups init hook is properly registered.
 	 */
-	public function test_popups_init_hook_registered() {
+	public function test_popups_init_hook_registered(): void {
 		// Check if the hook is registered
 		$this->assertNotFalse( has_action( 'admin_init', 'polldaddy_popups_init' ), 'polldaddy_popups_init should be hooked to admin_init' );
 	}
@@ -77,7 +79,7 @@ class CSRFSecurityTest extends TestCase {
 	/**
 	 * Test that filters are not added when polls_media parameter is missing.
 	 */
-	public function test_no_filters_without_polls_media_parameter() {
+	public function test_no_filters_without_polls_media_parameter(): void {
 		$original_request = $_REQUEST;
 
 		// Clear the request
@@ -101,7 +103,7 @@ class CSRFSecurityTest extends TestCase {
 	/**
 	 * Test that filters are not added without proper capability.
 	 */
-	public function test_no_filters_without_capability() {
+	public function test_no_filters_without_capability(): void {
 		$original_request = $_REQUEST;
 
 		// Create a test user without edit_posts capability
@@ -109,7 +111,7 @@ class CSRFSecurityTest extends TestCase {
 			'user_login' => 'testsubscriber_' . time(),
 			'user_email' => 'testsub' . time() . '@example.com',
 			'user_pass'  => 'testpass123',
-			'role'       => 'subscriber'
+			'role'       => 'subscriber',
 		) );
 
 		// Switch to the test user
@@ -119,7 +121,7 @@ class CSRFSecurityTest extends TestCase {
 		$nonce_action = get_polls_media_nonce();
 		$_REQUEST = array(
 			'polls_media' => '1',
-			'_wpnonce' => wp_create_nonce( $nonce_action )
+			'_wpnonce'    => wp_create_nonce( $nonce_action ),
 		);
 
 		// Mock admin context
@@ -141,7 +143,7 @@ class CSRFSecurityTest extends TestCase {
 	/**
 	 * Test that filters are not added with invalid nonce.
 	 */
-	public function test_no_filters_with_invalid_nonce() {
+	public function test_no_filters_with_invalid_nonce(): void {
 		$original_request = $_REQUEST;
 
 		// Create an admin user
@@ -149,7 +151,7 @@ class CSRFSecurityTest extends TestCase {
 			'user_login' => 'testadmin_' . time(),
 			'user_email' => 'testadmin' . time() . '@example.com',
 			'user_pass'  => 'testpass123',
-			'role'       => 'administrator'
+			'role'       => 'administrator',
 		) );
 
 		// Switch to the admin user
@@ -158,7 +160,7 @@ class CSRFSecurityTest extends TestCase {
 		// Set up request with polls_media but invalid nonce
 		$_REQUEST = array(
 			'polls_media' => '1',
-			'_wpnonce' => 'invalid_nonce_value'
+			'_wpnonce'    => 'invalid_nonce_value',
 		);
 
 		// Mock admin context
@@ -180,7 +182,7 @@ class CSRFSecurityTest extends TestCase {
 	/**
 	 * Test that filters ARE added with valid nonce and proper permissions.
 	 */
-	public function test_filters_added_with_valid_nonce() {
+	public function test_filters_added_with_valid_nonce(): void {
 		$original_request = $_REQUEST;
 
 		// Create an admin user
@@ -188,7 +190,7 @@ class CSRFSecurityTest extends TestCase {
 			'user_login' => 'testadmin2_' . time(),
 			'user_email' => 'testadmin2' . time() . '@example.com',
 			'user_pass'  => 'testpass123',
-			'role'       => 'administrator'
+			'role'       => 'administrator',
 		) );
 
 		// Switch to the admin user
@@ -200,7 +202,7 @@ class CSRFSecurityTest extends TestCase {
 
 		$_REQUEST = array(
 			'polls_media' => '1',
-			'_wpnonce' => $valid_nonce
+			'_wpnonce'    => $valid_nonce,
 		);
 
 		// Mock admin context
@@ -222,7 +224,7 @@ class CSRFSecurityTest extends TestCase {
 	/**
 	 * Test that cross-user CSRF attack is prevented.
 	 */
-	public function test_csrf_attack_prevented() {
+	public function test_csrf_attack_prevented(): void {
 		$original_request = $_REQUEST;
 
 		// Create victim user (admin)
@@ -230,7 +232,7 @@ class CSRFSecurityTest extends TestCase {
 			'user_login' => 'victim_' . time(),
 			'user_email' => 'victim' . time() . '@example.com',
 			'user_pass'  => 'testpass123',
-			'role'       => 'administrator'
+			'role'       => 'administrator',
 		) );
 
 		// Create attacker user (also admin for this test)
@@ -238,7 +240,7 @@ class CSRFSecurityTest extends TestCase {
 			'user_login' => 'attacker_' . time(),
 			'user_email' => 'attacker' . time() . '@example.com',
 			'user_pass'  => 'testpass123',
-			'role'       => 'administrator'
+			'role'       => 'administrator',
 		) );
 
 		// Attacker creates a nonce for their own user
@@ -252,7 +254,7 @@ class CSRFSecurityTest extends TestCase {
 		// Simulate CSRF attack: attacker's nonce used in victim's context
 		$_REQUEST = array(
 			'polls_media' => '1',
-			'_wpnonce' => $attacker_nonce
+			'_wpnonce'    => $attacker_nonce,
 		);
 
 		// Mock admin context
