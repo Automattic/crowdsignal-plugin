@@ -180,7 +180,7 @@ CONTAINER;
 
 			$poll      = intval( $poll );
 			$poll_url  = sprintf( 'https://poll.fm/%d', $poll );
-			$poll_js   = sprintf( 'https://secure.polldaddy.com/p/%d.js', $poll );
+			$poll_js   = sprintf( '%s.polldaddy.com/p/%d.js', '//static', $poll );
 			$poll_link = sprintf( '<a href="%s">Take Our Poll</a>', $poll_url );
 
 			if ( $no_script ) {
@@ -442,16 +442,15 @@ new PolldaddyShortcode();
 
 if ( !function_exists( 'polldaddy_link' ) ) {
 	// http://polldaddy.com/poll/1562975/?view=results&msg=voted
-	// http://poll.fm/1562975
 	function polldaddy_link( $content ) {
-		if ( false === strpos( $content, "polldaddy.com/" ) && false === strpos( $content, "poll.fm/" ) )
+		if ( false === strpos( $content, "polldaddy.com/" ) )
 			return $content;
 		$textarr = wp_html_split( $content );
 		unset( $content );
 		foreach( $textarr as &$element ) {
 			if ( '' === $element || '<' === $element[0] )
 				continue;
-			$element = preg_replace( '!(?:\n|\A)https?://(polldaddy\.com/poll|poll\.fm)/([0-9]+?)(/.*)?(?:\n|\Z)!i', "\n<script type='text/javascript' charset='utf-8' src='//secure.polldaddy.com/p/$2.js'></script><noscript> <a href='https://poll.fm/$2'>View Poll</a></noscript>\n", $element );
+			$element = preg_replace( '!(?:\n|\A)https?://(polldaddy\.com/poll|poll\.fm)/([0-9]+?)(/.*)?(?:\n|\Z)!i', "\n<script type='text/javascript' charset='utf-8' src='//static.polldaddy.com/p/$2.js'></script><noscript> <a href='https://poll.fm/$2'>View Poll</a></noscript>\n", $element );
 		}
 		return join( $textarr );
 	}
