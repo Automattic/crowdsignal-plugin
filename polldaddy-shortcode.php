@@ -442,8 +442,9 @@ new PolldaddyShortcode();
 
 if ( !function_exists( 'polldaddy_link' ) ) {
 	// http://polldaddy.com/poll/1562975/?view=results&msg=voted
+	// http://poll.fm/1562975
 	function polldaddy_link( $content ) {
-		if ( false === strpos( $content, "polldaddy.com/" ) )
+		if ( false === strpos( $content, "polldaddy.com/" ) && false === strpos( $content, "poll.fm/" ) )
 			return $content;
 		$textarr = wp_html_split( $content );
 		unset( $content );
