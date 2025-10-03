@@ -180,7 +180,7 @@ CONTAINER;
 
 			$poll      = intval( $poll );
 			$poll_url  = sprintf( 'https://poll.fm/%d', $poll );
-			$poll_js   = sprintf( '%s.polldaddy.com/p/%d.js', '//static', $poll );
+			$poll_js   = sprintf( 'https://static.polldaddy.com/p/%d.js', $poll );
 			$poll_link = sprintf( '<a href="%s">Take Our Poll</a>', $poll_url );
 
 			if ( $no_script ) {
