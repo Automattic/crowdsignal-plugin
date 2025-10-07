@@ -17,9 +17,24 @@ function pd_video_shortcodes_help($video_form) {
 			<td colspan="2">
 				<p>' . __('Paste your YouTube or Google Video URL above, or use the examples below.', 'polldaddy') . '</p>
 				<ul class="short-code-list">
-					<li>' . sprintf( __('<a href="%s" target="_blank">YouTube instructions</a> %s', 'polldaddy'), 'http://support.wordpress.com/videos/youtube/', '<code>[youtube=http://www.youtube.com/watch?v=cXXm696UbKY]</code>' )  .'</li>
-					<li>' . sprintf( __('<a href="%s" target="_blank">Google instructions</a> %s', 'polldaddy') , 'http://support.wordpress.com/videos/google-video/', '<code>[googlevideo=http://video.google.com/googleplayer.swf?docId=-8459301055248673864]</code>' ) . '</li>
-					<li>' . sprintf( __('<a href="%s" target="_blank">DailyMotion instructions</a> %s', 'polldaddy'), 'http://support.wordpress.com/videos/dailymotion/', '<code>[dailymotion id=5zYRy1JLhuGlP3BGw]</code>' ) . '</li>
+					<li>' . sprintf( 
+						/* translators: %1$s is the URL to YouTube instructions, %2$s is the example shortcode */
+						__('<a href="%1$s" target="_blank">YouTube instructions</a> %2$s', 'polldaddy'), 
+						'http://support.wordpress.com/videos/youtube/', 
+						'<code>[youtube=http://www.youtube.com/watch?v=cXXm696UbKY]</code>' 
+					) . '</li>
+					<li>' . sprintf( 
+						/* translators: %1$s is the URL to Google Video instructions, %2$s is the example shortcode */
+						__('<a href="%1$s" target="_blank">Google instructions</a> %2$s', 'polldaddy'), 
+						'http://support.wordpress.com/videos/google-video/', 
+						'<code>[googlevideo=http://video.google.com/googleplayer.swf?docId=-8459301055248673864]</code>' 
+					) . '</li>
+					<li>' . sprintf( 
+						/* translators: %1$s is the URL to DailyMotion instructions, %2$s is the example shortcode */
+						__('<a href="%1$s" target="_blank">DailyMotion instructions</a> %2$s', 'polldaddy'), 
+						'http://support.wordpress.com/videos/dailymotion/', 
+						'<code>[dailymotion id=5zYRy1JLhuGlP3BGw]</code>' 
+					) . '</li>
 				</ul>
 			</td>
 		</tr>
@@ -83,11 +98,33 @@ function pd_image_shortcodes_help($image_form) {
 }
 
 function polldaddy_popups_init() {
-	if( isset( $_REQUEST['polls_media'] ) ){
-		add_filter( 'type_url_form_video', 'pd_video_shortcodes_help');
-		add_filter( 'type_url_form_audio', 'pd_audio_shortcodes_help');
-		add_filter( 'type_url_form_image', 'pd_image_shortcodes_help');
+	// Only process polls_media requests
+	if ( ! isset( $_REQUEST['polls_media'] ) ) {
+		return;
 	}
+
+	// Security checks for CSRF vulnerability (CVE-2024-43338)
+	// Verify admin context
+	if ( ! is_admin() ) {
+		return;
+	}
+
+	// Verify user capability
+	if ( ! current_user_can( 'edit_posts' ) ) {
+		return;
+	}
+
+	// Verify nonce for CSRF protection
+	$nonce_action = get_polls_media_nonce();
+
+	if ( ! isset( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], $nonce_action ) ) {
+		return;
+	}
+
+	// All security checks passed, add the filters
+	add_filter( 'type_url_form_video', 'pd_video_shortcodes_help' );
+	add_filter( 'type_url_form_audio', 'pd_audio_shortcodes_help' );
+	add_filter( 'type_url_form_image', 'pd_image_shortcodes_help' );
 }
 
 add_action( 'admin_init', 'polldaddy_popups_init' );

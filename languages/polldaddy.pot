@@ -1,0 +1,2483 @@
+# Copyright (C) 2025 Automattic, Inc.
+# This file is distributed under the same license as the Crowdsignal Polls & Ratings plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Crowdsignal Polls & Ratings 3.1.3\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/polldaddy\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-10-07T11:23:33+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: polldaddy\n"
+
+#. Plugin Name of the plugin
+#: polldaddy.php
+msgid "Crowdsignal Polls & Ratings"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: polldaddy.php
+msgid "https://wordpress.org/plugins/polldaddy/"
+msgstr ""
+
+#. Description of the plugin
+#: polldaddy.php
+msgid "Create and manage Crowdsignal polls and ratings in WordPress"
+msgstr ""
+
+#. Author of the plugin
+#: polldaddy.php
+msgid "Automattic, Inc."
+msgstr ""
+
+#: ajax.php:80
+#: partials/poll-edit-form.php:320
+#: partials/poll-edit-form.php:383
+#: partials/poll-edit-form.php:729
+msgid "click and drag to reorder"
+msgstr ""
+
+#: ajax.php:83
+#: partials/poll-edit-form.php:323
+#: partials/poll-edit-form.php:386
+#: partials/poll-edit-form.php:727
+msgid "Enter an answer here"
+msgstr ""
+
+#: ajax.php:97
+#: partials/poll-edit-form.php:273
+#: partials/poll-edit-form.php:351
+#: partials/poll-edit-form.php:392
+#: partials/poll-edit-form.php:730
+msgid "Add an Image"
+msgstr ""
+
+#: ajax.php:98
+#: partials/poll-edit-form.php:274
+#: partials/poll-edit-form.php:352
+#: partials/poll-edit-form.php:393
+#: partials/poll-edit-form.php:731
+msgid "Add Audio"
+msgstr ""
+
+#: ajax.php:99
+#: partials/poll-edit-form.php:275
+#: partials/poll-edit-form.php:353
+#: partials/poll-edit-form.php:394
+#: partials/poll-edit-form.php:732
+msgid "Add Video"
+msgstr ""
+
+#: partials/api-key-page.php:9
+#: partials/crowdsignal-landing-page.php:15
+#: partials/crowdsignal-landing-page.php:28
+#: partials/polls-table.php:15
+#: polldaddy.php:207
+#: polldaddy.php:215
+#: polldaddy.php:370
+msgid "Crowdsignal"
+msgstr ""
+
+#. translators: %s is the URL to the Crowdsignal.com account details
+#: partials/api-key-page.php:13
+#: polldaddy-org.php:264
+#: polldaddy.php:373
+#, php-format
+msgid "Before you can use the Crowdsignal plugin, you need to enter your <a href=\"%s\">Crowdsignal.com</a> account details."
+msgstr ""
+
+#: partials/api-key-page.php:22
+#: polldaddy-org.php:271
+#: polldaddy.php:380
+msgid "Crowdsignal Email Address"
+msgstr ""
+
+#: partials/api-key-page.php:30
+#: polldaddy-org.php:279
+#: polldaddy.php:388
+msgid "Crowdsignal Password"
+msgstr ""
+
+#: partials/api-key-page.php:42
+#: polldaddy-org.php:306
+#: polldaddy.php:400
+msgid "Submit"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:26
+msgid "Looking for insights?"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:26
+msgid "Start asking!"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:29
+msgid "is a collection of powerful blocks that help you to collect feedback, analyze incoming responses and learn from your audience."
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:44
+msgid "Have you discovered our blocks yet?"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:46
+msgid "They are available in your editor:"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:56
+msgid "Poll block"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:57
+msgid "Poll block icon"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:59
+msgid "Poll"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:60
+msgid "Create polls and get your audience’s opinion."
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:67
+msgid "Survey embed block"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:68
+msgid "Survey embed block icon"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:70
+msgid "Survey Embed"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:71
+msgid "Create surveys in minutes with 14 question and form types and embed them into your page."
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:78
+msgid "Feedback Button block"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:79
+msgid "Feedback Button block icon"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:81
+msgid "Feedback Button"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:82
+msgid "A floating always visible button that allows your audience to share feedback anytime."
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:88
+msgid "Measure NPS block"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:89
+msgid "Measure NPS block icon"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:91
+msgid "Measure NPS"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:92
+msgid "Calculate your Net Promoter Score! Collect feedback and track customer satisfaction over time."
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:99
+msgid "Voting block"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:100
+msgid "Voting block icon"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:102
+msgid "Voting"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:103
+msgid "Allow your audience to rate your work or express their opinion."
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:110
+msgid "Applause block"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:111
+msgid "Applause block icon"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:113
+msgid "Applause"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:114
+msgid "Let your audience cheer with a big round of applause."
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:123
+msgid "Analyze responses in real time, export your results everywhere!"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:131
+msgid "Export showcase image"
+msgstr ""
+
+#: partials/crowdsignal-landing-page.php:132
+msgid "Export showcase"
+msgstr ""
+
+#: partials/html-admin-setup-footer.php:24
+msgid "Crowdsignal Support"
+msgstr ""
+
+#: partials/html-admin-setup-footer.php:24
+msgid "Support"
+msgstr ""
+
+#: partials/html-admin-setup-footer.php:25
+msgid "Terms of Service"
+msgstr ""
+
+#: partials/html-admin-setup-footer.php:25
+msgid "Terms"
+msgstr ""
+
+#: partials/html-admin-setup-footer.php:26
+msgid "Privacy Policy"
+msgstr ""
+
+#: partials/html-admin-setup-footer.php:26
+msgid "Privacy"
+msgstr ""
+
+#: partials/html-admin-setup-header.php:15
+msgid "Crowdsignal Settings"
+msgstr ""
+
+#: partials/html-admin-setup-header.php:24
+msgid "Could not disconnect. Please try again."
+msgstr ""
+
+#: partials/html-admin-setup-header.php:30
+msgid "Successfully disconnected from Crowdsignal."
+msgstr ""
+
+#: partials/html-admin-setup-header.php:36
+msgid "Success! Your Crowdsignal account is successfully connected! You are ready!"
+msgstr ""
+
+#: partials/html-admin-setup-header.php:42
+msgid "You have been connected to Crowdsignal."
+msgstr ""
+
+#: partials/html-admin-setup-header.php:48
+msgid "Your API key has not been updated, please try again."
+msgstr ""
+
+#: partials/html-admin-setup-step-1.php:16
+#: partials/html-admin-setup-step-3.php:16
+msgid "Getting Started"
+msgstr ""
+
+#: partials/html-admin-setup-step-1.php:25
+msgid "Welcome to Crowdsignal"
+msgstr ""
+
+#: partials/html-admin-setup-step-1.php:33
+msgid "Let’s get started"
+msgstr ""
+
+#: partials/html-admin-setup-step-2.php:25
+msgid "You're ready to start using Crowdsignal!"
+msgstr ""
+
+#: partials/html-admin-setup-step-3.php:22
+#: partials/html-admin-teaser.php:22
+msgid "First time using Crowdsignal?"
+msgstr ""
+
+#: partials/html-admin-setup-step-3.php:25
+msgid "You can use Crowdsignal blocks right in your editor. Search for Crowdsignal in the blocks library and add the blocks to your page. Here is a short video to get you started:"
+msgstr ""
+
+#. translators: Argument is a link to Crowdsignal's support page.
+#: partials/html-admin-setup-step-3.php:38
+#, php-format
+msgid "Do you want to know more about Crowdsignal and our blocks? <a href=\"%1s\" target=\"_blank\">Learn more</a>."
+msgstr ""
+
+#: partials/html-admin-teaser.php:16
+msgid "Crowdsignal Blocks"
+msgstr ""
+
+#. translators: Placeholder is the text "second plugin" and "Install the plugin".
+#: partials/html-admin-teaser.php:28
+#, php-format
+msgid "We have a %1$s called Crowdsignal Forms that allows you to create Crowdsignal blocks right inside of your WordPress editor. %2$s, then search for Crowdsignal in the blocks library and add Crowdsignal blocks, like a Poll block or Feedback button."
+msgstr ""
+
+#: partials/html-admin-teaser.php:31
+msgid "second plugin"
+msgstr ""
+
+#: partials/html-admin-teaser.php:35
+msgid "Install the plugin"
+msgstr ""
+
+#: partials/html-admin-teaser.php:40
+msgid "Here is a short video to get you started:"
+msgstr ""
+
+#: partials/html-admin-teaser.php:55
+msgid "See an overview of our Crowdsignal blocks."
+msgstr ""
+
+#. translators: Placeholder is the text "website plugins page".
+#: partials/html-admin-teaser.php:67
+#, php-format
+msgid "Install the Crowdsignal Forms plugin directly from your %s."
+msgstr ""
+
+#: partials/html-admin-teaser.php:70
+msgid "website plugins page"
+msgstr ""
+
+#: partials/poll-edit-form.php:15
+msgid "delete this image"
+msgstr ""
+
+#: partials/poll-edit-form.php:40
+#: partials/settings-2.php:36
+msgid "Save"
+msgstr ""
+
+#: partials/poll-edit-form.php:47
+msgid "Randomize answer order"
+msgstr ""
+
+#: partials/poll-edit-form.php:48
+msgid "Allow other answers"
+msgstr ""
+
+#: partials/poll-edit-form.php:49
+msgid "Multiple choice"
+msgstr ""
+
+#: partials/poll-edit-form.php:50
+msgid "Sharing"
+msgstr ""
+
+#: partials/poll-edit-form.php:77
+msgid "Number of choices"
+msgstr ""
+
+#: partials/poll-edit-form.php:79
+msgid "No Limit"
+msgstr ""
+
+#: partials/poll-edit-form.php:105
+msgid "Save Poll"
+msgstr ""
+
+#: partials/poll-edit-form.php:109
+#: polldaddy.php:1647
+msgid "Embed in Post"
+msgstr ""
+
+#: partials/poll-edit-form.php:120
+msgid "Results Display"
+msgstr ""
+
+#: partials/poll-edit-form.php:126
+msgid "Show results to voters"
+msgstr ""
+
+#: partials/poll-edit-form.php:127
+msgid "Only show percentages"
+msgstr ""
+
+#: partials/poll-edit-form.php:128
+msgid "Hide all results"
+msgstr ""
+
+#: partials/poll-edit-form.php:151
+msgid "Repeat Voting"
+msgstr ""
+
+#: partials/poll-edit-form.php:157
+msgid "Don't block repeat voters"
+msgstr ""
+
+#: partials/poll-edit-form.php:158
+msgid "Block by cookie (recommended)"
+msgstr ""
+
+#: partials/poll-edit-form.php:159
+msgid "Block by cookie and by IP address"
+msgstr ""
+
+#: partials/poll-edit-form.php:184
+msgid "Expires: "
+msgstr ""
+
+#. translators: %d is the number of hours
+#: partials/poll-edit-form.php:188
+#, php-format
+msgid "%d hour"
+msgstr ""
+
+#. translators: %d is the number of hours
+#: partials/poll-edit-form.php:191
+#: partials/poll-edit-form.php:194
+#: partials/poll-edit-form.php:195
+#, php-format
+msgid "%d hours"
+msgstr ""
+
+#. translators: %d is the number of days
+#: partials/poll-edit-form.php:198
+#, php-format
+msgid "%d day"
+msgstr ""
+
+#. translators: %d is the number of weeks
+#: partials/poll-edit-form.php:201
+#, php-format
+msgid "%d week"
+msgstr ""
+
+#: partials/poll-edit-form.php:203
+msgid "Note: Blocking by cookie and IP address can be problematic for some voters."
+msgstr ""
+
+#: partials/poll-edit-form.php:208
+#: polldaddy.php:3254
+#: polldaddy.php:3546
+#: polldaddy.php:3617
+#: polldaddy.php:4393
+msgid "Comments"
+msgstr ""
+
+#: partials/poll-edit-form.php:214
+msgid "Allow comments"
+msgstr ""
+
+#: partials/poll-edit-form.php:215
+msgid "Moderate first"
+msgstr ""
+
+#: partials/poll-edit-form.php:216
+msgid "No comments"
+msgstr ""
+
+#: partials/poll-edit-form.php:248
+msgid "Enter Question Here"
+msgstr ""
+
+#: partials/poll-edit-form.php:289
+msgid "WordPress Shortcode:"
+msgstr ""
+
+#: partials/poll-edit-form.php:291
+msgid "Embed Poll in New Post"
+msgstr ""
+
+#: partials/poll-edit-form.php:300
+#: polldaddy.php:2450
+msgid "Answers"
+msgstr ""
+
+#: partials/poll-edit-form.php:356
+#: partials/poll-edit-form.php:396
+#: partials/poll-edit-form.php:728
+#: partials/polls-table.php:295
+#: polldaddy.php:3294
+#: polldaddy.php:4098
+#: polldaddy.php:4527
+msgid "delete this answer"
+msgstr ""
+
+#: partials/poll-edit-form.php:414
+msgid "Add New Answer"
+msgstr ""
+
+#: partials/poll-edit-form.php:435
+#: polldaddy.php:4553
+msgid "Aluminum Narrow"
+msgstr ""
+
+#: partials/poll-edit-form.php:436
+#: polldaddy.php:4554
+msgid "Aluminum Medium"
+msgstr ""
+
+#: partials/poll-edit-form.php:437
+#: polldaddy.php:4555
+msgid "Aluminum Wide"
+msgstr ""
+
+#: partials/poll-edit-form.php:438
+#: polldaddy.php:4556
+msgid "Plain White Narrow"
+msgstr ""
+
+#: partials/poll-edit-form.php:439
+#: polldaddy.php:4557
+msgid "Plain White Medium"
+msgstr ""
+
+#: partials/poll-edit-form.php:440
+#: polldaddy.php:4558
+msgid "Plain White Wide"
+msgstr ""
+
+#: partials/poll-edit-form.php:441
+#: polldaddy.php:4559
+msgid "Plain Black Narrow"
+msgstr ""
+
+#: partials/poll-edit-form.php:442
+#: polldaddy.php:4560
+msgid "Plain Black Medium"
+msgstr ""
+
+#: partials/poll-edit-form.php:443
+#: polldaddy.php:4561
+msgid "Plain Black Wide"
+msgstr ""
+
+#: partials/poll-edit-form.php:444
+#: polldaddy.php:4562
+msgid "Paper Narrow"
+msgstr ""
+
+#: partials/poll-edit-form.php:445
+#: polldaddy.php:4563
+msgid "Paper Medium"
+msgstr ""
+
+#: partials/poll-edit-form.php:446
+#: polldaddy.php:4564
+msgid "Paper Wide"
+msgstr ""
+
+#: partials/poll-edit-form.php:447
+#: polldaddy.php:4565
+msgid "Skull Dark Narrow"
+msgstr ""
+
+#: partials/poll-edit-form.php:448
+#: polldaddy.php:4566
+msgid "Skull Dark Medium"
+msgstr ""
+
+#: partials/poll-edit-form.php:449
+#: polldaddy.php:4567
+msgid "Skull Dark Wide"
+msgstr ""
+
+#: partials/poll-edit-form.php:450
+#: polldaddy.php:4568
+msgid "Skull Light Narrow"
+msgstr ""
+
+#: partials/poll-edit-form.php:451
+#: polldaddy.php:4569
+msgid "Skull Light Medium"
+msgstr ""
+
+#: partials/poll-edit-form.php:452
+#: polldaddy.php:4570
+msgid "Skull Light Wide"
+msgstr ""
+
+#: partials/poll-edit-form.php:453
+#: partials/poll-edit-form.php:765
+#: polldaddy.php:2420
+#: polldaddy.php:4571
+msgid "Micro"
+msgstr ""
+
+#: partials/poll-edit-form.php:454
+#: polldaddy.php:4572
+msgid "Plastic White Narrow"
+msgstr ""
+
+#: partials/poll-edit-form.php:455
+#: polldaddy.php:4573
+msgid "Plastic White Medium"
+msgstr ""
+
+#: partials/poll-edit-form.php:456
+#: polldaddy.php:4574
+msgid "Plastic White Wide"
+msgstr ""
+
+#: partials/poll-edit-form.php:457
+#: polldaddy.php:4575
+msgid "Plastic Grey Narrow"
+msgstr ""
+
+#: partials/poll-edit-form.php:458
+#: polldaddy.php:4576
+msgid "Plastic Grey Medium"
+msgstr ""
+
+#: partials/poll-edit-form.php:459
+#: polldaddy.php:4577
+msgid "Plastic Grey Wide"
+msgstr ""
+
+#: partials/poll-edit-form.php:460
+#: polldaddy.php:4578
+msgid "Plastic Black Narrow"
+msgstr ""
+
+#: partials/poll-edit-form.php:461
+#: polldaddy.php:4579
+msgid "Plastic Black Medium"
+msgstr ""
+
+#: partials/poll-edit-form.php:462
+#: polldaddy.php:4580
+msgid "Plastic Black Wide"
+msgstr ""
+
+#: partials/poll-edit-form.php:463
+#: polldaddy.php:4581
+msgid "Manga Narrow"
+msgstr ""
+
+#: partials/poll-edit-form.php:464
+#: polldaddy.php:4582
+msgid "Manga Medium"
+msgstr ""
+
+#: partials/poll-edit-form.php:465
+#: polldaddy.php:4583
+msgid "Manga Wide"
+msgstr ""
+
+#: partials/poll-edit-form.php:466
+#: polldaddy.php:4584
+msgid "Tech Dark Narrow"
+msgstr ""
+
+#: partials/poll-edit-form.php:467
+#: polldaddy.php:4585
+msgid "Tech Dark Medium"
+msgstr ""
+
+#: partials/poll-edit-form.php:468
+#: polldaddy.php:4586
+msgid "Tech Dark Wide"
+msgstr ""
+
+#: partials/poll-edit-form.php:469
+#: polldaddy.php:4587
+msgid "Tech Grey Narrow"
+msgstr ""
+
+#: partials/poll-edit-form.php:470
+#: polldaddy.php:4588
+msgid "Tech Grey Medium"
+msgstr ""
+
+#: partials/poll-edit-form.php:471
+#: polldaddy.php:4589
+msgid "Tech Grey Wide"
+msgstr ""
+
+#: partials/poll-edit-form.php:472
+#: polldaddy.php:4590
+msgid "Tech Light Narrow"
+msgstr ""
+
+#: partials/poll-edit-form.php:473
+#: polldaddy.php:4591
+msgid "Tech Light Medium"
+msgstr ""
+
+#: partials/poll-edit-form.php:474
+#: polldaddy.php:4592
+msgid "Tech Light Wide"
+msgstr ""
+
+#: partials/poll-edit-form.php:475
+#: polldaddy.php:4593
+msgid "Working Male Narrow"
+msgstr ""
+
+#: partials/poll-edit-form.php:476
+#: polldaddy.php:4594
+msgid "Working Male Medium"
+msgstr ""
+
+#: partials/poll-edit-form.php:477
+#: polldaddy.php:4595
+msgid "Working Male Wide"
+msgstr ""
+
+#: partials/poll-edit-form.php:478
+#: polldaddy.php:4596
+msgid "Working Female Narrow"
+msgstr ""
+
+#: partials/poll-edit-form.php:479
+#: polldaddy.php:4597
+msgid "Working Female Medium"
+msgstr ""
+
+#: partials/poll-edit-form.php:480
+#: polldaddy.php:4598
+msgid "Working Female Wide"
+msgstr ""
+
+#: partials/poll-edit-form.php:481
+#: polldaddy.php:4599
+msgid "Thinking Male Narrow"
+msgstr ""
+
+#: partials/poll-edit-form.php:482
+#: polldaddy.php:4600
+msgid "Thinking Male Medium"
+msgstr ""
+
+#: partials/poll-edit-form.php:483
+#: polldaddy.php:4601
+msgid "Thinking Male Wide"
+msgstr ""
+
+#: partials/poll-edit-form.php:484
+#: polldaddy.php:4602
+msgid "Thinking Female Narrow"
+msgstr ""
+
+#: partials/poll-edit-form.php:485
+#: polldaddy.php:4603
+msgid "Thinking Female Medium"
+msgstr ""
+
+#: partials/poll-edit-form.php:486
+#: polldaddy.php:4604
+msgid "Thinking Female Wide"
+msgstr ""
+
+#: partials/poll-edit-form.php:487
+#: polldaddy.php:4605
+msgid "Sunset Narrow"
+msgstr ""
+
+#: partials/poll-edit-form.php:488
+#: polldaddy.php:4606
+msgid "Sunset Medium"
+msgstr ""
+
+#: partials/poll-edit-form.php:489
+#: polldaddy.php:4607
+msgid "Sunset Wide"
+msgstr ""
+
+#: partials/poll-edit-form.php:490
+#: polldaddy.php:4608
+msgid "Music Medium"
+msgstr ""
+
+#: partials/poll-edit-form.php:491
+#: polldaddy.php:4609
+msgid "Music Wide"
+msgstr ""
+
+#: partials/poll-edit-form.php:513
+msgid "Poll Style"
+msgstr ""
+
+#: partials/poll-edit-form.php:518
+msgid "Crowdsignal Styles"
+msgstr ""
+
+#: partials/poll-edit-form.php:520
+#: partials/poll-edit-form.php:734
+#: partials/polls-table.php:297
+#: polldaddy.php:1820
+#: polldaddy.php:3296
+#: polldaddy.php:4100
+#: polldaddy.php:4529
+msgid "Custom Styles"
+msgstr ""
+
+#: partials/poll-edit-form.php:605
+msgid "Crowdsignal Style"
+msgstr ""
+
+#: partials/poll-edit-form.php:611
+msgid "Custom Style"
+msgstr ""
+
+#: partials/poll-edit-form.php:689
+msgid "Please choose a custom style…"
+msgstr ""
+
+#: partials/poll-edit-form.php:698
+msgid "Please choose a style."
+msgstr ""
+
+#: partials/poll-edit-form.php:702
+msgid "You currently have no custom styles created."
+msgstr ""
+
+#: partials/poll-edit-form.php:704
+msgid "New Style"
+msgstr ""
+
+#. translators: link to support site for custom poll styles
+#: partials/poll-edit-form.php:710
+#, php-format
+msgid "Did you know we have a new editor for building your own custom poll styles? Find out more <a href=\"%s\" target=\"_blank\">here</a>."
+msgstr ""
+
+#. translators: %s is the name of the rating being deleted
+#: partials/poll-edit-form.php:722
+#: partials/polls-table.php:291
+#: polldaddy.php:3290
+#: polldaddy.php:4094
+#: polldaddy.php:4523
+#, php-format
+msgid "Are you sure you want to delete the rating for \"%s\"?"
+msgstr ""
+
+#. translators: %s is the name of the poll being deleted
+#: partials/poll-edit-form.php:725
+#: polldaddy.php:3292
+#: polldaddy.php:4096
+#: polldaddy.php:4525
+#, php-format
+msgid "Are you sure you want to delete \"%s\"?"
+msgstr ""
+
+#: partials/poll-edit-form.php:726
+#: partials/polls-table.php:294
+#: polldaddy.php:3293
+#: polldaddy.php:4097
+#: polldaddy.php:4526
+msgid "Are you sure you want to delete this answer?"
+msgstr ""
+
+#: partials/poll-edit-form.php:733
+#: partials/polls-table.php:296
+#: polldaddy.php:3295
+#: polldaddy.php:4099
+#: polldaddy.php:4528
+msgid "Standard Styles"
+msgstr ""
+
+#: partials/poll-edit-form.php:747
+#: polldaddy.php:2414
+msgid "Aluminum"
+msgstr ""
+
+#: partials/poll-edit-form.php:750
+#: polldaddy.php:2415
+msgid "Plain White"
+msgstr ""
+
+#: partials/poll-edit-form.php:753
+#: polldaddy.php:2416
+msgid "Plain Black"
+msgstr ""
+
+#: partials/poll-edit-form.php:756
+#: polldaddy.php:2417
+msgid "Paper"
+msgstr ""
+
+#: partials/poll-edit-form.php:759
+#: polldaddy.php:2418
+msgid "Skull Dark"
+msgstr ""
+
+#: partials/poll-edit-form.php:762
+#: polldaddy.php:2419
+msgid "Skull Light"
+msgstr ""
+
+#: partials/poll-edit-form.php:766
+#: partials/poll-edit-form.php:816
+msgid "Width 150px, the micro style is useful when space is tight."
+msgstr ""
+
+#: partials/poll-edit-form.php:769
+msgid "Plastic White"
+msgstr ""
+
+#: partials/poll-edit-form.php:772
+msgid "Plastic Grey"
+msgstr ""
+
+#: partials/poll-edit-form.php:775
+msgid "Plastic Black"
+msgstr ""
+
+#: partials/poll-edit-form.php:778
+msgid "Manga"
+msgstr ""
+
+#: partials/poll-edit-form.php:781
+msgid "Tech Dark"
+msgstr ""
+
+#: partials/poll-edit-form.php:784
+msgid "Tech Grey"
+msgstr ""
+
+#: partials/poll-edit-form.php:787
+msgid "Tech Light"
+msgstr ""
+
+#: partials/poll-edit-form.php:790
+msgid "Working Male"
+msgstr ""
+
+#: partials/poll-edit-form.php:793
+msgid "Working Female"
+msgstr ""
+
+#: partials/poll-edit-form.php:796
+msgid "Thinking Male"
+msgstr ""
+
+#: partials/poll-edit-form.php:799
+msgid "Thinking Female"
+msgstr ""
+
+#: partials/poll-edit-form.php:802
+msgid "Sunset"
+msgstr ""
+
+#: partials/poll-edit-form.php:805
+msgid "Music"
+msgstr ""
+
+#: partials/poll-edit-form.php:810
+msgid "Wide"
+msgstr ""
+
+#: partials/poll-edit-form.php:811
+#: polldaddy.php:3867
+msgid "Medium"
+msgstr ""
+
+#: partials/poll-edit-form.php:812
+msgid "Narrow"
+msgstr ""
+
+#: partials/poll-edit-form.php:813
+msgid "Width: 630px, the wide style is good for blog posts."
+msgstr ""
+
+#: partials/poll-edit-form.php:814
+msgid "Width: 300px, the medium style is good for general use."
+msgstr ""
+
+#: partials/poll-edit-form.php:815
+msgid "Width 150px, the narrow style is good for sidebars etc."
+msgstr ""
+
+#: partials/polls-table.php:36
+msgid "Name"
+msgstr ""
+
+#: partials/polls-table.php:37
+msgid "Type"
+msgstr ""
+
+#: partials/polls-table.php:38
+msgid "Created"
+msgstr ""
+
+#: partials/polls-table.php:39
+msgid "Status"
+msgstr ""
+
+#: partials/polls-table.php:40
+msgid "Responses"
+msgstr ""
+
+#: partials/polls-table.php:41
+msgid "Source"
+msgstr ""
+
+#: partials/polls-table.php:75
+msgid "Unknown"
+msgstr ""
+
+#: partials/polls-table.php:200
+#: partials/polls-table.php:219
+msgid "Open"
+msgstr ""
+
+#: partials/polls-table.php:200
+msgid "Closed"
+msgstr ""
+
+#: partials/polls-table.php:214
+msgid "Results"
+msgstr ""
+
+#: partials/polls-table.php:216
+#: partials/settings-2.php:78
+#: partials/settings-2.php:114
+#: polldaddy.php:2296
+msgid "Edit"
+msgstr ""
+
+#: partials/polls-table.php:219
+#: polldaddy.php:3785
+msgid "Close"
+msgstr ""
+
+#: partials/polls-table.php:223
+#: polldaddy.php:2259
+#: polldaddy.php:2301
+#: polldaddy.php:4386
+#: polldaddy.php:4464
+msgid "Delete"
+msgstr ""
+
+#: partials/polls-table.php:227
+#: polldaddy.php:3690
+msgid "Preview"
+msgstr ""
+
+#. translators: %s is the name of the poll being deleted
+#: partials/polls-table.php:293
+#, php-format
+msgid "Are you sure you want to delete the poll %s?"
+msgstr ""
+
+#: partials/polls-table.php:348
+msgid "Account"
+msgstr ""
+
+#: partials/polls-table.php:362
+msgid "My Account"
+msgstr ""
+
+#: partials/polls-table.php:363
+msgid "Settings"
+msgstr ""
+
+#: partials/polls-table.php:364
+msgid "Crowdsignal Blog"
+msgstr ""
+
+#: partials/polls-table.php:365
+msgid "Help"
+msgstr ""
+
+#: partials/settings-2.php:10
+#: polldaddy.php:3664
+msgid "Advanced Settings"
+msgstr ""
+
+#: partials/settings-2.php:28
+msgid "Multiuser Account"
+msgstr ""
+
+#: partials/settings-2.php:31
+msgid "You have granted authors, editors and admin users of this site access to your Crowdsignal account."
+msgstr ""
+
+#: partials/settings-2.php:32
+msgid "Warning: This is a deprecated feature and wont’t be supported in future. If you disable the Multi-User-Access feature, you won’t be able to activate it again."
+msgstr ""
+
+#: partials/settings-2.php:66
+msgid "Reset Connection Settings"
+msgstr ""
+
+#: partials/settings-2.php:68
+msgid "If you are experiencing problems connecting to the Crowdsignal website resetting your connection settings may help. A backup will be made. After resetting, link your account again with the same API key."
+msgstr ""
+
+#: partials/settings-2.php:69
+msgid "The following settings will be reset:"
+msgstr ""
+
+#: partials/settings-2.php:90
+#: partials/settings-2.php:126
+msgid "* The usercode is like a password, keep it secret."
+msgstr ""
+
+#: partials/settings-2.php:96
+msgid "Send me an email with the connection settings for future reference"
+msgstr ""
+
+#: partials/settings-2.php:97
+msgid "Reset API Connection"
+msgstr ""
+
+#: partials/settings-2.php:105
+msgid "Restore Previous Settings"
+msgstr ""
+
+#: partials/settings-2.php:106
+msgid "The connection settings for this site were reset but a backup was made. The following settings can be restored:"
+msgstr ""
+
+#: partials/settings-2.php:132
+msgid "Restore API Settings"
+msgstr ""
+
+#: partials/settings-2.php:144
+msgid "Restore Ratings Settings"
+msgstr ""
+
+#: partials/settings-2.php:145
+msgid "Different rating settings detected. If you are missing ratings on your posts, pages or comments you can restore the original rating settings by clicking the button below."
+msgstr ""
+
+#: partials/settings-2.php:146
+msgid "This tells the plugin to look for this data in a different rating in your Crowdsignal account."
+msgstr ""
+
+#: partials/settings-2.php:152
+msgid "Restore Ratings Only"
+msgstr ""
+
+#: partials/settings.php:13
+msgid "Account Settings"
+msgstr ""
+
+#: partials/settings.php:19
+msgid "API Key"
+msgstr ""
+
+#. translators: Placeholder is the text "Crowdsignal".
+#: partials/settings.php:24
+#, php-format
+msgid "Your website is connected to a %s account to collect responses and data from your visitors."
+msgstr ""
+
+#. translators: Placeholder is the text "Crowdsignal acount page".
+#: partials/settings.php:32
+#, php-format
+msgid "Visit your %s to find out more about your settings."
+msgstr ""
+
+#: partials/settings.php:35
+msgid "Crowdsignal account page"
+msgstr ""
+
+#: partials/settings.php:42
+msgid "If you have a Crowdsignal account, click the \"Get API Key\" button to connect. This will open a new window."
+msgstr ""
+
+#: partials/settings.php:46
+msgid "Get API Key"
+msgstr ""
+
+#: partials/settings.php:54
+msgid "Settings successfully saved"
+msgstr ""
+
+#: partials/settings.php:61
+msgid "Your Crowdsignal API Key"
+msgstr ""
+
+#: partials/settings.php:77
+msgid "Disconnect"
+msgstr ""
+
+#: partials/settings.php:83
+msgid "Connect"
+msgstr ""
+
+#: polldaddy-org.php:64
+#: polldaddy.php:207
+#: polldaddy.php:215
+msgid "Ratings"
+msgstr ""
+
+#: polldaddy-org.php:66
+msgid "Dashboard"
+msgstr ""
+
+#: polldaddy-org.php:151
+#: polldaddy.php:262
+msgid "Email address required"
+msgstr ""
+
+#: polldaddy-org.php:154
+#: polldaddy.php:265
+msgid "Password required"
+msgstr ""
+
+#: polldaddy-org.php:187
+msgid "Could not connect to Crowdsignal API Key service"
+msgstr ""
+
+#: polldaddy-org.php:202
+msgid "Can't connect to Crowdsignal.com"
+msgstr ""
+
+#: polldaddy-org.php:232
+msgid "Login to Crowdsignal failed.  Double check your email address and password."
+msgstr ""
+
+#: polldaddy-org.php:234
+msgid "If your email address and password are correct, your host may not support secure logins."
+msgstr ""
+
+#: polldaddy-org.php:235
+msgid "In that case, you may be able to log in to Crowdsignal by unchecking the \"Use SSL to Log in\" checkbox."
+msgstr ""
+
+#: polldaddy-org.php:247
+#: polldaddy.php:332
+msgid "Account could not be accessed.  Are your email address and password correct?"
+msgstr ""
+
+#: polldaddy-org.php:261
+msgid "Crowdsignal Account"
+msgstr ""
+
+#: polldaddy-org.php:292
+msgid "Use SSL to Log in"
+msgstr ""
+
+#: polldaddy-org.php:296
+msgid "This ensures a secure login to your Crowdsignal account.  Only uncheck if you are having problems logging in."
+msgstr ""
+
+#: polldaddy-org.php:335
+msgid "Load Shortcodes Inline"
+msgstr ""
+
+#: polldaddy-org.php:340
+msgid "This will load the Crowdsignal shortcodes inline rather than in the page footer."
+msgstr ""
+
+#: polldaddy-org.php:349
+msgid "Multiple Crowdsignal Accounts"
+msgstr ""
+
+#: polldaddy-org.php:355
+msgid "This setting will allow each blog user to import a Crowdsignal account."
+msgstr ""
+
+#: polldaddy-org.php:358
+msgid "Warning"
+msgstr ""
+
+#: polldaddy-org.php:359
+msgid "This is a deprecated feature and is not supported anymore. If you disable this Multi User Access you won't be able to activate it again."
+msgstr ""
+
+#: polldaddy-org.php:371
+msgid "Sync Ratings Account"
+msgstr ""
+
+#: polldaddy-org.php:376
+msgid "This will synchronize your ratings Crowdsignal account."
+msgstr ""
+
+#: polldaddy-org.php:382
+msgid "Ratings Title Filter"
+msgstr ""
+
+#: polldaddy-org.php:387
+msgid "This setting allows you to specify a filter to use with your ratings title."
+msgstr ""
+
+#: polldaddy-org.php:490
+msgid "A list of your top rated posts, pages or comments."
+msgstr ""
+
+#: polldaddy-org.php:502
+msgid "Top Rated"
+msgstr ""
+
+#: polldaddy-org.php:589
+#: polldaddy.php:4444
+msgid "Title"
+msgstr ""
+
+#: polldaddy-org.php:593
+msgid "Show for posts"
+msgstr ""
+
+#: polldaddy-org.php:599
+msgid "Show for pages"
+msgstr ""
+
+#: polldaddy-org.php:605
+msgid "Show for comments"
+msgstr ""
+
+#: polldaddy-org.php:611
+msgid "Filter by category"
+msgstr ""
+
+#: polldaddy-org.php:615
+msgid "How many items would you like to display?"
+msgstr ""
+
+#. translators: %s is the URL to the plugin settings page
+#: polldaddy-org.php:657
+#, php-format
+msgid "Crowdsignal features will be unavailable until you link your Crowdsignal.com account. Please visit the <a href=\"%s\">plugin settings page</a> to login."
+msgstr ""
+
+#: polldaddy-shortcode.php:279
+msgid "Take Our Survey!"
+msgstr ""
+
+#: polldaddy.php:197
+#: polldaddy.php:198
+msgid "Feedback"
+msgstr ""
+
+#: polldaddy.php:295
+msgid "Can't connect to Polldaddy.com"
+msgstr ""
+
+#: polldaddy.php:322
+msgid "Invalid Account"
+msgstr ""
+
+#: polldaddy.php:525
+msgid "Crowdsignal blocks in WordPress"
+msgstr ""
+
+#: polldaddy.php:860
+msgid "Star Colors"
+msgstr ""
+
+#: polldaddy.php:860
+#: polldaddy.php:3864
+msgid "Star Size"
+msgstr ""
+
+#: polldaddy.php:861
+msgid "Nero Type"
+msgstr ""
+
+#: polldaddy.php:861
+msgid "Nero Size"
+msgstr ""
+
+#: polldaddy.php:923
+msgid "You have just reset your Polldaddy connection settings."
+msgstr ""
+
+#: polldaddy.php:1006
+msgid "You are not allowed to delete this poll."
+msgstr ""
+
+#: polldaddy.php:1014
+#: polldaddy.php:1050
+#: polldaddy.php:1086
+#: polldaddy.php:1119
+msgid "Invalid Poll Author"
+msgstr ""
+
+#: polldaddy.php:1042
+msgid "You are not allowed to open this poll."
+msgstr ""
+
+#: polldaddy.php:1078
+msgid "You are not allowed to close this poll."
+msgstr ""
+
+#: polldaddy.php:1111
+#: polldaddy.php:2067
+msgid "You are not allowed to edit this poll."
+msgstr ""
+
+#: polldaddy.php:1126
+msgid "Poll not found"
+msgstr ""
+
+#: polldaddy.php:1168
+msgid "Invalid answers"
+msgstr ""
+
+#: polldaddy.php:1209
+#: polldaddy.php:1315
+msgid "You must include at least 2 answers"
+msgstr ""
+
+#: polldaddy.php:1220
+#: polldaddy.php:1350
+msgid "Please choose a poll style"
+msgstr ""
+
+#: polldaddy.php:1250
+msgid "Poll could not be updated"
+msgstr ""
+
+#: polldaddy.php:1375
+msgid "Poll could not be created"
+msgstr ""
+
+#: polldaddy.php:1430
+msgid "Style could not be updated"
+msgstr ""
+
+#: polldaddy.php:1460
+msgid "Style could not be created"
+msgstr ""
+
+#: polldaddy.php:1588
+msgid "Account could not be accessed.  Is your API code correct?"
+msgstr ""
+
+#: polldaddy.php:1594
+msgid "Account could not be imported. Did you enter the correct API key?"
+msgstr ""
+
+#: polldaddy.php:1614
+msgid "Poll deleted."
+msgstr ""
+
+#. translators: %s is the number of polls deleted
+#: polldaddy.php:1618
+#, php-format
+msgid "%s Poll Deleted."
+msgid_plural "%s Polls Deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: polldaddy.php:1624
+msgid "Poll opened."
+msgstr ""
+
+#. translators: %s is the number of polls opened
+#: polldaddy.php:1628
+#, php-format
+msgid "%s Poll Opened."
+msgid_plural "%s Polls Opened."
+msgstr[0] ""
+msgstr[1] ""
+
+#: polldaddy.php:1634
+msgid "Poll closed."
+msgstr ""
+
+#. translators: %s is the number of polls closed
+#: polldaddy.php:1638
+#, php-format
+msgid "%s Poll Closed."
+msgid_plural "%s Polls Closed."
+msgstr[0] ""
+msgstr[1] ""
+
+#: polldaddy.php:1642
+msgid "Poll updated."
+msgstr ""
+
+#: polldaddy.php:1645
+msgid "Poll created."
+msgstr ""
+
+#: polldaddy.php:1651
+msgid "Custom Style updated."
+msgstr ""
+
+#: polldaddy.php:1654
+msgid "Custom Style created."
+msgstr ""
+
+#: polldaddy.php:1659
+msgid "Custom Style deleted."
+msgstr ""
+
+#. translators: %s is the number of styles deleted
+#: polldaddy.php:1663
+#, php-format
+msgid "%s Style Deleted."
+msgid_plural "%s Custom Styles Deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: polldaddy.php:1668
+msgid "Account Linked."
+msgstr ""
+
+#: polldaddy.php:1671
+msgid "There was a problem linking your account."
+msgstr ""
+
+#: polldaddy.php:1674
+msgid "Options Updated."
+msgstr ""
+
+#: polldaddy.php:1679
+msgid "Rating deleted."
+msgstr ""
+
+#. translators: %s is the number of ratings deleted
+#: polldaddy.php:1683
+#, php-format
+msgid "%s Rating Deleted."
+msgid_plural "%s Ratings Deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: polldaddy.php:1694
+msgid "Error: An error has occurred;  Poll not created."
+msgstr ""
+
+#: polldaddy.php:1697
+msgid "Error: An error has occurred;  Poll not updated."
+msgstr ""
+
+#: polldaddy.php:1701
+msgid "Error: An error has occurred;  Account could not be imported.  Perhaps your email address or password is incorrect?"
+msgstr ""
+
+#: polldaddy.php:1703
+msgid "Error: An error has occurred;  Account could not be created."
+msgstr ""
+
+#. translators: %s is the URL to all polls
+#: polldaddy.php:1768
+#, php-format
+msgid "Preview Poll <a href=\"%s\" class=\"add-new-h2\">All Polls</a>"
+msgstr ""
+
+#. translators: %s is the URL to all polls, %s is the URL to edit poll
+#: polldaddy.php:1782
+#, php-format
+msgid "Poll Results <a href=\"%1$s\" class=\"add-new-h2\">All Polls</a> <a href=\"%2$s\" class=\"add-new-h2\">Edit Poll</a>"
+msgstr ""
+
+#. translators: %s is the URL to all polls, %s is the URL to view results
+#: polldaddy.php:1794
+#, php-format
+msgid "Edit Poll <a href=\"%1$s\" class=\"add-new-h2\">All Polls</a> <a href=\"%2$s\" class=\"add-new-h2\">View Results</a>"
+msgstr ""
+
+#. translators: %s is the URL to all polls
+#: polldaddy.php:1808
+#, php-format
+msgid "Add New Poll <a href=\"%s\" class=\"add-new-h2\">All Polls</a>"
+msgstr ""
+
+#. translators: %s is the URL to add new style
+#: polldaddy.php:1818
+#, php-format
+msgid "Custom Styles <a href=\"%s\" class=\"add-new-h2\">Add New</a>"
+msgstr ""
+
+#. translators: %s is the URL to list styles
+#: polldaddy.php:1832
+#, php-format
+msgid "Edit Style <a href=\"%s\" class=\"add-new-h2\">List Styles</a>"
+msgstr ""
+
+#. translators: %s is the URL to list styles
+#: polldaddy.php:1843
+#, php-format
+msgid "Create Style <a href=\"%s\" class=\"add-new-h2\">List Styles</a>"
+msgstr ""
+
+#: polldaddy.php:1999
+msgid "Disconnected user"
+msgstr ""
+
+#: polldaddy.php:2156
+msgid "Answer"
+msgstr ""
+
+#: polldaddy.php:2157
+#: polldaddy.php:2207
+#: polldaddy.php:3709
+#: polldaddy.php:4447
+msgid "Votes"
+msgstr ""
+
+#: polldaddy.php:2158
+msgid "Percent"
+msgstr ""
+
+#. translators: %s is the URL to other answers results
+#: polldaddy.php:2174
+#, php-format
+msgid "Other (<a href=\"%s\">see below</a>)"
+msgstr ""
+
+#: polldaddy.php:2206
+msgid "Other Answer"
+msgstr ""
+
+#: polldaddy.php:2258
+#: polldaddy.php:4385
+msgid "Actions"
+msgstr ""
+
+#: polldaddy.php:2261
+#: polldaddy.php:4389
+msgid "Apply"
+msgstr ""
+
+#: polldaddy.php:2271
+#: polldaddy.php:2687
+msgid "Style"
+msgstr ""
+
+#: polldaddy.php:2272
+msgid "Last Modified"
+msgstr ""
+
+#: polldaddy.php:2304
+#: polldaddy.php:4472
+msgid "Y/m/d g:i:s A"
+msgstr ""
+
+#: polldaddy.php:2304
+msgid "Y/m/d"
+msgstr ""
+
+#: polldaddy.php:2316
+msgid "You haven't used our fancy style editor to create any custom styles!"
+msgstr ""
+
+#: polldaddy.php:2317
+msgid "Why don't you go ahead and get started on that?"
+msgstr ""
+
+#: polldaddy.php:2318
+msgid "Create a Custom Style Now"
+msgstr ""
+
+#: polldaddy.php:2396
+msgid "Style Name"
+msgstr ""
+
+#: polldaddy.php:2408
+msgid "Preload Basic Style"
+msgstr ""
+
+#: polldaddy.php:2422
+msgid "Load Style"
+msgstr ""
+
+#: polldaddy.php:2428
+msgid "Text Direction"
+msgstr ""
+
+#: polldaddy.php:2432
+msgid "Force RTL"
+msgstr ""
+
+#: polldaddy.php:2433
+msgid "Force LTR"
+msgstr ""
+
+#: polldaddy.php:2439
+msgid "Style Editor"
+msgstr ""
+
+#: polldaddy.php:2443
+msgid "Select a template part to edit:"
+msgstr ""
+
+#: polldaddy.php:2446
+msgid "Poll Box"
+msgstr ""
+
+#: polldaddy.php:2447
+msgid "Question"
+msgstr ""
+
+#: polldaddy.php:2448
+msgid "Answer Group"
+msgstr ""
+
+#: polldaddy.php:2449
+msgid "Answer Check"
+msgstr ""
+
+#: polldaddy.php:2451
+msgid "Other Input"
+msgstr ""
+
+#: polldaddy.php:2452
+msgid "Vote Button"
+msgstr ""
+
+#: polldaddy.php:2453
+msgid "Links"
+msgstr ""
+
+#: polldaddy.php:2454
+msgid "Feedback Group"
+msgstr ""
+
+#: polldaddy.php:2455
+msgid "Results Group"
+msgstr ""
+
+#: polldaddy.php:2456
+msgid "Results Percent"
+msgstr ""
+
+#: polldaddy.php:2457
+msgid "Results Votes"
+msgstr ""
+
+#: polldaddy.php:2458
+msgid "Results Text"
+msgstr ""
+
+#: polldaddy.php:2459
+msgid "Results Background"
+msgstr ""
+
+#: polldaddy.php:2460
+msgid "Results Bar"
+msgstr ""
+
+#: polldaddy.php:2461
+#: polldaddy.php:3248
+msgid "Total Votes"
+msgstr ""
+
+#: polldaddy.php:2477
+#: polldaddy.php:3940
+msgid "Font"
+msgstr ""
+
+#: polldaddy.php:2480
+msgid "Background"
+msgstr ""
+
+#: polldaddy.php:2483
+msgid "Border"
+msgstr ""
+
+#: polldaddy.php:2486
+msgid "Margin"
+msgstr ""
+
+#: polldaddy.php:2489
+msgid "Padding"
+msgstr ""
+
+#: polldaddy.php:2492
+#: polldaddy.php:2649
+#: polldaddy.php:3063
+msgid "Width"
+msgstr ""
+
+#: polldaddy.php:2495
+#: polldaddy.php:3079
+msgid "Height"
+msgstr ""
+
+#: polldaddy.php:2498
+#: polldaddy.php:3088
+#: polldaddy.php:3926
+msgid "Position"
+msgstr ""
+
+#: polldaddy.php:2511
+#: polldaddy.php:2533
+msgid "Font Size"
+msgstr ""
+
+#: polldaddy.php:2548
+#: polldaddy.php:2607
+#: polldaddy.php:2704
+#: polldaddy.php:3954
+msgid "Color"
+msgstr ""
+
+#: polldaddy.php:2554
+#: polldaddy.php:3987
+msgid "Bold"
+msgstr ""
+
+#: polldaddy.php:2560
+#: polldaddy.php:3996
+msgid "Italic"
+msgstr ""
+
+#: polldaddy.php:2566
+msgid "Underline"
+msgstr ""
+
+#: polldaddy.php:2572
+#: polldaddy.php:3973
+msgid "Line Height"
+msgstr ""
+
+#: polldaddy.php:2594
+#: polldaddy.php:3912
+msgid "Align"
+msgstr ""
+
+#: polldaddy.php:2597
+#: polldaddy.php:2867
+#: polldaddy.php:3022
+#: polldaddy.php:3915
+msgid "Left"
+msgstr ""
+
+#: polldaddy.php:2598
+#: polldaddy.php:3915
+msgid "Center"
+msgstr ""
+
+#: polldaddy.php:2599
+#: polldaddy.php:2791
+#: polldaddy.php:2946
+#: polldaddy.php:3915
+#: polldaddy.php:3929
+msgid "Right"
+msgstr ""
+
+#: polldaddy.php:2613
+#: popups.php:77
+msgid "Image URL"
+msgstr ""
+
+#: polldaddy.php:2613
+#: polldaddy.php:3063
+msgid "Click here for more information"
+msgstr ""
+
+#: polldaddy.php:2619
+msgid "Image Repeat"
+msgstr ""
+
+#: polldaddy.php:2622
+msgid "repeat"
+msgstr ""
+
+#: polldaddy.php:2623
+msgid "no-repeat"
+msgstr ""
+
+#: polldaddy.php:2624
+msgid "repeat-x"
+msgstr ""
+
+#: polldaddy.php:2625
+msgid "repeat-y"
+msgstr ""
+
+#: polldaddy.php:2630
+msgid "Image Position"
+msgstr ""
+
+#: polldaddy.php:2633
+msgid "left top"
+msgstr ""
+
+#: polldaddy.php:2634
+msgid "left center"
+msgstr ""
+
+#: polldaddy.php:2635
+msgid "left bottom"
+msgstr ""
+
+#: polldaddy.php:2636
+msgid "center top"
+msgstr ""
+
+#: polldaddy.php:2637
+msgid "center center"
+msgstr ""
+
+#: polldaddy.php:2638
+msgid "center bottom"
+msgstr ""
+
+#: polldaddy.php:2639
+msgid "right top"
+msgstr ""
+
+#: polldaddy.php:2640
+msgid "right center"
+msgstr ""
+
+#: polldaddy.php:2641
+msgid "right bottom"
+msgstr ""
+
+#: polldaddy.php:2690
+msgid "none"
+msgstr ""
+
+#: polldaddy.php:2691
+msgid "solid"
+msgstr ""
+
+#: polldaddy.php:2692
+msgid "dotted"
+msgstr ""
+
+#: polldaddy.php:2693
+msgid "dashed"
+msgstr ""
+
+#: polldaddy.php:2694
+msgid "double"
+msgstr ""
+
+#: polldaddy.php:2695
+msgid "groove"
+msgstr ""
+
+#: polldaddy.php:2696
+msgid "inset"
+msgstr ""
+
+#: polldaddy.php:2697
+msgid "outset"
+msgstr ""
+
+#: polldaddy.php:2698
+msgid "ridge"
+msgstr ""
+
+#: polldaddy.php:2699
+msgid "hidden"
+msgstr ""
+
+#: polldaddy.php:2710
+msgid "Rounded Corners"
+msgstr ""
+
+#: polldaddy.php:2746
+msgid "Not supported in Internet Explorer."
+msgstr ""
+
+#: polldaddy.php:2753
+#: polldaddy.php:2908
+#: polldaddy.php:3929
+msgid "Top"
+msgstr ""
+
+#: polldaddy.php:2829
+#: polldaddy.php:2984
+#: polldaddy.php:3929
+msgid "Bottom"
+msgstr ""
+
+#: polldaddy.php:3071
+msgid "If you change the width of the<br/> poll you may also need to change<br/> the width of your answers."
+msgstr ""
+
+#: polldaddy.php:3120
+#: polldaddy.php:3301
+msgid "Do you mostly use the internet at work, in school or at home?"
+msgstr ""
+
+#: polldaddy.php:3133
+msgid "I use it in school."
+msgstr ""
+
+#: polldaddy.php:3141
+#: polldaddy.php:3201
+msgid "I use it at home."
+msgstr ""
+
+#: polldaddy.php:3149
+#: polldaddy.php:3216
+msgid "I use it every where I go, at work and home and anywhere else that I can!"
+msgstr ""
+
+#: polldaddy.php:3157
+#: polldaddy.php:3231
+msgid "Other"
+msgstr ""
+
+#: polldaddy.php:3169
+#: polldaddy.php:3703
+msgid "Vote"
+msgstr ""
+
+#: polldaddy.php:3171
+msgid "View Results"
+msgstr ""
+
+#: polldaddy.php:3185
+msgid "I use it in school!"
+msgstr ""
+
+#. translators: %d is the number of votes
+#: polldaddy.php:3189
+#: polldaddy.php:3204
+#: polldaddy.php:3219
+#: polldaddy.php:3234
+#, php-format
+msgid "(%d votes)"
+msgstr ""
+
+#: polldaddy.php:3256
+msgid "Return To Poll"
+msgstr ""
+
+#: polldaddy.php:3277
+msgid "Save Style"
+msgstr ""
+
+#: polldaddy.php:3279
+msgid "Check this box if you wish to update the polls that use this style."
+msgstr ""
+
+#: polldaddy.php:3300
+msgid "Thank you for voting!"
+msgstr ""
+
+#: polldaddy.php:3400
+msgid "Could not connect to the Crowdsignal API"
+msgstr ""
+
+#: polldaddy.php:3403
+msgid "The API URL is incorrect"
+msgstr ""
+
+#: polldaddy.php:3406
+msgid "Your API request did not return any data"
+msgstr ""
+
+#: polldaddy.php:3412
+msgid "There was an error creating your rating widget"
+msgstr ""
+
+#: polldaddy.php:3523
+msgid "Rating Settings"
+msgstr ""
+
+#: polldaddy.php:3526
+msgid "Rating updated"
+msgstr ""
+
+#: polldaddy.php:3538
+#: polldaddy.php:3559
+#: polldaddy.php:4393
+msgid "Posts"
+msgstr ""
+
+#: polldaddy.php:3542
+#: polldaddy.php:3595
+#: polldaddy.php:4393
+msgid "Pages"
+msgstr ""
+
+#: polldaddy.php:3556
+#: polldaddy.php:3593
+#: polldaddy.php:3615
+msgid "Show Ratings on"
+msgstr ""
+
+#: polldaddy.php:3558
+msgid "Front Page, Archive Pages, and Search Results"
+msgstr ""
+
+#: polldaddy.php:3563
+msgid "Position Front Page, Archive Pages, and Search Results Ratings"
+msgstr ""
+
+#: polldaddy.php:3566
+#: polldaddy.php:3580
+msgid "Above each blog post"
+msgstr ""
+
+#: polldaddy.php:3566
+#: polldaddy.php:3580
+msgid "Below each blog post"
+msgstr ""
+
+#: polldaddy.php:3577
+msgid "Position Post Ratings"
+msgstr ""
+
+#: polldaddy.php:3599
+msgid "Position Page Ratings"
+msgstr ""
+
+#: polldaddy.php:3602
+msgid "Above each blog page"
+msgstr ""
+
+#: polldaddy.php:3602
+msgid "Below each blog page"
+msgstr ""
+
+#: polldaddy.php:3621
+msgid "Position Comment Ratings"
+msgstr ""
+
+#: polldaddy.php:3624
+msgid "Above each comment"
+msgstr ""
+
+#: polldaddy.php:3624
+msgid "Below each comment"
+msgstr ""
+
+#: polldaddy.php:3636
+#: polldaddy.php:3680
+msgid "Save Changes"
+msgstr ""
+
+#. translators: %s is the URL to Crowdsignal settings page
+#: polldaddy.php:3647
+#, php-format
+msgid "Previous settings for ratings on this site discovered. You can restore them on the <a href='%s'>poll settings page</a> if your site is missing ratings after resetting your connection settings."
+msgstr ""
+
+#: polldaddy.php:3675
+msgid "Save Advanced Settings"
+msgstr ""
+
+#: polldaddy.php:3692
+msgid "This is a demo of what your rating widget will look like"
+msgstr ""
+
+#: polldaddy.php:3699
+msgid "Customize Labels"
+msgstr ""
+
+#: polldaddy.php:3715
+msgid "Rate This"
+msgstr ""
+
+#. translators: %d is the number of stars
+#: polldaddy.php:3723
+#, php-format
+msgid "%d star"
+msgstr ""
+
+#. translators: %d is the number of stars
+#: polldaddy.php:3731
+#: polldaddy.php:3739
+#: polldaddy.php:3747
+#: polldaddy.php:3755
+#, php-format
+msgid "%d stars"
+msgstr ""
+
+#: polldaddy.php:3761
+msgid "Thank You"
+msgstr ""
+
+#: polldaddy.php:3767
+msgid "Rate Up"
+msgstr ""
+
+#: polldaddy.php:3773
+msgid "Rate Down"
+msgstr ""
+
+#: polldaddy.php:3779
+msgid "Most Popular Content"
+msgstr ""
+
+#: polldaddy.php:3791
+msgid "All"
+msgstr ""
+
+#: polldaddy.php:3797
+msgid "Today"
+msgstr ""
+
+#: polldaddy.php:3803
+msgid "This Week"
+msgstr ""
+
+#: polldaddy.php:3809
+msgid "This Month"
+msgstr ""
+
+#: polldaddy.php:3815
+msgid "Rated"
+msgstr ""
+
+#: polldaddy.php:3821
+msgid "There are no rated items for this period"
+msgstr ""
+
+#: polldaddy.php:3832
+msgid "Rating Type"
+msgstr ""
+
+#: polldaddy.php:3834
+msgid "Here you can choose how you want your rating to display. The 5 star rating is the most commonly used. The Nero rating is useful for keeping it simple."
+msgstr ""
+
+#. translators: %d is the number of stars
+#: polldaddy.php:3844
+#, php-format
+msgid "%d Star Rating"
+msgstr ""
+
+#: polldaddy.php:3853
+msgid "Nero Rating"
+msgstr ""
+
+#: polldaddy.php:3860
+msgid "Rating Style"
+msgstr ""
+
+#: polldaddy.php:3867
+msgid "Small"
+msgstr ""
+
+#: polldaddy.php:3867
+msgid "Large"
+msgstr ""
+
+#: polldaddy.php:3878
+msgid "Star Color"
+msgstr ""
+
+#: polldaddy.php:3881
+msgid "Yellow"
+msgstr ""
+
+#: polldaddy.php:3881
+msgid "Red"
+msgstr ""
+
+#: polldaddy.php:3881
+msgid "Blue"
+msgstr ""
+
+#: polldaddy.php:3881
+msgid "Green"
+msgstr ""
+
+#: polldaddy.php:3881
+msgid "Grey"
+msgstr ""
+
+#: polldaddy.php:3890
+msgid "Hand"
+msgstr ""
+
+#: polldaddy.php:3901
+msgid "Custom Image"
+msgstr ""
+
+#: polldaddy.php:3908
+msgid "Text Layout & Font"
+msgstr ""
+
+#: polldaddy.php:3943
+#: polldaddy.php:3962
+#: polldaddy.php:3976
+msgid "Inherit"
+msgstr ""
+
+#: polldaddy.php:3959
+msgid "Size"
+msgstr ""
+
+#: polldaddy.php:4008
+msgid "Extra Settings"
+msgstr ""
+
+#: polldaddy.php:4012
+msgid "Results Popup"
+msgstr ""
+
+#: polldaddy.php:4018
+msgid "Uncheck this box to disable the results popup"
+msgstr ""
+
+#: polldaddy.php:4025
+#: polldaddy.php:4049
+#: polldaddy.php:4072
+msgid "Rating ID"
+msgstr ""
+
+#: polldaddy.php:4031
+msgid "This is the rating ID used in posts"
+msgstr ""
+
+#: polldaddy.php:4036
+msgid "Exclude Posts"
+msgstr ""
+
+#: polldaddy.php:4042
+msgid "Enter the Post IDs where you want to exclude ratings from. Please use a comma-delimited list, eg. 1,2,3"
+msgstr ""
+
+#: polldaddy.php:4055
+msgid "This is the rating ID used in pages"
+msgstr ""
+
+#: polldaddy.php:4060
+msgid "Exclude Pages"
+msgstr ""
+
+#: polldaddy.php:4066
+msgid "Enter the Page IDs where you want to exclude ratings from. Please use a comma-delimited list, eg. 1,2,3"
+msgstr ""
+
+#: polldaddy.php:4078
+msgid "This is the rating ID used in comments"
+msgstr ""
+
+#: polldaddy.php:4363
+msgid "&laquo;"
+msgstr ""
+
+#: polldaddy.php:4364
+msgid "&raquo;"
+msgstr ""
+
+#. translators: %s is the URL to Crowdsignal settings page
+#: polldaddy.php:4375
+#, php-format
+msgid "Rating Results <a href=\"%s\" class=\"add-new-h2\">Settings</a>"
+msgstr ""
+
+#: polldaddy.php:4377
+msgid "Rating Results"
+msgstr ""
+
+#: polldaddy.php:4402
+msgid "Last 24 hours"
+msgstr ""
+
+#: polldaddy.php:4402
+msgid "Last 7 days"
+msgstr ""
+
+#: polldaddy.php:4402
+msgid "Last 31 days"
+msgstr ""
+
+#: polldaddy.php:4402
+msgid "Last 3 months"
+msgstr ""
+
+#: polldaddy.php:4402
+msgid "Last 12 months"
+msgstr ""
+
+#: polldaddy.php:4402
+msgid "All time"
+msgstr ""
+
+#: polldaddy.php:4410
+msgid "Filter"
+msgstr ""
+
+#: polldaddy.php:4412
+msgid "* The results are cached and are updated every hour"
+msgstr ""
+
+#: polldaddy.php:4414
+msgid "* The results are cached and are updated every day"
+msgstr ""
+
+#: polldaddy.php:4416
+msgid "* The results are cached and are updated every 3 days"
+msgstr ""
+
+#. translators: %s is the report type
+#: polldaddy.php:4432
+#, php-format
+msgid "No ratings have been collected for your %s yet."
+msgstr ""
+
+#: polldaddy.php:4445
+msgid "Unique ID"
+msgstr ""
+
+#: polldaddy.php:4446
+msgid "Start Date"
+msgstr ""
+
+#: polldaddy.php:4448
+msgid "Average Rating"
+msgstr ""
+
+#: polldaddy.php:4699
+msgid "There are a few things you can do:"
+msgstr ""
+
+#: polldaddy.php:4700
+msgid "Press reload on your browser and reload this page. There may have been a temporary problem communicating with Crowdsignal.com"
+msgstr ""
+
+#. translators: %1$s is the URL to Crowdsignal settings page
+#: polldaddy.php:4702
+#, php-format
+msgid "Go to the <a href='%s'>poll settings page</a>, scroll to the end of the page and reset your connection settings. Link your account again with the same API key."
+msgstr ""
+
+#. translators: %1$s is the URL to Crowdsignal support, %2$s is the target attribute, %3$s is the rating usercode
+#: polldaddy.php:4704
+#, php-format
+msgid "Contact <a href=\"%1$s\" %2$s>Crowdsignal support</a> and tell them your rating usercode is %3$s"
+msgstr ""
+
+#. translators: %1$s is the URL to Crowdsignal support, %2$s is the target attribute, %3$s is the rating usercode
+#: polldaddy.php:4704
+msgid "Also include the following information when contacting support to help us resolve your problem as quickly as possible:"
+msgstr ""
+
+#: popups.php:11
+msgid "URL"
+msgstr ""
+
+#: popups.php:18
+msgid "Paste your YouTube or Google Video URL above, or use the examples below."
+msgstr ""
+
+#. translators: %1$s is the URL to YouTube instructions, %2$s is the example shortcode
+#: popups.php:22
+#, php-format
+msgid "<a href=\"%1$s\" target=\"_blank\">YouTube instructions</a> %2$s"
+msgstr ""
+
+#. translators: %1$s is the URL to Google Video instructions, %2$s is the example shortcode
+#: popups.php:28
+#, php-format
+msgid "<a href=\"%1$s\" target=\"_blank\">Google instructions</a> %2$s"
+msgstr ""
+
+#. translators: %1$s is the URL to DailyMotion instructions, %2$s is the example shortcode
+#: popups.php:34
+#, php-format
+msgid "<a href=\"%1$s\" target=\"_blank\">DailyMotion instructions</a> %2$s"
+msgstr ""
+
+#: popups.php:44
+#: popups.php:64
+#: popups.php:93
+msgid "Insert into Poll"
+msgstr ""
+
+#: popups.php:56
+msgid "Audio File URL"
+msgstr ""
+
+#: popups.php:73
+msgid "Insert an image from another web site"
+msgstr ""
+
+#: popups.php:85
+msgid "Image Title"
+msgstr ""

@@ -23,10 +23,10 @@
 	<div class="crowdsignal-landing__container w-container">
 		<div class="crowdsignal-landing__hero">
 			<div class="crowdsignal-landing__hero-left">
-				<div class="crowdsignal-landing__hero-headline"><?php esc_html_e( 'Looking for insights?' ); ?><br><?php esc_html_e( 'Start asking!' ); ?></div>
+				<div class="crowdsignal-landing__hero-headline"><?php esc_html_e( 'Looking for insights?', 'polldaddy' ); ?><br><?php esc_html_e( 'Start asking!', 'polldaddy' ); ?></div>
 				<div class="crowdsignal-landing__hero-subline">
 					<strong><?php esc_html_e( 'Crowdsignal', 'polldaddy' ); ?></strong>
-					<?php esc_html_e( 'is a collection of powerful blocks that help you to collect feedback, analyze incoming responses and learn from your audience.' ); ?>
+					<?php esc_html_e( 'is a collection of powerful blocks that help you to collect feedback, analyze incoming responses and learn from your audience.', 'polldaddy' ); ?>
 				</div>
 			</div>
 			<div class="crowdsignal-landing__hero-right">
@@ -128,8 +128,8 @@
 <div class="cs-wrapper-row cs-centered">
 	<div class="crowdsignal-landing__blocks-cta crowdsignal-landing__blocks-export-showcase">
 		<img src="<?php echo esc_html( $resource_path ); ?>/img/export-everywhere.png"
-			alt="<?php esc_html_e( 'Export showcase image', 'polldady' ); ?>"
-			title="<?php esc_html_e( 'Export showcase', 'polldady' ); ?>" width="583px" />
+			alt="<?php esc_html_e( 'Export showcase image', 'polldaddy' ); ?>"
+			title="<?php esc_html_e( 'Export showcase', 'polldaddy' ); ?>" width="583px" />
 	</div>
 </div>
 

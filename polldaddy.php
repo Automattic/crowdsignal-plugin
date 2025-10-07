@@ -1,11 +1,13 @@
 <?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 /**
  * Plugin Name: Crowdsignal Polls & Ratings
- * Plugin URI: http://wordpress.org/extend/plugins/polldaddy/
+ * Plugin URI: https://wordpress.org/plugins/polldaddy/
  * Description: Create and manage Crowdsignal polls and ratings in WordPress
  * Author: Automattic, Inc.
  * Author URL: https://crowdsignal.com/
- * Version: 3.1.2
+ * Version: 3.1.3
+ * Text Domain: polldaddy
+ * Domain Path: /languages
  */
 
 // To hardcode your Polldaddy PartnerGUID (API Key), add the (uncommented) line below with the PartnerGUID to your `wp-config.php`
@@ -38,6 +40,15 @@ function polldaddy_add_oembed_provider() {
 	wp_oembed_add_provider( '#https?://poll\.fm/.*#i', 'https://api.crowdsignal.com/oembed', true );
 }
 add_action( 'init', 'polldaddy_add_oembed_provider' );
+
+/**
+ * Get the nonce action string for polls media functionality.
+ *
+ * @return string Nonce action string specific to current user
+ */
+function get_polls_media_nonce() {
+	return 'polls_media_' . get_current_user_id();
+}
 
 class WP_Polldaddy {
 	var $errors;
@@ -202,8 +213,7 @@ class WP_Polldaddy {
 
 		// Add settings pages.
 		foreach( array( 'crowdsignal-settings' => __( 'Crowdsignal', 'polldaddy' ), 'ratingsettings' => __( 'Ratings', 'polldaddy' ) ) as $menu_slug => $page_title ) {
-			// translators: %s placeholder is the setting page type (Poll or Rating).
-			$settings_page_title = sprintf( esc_html__( '%s', 'polldaddy' ), $page_title );
+			$settings_page_title = sprintf( esc_html( $page_title ) );
 			$hook = add_options_page( $settings_page_title, $settings_page_title, $menu_slug == 'ratingsettings' ? 'manage_options' : 'edit_others_posts', $menu_slug, array( $this, 'settings_page' ) );
 			add_action( "load-$hook", array( $this, 'management_page_load' ) );
 		}
@@ -359,6 +369,7 @@ class WP_Polldaddy {
 		<div class="wrap">
 			<h2 id="polldaddy-header"><?php _e( 'Crowdsignal', 'polldaddy' ); ?></h2>
 
+			<?php /* translators: %s is the URL to the Crowdsignal.com account details */ ?>
 			<p><?php printf( __( 'Before you can use the Crowdsignal plugin, you need to enter your <a href="%s">Crowdsignal.com</a> account details.', 'polldaddy' ), 'https://app.crowdsignal.com/' ); ?></p>
 
 			<form action="" method="post">
@@ -492,6 +503,16 @@ class WP_Polldaddy {
 		wp_enqueue_script( 'polls', "{$this->base_url}js/polldaddy.js", array( 'jquery', 'jquery-ui-sortable', 'jquery-form', 'wp-components' ), $this->version );
 		wp_enqueue_script( 'polls-common', "{$this->base_url}js/common.js", array(), $this->version );
 
+		// Localize script with nonce data for secure media uploads
+		if ( $page === 'polls' && in_array( $action, array( 'edit', 'edit-poll', 'create-poll' ) ) ) {
+			$user_id = get_current_user_id();
+			$nonce_action = get_polls_media_nonce();
+			wp_localize_script( 'polls', 'pollsMediaSecurity', array(
+				'nonce' => wp_create_nonce( $nonce_action ),
+				'user_id' => $user_id,
+			) );
+		}
+
 		if ( $page == 'polls' ) {
 			if ( !$this->is_author && in_array( $action, array( 'edit', 'edit-poll', 'create-poll', 'edit-style', 'create-style', 'list-styles', 'options', 'update-options', 'import-account', 'create-block-poll' ) ) ) {//check user privileges has access to action
 				$action = '';
@@ -501,7 +522,7 @@ class WP_Polldaddy {
 				case 'create-block-poll':
 					$post_id = wp_insert_post(
 						array(
-							'post_title'   => esc_html__( 'Crowdsignal blocks in WordPress' ),
+							'post_title'   => esc_html__( 'Crowdsignal blocks in WordPress', 'polldaddy' ),
 
 							'post_content' => '
 								<!-- wp:paragraph -->
@@ -899,7 +920,7 @@ class WP_Polldaddy {
 				global $current_user;
 				check_admin_referer( 'polldaddy-reset' . $this->id );
 				$fields = array( 'polldaddy_api_key', 'pd-rating-comments', 'pd-rating-comments-id', 'pd-rating-comments-pos', 'pd-rating-exclude-post-ids', 'pd-rating-pages', 'pd-rating-pages-id', 'pd-rating-posts', 'pd-rating-posts-id', 'pd-rating-posts-index', 'pd-rating-posts-index-id', 'pd-rating-posts-index-pos', 'pd-rating-posts-pos', 'pd-rating-title-filter', 'pd-rating-usercode', 'pd-rich-snippets', 'pd-usercode-' . $current_user->ID );
-				$msg = __( "You have just reset your Polldaddy connection settings." ) . "\n\n";
+				$msg = __( "You have just reset your Polldaddy connection settings.", 'polldaddy' ) . "\n\n";
 				foreach( $fields as $field ) {
 					$value = get_option( $field );
 					if ( $value != false ) {
@@ -1592,7 +1613,9 @@ class WP_Polldaddy {
 					if ( 1 == $deleted ) {
 						$message = __( 'Poll deleted.', 'polldaddy' );
 					} else {
-						$message = sprintf( _n( '%s Poll Deleted.', '%s Polls Deleted.', $deleted, 'polldaddy' ), number_format_i18n( $deleted ) );
+						$message = sprintf(
+							/* translators: %s is the number of polls deleted */
+							_n( '%s Poll Deleted.', '%s Polls Deleted.', $deleted, 'polldaddy' ), number_format_i18n( $deleted ) );
 					}
 					break;
 				case 'opened' :
@@ -1600,7 +1623,9 @@ class WP_Polldaddy {
 					if ( 1 == $opened ) {
 						$message = __( 'Poll opened.', 'polldaddy' );
 					} else {
-						$message = sprintf( _n( '%s Poll Opened.', '%s Polls Opened.', $opened, 'polldaddy' ), number_format_i18n( $opened ) );
+						$message = sprintf(
+							/* translators: %s is the number of polls opened */
+							_n( '%s Poll Opened.', '%s Polls Opened.', $opened, 'polldaddy' ), number_format_i18n( $opened ) );
 					}
 					break;
 				case 'closed' :
@@ -1608,7 +1633,9 @@ class WP_Polldaddy {
 					if ( 1 == $closed ) {
 						$message = __( 'Poll closed.', 'polldaddy' );
 					} else {
-						$message = sprintf( _n( '%s Poll Closed.', '%s Polls Closed.', $closed, 'polldaddy' ), number_format_i18n( $closed ) );
+						$message = sprintf(
+							/* translators: %s is the number of polls closed */
+							_n( '%s Poll Closed.', '%s Polls Closed.', $closed, 'polldaddy' ), number_format_i18n( $closed ) );
 					}
 					break;
 				case 'updated' :
@@ -1631,7 +1658,9 @@ class WP_Polldaddy {
 					if ( 1 == $deleted ) {
 						$message = __( 'Custom Style deleted.', 'polldaddy' );
 					} else {
-						$message = sprintf( _n( '%s Style Deleted.', '%s Custom Styles Deleted.', $deleted, 'polldaddy' ), number_format_i18n( $deleted ) );
+						$message = sprintf(
+							/* translators: %s is the number of styles deleted */
+							_n( '%s Style Deleted.', '%s Custom Styles Deleted.', $deleted, 'polldaddy' ), number_format_i18n( $deleted ) );
 					}
 					break;
 				case 'connected' :
@@ -1649,7 +1678,9 @@ class WP_Polldaddy {
 					if ( 1 == $deleted ) {
 						$message = __( 'Rating deleted.', 'polldaddy' );
 					} else {
-						$message = sprintf( _n( '%s Rating Deleted.', '%s Ratings Deleted.', $deleted, 'polldaddy' ), number_format_i18n( $deleted ) );
+						$message = sprintf(
+							/* translators: %s is the number of ratings deleted */
+							_n( '%s Rating Deleted.', '%s Ratings Deleted.', $deleted, 'polldaddy' ), number_format_i18n( $deleted ) );
 					}
 					break;
 			}//end switch
@@ -1732,7 +1763,9 @@ class WP_Polldaddy {
 							if ( isset( $_GET['iframe'] ) ) {
 								if ( isset( $_GET['popup'] ) ) {
 									?>
-									<h2 id="poll-list-header"><?php printf( __( 'Preview Poll <a href="%s" class="add-new-h2">All Polls</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ) ); ?></h2>
+									<h2 id="poll-list-header"><?php
+									/* translators: %s is the URL to all polls */
+									printf( __( 'Preview Poll <a href="%s" class="add-new-h2">All Polls</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ) ); ?></h2>
 									<?php
 								}
 							}
@@ -1744,7 +1777,9 @@ class WP_Polldaddy {
 						case 'results':
 							?>
 							<h2 id="poll-list-header">
-								<?php printf( __( 'Poll Results <a href="%s" class="add-new-h2">All Polls</a> <a href="%s" class="add-new-h2">Edit Poll</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ), esc_url( add_query_arg( array( 'action' => 'edit-poll', 'poll' => $poll, 'message' => false ) ) ) ); ?>
+								<?php
+								/* translators: %s is the URL to all polls, %s is the URL to edit poll */
+								printf( __( 'Poll Results <a href="%1$s" class="add-new-h2">All Polls</a> <a href="%2$s" class="add-new-h2">Edit Poll</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ), esc_url( add_query_arg( array( 'action' => 'edit-poll', 'poll' => $poll, 'message' => false ) ) ) ); ?>
 							</h2>
 							<?php
 							$this->poll_results_page( $poll );
@@ -1755,7 +1790,8 @@ class WP_Polldaddy {
 							<h2 id="poll-list-header">
 								<?php
 								printf(
-									__( 'Edit Poll <a href="%s" class="add-new-h2">All Polls</a> <a href="%s" class="add-new-h2">View Results</a>', 'polldaddy' ),
+									/* translators: %s is the URL to all polls, %s is the URL to view results */
+									__( 'Edit Poll <a href="%1$s" class="add-new-h2">All Polls</a> <a href="%2$s" class="add-new-h2">View Results</a>', 'polldaddy' ),
 									esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ),
 									esc_url( add_query_arg( array( 'action' => 'results', 'poll' => $poll, 'message' => false ) ) )
 								);
@@ -1767,7 +1803,9 @@ class WP_Polldaddy {
 							break;
 						case 'create-poll':
 							?>
-							<h2 id="poll-list-header"><?php printf( __( 'Add New Poll <a href="%s" class="add-new-h2">All Polls</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ) ); ?></h2>
+							<h2 id="poll-list-header"><?php
+							/* translators: %s is the URL to all polls */
+							printf( __( 'Add New Poll <a href="%s" class="add-new-h2">All Polls</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'polls', 'poll' => false, 'message' => false ) ) ) ); ?></h2>
 							<?php
 							$this->poll_edit_form();
 							break;
@@ -1775,10 +1813,12 @@ class WP_Polldaddy {
 							?>
 							<h2 id="polldaddy-header">
 								<?php
-								if ( $this->is_author )
+								if ( $this->is_author ) {
+									/* translators: %s is the URL to add new style */
 									printf( __( 'Custom Styles <a href="%s" class="add-new-h2">Add New</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'create-style', 'poll' => false, 'message' => false ) ) ) );
-								else
+								} else {
 									_e( 'Custom Styles', 'polldaddy' );
+								}
 								?>
 							</h2>
 							<?php
@@ -1787,7 +1827,9 @@ class WP_Polldaddy {
 						case 'edit-style':
 							?>
 							<h2 id="polldaddy-header">
-								<?php printf( __( 'Edit Style <a href="%s" class="add-new-h2">List Styles</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'list-styles', 'style' => false, 'message' => false, 'preload' => false ) ) ) ); ?>
+								<?php
+								/* translators: %s is the URL to list styles */
+								printf( __( 'Edit Style <a href="%s" class="add-new-h2">List Styles</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'list-styles', 'style' => false, 'message' => false, 'preload' => false ) ) ) ); ?>
 							</h2>
 							<?php
 
@@ -1796,7 +1838,9 @@ class WP_Polldaddy {
 						case 'create-style':
 							?>
 							<h2 id="polldaddy-header">
-								<?php printf( __( 'Create Style <a href="%s" class="add-new-h2">List Styles</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'list-styles', 'style' => false, 'message' => false, 'preload' => false ) ) ) ); ?>
+								<?php
+								/* translators: %s is the URL to list styles */
+								printf( __( 'Create Style <a href="%s" class="add-new-h2">List Styles</a>', 'polldaddy' ), esc_url( add_query_arg( array( 'action' => 'list-styles', 'style' => false, 'message' => false, 'preload' => false ) ) ) ); ?>
 							</h2>
 							<?php
 							$this->style_edit_form();
@@ -2126,6 +2170,7 @@ class WP_Polldaddy {
 		}
 
 		$class = $class ? '' : ' class="alternate"';
+		/* translators: %s is the URL to other answers results */
 		$content = $results->others && 'Other answer…' === $answer->text ? sprintf( __( 'Other (<a href="%s">see below</a>)', 'polldaddy' ), '#other-answers-results' ) : esc_html( $answer->text );
 
 ?>
@@ -2395,7 +2440,7 @@ class WP_Polldaddy {
 
 			<table>
 				<tr>
-					<td class="pd-editor-label"><label for="styleName"><?php _e( 'Select a template part to edit:' ); ?></label></td>
+					<td class="pd-editor-label"><label for="styleName"><?php _e( 'Select a template part to edit:', 'polldaddy' ); ?></label></td>
 					<td>
 						<select id="styleName" onchange="renderStyleEdit(this.value);">
 							<option value="pds-box" selected="selected"><?php _e( 'Poll Box', 'polldaddy' ); ?></option>
@@ -3139,7 +3184,9 @@ class WP_Polldaddy {
 																<label class="pds-feedback-label" id="pds-feedback-label">
 																	<span class="pds-answer-text" id="pds-answer-text"><?php _e( 'I use it in school!', 'polldaddy' ); ?></span>
 																	<span class="pds-feedback-result" id="pds-feedback-result">
-																		<span class="pds-feedback-per" id="pds-feedback-per">&nbsp;46%</span>&nbsp;<span class="pds-feedback-votes" id="pds-feedback-votes"> <?php printf( __( '(%d votes)', 'polldaddy' ), 620 ); ?></span>
+																		<span class="pds-feedback-per" id="pds-feedback-per">&nbsp;46%</span>&nbsp;<span class="pds-feedback-votes" id="pds-feedback-votes"> <?php
+																		/* translators: %d is the number of votes */
+																		printf( __( '(%d votes)', 'polldaddy' ), 620 ); ?></span>
 																	</span>
 																</label>
 																<span style="display: block;clear: both;height:1px;line-height:1px;" class="pds-clear">&nbsp;</span>
@@ -3153,6 +3200,7 @@ class WP_Polldaddy {
 																<label class="pds-feedback-label" id="pds-feedback-label1">
 																	<span class="pds-answer-text" id="pds-answer-text1"><?php _e( 'I use it at home.', 'polldaddy' ); ?></span>
 																	<span class="pds-feedback-result" id="pds-feedback-result1">
+																		<?php /* translators: %d is the number of votes */ ?>
 																		<span class="pds-feedback-per" id="pds-feedback-per1">&nbsp;30%</span>&nbsp;<span class="pds-feedback-votes" id="pds-feedback-votes1"> <?php printf( __( '(%d votes)', 'polldaddy' ), 400 ); ?></span>
 																	</span>
 																</label>
@@ -3167,6 +3215,7 @@ class WP_Polldaddy {
 																<label class="pds-feedback-label" id="pds-feedback-label2">
 																	<span class="pds-answer-text" id="pds-answer-text2"><?php _e( 'I use it every where I go, at work and home and anywhere else that I can!', 'polldaddy' ); ?></span>
 																	<span class="pds-feedback-result" id="pds-feedback-result2">
+																		<?php /* translators: %d is the number of votes */ ?>
 																		<span class="pds-feedback-per" id="pds-feedback-per2">&nbsp;16%</span>&nbsp;<span class="pds-feedback-votes" id="pds-feedback-votes2"> <?php printf( __( '(%d votes)', 'polldaddy' ), 220 ); ?></span>
 																	</span>
 																</label>
@@ -3181,6 +3230,7 @@ class WP_Polldaddy {
 																<label class="pds-feedback-label" id="pds-feedback-label3">
 																	<span class="pds-answer-text" id="pds-answer-text3"><?php _e( 'Other', 'polldaddy' ); ?></span>
 																	<span class="pds-feedback-result" id="pds-feedback-result3">
+																		<?php /* translators: %d is the number of votes */ ?>
 																		<span class="pds-feedback-per" id="pds-feedback-per3">&nbsp;8%</span>&nbsp;<span class="pds-feedback-votes" id="pds-feedback-votes3"> <?php printf( __( '(%d votes)', 'polldaddy' ), 110 ); ?></span>
 																	</span>
 																</label>
@@ -3236,7 +3286,9 @@ class WP_Polldaddy {
 <script language="javascript">
 	jQuery( document ).ready(function(){
 		plugin = new Plugin( {
+			<?php /* translators: %s is the name of the rating being deleted */ ?>
 			delete_rating: '<?php echo esc_attr( __( 'Are you sure you want to delete the rating for "%s"?', 'polldaddy' ) ); ?>',
+			<?php /* translators: %s is the name of the poll being deleted */ ?>
 			delete_poll: '<?php echo esc_attr( __( 'Are you sure you want to delete "%s"?', 'polldaddy' ) ); ?>',
 			delete_answer: '<?php echo esc_attr( __( 'Are you sure you want to delete this answer?', 'polldaddy' ) ); ?>',
 			delete_answer_title: '<?php echo esc_attr( __( 'delete this answer', 'polldaddy' ) ); ?>',
@@ -3345,19 +3397,19 @@ class WP_Polldaddy {
 						$rating_errors[] = $polldaddy->errors;
 					}
 				} elseif ( isset( $polldaddy->errors[ -1 ] ) && $polldaddy->errors[ -1 ] == "Can't connect" ) {
-					$this->contact_support_message( __( 'Could not connect to the Crowdsignal API' ), $rating_errors );
+					$this->contact_support_message( __( 'Could not connect to the Crowdsignal API', 'polldaddy' ), $rating_errors );
 					$error = true;
 				} elseif ( isset( $polldaddy->errors[ -1 ] ) && $polldaddy->errors[ -1 ] == "Invalid API URL" ) {
-					$this->contact_support_message( __( 'The API URL is incorrect' ), $rating_errors );
+					$this->contact_support_message( __( 'The API URL is incorrect', 'polldaddy' ), $rating_errors );
 					$error = true;
 				} elseif ( isset( $polldaddy->errors[ -2 ] ) && $polldaddy->errors[ -2 ] == "No Data" ) {
-					$this->contact_support_message( __( 'Your API request did not return any data' ), $rating_errors );
+					$this->contact_support_message( __( 'Your API request did not return any data', 'polldaddy' ), $rating_errors );
 					$error = true;
 				}
 			}
 
 			if ( $error == false && empty( $pd_rating ) ) { //something's up!
-				$this->contact_support_message( __( 'There was an error creating your rating widget' ), $rating_errors );
+				$this->contact_support_message( __( 'There was an error creating your rating widget', 'polldaddy' ), $rating_errors );
 				$error = true;
 			} else {
 				$rating_id = (int) $pd_rating->_id;
@@ -3590,7 +3642,11 @@ class WP_Polldaddy {
 		$previous_settings = get_option( 'polldaddy_settings' );
 		$current_setting   = get_option( 'pd-rating-posts-id' );
 		if ( $current_setting && isset( $previous_settings[ 'pd-rating-posts-id' ] ) && $current_setting != $previous_settings[ 'pd-rating-posts-id' ] ) {
-			echo "<p>" . sprintf( __( "Previous settings for ratings on this site discovered. You can restore them on the <a href='%s'>poll settings page</a> if your site is missing ratings after resetting your connection settings.", 'polldaddy' ), "options-general.php?page=crowdsignal-settings" ) . "</p>";
+			echo "<p>" . sprintf(
+				/* translators: %s is the URL to Crowdsignal settings page */
+				__( "Previous settings for ratings on this site discovered. You can restore them on the <a href='%s'>poll settings page</a> if your site is missing ratings after resetting your connection settings.", 'polldaddy' ), 
+				"options-general.php?page=crowdsignal-settings" 
+			) . "</p>";
 		}
 		?>
         </div>
@@ -3662,31 +3718,41 @@ class WP_Polldaddy {
                     <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_rate_this" id="text_rate_this" value="<?php echo empty( $settings->text_rate_this ) ? 'Rate This' : esc_html( $settings->text_rate_this ); ?>" maxlength="20" />
                   </tr>
                   <tr>
-                    <td><p style="margin-bottom: 0px;"><?php printf( __( '%d star', 'polldaddy' ), 1 );?></p></td>
+                    <td><p style="margin-bottom: 0px;"><?php
+					/* translators: %d is the number of stars */
+					printf( __( '%d star', 'polldaddy' ), 1 );?></p></td>
                   </tr>
                   <tr>
                     <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_1_star" id="text_1_star" value="<?php echo empty( $settings->text_1_star ) ? '1 star' : esc_html( $settings->text_1_star ); ?>" maxlength="20" />
                   </tr>
                   <tr>
-                    <td><p style="margin-bottom: 0px;"><?php printf( __( '%d stars', 'polldaddy' ), 2 );?></p></td>
+                    <td><p style="margin-bottom: 0px;"><?php
+					/* translators: %d is the number of stars */
+					printf( __( '%d stars', 'polldaddy' ), 2 );?></p></td>
                   </tr>
                   <tr>
                     <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_2_star" id="text_2_star" value="<?php echo empty( $settings->text_2_star ) ? '2 stars' : esc_html( $settings->text_2_star ); ?>" maxlength="20" />
                   </tr>
                   <tr>
-                    <td><p style="margin-bottom: 0px;"><?php printf( __( '%d stars', 'polldaddy' ), 3 );?></p></td>
+					<td><p style="margin-bottom: 0px;"><?php
+						/* translators: %d is the number of stars */
+						printf( __( '%d stars', 'polldaddy' ), 3 );?></p></td>
                   </tr>
                   <tr>
                     <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_3_star" id="text_3_star" value="<?php echo empty( $settings->text_3_star ) ? '3 stars' : esc_html( $settings->text_3_star ); ?>" maxlength="20" />
                   </tr>
                   <tr>
-                    <td><p style="margin-bottom: 0px;"><?php printf( __( '%d stars', 'polldaddy' ), 4 );?></p></td>
+					<td><p style="margin-bottom: 0px;"><?php
+						/* translators: %d is the number of stars */
+						printf( __( '%d stars', 'polldaddy' ), 4 );?></p></td>
                   </tr>
                   <tr>
                     <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_4_star" id="text_4_star" value="<?php echo empty( $settings->text_4_star ) ? '4 stars' : esc_html( $settings->text_4_star ); ?>" maxlength="20" />
                   </tr>
                   <tr>
-                    <td><p style="margin-bottom: 0px;"><?php printf( __( '%d stars', 'polldaddy' ), 5 );?></p></td>
+					<td><p style="margin-bottom: 0px;"><?php
+						/* translators: %d is the number of stars */
+						printf( __( '%d stars', 'polldaddy' ), 5 );?></p></td>
                   </tr>
                   <tr>
                     <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_5_star" id="text_5_star" value="<?php echo empty( $settings->text_5_star ) ? '5 stars' : esc_html( $settings->text_5_star ); ?>" maxlength="20" />
@@ -3773,7 +3839,9 @@ class WP_Polldaddy {
 				if ( $settings->type == 'stars' )
 					$checked = ' checked="checked"';?>
                         <input type="radio" onchange="pd_change_type( 0 );" <?php echo $checked; ?> value="stars" id="stars" name="rating_type" />
-                          <?php printf( __( '%d Star Rating', 'polldaddy' ), 5 );?>
+                          <?php
+						  /* translators: %d is the number of stars */
+						  printf( __( '%d Star Rating', 'polldaddy' ), 5 );?>
                         </label>
                     </li>
                     <li style="display: inline;">
@@ -4022,7 +4090,9 @@ class WP_Polldaddy {
 	<script language="javascript">
 	jQuery( document ).ready(function(){
 		plugin = new Plugin( {
+			<?php /* translators: %s is the name of the rating being deleted */ ?>
 			delete_rating: '<?php echo esc_attr( __( 'Are you sure you want to delete the rating for "%s"?', 'polldaddy' ) ); ?>',
+			<?php /* translators: %s is the name of the poll being deleted */ ?>
 			delete_poll: '<?php echo esc_attr( __( 'Are you sure you want to delete "%s"?', 'polldaddy' ) ); ?>',
 			delete_answer: '<?php echo esc_attr( __( 'Are you sure you want to delete this answer?', 'polldaddy' ) ); ?>',
 			delete_answer_title: '<?php echo esc_attr( __( 'delete this answer', 'polldaddy' ) ); ?>',
@@ -4300,7 +4370,9 @@ class WP_Polldaddy {
 ?>
 		<div class="wrap">
 			<?php if ( $this->is_admin ) : ?>
-			<h2 id="polldaddy-header"><?php printf( __( 'Rating Results <a href="%s" class="add-new-h2">Settings</a>', 'polldaddy' ), esc_url( 'options-general.php?page=ratingsettings' ) ); ?></h2>
+			<h2 id="polldaddy-header"><?php
+				/* translators: %s is the URL to Crowdsignal settings page */
+				printf( __( 'Rating Results <a href="%s" class="add-new-h2">Settings</a>', 'polldaddy' ), esc_url( 'options-general.php?page=ratingsettings' ) ); ?></h2>
 			<?php else : ?>
 			<h2 id="polldaddy-header"><?php _e( 'Rating Results', 'polldaddy' ); ?></h2>
 			<?php endif; ?>
@@ -4337,11 +4409,11 @@ class WP_Polldaddy {
           				</select>
           				<input class="button-secondary action" type="submit" value="<?php _e( 'Filter', 'polldaddy' );?>" />
           				<?php if ( in_array( $period, array( 1, 7 ) ) ) : ?>
-          				<label><?php _e( '* The results are cached and are updated every hour' ); ?></label>
+          				<label><?php _e( '* The results are cached and are updated every hour', 'polldaddy' ); ?></label>
           				<?php elseif ( $period == 31 ) : ?>
-          				<label><?php _e( '* The results are cached and are updated every day' ); ?></label>
+          				<label><?php _e( '* The results are cached and are updated every day', 'polldaddy' ); ?></label>
           				<?php else : ?>
-          				<label><?php _e( '* The results are cached and are updated every 3 days' ); ?></label>
+          				<label><?php _e( '* The results are cached and are updated every 3 days', 'polldaddy' ); ?></label>
           				<?php endif; ?>
 					</div>
 					<div class="alignright">
@@ -4355,7 +4427,9 @@ class WP_Polldaddy {
 		if ( empty( $ratings ) ) { ?>
 				<tbody>
 					<tr>
-						<td colspan="4"><?php printf( __( 'No ratings have been collected for your %s yet.', 'polldaddy' ), $report_type ); ?></td>
+						<td colspan="4"><?php
+						/* translators: %s is the report type */
+						printf( __( 'No ratings have been collected for your %s yet.', 'polldaddy' ), $report_type ); ?></td>
 					</tr>
 				</tbody><?php
 		} else {
@@ -4445,7 +4519,9 @@ class WP_Polldaddy {
 	<script language="javascript">
 	jQuery( document ).ready(function(){
 		plugin = new Plugin( {
+			<?php /* translators: %s is the name of the rating being deleted */ ?>
 			delete_rating: '<?php echo esc_attr( __( 'Are you sure you want to delete the rating for "%s"?', 'polldaddy' ) ); ?>',
+			<?php /* translators: %s is the name of the poll being deleted */ ?>
 			delete_poll: '<?php echo esc_attr( __( 'Are you sure you want to delete "%s"?', 'polldaddy' ) ); ?>',
 			delete_answer: '<?php echo esc_attr( __( 'Are you sure you want to delete this answer?', 'polldaddy' ) ); ?>',
 			delete_answer_title: '<?php echo esc_attr( __( 'delete this answer', 'polldaddy' ) ); ?>',
@@ -4620,9 +4696,11 @@ class WP_Polldaddy {
 		global $current_user;
 		echo '<div class="error" id="polldaddy">';
 		echo '<h1>' . $message . '</h1>';
-		echo '<p>' . __( "There are a few things you can do:" );
+		echo '<p>' . __( "There are a few things you can do:", 'polldaddy' );
 		echo "<ul><ol>" . __( "Press reload on your browser and reload this page. There may have been a temporary problem communicating with Crowdsignal.com", "polldaddy" ) . "</ol>";
+		/* translators: %1$s is the URL to Crowdsignal settings page */
 		echo "<ol>" . sprintf( __( "Go to the <a href='%s'>poll settings page</a>, scroll to the end of the page and reset your connection settings. Link your account again with the same API key.", "polldaddy" ), 'options-general.php?page=crowdsignal-settings' ) . "</ol>";
+		/* translators: %1$s is the URL to Crowdsignal support, %2$s is the target attribute, %3$s is the rating usercode */
 		echo "<ol>" . sprintf( __( 'Contact <a href="%1$s" %2$s>Crowdsignal support</a> and tell them your rating usercode is %3$s', 'polldaddy' ), 'https://crowdsignal.com/feedback/', 'target="_blank"', $this->rating_user_code ) . '<br />' . __( 'Also include the following information when contacting support to help us resolve your problem as quickly as possible:', 'polldaddy' ) . '';
 		echo "<ul><li> API Key: " . get_option( 'polldaddy_api_key' ) . "</li>";
 		echo "<li> ID Usercode: " . get_option( 'pd-usercode-' . $current_user->ID ) . "</li>";

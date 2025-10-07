@@ -180,7 +180,7 @@ CONTAINER;
 
 			$poll      = intval( $poll );
 			$poll_url  = sprintf( 'https://poll.fm/%d', $poll );
-			$poll_js   = sprintf( '%s.polldaddy.com/p/%d.js', '//static', $poll );
+			$poll_js   = sprintf( 'https://static.polldaddy.com/p/%d.js', $poll );
 			$poll_link = sprintf( '<a href="%s">Take Our Poll</a>', $poll_url );
 
 			if ( $no_script ) {
@@ -442,8 +442,9 @@ new PolldaddyShortcode();
 
 if ( !function_exists( 'polldaddy_link' ) ) {
 	// http://polldaddy.com/poll/1562975/?view=results&msg=voted
+	// http://poll.fm/1562975
 	function polldaddy_link( $content ) {
-		if ( false === strpos( $content, "polldaddy.com/" ) )
+		if ( false === strpos( $content, "polldaddy.com/" ) && false === strpos( $content, "poll.fm/" ) )
 			return $content;
 		$textarr = wp_html_split( $content );
 		unset( $content );

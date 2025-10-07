@@ -77,7 +77,7 @@ class Polldaddy_Ajax {
 
 						<tr>
 							<th>
-								<span class="handle" title="' . esc_attr( __( 'click and drag to reorder' ) ) . '"><img src="' . $src . 'img/icon-reorder.png" alt="click and drag to reorder" width="6" height="9" /></span>
+								<span class="handle" title="' . esc_attr( __( 'click and drag to reorder', 'polldaddy' ) ) . '"><img src="' . $src . 'img/icon-reorder.png" alt="' . esc_attr( __( 'click and drag to reorder', 'polldaddy' ) ) . '" width="6" height="9" /></span>
 							</th>
 							<td class="answer-input">
 								<input type="text" autocomplete="off" placeholder="' . esc_attr( __( 'Enter an answer here', 'polldaddy' ) ) .'" value="" tabindex="2" size="30" name="answer[new' . $a .']" />
