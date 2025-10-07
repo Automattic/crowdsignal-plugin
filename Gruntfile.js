@@ -145,7 +145,7 @@ module.exports = function( grunt ){
 
     grunt.registerTask( 'build', [ 'gitinfo', 'clean', 'copy' ] );
 
-    grunt.registerTask( 'deploy', [ 'checkbranch:main', 'build', 'wp_deploy' ] );
+    grunt.registerTask( 'deploy', [ 'checkbranch:develop', 'build', 'wp_deploy' ] );
     grunt.registerTask( 'deploy-unsafe', [ 'build', 'wp_deploy' ] );
 
     grunt.registerTask( 'package', [ 'build', 'zip' ] );
