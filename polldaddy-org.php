@@ -260,6 +260,7 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 
 	<h2><?php _e( 'Crowdsignal Account', 'polldaddy' ); ?></h2>
 
+	<?php /* translators: %s is the URL to the Crowdsignal.com account details */ ?>
 	<p><?php printf( __( 'Before you can use the Crowdsignal plugin, you need to enter your <a href="%s">Crowdsignal.com</a> account details.', 'polldaddy' ), 'https://app.crowdsignal.com/' ); ?></p>
 
 	<form action="" method="post">

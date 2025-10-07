@@ -25,7 +25,7 @@ module.exports = function( grunt ){
                     '!.*', '!**/*~', '!tmp/**', //hidden/tmp files
                     '!CONTRIBUTING.md',
                     '!readme.md',
-                    '!phpcs.ruleset.xml',
+                    '!phpcs.xml.dist',
                     '!tools/**',
                     '!screenshot-1.png',
                     '!screenshot-2.png',

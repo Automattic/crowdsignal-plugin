@@ -3,8 +3,8 @@ Contributors: donncha, ice9js, cgastrell, digitalwaveride, jcheringer
 Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 5.5
 Requires PHP: 5.6
-Tested up to: 6.6.1
-Stable tag: 3.1.2
+Tested up to: 6.8
+Stable tag: 3.1.3
 
 == Description ==
 
@@ -25,7 +25,7 @@ Want to help translate the plugin or keep an existing translation up-to-date? He
 
 Some strings are not translated when polls and surveys are embedded. You will have to translate them using a language pack on [Crowdsignal.com](https://crowdsignal.com/).
 
-Development of the plugin will take place in [this Github repository](https://github.com/Automattic/crowdsignal-plugin).
+Development of the plugin takes place in [this GitHub repository](https://github.com/Automattic/crowdsignal-plugin). Contributions are welcome!
 
 === The Classic Editor ===
 If you are a long time user of this plugin and you still use the classic post editor, the best way to create polls is through your [Crowdsignal account](https://app.crowdsignal.com/dashboard/) where you have a number of different ways to share polls (and surveys). However, up to version 2.2.6, this plugin had an "Add Poll" button above the post editor that opened a very basic poll editor. That "Add Poll" button has since been removed but if you would still like to use it, open up the wp-admin dashboard on your WordPress site. Add "admin.php?page=polls&action=create-poll" to the end of the URL, after "wp-admin/" so it looks like https://example.com/wp-admin/admin.php?page=polls&action=create-poll and you will see the old poll editor. Bookmark that URL if you still want to use that poll editor. We do not recommend using version 2.2.6 of the plugin as you will miss out on many bug fixes and new features added since then.
@@ -95,6 +95,22 @@ Make sure to whitelist `api.crowdsignal.com` in your firewall to fix this.
 Bugfix and security release
 
 == Changelog ==
+
+= 3.1.3 =
+* Fix: Make 'Results' and 'Edit' Links Always Visible on Polls Dashboard by @vk17-starlord in #108
+* fix: Update item count field ID in polldaddy-org.php by @GaryJones in #115
+* fix: CSRF vulnerability for CVE-2024-43338 by @oviul in #136
+* Add: poll.fm URL detection for shortcode by @ovidiul in #138
+* Modernise i18n configuration by @GaryJones in #131
+* fix: Add translation comments to enhance understanding for translators by @GaryJones in #128
+* refactor: Remove makepot task and update build script for i18n by @GaryJones in #130
+* fix: Add and fix text domain for translations by @GaryJones in #129
+* Update issue and pull request templates by @GaryJones in #126
+* fix: Update .wp-env.json to set core to null by @GaryJones in #114
+* Add development environment setup by @ovidiul in #113
+* Add WordPress Coding Standards (PHPCS) by @ovidiul in #132
+* Add PHPUnit Testing Framework by @ovidiul in #133
+
 = 3.1.2 =
 * Add referer check on deprecated multi-account user action.
 
