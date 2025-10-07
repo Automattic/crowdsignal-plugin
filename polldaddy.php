@@ -369,6 +369,7 @@ class WP_Polldaddy {
 		<div class="wrap">
 			<h2 id="polldaddy-header"><?php _e( 'Crowdsignal', 'polldaddy' ); ?></h2>
 
+			<?php /* translators: %s is the URL to the Crowdsignal.com account details */ ?>
 			<p><?php printf( __( 'Before you can use the Crowdsignal plugin, you need to enter your <a href="%s">Crowdsignal.com</a> account details.', 'polldaddy' ), 'https://app.crowdsignal.com/' ); ?></p>
 
 			<form action="" method="post">
@@ -3199,6 +3200,7 @@ class WP_Polldaddy {
 																<label class="pds-feedback-label" id="pds-feedback-label1">
 																	<span class="pds-answer-text" id="pds-answer-text1"><?php _e( 'I use it at home.', 'polldaddy' ); ?></span>
 																	<span class="pds-feedback-result" id="pds-feedback-result1">
+																		<?php /* translators: %d is the number of votes */ ?>
 																		<span class="pds-feedback-per" id="pds-feedback-per1">&nbsp;30%</span>&nbsp;<span class="pds-feedback-votes" id="pds-feedback-votes1"> <?php printf( __( '(%d votes)', 'polldaddy' ), 400 ); ?></span>
 																	</span>
 																</label>
@@ -3213,6 +3215,7 @@ class WP_Polldaddy {
 																<label class="pds-feedback-label" id="pds-feedback-label2">
 																	<span class="pds-answer-text" id="pds-answer-text2"><?php _e( 'I use it every where I go, at work and home and anywhere else that I can!', 'polldaddy' ); ?></span>
 																	<span class="pds-feedback-result" id="pds-feedback-result2">
+																		<?php /* translators: %d is the number of votes */ ?>
 																		<span class="pds-feedback-per" id="pds-feedback-per2">&nbsp;16%</span>&nbsp;<span class="pds-feedback-votes" id="pds-feedback-votes2"> <?php printf( __( '(%d votes)', 'polldaddy' ), 220 ); ?></span>
 																	</span>
 																</label>
@@ -3227,6 +3230,7 @@ class WP_Polldaddy {
 																<label class="pds-feedback-label" id="pds-feedback-label3">
 																	<span class="pds-answer-text" id="pds-answer-text3"><?php _e( 'Other', 'polldaddy' ); ?></span>
 																	<span class="pds-feedback-result" id="pds-feedback-result3">
+																		<?php /* translators: %d is the number of votes */ ?>
 																		<span class="pds-feedback-per" id="pds-feedback-per3">&nbsp;8%</span>&nbsp;<span class="pds-feedback-votes" id="pds-feedback-votes3"> <?php printf( __( '(%d votes)', 'polldaddy' ), 110 ); ?></span>
 																	</span>
 																</label>
@@ -3282,7 +3286,9 @@ class WP_Polldaddy {
 <script language="javascript">
 	jQuery( document ).ready(function(){
 		plugin = new Plugin( {
+			<?php /* translators: %s is the name of the rating being deleted */ ?>
 			delete_rating: '<?php echo esc_attr( __( 'Are you sure you want to delete the rating for "%s"?', 'polldaddy' ) ); ?>',
+			<?php /* translators: %s is the name of the poll being deleted */ ?>
 			delete_poll: '<?php echo esc_attr( __( 'Are you sure you want to delete "%s"?', 'polldaddy' ) ); ?>',
 			delete_answer: '<?php echo esc_attr( __( 'Are you sure you want to delete this answer?', 'polldaddy' ) ); ?>',
 			delete_answer_title: '<?php echo esc_attr( __( 'delete this answer', 'polldaddy' ) ); ?>',
@@ -3728,19 +3734,25 @@ class WP_Polldaddy {
                     <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_2_star" id="text_2_star" value="<?php echo empty( $settings->text_2_star ) ? '2 stars' : esc_html( $settings->text_2_star ); ?>" maxlength="20" />
                   </tr>
                   <tr>
-                    <td><p style="margin-bottom: 0px;"><?php printf( __( '%d stars', 'polldaddy' ), 3 );?></p></td>
+					<td><p style="margin-bottom: 0px;"><?php
+						/* translators: %d is the number of stars */
+						printf( __( '%d stars', 'polldaddy' ), 3 );?></p></td>
                   </tr>
                   <tr>
                     <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_3_star" id="text_3_star" value="<?php echo empty( $settings->text_3_star ) ? '3 stars' : esc_html( $settings->text_3_star ); ?>" maxlength="20" />
                   </tr>
                   <tr>
-                    <td><p style="margin-bottom: 0px;"><?php printf( __( '%d stars', 'polldaddy' ), 4 );?></p></td>
+					<td><p style="margin-bottom: 0px;"><?php
+						/* translators: %d is the number of stars */
+						printf( __( '%d stars', 'polldaddy' ), 4 );?></p></td>
                   </tr>
                   <tr>
                     <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_4_star" id="text_4_star" value="<?php echo empty( $settings->text_4_star ) ? '4 stars' : esc_html( $settings->text_4_star ); ?>" maxlength="20" />
                   </tr>
                   <tr>
-                    <td><p style="margin-bottom: 0px;"><?php printf( __( '%d stars', 'polldaddy' ), 5 );?></p></td>
+					<td><p style="margin-bottom: 0px;"><?php
+						/* translators: %d is the number of stars */
+						printf( __( '%d stars', 'polldaddy' ), 5 );?></p></td>
                   </tr>
                   <tr>
                     <td><input onblur="pd_bind(this);" type="text" style="width: 100%;" name="text_5_star" id="text_5_star" value="<?php echo empty( $settings->text_5_star ) ? '5 stars' : esc_html( $settings->text_5_star ); ?>" maxlength="20" />
@@ -4078,7 +4090,9 @@ class WP_Polldaddy {
 	<script language="javascript">
 	jQuery( document ).ready(function(){
 		plugin = new Plugin( {
+			<?php /* translators: %s is the name of the rating being deleted */ ?>
 			delete_rating: '<?php echo esc_attr( __( 'Are you sure you want to delete the rating for "%s"?', 'polldaddy' ) ); ?>',
+			<?php /* translators: %s is the name of the poll being deleted */ ?>
 			delete_poll: '<?php echo esc_attr( __( 'Are you sure you want to delete "%s"?', 'polldaddy' ) ); ?>',
 			delete_answer: '<?php echo esc_attr( __( 'Are you sure you want to delete this answer?', 'polldaddy' ) ); ?>',
 			delete_answer_title: '<?php echo esc_attr( __( 'delete this answer', 'polldaddy' ) ); ?>',
@@ -4505,7 +4519,9 @@ class WP_Polldaddy {
 	<script language="javascript">
 	jQuery( document ).ready(function(){
 		plugin = new Plugin( {
+			<?php /* translators: %s is the name of the rating being deleted */ ?>
 			delete_rating: '<?php echo esc_attr( __( 'Are you sure you want to delete the rating for "%s"?', 'polldaddy' ) ); ?>',
+			<?php /* translators: %s is the name of the poll being deleted */ ?>
 			delete_poll: '<?php echo esc_attr( __( 'Are you sure you want to delete "%s"?', 'polldaddy' ) ); ?>',
 			delete_answer: '<?php echo esc_attr( __( 'Are you sure you want to delete this answer?', 'polldaddy' ) ); ?>',
 			delete_answer_title: '<?php echo esc_attr( __( 'delete this answer', 'polldaddy' ) ); ?>',
