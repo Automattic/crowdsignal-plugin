@@ -174,7 +174,6 @@ class WP_Polldaddy {
 			wp_safe_redirect( admin_url( 'options-general.php?page=crowdsignal-settings' ) );
 			die();
 		}
-		add_action( 'wp_enqueue_scripts', array( &$this, 'register_polldaddy_styles' ) );
 		add_action( 'admin_enqueue_scripts', array( &$this, 'menu_alter' ) );
 
 		if ( !defined( 'WP_POLLDADDY__PARTNERGUID' ) ) {
