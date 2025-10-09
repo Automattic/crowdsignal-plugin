@@ -520,6 +520,7 @@ class WP_Polldaddy {
 
 			switch ( $action ) {
 				case 'create-block-poll':
+					check_admin_referer( 'create-block-poll' );
 					$post_id = wp_insert_post(
 						array(
 							'post_title'   => esc_html__( 'Crowdsignal blocks in WordPress', 'polldaddy' ),
