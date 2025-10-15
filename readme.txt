@@ -4,7 +4,7 @@ Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate
 Requires at least: 5.5
 Requires PHP: 5.6
 Tested up to: 6.8
-Stable tag: 3.1.3
+Stable tag: 3.1.4
 
 == Description ==
 
@@ -95,6 +95,11 @@ Make sure to whitelist `api.crowdsignal.com` in your firewall to fix this.
 Bugfix and security release
 
 == Changelog ==
+
+= 3.1.4 =
+* fix: Added nonce verification for 'create-block-poll' action by @GaryJones in #144
+* refactor: Remove unused AJAX action registration by @GaryJones in #142
+* Add Comprehensive CSRF Security Tests by @GaryJones in #143
 
 = 3.1.3 =
 * Fix: Make 'Results' and 'Edit' Links Always Visible on Polls Dashboard by @vk17-starlord in #108

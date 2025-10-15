@@ -5,7 +5,7 @@
  * Description: Create and manage Crowdsignal polls and ratings in WordPress
  * Author: Automattic, Inc.
  * Author URL: https://crowdsignal.com/
- * Version: 3.1.3
+ * Version: 3.1.4
  * Text Domain: polldaddy
  * Domain Path: /languages
  */
