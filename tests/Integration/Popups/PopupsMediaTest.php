@@ -1,22 +1,20 @@
 <?php
 /**
- * Tests for CSRF vulnerability fix (CVE-2024-43338)
+ * Tests for popups media functionality and CSRF protection
  *
- * @package Crowdsignal_Forms
+ * @package Automattic\Crowdsignal\Tests\Integration\Popups
  */
 
 declare(strict_types=1);
 
-namespace Automattic\Crowdsignal\Tests\Integration;
+namespace Automattic\Crowdsignal\Tests\Integration\Popups;
+
+use Automattic\Crowdsignal\Tests\Integration\TestCase;
 
 /**
- * Test class for CSRF security fix.
- *
- * @group security
- * @group csrf
- * @group integration
+ * Test class for popups media functionality and CSRF protection.
  */
-class CSRFSecurityTest extends TestCase {
+class PopupsMediaTest extends TestCase {
 
 	/**
 	 * Test that get_polls_media_nonce() returns different values for different users.

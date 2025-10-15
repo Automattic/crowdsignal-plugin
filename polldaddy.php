@@ -5,7 +5,7 @@
  * Description: Create and manage Crowdsignal polls and ratings in WordPress
  * Author: Automattic, Inc.
  * Author URL: https://crowdsignal.com/
- * Version: 3.1.3
+ * Version: 3.1.4
  * Text Domain: polldaddy
  * Domain Path: /languages
  */
@@ -520,6 +520,7 @@ class WP_Polldaddy {
 
 			switch ( $action ) {
 				case 'create-block-poll':
+					check_admin_referer( 'create-block-poll' );
 					$post_id = wp_insert_post(
 						array(
 							'post_title'   => esc_html__( 'Crowdsignal blocks in WordPress', 'polldaddy' ),

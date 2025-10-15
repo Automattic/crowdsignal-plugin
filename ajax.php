@@ -3,8 +3,6 @@
 if ( function_exists( 'get_option' ) == false )
 	die( "Cheatin' eh?" );
 
-add_action( 'wp_ajax_myajax-submit', 'myajax_submit' );
-
 class Polldaddy_Ajax {
 	public function __construct() {
 		// Catch AJAX
