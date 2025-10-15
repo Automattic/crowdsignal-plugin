@@ -4,7 +4,7 @@ Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate
 Requires at least: 5.5
 Requires PHP: 5.6
 Tested up to: 6.8
-Stable tag: 3.1.3
+Stable tag: 3.1.4
 
 == Description ==
 
