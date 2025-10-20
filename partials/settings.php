@@ -10,18 +10,18 @@
 			<div class='cs-settings-container'>
 				<div class="cs-card cs-section-header is-compact">
 					<div class="cs-section-header__label">
-						<span class="cs-section-header__label-text"><?php esc_html_e( 'Account Settings', 'crowdsignal-forms' ); ?></span>
+						<span class="cs-section-header__label-text"><?php esc_html_e( 'Account Settings', 'polldaddy' ); ?></span>
 					</div>
 				</div>
 
 				<div class="cs-card cs-section-header is-compact">
 					<div class="cs-form-settings-group">
-						<h2><?php esc_html_e( 'API Key', 'crowdsignal-forms' ); ?></h2>
+						<h2><?php esc_html_e( 'API Key', 'polldaddy' ); ?></h2>
 						<p>
 			<?php
 			printf(
 				/* translators: Placeholder is the text "Crowdsignal". */
-				esc_html__( 'Your website is connected to a %s account to collect responses and data from your visitors.', 'crowdsignal-forms' ),
+				esc_html__( 'Your website is connected to a %s account to collect responses and data from your visitors.', 'polldaddy' ),
 				'<a href="https://crowdsignal.com/">Crowdsignal</a>'
 			);
 			?>
@@ -29,21 +29,21 @@
 			<?php
 			printf(
 				/* translators: Placeholder is the text "Crowdsignal acount page". */
-				esc_html__( 'Visit your %s to find out more about your settings.', 'crowdsignal-forms' ),
+				esc_html__( 'Visit your %s to find out more about your settings.', 'polldaddy' ),
 				sprintf(
 					'<a href="https://crowdsignal.com/account/">%s</a>',
-					esc_html__( 'Crowdsignal account page', 'crowdsignal-forms' )
+					esc_html__( 'Crowdsignal account page', 'polldaddy' )
 				)
 			);
 			?>
 						</p>
 			<?php if ( ! $api_key ) { ?>
 						<p>
-						<?php esc_html_e( 'If you have a Crowdsignal account, click the "Get API Key" button to connect. This will open a new window.', 'crowdsignal-forms' ); ?>
+						<?php esc_html_e( 'If you have a Crowdsignal account, click the "Get API Key" button to connect. This will open a new window.', 'polldaddy' ); ?>
 						<form id="cs-connect-form" class="crowdsignal-options" method="post" action="https://app.crowdsignal.com/get-api-key/" target="CSCONNECT">
 						<input type="hidden" name="get_api_key" value="<?php echo esc_attr( get_option( 'crowdsignal_api_key_secret' ) ); ?>" />
 						<input type="hidden" name="ref" value="<?php echo esc_attr( admin_url( 'options-general.php?page=crowdsignal-settings' ) ); ?>" />
-						<input type="submit" value="<?php esc_html_e( 'Get API Key', 'crowdsignal-forms' ); ?>" class="cs-button is-primary" />
+						<input type="submit" value="<?php esc_html_e( 'Get API Key', 'polldaddy' ); ?>" class="cs-button is-primary" />
 						</form>
 						</p>
 			<?php } ?>
@@ -51,14 +51,14 @@
 			<?php
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Used for basic flow.
 			if ( ! empty( $_GET['settings-updated'] ) ) {
-				echo '<div class="updated fade crowdsignal-updated"><p>' . esc_html__( 'Settings successfully saved', 'crowdsignal-forms' ) . '</p></div>';
+				echo '<div class="updated fade crowdsignal-updated"><p>' . esc_html__( 'Settings successfully saved', 'polldaddy' ) . '</p></div>';
 			}
 
 			?>
 							<div style='padding-bottom:16px;' id="settings-general" class="settings_panel">
 								<table class="form-table settings parent-settings">
 									<tr valign="top" class="">
-										<th scope="row"><label for="setting-crowdsignal_api_key"><?php esc_html_e( 'Your Crowdsignal API Key', 'crowdsignal-forms' ); ?></a></th>
+										<th scope="row"><label for="setting-crowdsignal_api_key"><?php esc_html_e( 'Your Crowdsignal API Key', 'polldaddy' ); ?></a></th>
 										<td><input
 									<?php echo $api_key ? 'readonly' : ''; ?>
 										id="setting-crowdsignal_api_key"
@@ -74,13 +74,13 @@
 											wp_nonce_field( 'disconnect-api-key' );
 											?>
 											<input type="hidden" name="action" value="disconnect" />
-											<input type="submit" class="button-primary" value="<?php esc_attr_e( 'Disconnect', 'crowdsignal-forms' ); ?>" />
+											<input type="submit" class="button-primary" value="<?php esc_attr_e( 'Disconnect', 'polldaddy' ); ?>" />
 											<?php
 										} else {
 											wp_nonce_field( 'add-api-key' );
 											?>
 											<input type="hidden" name="action" value="update" />
-											<input type="submit" class="button-primary" value="<?php esc_attr_e( 'Connect', 'crowdsignal-forms' ); ?>" />
+											<input type="submit" class="button-primary" value="<?php esc_attr_e( 'Connect', 'polldaddy' ); ?>" />
 											<?php
 										}
 										?>

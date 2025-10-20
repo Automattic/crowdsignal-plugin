@@ -33,12 +33,12 @@
 			<table class="cs-dashboard__grid">
 				<thead>
 					<tr>
-						<th class="cs-dashboard__grid is-name"><?php esc_html_e( 'Name' ); ?></th>
-						<th class="cs-dashboard__grid is-type"><span class="cs-dashboard__mq-desktop-only"><?php esc_html_e( 'Type' ); ?></span></th>
-						<th class="cs-dashboard__grid is-created"><span class="cs-dashboard__mq-desktop-only"><?php esc_html_e( 'Created' ); ?></span></th>
-						<th class="cs-dashboard__grid is-status"><?php esc_html_e( 'Status' ); ?></th>
-						<th class="cs-dashboard__grid is-responses-total"><?php esc_html_e( 'Responses' ); ?></th>
-						<th class="cs-dashboard__grid is-source"><span class="cs-dashboard__mq-desktop-only"><?php esc_html_e( 'Source' ); ?></span></th>
+						<th class="cs-dashboard__grid is-name"><?php esc_html_e( 'Name', 'polldaddy' ); ?></th>
+						<th class="cs-dashboard__grid is-type"><span class="cs-dashboard__mq-desktop-only"><?php esc_html_e( 'Type', 'polldaddy' ); ?></span></th>
+						<th class="cs-dashboard__grid is-created"><span class="cs-dashboard__mq-desktop-only"><?php esc_html_e( 'Created', 'polldaddy' ); ?></span></th>
+						<th class="cs-dashboard__grid is-status"><?php esc_html_e( 'Status', 'polldaddy' ); ?></th>
+						<th class="cs-dashboard__grid is-responses-total"><?php esc_html_e( 'Responses', 'polldaddy' ); ?></th>
+						<th class="cs-dashboard__grid is-source"><span class="cs-dashboard__mq-desktop-only"><?php esc_html_e( 'Source', 'polldaddy' ); ?></span></th>
 						<th class="cs-dashboard__grid is-links"></th>
 					</tr>
 				</thead>
@@ -72,7 +72,7 @@
 						if ( 'poll' === $item->type ) {
 							$item->name = trim( wp_strip_all_tags( $item->name ) );
 							if ( 0 === strlen( $item->name ) ) {
-								$item->name = __( 'Unknown' );
+								$item->name = __( 'Unknown', 'polldaddy' );
 							}
 
 							$results_link = 'https://app.crowdsignal.com/polls/' . $item->_id . '/results';
@@ -197,7 +197,7 @@
 								<span class="cs-dashboard__mq-desktop-only"><?php echo esc_html( gmdate( 'M j', $item->_created ) ); ?></span>
 							</td>
 							<td class="cs-dashboard__grid is-status" data-open="<?php echo $item->_closed ? 0 : 1; ?>">
-							<?php echo ! $item->_closed ? esc_html__( 'Open' ) : esc_html__( 'Closed' ); ?>
+							<?php echo ! $item->_closed ? esc_html__( 'Open', 'polldaddy' ) : esc_html__( 'Closed', 'polldaddy' ); ?>
 							</td>
 							<td class="cs-dashboard__grid is-responses-total">
 							<strong><?php echo esc_html( number_format_i18n( $item->_responses ) ); ?></strong>
@@ -211,20 +211,20 @@
 							</td>
 							<td class="cs-dashboard__grid is-links">
 								<span class="cs-dashboard__mq-desktop-only">
-									<a target="_blank" rel="noopener" href="<?php echo esc_url( $results_link ); ?>"><?php esc_html_e( 'Results' ); ?></a>
+									<a target="_blank" rel="noopener" href="<?php echo esc_url( $results_link ); ?>"><?php esc_html_e( 'Results', 'polldaddy' ); ?></a>
 									<?php if ( $edit_link ) { ?>
-										<a target="<?php echo $item_post_id ? '' : '_blank'; ?>" rel="noopener" href="<?php echo esc_url( $edit_link ); ?>"><?php esc_html_e( 'Edit' ); ?></a>
+										<a target="<?php echo $item_post_id ? '' : '_blank'; ?>" rel="noopener" href="<?php echo esc_url( $edit_link ); ?>"><?php esc_html_e( 'Edit', 'polldaddy' ); ?></a>
 									<?php } ?>
 									<?php if ( $open_link || $close_link ) { ?>
-										<a target="_blank" rel="noopener" href="<?php echo $item->_closed ? esc_url( $open_link ) : esc_url( $close_link ); ?>"><?php $item->_closed ? esc_html_e( 'Open' ) : esc_html_e( 'Close' ); ?></a>
+										<a target="_blank" rel="noopener" href="<?php echo $item->_closed ? esc_url( $open_link ) : esc_url( $close_link ); ?>"><?php $item->_closed ? esc_html_e( 'Open', 'polldaddy' ) : esc_html_e( 'Close', 'polldaddy' ); ?></a>
 									<?php } ?>
 
 									<?php if ( $delete_link ) { ?>
-										<a target="_blank" rel="noopener" class="delete-poll delete" href="<?php esc_url( $delete_link ); ?>"><?php esc_html_e( 'Delete' ); ?></a>
+										<a target="_blank" rel="noopener" class="delete-poll delete" href="<?php esc_url( $delete_link ); ?>"><?php esc_html_e( 'Delete', 'polldaddy' ); ?></a>
 									<?php } ?>
 
 									<?php if ( $preview_link ) { ?>
-										<a class='thickbox' href="<?php echo esc_url( $preview_link ); ?>"><?php esc_html_e( 'Preview' ); ?></a>
+										<a class='thickbox' href="<?php echo esc_url( $preview_link ); ?>"><?php esc_html_e( 'Preview', 'polldaddy' ); ?></a>
 									<?php } ?>
 								</span>
 								<span
@@ -287,9 +287,9 @@ jQuery( document ).ready(function(){
 	const globalAccountId = '<?php echo esc_js( $global_user_id ); // phpcs:ignore -- variable comes from controller ?>';
 
 	plugin = new Plugin( {
-		<?php /* translators: name of the rating being deleted */ ?>
+		<?php /* translators: %s is the name of the rating being deleted */ ?>
 		delete_rating: '<?php echo esc_js( __( 'Are you sure you want to delete the rating for "%s"?', 'polldaddy' ) ); ?>',
-		<?php /* translators: name of the poll being deleted */ ?>
+		<?php /* translators: %s is the name of the poll being deleted */ ?>
 		delete_poll: '<?php echo esc_js( __( 'Are you sure you want to delete the poll %s?', 'polldaddy' ) ); ?>',
 		delete_answer: '<?php echo esc_js( __( 'Are you sure you want to delete this answer?', 'polldaddy' ) ); ?>',
 		delete_answer_title: '<?php echo esc_js( __( 'delete this answer', 'polldaddy' ) ); ?>',

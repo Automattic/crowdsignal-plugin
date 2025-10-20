@@ -25,7 +25,7 @@ module.exports = function( grunt ){
                     '!.*', '!**/*~', '!tmp/**', //hidden/tmp files
                     '!CONTRIBUTING.md',
                     '!readme.md',
-                    '!phpcs.ruleset.xml',
+                    '!phpcs.xml.dist',
                     '!tools/**',
                     '!screenshot-1.png',
                     '!screenshot-2.png',
@@ -37,30 +37,6 @@ module.exports = function( grunt ){
 
         // Watch changes for assets
         watch: {
-        },
-
-        // Generate POT files.
-        makepot: {
-            options: {
-                type: 'wp-plugin',
-                domainPath: '/locale',
-                potHeaders: {
-                    'report-msgid-bugs-to': 'https://github.com/Automattic/polldaddy-plugin/issues',
-                    'language-team': 'LANGUAGE <EMAIL@ADDRESS>'
-                }
-            },
-            dist: {
-                options: {
-                    potFilename: 'polldaddy.pot',
-                    exclude: [
-                        'apigen/.*',
-                        'tests/.*',
-                        'tmp/.*',
-                        'vendor/.*',
-                        'node_modules/.*'
-                    ]
-                }
-            }
         },
 
         // Check textdomain errors.
@@ -160,7 +136,7 @@ module.exports = function( grunt ){
     grunt.loadNpmTasks( 'grunt-checkbranch' );
     grunt.loadNpmTasks( 'grunt-wp-deploy' );
     grunt.loadNpmTasks( 'grunt-shell' );
-    grunt.loadNpmTasks( 'grunt-wp-i18n' );
+    grunt.loadNpmTasks( 'grunt-wp-i18n' ); // Needed for addtextdomain task.
     grunt.loadNpmTasks( 'grunt-wp-readme-to-markdown');
     grunt.loadNpmTasks( 'grunt-zip' );
 
@@ -169,7 +145,7 @@ module.exports = function( grunt ){
 
     grunt.registerTask( 'build', [ 'gitinfo', 'clean', 'copy' ] );
 
-    grunt.registerTask( 'deploy', [ 'checkbranch:master', 'build', 'wp_deploy' ] );
+    grunt.registerTask( 'deploy', [ 'checkbranch:main', 'build', 'wp_deploy' ] );
     grunt.registerTask( 'deploy-unsafe', [ 'build', 'wp_deploy' ] );
 
     grunt.registerTask( 'package', [ 'build', 'zip' ] );
@@ -179,8 +155,4 @@ module.exports = function( grunt ){
         'wp_readme_to_markdown'
     ] );
 
-    // Just an alias for pot file generation
-    grunt.registerTask( 'pot', [
-        'makepot'
-    ] );
 };

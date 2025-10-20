@@ -260,6 +260,7 @@ class WPORG_Polldaddy extends WP_Polldaddy {
 
 	<h2><?php _e( 'Crowdsignal Account', 'polldaddy' ); ?></h2>
 
+	<?php /* translators: %s is the URL to the Crowdsignal.com account details */ ?>
 	<p><?php printf( __( 'Before you can use the Crowdsignal plugin, you need to enter your <a href="%s">Crowdsignal.com</a> account details.', 'polldaddy' ), 'https://app.crowdsignal.com/' ); ?></p>
 
 	<form action="" method="post">
@@ -471,7 +472,6 @@ function polldaddy_loader() {
 	global $polldaddy_object;
 	$polldaddy_class  = WP_POLLDADDY__CLASS;
 	$polldaddy_object = new $polldaddy_class;
-	load_plugin_textdomain( 'polldaddy', '', 'polldaddy/locale' );
 	add_action( 'admin_menu', array( &$polldaddy_object, 'admin_menu' ) );
 }
 
@@ -608,11 +608,11 @@ EOD;
         		<p>
             		<label for="<?php echo esc_attr( $this->get_field_id( 'filter_by_category' ) ); ?>">
                     	<input type="checkbox" class="checkbox" id="<?php echo esc_attr( $this->get_field_id( 'filter_by_category' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'filter_by_category' ) ); ?>" value="1" <?php echo $filter_by_category == 1 ? 'checked="checked"':''; ?>/>
-                 		<?php _e('Filter by category'); ?>
+                 		<?php _e('Filter by category', 'polldaddy'); ?>
         			</label>
     			</p>
 				<p>
-					<label for="rss-items-<?php echo esc_attr( $number ); ?>"><?php _e( 'How many items would you like to display?', 'polldaddy' ); ?>
+					<label for="<?php echo esc_attr( $this->get_field_id( 'item_count' ) ); ?>"><?php _e( 'How many items would you like to display?', 'polldaddy' ); ?>
 							<select id="<?php echo esc_attr( $this->get_field_id( 'item_count' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'item_count' ) ); ?>">
 						<?php
 	for ( $i = 1; $i <= 20; ++$i )
@@ -652,7 +652,9 @@ function polldaddy_login_warning() {
 		return;
 	}
 
-	echo '<div class="updated"><p><strong>' . sprintf( __( 'Crowdsignal features will be unavailable until you link your Crowdsignal.com account. Please visit the <a href="%s">plugin settings page</a> to login.', 'polldaddy' ), admin_url( 'options-general.php?page=crowdsignal-settings' ) ) . '</strong></p></div>';
+	echo '<div class="updated"><p><strong>' . sprintf(
+		/* translators: %s is the URL to the plugin settings page */
+		__( 'Crowdsignal features will be unavailable until you link your Crowdsignal.com account. Please visit the <a href="%s">plugin settings page</a> to login.', 'polldaddy' ), admin_url( 'options-general.php?page=crowdsignal-settings' ) ) . '</strong></p></div>';
 }
 add_action( 'admin_notices', 'polldaddy_login_warning' );
 

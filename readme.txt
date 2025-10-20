@@ -3,8 +3,8 @@ Contributors: donncha, ice9js, cgastrell, digitalwaveride, jcheringer
 Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
 Requires at least: 5.5
 Requires PHP: 5.6
-Tested up to: 6.2
-Stable tag: 3.1.1
+Tested up to: 6.8
+Stable tag: 3.1.4
 
 == Description ==
 
@@ -25,7 +25,7 @@ Want to help translate the plugin or keep an existing translation up-to-date? He
 
 Some strings are not translated when polls and surveys are embedded. You will have to translate them using a language pack on [Crowdsignal.com](https://crowdsignal.com/).
 
-Development of the plugin will take place in [this Github repository](https://github.com/Automattic/crowdsignal-plugin).
+Development of the plugin takes place in [this GitHub repository](https://github.com/Automattic/crowdsignal-plugin). Contributions are welcome!
 
 === The Classic Editor ===
 If you are a long time user of this plugin and you still use the classic post editor, the best way to create polls is through your [Crowdsignal account](https://app.crowdsignal.com/dashboard/) where you have a number of different ways to share polls (and surveys). However, up to version 2.2.6, this plugin had an "Add Poll" button above the post editor that opened a very basic poll editor. That "Add Poll" button has since been removed but if you would still like to use it, open up the wp-admin dashboard on your WordPress site. Add "admin.php?page=polls&action=create-poll" to the end of the URL, after "wp-admin/" so it looks like https://example.com/wp-admin/admin.php?page=polls&action=create-poll and you will see the old poll editor. Bookmark that URL if you still want to use that poll editor. We do not recommend using version 2.2.6 of the plugin as you will miss out on many bug fixes and new features added since then.
@@ -95,46 +95,70 @@ Make sure to whitelist `api.crowdsignal.com` in your firewall to fix this.
 Bugfix and security release
 
 == Changelog ==
-= 3.1.1
+
+= 3.1.4 =
+* fix: Added nonce verification for 'create-block-poll' action by @GaryJones in #144
+* refactor: Remove unused AJAX action registration by @GaryJones in #142
+* Add Comprehensive CSRF Security Tests by @GaryJones in #143
+
+= 3.1.3 =
+* Fix: Make 'Results' and 'Edit' Links Always Visible on Polls Dashboard by @vk17-starlord in #108
+* fix: Update item count field ID in polldaddy-org.php by @GaryJones in #115
+* fix: CSRF vulnerability for CVE-2024-43338 by @oviul in #136
+* Add: poll.fm URL detection for shortcode by @ovidiul in #138
+* Modernise i18n configuration by @GaryJones in #131
+* fix: Add translation comments to enhance understanding for translators by @GaryJones in #128
+* refactor: Remove makepot task and update build script for i18n by @GaryJones in #130
+* fix: Add and fix text domain for translations by @GaryJones in #129
+* Update issue and pull request templates by @GaryJones in #126
+* fix: Update .wp-env.json to set core to null by @GaryJones in #114
+* Add development environment setup by @ovidiul in #113
+* Add WordPress Coding Standards (PHPCS) by @ovidiul in #132
+* Add PHPUnit Testing Framework by @ovidiul in #133
+
+= 3.1.2 =
+* Add referer check on deprecated multi-account user action.
+
+= 3.1.1 =
 * Fix deprecation warnings for dynamic property usage
 
-= 3.1.0
+= 3.1.0 =
 * Sanitize echoed variables
 * Add/check nonce when changing ratings settings
 
-= 3.0.11
+= 3.0.11 =
 * Bump tested version to 6.2 by @donnchawp in #94
 * Fix table layout by @CGastrell in #96
 
-= 3.0.10
+= 3.0.10 =
 * Fix the permissions required on the settings page. Authors couldn't use it, so avoid showing them a blank page.
 * Only allow admin users to load the rating settings page as it's a global setting that affects the entire site.
 * Remove the "Add Poll" button from the classic post editor as it was broken. Add section to readme.txt with a link to bookmark if the wp-admin editor is still needed.
 
-= 3.0.9
+= 3.0.9 =
 * Prevent warnings due to by-ref arguments
 * Improve renderer syntax 
 
-= 3.0.8
+= 3.0.8 =
 * Bug and security fixes
 * Improve code readability
 
-= 3.0.7
+= 3.0.7 =
 * Small fixes to setting page styles. (78)
 * Fix the title of the Dashboard page. (79)
 * Add icon and links for projects to the Dashboard. (80)
 
-= 3.0.6
+= 3.0.6 =
 * Fix CSS so it doesn't conflict with Jetpack. Fix disconnect form. (75)
 * Fix typo (76)
 
-= 3.0.5
+= 3.0.5 =
 * Revert 3.0.3 due to conflict with Jetpack
 
-= 3.0.3
+= 3.0.3 =
 * Move settings page and update style of the settings page to match the Crowdsignal Forms plugin
 
-= 3.0.1
+= 3.0.1 =
 * Allow landing page to be rendered on demand
 
 = 3.0.0 =

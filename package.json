@@ -1,14 +1,14 @@
 {
-  "name": "polldaddy",
-  "title": "Polldaddy Plugin",
-  "version": "2.2.6",
-  "homepage": "http://wordpress.org/plugins/polldaddy/",
-  "license": "GPL-2.0+",
-  "repository": "automattic/polldaddy-plugin",
+  "name": "crowdsignal-plugin",
+  "title": "Crowdsignal Plugin",
+  "version": "3.1.4",
+  "homepage": "https://wordpress.org/plugins/polldaddy/",
+  "license": "GPL-2.0-or-later",
+  "repository": "automattic/crowdsignal-plugin",
   "main": "Gruntfile.js",
   "scripts": {
     "build": "grunt build",
-    "build:i18n": "grunt pot",
+    "build:i18n": "wp i18n make-pot . languages/polldaddy.pot",
     "package": "grunt package",
     "deploy": "grunt deploy"
   },
