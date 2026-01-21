@@ -15,7 +15,11 @@
           "hostPath": ".",
           "vfsPath": "/wordpress/wp-content/plugins/crowdsignal-plugin"
         }
-      ]
+      ],
+      "env": {
+        "WP_DEBUG": "1",
+        "WP_DEBUG_DISPLAY": "1"
+      }
     }
   ],
   "tests": {
@@ -26,7 +30,7 @@
       "configPath": "phpunit.xml.dist",
       "bootstrapPath": "tests/bootstrap.php",
       "testMode": "integration",
-      "phpunitArgs": []
+      "phpunitArgs": ["--verbose", "--debug"]
     },
     "passWithNoTests": false
   }
