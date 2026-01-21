@@ -1,0 +1,18 @@
+{
+  "$schema": "https://raw.githubusercontent.com/bgrgicak/wp-tester/trunk/packages/config/src/schema.json",
+  "environments": [
+    {
+      "name": "PHP 8.3 + WP Latest",
+      "blueprint": {
+        "preferredVersions": {
+          "php": "8.3",
+          "wp": "latest"
+        }
+      }
+    }
+  ],
+  "tests": {
+    "plugin": ".",
+    "wp": true
+  }
+}

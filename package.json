@@ -10,7 +10,12 @@
     "build": "grunt build",
     "build:i18n": "wp i18n make-pot . languages/polldaddy.pot",
     "package": "grunt package",
-    "deploy": "grunt deploy"
+    "deploy": "grunt deploy",
+    "dev": "npx @wp-playground/cli@latest server --auto-mount --wp=latest --php=8.3 --login",
+    "dev:stop": "echo 'Stop the server with Ctrl+C'",
+    "test": "npx @wp-tester/cli@latest test",
+    "test:unit": "npx @wp-tester/cli@latest test --testsuite=unit",
+    "test:integration": "npx @wp-tester/cli@latest test --testsuite=integration"
   },
   "devDependencies": {
     "grunt": ">=1.6.1",
@@ -28,6 +33,6 @@
     "grunt-zip": "^0.20.0"
   },
   "engines": {
-    "node": ">=6.10.2"
+    "node": ">=20.18"
   }
 }

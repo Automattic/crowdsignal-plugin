@@ -6,34 +6,37 @@ Thank you for your interest in contributing to the Crowdsignal plugin! This docu
 
 ### Prerequisites
 
-- Docker and Docker Compose
-- Node.js and npm
-- PHP 7.4+ (recommended, minimum 5.6 for plugin compatibility)
+- Node.js 20.18+ (LTS recommended)
 - Composer
 
 ### Development Environment Setup
 
-1. **Start the development environment:**
-
-   ```bash
-   wp-env start
-   ```
-
-2. **Access the local WordPress site:**
-
-   - WordPress front end: <http://localhost:8888>
-   - WordPress admin: <http://localhost:8888/wp-admin>
-   - Username: `admin`
-   - Password: `password`
-
-3. **Install dependencies:**
+1. **Install dependencies:**
 
    ```bash
    npm install
    composer install
    ```
 
-4. **Build assets:**
+2. **Start the development environment:**
+
+   ```bash
+   npm run dev
+   ```
+
+   This starts WordPress Playground CLI with:
+   - Latest WordPress
+   - PHP 8.3
+   - Plugin auto-mounted from current directory
+   - Auto-login as administrator
+
+3. **Access the local WordPress site:**
+
+   - WordPress front end: <http://localhost:9400>
+   - WordPress admin: <http://localhost:9400/wp-admin>
+   - Already logged in as administrator
+
+4. **Build assets (if needed):**
 
    ```bash
    npm run build
@@ -41,18 +44,12 @@ Thank you for your interest in contributing to the Crowdsignal plugin! This docu
 
 ## Environment Details
 
-The development environment uses `@wordpress/env` which provides:
+The development environment uses `@wp-playground/cli` which provides:
 
-- **Latest WordPress** on **Latest PHP**
-- **MySQL/MariaDB** database
+- **Latest WordPress** on **PHP 8.3**
+- **SQLite** database (persisted in `wp-content/database/.ht.sqlite` when using `--auto-mount`)
 - **Automatic plugin mounting** - the current directory is mounted as a plugin
-- **Debug settings enabled** for development
-
-Configuration is stored in `.wp-env.json`:
-
-- Debug logging enabled
-- Script debugging enabled
-- Development ports: 8888 (main), 8889 (tests)
+- **No Docker required** - runs entirely in Node.js
 
 ## Development Workflow
 
@@ -85,27 +82,26 @@ The project follows WordPress Coding Standards. Before submitting any code:
 
 We maintain both unit and integration tests. Always run tests before submitting changes:
 
-1. **Start environment with Xdebug for coverage:**
+**Unit tests** (no WordPress required):
 
-   ```bash
-   wp-env start --xdebug=coverage
-   ```
+```bash
+composer test:unit
+```
 
-2. **Run all tests:**
+**Integration tests** (require WordPress + SQLite):
 
-   ```bash
-   wp-env run tests-cli --env-cwd=wp-content/plugins/crowdsignal-plugin composer test
-   ```
+Tests run using `@wp-tester/cli` which executes PHPUnit in WordPress Playground:
 
-3. **Run specific test suites:**
+```bash
+# Run all tests
+npm test
 
-   ```bash
-   # Unit tests only
-   composer test:unit
-   
-   # Integration tests only
-   composer test:integration
-   ```
+# Run specific test suites
+npm run test:unit
+npm run test:integration
+```
+
+**Note:** Integration tests use SQLite instead of MySQL. The test suite is compatible with SQLite. Configuration is in `wp-tester.json`.
 
 ## Contributing Guidelines
 
@@ -199,8 +195,4 @@ This project is licensed under GPL-2.0-or-later. By contributing, you agree that
 
 ## Stopping the Environment
 
-```bash
-wp-env stop
-```
-
-This will stop the WordPress development environment.
+Press `Ctrl+C` in the terminal where `npm run dev` is running to stop the Playground server.
