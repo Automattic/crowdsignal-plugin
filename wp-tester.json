@@ -1,5 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/bgrgicak/wp-tester/trunk/packages/config/src/schema.json",
+  "projectType": "plugin",
   "environments": [
     {
       "name": "PHP 8.3 + WP Latest",
@@ -8,11 +9,25 @@
           "php": "8.3",
           "wp": "latest"
         }
-      }
+      },
+      "mounts": [
+        {
+          "hostPath": ".",
+          "vfsPath": "/wordpress/wp-content/plugins/crowdsignal-plugin"
+        }
+      ]
     }
   ],
   "tests": {
-    "plugin": ".",
-    "wp": true
+    "plugin": "crowdsignal-plugin",
+    "wp": true,
+    "phpunit": {
+      "phpunitPath": "vendor/bin/phpunit",
+      "configPath": "phpunit.xml.dist",
+      "bootstrapPath": "tests/bootstrap.php",
+      "testMode": "integration",
+      "phpunitArgs": []
+    },
+    "passWithNoTests": false
   }
 }
