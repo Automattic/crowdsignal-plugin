@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 
 /**
  * Base test case class with common functionality
- * 
+ *
  * Works with both wp-tester integration mode (no test library) and traditional wp-env mode (with test library)
  */
 class TestCase extends PHPUnitTestCase {
@@ -30,28 +30,24 @@ class TestCase extends PHPUnitTestCase {
 	 */
 	protected function setUp(): void {
 		parent::setUp();
-		
-		// Verify WPDieException exists
-		if ( ! class_exists( '\WPDieException' ) && ! class_exists( 'WPDieException' ) ) {
-			$error = "WPDieException class not found in setUp!";
-			if ( defined( 'STDERR' ) ) {
-				fwrite( STDERR, "ERROR: {$error}\n" );
-			}
-			throw new \RuntimeException( $error );
+
+		// Set up admin context
+		if ( ! defined( 'WP_ADMIN' ) ) {
+			define( 'WP_ADMIN', true );
 		}
-		
+		set_current_screen( 'admin' );
+
 		// Try to get factory from WordPress test library if available
 		if ( class_exists( '\WP_UnitTest_Factory' ) && isset( $GLOBALS['wp_test_factory'] ) ) {
 			$this->factory = $GLOBALS['wp_test_factory'];
 		}
-		
+
 		// Override wp_die to throw exceptions instead of dying (needed for wp-tester integration mode)
-		// WPDieException is defined in bootstrap.php
 		if ( ! has_filter( 'wp_die_handler', array( $this, 'wp_die_handler' ) ) ) {
 			add_filter( 'wp_die_handler', array( $this, 'wp_die_handler' ) );
 		}
 	}
-	
+
 	/**
 	 * wp_die handler that throws exceptions instead of dying
 	 *
@@ -69,25 +65,9 @@ class TestCase extends PHPUnitTestCase {
 			$message = (string) $message;
 			$message = wp_strip_all_tags( $message );
 			$message = trim( $message );
-			
-			// Output to stderr for visibility
-			if ( defined( 'STDERR' ) ) {
-				fwrite( STDERR, "wp_die called with message: {$message}\n" );
-			}
-			error_log( "wp_die called with message: {$message}" );
-			
-			// Verify WPDieException exists
-			if ( ! class_exists( '\WPDieException' ) && ! class_exists( 'WPDieException' ) ) {
-				$error = "WPDieException class not found!";
-				if ( defined( 'STDERR' ) ) {
-					fwrite( STDERR, "ERROR: {$error}\n" );
-				}
-				throw new \RuntimeException( $error );
-			}
-			
-			// Throw WPDieException (defined in bootstrap.php in global namespace)
-			$exception_class = class_exists( '\WPDieException' ) ? '\WPDieException' : 'WPDieException';
-			throw new $exception_class( $message );
+
+			// Throw WPDieException (defined in bootstrap.php)
+			throw new \WPDieException( $message );
 		};
 	}
 
@@ -95,9 +75,7 @@ class TestCase extends PHPUnitTestCase {
 	 * Tear down test case
 	 */
 	protected function tearDown(): void {
-		// Remove wp_die handler
 		remove_filter( 'wp_die_handler', array( $this, 'wp_die_handler' ) );
-		
 		parent::tearDown();
 	}
 
@@ -115,7 +93,7 @@ class TestCase extends PHPUnitTestCase {
 			// wp-tester integration mode: create user directly
 			$user_id = wp_insert_user( array(
 				'user_login' => 'testuser_' . time() . '_' . wp_rand( 1000, 9999 ),
-				'user_email' => 'test' . time() . '@example.com',
+				'user_email' => 'test' . uniqid() . '@example.com',
 				'user_pass'  => wp_generate_password(),
 			) );
 			
