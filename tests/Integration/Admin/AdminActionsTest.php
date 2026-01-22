@@ -33,7 +33,7 @@ class AdminActionsTest extends TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		// This should fail due to missing nonce
-		$this->expectException( 'WPDieException' );
+		$this->expectException( \WPDieException::class );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		// Simulate the nonce check that happens in api_key_page_load
@@ -85,7 +85,7 @@ class AdminActionsTest extends TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		// This should fail due to invalid nonce
-		$this->expectException( 'WPDieException' );
+		$this->expectException( \WPDieException::class );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		// Simulate the nonce check that happens in api_key_page_load
@@ -133,7 +133,7 @@ class AdminActionsTest extends TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		// This should fail due to invalid nonce
-		$this->expectException( 'WPDieException' );
+		$this->expectException( \WPDieException::class );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		// Simulate the nonce check that happens in disconnect action
@@ -158,7 +158,7 @@ class AdminActionsTest extends TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		// This should fail due to missing nonce
-		$this->expectException( 'WPDieException' );
+		$this->expectException( \WPDieException::class );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		// Simulate the nonce check that happens in disconnect action
@@ -208,7 +208,7 @@ class AdminActionsTest extends TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		// This should fail due to invalid nonce
-		$this->expectException( 'WPDieException' );
+		$this->expectException( \WPDieException::class );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		// Simulate the nonce check that happens in poll delete action
@@ -234,7 +234,7 @@ class AdminActionsTest extends TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		// This should fail due to missing nonce
-		$this->expectException( 'WPDieException' );
+		$this->expectException( \WPDieException::class );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		// Simulate the nonce check that happens in poll delete action
@@ -260,7 +260,7 @@ class AdminActionsTest extends TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		// This should fail due to missing nonce
-		$this->expectException( 'WPDieException' );
+		$this->expectException( \WPDieException::class );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		// Simulate the nonce check that happens in single poll delete action
@@ -286,7 +286,7 @@ class AdminActionsTest extends TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		// This should fail due to missing nonce
-		$this->expectException( 'WPDieException' );
+		$this->expectException( \WPDieException::class );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		// Simulate the nonce check that happens in poll open action
@@ -312,7 +312,7 @@ class AdminActionsTest extends TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		// This should fail due to missing nonce
-		$this->expectException( 'WPDieException' );
+		$this->expectException( \WPDieException::class );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		// Simulate the nonce check that happens in poll close action
@@ -338,7 +338,7 @@ class AdminActionsTest extends TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		// This should fail due to missing nonce
-		$this->expectException( 'WPDieException' );
+		$this->expectException( \WPDieException::class );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		// Simulate the nonce check that happens in poll edit action
@@ -364,7 +364,7 @@ class AdminActionsTest extends TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		// This should fail due to invalid nonce
-		$this->expectException( 'WPDieException' );
+		$this->expectException( \WPDieException::class );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		// Simulate the nonce check that happens in poll create action
@@ -389,7 +389,7 @@ class AdminActionsTest extends TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		// This should fail due to missing nonce
-		$this->expectException( 'WPDieException' );
+		$this->expectException( \WPDieException::class );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		// Simulate the nonce check that happens in poll create action
@@ -416,7 +416,7 @@ class AdminActionsTest extends TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		// This should fail due to invalid nonce
-		$this->expectException( 'WPDieException' );
+		$this->expectException( \WPDieException::class );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		// Simulate the nonce check that happens in style delete action
@@ -442,7 +442,7 @@ class AdminActionsTest extends TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		// This should fail due to missing nonce
-		$this->expectException( 'WPDieException' );
+		$this->expectException( \WPDieException::class );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		// Simulate the nonce check that happens in style delete action
@@ -468,7 +468,7 @@ class AdminActionsTest extends TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		// This should fail due to missing nonce
-		$this->expectException( 'WPDieException' );
+		$this->expectException( \WPDieException::class );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		// Simulate the nonce check that happens in style edit action
@@ -493,7 +493,7 @@ class AdminActionsTest extends TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		// This should fail due to missing nonce
-		$this->expectException( 'WPDieException' );
+		$this->expectException( \WPDieException::class );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		// Simulate the nonce check that happens in style create action
@@ -519,7 +519,7 @@ class AdminActionsTest extends TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		// This should fail due to missing nonce
-		$this->expectException( 'WPDieException' );
+		$this->expectException( \WPDieException::class );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		// Simulate the nonce check that happens in rating delete action
@@ -545,7 +545,7 @@ class AdminActionsTest extends TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		// This should fail due to missing nonce
-		$this->expectException( 'WPDieException' );
+		$this->expectException( \WPDieException::class );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		// Simulate the nonce check that happens in rating settings action
@@ -571,7 +571,7 @@ class AdminActionsTest extends TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		// This should fail due to missing nonce
-		$this->expectException( 'WPDieException' );
+		$this->expectException( \WPDieException::class );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		// Simulate the nonce check that happens in rating update action
@@ -596,7 +596,7 @@ class AdminActionsTest extends TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		// This should fail due to missing nonce
-		$this->expectException( 'WPDieException' );
+		$this->expectException( \WPDieException::class );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		// Simulate the nonce check that happens in account reset action
@@ -621,7 +621,7 @@ class AdminActionsTest extends TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		// This should fail due to missing nonce
-		$this->expectException( 'WPDieException' );
+		$this->expectException( \WPDieException::class );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		// Simulate the nonce check that happens in account restore action
@@ -646,7 +646,7 @@ class AdminActionsTest extends TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		// This should fail due to missing nonce
-		$this->expectException( 'WPDieException' );
+		$this->expectException( \WPDieException::class );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		// Simulate the nonce check that happens in multi-account action
@@ -672,7 +672,7 @@ class AdminActionsTest extends TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		// This should fail due to insufficient capability
-		$this->expectException( 'WPDieException' );
+		$this->expectException( \WPDieException::class );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		// Simulate the nonce check that happens in disconnect action
@@ -697,7 +697,7 @@ class AdminActionsTest extends TestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 
 		// This should fail for unauthenticated user
-		$this->expectException( 'WPDieException' );
+		$this->expectException( \WPDieException::class );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		// Simulate the nonce check that happens in account action

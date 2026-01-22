@@ -30,7 +30,7 @@
       "configPath": "phpunit.xml.dist",
       "bootstrapPath": "tests/bootstrap.php",
       "testMode": "integration",
-      "phpunitArgs": ["--verbose", "--debug"]
+      "phpunitArgs": ["--verbose"]
     },
     "passWithNoTests": false
   }
