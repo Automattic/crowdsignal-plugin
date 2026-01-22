@@ -48,7 +48,7 @@ class MediaActionsTest extends TestCase {
 		);
 
 		// This should trigger wp_die due to failed nonce check
-		$this->expectException( \WPDieException::class );
+		$this->expectException( 'WPDieException' );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		do_action( 'wp_ajax_polls_upload_image' );
@@ -76,7 +76,7 @@ class MediaActionsTest extends TestCase {
 		);
 
 		// This should trigger wp_die due to failed nonce check
-		$this->expectException( \WPDieException::class );
+		$this->expectException( 'WPDieException' );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		do_action( 'wp_ajax_polls_upload_image' );
@@ -104,7 +104,7 @@ class MediaActionsTest extends TestCase {
 		);
 
 		// This should trigger wp_die due to insufficient capability
-		$this->expectException( \WPDieException::class );
+		$this->expectException( 'WPDieException' );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		do_action( 'wp_ajax_polls_upload_image' );
@@ -130,7 +130,7 @@ class MediaActionsTest extends TestCase {
 		);
 
 		// This should trigger wp_die due to failed nonce check
-		$this->expectException( \WPDieException::class );
+		$this->expectException( 'WPDieException' );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		do_action( 'wp_ajax_polls_add_answer' );
@@ -157,7 +157,7 @@ class MediaActionsTest extends TestCase {
 		);
 
 		// This should trigger wp_die due to failed nonce check
-		$this->expectException( \WPDieException::class );
+		$this->expectException( 'WPDieException' );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		do_action( 'wp_ajax_polls_add_answer' );
@@ -184,7 +184,7 @@ class MediaActionsTest extends TestCase {
 		);
 
 		// This should trigger wp_die due to insufficient capability
-		$this->expectException( \WPDieException::class );
+		$this->expectException( 'WPDieException' );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		do_action( 'wp_ajax_polls_add_answer' );
@@ -252,7 +252,7 @@ class MediaActionsTest extends TestCase {
 		);
 
 		// This should fail for unauthenticated user
-		$this->expectException( \WPDieException::class );
+		$this->expectException( 'WPDieException' );
 		$this->expectExceptionMessage( 'The link you followed has expired.' );
 		
 		do_action( 'wp_ajax_polls_add_answer' );
