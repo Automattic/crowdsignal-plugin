@@ -2356,8 +2356,6 @@ class WP_Polldaddy {
 		if ( $start = stripos( $style->css, '<data>' ) )
 			$style->css = substr( $style->css, $start );
 
-		$style->css = addslashes( $style->css );
-
 		$preload_style_id = 0;
 		$preload_style = null;
 
@@ -2378,12 +2376,12 @@ class WP_Polldaddy {
 			if ( $start = stripos( $preload_style->css, '<data>' ) )
 				$preload_style->css = substr( $preload_style->css, $start );
 
-			$style->css = addslashes( $preload_style->css );
+			$style->css = $preload_style->css;
 		}
 
 		$this->print_errors();
 
-		echo '<script language="javascript">var CSSXMLString = "' . $style->css .'";</script>';
+		echo '<script language="javascript">var CSSXMLString = ' . wp_json_encode( $style->css ) . ';</script>';
 ?>
 
 	<form action="" method="post">
