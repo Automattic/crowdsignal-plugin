@@ -1,13 +1,15 @@
 <?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 /**
- * Plugin Name: Crowdsignal Polls & Ratings
+ * Plugin Name: Crowdsignal Dashboard - Polls, Surveys & more
  * Plugin URI: https://wordpress.org/plugins/polldaddy/
  * Description: Create and manage Crowdsignal polls and ratings in WordPress
  * Author: Automattic, Inc.
  * Author URL: https://crowdsignal.com/
- * Version: 3.1.4
+ * Version: 3.1.5
  * Text Domain: polldaddy
  * Domain Path: /languages
+ * License:     GPL-2.0+
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.txt
  */
 
 // To hardcode your Polldaddy PartnerGUID (API Key), add the (uncommented) line below with the PartnerGUID to your `wp-config.php`
@@ -3642,8 +3644,8 @@ class WP_Polldaddy {
 		if ( $current_setting && isset( $previous_settings[ 'pd-rating-posts-id' ] ) && $current_setting != $previous_settings[ 'pd-rating-posts-id' ] ) {
 			echo "<p>" . sprintf(
 				/* translators: %s is the URL to Crowdsignal settings page */
-				__( "Previous settings for ratings on this site discovered. You can restore them on the <a href='%s'>poll settings page</a> if your site is missing ratings after resetting your connection settings.", 'polldaddy' ), 
-				"options-general.php?page=crowdsignal-settings" 
+				__( "Previous settings for ratings on this site discovered. You can restore them on the <a href='%s'>poll settings page</a> if your site is missing ratings after resetting your connection settings.", 'polldaddy' ),
+				"options-general.php?page=crowdsignal-settings"
 			) . "</p>";
 		}
 		?>
