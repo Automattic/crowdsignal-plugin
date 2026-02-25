@@ -1,10 +1,15 @@
 === Crowdsignal Dashboard - Polls, Surveys & more ===
 Contributors: donncha, ice9js, cgastrell, digitalwaveride, jcheringer
-Tags: crowdsignal, polls, poll, polldaddy, wppolls, vote, polling, surveys, rate, rating, ratings
+Tags: polls, vote, polling, surveys, rating
 Requires at least: 5.5
 Requires PHP: 5.6
-Tested up to: 6.8
-Stable tag: 3.1.4
+Tested up to: 6.9
+Stable tag: 3.1.5
+License: GPL-2.0+
+License URI: https://www.gnu.org/licenses/gpl-2.0.txt
+
+== Short Description ==
+Manage your Crowdsignal polls, surveys, quizzes, and ratings directly from the WordPress dashboard.
 
 == Description ==
 
@@ -66,7 +71,7 @@ Nope. The permissions are the same as for posts. So Editors and Administrators c
 
 = Where are my ratings? =
 
-Check that footer.php in your theme calls the wp_footer action. The rating javascript is loaded on this action. 
+Check that footer.php in your theme calls the wp_footer action. The rating javascript is loaded on this action.
 
 More info [here](http://codex.wordpress.org/Theme_Development#Plugin_API_Hooks)
 
@@ -95,6 +100,10 @@ Make sure to whitelist `api.crowdsignal.com` in your firewall to fix this.
 Bugfix and security release
 
 == Changelog ==
+
+= 3.1.5 =
+* fix: Improve output escaping in style editor #147
+* Remove redundant hook with undefined function register_polldaddy_styles #125
 
 = 3.1.4 =
 * fix: Added nonce verification for 'create-block-poll' action by @GaryJones in #144
@@ -137,7 +146,7 @@ Bugfix and security release
 
 = 3.0.9 =
 * Prevent warnings due to by-ref arguments
-* Improve renderer syntax 
+* Improve renderer syntax
 
 = 3.0.8 =
 * Bug and security fixes
@@ -295,8 +304,6 @@ Bugfix and security release
 * Updated settings page: text, layout, Import -> Link.
 * On MU sites use blog_public blog option.
 * Removed deprecated warnings, props @Till
-* 
-
 
 = 2.0.19 =
 * Added filter by category to Top Rated Widget
@@ -337,11 +344,11 @@ Bugfix and security release
 = 2.0.12 =
 * Fix for CSS bug on admin pages with WordPress 3.3
 * Add range of new languages to further localize the plugin
-* Updated the shortcodes to be better sanitized to prevent possibility of XSS 
+* Updated the shortcodes to be better sanitized to prevent possibility of XSS
 
 = 2.0.11 =
 * Fix for CSS bug on admin pages with WordPress 3.3
-* Update Translation files from GlotPress to use 
+* Update Translation files from GlotPress to use
 
 = 2.0.10 =
 * Added option to custom style editor to set direction of text.
@@ -396,7 +403,7 @@ Bugfix and security release
 * Added poll comments option
 * Fixed layout issues when viewing plugin in iframe/popup
 * Fixed bug in multiple choices dropdown
-* Fixed bug in updating style when updating all polls using that style 
+* Fixed bug in updating style when updating all polls using that style
 
 = 1.8.10 =
 * Updated shortcodes to use latest Polldaddy code
@@ -501,7 +508,7 @@ Bugfix and security release
 
 = 1.4 =
 * Added new poll styles selector
- 
+
 = 1.3 =
 * Added Close/Open poll to poll actions
 * Added Custom Styles link to Edit poll, under Design. This link will be only present when the user has custom styles created on the Polldaddy.com site.
