@@ -1,13 +1,15 @@
 <?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 /**
- * Plugin Name: Crowdsignal Polls & Ratings
+ * Plugin Name: Crowdsignal Dashboard - Polls, Surveys & more
  * Plugin URI: https://wordpress.org/plugins/polldaddy/
  * Description: Create and manage Crowdsignal polls and ratings in WordPress
  * Author: Automattic, Inc.
  * Author URL: https://crowdsignal.com/
- * Version: 3.1.4
+ * Version: 3.1.5
  * Text Domain: polldaddy
  * Domain Path: /languages
+ * License:     GPL-2.0+
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.txt
  */
 
 // To hardcode your Polldaddy PartnerGUID (API Key), add the (uncommented) line below with the PartnerGUID to your `wp-config.php`
@@ -174,7 +176,6 @@ class WP_Polldaddy {
 			wp_safe_redirect( admin_url( 'options-general.php?page=crowdsignal-settings' ) );
 			die();
 		}
-		add_action( 'wp_enqueue_scripts', array( &$this, 'register_polldaddy_styles' ) );
 		add_action( 'admin_enqueue_scripts', array( &$this, 'menu_alter' ) );
 
 		if ( !defined( 'WP_POLLDADDY__PARTNERGUID' ) ) {
@@ -2357,8 +2358,6 @@ class WP_Polldaddy {
 		if ( $start = stripos( $style->css, '<data>' ) )
 			$style->css = substr( $style->css, $start );
 
-		$style->css = addslashes( $style->css );
-
 		$preload_style_id = 0;
 		$preload_style = null;
 
@@ -2379,12 +2378,12 @@ class WP_Polldaddy {
 			if ( $start = stripos( $preload_style->css, '<data>' ) )
 				$preload_style->css = substr( $preload_style->css, $start );
 
-			$style->css = addslashes( $preload_style->css );
+			$style->css = $preload_style->css;
 		}
 
 		$this->print_errors();
 
-		echo '<script language="javascript">var CSSXMLString = "' . $style->css .'";</script>';
+		echo '<script language="javascript">var CSSXMLString = ' . wp_json_encode( $style->css ) . ';</script>';
 ?>
 
 	<form action="" method="post">
@@ -3645,8 +3644,8 @@ class WP_Polldaddy {
 		if ( $current_setting && isset( $previous_settings[ 'pd-rating-posts-id' ] ) && $current_setting != $previous_settings[ 'pd-rating-posts-id' ] ) {
 			echo "<p>" . sprintf(
 				/* translators: %s is the URL to Crowdsignal settings page */
-				__( "Previous settings for ratings on this site discovered. You can restore them on the <a href='%s'>poll settings page</a> if your site is missing ratings after resetting your connection settings.", 'polldaddy' ), 
-				"options-general.php?page=crowdsignal-settings" 
+				__( "Previous settings for ratings on this site discovered. You can restore them on the <a href='%s'>poll settings page</a> if your site is missing ratings after resetting your connection settings.", 'polldaddy' ),
+				"options-general.php?page=crowdsignal-settings"
 			) . "</p>";
 		}
 		?>
