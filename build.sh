@@ -76,6 +76,12 @@ deploy() {
 		exit 1
 	fi
 
+	local svn_url="https://plugins.svn.wordpress.org/${PLUGIN_SLUG}"
+	if svn info "$svn_url/tags/$version" &>/dev/null; then
+		echo "Error: SVN tag $version already exists at $svn_url/tags/$version" >&2
+		exit 1
+	fi
+
 	echo "Deploying version $version (from readme.txt)..."
 
 	# push develop so the remote is up to date
@@ -108,8 +114,6 @@ deploy() {
 	git pull origin main
 
 	build
-
-	local svn_url="https://plugins.svn.wordpress.org/${PLUGIN_SLUG}"
 
 	echo "Deploying $PLUGIN_SLUG $version to WordPress.org SVN..."
 	rm -rf "$SVN_DIR"
