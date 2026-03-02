@@ -41,19 +41,16 @@ env-destroy: ## Destroy local WordPress environment
 
 ## Build & Deploy
 clean: ## Remove tmp/ directory
-	./build.sh clean
+	./build.sh $@
 
 build: ## Clean and copy plugin files to tmp/build/
-	./build.sh build
+	./build.sh $@
 
 package: ## Build and create zip archive
-	./build.sh package
+	./build.sh $@
 
 deploy: ## Full release: merge develop → main, deploy to WordPress.org SVN
-	./build.sh deploy
-
-deploy-unsafe: ## Build without branch/tag/SVN checks (local testing only)
-	./build.sh deploy-unsafe
+	./build.sh $@
 
 ## Help
 help: ## Show this help
@@ -61,4 +58,4 @@ help: ## Show this help
 		| awk -F ':.*## ' '{ printf "  \033[36m%-18s\033[0m %s\n", $$1, $$2 }'
 
 .PHONY: help install setup lint lint-fix test test-unit test-integration \
-	i18n up down env-destroy clean build package deploy deploy-unsafe
+	i18n up down env-destroy clean build package deploy

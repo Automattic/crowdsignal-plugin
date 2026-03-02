@@ -132,12 +132,6 @@ deploy() {
 	echo "Done."
 }
 
-deploy_unsafe() {
-	build
-	echo "Build complete in $BUILD_DIR/ — skipped branch/tag/clean checks."
-	echo "Manual SVN deploy from $BUILD_DIR/ is required."
-}
-
 usage() {
 	cat <<-EOF
 	Usage: $0 <command>
@@ -147,7 +141,6 @@ usage() {
 	  build              Clean and copy plugin files to $BUILD_DIR/
 	  package            Build and zip to tmp/${PLUGIN_SLUG}.zip
 	  deploy             Merge develop into main, push, and deploy to WordPress.org SVN
-	  deploy-unsafe      Build without branch/tag checks
 	EOF
 }
 
@@ -158,6 +151,5 @@ case "${1:-}" in
 	build)          build ;;
 	package)        package ;;
 	deploy)         deploy ;;
-	deploy-unsafe)  deploy_unsafe ;;
 	*)              usage ;;
 esac

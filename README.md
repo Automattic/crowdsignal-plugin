@@ -63,12 +63,6 @@ The `deploy` command automates the full release workflow (requires [GitHub CLI](
 5. Builds and deploys to WordPress.org SVN.
 6. Returns to `develop` and cleans up.
 
-To build without deploy (for local testing only):
-
-```bash
-make deploy-unsafe    # Build without branch/tag/SVN checks
-```
-
 ## Branching
 
 - **`develop`** — default branch for day-to-day work and PR target.
