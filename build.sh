@@ -17,7 +17,6 @@ copy_to_build() {
 	rsync -a --delete \
 		--exclude='*.log' \
 		--exclude='node_modules' \
-		--exclude='Gruntfile.js' \
 		--exclude='package.json' \
 		--exclude='package-lock.json' \
 		--exclude='.git' \
