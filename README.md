@@ -5,43 +5,51 @@ Legacy WordPress plugin for creating and managing Crowdsignal polls and ratings.
 ## Development
 
 ```bash
-npm install
-composer install
+make install          # npm install && composer install
+make setup            # install + start wp-env
 ```
 
 ### Linting
 
 ```bash
-composer phpcs        # WordPress Coding Standards check
-composer phpcbf       # Auto-fix
+make lint             # WordPress Coding Standards check
+make lint-fix         # Auto-fix
 ```
 
 ### Testing
 
 ```bash
-wp-env start                    # Local WordPress at localhost:8888 (admin/password)
-composer test                   # Unit + integration tests
-composer test:unit              # Unit tests only (no WordPress bootstrap)
-composer test:integration       # Integration tests (requires wp-env)
+make up                                 # Local WordPress at localhost:8888 (admin/password)
+make test                               # Unit + integration tests
+make test-unit                          # Unit tests only (no WordPress bootstrap)
+make test-integration                   # Integration tests (requires wp-env)
 
 # Single test
 ./vendor/bin/phpunit --filter testMethodName --testsuite=unit
 ```
+
+### i18n
+
+```bash
+make i18n             # Generate languages/polldaddy.pot
+```
+
+Run `make help` to see all available targets.
 
 ## Building and Releasing
 
 All build tasks use `build.sh` (no Grunt dependency required):
 
 ```bash
-./build.sh clean              # Remove tmp/ directory
-./build.sh build              # Clean and copy plugin files to tmp/build/
-./build.sh package            # Build and zip to tmp/polldaddy.zip
+make clean            # Remove tmp/ directory
+make build            # Clean and copy plugin files to tmp/build/
+make package          # Build and zip to tmp/polldaddy.zip
 ```
 
 ### Deploying to WordPress.org
 
 ```bash
-./build.sh deploy
+make deploy
 ```
 
 The version is read from the `Stable tag` field in `readme.txt`. A GitHub Action automatically creates the git tag when the version is bumped.
@@ -58,7 +66,7 @@ The `deploy` command automates the full release workflow (requires [GitHub CLI](
 To build without deploy (for local testing only):
 
 ```bash
-./build.sh deploy-unsafe      # Build without branch/tag/SVN checks
+make deploy-unsafe    # Build without branch/tag/SVN checks
 ```
 
 ## Branching

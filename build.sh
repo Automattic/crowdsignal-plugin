@@ -41,6 +41,7 @@ copy_to_build() {
 		--exclude='screenshot-2.png' \
 		--exclude='banner-1544x500.png' \
 		--exclude='build.sh' \
+		--exclude='Makefile' \
 		./ "$BUILD_DIR/"
 	echo "Copied files to $BUILD_DIR/"
 }
