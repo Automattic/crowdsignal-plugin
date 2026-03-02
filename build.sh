@@ -52,7 +52,7 @@ build() {
 
 package() {
 	build
-	(cd "$BUILD_DIR" && zip -r "../${PLUGIN_SLUG}.zip" .)
+	(cd "$BUILD_DIR" && zip -X -r "../${PLUGIN_SLUG}.zip" .)
 	echo "Packaged to tmp/${PLUGIN_SLUG}.zip"
 }
 
