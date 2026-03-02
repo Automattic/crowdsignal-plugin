@@ -57,6 +57,11 @@ package() {
 }
 
 deploy() {
+	if ! git diff --quiet || ! git diff --cached --quiet; then
+		echo "Error: working tree has uncommitted changes. Commit or stash before deploy." >&2
+		exit 1
+	fi
+
 	local version
 	version=$(grep -m1 '^Stable tag:' readme.txt | awk '{print $NF}')
 	if [[ -z "$version" ]]; then
