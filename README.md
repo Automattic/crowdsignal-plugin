@@ -53,7 +53,7 @@ The `deploy` command automates the full release workflow (requires [GitHub CLI](
 3. Creates a PR from `develop` → `main` and merges it via `gh`.
 4. Checks out `main` and pulls.
 5. Builds and deploys to WordPress.org SVN.
-6. Returns to `develop` and merges `main` back.
+6. Returns to `develop` and cleans up.
 
 To build without deploy (for local testing only):
 
