@@ -5,29 +5,16 @@
   "homepage": "https://wordpress.org/plugins/polldaddy/",
   "license": "GPL-2.0-or-later",
   "repository": "automattic/crowdsignal-plugin",
-  "main": "Gruntfile.js",
   "scripts": {
-    "build": "grunt build",
+    "build": "./build.sh build",
     "build:i18n": "wp i18n make-pot . languages/polldaddy.pot",
-    "package": "grunt package",
-    "deploy": "grunt deploy"
+    "package": "./build.sh package",
+    "deploy": "./build.sh deploy"
   },
   "devDependencies": {
-    "grunt": ">=1.6.1",
-    "grunt-checkbranch": "^1.0.4",
-    "grunt-checktextdomain": "~1.0.1",
-    "grunt-contrib-clean": "^2.0.1",
-    "grunt-contrib-concat": "2.1.0",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-watch": "~1.1.0",
-    "grunt-gitinfo": "^0.1.9",
-    "grunt-shell": "^4.0.0",
-    "grunt-wp-deploy": "^2.1.2",
-    "grunt-wp-i18n": "~1.0.3",
-    "grunt-wp-readme-to-markdown": "^2.1.0",
-    "grunt-zip": "^0.20.0"
+    "@wordpress/env": "^10.0.0"
   },
   "engines": {
-    "node": ">=6.10.2"
+    "node": ">=18"
   }
 }
