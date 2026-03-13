@@ -65,7 +65,6 @@ class WP_Polldaddy {
 	var $multiple_accounts;
 	var $user_code;
 	var $rating_user_code;
-	var $has_feedback_menu;
 	var $is_editor;
 	var $has_crowdsignal_blocks;
 
@@ -86,54 +85,14 @@ class WP_Polldaddy {
 		$this->user_code              = null;
 		$this->rating_user_code       = null;
 		$this->id                     = ($current_user instanceof WP_User) ? intval( $current_user->ID ): 0;
-		$this->has_feedback_menu      = false;
 		$this->has_crowdsignal_blocks = ! empty( get_option( 'crowdsignal_user_code' ) );
 
 		if ( class_exists( 'Jetpack' ) ) {
-			if ( method_exists( 'Jetpack', 'is_active' ) && Jetpack::is_active() ) {
-				$jetpack_active_modules = get_option('jetpack_active_modules');
-				if ( $jetpack_active_modules && in_array( 'contact-form', $jetpack_active_modules ) )
-					$this->has_feedback_menu = true;
-			}
-
-			if ( class_exists( 'Jetpack_Sync' ) && defined( 'JETPACK__VERSION' ) &&  version_compare( JETPACK__VERSION, '4.1', '<' ) ) {
+			if ( class_exists( 'Jetpack_Sync' ) && defined( 'JETPACK__VERSION' ) && version_compare( JETPACK__VERSION, '4.1', '<' ) ) {
 				Jetpack_Sync::sync_options( __FILE__, 'polldaddy_api_key' );
 			}
 
 			add_filter( 'jetpack_options_whitelist', array( $this, 'add_to_jetpack_options_whitelist' ) );
-		}
-
-		if ( ! post_type_exists( 'feedback' ) ) {
-			register_post_type(
-				'feedback', array(
-					'labels'                => array(
-					),
-					'menu_icon'             => 'dashicons-feedback',
-					'show_ui'               => true,
-					'show_in_menu'          => 'edit.php?post_type=feedback',
-					'show_in_admin_bar'     => false,
-					'public'                => false,
-					'rewrite'               => false,
-					'query_var'             => false,
-					'capability_type'       => 'page',
-					'show_in_rest'          => true,
-					'rest_controller_class' => 'Grunion_Contact_Form_Endpoint',
-					'capabilities'          => array(
-						'create_posts'        => 'do_not_allow',
-						'publish_posts'       => 'publish_pages',
-						'edit_posts'          => 'edit_pages',
-						'edit_others_posts'   => 'edit_others_pages',
-						'delete_posts'        => 'delete_pages',
-						'delete_others_posts' => 'delete_others_pages',
-						'read_private_posts'  => 'read_private_pages',
-						'edit_post'           => 'edit_page',
-						'delete_post'         => 'delete_page',
-						'read_post'           => 'read_page',
-					),
-					'map_meta_cap'          => true,
-				)
-			);
-			add_action( 'admin_menu', array( $this, 'remove_feedback_menu' ) );
 		}
 	}
 
@@ -193,22 +152,20 @@ class WP_Polldaddy {
 
 		$slug = 'edit.php?post_type=feedback';
 
-		if ( ! $this->has_feedback_menu ) {
-			$hook = add_menu_page(
-				__( 'Feedback', 'polldaddy' ),
-				__( 'Feedback', 'polldaddy' ),
-				$capability,
-				$slug,
-				$function,
-				'data:image/svg+xml;base64,' . $icon_encoded
-			);
-			add_action( "load-$hook", array( &$this, 'management_page_load' ) );
-		}
+		$hook = add_menu_page(
+			__( 'Feedback', 'polldaddy' ),
+			__( 'Feedback', 'polldaddy' ),
+			$capability,
+			$slug,
+			$function,
+			'data:image/svg+xml;base64,' . $icon_encoded
+		);
+		add_action( "load-$hook", array( &$this, 'management_page_load' ) );
 
 		foreach( array( 'polls' => __( 'Crowdsignal', 'polldaddy' ), 'ratings' => __( 'Ratings', 'polldaddy' ) ) as $menu_slug => $page_title ) {
 			$menu_title  = $page_title;
 
-			$hook = add_submenu_page( $this->has_feedback_menu ? 'feedback' : $slug, $menu_title, $menu_title, $capability, $menu_slug, $function, 99 );
+			$hook = add_submenu_page( $slug, $menu_title, $menu_title, $capability, $menu_slug, $function, 99 );
 			add_action( "load-$hook", array( &$this, 'management_page_load' ) );
 		}
 
