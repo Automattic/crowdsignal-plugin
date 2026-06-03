@@ -43,8 +43,12 @@ class Polldaddy_Ajax {
 		$data      = '';
 		
 		if ( function_exists( 'is_private_blog' ) && is_private_blog() ) {
+			if ( get_post_type( $attach_id ) !== 'attachment'
+				|| ! current_user_can( 'read_post', $attach_id ) ) {
+				wp_die( -1, '', array( 'response' => 403 ) );
+			}
 			$file_path = get_attached_file( $attach_id );
-			$data = base64_encode( @file_get_contents($file_path) );
+			$data      = base64_encode( @file_get_contents( $file_path ) );
 		}
 		
 		$response  = $polldaddy->upload_image( $name, $url, 'poll', ($media_id>1000?$media_id:0), $data );
