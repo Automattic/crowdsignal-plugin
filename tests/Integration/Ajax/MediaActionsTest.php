@@ -11,10 +11,17 @@ namespace Automattic\Crowdsignal\Tests\Integration\Ajax;
 
 use Automattic\Crowdsignal\Tests\Integration\TestCase;
 
+require_once __DIR__ . '/private-blog-stub.php';
+
 /**
  * Test class for AJAX media actions and CSRF protection.
  */
 class MediaActionsTest extends TestCase {
+
+	protected function tearDown(): void {
+		unset( $GLOBALS['polldaddy_test_is_private_blog'] );
+		parent::tearDown();
+	}
 
 	/**
 	 * Test that polls_upload_image AJAX action exists and is registered.
@@ -233,6 +240,86 @@ class MediaActionsTest extends TestCase {
 
 		// Clean up
 		wp_delete_user( $user_id );
+	}
+
+	/**
+	 * Test that polls_upload_image rejects an attach-id belonging to another
+	 * user's private attachment when the WPCOM private-blog branch is active.
+	 *
+	 * Regression test for an IDOR where the handler read any local attachment
+	 * file the attacker named in $_POST['attach-id'] and exfiltrated its bytes
+	 * to the Polldaddy API.
+	 */
+	public function test_polls_upload_image_rejects_cross_user_private_attachment(): void {
+		$GLOBALS['polldaddy_test_is_private_blog'] = true;
+
+		// Victim owns a private post with an attachment.
+		$victim_id = $this->create_test_user( array( 'edit_posts', 'upload_files', 'publish_posts', 'edit_published_posts' ) );
+		wp_set_current_user( $victim_id );
+
+		$private_post_id = $this->factory->post->create(
+			array(
+				'post_status' => 'private',
+				'post_author' => $victim_id,
+			)
+		);
+
+		$attach_id = $this->factory->attachment->create_object(
+			'image.jpg',
+			$private_post_id,
+			array(
+				'post_mime_type' => 'image/jpeg',
+				'post_type'      => 'attachment',
+			)
+		);
+
+		// Attacker has poll-editor access but no rights to victim's private post.
+		$attacker_id = $this->create_test_user( array( 'edit_posts' ) );
+		wp_set_current_user( $attacker_id );
+
+		$_POST = array(
+			'action'    => 'polls_upload_image',
+			'_wpnonce'  => wp_create_nonce( 'send-media' ),
+			'attach-id' => (string) $attach_id,
+			'media-id'  => '456',
+			'uc'        => 'test_code',
+			'url'       => 'https://example.com/image.jpg',
+		);
+
+		$this->expectException( 'WPDieException' );
+
+		do_action( 'wp_ajax_polls_upload_image' );
+	}
+
+	/**
+	 * Test that polls_upload_image rejects a non-attachment post ID on private blogs.
+	 */
+	public function test_polls_upload_image_rejects_non_attachment_post_id(): void {
+		$GLOBALS['polldaddy_test_is_private_blog'] = true;
+
+		$user_id = $this->create_test_user( array( 'edit_posts', 'publish_posts' ) );
+		wp_set_current_user( $user_id );
+
+		// A regular post the user can read, but it's not an attachment.
+		$post_id = $this->factory->post->create(
+			array(
+				'post_status' => 'publish',
+				'post_author' => $user_id,
+			)
+		);
+
+		$_POST = array(
+			'action'    => 'polls_upload_image',
+			'_wpnonce'  => wp_create_nonce( 'send-media' ),
+			'attach-id' => (string) $post_id,
+			'media-id'  => '456',
+			'uc'        => 'test_code',
+			'url'       => 'https://example.com/image.jpg',
+		);
+
+		$this->expectException( 'WPDieException' );
+
+		do_action( 'wp_ajax_polls_upload_image' );
 	}
 
 	/**
