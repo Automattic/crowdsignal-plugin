@@ -3,8 +3,8 @@ Contributors: donncha, ice9js, cgastrell, digitalwaveride, jcheringer
 Tags: polls, vote, polling, surveys, rating
 Requires at least: 5.5
 Requires PHP: 5.6
-Tested up to: 6.9
-Stable tag: 3.1.5
+Tested up to: 7.0
+Stable tag: 3.1.6
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -100,6 +100,10 @@ Make sure to whitelist `api.crowdsignal.com` in your firewall to fix this.
 Bugfix and security release
 
 == Changelog ==
+
+= 3.1.6 =
+* Security: Verify attachment access in the image upload handler #154
+* fix: Avoid PHP notices from the rating shortcode on archive/taxonomy pages #104
 
 = 3.1.5 =
 * fix: Improve output escaping in style editor #147
