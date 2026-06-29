@@ -31,18 +31,31 @@
 			};
 
 			if ( ratings ){
-				var script = '';
-
 				$.each( ratings, function() {
 					var rating = $( this ).data( 'settings' );
 
-					if ( rating ) {
-						script += "PDRTJS_settings_" + rating['id'] + rating['item_id'] + "=" + rating['settings'] + "; if ( typeof PDRTJS_RATING !== 'undefined' ){ if ( typeof PDRTJS_" + rating['id'] + rating['item_id'] + "=='undefined' ){PDRTJS_" + rating['id'] + rating['item_id'] + "= new PDRTJS_RATING( PDRTJS_settings_" + rating['id'] + rating['item_id'] + " );}}";
+					if ( ! rating ) {
+						return;
+					}
+
+					// The 'settings' value is a JSON-encoded settings object built
+					// server-side (see polldaddy-shortcode.php). Parse it as data and
+					// assign it directly rather than concatenating it into a <script>,
+					// so the markup can only ever contribute data, never executable code.
+					var settings;
+					try {
+						settings = JSON.parse( rating['settings'] );
+					} catch ( e ) {
+						return;
+					}
+
+					var key = '' + rating['id'] + rating['item_id'];
+					window[ 'PDRTJS_settings_' + key ] = settings;
+
+					if ( typeof PDRTJS_RATING !== 'undefined' && typeof window[ 'PDRTJS_' + key ] === 'undefined' ) {
+						window[ 'PDRTJS_' + key ] = new PDRTJS_RATING( window[ 'PDRTJS_settings_' + key ] );
 					}
 				});
-
-				if ( script.length > 0 )
-					$( '#polldaddyRatings' ).after( "<script type='text/javascript' charset='utf-8' id='polldaddyDynamicRatings'>" + script +  "</script>" );
 			};
 		}
 	}
