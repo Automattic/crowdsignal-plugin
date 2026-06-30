@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Crowdsignal / Polldaddy release helper
-# - build:   rsync repo -> tmp/build (excluding dev files)
+# - build:   export tracked files (git archive HEAD) -> tmp/build (minus dev files)
 # - package: build + zip to tmp/polldaddy.zip
 # - deploy:  (optionally) merge develop->main, then rsync build -> WP.org SVN trunk and tag
 
@@ -74,49 +74,57 @@ clean_tmp() {
 }
 
 copy_to_build() {
+  require_cmds git tar
   run mkdir -p "$BUILD_DIR"
-  # Note: --exclude='.*' excludes all dotfiles. If you ever need a dotfile shipped, remove/adjust that line.
-  run rsync -a --delete \
-    --exclude='*.log' \
-    --exclude='node_modules' \
-    --exclude='package.json' \
-    --exclude='package-lock.json' \
-    --exclude='.git' \
-    --exclude='.github' \
-    --exclude='.svn' \
-    --exclude='tests' \
-    --exclude='bin' \
-    --exclude='phpunit.xml' \
-    --exclude='phpunit.xml.dist' \
-    --exclude='vendor' \
-    --exclude='composer.lock' \
-    --exclude='composer.phar' \
-    --exclude='composer.json' \
-    --exclude='.*' \
-    --exclude='**/*~' \
-    --exclude='tmp' \
-    --exclude='CONTRIBUTING.md' \
-    --exclude='README.md' \
-    --exclude='phpcs.xml.dist' \
-    --exclude='tools' \
-    --exclude='screenshot-1.png' \
-    --exclude='screenshot-2.png' \
-    --exclude='banner-1544x500.png' \
-    --exclude='build.sh' \
-    --exclude='Makefile' \
-    ./ "$BUILD_DIR/"
 
-  log "Copied files to $BUILD_DIR/"
+  # Export tracked files at HEAD only. Building from the git tree (rather than
+  # rsyncing the working directory) means untracked or ignored files can never
+  # leak into the package, regardless of the working-tree state.
+  if (( DRY_RUN )); then
+    log "[dry-run] git archive HEAD | tar -x -C $BUILD_DIR"
+  else
+    git archive HEAD | tar -x -C "$BUILD_DIR"
+  fi
+
+  # Tracked files that live in the repo but must not ship in the plugin.
+  local dev_paths=(
+    tests
+    bin
+    phpunit.xml.dist
+    phpcs.xml.dist
+    composer.json
+    package.json
+    build.sh
+    Makefile
+    CONTRIBUTING.md
+    README.md
+    screenshot-1.png
+    screenshot-2.png
+    banner-1544x500.png
+  )
+  local path
+  for path in "${dev_paths[@]}"; do
+    run rm -rf "${BUILD_DIR:?}/${path}"
+  done
+
+  # Drop top-level dotfiles (.github, .editorconfig, .gitignore, .wp-env.json, ...).
+  if (( DRY_RUN )); then
+    log "[dry-run] rm -rf top-level dotfiles in $BUILD_DIR"
+  else
+    find "$BUILD_DIR" -mindepth 1 -maxdepth 1 -name '.*' -exec rm -rf {} +
+  fi
+
+  log "Exported tracked files to $BUILD_DIR/"
 }
 
 build() {
-  require_cmds rsync
+  require_cmds git tar
   clean_tmp
   copy_to_build
 }
 
 package() {
-  require_cmds rsync zip
+  require_cmds git tar zip
   build
   (cd "$BUILD_DIR" && run zip -r -X "../${ZIP_NAME}" .)
   log "Packaged to tmp/${ZIP_NAME}"
@@ -138,8 +146,8 @@ create_and_merge_pr() {
 
   if (( DRY_RUN )); then
     log "[dry-run] gh pr create --base main --head develop --title 'Release ${version}'"
-    log "[dry-run] gh pr merge <pr_url> --merge --auto"
     log "[dry-run] gh pr checks <pr_url> --watch"
+    log "[dry-run] gh pr merge <pr_url> --merge"
     return 0
   fi
 
@@ -153,18 +161,23 @@ create_and_merge_pr() {
 
   log "Created PR: ${pr_url}"
 
-  gh pr merge "$pr_url" --merge --auto
-  log "Waiting for PR checks/merge..."
+  # Wait for any required checks to finish (no-op if none are configured).
+  log "Waiting for PR checks..."
   gh pr checks "$pr_url" --watch || true
 
-  # Poll until merged (timeout after 10 minutes)
+  # Merge directly. Do NOT use --auto: it requires the repository's
+  # "Allow auto-merge" setting to be enabled and hard-fails otherwise.
+  # Retry while the PR is not yet mergeable (checks still settling), and
+  # stop on merge, close, or timeout.
   local max_wait=600
   local elapsed=0
-  while [[ "$(gh pr view "$pr_url" --json state --jq .state)" != "MERGED" ]]; do
+  until gh pr merge "$pr_url" --merge; do
     local state
     state="$(gh pr view "$pr_url" --json state --jq .state)"
+    [[ "$state" == "MERGED" ]] && break
     [[ "$state" == "CLOSED" ]] && die "PR was closed without merging."
-    (( elapsed >= max_wait )) && die "Timed out waiting for PR to merge after ${max_wait}s."
+    (( elapsed >= max_wait )) && die "Timed out waiting to merge PR after ${max_wait}s."
+    log "PR not yet mergeable; retrying in 5s..."
     sleep 5
     (( elapsed += 5 ))
   done
