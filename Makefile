@@ -39,18 +39,16 @@ down: ## Stop local WordPress environment
 env-destroy: ## Destroy local WordPress environment
 	npx @wordpress/env destroy
 
-## Build & Deploy
-clean: ## Remove tmp/ directory
-	./build.sh $@
+## Build & Release
+build: ## Build build/polldaddy.zip from tracked files at HEAD
+	./scripts/build-plugin.sh
 
-build: ## Clean and copy plugin files to tmp/build/
-	./build.sh $@
+clean: ## Remove the build/ directory
+	rm -rf build
 
-package: ## Build and create zip archive
-	./build.sh $@
-
-deploy: ## Full release: merge develop → main, deploy to WordPress.org SVN
-	./build.sh $@
+release: ## Prepare a release PR. Usage: make release VERSION=x.y.z
+	@test -n "$(VERSION)" || { echo "Usage: make release VERSION=x.y.z"; exit 1; }
+	node scripts/prepare-release.mjs $(VERSION)
 
 ## Help
 help: ## Show this help
@@ -58,4 +56,4 @@ help: ## Show this help
 		| awk -F ':.*## ' '{ printf "  \033[36m%-18s\033[0m %s\n", $$1, $$2 }'
 
 .PHONY: help install setup lint lint-fix test test-unit test-integration \
-	i18n up down env-destroy clean build package deploy
+	i18n up down env-destroy clean build release

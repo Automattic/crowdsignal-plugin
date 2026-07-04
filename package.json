@@ -6,13 +6,14 @@
   "license": "GPL-2.0-or-later",
   "repository": "automattic/crowdsignal-plugin",
   "scripts": {
-    "build": "./build.sh build",
-    "build:i18n": "wp i18n make-pot . languages/polldaddy.pot",
-    "package": "./build.sh package",
-    "deploy": "./build.sh deploy"
+    "build:i18n": "wp i18n make-pot . languages/polldaddy.pot"
   },
   "devDependencies": {
-    "@wordpress/env": "^10.0.0"
+    "@wordpress/env": "^10.0.0",
+    "chalk": "^5.3.0",
+    "dotenv": "^16.6.1",
+    "inquirer": "^9.2.10",
+    "zx": "^7.2.3"
   },
   "engines": {
     "node": ">=18"

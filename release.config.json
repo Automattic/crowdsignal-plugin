@@ -1,0 +1,9 @@
+{
+	"repo": "Automattic/crowdsignal-plugin",
+	"slug": "polldaddy",
+	"mainFile": "polldaddy.php",
+	"versionConstant": null,
+	"readme": "readme.txt",
+	"bumpPackageJson": true,
+	"nextVersionPlaceholder": false
+}
