@@ -8,6 +8,10 @@ install: ## Install npm and composer dependencies
 setup: install ## Install dependencies and start WordPress environment
 	npx @wordpress/env start
 
+install-hooks: ## Install git hooks (blocks direct pushes to trunk)
+	git config core.hooksPath .githooks
+	@echo "Git hooks installed (core.hooksPath = .githooks)."
+
 ## Linting
 lint: ## Run PHP_CodeSniffer
 	composer phpcs
@@ -55,5 +59,5 @@ help: ## Show this help
 	@grep -E '^[a-zA-Z0-9_-]+:.*##' $(MAKEFILE_LIST) \
 		| awk -F ':.*## ' '{ printf "  \033[36m%-18s\033[0m %s\n", $$1, $$2 }'
 
-.PHONY: help install setup lint lint-fix test test-unit test-integration \
+.PHONY: help install setup install-hooks lint lint-fix test test-unit test-integration \
 	i18n up down env-destroy clean build release
