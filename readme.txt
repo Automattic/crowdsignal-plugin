@@ -4,7 +4,7 @@ Tags: polls, vote, polling, surveys, rating
 Requires at least: 5.5
 Requires PHP: 5.6
 Tested up to: 7.0
-Stable tag: 3.1.6
+Stable tag: 3.1.7
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
