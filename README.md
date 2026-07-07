@@ -38,32 +38,15 @@ Run `make help` to see all available targets.
 
 ## Building and Releasing
 
-All build tasks use `build.sh` (no Grunt dependency required):
+Releases use a two-phase, CI-deployed flow:
 
-```bash
-make clean            # Remove tmp/ directory
-make build            # Clean and copy plugin files to tmp/build/
-make package          # Build and zip to tmp/polldaddy.zip
-```
+1. **`make release VERSION=x.y.z`** (run from `trunk`) bumps the version in `polldaddy.php`/`readme.txt`/`package.json`, assembles the changelog from the GitHub milestone `x.y.z`, and opens a PR with the changelog editable in the body.
+2. Merging that PR runs `.github/workflows/create-release.yml`, which writes the changelog into `readme.txt`, tags, builds `build/polldaddy.zip`, creates the GitHub release, and deploys to WordPress.org SVN via the 10up action.
 
-### Deploying to WordPress.org
+Create a GitHub milestone named exactly `x.y.z` and assign the release's PRs to it first. WordPress.org release confirmation is enabled, so the deploy is held pending an email confirmation before it goes live.
 
-```bash
-make deploy
-```
-
-The version is read from the `Stable tag` field in `readme.txt`. A GitHub Action automatically creates the git tag when the version is bumped.
-
-The `deploy` command automates the full release workflow (requires [GitHub CLI](https://cli.github.com/)):
-
-1. Reads the version from `readme.txt`.
-2. Verifies you are on `develop`.
-3. Creates a PR from `develop` → `main` and merges it via `gh`.
-4. Checks out `main` and pulls.
-5. Builds and deploys to WordPress.org SVN.
-6. Returns to `develop` and cleans up.
+`make build` packages `build/polldaddy/` and `build/polldaddy.zip` from the tracked files at HEAD (via `git archive`, so untracked/ignored files never leak); `make i18n` regenerates the POT.
 
 ## Branching
 
-- **`develop`** — default branch for day-to-day work and PR target.
-- **`main`** — release branch. HEAD is always a tagged release.
+- **`trunk`** — the single default branch. Work branches off it and PRs target it; releases are cut from it.

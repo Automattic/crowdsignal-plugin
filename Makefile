@@ -8,6 +8,10 @@ install: ## Install npm and composer dependencies
 setup: install ## Install dependencies and start WordPress environment
 	npx @wordpress/env start
 
+install-hooks: ## Install git hooks (blocks direct pushes to trunk)
+	git config core.hooksPath .githooks
+	@echo "Git hooks installed (core.hooksPath = .githooks)."
+
 ## Linting
 lint: ## Run PHP_CodeSniffer
 	composer phpcs
@@ -39,23 +43,21 @@ down: ## Stop local WordPress environment
 env-destroy: ## Destroy local WordPress environment
 	npx @wordpress/env destroy
 
-## Build & Deploy
-clean: ## Remove tmp/ directory
-	./build.sh $@
+## Build & Release
+build: ## Build build/polldaddy.zip from tracked files at HEAD
+	./scripts/build-plugin.sh
 
-build: ## Clean and copy plugin files to tmp/build/
-	./build.sh $@
+clean: ## Remove the build/ directory
+	rm -rf build
 
-package: ## Build and create zip archive
-	./build.sh $@
-
-deploy: ## Full release: merge develop → main, deploy to WordPress.org SVN
-	./build.sh $@
+release: ## Prepare a release PR. Usage: make release VERSION=x.y.z
+	@test -n "$(VERSION)" || { echo "Usage: make release VERSION=x.y.z"; exit 1; }
+	node scripts/prepare-release.mjs $(VERSION)
 
 ## Help
 help: ## Show this help
 	@grep -E '^[a-zA-Z0-9_-]+:.*##' $(MAKEFILE_LIST) \
 		| awk -F ':.*## ' '{ printf "  \033[36m%-18s\033[0m %s\n", $$1, $$2 }'
 
-.PHONY: help install setup lint lint-fix test test-unit test-integration \
-	i18n up down env-destroy clean build package deploy
+.PHONY: help install setup install-hooks lint lint-fix test test-unit test-integration \
+	i18n up down env-destroy clean build release
