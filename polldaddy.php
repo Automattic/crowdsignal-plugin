@@ -1746,13 +1746,18 @@ class WP_Polldaddy {
 
 	function management_page() {
 		global $page, $action, $poll, $style, $rating;
-		$poll   = (int) $poll;
-		$style  = (int) $style;
-		$rating = esc_html( $rating );
-		$wrap_style = $page === 'polls' ? 'polls' : 'ratings';
+		$poll       = (int) $poll;
+		$style      = (int) $style;
+		$rating     = esc_html( $rating );
+		$wrap_style = 'polls' === $page ? 'polls' : 'ratings';
+		$wrap_class = "cs-dashboard__crowdsignal_{$wrap_style}_wrap";
+
+		if ( 'polls' === $page && in_array( $action, array( 'edit', 'edit-poll', 'create-poll' ), true ) ) {
+			$wrap_class .= ' cs-poll-editor';
+		}
 		?>
 
-		<div class="wrap cs-dashboard__crowdsignal_<?php echo $wrap_style ; ?>_wrap" id="manage-polls">
+		<div class="wrap <?php echo esc_attr( $wrap_class ); ?>" id="manage-polls">
 			<div class="cs-wrapper">
 				<?php
 				if ( 'polls' === $page ) {

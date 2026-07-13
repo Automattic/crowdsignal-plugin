@@ -39,7 +39,7 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 				<div id="submitdiv" class="postbox">
 					<h2 class="postbox-title"><?php _e( 'Save', 'polldaddy' ); ?></h2>
 					<div class="inside">
-					<div class="minor-publishing">
+					<div id="minor-publishing">
 						<ul id="answer-options">
 
 							<?php
