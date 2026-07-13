@@ -3,7 +3,7 @@
 require_once dirname( __FILE__ ) . '/polldaddy-xml.php';
 
 class api_client {
-	var $polldaddy_url = 'http://api.polldaddy.com/';
+	var $polldaddy_url = 'https://api.polldaddy.com/';
 	var $partnerGUID;
 	var $userCode;
 	var $admin        = 0;
@@ -27,65 +27,22 @@ class api_client {
 
 		$this->requests[] = $this->request_xml;
 
-		if ( function_exists( 'wp_remote_post' ) ) {
-			$response = wp_remote_post( $this->polldaddy_url, array(
-				'headers' => array( 'Content-Type' => 'text/xml; charset=utf-8', 'Content-Length' => strlen( $this->request_xml ) ),
-				'user-agent' => 'Polldaddy PHP Client/0.1',
-				'timeout' => $timeout,
-				'body' => $this->request_xml
-			) );
-			if ( !$response || is_wp_error( $response ) ) {
-				$this->errors[-1] = "Can't connect";
-				return false;
-			}
-			$this->response_xml = wp_remote_retrieve_body( $response );
-		} else {
-			$parsed = parse_url( $this->polldaddy_url );
-
-			if ( !isset( $parsed['host'] ) && !isset( $parsed['scheme'] ) ) {
-				$this->errors[-1] = 'Invalid API URL';
-				return false;
-			}
-
-			$fp = fsockopen(
-				$parsed['host'],
-				$parsed['scheme'] == 'ssl' || $parsed['scheme'] == 'https' && extension_loaded('openssl') ? 443 : 80,
-				$err_num,
-				$err_str,
-				$timeout
-			);
-
-			if ( !$fp ) {
-				$this->errors[-1] = "Can't connect";
-				return false;
-			}
-
-			if ( function_exists( 'stream_set_timeout' ) )
-				stream_set_timeout( $fp, $timeout );
-
-			if ( !isset( $parsed['path']) || !$path = $parsed['path'] . ( isset($parsed['query']) ? '?' . $parsed['query'] : '' ) )
-				$path = '/';
-
-			$request  = "POST $path HTTP/1.0\r\n";
-			$request .= "Host: {$parsed['host']}\r\n";
-			$request .= "User-agent: Polldaddy PHP Client/0.1\r\n";
-			$request .= "Content-Type: text/xml; charset=utf-8\r\n";
-			$request .= 'Content-Length: ' . strlen( $this->request_xml ) . "\r\n";
-
-			fwrite( $fp, "$request\r\n$this->request_xml" );
-
-			$response = '';
-			while ( !feof( $fp ) )
-				$response .= fread( $fp, 4096 );
-			fclose( $fp );
-
-
-			if ( !$response ) {
-				$this->errors[-2] = 'No Data';
-			}
-
-			list($headers, $this->response_xml) = explode( "\r\n\r\n", $response, 2 );
+		if ( ! function_exists( 'wp_remote_post' ) ) {
+			$this->errors[-1] = "Can't connect";
+			return false;
 		}
+
+		$response = wp_remote_post( $this->polldaddy_url, array(
+			'headers' => array( 'Content-Type' => 'text/xml; charset=utf-8', 'Content-Length' => strlen( $this->request_xml ) ),
+			'user-agent' => 'Polldaddy PHP Client/0.1',
+			'timeout' => $timeout,
+			'body' => $this->request_xml
+		) );
+		if ( !$response || is_wp_error( $response ) ) {
+			$this->errors[-1] = "Can't connect";
+			return false;
+		}
+		$this->response_xml = wp_remote_retrieve_body( $response );
 
 		$this->responses[] = $this->response_xml;
 
