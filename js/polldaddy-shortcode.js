@@ -13,16 +13,19 @@
 					if ( poll ) {
 						var poll_url = document.createElement("a");
 						poll_url.href = poll['url'];
+						if ( poll_url.protocol !== 'https:' ) {
+							return false;
+						}
 						if ( poll_url.hostname != 'secure.polldaddy.com' && poll_url.hostname != 'static.polldaddy.com' ) {
 							return false;
 						}
 						var pathname = poll_url.pathname;
-						if ( ! /\/?p\/\d+\.js/.test( pathname ) ) {
+						if ( ! /^\/p\/\d+\.js$/.test( pathname ) ) {
 							return false;
 						}
 						var wp_pd_js = document.createElement('script');
 						wp_pd_js.type = 'text/javascript';
-						wp_pd_js.src = poll['url'];
+						wp_pd_js.src = poll_url.href;
 						wp_pd_js.charset = 'utf-8';
 						wp_pd_js.async = true;
 						document.getElementsByTagName('head')[0].appendChild(wp_pd_js);
