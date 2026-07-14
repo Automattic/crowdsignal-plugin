@@ -65,6 +65,12 @@ Configuration is stored in `.wp-env.json`:
    npm run build
    ```
 
+### Versioning new code
+
+When you add a `@since`, `@deprecated`, or a WordPress `_deprecated_*()` call for code that will ship in the **next** release, tag it with the next-version placeholder token instead of guessing the version number. Run `bash scripts/replace-next-version-tag.sh -h` for the exact token and the recognized `@since` / `@deprecated` / `_deprecated_*()` patterns.
+
+At release time, `make release` replaces the placeholder with the version being shipped and **fails** if any malformed token is left behind — so you never need to know the next version number while writing a PR. (The token is deliberately not written literally in this doc: the release step rewrites it wherever it appears in a tracked file.)
+
 ### Code Standards
 
 The project follows WordPress Coding Standards. Before submitting any code:
