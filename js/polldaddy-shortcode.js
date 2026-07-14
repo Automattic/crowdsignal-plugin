@@ -8,20 +8,31 @@
 
 			if ( polls ){
 				$.each( polls, function() {
-					var poll = $( this ).data( 'settings' );
+					var poll_el = this;
+
+					// Only process each poll element once, even if render() runs
+					// again (e.g. on a later 'post-load' / 'pd-script-load' event).
+					if ( poll_el.getAttribute( 'data-pd-init-done' ) ) {
+						return;
+					}
+					poll_el.setAttribute( 'data-pd-init-done', '1' );
+
+					var poll = $( poll_el ).data( 'settings' );
 
 					if ( poll ) {
 						var poll_url = document.createElement("a");
 						poll_url.href = poll['url'];
+						// Skip this element with return, not return false: return false
+						// would break the whole $.each loop and hide later valid polls.
 						if ( poll_url.protocol !== 'https:' ) {
-							return false;
+							return;
 						}
 						if ( poll_url.hostname != 'secure.polldaddy.com' && poll_url.hostname != 'static.polldaddy.com' ) {
-							return false;
+							return;
 						}
 						var pathname = poll_url.pathname;
 						if ( ! /^\/p\/\d+\.js$/.test( pathname ) ) {
-							return false;
+							return;
 						}
 						var wp_pd_js = document.createElement('script');
 						wp_pd_js.type = 'text/javascript';
@@ -35,7 +46,15 @@
 
 			if ( ratings ){
 				$.each( ratings, function() {
-					var rating = $( this ).data( 'settings' );
+					var rating_el = this;
+
+					// Only process each rating element once.
+					if ( rating_el.getAttribute( 'data-pd-init-done' ) ) {
+						return;
+					}
+					rating_el.setAttribute( 'data-pd-init-done', '1' );
+
+					var rating = $( rating_el ).data( 'settings' );
 
 					if ( ! rating ) {
 						return;
