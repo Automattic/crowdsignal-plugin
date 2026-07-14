@@ -100,6 +100,11 @@ Bugfix and security release
 
 == Changelog ==
 
+### 3.1.8 - 2026-07-14
+* Poll shortcode loader: robustness fixes (loop abort + re-init) (#170)
+* Update poll shortcode script loading (#169)
+* polldaddy-client: use https for the API and drop the dead fsockopen path (#168)
+
 ### 3.1.7 - 2026-07-07
 * Harden rating shortcode settings handling [#162]
 
@@ -115,18 +120,3 @@ Bugfix and security release
 * fix: Added nonce verification for 'create-block-poll' action by @GaryJones in #144
 * refactor: Remove unused AJAX action registration by @GaryJones in #142
 * Add Comprehensive CSRF Security Tests by @GaryJones in #143
-
-### 3.1.3
-* Fix: Make 'Results' and 'Edit' Links Always Visible on Polls Dashboard by @vk17-starlord in #108
-* fix: Update item count field ID in polldaddy-org.php by @GaryJones in #115
-* fix: CSRF vulnerability for CVE-2024-43338 by @oviul in #136
-* Add: poll.fm URL detection for shortcode by @ovidiul in #138
-* Modernise i18n configuration by @GaryJones in #131
-* fix: Add translation comments to enhance understanding for translators by @GaryJones in #128
-* refactor: Remove makepot task and update build script for i18n by @GaryJones in #130
-* fix: Add and fix text domain for translations by @GaryJones in #129
-* Update issue and pull request templates by @GaryJones in #126
-* fix: Update .wp-env.json to set core to null by @GaryJones in #114
-* Add development environment setup by @ovidiul in #113
-* Add WordPress Coding Standards (PHPCS) by @ovidiul in #132
-* Add PHPUnit Testing Framework by @ovidiul in #133
