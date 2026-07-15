@@ -37,6 +37,9 @@ dev_paths=(
 	Makefile
 	CONTRIBUTING.md
 	README.md
+	AGENTS.md
+	CLAUDE.md
+	docs
 	release.config.json
 	scripts
 	screenshot-1.png
