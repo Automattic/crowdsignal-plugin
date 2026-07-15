@@ -1,12 +1,16 @@
 #!/usr/bin/env bash
 #
 # Assembles build/polldaddy/ and build/polldaddy.zip from the tracked files at
-# HEAD (via `git archive`), minus dev-only paths.
+# HEAD (via `git archive`), shipping ONLY the plugin's runtime files.
 #
-# Using `git archive` rather than copying the working tree means untracked or
-# ignored files can never leak into the shipped plugin. This is a pure,
-# non-interactive build step: it runs both locally (`make build`) and in CI as
-# part of the release workflow.
+# This is an allow-list: `git archive` is restricted to the ship_paths below, so
+# a newly-added dev file — docs, tooling, config, agent instructions, a new
+# top-level directory — can never leak into the release unless it is explicitly
+# added here. (Using `git archive` also means untracked/ignored files never
+# ship.) Pure, non-interactive: runs locally (`make build`) and in CI as part of
+# the release workflow.
+#
+# When you add a new runtime file or directory to the plugin, add it here.
 
 set -euo pipefail
 
@@ -20,38 +24,30 @@ PLUGIN_SLUG="polldaddy"
 BUILD_DIR="build"
 PLUGIN_DIR="$BUILD_DIR/$PLUGIN_SLUG"
 
+# The only paths that ship in the plugin.
+ship_paths=(
+	polldaddy.php
+	ajax.php
+	popups.php
+	rating.php
+	polldaddy-client.php
+	polldaddy-org.php
+	polldaddy-shortcode.php
+	polldaddy-xml.php
+	admin-styles.css
+	readme.txt
+	css
+	js
+	img
+	partials
+	languages
+)
+
 rm -rf "$BUILD_DIR"
 mkdir -p "$PLUGIN_DIR"
 
-# Export only tracked files at HEAD.
-git archive HEAD | tar -x -C "$PLUGIN_DIR"
-
-# Remove tracked dev-only paths that must not ship (including this release tooling).
-dev_paths=(
-	tests
-	bin
-	phpunit.xml.dist
-	phpcs.xml.dist
-	composer.json
-	package.json
-	Makefile
-	CONTRIBUTING.md
-	README.md
-	AGENTS.md
-	CLAUDE.md
-	docs
-	release.config.json
-	scripts
-	screenshot-1.png
-	screenshot-2.png
-	banner-1544x500.png
-)
-for path in "${dev_paths[@]}"; do
-	rm -rf "${PLUGIN_DIR:?}/${path}"
-done
-
-# Drop top-level dotfiles (.github, .editorconfig, .gitignore, .wp-env.json, ...).
-find "$PLUGIN_DIR" -mindepth 1 -maxdepth 1 -name '.*' -exec rm -rf {} +
+# Export only the allow-listed tracked paths at HEAD.
+git archive HEAD -- "${ship_paths[@]}" | tar -x -C "$PLUGIN_DIR"
 
 ( cd "$BUILD_DIR" && zip -rqX "$PLUGIN_SLUG.zip" "$PLUGIN_SLUG" )
 
