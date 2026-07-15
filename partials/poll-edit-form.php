@@ -17,7 +17,6 @@ $delete_media_link = '<a href="#" class="delete-media delete hidden" title="' . 
 <form enctype="multipart/form-data" name="send-media" action="admin-ajax.php" method="post">
 	<?php wp_nonce_field( 'send-media' ); ?>
 	<input type="hidden" value="" name="action">
-	<input type="hidden" value="<?php echo esc_attr( $controller->user_code ); ?>" name="uc">
 	<input type="hidden" value="" name="attach-id">
 	<input type="hidden" value="" name="media-id">
 	<input type="hidden" value="" name="url">

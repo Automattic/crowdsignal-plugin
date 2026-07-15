@@ -22,8 +22,10 @@ class Polldaddy_Ajax {
 
 		check_admin_referer( 'send-media' );
 
-		$attach_id = $media_id = $user_code = 0;
-		$name = $url = '';
+		$attach_id = 0;
+		$media_id  = 0;
+		$name      = '';
+		$url       = '';
 
 		if ( isset( $_POST['attach-id'] ) )
 			$attach_id = (int) $_POST['attach-id'];
@@ -31,8 +33,10 @@ class Polldaddy_Ajax {
 		if ( isset( $_POST['media-id'] ) )
 			$media_id = (int) $_POST['media-id'];
 
-		if ( isset( $_POST['uc'] ) )
-			$user_code = $_POST['uc'];
+		$user_code = get_option( 'pd-usercode-' . get_current_user_id() );
+		if ( empty( $user_code ) ) {
+			$user_code = get_option( 'crowdsignal_user_code' );
+		}
 
 		if ( isset( $_POST['url'] ) )
 			$url = $_POST['url'];
@@ -55,7 +59,7 @@ class Polldaddy_Ajax {
 
 		if ( is_a( $response, "PollDaddy_Media" ) )
 			echo urldecode( $response->upload_result ).'||'.$media_id;
-		die();
+		wp_die();
 	}
 
 	public function ajax_add_answer() {
