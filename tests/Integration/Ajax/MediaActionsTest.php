@@ -20,6 +20,8 @@ class MediaActionsTest extends TestCase {
 
 	protected function tearDown(): void {
 		unset( $GLOBALS['polldaddy_test_is_private_blog'] );
+		$_POST    = array();
+		$_REQUEST = array();
 		parent::tearDown();
 	}
 
@@ -28,6 +30,84 @@ class MediaActionsTest extends TestCase {
 	 */
 	public function test_polls_upload_image_action_registered(): void {
 		$this->assertNotFalse( has_action( 'wp_ajax_polls_upload_image' ), 'polls_upload_image AJAX action should be registered' );
+	}
+
+	/**
+	 * Test that polls_upload_image derives the usercode from server-side options.
+	 *
+	 * @dataProvider polls_upload_image_user_code_provider
+	 *
+	 * @param string      $per_user_code    User-specific usercode option value.
+	 * @param string      $site_user_code   Site-wide usercode option value.
+	 * @param string|null $request_user_code Request-supplied usercode, when present.
+	 * @param string      $expected_user_code Expected usercode in the API request.
+	 */
+	public function test_polls_upload_image_derives_user_code_server_side( $per_user_code, $site_user_code, $request_user_code, $expected_user_code ): void {
+		$user_id = $this->create_test_user( array( 'edit_posts' ) );
+		wp_set_current_user( $user_id );
+
+		update_option( 'pd-usercode-' . $user_id, $per_user_code );
+		update_option( 'crowdsignal_user_code', $site_user_code );
+
+		$post_data = array(
+			'action'    => 'polls_upload_image',
+			'_wpnonce'  => wp_create_nonce( 'send-media' ),
+			'attach-id' => '0',
+			'media-id'  => '456',
+			'url'       => 'https://example.com/image.jpg',
+		);
+		if ( null !== $request_user_code ) {
+			$post_data['uc'] = $request_user_code;
+		}
+		$_POST    = $post_data;
+		$_REQUEST = $post_data;
+
+		$http_request_body = null;
+		$pre_http_request  = static function ( $preempt, $args ) use ( &$http_request_body ) {
+			$http_request_body = $args['body'];
+			return new \WP_Error( 'crowdsignal_test_http_request_blocked' );
+		};
+		add_filter( 'pre_http_request', $pre_http_request, 10, 2 );
+
+		$this->expectException( 'WPDieException' );
+
+		try {
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Testing the registered WordPress AJAX action.
+			do_action( 'wp_ajax_polls_upload_image' );
+		} finally {
+			remove_filter( 'pre_http_request', $pre_http_request );
+			delete_option( 'pd-usercode-' . $user_id );
+			delete_option( 'crowdsignal_user_code' );
+			wp_delete_user( $user_id );
+
+			$this->assertIsString( $http_request_body, 'The upload request should reach the HTTP transport.' );
+			$this->assertStringContainsString( '<pd:userCode>' . $expected_user_code . '</pd:userCode>', $http_request_body );
+			if ( null !== $request_user_code ) {
+				$this->assertStringNotContainsString( $request_user_code, $http_request_body );
+			}
+		}
+	}
+
+	/**
+	 * Data provider for server-side upload usercode derivation.
+	 *
+	 * @return array<string, array{string, string, string|null, string}>
+	 */
+	public function polls_upload_image_user_code_provider(): array {
+		return array(
+			'per-user option ignores request value'      => array(
+				'per-user-code',
+				'site-user-code',
+				'request-user-code',
+				'per-user-code',
+			),
+			'site option fallback without request value' => array(
+				'',
+				'site-user-code',
+				null,
+				'site-user-code',
+			),
+		);
 	}
 
 	/**
