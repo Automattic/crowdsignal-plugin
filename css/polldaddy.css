@@ -177,6 +177,15 @@ table.cs-dashboard__grid tr:hover .is-links a {
 	margin-left: -20px;
 }
 
+#manage-polls.cs-poll-editor {
+	margin-left: 0;
+	margin-right: 20px;
+}
+
+#manage-polls.cs-poll-editor #minor-publishing {
+	padding: 10px;
+}
+
 @media screen and (max-width: 782px) {
 	#manage-polls {
 		clear: none;
